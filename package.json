@@ -13,8 +13,5 @@
     "nx": "21.6.5",
     "tslib": "^2.3.0",
     "typescript": "~5.9.2"
-  },
-  "workspaces": [
-    "packages/*"
-  ]
+  }
 }
