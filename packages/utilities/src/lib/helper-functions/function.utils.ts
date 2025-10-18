@@ -1,8 +1,6 @@
 import { pipe, Match } from 'effect';
 import { map } from 'effect/Array';
-import { isArrowFunction, isNamedFunction } from '../types/function.types.js';
-
-type AnyFunction = (...args: unknown[]) => unknown;
+import { isArrowFunction, isNamedFunction, AnyFunction } from '../types/function.types.js';
 
 /**
  * Returns a string label describing the function value's type.

@@ -6,10 +6,21 @@ import type { Stringable } from '../types/stringable/stringable.types.js';
 
 /**
  * Converts a single Stringable value to its string representation using pattern matching.
- * @param value The value to convert.
- * @returns The string representation of the value.
+ *
  * @private
  * @pure
+ * @param value The value to convert.
+ * @returns The string representation of the value.
+ *
+ * @remarks
+ * Pattern matching logic:
+ * - If the value is an object with a custom toString method (not Object.prototype.toString), it calls that method.
+ * - If the value is an object without a custom toString, it serializes the object using JSON.stringify.
+ * - For all other cases (primitives, functions, etc.), it uses String(value).
+ * Edge cases:
+ * - Handles objects with overridden toString methods.
+ * - Falls back to JSON.stringify for plain objects.
+ * - Ensures all other types are stringified safely.
  */
 const stringifyValue = (value: Stringable): string =>
 	pipe(

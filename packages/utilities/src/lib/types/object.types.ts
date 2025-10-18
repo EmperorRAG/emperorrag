@@ -104,6 +104,8 @@ export const hasCustomToStringTag = (obj: unknown): boolean =>
  * @fp-pattern Pattern Matching
  * @composition Uses `pipe` and `Match` with a `try-catch` block inside a predicate.
  *
+ * @note This function uses a try-catch block, which may have performance implications if called frequently or in hot code paths. Consider caching results if used repeatedly on the same objects.
+ *
  * @param obj - The value to check.
  * @returns {boolean} `true` if `toString()` throws, otherwise `false`.
  *

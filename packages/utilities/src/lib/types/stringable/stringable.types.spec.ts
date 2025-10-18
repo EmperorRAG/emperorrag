@@ -43,7 +43,6 @@ describe('Stringable Types', () => {
 	runExpectToBeTableTestIsValueStringable('IsValueStringable returns true for functions', getAllFunctionInputLabelExpectedObjects());
 });
 
-
 describe('PrimitiveStringable Types', () => {
 	/**
 	 * Unit test: Verifies that IsValuePrimitiveStringable returns true for all primitive types.
