@@ -29,6 +29,7 @@
 		"@nestjs/schematics": "^11.0.9",
 		"@nestjs/testing": "^11.1.6",
 		"@nx/js": "21.6.5",
+		"@nx/nest": "21.6.5",
 		"@nx/vite": "21.6.5",
 		"@nx/web": "21.6.5",
 		"@swc-node/register": "~1.9.1",
