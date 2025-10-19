@@ -17,7 +17,7 @@ import type { AdapterResponse } from '../base/plugin-adapter.interface.js';
 import { PluginNotAvailableError } from '../base/plugin-adapter.interface.js';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 import type { BetterAuthWithApiKey } from '../../test-utils/auth-types.js';
-import { createFrozenMockAuth } from '../../test-utils/test-helpers.js';
+import { createCreateAPIKeyOptions, createFrozenMockAuth } from '../../test-utils/test-helpers.js';
 
 describe('APIKeyAdapter', () => {
   let adapter: APIKeyAdapter;
@@ -241,10 +241,11 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should create API key successfully', async () => {
-      const createOptions: CreateAPIKeyOptions = {
-        name: 'Test Key',
-        permissions: { read: ['*'] },
-      };
+      // const createOptions: CreateAPIKeyOptions = {
+      //   name: 'Test Key',
+      //   permissions: { read: ['*'] },
+      // };
+      const createOptions = createCreateAPIKeyOptions();
 
       // Mock returns the API key wrapped in AdapterResponse format
       vi.mocked(mockAuth.api.createApiKey).mockResolvedValue(mockCreateApiKey);

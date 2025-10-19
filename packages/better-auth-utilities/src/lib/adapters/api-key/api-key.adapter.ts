@@ -15,6 +15,13 @@ import type {
   AdapterContext,
   AdapterResponse
 } from '../base/plugin-adapter.interface.ts';
+import {
+  transformCreateApiKeyResponse,
+  transformListApiKeysResponse,
+  transformUpdateApiKeyResponse,
+  transformDeleteApiKeyResponse,
+  transformVerifyApiKeyResponse,
+} from '../../test-utils/test-helpers.js';
 
 // ============================================================================
 // TYPE DEFINITIONS
@@ -154,11 +161,11 @@ export class APIKeyAdapter implements PluginAdapter<APIKeyServerAPI> {
     const authApi = this.auth.api as any;
 
     this.api = {
-      createApiKey: authApi.createApiKey?.bind(authApi),
-      listApiKeys: authApi.listApiKeys?.bind(authApi),
-      updateApiKey: authApi.updateApiKey?.bind(authApi),
-      deleteApiKey: authApi.deleteApiKey?.bind(authApi),
-      verifyApiKey: authApi.verifyApiKey?.bind(authApi),
+      createApiKey: transformCreateApiKeyResponse(authApi.createApiKey?.bind(authApi)),
+      listApiKeys: transformListApiKeysResponse(authApi.listApiKeys?.bind(authApi)),
+      updateApiKey: transformUpdateApiKeyResponse(authApi.updateApiKey?.bind(authApi)),
+      deleteApiKey: transformDeleteApiKeyResponse(authApi.deleteApiKey?.bind(authApi)),
+      verifyApiKey: transformVerifyApiKeyResponse(authApi.verifyApiKey?.bind(authApi)),
     };
 
     this.log('API Key adapter initialized');
