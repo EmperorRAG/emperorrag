@@ -87,6 +87,55 @@ export const createBetterAuthApiKey = (overrides?: Partial<{
 });
 
 /**
+ * Creates a Better-Auth API key update payload
+ * This matches the subset of fields that can be updated via better-auth API
+ */
+export const createBetterAuthApiKeyUpdate = (overrides?: Partial<{
+  keyId: string;
+  userId?: unknown;
+  name?: string | undefined;
+  enabled?: boolean | undefined;
+  remaining?: number | undefined;
+  refillAmount?: number | undefined;
+  refillInterval?: number | undefined;
+  metadata?: any;
+  expiresIn?: number | null | undefined;
+  rateLimitEnabled?: boolean | undefined;
+  rateLimitTimeWindow?: number | undefined;
+  rateLimitMax?: number | undefined;
+  permissions?: Record<string, string[]> | null | undefined;
+}>): Readonly<{
+  keyId: string;
+  userId?: unknown;
+  name?: string | undefined;
+  enabled?: boolean | undefined;
+  remaining?: number | undefined;
+  refillAmount?: number | undefined;
+  refillInterval?: number | undefined;
+  metadata?: any;
+  expiresIn?: number | null | undefined;
+  rateLimitEnabled?: boolean | undefined;
+  rateLimitTimeWindow?: number | undefined;
+  rateLimitMax?: number | undefined;
+  permissions?: Record<string, string[]> | null | undefined;
+}> => Object.freeze({
+  keyId: 'key_123',
+  userId: 'user_123',
+  name: 'Updated API Key',
+  enabled: true,
+  remaining: 100,
+  refillAmount: 100,
+  refillInterval: 3600,
+  metadata: { purpose: 'testing', updated: true },
+  expiresIn: 86400,
+  rateLimitEnabled: true,
+  rateLimitTimeWindow: 60,
+  rateLimitMax: 100,
+  permissions: { read: ['*'], write: ['*'] },
+  ...overrides,
+});
+
+/**
  * Creates an APIKey for the adapter interface
  */
 export const createAPIKey = (overrides?: Partial<APIKey>): Readonly<APIKey> => Object.freeze({
@@ -186,6 +235,177 @@ export const createVerifyAPIKeyResultInvalid = (
   apiKey: undefined,
   error: 'Invalid API key',
   ...overrides,
+});
+
+// ============================================================================
+// ADAPTER RESPONSE GENERATORS
+// ============================================================================
+
+/**
+ * Creates a successful AdapterResponse for APIKey
+ */
+export const createAdapterSuccessResponse = <T>(
+  data: T,
+  overrides?: Partial<{ message: string }>
+): Readonly<{
+  success: true;
+  data: T;
+  message: string;
+}> => Object.freeze({
+  success: true,
+  data,
+  message: overrides?.message ?? 'Operation completed successfully',
+});
+
+/**
+ * Creates an error AdapterResponse
+ */
+export const createAdapterErrorResponse = <T = never>(
+  overrides?: Partial<{
+    error: Error;
+    message: string;
+  }>
+): Readonly<{
+  success: false;
+  error: Error;
+  message: string;
+  data?: T;
+}> => Object.freeze({
+  success: false,
+  error: overrides?.error ?? new Error('Operation failed'),
+  message: overrides?.message ?? 'Operation failed',
+});
+
+/**
+ * Creates a network error AdapterResponse
+ */
+export const createNetworkErrorResponse = <T = never>(
+  overrides?: Partial<{
+    error: Error;
+    message: string;
+  }>
+): Readonly<{
+  success: false;
+  error: Error;
+  message: string;
+  data?: T;
+}> => Object.freeze({
+  success: false,
+  error: overrides?.error ?? new Error('Network error'),
+  message: overrides?.message ?? 'Network error',
+});
+
+/**
+ * Creates an unauthorized error AdapterResponse
+ */
+export const createUnauthorizedErrorResponse = <T = never>(
+  overrides?: Partial<{
+    error: Error;
+    message: string;
+  }>
+): Readonly<{
+  success: false;
+  error: Error;
+  message: string;
+  data?: T;
+}> => Object.freeze({
+  success: false,
+  error: overrides?.error ?? new Error('Unauthorized'),
+  message: overrides?.message ?? 'Unauthorized',
+});
+
+/**
+ * Creates a not found error AdapterResponse
+ */
+export const createNotFoundErrorResponse = <T = never>(
+  overrides?: Partial<{
+    error: Error;
+    message: string;
+  }>
+): Readonly<{
+  success: false;
+  error: Error;
+  message: string;
+  data?: T;
+}> => Object.freeze({
+  success: false,
+  error: overrides?.error ?? new Error('Not found'),
+  message: overrides?.message ?? 'Not found',
+});
+
+/**
+ * Creates a database error AdapterResponse
+ */
+export const createDatabaseErrorResponse = <T = never>(
+  overrides?: Partial<{
+    error: Error;
+    message: string;
+  }>
+): Readonly<{
+  success: false;
+  error: Error;
+  message: string;
+  data?: T;
+}> => Object.freeze({
+  success: false,
+  error: overrides?.error ?? new Error('Database error'),
+  message: overrides?.message ?? 'Database error',
+});
+
+/**
+ * Creates a database success AdapterResponse
+ */
+export const createDatabaseSuccessResponse = <T = never>(
+  data: T,
+  overrides?: Partial<{
+    message: string;
+  }>
+): Readonly<{
+  success: true;
+  message: string;
+  data: T;
+}> => Object.freeze({
+  success: true,
+  message: overrides?.message ?? 'Database success',
+  data: data
+});
+
+/**
+ * Creates a validation error AdapterResponse
+ */
+export const createValidationErrorResponse = <T = never>(
+  overrides?: Partial<{
+    error: Error;
+    message: string;
+  }>
+): Readonly<{
+  success: false;
+  error: Error;
+  message: string;
+  data?: T;
+}> => Object.freeze({
+  success: false,
+  error: overrides?.error ?? new Error('Validation error'),
+  message: overrides?.message ?? 'Validation error',
+});
+
+/**
+ * Creates an unexpected error AdapterResponse
+ */
+export const createUnexpectedErrorResponse = <T = never>(
+  overrides?: Partial<{
+    error: Error;
+    message: string;
+  }>
+): Readonly<{
+  success: false;
+  error: Error;
+  message: string;
+  data?: T;
+}> => Object.freeze({
+  success: false,
+  error: overrides?.error ?? new Error('Unexpected error'),
+  message: overrides?.message ?? 'Unexpected error',
 });
 
 // ============================================================================
@@ -420,7 +640,13 @@ export const transformVerifyApiKeyResponse = (
               : undefined,
             error: betterAuthResponse.data.error ? String(betterAuthResponse.data.error) : undefined,
           }
-        : undefined,
+        : {
+          valid: betterAuthResponse.valid,
+          apiKey: betterAuthResponse.key
+            ? transformBetterAuthApiKeyToAPIKey(betterAuthResponse.key)
+            : undefined,
+          error: betterAuthResponse.error ? String(betterAuthResponse.error) : undefined,
+        },
       error: betterAuthResponse.error,
     };
   } else {

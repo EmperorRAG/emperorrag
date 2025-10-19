@@ -173,5 +173,6 @@
 	"chat.instructionsFilesLocations": {
 		".github/instructions/continuous-improvement": true
 	},
-	"typescript.tsdk": "node_modules/typescript/lib"
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"wallaby.compactStatus": false
 }
