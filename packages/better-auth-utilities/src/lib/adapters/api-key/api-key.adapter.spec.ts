@@ -38,7 +38,7 @@ describe('APIKeyAdapter', () => {
   // Mock AdapterResponse for successful API key creation
   const mockCreateSuccessResponse = Object.freeze({
     success: true,
-    data: Object.freeze(mockAPIKey,),
+    data: Object.freeze(mockAPIKey),
     message: 'API key created successfully',
   }) satisfies Readonly<AdapterResponse<APIKey>>;
 
