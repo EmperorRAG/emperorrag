@@ -22,7 +22,7 @@ import { createFrozenMockAuth } from '../../test-utils/test-helpers.js';
 describe('APIKeyAdapter', () => {
   let adapter: APIKeyAdapter;
 
-  // Mock API responses - better-auth returns data directly, not wrapped in { data, error }
+  // Mock API responses - better-auth returns data wrapped in { data, error }
   const mockAPIKey: APIKey = {
     id: 'key_123',
     key: 'sk_test_123456',
@@ -217,7 +217,7 @@ describe('APIKeyAdapter', () => {
         permissions: ['read'],
       };
 
-      // Mock returns the API key directly (not wrapped)
+      // Mock returns the API key wrapped in AdapterResponse format
       vi.mocked(mockAuth.api.createApiKey).mockResolvedValue(mockCreateSuccessResponse);
 
       const result = await adapter.createApiKey(createOptions, {});
