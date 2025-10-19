@@ -402,7 +402,11 @@ describe('APIKeyAdapter', () => {
       const result = await adapter.verifyApiKey('sk_test_123456', {});
 
       expect(result.success).toBe(true);
-      expect(result.data).toEqual({...verifyResult, key: transformBetterAuthApiKeyToAPIKey(verifyResult.key)});
+      expect(result.data).toEqual({
+        valid: true,
+        apiKey: transformBetterAuthApiKeyToAPIKey(verifyResult.key),
+        error: undefined,
+      });
       expect(result.message).toBe('API key verified successfully');
     });
 
