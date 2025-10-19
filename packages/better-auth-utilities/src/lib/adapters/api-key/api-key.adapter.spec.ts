@@ -11,44 +11,137 @@ import type {
   CreateAPIKeyOptions,
   UpdateAPIKeyOptions,
   ListAPIKeysOptions,
+  APIKey
 } from './api-key.adapter.ts';
-import { AdapterOperationError, PluginNotAvailableError } from '../base/plugin-adapter.interface.js';
-import { vi, describe, it, expect, beforeEach, beforeAll } from 'vitest';
-import type { Mock } from 'vitest';
+import type { AdapterResponse } from '../base/plugin-adapter.interface.js';
+import { PluginNotAvailableError } from '../base/plugin-adapter.interface.js';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
 import type { BetterAuthWithApiKey } from '../../test-utils/auth-types.js';
 import { createFrozenMockAuth } from '../../test-utils/test-helpers.js';
 
 describe('APIKeyAdapter', () => {
   let adapter: APIKeyAdapter;
-  // let mockAuth: BetterAuthWithApiKey;
 
-  // Mock API responses
-  const mockAPIKey = {
+  // Mock API responses - better-auth returns data directly, not wrapped in { data, error }
+  const mockAPIKey: APIKey = {
     id: 'key_123',
     key: 'sk_test_123456',
     name: 'Test API Key',
     userId: 'user_123',
-    permissions: ['read', 'write'],
-    rateLimit: { requests: 100, window: 60 },
+    permissions: { read: ['*'], write: ['*'] },
     metadata: { purpose: 'testing' },
     createdAt: new Date(),
     updatedAt: new Date(),
+    expiresAt: new Date(),
+  };
+
+  // Mock AdapterResponse for successful API key creation
+  const mockCreateSuccessResponse = Object.freeze({
+    success: true,
+    data: Object.freeze(mockAPIKey,),
+    message: 'API key created successfully',
+  }) satisfies Readonly<AdapterResponse<APIKey>>;
+
+  // Mock AdapterResponse for API key creation error
+  const mockCreateErrorResponse: AdapterResponse<APIKey> = {
+    success: false,
+    error: new Error('Unauthorized'),
+    message: 'Unauthorized',
+  };
+
+  // Mock AdapterResponse for successful API key list
+  const mockListSuccessResponse: AdapterResponse<APIKey[]> = {
+    success: true,
+    data: [mockAPIKey, { ...mockAPIKey, id: 'key_456' }],
+    message: 'API keys retrieved successfully',
+  };
+
+  // Mock AdapterResponse for empty list
+  const mockListEmptyResponse: AdapterResponse<APIKey[]> = {
+    success: true,
+    data: [],
+    message: 'API keys retrieved successfully',
+  };
+
+  // Mock AdapterResponse for list error
+  const mockListErrorResponse: AdapterResponse<APIKey[]> = {
+    success: false,
+    error: new Error('Database error'),
+    message: 'Database error',
+  };
+
+  // Mock AdapterResponse for successful API key update
+  const mockUpdateSuccessResponse: AdapterResponse<APIKey> = {
+    success: true,
+    data: { ...mockAPIKey, name: 'Updated Name' },
+    message: 'API key updated successfully',
+  };
+
+  // Mock AdapterResponse for update error
+  const mockUpdateErrorResponse: AdapterResponse<APIKey> = {
+    success: false,
+    error: new Error('Not found'),
+    message: 'Not found',
+  };
+
+  // Mock AdapterResponse for successful API key deletion
+  const mockDeleteSuccessResponse: AdapterResponse<{ success: boolean }> = {
+    success: true,
+    data: { success: true },
+    message: 'API key deleted successfully',
+  };
+
+  // Mock AdapterResponse for delete error
+  const mockDeleteErrorResponse: AdapterResponse<{ success: boolean }> = {
+    success: false,
+    error: new Error('Key not found'),
+    message: 'Key not found',
+  };
+
+  // Mock AdapterResponse for successful API key verification
+  const mockVerifySuccessResponse: AdapterResponse<{ valid: boolean; error: null; key: APIKey | null }> = {
+    success: true,
+    data: {
+      valid: true,
+      error: null,
+      key: mockAPIKey,
+    },
+    message: 'API key verified successfully',
+  };
+
+  // Mock AdapterResponse for invalid API key
+  const mockVerifyInvalidResponse: AdapterResponse<{ valid: boolean; error: null; key: APIKey | null }> = {
+    success: true,
+    data: {
+      valid: false,
+      error: null,
+      key: null,
+    },
+    message: 'API key verified successfully',
+  };
+
+  // Mock AdapterResponse for verification error
+  const mockVerifyErrorResponse: AdapterResponse<{ valid: boolean; error: null; key: APIKey | null }> = {
+    success: false,
+    error: new Error('Verification failed'),
+    message: 'Verification failed',
+  };
+
+  // Mock AdapterResponse for network error
+  const mockNetworkErrorResponse: AdapterResponse<APIKey> = {
+    success: false,
+    error: new Error('Network error'),
+    message: 'Network error',
+  };
+
+  // Mock AdapterResponse for unexpected error
+  const mockUnexpectedErrorResponse: AdapterResponse<APIKey> = {
+    success: false,
+    error: new Error('Unexpected error'),
+    message: 'Unexpected error',
   };
 
   const mockAuth = createFrozenMockAuth();
-
-  /*beforeAll(() => {
-    // Create a mock better-auth instance with API key plugin
-    mockAuth = {
-      api: {
-        createApiKey: vi.fn(),
-        listApiKeys: vi.fn(),
-        updateApiKey: vi.fn(),
-        deleteApiKey: vi.fn(),
-        verifyApiKey: vi.fn(),
-      },
-    } as unknown as BetterAuthWithApiKey;
-  });*/
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -124,16 +217,12 @@ describe('APIKeyAdapter', () => {
         permissions: ['read'],
       };
 
-      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue({
-        data: mockAPIKey,
-        error: null,
-      });
+      // Mock returns the API key directly (not wrapped)
+      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue(mockCreateSuccessResponse);
 
       const result = await adapter.createApiKey(createOptions, {});
 
-      expect(result.success).toBe(true);
-      expect(result.data).toEqual(mockAPIKey);
-      expect(result.message).toBe('API key created successfully');
+      expect(result).toMatchObject(mockCreateSuccessResponse);
       expect(mockAuth.api.createApiKey).toHaveBeenCalledWith({ ...createOptions, headers: undefined });
     });
 
@@ -142,17 +231,13 @@ describe('APIKeyAdapter', () => {
         name: 'Test Key',
       };
 
-      const apiError = { message: 'Unauthorized', code: 401 };
-      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue({
-        data: null,
-        error: apiError,
-      });
+      // Mock throws error instead of returning { data: null, error: ... }
+      const apiError = new Error('Unauthorized');
+      vi.mocked(mockAuth.api.createApiKey).mockRejectedValue(apiError);
 
       const result = await adapter.createApiKey(createOptions, {});
 
-      expect(result.success).toBe(false);
-      expect(result.error).toBeInstanceOf(AdapterOperationError);
-      expect(result.message).toContain('Failed to create API key');
+      expect(result).toMatchObject(mockCreateErrorResponse);
     });
 
     it('should pass headers from context', async () => {
@@ -161,10 +246,7 @@ describe('APIKeyAdapter', () => {
       };
 
       const headers = { Authorization: 'Bearer token' };
-      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue({
-        data: mockAPIKey,
-        error: null,
-      });
+      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue(mockAPIKey);
 
       await adapter.createApiKey(createOptions, { headers });
 
@@ -180,10 +262,7 @@ describe('APIKeyAdapter', () => {
         metadata: { environment: 'production', owner: 'admin' },
       };
 
-      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue({
-        data: { ...mockAPIKey, ...createOptions },
-        error: null,
-      });
+      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue({ ...mockAPIKey, ...createOptions });
 
       const result = await adapter.createApiKey(createOptions, {});
 
@@ -200,8 +279,7 @@ describe('APIKeyAdapter', () => {
 
       const result = await adapter.createApiKey(createOptions, {});
 
-      expect(result.success).toBe(false);
-      expect(result.message).toBe('Network error');
+      expect(result).toMatchObject(mockNetworkErrorResponse);
     });
   });
 
@@ -217,10 +295,7 @@ describe('APIKeyAdapter', () => {
       };
 
       const mockKeys = [mockAPIKey, { ...mockAPIKey, id: 'key_456' }];
-      vi.mocked(mockAuth.api.listApiKeys).mockResolvedValue({
-        data: mockKeys,
-        error: null,
-      });
+      vi.mocked(mockAuth.api.listApiKeys).mockResolvedValue(mockKeys);
 
       const result = await adapter.listApiKeys(listOptions, {});
 
@@ -230,22 +305,7 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should handle empty list', async () => {
-      vi.mocked(mockAuth.api.listApiKeys).mockResolvedValue({
-        data: [],
-        error: null,
-      });
-
-      const result = await adapter.listApiKeys({}, {});
-
-      expect(result.success).toBe(true);
-      expect(result.data).toEqual([]);
-    });
-
-    it('should handle undefined data as empty array', async () => {
-      vi.mocked(mockAuth.api.listApiKeys).mockResolvedValue({
-        data: undefined,
-        error: null,
-      });
+      vi.mocked(mockAuth.api.listApiKeys).mockResolvedValue([]);
 
       const result = await adapter.listApiKeys({}, {});
 
@@ -254,16 +314,12 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should handle API errors', async () => {
-      const apiError = { message: 'Database error' };
-      vi.mocked(mockAuth.api.listApiKeys).mockResolvedValue({
-        data: null,
-        error: apiError,
-      });
+      const apiError = new Error('Database error');
+      vi.mocked(mockAuth.api.listApiKeys).mockRejectedValue(apiError);
 
       const result = await adapter.listApiKeys({}, {});
 
-      expect(result.success).toBe(false);
-      expect(result.error).toBeInstanceOf(AdapterOperationError);
+      expect(result).toMatchObject(mockListErrorResponse);
     });
   });
 
@@ -279,10 +335,7 @@ describe('APIKeyAdapter', () => {
       };
 
       const updatedKey = { ...mockAPIKey, name: 'Updated Name' };
-      vi.mocked(mockAuth.api.updateApiKey).mockResolvedValue({
-        data: updatedKey,
-        error: null,
-      });
+      vi.mocked(mockAuth.api.updateApiKey).mockResolvedValue(updatedKey);
 
       const result = await adapter.updateApiKey(updateOptions, {});
 
@@ -301,10 +354,7 @@ describe('APIKeyAdapter', () => {
         },
       };
 
-      vi.mocked(mockAuth.api.updateApiKey).mockResolvedValue({
-        data: { ...mockAPIKey, ...updateOptions.data },
-        error: null,
-      });
+      vi.mocked(mockAuth.api.updateApiKey).mockResolvedValue({ ...mockAPIKey, ...updateOptions.data });
 
       const result = await adapter.updateApiKey(updateOptions, {});
 
@@ -317,10 +367,7 @@ describe('APIKeyAdapter', () => {
         data: { name: 'Updated' },
       };
 
-      vi.mocked(mockAuth.api.updateApiKey).mockResolvedValue({
-        data: null,
-        error: { message: 'Not found' },
-      });
+      vi.mocked(mockAuth.api.updateApiKey).mockRejectedValue(new Error('Not found'));
 
       const result = await adapter.updateApiKey(updateOptions, {});
 
@@ -334,10 +381,7 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should delete API key successfully', async () => {
-      vi.mocked(mockAuth.api.deleteApiKey).mockResolvedValue({
-        data: { success: true },
-        error: null,
-      });
+      vi.mocked(mockAuth.api.deleteApiKey).mockResolvedValue({ success: true });
 
       const result = await adapter.deleteApiKey('key_123', {});
 
@@ -347,23 +391,17 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should handle deletion errors', async () => {
-      vi.mocked(mockAuth.api.deleteApiKey).mockResolvedValue({
-        data: null,
-        error: { message: 'Key not found' },
-      });
+      vi.mocked(mockAuth.api.deleteApiKey).mockRejectedValue(new Error('Key not found'));
 
       const result = await adapter.deleteApiKey('key_123', {});
 
       expect(result.success).toBe(false);
-      expect(result.error).toBeInstanceOf(AdapterOperationError);
+      expect(result.error).toBeInstanceOf(Error);
     });
 
     it('should pass headers to deleteApiKey', async () => {
       const headers = { 'X-Custom': 'value' };
-      vi.mocked(mockAuth.api.deleteApiKey).mockResolvedValue({
-        data: { success: true },
-        error: null,
-      });
+      vi.mocked(mockAuth.api.deleteApiKey).mockResolvedValue({ success: true });
 
       await adapter.deleteApiKey('key_123', { headers });
 
@@ -379,13 +417,11 @@ describe('APIKeyAdapter', () => {
     it('should verify API key successfully', async () => {
       const verifyResult = {
         valid: true,
+        error: null,
         key: mockAPIKey,
       };
 
-      vi.mocked(mockAuth.api.verifyApiKey).mockResolvedValue({
-        data: verifyResult,
-        error: null,
-      });
+      vi.mocked(mockAuth.api.verifyApiKey).mockResolvedValue(verifyResult);
 
       const result = await adapter.verifyApiKey('sk_test_123456', {});
 
@@ -395,10 +431,7 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should handle invalid API key', async () => {
-      vi.mocked(mockAuth.api.verifyApiKey).mockResolvedValue({
-        data: { valid: false, key: null },
-        error: null,
-      });
+      vi.mocked(mockAuth.api.verifyApiKey).mockResolvedValue({ valid: false, error: null, key: null });
 
       const result = await adapter.verifyApiKey('invalid_key', {});
 
@@ -407,10 +440,7 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should handle verification errors', async () => {
-      vi.mocked(mockAuth.api.verifyApiKey).mockResolvedValue({
-        data: null,
-        error: { message: 'Verification failed' },
-      });
+      vi.mocked(mockAuth.api.verifyApiKey).mockRejectedValue(new Error('Verification failed'));
 
       const result = await adapter.verifyApiKey('sk_test_123456', {});
 
@@ -423,10 +453,7 @@ describe('APIKeyAdapter', () => {
       const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
       const debugAdapter = new APIKeyAdapter({ auth: mockAuth, debug: true });
 
-      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue({
-        data: mockAPIKey,
-        error: null,
-      });
+      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue(mockAPIKey);
 
       await debugAdapter.createApiKey({ name: 'Test' }, {});
 
@@ -438,10 +465,7 @@ describe('APIKeyAdapter', () => {
       const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
       const quietAdapter = new APIKeyAdapter({ auth: mockAuth, debug: false });
 
-      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue({
-        data: mockAPIKey,
-        error: null,
-      });
+      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue(mockAPIKey);
 
       await quietAdapter.createApiKey({ name: 'Test' }, {});
 
@@ -456,10 +480,7 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should handle null context gracefully', async () => {
-      vi.mocked(mockAuth.api.listApiKeys).mockResolvedValue({
-        data: [],
-        error: null,
-      });
+      vi.mocked(mockAuth.api.listApiKeys).mockResolvedValue([]);
 
       const result = await adapter.listApiKeys({}, {} as never);
 
@@ -467,10 +488,7 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should handle missing metadata in options', async () => {
-      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue({
-        data: mockAPIKey,
-        error: null,
-      });
+      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue(mockAPIKey);
 
       const result = await adapter.createApiKey({ name: 'Test' }, {});
 
@@ -484,8 +502,7 @@ describe('APIKeyAdapter', () => {
 
       const result = await adapter.createApiKey({ name: 'Test' }, {});
 
-      expect(result.success).toBe(false);
-      expect(result.message).toBe('Unexpected error');
+      expect(result).toMatchObject(mockUnexpectedErrorResponse);
     });
   });
 });
