@@ -1,5 +1,5 @@
 {
-	"name": "@emperorrag/utilities",
+	"name": "@emperorrag/better-auth-utilities",
 	"version": "0.0.1",
 	"type": "module",
 	"main": "./dist/index.js",
@@ -19,14 +19,15 @@
 		"!**/*.tsbuildinfo"
 	],
 	"nx": {
-		"name": "utilities",
+		"name": "better-auth-utilities",
 		"tags": [
 			"utilities",
 			"library",
 			"common",
 			"shared",
 			"packages",
-			"typescript"
+			"typescript",
+			"better-auth"
 		]
 	},
 	"dependencies": {

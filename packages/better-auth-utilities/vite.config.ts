@@ -6,7 +6,7 @@ import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 
 export default defineConfig(() => ({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/packages/utilities',
+  cacheDir: '../../node_modules/.vite/packages/better-auth-utilities',
   plugins: [
     nxCopyAssetsPlugin(['*.md', 'package.json']),
     dts({ entryRoot: 'src', tsconfigPath: path.join(__dirname, 'tsconfig.lib.json') })
@@ -27,7 +27,7 @@ export default defineConfig(() => ({
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: 'src/index.ts',
-      name: '@emperorrag/utilities',
+      name: '@emperorrag/better-auth-utilities',
       fileName: 'index',
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.
@@ -39,7 +39,7 @@ export default defineConfig(() => ({
     },
   },
   test: {
-    name: 'utilities',
+    name: 'better-auth-utilities',
     watch: false,
     globals: true,
     environment: 'node',
