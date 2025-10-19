@@ -1,7 +1,7 @@
 {
 	"name": "@emperorrag/better-auth-nest-js-microservice",
 	"version": "0.0.1",
-	"private": true,
+	"private": false,
 	"nx": {
 		"name": "better-auth-nest-js-microservice",
 		"targets": {
