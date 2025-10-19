@@ -13,10 +13,14 @@ import type {
   ListAPIKeysOptions,
 } from './api-key.adapter.ts';
 import { AdapterOperationError, PluginNotAvailableError } from '../base/plugin-adapter.interface.js';
+import { vi, describe, it, expect, beforeEach, beforeAll } from 'vitest';
+import type { Mock } from 'vitest';
+import type { BetterAuthWithApiKey } from '../../test-utils/auth-types.js';
+import { createFrozenMockAuth } from '../../test-utils/test-helpers.js';
 
 describe('APIKeyAdapter', () => {
   let adapter: APIKeyAdapter;
-  let mockAuth: ReturnType<typeof betterAuth>;
+  // let mockAuth: BetterAuthWithApiKey;
 
   // Mock API responses
   const mockAPIKey = {
@@ -31,33 +35,35 @@ describe('APIKeyAdapter', () => {
     updatedAt: new Date(),
   };
 
-  beforeAll(() => {
+  const mockAuth = createFrozenMockAuth();
+
+  /*beforeAll(() => {
     // Create a mock better-auth instance with API key plugin
     mockAuth = {
       api: {
-        createApiKey: jest.fn(),
-        listApiKeys: jest.fn(),
-        updateApiKey: jest.fn(),
-        deleteApiKey: jest.fn(),
-        verifyApiKey: jest.fn(),
+        createApiKey: vi.fn(),
+        listApiKeys: vi.fn(),
+        updateApiKey: vi.fn(),
+        deleteApiKey: vi.fn(),
+        verifyApiKey: vi.fn(),
       },
-    } as unknown as ReturnType<typeof betterAuth>;
-  });
+    } as unknown as BetterAuthWithApiKey;
+  });*/
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('Constructor', () => {
     it('should create adapter with valid auth instance', () => {
       const testAdapter = new APIKeyAdapter({ auth: mockAuth, debug: false });
       expect(testAdapter).toBeInstanceOf(APIKeyAdapter);
-      expect(testAdapter.pluginId).toBe('apiKey');
+      expect(testAdapter.pluginId).toBe('api-key');
       expect(testAdapter.pluginName).toBe('API Key');
     });
 
     it('should enable debug logging when debug flag is true', () => {
-      const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+      const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
       const testAdapter = new APIKeyAdapter({ auth: mockAuth, debug: true });
       expect(testAdapter).toBeInstanceOf(APIKeyAdapter);
       expect(consoleSpy).toHaveBeenCalledWith('[APIKeyAdapter]', 'API Key adapter initialized');
@@ -80,7 +86,7 @@ describe('APIKeyAdapter', () => {
       } as unknown as ReturnType<typeof betterAuth>;
 
       expect(() => new APIKeyAdapter({ auth: authWithoutPlugin, debug: false })).toThrow(
-        'API Key plugin is not available. Ensure it is enabled in your better-auth configuration.'
+        'API Key plugin not enabled in better-auth configuration'
       );
     });
   });
@@ -97,7 +103,7 @@ describe('APIKeyAdapter', () => {
     it('should return false when createApiKey is not a function', () => {
       const authWithoutPlugin = {
         api: { createApiKey: null },
-      } as unknown as ReturnType<typeof betterAuth>;
+      } as unknown as BetterAuthWithApiKey;
 
       const testAdapter = new APIKeyAdapter({ auth: mockAuth, debug: false });
       const originalIsAvailable = testAdapter.isAvailable.bind(testAdapter);
@@ -118,7 +124,7 @@ describe('APIKeyAdapter', () => {
         permissions: ['read'],
       };
 
-      (mockAuth.api.createApiKey as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue({
         data: mockAPIKey,
         error: null,
       });
@@ -137,7 +143,7 @@ describe('APIKeyAdapter', () => {
       };
 
       const apiError = { message: 'Unauthorized', code: 401 };
-      (mockAuth.api.createApiKey as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue({
         data: null,
         error: apiError,
       });
@@ -155,7 +161,7 @@ describe('APIKeyAdapter', () => {
       };
 
       const headers = { Authorization: 'Bearer token' };
-      (mockAuth.api.createApiKey as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue({
         data: mockAPIKey,
         error: null,
       });
@@ -174,7 +180,7 @@ describe('APIKeyAdapter', () => {
         metadata: { environment: 'production', owner: 'admin' },
       };
 
-      (mockAuth.api.createApiKey as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue({
         data: { ...mockAPIKey, ...createOptions },
         error: null,
       });
@@ -190,7 +196,7 @@ describe('APIKeyAdapter', () => {
         name: 'Test Key',
       };
 
-      (mockAuth.api.createApiKey as jest.Mock).mockRejectedValue(new Error('Network error'));
+      vi.mocked(mockAuth.api.createApiKey).mockRejectedValue(new Error('Network error'));
 
       const result = await adapter.createApiKey(createOptions, {});
 
@@ -211,7 +217,7 @@ describe('APIKeyAdapter', () => {
       };
 
       const mockKeys = [mockAPIKey, { ...mockAPIKey, id: 'key_456' }];
-      (mockAuth.api.listApiKeys as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.listApiKeys).mockResolvedValue({
         data: mockKeys,
         error: null,
       });
@@ -224,7 +230,7 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should handle empty list', async () => {
-      (mockAuth.api.listApiKeys as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.listApiKeys).mockResolvedValue({
         data: [],
         error: null,
       });
@@ -236,7 +242,7 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should handle undefined data as empty array', async () => {
-      (mockAuth.api.listApiKeys as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.listApiKeys).mockResolvedValue({
         data: undefined,
         error: null,
       });
@@ -249,7 +255,7 @@ describe('APIKeyAdapter', () => {
 
     it('should handle API errors', async () => {
       const apiError = { message: 'Database error' };
-      (mockAuth.api.listApiKeys as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.listApiKeys).mockResolvedValue({
         data: null,
         error: apiError,
       });
@@ -273,7 +279,7 @@ describe('APIKeyAdapter', () => {
       };
 
       const updatedKey = { ...mockAPIKey, name: 'Updated Name' };
-      (mockAuth.api.updateApiKey as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.updateApiKey).mockResolvedValue({
         data: updatedKey,
         error: null,
       });
@@ -295,7 +301,7 @@ describe('APIKeyAdapter', () => {
         },
       };
 
-      (mockAuth.api.updateApiKey as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.updateApiKey).mockResolvedValue({
         data: { ...mockAPIKey, ...updateOptions.data },
         error: null,
       });
@@ -311,7 +317,7 @@ describe('APIKeyAdapter', () => {
         data: { name: 'Updated' },
       };
 
-      (mockAuth.api.updateApiKey as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.updateApiKey).mockResolvedValue({
         data: null,
         error: { message: 'Not found' },
       });
@@ -328,7 +334,7 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should delete API key successfully', async () => {
-      (mockAuth.api.deleteApiKey as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.deleteApiKey).mockResolvedValue({
         data: { success: true },
         error: null,
       });
@@ -341,7 +347,7 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should handle deletion errors', async () => {
-      (mockAuth.api.deleteApiKey as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.deleteApiKey).mockResolvedValue({
         data: null,
         error: { message: 'Key not found' },
       });
@@ -354,7 +360,7 @@ describe('APIKeyAdapter', () => {
 
     it('should pass headers to deleteApiKey', async () => {
       const headers = { 'X-Custom': 'value' };
-      (mockAuth.api.deleteApiKey as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.deleteApiKey).mockResolvedValue({
         data: { success: true },
         error: null,
       });
@@ -376,7 +382,7 @@ describe('APIKeyAdapter', () => {
         key: mockAPIKey,
       };
 
-      (mockAuth.api.verifyApiKey as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.verifyApiKey).mockResolvedValue({
         data: verifyResult,
         error: null,
       });
@@ -389,7 +395,7 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should handle invalid API key', async () => {
-      (mockAuth.api.verifyApiKey as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.verifyApiKey).mockResolvedValue({
         data: { valid: false, key: null },
         error: null,
       });
@@ -401,7 +407,7 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should handle verification errors', async () => {
-      (mockAuth.api.verifyApiKey as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.verifyApiKey).mockResolvedValue({
         data: null,
         error: { message: 'Verification failed' },
       });
@@ -414,10 +420,10 @@ describe('APIKeyAdapter', () => {
 
   describe('Debug logging', () => {
     it('should log when debug is enabled', async () => {
-      const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+      const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
       const debugAdapter = new APIKeyAdapter({ auth: mockAuth, debug: true });
 
-      (mockAuth.api.createApiKey as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue({
         data: mockAPIKey,
         error: null,
       });
@@ -429,10 +435,10 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should not log when debug is disabled', async () => {
-      const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+      const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
       const quietAdapter = new APIKeyAdapter({ auth: mockAuth, debug: false });
 
-      (mockAuth.api.createApiKey as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue({
         data: mockAPIKey,
         error: null,
       });
@@ -450,7 +456,7 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should handle null context gracefully', async () => {
-      (mockAuth.api.listApiKeys as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.listApiKeys).mockResolvedValue({
         data: [],
         error: null,
       });
@@ -461,7 +467,7 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should handle missing metadata in options', async () => {
-      (mockAuth.api.createApiKey as jest.Mock).mockResolvedValue({
+      vi.mocked(mockAuth.api.createApiKey).mockResolvedValue({
         data: mockAPIKey,
         error: null,
       });
@@ -472,7 +478,7 @@ describe('APIKeyAdapter', () => {
     });
 
     it('should handle exception thrown from API', async () => {
-      (mockAuth.api.createApiKey as jest.Mock).mockImplementation(() => {
+      vi.mocked(mockAuth.api.createApiKey).mockImplementation(() => {
         throw new Error('Unexpected error');
       });
 

@@ -431,13 +431,18 @@ export interface BetterAuthConfig<
 // DEFAULT VALUES
 // ============================================================================
 
+// Helper function to get base URL from environment or default
+export function getBaseURL(): string {
+  return process.env.BETTER_AUTH_URL || 'http://localhost:3000';
+}
+
 /**
  * Default server configuration values.
  * Export for users who want to extend these defaults.
  */
 export const DEFAULT_SERVER_CONFIG: Partial<ServerConfig> = {
   appName: 'My Application',
-  baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:3000',
+  baseURL: getBaseURL(),
   emailAndPassword: {
     enabled: true,
     minPasswordLength: 8,

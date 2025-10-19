@@ -5,41 +5,79 @@
  */
 
 import { defineConfig } from './config.js';
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 
-// Mock better-auth and its dependencies
-const mockBetterAuth = jest.fn();
-const mockPrismaAdapter = jest.fn();
-const mockPlugins = {
-  apiKey: jest.fn(),
-  bearer: jest.fn(),
-  jwt: jest.fn(),
-  openAPI: jest.fn(),
-  twoFactor: jest.fn(),
-  admin: jest.fn(),
-  organization: jest.fn(),
-  username: jest.fn(),
-  magicLink: jest.fn(),
-  siwe: jest.fn(),
-  genericOAuth: jest.fn(),
-  oneTap: jest.fn(),
-  anonymous: jest.fn(),
-  phoneNumber: jest.fn(),
-  emailOTP: jest.fn(),
-  deviceAuthorization: jest.fn(),
-  lastLoginMethod: jest.fn(),
-  oneTimeToken: jest.fn(),
-  multiSession: jest.fn(),
-};
+// Create mock factories
+/*const createMockBetterAuth = () => vi.fn(() => ({
+  api: {},
+  $Infer: { Session: {} },
+}));
 
-jest.mock('better-auth', () => ({
+const createMockPrismaAdapter = () => vi.fn(() => 'prisma-adapter');
+
+const createMockPlugins = () => ({
+  apiKey: vi.fn(() => ({ name: 'mock-plugin' })),
+  bearer: vi.fn(() => ({ name: 'mock-plugin' })),
+  jwt: vi.fn(() => ({ name: 'mock-plugin' })),
+  openAPI: vi.fn(() => ({ name: 'mock-plugin' })),
+  twoFactor: vi.fn(() => ({ name: 'mock-plugin' })),
+  admin: vi.fn(() => ({ name: 'mock-plugin' })),
+  organization: vi.fn(() => ({ name: 'mock-plugin' })),
+  username: vi.fn(() => ({ name: 'mock-plugin' })),
+  magicLink: vi.fn(() => ({ name: 'mock-plugin' })),
+  siwe: vi.fn(() => ({ name: 'mock-plugin' })),
+  genericOAuth: vi.fn(() => ({ name: 'mock-plugin' })),
+  oneTap: vi.fn(() => ({ name: 'mock-plugin' })),
+  anonymous: vi.fn(() => ({ name: 'mock-plugin' })),
+  phoneNumber: vi.fn(() => ({ name: 'mock-plugin' })),
+  emailOTP: vi.fn(() => ({ name: 'mock-plugin' })),
+  deviceAuthorization: vi.fn(() => ({ name: 'mock-plugin' })),
+  lastLoginMethod: vi.fn(() => ({ name: 'mock-plugin' })),
+  oneTimeToken: vi.fn(() => ({ name: 'mock-plugin' })),
+  multiSession: vi.fn(() => ({ name: 'mock-plugin' })),
+});
+
+// Initialize mocks
+const mockBetterAuth = createMockBetterAuth();
+const mockPrismaAdapter = createMockPrismaAdapter();
+const mockPlugins = createMockPlugins();*/
+
+// Hoist mocks to ensure they're available before imports
+const { mockBetterAuth, mockPrismaAdapter, mockPlugins } = vi.hoisted(() => ({
+  mockBetterAuth: vi.fn(),
+  mockPrismaAdapter: vi.fn(),
+  mockPlugins: {
+    apiKey: vi.fn(),
+    bearer: vi.fn(),
+    jwt: vi.fn(),
+    openAPI: vi.fn(),
+    twoFactor: vi.fn(),
+    admin: vi.fn(),
+    organization: vi.fn(),
+    username: vi.fn(),
+    magicLink: vi.fn(),
+    siwe: vi.fn(),
+    genericOAuth: vi.fn(),
+    oneTap: vi.fn(),
+    anonymous: vi.fn(),
+    phoneNumber: vi.fn(),
+    emailOTP: vi.fn(),
+    deviceAuthorization: vi.fn(),
+    lastLoginMethod: vi.fn(),
+    oneTimeToken: vi.fn(),
+    multiSession: vi.fn(),
+  },
+}));
+
+vi.mock('better-auth', () => ({
   betterAuth: mockBetterAuth,
 }));
 
-jest.mock('better-auth/adapters/prisma', () => ({
+vi.mock('better-auth/adapters/prisma', () => ({
   prismaAdapter: mockPrismaAdapter,
 }));
 
-jest.mock('better-auth/plugins', () => mockPlugins);
+vi.mock('better-auth/plugins', () => mockPlugins);
 
 // Import after mocking
 import { createAuthServer } from './server.js';
@@ -48,22 +86,22 @@ import type { InferAuthServer, InferSession } from './server.ts';
 describe('better-auth-utilities: server', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let mockPrismaClient: any;
-  let consoleWarnSpy: jest.SpyInstance;
-  let consoleErrorSpy: jest.SpyInstance;
+  let consoleWarnSpy: ReturnType<typeof vi.spyOn>;
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
     // Reset all mocks
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
     // Create mock Prisma client
     mockPrismaClient = {
-      $connect: jest.fn(),
-      $disconnect: jest.fn(),
+      $connect: vi.fn(),
+      $disconnect: vi.fn(),
     };
 
     // Mock console methods
-    consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
-    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+    consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     // Setup default mock implementations
     mockBetterAuth.mockReturnValue({

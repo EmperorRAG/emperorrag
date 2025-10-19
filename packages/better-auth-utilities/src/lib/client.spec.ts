@@ -5,54 +5,57 @@
  */
 
 import { defineConfig } from './config.js';
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 
-// Mock better-auth/client and its dependencies
-const mockCreateAuthClient = jest.fn();
-const mockClientPlugins = {
-  apiKeyClient: jest.fn(),
-  twoFactorClient: jest.fn(),
-  adminClient: jest.fn(),
-  organizationClient: jest.fn(),
-  usernameClient: jest.fn(),
-  magicLinkClient: jest.fn(),
-  siweClient: jest.fn(),
-  genericOAuthClient: jest.fn(),
-  oneTapClient: jest.fn(),
-  anonymousClient: jest.fn(),
-  phoneNumberClient: jest.fn(),
-  emailOTPClient: jest.fn(),
-  lastLoginMethodClient: jest.fn(),
-  oneTimeTokenClient: jest.fn(),
-  multiSessionClient: jest.fn(),
-};
+// Hoist mocks to ensure they're available before imports
+const { mockCreateAuthClient, mockClientPlugins } = vi.hoisted(() => ({
+  mockCreateAuthClient: vi.fn(),
+  mockClientPlugins: {
+    apiKeyClient: vi.fn(),
+    twoFactorClient: vi.fn(),
+    adminClient: vi.fn(),
+    organizationClient: vi.fn(),
+    usernameClient: vi.fn(),
+    magicLinkClient: vi.fn(),
+    siweClient: vi.fn(),
+    genericOAuthClient: vi.fn(),
+    oneTapClient: vi.fn(),
+    anonymousClient: vi.fn(),
+    phoneNumberClient: vi.fn(),
+    emailOTPClient: vi.fn(),
+    lastLoginMethodClient: vi.fn(),
+    oneTimeTokenClient: vi.fn(),
+    multiSessionClient: vi.fn(),
+  },
+}));
 
-jest.mock('better-auth/client', () => ({
+vi.mock('better-auth/client', () => ({
   createAuthClient: mockCreateAuthClient,
 }));
 
-jest.mock('better-auth/client/plugins', () => mockClientPlugins);
+vi.mock('better-auth/client/plugins', () => mockClientPlugins);
 
 // Import after mocking
 import { createBetterAuthClient } from './client.js';
 import type { InferAuthClient } from './client.ts';
 
 describe('better-auth-utilities: client', () => {
-  let consoleWarnSpy: jest.SpyInstance;
-  let consoleErrorSpy: jest.SpyInstance;
+  let consoleWarnSpy: ReturnType<typeof vi.spyOn>;
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
     // Reset all mocks
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
     // Mock console methods
-    consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
-    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+    consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     // Setup default mock implementations
     mockCreateAuthClient.mockReturnValue({
       signIn: {},
-      signOut: jest.fn(),
-      useSession: jest.fn(),
+      signOut: vi.fn(),
+      useSession: vi.fn(),
     });
 
     // Setup plugin mocks to return plugin objects
@@ -203,8 +206,8 @@ describe('better-auth-utilities: client', () => {
     });
 
     it('should use custom fetch options', () => {
-      const onSuccess = jest.fn();
-      const onError = jest.fn();
+      const onSuccess = vi.fn();
+      const onError = vi.fn();
 
       const config = defineConfig({
         server: {
@@ -496,8 +499,8 @@ describe('better-auth-utilities: client', () => {
 
   describe('Integration Tests', () => {
     it('should create a complete production-ready client', () => {
-      const onSuccess = jest.fn();
-      const onError = jest.fn();
+      const onSuccess = vi.fn();
+      const onError = vi.fn();
 
       const config = defineConfig({
         enabledClientPlugins: [

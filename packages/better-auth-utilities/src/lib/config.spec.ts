@@ -6,6 +6,7 @@
 
 import {
   defineConfig,
+  getBaseURL,
   createServerConfig,
   createClientConfig,
   DEFAULT_SERVER_CONFIG,
@@ -21,6 +22,29 @@ describe('better-auth-utilities: config', () => {
   // ============================================================================
   // DEFAULT CONFIGURATIONS
   // ============================================================================
+
+  describe('getBaseURL', () => {
+    const originalEnv = process.env.BETTER_AUTH_URL;
+
+    afterEach(() => {
+      // Restore environment after each test
+      if (originalEnv !== undefined) {
+        process.env.BETTER_AUTH_URL = originalEnv;
+      } else {
+        delete process.env.BETTER_AUTH_URL;
+      }
+    });
+
+    it('should use BETTER_AUTH_URL when set', () => {
+      process.env.BETTER_AUTH_URL = 'https://api.example.com';
+      expect(getBaseURL()).toBe('https://api.example.com');
+    });
+
+    it('should fall back to localhost when not set', () => {
+      delete process.env.BETTER_AUTH_URL;
+      expect(getBaseURL()).toBe('http://localhost:3000');
+    });
+  });
 
   describe('DEFAULT_SERVER_CONFIG', () => {
     it('should have correct default values', () => {
@@ -46,35 +70,6 @@ describe('better-auth-utilities: config', () => {
         socialProviders: [],
         trustedOrigins: [],
       });
-    });
-
-    it('should use environment variable for baseURL if available', () => {
-      const originalEnv = process.env.BETTER_AUTH_URL;
-
-      // Test with env variable set
-      process.env.BETTER_AUTH_URL = 'https://api.example.com';
-      const { DEFAULT_SERVER_CONFIG: configWithEnv } = require('./config');
-      expect(configWithEnv.baseURL).toBe('https://api.example.com');
-
-      // Restore original
-      if (originalEnv) {
-        process.env.BETTER_AUTH_URL = originalEnv;
-      } else {
-        delete process.env.BETTER_AUTH_URL;
-      }
-    });
-
-    it('should fall back to localhost if BETTER_AUTH_URL is not set', () => {
-      const originalEnv = process.env.BETTER_AUTH_URL;
-      delete process.env.BETTER_AUTH_URL;
-
-      const { DEFAULT_SERVER_CONFIG: configWithoutEnv } = require('./config');
-      expect(configWithoutEnv.baseURL).toBe('http://localhost:3000');
-
-      // Restore original
-      if (originalEnv) {
-        process.env.BETTER_AUTH_URL = originalEnv;
-      }
     });
 
     it('should have session expiration of 7 days', () => {
@@ -298,7 +293,7 @@ describe('better-auth-utilities: config', () => {
     });
 
     it('should handle email verification configuration', () => {
-      const sendEmail = jest.fn();
+      const sendEmail = vi.fn();
       const config = defineConfig({
         server: {
           secret: 'test-secret-key-minimum-32-chars-long',
@@ -590,8 +585,8 @@ describe('better-auth-utilities: config', () => {
     });
 
     it('should handle client with callbacks', () => {
-      const onSuccess = jest.fn();
-      const onError = jest.fn();
+      const onSuccess = vi.fn();
+      const onError = vi.fn();
 
       const clientConfig: ClientConfig = {
         fetchOptions: {
