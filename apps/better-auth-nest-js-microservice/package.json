@@ -1,0 +1,100 @@
+{
+	"name": "@emperorrag/better-auth-nest-js-microservice",
+	"version": "0.0.1",
+	"private": true,
+	"nx": {
+		"name": "better-auth-nest-js-microservice",
+		"targets": {
+			"build": {
+				"executor": "nx:run-commands",
+				"options": {
+					"command": "webpack-cli build",
+					"args": [
+						"--node-env=production"
+					],
+					"cwd": "apps/better-auth-nest-js-microservice"
+				},
+				"configurations": {
+					"development": {
+						"args": [
+							"--node-env=development"
+						]
+					}
+				}
+			},
+			"prune-lockfile": {
+				"dependsOn": [
+					"build"
+				],
+				"cache": true,
+				"executor": "@nx/js:prune-lockfile",
+				"outputs": [
+					"{workspaceRoot}/apps/better-auth-nest-js-microservice/dist/package.json",
+					"{workspaceRoot}/apps/better-auth-nest-js-microservice/dist/pnpm-lock.yaml"
+				],
+				"options": {
+					"buildTarget": "build"
+				}
+			},
+			"copy-workspace-modules": {
+				"dependsOn": [
+					"build"
+				],
+				"cache": true,
+				"outputs": [
+					"{workspaceRoot}/apps/better-auth-nest-js-microservice/dist/workspace_modules"
+				],
+				"executor": "@nx/js:copy-workspace-modules",
+				"options": {
+					"buildTarget": "build"
+				}
+			},
+			"prune": {
+				"dependsOn": [
+					"prune-lockfile",
+					"copy-workspace-modules"
+				],
+				"executor": "nx:noop"
+			},
+			"serve": {
+				"continuous": true,
+				"executor": "@nx/js:node",
+				"defaultConfiguration": "development",
+				"dependsOn": [
+					"build"
+				],
+				"options": {
+					"buildTarget": "better-auth-nest-js-microservice:build",
+					"runBuildTargetDependencies": false
+				},
+				"configurations": {
+					"development": {
+						"buildTarget": "better-auth-nest-js-microservice:build:development"
+					},
+					"production": {
+						"buildTarget": "better-auth-nest-js-microservice:build:production"
+					}
+				}
+			},
+			"test": {
+				"options": {
+					"passWithNoTests": true
+				}
+			}
+		},
+		"tags": [
+			"app better-auth nest-js microservice"
+		]
+	},
+	"dependencies": {
+		"@nestjs/common": "^11.0.0",
+		"@nestjs/core": "^11.0.0",
+		"@nestjs/platform-express": "^11.0.0",
+		"reflect-metadata": "^0.2.2",
+		"rxjs": "^7.8.0",
+		"tslib": "^2.3.0"
+	},
+	"devDependencies": {
+		"@nestjs/testing": "^11.0.0"
+	}
+}
