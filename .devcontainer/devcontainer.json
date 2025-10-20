@@ -62,7 +62,8 @@
 				"fill-labs.dependi",
 				"Postman.postman-for-vscode",
 				"vitest.explorer",
-				"github.vscode-github-actions"
+				"github.vscode-github-actions",
+				"JordanEckowitz.indexify"
 			]
 		}
 	},
