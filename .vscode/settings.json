@@ -179,5 +179,12 @@
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"wallaby.compactStatus": false,
-	"jest.jestCommandLine": "nx test"
+	"jest.jestCommandLine": "nx test --verbose",
+	"testing.showAllMessages": true,
+	"github.copilot.chat.generateTests.codeLens": true,
+	"wallaby.reportFailuresAsProblems": false,
+	"gitlens.ai.model": "vscode",
+	"search.quickOpen.includeSymbols": true,
+	"search.smartCase": true,
+	"search.maxResults": 100
 }
