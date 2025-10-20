@@ -5,9 +5,7 @@
 	"chat.edits2.enabled": true,
 	"chat.fontFamily": "Fira Code, monospace",
 	"powershell.powerShellDefaultVersion": "PowerShell (x64)",
-	"jest.runMode": "watch",
-	"jest.rootPath": ".",
-	"jest.jestCommandLine": "npx nx test",
+	"jest.runMode": "on-demand",
 	"wallaby.codeLensFeature.runTest": true,
 	"markdown.occurrencesHighlight.enabled": true,
 	"markdown.preview.fontFamily": "Fira Code, monospace",
@@ -180,5 +178,6 @@
 		".github/instructions/continuous-improvement": true
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
-	"wallaby.compactStatus": false
+	"wallaby.compactStatus": false,
+	"jest.jestCommandLine": "nx test"
 }

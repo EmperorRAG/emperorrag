@@ -61,7 +61,8 @@
 				"humao.rest-client",
 				"fill-labs.dependi",
 				"Postman.postman-for-vscode",
-				"vitest.explorer"
+				"vitest.explorer",
+				"github.vscode-github-actions"
 			]
 		}
 	},
