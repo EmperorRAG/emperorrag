@@ -50,6 +50,7 @@
 		"postman.postman-for-vscode",
 		"vitest.explorer",
 		"firsttris.vscode-jest-runner",
-		"github.vscode-github-actions"
+		"github.vscode-github-actions",
+		"jordaneckowitz.indexify"
 	]
 }
