@@ -167,7 +167,6 @@
 	"files.readonlyInclude": {
 		"=": true
 	},
-	"tsimporter.filesToExclude": [],
 	"files.watcherExclude": {
 		" ": true
 	},
@@ -186,5 +185,10 @@
 	"gitlens.ai.model": "vscode",
 	"search.quickOpen.includeSymbols": true,
 	"search.smartCase": true,
-	"search.maxResults": 100
+	"search.maxResults": 100,
+	"workbench.colorCustomizations": {
+		"[Monokai]": {
+			"editor.background": "#000000"
+		}
+	}
 }
