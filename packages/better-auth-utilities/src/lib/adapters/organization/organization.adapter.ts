@@ -38,6 +38,22 @@ export interface OrganizationMember {
   createdAt: Date;
 }
 
+export interface OrganizationMemberDetails extends OrganizationMember {
+  updatedAt?: Date;
+  metadata?: Record<string, unknown>;
+  user?: Record<string, unknown>;
+}
+
+export interface FullOrganization extends Organization {
+  members: Array<OrganizationMemberDetails>;
+}
+
+export interface GetFullOrganizationOptions {
+  organizationId?: string;
+  organizationSlug?: string;
+  membersLimit?: number;
+}
+
 export interface OrganizationInvitation {
   id: string;
   organizationId: string;
@@ -137,6 +153,10 @@ export interface OrganizationServerAPI {
     options: ListOrganizationsOptions & { headers?: Headers | Record<string, string> }
   ): Promise<{ data?: Organization[]; error?: unknown }>;
 
+  getFullOrganization(
+    options: GetFullOrganizationOptions & { headers?: Headers | Record<string, string> }
+  ): Promise<{ data?: FullOrganization; error?: unknown }>;
+
   addMember(
     options: AddMemberOptions & { headers?: Headers | Record<string, string> }
   ): Promise<{ data?: OrganizationMember; error?: unknown }>;
@@ -205,6 +225,7 @@ export class OrganizationAdapter implements PluginAdapter<OrganizationServerAPI>
       updateOrganization: authApi.updateOrganization?.bind(authApi),
       deleteOrganization: authApi.deleteOrganization?.bind(authApi),
       listOrganizations: authApi.listOrganizations?.bind(authApi),
+      getFullOrganization: authApi.getFullOrganization?.bind(authApi),
       addMember: authApi.addMember?.bind(authApi),
       removeMember: authApi.removeMember?.bind(authApi),
       updateMemberRole: authApi.updateMemberRole?.bind(authApi),
@@ -289,6 +310,23 @@ export class OrganizationAdapter implements PluginAdapter<OrganizationServerAPI>
       return { success: true, data: result.data || [], message: 'Organizations retrieved successfully' };
     } catch (error) {
       this.log('Error listing organizations:', error);
+      return { success: false, error, message: error instanceof Error ? error.message : 'Unknown error' };
+    }
+  }
+
+  async getFullOrganization(
+    options: GetFullOrganizationOptions,
+    context: AdapterContext
+  ): Promise<AdapterResponse<FullOrganization>> {
+    try {
+      this.log('Fetching full organization details');
+      const result = await this.api.getFullOrganization({ ...options, headers: context.headers });
+      if (result?.error) {
+        throw new AdapterOperationError('getFullOrganization', 'Failed to fetch organization', result.error);
+      }
+      return { success: true, data: result?.data, message: 'Organization retrieved successfully' };
+    } catch (error) {
+      this.log('Error fetching organization:', error);
       return { success: false, error, message: error instanceof Error ? error.message : 'Unknown error' };
     }
   }

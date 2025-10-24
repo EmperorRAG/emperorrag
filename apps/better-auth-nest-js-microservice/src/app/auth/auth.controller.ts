@@ -205,9 +205,12 @@ export class AuthController {
    */
   @Post('2fa/enable')
   @UseGuards(AuthGuard)
-  async enableTwoFactor(@Req() req: RequestWithHeaders) {
+  async enableTwoFactor(
+    @Req() req: RequestWithHeaders,
+    @Body() body: { password: string }
+  ) {
     const context: AdapterContext = { headers: toHeaderRecord(req.headers) }
-    return this.twoFactorService.enableTwoFactor({}, context);
+    return this.twoFactorService.enableTwoFactor({ password: body.password }, context)
   }
 
   /**
@@ -223,7 +226,7 @@ export class AuthController {
     @Body() body: { code: string }
   ) {
     const context: AdapterContext = { headers: toHeaderRecord(req.headers) }
-    return this.twoFactorService.verifyTwoFactor(body, context);
+    return this.twoFactorService.verifyOTP(body, context);
   }
 
   /**
@@ -231,9 +234,12 @@ export class AuthController {
    */
   @Post('2fa/disable')
   @UseGuards(AuthGuard)
-  async disableTwoFactor(@Req() req: RequestWithHeaders) {
+  async disableTwoFactor(
+    @Req() req: RequestWithHeaders,
+    @Body() body: { password: string }
+  ) {
     const context: AdapterContext = { headers: toHeaderRecord(req.headers) }
-    return this.twoFactorService.disableTwoFactor({}, context);
+    return this.twoFactorService.disableTwoFactor({ password: body.password }, context);
   }
 
   // ============================================================================
@@ -264,6 +270,6 @@ export class AuthController {
     @Body() body: { role: string }
   ) {
     const context: AdapterContext = { headers: toHeaderRecord(req.headers) }
-    return this.adminService.updateUserRole({ userId: id, ...body }, context);
+    return this.adminService.updateUser({ userId: id, data: body }, context);
   }
 }
