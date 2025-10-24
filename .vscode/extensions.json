@@ -48,6 +48,9 @@
 		"humao.rest-client",
 		"fill-labs.dependi",
 		"postman.postman-for-vscode",
-		"vitest.explorer"
+		"vitest.explorer",
+		"firsttris.vscode-jest-runner",
+		"github.vscode-github-actions",
+		"jordaneckowitz.indexify"
 	]
 }

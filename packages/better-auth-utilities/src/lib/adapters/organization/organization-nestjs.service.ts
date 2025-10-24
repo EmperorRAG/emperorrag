@@ -12,6 +12,7 @@ import type {
   CreateOrganizationOptions,
   UpdateOrganizationOptions,
   ListOrganizationsOptions,
+  GetFullOrganizationOptions,
   AddMemberOptions,
   RemoveMemberOptions,
   UpdateMemberRoleOptions,
@@ -44,6 +45,14 @@ export class OrganizationService {
 
   async listOrganizations(options: ListOrganizationsOptions = {}, context: AdapterContext = {}) {
     return this.adapter.listOrganizations(options, context);
+  }
+
+  async getOrganization(
+    options: GetFullOrganizationOptions | string = {},
+    context: AdapterContext = {}
+  ) {
+    const normalizedOptions = typeof options === 'string' ? { organizationId: options } : options;
+    return this.adapter.getFullOrganization(normalizedOptions, context);
   }
 
   async addMember(options: AddMemberOptions, context: AdapterContext = {}) {

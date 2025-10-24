@@ -5,9 +5,7 @@
 	"chat.edits2.enabled": true,
 	"chat.fontFamily": "Fira Code, monospace",
 	"powershell.powerShellDefaultVersion": "PowerShell (x64)",
-	"jest.runMode": "watch",
-	"jest.rootPath": ".",
-	"jest.jestCommandLine": "npx nx test",
+	"jest.runMode": "on-demand",
 	"wallaby.codeLensFeature.runTest": true,
 	"markdown.occurrencesHighlight.enabled": true,
 	"markdown.preview.fontFamily": "Fira Code, monospace",
@@ -98,6 +96,8 @@
 	"terminal.integrated.fontLigatures.enabled": true,
 	"terminal.integrated.shellIntegration.enabled": true,
 	"cSpell.words": [
+		"behaviour",
+		"behaviours",
 		"Chatmode",
 		"chatmodes",
 		"cipe",
@@ -109,6 +109,7 @@
 		"dtos",
 		"emperorrag",
 		"esbuild",
+		"Frontmatter",
 		"healthcheck",
 		"initdb",
 		"isready",
@@ -125,6 +126,7 @@
 		"runbook",
 		"runbooks",
 		"sslmode",
+		"stringable",
 		"swcrc",
 		"thallesp",
 		"TOTP",
@@ -169,7 +171,6 @@
 	"files.readonlyInclude": {
 		"=": true
 	},
-	"tsimporter.filesToExclude": [],
 	"files.watcherExclude": {
 		" ": true
 	},
@@ -180,5 +181,27 @@
 		".github/instructions/continuous-improvement": true
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
-	"wallaby.compactStatus": false
+	"wallaby.compactStatus": false,
+	"jest.jestCommandLine": "nx test --verbose",
+	"testing.showAllMessages": true,
+	"github.copilot.chat.generateTests.codeLens": true,
+	"wallaby.reportFailuresAsProblems": false,
+	"gitlens.ai.model": "vscode",
+	"search.quickOpen.includeSymbols": true,
+	"search.smartCase": true,
+	"search.maxResults": 100,
+	"workbench.colorCustomizations": {
+		"[Monokai]": {
+			"editor.background": "#000000"
+		}
+	},
+	"markdownlint.lintWorkspaceGlobs": [
+		"**/*.{md,mkd,mdwn,mdown,markdown,markdn,mdtxt,mdtext,workbook}",
+		"!**/*.code-search",
+		"!**/bower_components",
+		"!**/node_modules",
+		"!**/.git",
+		"!**/vendor",
+		"!**/*.{prompt,instructions,chatmode}.{md,mkd,mdwn,mdown,markdown,markdn,mdtxt,mdtext,workbook}"
+	]
 }
