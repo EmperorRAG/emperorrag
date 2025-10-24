@@ -40,6 +40,20 @@ interface RequestWithHeaders {
   headers: Record<string, string | string[] | undefined>;
 }
 
+const toHeaderRecord = (headers: Record<string, string | string[] | undefined>): Record<string, string> =>
+  Object.entries(headers).reduce<Record<string, string>>((acc, [key, value]) => {
+    if (typeof value === 'string') {
+      acc[key] = value
+      return acc
+    }
+
+    if (Array.isArray(value) && value.length > 0) {
+      acc[key] = value[0]
+    }
+
+    return acc
+  }, {})
+
 /**
  * Auth Controller
  *
@@ -112,8 +126,8 @@ export class AuthController {
     @Req() req: RequestWithHeaders,
     @Body() body: { name: string; expiresIn?: number; metadata?: Record<string, unknown> }
   ) {
-    const context: AdapterContext = { headers: req.headers };
-    return this.apiKeyService.createApiKey(body, context);
+    const context: AdapterContext = { headers: toHeaderRecord(req.headers) }
+    return this.apiKeyService.createApiKey(body, context)
   }
 
   /**
@@ -122,7 +136,7 @@ export class AuthController {
   @Get('api-keys')
   @UseGuards(AuthGuard)
   async listApiKeys(@Req() req: RequestWithHeaders) {
-    const context: AdapterContext = { headers: req.headers };
+    const context: AdapterContext = { headers: toHeaderRecord(req.headers) }
     return this.apiKeyService.listApiKeys({}, context);
   }
 
@@ -135,7 +149,7 @@ export class AuthController {
     @Param('id') id: string,
     @Req() req: RequestWithHeaders
   ) {
-    const context: AdapterContext = { headers: req.headers };
+    const context: AdapterContext = { headers: toHeaderRecord(req.headers) }
     return this.apiKeyService.deleteApiKey(id, context);
   }
 
@@ -149,7 +163,7 @@ export class AuthController {
   @Get('organizations')
   @UseGuards(AuthGuard)
   async listOrganizations(@Req() req: RequestWithHeaders) {
-    const context: AdapterContext = { headers: req.headers };
+    const context: AdapterContext = { headers: toHeaderRecord(req.headers) }
     return this.organizationService.listOrganizations({}, context);
   }
 
@@ -165,7 +179,7 @@ export class AuthController {
     @Req() req: RequestWithHeaders,
     @Body() body: { name: string; slug?: string; metadata?: Record<string, unknown> }
   ) {
-    const context: AdapterContext = { headers: req.headers };
+    const context: AdapterContext = { headers: toHeaderRecord(req.headers) }
     return this.organizationService.createOrganization(body, context);
   }
 
@@ -178,7 +192,7 @@ export class AuthController {
     @Param('id') id: string,
     @Req() req: RequestWithHeaders
   ) {
-    const context: AdapterContext = { headers: req.headers };
+    const context: AdapterContext = { headers: toHeaderRecord(req.headers) }
     return this.organizationService.getOrganization(id, context);
   }
 
@@ -192,7 +206,7 @@ export class AuthController {
   @Post('2fa/enable')
   @UseGuards(AuthGuard)
   async enableTwoFactor(@Req() req: RequestWithHeaders) {
-    const context: AdapterContext = { headers: req.headers };
+    const context: AdapterContext = { headers: toHeaderRecord(req.headers) }
     return this.twoFactorService.enableTwoFactor({}, context);
   }
 
@@ -208,7 +222,7 @@ export class AuthController {
     @Req() req: RequestWithHeaders,
     @Body() body: { code: string }
   ) {
-    const context: AdapterContext = { headers: req.headers };
+    const context: AdapterContext = { headers: toHeaderRecord(req.headers) }
     return this.twoFactorService.verifyTwoFactor(body, context);
   }
 
@@ -218,7 +232,7 @@ export class AuthController {
   @Post('2fa/disable')
   @UseGuards(AuthGuard)
   async disableTwoFactor(@Req() req: RequestWithHeaders) {
-    const context: AdapterContext = { headers: req.headers };
+    const context: AdapterContext = { headers: toHeaderRecord(req.headers) }
     return this.twoFactorService.disableTwoFactor({}, context);
   }
 
@@ -232,7 +246,7 @@ export class AuthController {
   @Get('admin/users')
   @UseGuards(AuthGuard)
   async listUsers(@Req() req: RequestWithHeaders) {
-    const context: AdapterContext = { headers: req.headers };
+    const context: AdapterContext = { headers: toHeaderRecord(req.headers) }
     return this.adminService.listUsers({}, context);
   }
 
@@ -249,7 +263,7 @@ export class AuthController {
     @Req() req: RequestWithHeaders,
     @Body() body: { role: string }
   ) {
-    const context: AdapterContext = { headers: req.headers };
+    const context: AdapterContext = { headers: toHeaderRecord(req.headers) }
     return this.adminService.updateUserRole({ userId: id, ...body }, context);
   }
 }

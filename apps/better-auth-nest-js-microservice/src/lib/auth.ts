@@ -6,7 +6,7 @@
 
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { PrismaClient } from '..../better-auth-db/prisma/generated/client';
+import { PrismaClient } from '../../better-auth-db/prisma/generated/client/index.js';
 
 // Import Better Auth plugins
 import {
