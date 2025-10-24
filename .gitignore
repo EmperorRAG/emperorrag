@@ -56,3 +56,11 @@ test-output
 **/*.env
 **/*.env.local
 **/*.env.*.local
+
+# Database data (handled by Docker volumes)
+**/data/
+**/pgdata/
+
+# Backups (too large for git)
+**/backups/*.sql
+**/backups/*.dump

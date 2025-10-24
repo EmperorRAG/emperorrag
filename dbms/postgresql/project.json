@@ -1,0 +1,37 @@
+{
+	"name": "postgresql",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"projectType": "application",
+	"sourceRoot": "dbms/postgresql",
+	"targets": {
+		"start": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "docker-compose up -d",
+				"cwd": "dbms/postgresql"
+			}
+		},
+		"stop": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "docker-compose down",
+				"cwd": "dbms/postgresql"
+			}
+		},
+		"restart": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "docker-compose restart",
+				"cwd": "dbms/postgresql"
+			}
+		},
+		"logs": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "docker-compose logs -f postgres",
+				"cwd": "dbms/postgresql"
+			}
+		}
+	},
+	"tags": ["type:tool", "scope:database", "stack:postgresql"]
+}
