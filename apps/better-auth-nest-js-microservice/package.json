@@ -76,6 +76,62 @@
 					}
 				}
 			},
+			"prisma-generate": {
+				"executor": "nx:run-commands",
+				"cache": false,
+				"options": {
+					"command": "pnpm exec prisma generate --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
+					"cwd": "."
+				}
+			},
+			"prisma-migrate": {
+				"executor": "nx:run-commands",
+				"cache": false,
+				"options": {
+					"command": "pnpm exec prisma migrate dev --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
+					"cwd": "."
+				}
+			},
+			"prisma-migrate-deploy": {
+				"executor": "nx:run-commands",
+				"cache": false,
+				"options": {
+					"command": "pnpm exec prisma migrate deploy --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
+					"cwd": "."
+				}
+			},
+			"prisma-studio": {
+				"executor": "nx:run-commands",
+				"cache": false,
+				"options": {
+					"command": "pnpm exec prisma studio --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
+					"cwd": "."
+				}
+			},
+			"prisma-push": {
+				"executor": "nx:run-commands",
+				"cache": false,
+				"options": {
+					"command": "pnpm exec prisma db push --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
+					"cwd": "."
+				}
+			},
+			"prisma-reset": {
+				"executor": "nx:run-commands",
+				"cache": false,
+				"options": {
+					"command": "pnpm exec prisma migrate reset --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma --force",
+					"cwd": "."
+				}
+			},
+			"prisma-validate": {
+				"executor": "nx:run-commands",
+				"cache": false,
+				"options": {
+					"command": "pnpm exec prisma validate --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
+					"cwd": "."
+				}
+			},
 			"test": {
 				"options": {
 					"passWithNoTests": true
@@ -90,11 +146,13 @@
 		"@nestjs/common": "^11.0.0",
 		"@nestjs/core": "^11.0.0",
 		"@nestjs/platform-express": "^11.0.0",
+		"@prisma/client": "6.17.1",
 		"reflect-metadata": "^0.2.2",
 		"rxjs": "^7.8.0",
 		"tslib": "^2.3.0"
 	},
 	"devDependencies": {
-		"@nestjs/testing": "^11.0.0"
+		"@nestjs/testing": "^11.0.0",
+		"prisma": "^6.17.1"
 	}
 }
