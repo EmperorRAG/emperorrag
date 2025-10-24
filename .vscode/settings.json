@@ -96,6 +96,8 @@
 	"terminal.integrated.fontLigatures.enabled": true,
 	"terminal.integrated.shellIntegration.enabled": true,
 	"cSpell.words": [
+		"behaviour",
+		"behaviours",
 		"Chatmode",
 		"chatmodes",
 		"cipe",
@@ -107,6 +109,7 @@
 		"dtos",
 		"emperorrag",
 		"esbuild",
+		"Frontmatter",
 		"healthcheck",
 		"initdb",
 		"isready",
