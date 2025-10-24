@@ -193,5 +193,14 @@
 		"[Monokai]": {
 			"editor.background": "#000000"
 		}
-	}
+	},
+	"markdownlint.lintWorkspaceGlobs": [
+		"**/*.{md,mkd,mdwn,mdown,markdown,markdn,mdtxt,mdtext,workbook}",
+		"!**/*.code-search",
+		"!**/bower_components",
+		"!**/node_modules",
+		"!**/.git",
+		"!**/vendor",
+		"!**/*.{prompt,instructions,chatmode}.{md,mkd,mdwn,mdown,markdown,markdn,mdtxt,mdtext,workbook}"
+	]
 }
