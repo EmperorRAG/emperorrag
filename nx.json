@@ -80,5 +80,12 @@
         "^build"
       ]
     }
+  },
+  "generators": {
+    "@nx/react": {
+      "library": {
+        "unitTestRunner": "vitest"
+      }
+    }
   }
 }
