@@ -1,81 +1,105 @@
 import type { ReactNode } from 'react';
 
 /**
- * Represents a single JSON record accepted by the datagrid.
- *
- * TODO: Enforce stronger typing via a generic (e.g., DatagridRecord<TSchema>) when the
- *       downstream API supports schema inference. For now we accept unknown values so the
- *       helpers can coerce data safely.
+ * Base schema contract for datagrid records.
  */
-export type DatagridRecord = Record<string, unknown>;
+export type DatagridSchema = Record<string, unknown>;
 
 /**
- * TODO: Replace the placeholder union for primitive cell values with a schema-aware type.
- *       This will make it easier to render formatted values (dates, currency, etc.).
+ * Represents an immutable record consumed by the datagrid.
  */
-export type DatagridPrimitive = string | number | boolean | null | undefined | Date;
+export type DatagridRecord<TSchema extends DatagridSchema = DatagridSchema> = Readonly<TSchema>;
+
+/**
+ * Extracts primitive-like values from a schema for lightweight formatting.
+ */
+export type DatagridPrimitive<
+	TSchema extends DatagridSchema = DatagridSchema
+> = Extract<TSchema[keyof TSchema], string | number | boolean | null | undefined | Date>;
+
+/**
+ * Accessor responsible for retrieving column values from a record.
+ */
+export type DatagridAccessor<
+	TRecord extends DatagridRecord,
+	TValue
+> = (record: TRecord) => TValue;
+
+/**
+ * Context passed to cell renderers when computing display output.
+ */
+export interface DatagridCellRenderContext<
+	TRecord extends DatagridRecord,
+	TValue
+> {
+	readonly record: TRecord;
+	readonly column: DatagridColumn<TRecord, TValue>;
+	readonly rowId: string;
+	readonly value: TValue;
+}
 
 /**
  * Minimal descriptor for a normalized cell ready for render.
- *
- * TODO: Expand `displayValue` to support richer cell renderers (icons, badges) once the
- *       component exposes render prop overrides.
  */
-export interface DatagridCell {
+export interface DatagridCell<
+	TRecord extends DatagridRecord = DatagridRecord,
+	TValue = unknown
+> {
 	readonly columnId: string;
 	readonly key: string;
-	readonly rawValue: unknown;
+	readonly rawValue: TValue;
 	readonly displayValue?: ReactNode;
+	readonly render?: (context: DatagridCellRenderContext<TRecord, TValue>) => ReactNode;
 }
 
 /**
  * Metadata describing a single column.
- *
- * TODO: Confirm whether `unknown` is sufficient once formatting helpers land; if not,
- *       introduce a refined return type during the implementation pass.
  */
-export interface DatagridColumn {
+export interface DatagridColumn<
+	TRecord extends DatagridRecord = DatagridRecord,
+	TValue = unknown
+> {
 	readonly id: string;
 	readonly header: string;
-	readonly accessor: (record: DatagridRecord) => unknown;
+	readonly accessor: DatagridAccessor<TRecord, TValue>;
 	readonly width?: string;
 	readonly isSortable?: boolean;
 	readonly alignment?: 'left' | 'center' | 'right';
+	readonly renderCell?: (context: DatagridCellRenderContext<TRecord, TValue>) => ReactNode;
 }
 
 /**
  * Structured representation of a row after projection.
- *
- * TODO: Add memoized `key` derivation (vs. exposing a string literal) once the row projection
- *       helper ensures stable keys independent of render order.
  */
-export interface DatagridRow {
+export interface DatagridRow<
+	TRecord extends DatagridRecord = DatagridRecord
+> {
 	readonly id: string;
-	readonly cells: ReadonlyArray<DatagridCell>;
-	readonly original: DatagridRecord;
+	readonly key: string;
+	readonly cells: ReadonlyArray<DatagridCell<TRecord, unknown>>;
+	readonly original: TRecord;
 }
 
 /**
  * Optional callbacks accepted by the datagrid for deriving metadata.
- *
- * TODO: Keep these callbacks lightweight; avoid over-complicating the contract unless future
- *       requirements demand richer data structures.
  */
-export interface DatagridAccessors {
-	readonly rowId?: (record: DatagridRecord, index: number) => string;
+export interface DatagridAccessors<
+	TRecord extends DatagridRecord = DatagridRecord
+> {
+	readonly rowId?: (record: TRecord, index: number) => string;
 	readonly emptyMessage?: string;
 	readonly errorMessage?: string;
 }
 
 /**
  * Props accepted by the Datagrid component.
- *
- * TODO: Promote `columns` to a generic type parameter so downstream consumers can enforce
- *       stronger compile-time guarantees for accessor keys.
  */
-export interface DatagridProps extends DatagridAccessors {
-	readonly data: ReadonlyArray<DatagridRecord>;
-	readonly columns?: ReadonlyArray<DatagridColumn>;
+export interface DatagridProps<
+	TRecord extends DatagridRecord = DatagridRecord,
+	TColumn extends DatagridColumn<TRecord, unknown> = DatagridColumn<TRecord, unknown>
+> extends DatagridAccessors<TRecord> {
+	readonly data: ReadonlyArray<TRecord>;
+	readonly columns?: ReadonlyArray<TColumn>;
 	readonly isLoading?: boolean;
 	readonly caption?: string;
 	readonly emptyState?: ReactNode;
@@ -84,22 +108,47 @@ export interface DatagridProps extends DatagridAccessors {
 
 /**
  * Parameters accepted when deriving column metadata from raw props.
- *
- * TODO: Consider swapping `initialColumns` for a discriminated union if optional cases grow.
  */
-export interface DeriveColumnsParams {
-	readonly initialColumns?: ReadonlyArray<DatagridColumn>;
-	readonly records: ReadonlyArray<DatagridRecord>;
+export interface DeriveColumnsParams<
+	TRecord extends DatagridRecord = DatagridRecord,
+	TColumn extends DatagridColumn<TRecord, unknown> = DatagridColumn<TRecord, unknown>
+> {
+	readonly initialColumns?: ReadonlyArray<TColumn>;
+	readonly records: ReadonlyArray<TRecord>;
 }
 
 /**
  * Parameters accepted when projecting rows for render.
- *
- * TODO: Keep the parameter surface focused on projection concerns; new behaviours can extend
- *       the shape as features evolve.
  */
-export interface ProjectRowsParams {
-	readonly columns: ReadonlyArray<DatagridColumn>;
-	readonly records: ReadonlyArray<DatagridRecord>;
-	readonly rowId?: (record: DatagridRecord, index: number) => string;
+export interface ProjectRowsParams<
+	TRecord extends DatagridRecord = DatagridRecord,
+	TColumn extends DatagridColumn<TRecord, unknown> = DatagridColumn<TRecord, unknown>
+> {
+	readonly columns: ReadonlyArray<TColumn>;
+	readonly records: ReadonlyArray<TRecord>;
+	readonly rowId?: (record: TRecord, index: number) => string;
+}
+
+/**
+ * Internal factory input for building individual cell descriptors.
+ */
+export interface DatagridCellFactoryInput<
+	TRecord extends DatagridRecord = DatagridRecord
+> {
+	readonly column: DatagridColumn<TRecord, unknown>;
+	readonly record: TRecord;
+	readonly rowId: string;
+	readonly columnIndex: number;
+}
+
+/**
+ * Internal factory input for building datagrid rows.
+ */
+export interface DatagridRowFactoryInput<
+	TRecord extends DatagridRecord = DatagridRecord
+> {
+	readonly record: TRecord;
+	readonly index: number;
+	readonly columns: ReadonlyArray<DatagridColumn<TRecord, unknown>>;
+	readonly rowIdAccessor?: (record: TRecord, index: number) => string;
 }
