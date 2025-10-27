@@ -50,7 +50,7 @@ vitest.config.*.timestamp*
 test-output
 
 # Prisma generated files
-**/prisma/generated/
+**/prisma/generated
 
 # Environment files
 **/*.env
