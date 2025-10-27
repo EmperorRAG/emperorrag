@@ -3,9 +3,15 @@ import { render } from '@testing-library/react';
 import Datagrid from './datagrid';
 
 describe('Datagrid', () => {
-
   it('should render successfully', () => {
-    const { baseElement } = render(<Datagrid />);
+    const { baseElement } = render(
+      <Datagrid
+        data={[]}
+        columns={[]}
+        emptyMessage="No rows yet"
+        errorMessage="Something went wrong"
+      />,
+    );
     expect(baseElement).toBeTruthy();
   });
 
