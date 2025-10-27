@@ -1,0 +1,535 @@
+{
+	"info": {
+		"name": "Better Auth NestJS Microservice",
+		"_postman_id": "c0a23a9d-9135-45bf-9f6c-0ab5f1b86a4a",
+		"description": "Collection covering REST endpoints exposed by the Better Auth NestJS microservice. Environment variables let you toggle between dev/staging deployments.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3333",
+			"type": "string"
+		},
+		{
+			"key": "betterAuthSession",
+			"value": "",
+			"type": "string",
+			"description": "Session cookie returned by Better Auth sign-in endpoints (better-auth.session)."
+		},
+		{
+			"key": "apiKeyId",
+			"value": "",
+			"type": "string",
+			"description": "Populate after creating an API key so you can delete it."
+		},
+		{
+			"key": "organizationId",
+			"value": "",
+			"type": "string",
+			"description": "Set this to target a specific organization for detail lookups."
+		},
+		{
+			"key": "userId",
+			"value": "",
+			"type": "string",
+			"description": "Admin-only routes require a concrete user identifier."
+		},
+		{
+			"key": "apiKeyName",
+			"value": "Local Dev Key",
+			"type": "string"
+		},
+		{
+			"key": "apiKeyExpirySeconds",
+			"value": "604800",
+			"type": "string"
+		},
+		{
+			"key": "organizationName",
+			"value": "My Local Org",
+			"type": "string"
+		},
+		{
+			"key": "organizationSlug",
+			"value": "my-local-org",
+			"type": "string"
+		},
+		{
+			"key": "twoFactorPassword",
+			"value": "SuperSecret123!",
+			"type": "string"
+		},
+		{
+			"key": "twoFactorCode",
+			"value": "123456",
+			"type": "string"
+		},
+		{
+			"key": "emailAddress",
+			"value": "dev.user@example.com",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "BetterAuthPass123!",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Application",
+			"item": [
+				{
+					"name": "Get API greeting",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api",
+							"host": ["{{baseUrl}}"],
+							"path": ["api"]
+						},
+						"description": "Returns the default message from AppController. Useful smoke test for the service layer."
+					}
+				}
+			]
+		},
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "Service health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/health",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "health"]
+						},
+						"description": "Composite readiness payload including database ping, uptime, and memory metrics."
+					}
+				},
+				{
+					"name": "Readiness",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/health/ready",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "health", "ready"]
+						},
+						"description": "Checks that the microservice can reach Postgres. HTTP 200 => ready; non-200 includes failure detail."
+					}
+				},
+				{
+					"name": "Liveness",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/health/live",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "health", "live"]
+						},
+						"description": "Simple heartbeat endpoint confirming the process is running."
+					}
+				}
+			]
+		},
+		{
+			"name": "Better Auth Core",
+			"item": [
+				{
+					"name": "Sign up (email & password)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{emailAddress}}\",\n  \"password\": \"{{password}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/sign-up/email",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "sign-up", "email"]
+						},
+						"description": "Registers a new account via Better Auth's email/password flow. Response sets a Better Auth session cookie when success=true."
+					}
+				},
+				{
+					"name": "Sign in (email & password)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{emailAddress}}\",\n  \"password\": \"{{password}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/sign-in/email",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "sign-in", "email"]
+						},
+						"description": "Authenticates with Better Auth. Copy the Set-Cookie header value (better-auth.session) into the {{betterAuthSession}} collection variable for protected routes."
+					}
+				},
+				{
+					"name": "Sign out",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "better-auth.session={{betterAuthSession}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/sign-out",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "sign-out"]
+						},
+						"description": "Invalidates the current Better Auth session."
+					}
+				},
+				{
+					"name": "Session info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "better-auth.session={{betterAuthSession}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/session",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "session"]
+						},
+						"description": "Returns the active session payload for the supplied Better Auth cookie."
+					}
+				}
+			],
+			"description": "Raw Better Auth endpoints provided by @thallesp/nestjs-better-auth."
+		},
+		{
+			"name": "Custom Auth APIs",
+			"description": "Routes backed by better-auth-utilities adapter services. All require the Better Auth session cookie except the health probe.",
+			"item": [
+				{
+					"name": "Adapters health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/api/custom-auth/health",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "api", "custom-auth", "health"]
+						},
+						"description": "Confirms the custom adapter controller is wired up. Public endpoint."
+					}
+				},
+				{
+					"name": "Current profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "better-auth.session={{betterAuthSession}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/api/custom-auth/me",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "api", "custom-auth", "me"]
+						},
+						"description": "Returns the Better Auth user and session information for the authenticated caller."
+					}
+				},
+				{
+					"name": "Create API key",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Cookie",
+								"value": "better-auth.session={{betterAuthSession}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{apiKeyName}}\",\n  \"expiresIn\": {{apiKeyExpirySeconds}}\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/api/custom-auth/api-keys",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "api", "custom-auth", "api-keys"]
+						},
+						"description": "Creates an API key scoped to the authenticated user. Save the response token and id for subsequent requests."
+					}
+				},
+				{
+					"name": "List API keys",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "better-auth.session={{betterAuthSession}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/api/custom-auth/api-keys",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "api", "custom-auth", "api-keys"]
+						},
+						"description": "Lists API keys owned by the current user."
+					}
+				},
+				{
+					"name": "Delete API key",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "better-auth.session={{betterAuthSession}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/api/custom-auth/api-keys/{{apiKeyId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "api", "custom-auth", "api-keys", "{{apiKeyId}}"]
+						},
+						"description": "Deletes a specific API key. Set {{apiKeyId}} first (from the List or Create response)."
+					}
+				},
+				{
+					"name": "List organizations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "better-auth.session={{betterAuthSession}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/api/custom-auth/organizations",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "api", "custom-auth", "organizations"]
+						},
+						"description": "Returns organizations accessible to the current user."
+					}
+				},
+				{
+					"name": "Create organization",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Cookie",
+								"value": "better-auth.session={{betterAuthSession}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{organizationName}}\",\n  \"slug\": \"{{organizationSlug}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/api/custom-auth/organizations",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "api", "custom-auth", "organizations"]
+						},
+						"description": "Creates an organization via the OrganizationService adapter."
+					}
+				},
+				{
+					"name": "Get organization",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "better-auth.session={{betterAuthSession}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/api/custom-auth/organizations/{{organizationId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "api", "custom-auth", "organizations", "{{organizationId}}"]
+						},
+						"description": "Fetches details for a single organization. Set {{organizationId}} first."
+					}
+				},
+				{
+					"name": "Enable 2FA",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Cookie",
+								"value": "better-auth.session={{betterAuthSession}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"password\": \"{{twoFactorPassword}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/api/custom-auth/2fa/enable",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "api", "custom-auth", "2fa", "enable"]
+						},
+						"description": "Starts the TOTP two-factor enrollment flow for the current user."
+					}
+				},
+				{
+					"name": "Verify 2FA",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Cookie",
+								"value": "better-auth.session={{betterAuthSession}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"code\": \"{{twoFactorCode}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/api/custom-auth/2fa/verify",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "api", "custom-auth", "2fa", "verify"]
+						},
+						"description": "Confirms the TOTP code generated by the user's authenticator app."
+					}
+				},
+				{
+					"name": "Disable 2FA",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Cookie",
+								"value": "better-auth.session={{betterAuthSession}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"password\": \"{{twoFactorPassword}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/api/custom-auth/2fa/disable",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "api", "custom-auth", "2fa", "disable"]
+						},
+						"description": "Removes the current user's two-factor requirement after verifying their password."
+					}
+				},
+				{
+					"name": "List users (admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "better-auth.session={{betterAuthSession}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/api/custom-auth/admin/users",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "api", "custom-auth", "admin", "users"]
+						},
+						"description": "Admin-only endpoint returning all users. Requires an admin role in Better Auth."
+					}
+				},
+				{
+					"name": "Update user role (admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Cookie",
+								"value": "better-auth.session={{betterAuthSession}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"role\": \"admin\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/api/custom-auth/admin/users/{{userId}}/role",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "api", "custom-auth", "admin", "users", "{{userId}}", "role"]
+						},
+						"description": "Admin-only role mutation. Set {{userId}} and adjust the body to the desired role."
+					}
+				}
+			]
+		}
+	]
+}
