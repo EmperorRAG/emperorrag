@@ -26,9 +26,5 @@
     "src/**/*.spec.ts",
     "src/**/*.test.ts"
   ],
-  "references": [
-    {
-      "path": "../../packages/better-auth-utilities/tsconfig.lib.json"
-    }
-  ]
+  "references": []
 }
