@@ -6,65 +6,17 @@
 
 import { Module } from '@nestjs/common';
 import { AuthModule as BetterAuthModule } from '@thallesp/nestjs-better-auth';
-import {
-  AdminModule,
-  APIKeyModule,
-  BearerModule,
-  EmailOTPModule,
-  JWTModule,
-  OrganizationModule,
-  TwoFactorModule,
-  UsernameModule,
-} from '@emperorrag/better-auth-utilities';
 import { auth } from '../../lib/auth';
-import { AuthController } from './auth.controller';
 
 /**
  * Auth Module
  *
  * Combines @thallesp/nestjs-better-auth for core authentication
- * with better-auth-utilities adapter modules for type-safe plugin operations.
- *
- * The adapter modules provide:
- * - AdminModule: Role-based access control operations
- * - APIKeyModule: API key creation, verification, and management
- * - BearerModule: Bearer token authentication
- * - EmailOTPModule: One-time password via email
- * - JWTModule: JWT token operations
- * - OrganizationModule: Multi-tenancy and team management
- * - TwoFactorModule: Two-factor authentication (TOTP)
- * - UsernameModule: Custom username authentication
- *
- * Each module provides an injectable service for dependency injection:
- * - AdminService, APIKeyService, BearerService, etc.
+ * by mounting the generated Better Auth handler and exporting
+ * the configured module for use throughout the application.
  */
 @Module({
-  imports: [
-    // Core Better Auth integration
-    BetterAuthModule.forRoot({auth}),
-
-    // Better-auth-utilities adapter modules
-    AdminModule.forRoot({ auth, isGlobal: false }),
-    APIKeyModule.forRoot({ auth, isGlobal: false }),
-    BearerModule.forRoot({ auth, isGlobal: false }),
-    EmailOTPModule.forRoot({ auth, isGlobal: false }),
-    JWTModule.forRoot({ auth, isGlobal: false }),
-    OrganizationModule.forRoot({ auth, isGlobal: false }),
-    TwoFactorModule.forRoot({ auth, isGlobal: false }),
-    UsernameModule.forRoot({ auth, isGlobal: false }),
-  ],
-  controllers: [AuthController],
-  providers: [],
-  exports: [
-    BetterAuthModule,
-    AdminModule,
-    APIKeyModule,
-    BearerModule,
-    EmailOTPModule,
-    JWTModule,
-    OrganizationModule,
-    TwoFactorModule,
-    UsernameModule,
-  ],
+  imports: [BetterAuthModule.forRoot({ auth })],
+  exports: [BetterAuthModule],
 })
 export class AuthModule {}
