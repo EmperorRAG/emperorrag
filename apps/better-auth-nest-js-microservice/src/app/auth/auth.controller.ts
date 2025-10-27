@@ -23,7 +23,7 @@ import {
   AuthGuard,
   Session,
   type UserSession,
-  Public,
+  AllowAnonymous,
 } from '@thallesp/nestjs-better-auth';
 import {
   APIKeyService,
@@ -82,7 +82,7 @@ export class AuthController {
    * Public health check endpoint
    */
   @Get('health')
-  @Public()
+  @AllowAnonymous()
   async health() {
     return {
       status: 'ok',
