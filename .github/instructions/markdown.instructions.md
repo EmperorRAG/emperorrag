@@ -27,7 +27,7 @@ Follow these guidelines for formatting and structuring your markdown content:
 -   **Links**: Use `[link text](URL)` for links. Ensure that the link text is descriptive and the URL is valid.
 -   **Images**: Use `![alt text](image URL)` for images. Include a brief description of the image in the alt text.
 -   **Tables**: Use `|` to create tables. Ensure that columns are properly aligned and headers are included.
--   **Line Length**: Break lines at 80 characters to improve readability. Use soft line breaks for long paragraphs.
+-   **Line Length**: Break lines at 160 characters to improve readability. Use soft line breaks for long paragraphs.
 -   **Whitespace**: Use blank lines to separate sections and improve readability. Avoid excessive whitespace and never use hard tabs; rely on spaces for indentation.
 
 ## Validation Requirements
