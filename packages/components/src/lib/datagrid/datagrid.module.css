@@ -1,24 +1,48 @@
-/* TODO: Add baseline table styling, spacing, and typography rules. */
+/* Baseline table styling constrained for proof-of-concept usage. */
 .container {
-	/* TODO: Use logical properties for padding/margins so RTL support is automatic. */
-	/* TODO: Introduce CSS variables (e.g., --datagrid-border-color) for theming hooks. */
-	--datagrid-container-placeholder: 0;
+	--datagrid-border-color: rgba(15, 23, 42, 0.12);
+	--datagrid-header-background: rgba(15, 23, 42, 0.05);
+	--datagrid-row-hover-background: rgba(15, 23, 42, 0.08);
+	--datagrid-row-alt-background: rgba(15, 23, 42, 0.04);
+	--datagrid-focus-outline-color: #2563eb;
+	padding-block: 0.5rem;
+	padding-inline: 0.5rem;
+	overflow-x: auto;
 }
 
 .table {
-	/* TODO: Collapse borders, set 100% width, and inherit font-size for responsive layout. */
-	/* TODO: Add `table-layout: fixed` once column resizing is implemented. */
-	--datagrid-table-placeholder: 0;
+	width: 100%;
+	border-collapse: collapse;
+	font-size: inherit;
+	line-height: 1.5;
+	background-color: white;
+	color: inherit;
+}
+
+.table thead th,
+.table tbody td {
+	padding-block: 0.625rem;
+	padding-inline: 0.75rem;
+	border: 1px solid var(--datagrid-border-color);
 }
 
 .headerCell {
-	/* TODO: Apply font-weight, uppercase transforms, and subtle background contrast. */
-	/* TODO: Use `text-align` modifiers matching column alignment metadata. */
-	--datagrid-header-placeholder: 0;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	font-weight: 600;
+	background-color: var(--datagrid-header-background);
+	text-align: left;
 }
 
-.bodyRow {
-	/* TODO: Provide alternating row styling or hover states. */
-	/* TODO: Ensure focus styles meet WCAG contrast ratios for keyboard navigation. */
-	--datagrid-row-placeholder: 0;
+.bodyRow:nth-child(even) td {
+	background-color: var(--datagrid-row-alt-background);
+}
+
+.bodyRow:hover td {
+	background-color: var(--datagrid-row-hover-background);
+}
+
+.bodyRow:focus-within td {
+	outline: 2px solid var(--datagrid-focus-outline-color);
+	outline-offset: -2px;
 }
