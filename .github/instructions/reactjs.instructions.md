@@ -125,6 +125,7 @@ Instructions for building high-quality ReactJS applications with modern patterns
 -   Implement integration tests for complex component interactions
 -   Mock external dependencies and API calls appropriately
 -   Test accessibility features and keyboard navigation
+-   Place unit-focused specs in `*.spec.tsx` files; reserve Storybook stories and `play` functions for integration-style interaction coverage
 
 ### Security
 
