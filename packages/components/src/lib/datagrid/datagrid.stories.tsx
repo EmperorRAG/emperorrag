@@ -85,7 +85,7 @@ export const CustomColumnOrder = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const headers = canvas.getAllByRole('columnheader');
-    expect(headers.length).toBe(3);
+    expect(headers.length).toBe(7);
     const headerTexts = headers.map(
       (header) => (header as { textContent: string | null }).textContent ?? ''
     );
@@ -93,6 +93,10 @@ export const CustomColumnOrder = {
       'Full Name',
       'Email Address',
       'Status',
+      'id',
+      'firstName',
+      'lastName',
+      'active'
     ]);
   },
 } satisfies Story;
