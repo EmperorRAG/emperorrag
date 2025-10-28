@@ -11,61 +11,25 @@ export type DatagridSchema = Record<string, unknown>;
 export type DatagridRecord<TSchema extends DatagridSchema = DatagridSchema> = Readonly<TSchema>;
 
 /**
- * Extracts primitive-like values from a schema for lightweight formatting.
- */
-export type DatagridPrimitive<
-	TSchema extends DatagridSchema = DatagridSchema
-> = Extract<TSchema[keyof TSchema], string | number | boolean | null | undefined | Date>;
-
-/**
- * Accessor responsible for retrieving column values from a record.
- */
-export type DatagridAccessor<
-	TRecord extends DatagridRecord,
-	TValue
-> = (record: TRecord) => TValue;
-
-/**
- * Context passed to cell renderers when computing display output.
- */
-export interface DatagridCellRenderContext<
-	TRecord extends DatagridRecord,
-	TValue
-> {
-	readonly record: TRecord;
-	readonly column: DatagridColumn<TRecord, TValue>;
-	readonly rowId: string;
-	readonly value: TValue;
-}
-
-/**
  * Minimal descriptor for a normalized cell ready for render.
  */
 export interface DatagridCell<
-	TRecord extends DatagridRecord = DatagridRecord,
-	TValue = unknown
+	TRecord extends DatagridRecord = DatagridRecord
 > {
 	readonly columnId: string;
 	readonly key: string;
-	readonly rawValue: TValue;
-	readonly displayValue?: ReactNode;
-	readonly render?: (context: DatagridCellRenderContext<TRecord, TValue>) => ReactNode;
+	readonly rawValue: unknown;
 }
 
 /**
  * Metadata describing a single column.
  */
 export interface DatagridColumn<
-	TRecord extends DatagridRecord = DatagridRecord,
-	TValue = unknown
+	TRecord extends DatagridRecord = DatagridRecord
 > {
 	readonly id: string;
 	readonly header: string;
-	readonly accessor: DatagridAccessor<TRecord, TValue>;
-	readonly width?: string;
-	readonly isSortable?: boolean;
-	readonly alignment?: 'left' | 'center' | 'right';
-	readonly renderCell?: (context: DatagridCellRenderContext<TRecord, TValue>) => ReactNode;
+	readonly accessor: (record: TRecord) => unknown;
 }
 
 /**
@@ -75,8 +39,7 @@ export interface DatagridRow<
 	TRecord extends DatagridRecord = DatagridRecord
 > {
 	readonly id: string;
-	readonly key: string;
-	readonly cells: ReadonlyArray<DatagridCell<TRecord, unknown>>;
+	readonly cells: ReadonlyArray<DatagridCell<TRecord>>;
 	readonly original: TRecord;
 }
 
@@ -96,7 +59,7 @@ export interface DatagridAccessors<
  */
 export interface DatagridProps<
 	TRecord extends DatagridRecord = DatagridRecord,
-	TColumn extends DatagridColumn<TRecord, unknown> = DatagridColumn<TRecord, unknown>
+	TColumn extends DatagridColumn<TRecord> = DatagridColumn<TRecord>
 > extends DatagridAccessors<TRecord> {
 	readonly data: ReadonlyArray<TRecord>;
 	readonly columns?: ReadonlyArray<TColumn>;
@@ -111,7 +74,7 @@ export interface DatagridProps<
  */
 export interface DeriveColumnsParams<
 	TRecord extends DatagridRecord = DatagridRecord,
-	TColumn extends DatagridColumn<TRecord, unknown> = DatagridColumn<TRecord, unknown>
+	TColumn extends DatagridColumn<TRecord> = DatagridColumn<TRecord>
 > {
 	readonly initialColumns?: ReadonlyArray<TColumn>;
 	readonly records: ReadonlyArray<TRecord>;
@@ -122,7 +85,7 @@ export interface DeriveColumnsParams<
  */
 export interface ProjectRowsParams<
 	TRecord extends DatagridRecord = DatagridRecord,
-	TColumn extends DatagridColumn<TRecord, unknown> = DatagridColumn<TRecord, unknown>
+	TColumn extends DatagridColumn<TRecord> = DatagridColumn<TRecord>
 > {
 	readonly columns: ReadonlyArray<TColumn>;
 	readonly records: ReadonlyArray<TRecord>;
@@ -135,7 +98,7 @@ export interface ProjectRowsParams<
 export interface DatagridCellFactoryInput<
 	TRecord extends DatagridRecord = DatagridRecord
 > {
-	readonly column: DatagridColumn<TRecord, unknown>;
+	readonly column: DatagridColumn<TRecord>;
 	readonly record: TRecord;
 	readonly rowId: string;
 	readonly columnIndex: number;
@@ -149,6 +112,6 @@ export interface DatagridRowFactoryInput<
 > {
 	readonly record: TRecord;
 	readonly index: number;
-	readonly columns: ReadonlyArray<DatagridColumn<TRecord, unknown>>;
+	readonly columns: ReadonlyArray<DatagridColumn<TRecord>>;
 	readonly rowIdAccessor?: (record: TRecord, index: number) => string;
 }

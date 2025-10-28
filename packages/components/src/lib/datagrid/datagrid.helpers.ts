@@ -63,9 +63,8 @@ const toKebabCase = (value: string): string =>
  * @returns {DatagridColumn} A new column instance with a normalized identifier.
  */
 const normalizeColumn = <
-  TRecord extends DatagridRecord,
-  TValue
->(column: DatagridColumn<TRecord, TValue>): DatagridColumn<TRecord, TValue> =>
+  TRecord extends DatagridRecord
+>(column: DatagridColumn<TRecord>): DatagridColumn<TRecord> =>
   pipe(
     column,
     (current) => ({
@@ -86,11 +85,11 @@ const normalizeColumn = <
  * @returns {ReadonlyArray<DatagridColumn>} A normalized copy of the input columns.
  */
 const normalizeColumns = <
-	TRecord extends DatagridRecord
+  TRecord extends DatagridRecord
 >(
-	columns: ReadonlyArray<DatagridColumn<TRecord, unknown>>
-): ReadonlyArray<DatagridColumn<TRecord, unknown>> =>
-	pipe(columns, map((column) => normalizeColumn(column)));
+  columns: ReadonlyArray<DatagridColumn<TRecord>>
+): ReadonlyArray<DatagridColumn<TRecord>> =>
+  pipe(columns, map((column) => normalizeColumn(column)));
 
 /**
  * Creates column metadata for a single record key.
@@ -105,10 +104,10 @@ const normalizeColumns = <
  */
 const createColumnFromKey = <
   TRecord extends DatagridRecord
->(key: keyof TRecord & string): DatagridColumn<TRecord, unknown> =>
+>(key: keyof TRecord & string): DatagridColumn<TRecord> =>
   pipe(
     toKebabCase(key),
-    (columnId): DatagridColumn<TRecord, unknown> => ({
+    (columnId): DatagridColumn<TRecord> => ({
       id: columnId,
       header: key,
       accessor: (record: TRecord) => record[key],
@@ -127,8 +126,8 @@ const createColumnFromKey = <
  * @returns {ReadonlyArray<DatagridColumn>} Column metadata derived from the record keys.
  */
 const createColumnsFromRecord = <
-	TRecord extends DatagridRecord
->(record: TRecord): ReadonlyArray<DatagridColumn<TRecord, unknown>> =>
+  TRecord extends DatagridRecord
+>(record: TRecord): ReadonlyArray<DatagridColumn<TRecord>> =>
 	pipe(
 		Object.keys(record) as Array<keyof TRecord & string>,
 		map((key) => createColumnFromKey<TRecord>(key))
@@ -150,16 +149,16 @@ const deriveColumnsFromRecords = <
   TRecord extends DatagridRecord
 >(
   records: ReadonlyArray<TRecord>
-): ReadonlyArray<DatagridColumn<TRecord, unknown>> =>
+): ReadonlyArray<DatagridColumn<TRecord>> =>
   Match.value(records).pipe(
-    Match.when((items) => !isNonEmptyArray(items), () => [] as ReadonlyArray<DatagridColumn<TRecord, unknown>>),
+    Match.when((items) => !isNonEmptyArray(items), () => [] as ReadonlyArray<DatagridColumn<TRecord>>),
     Match.orElse(() =>
       pipe(
         records,
         head,
         Option.match({
           onSome: (record) => normalizeColumns(createColumnsFromRecord(record)),
-          onNone: () => [] as ReadonlyArray<DatagridColumn<TRecord, unknown>>,
+          onNone: () => [] as ReadonlyArray<DatagridColumn<TRecord>>,
         })
       )
     )
@@ -180,9 +179,9 @@ const deriveColumnsFromRecords = <
 const appendMissingColumns = <
   TRecord extends DatagridRecord
 >(
-  provided: ReadonlyArray<DatagridColumn<TRecord, unknown>>,
-  fallback: ReadonlyArray<DatagridColumn<TRecord, unknown>>
-): ReadonlyArray<DatagridColumn<TRecord, unknown>> =>
+  provided: ReadonlyArray<DatagridColumn<TRecord>>,
+  fallback: ReadonlyArray<DatagridColumn<TRecord>>
+): ReadonlyArray<DatagridColumn<TRecord>> =>
   pipe(
     fallback,
     filter((candidate) =>
@@ -242,10 +241,10 @@ const resolveRowId = <
 const createCells = <
 	TRecord extends DatagridRecord
 >(
-	columns: ReadonlyArray<DatagridColumn<TRecord, unknown>>,
+  columns: ReadonlyArray<DatagridColumn<TRecord>>,
 	record: TRecord,
 	rowId: string
-): ReadonlyArray<DatagridCell<TRecord, unknown>> =>
+): ReadonlyArray<DatagridCell<TRecord>> =>
 	pipe(
 		columns,
 		map((column, columnIndex) =>
@@ -271,14 +270,13 @@ const createCells = <
  */
 const createCell = <
   TRecord extends DatagridRecord
->(input: DatagridCellFactoryInput<TRecord>): DatagridCell<TRecord, unknown> =>
+>(input: DatagridCellFactoryInput<TRecord>): DatagridCell<TRecord> =>
   pipe(
     input.column.accessor(input.record),
     (rawValue) => ({
       columnId: input.column.id,
       key: `${input.rowId}-${input.column.id}-${input.columnIndex}`,
       rawValue,
-      render: input.column.renderCell,
     })
   );
 
@@ -300,7 +298,6 @@ const createRow = <
     resolveRowId(input.record, input.index, input.rowIdAccessor),
     (rowId) => ({
       id: rowId,
-      key: rowId,
       original: input.record,
       cells: createCells(input.columns, input.record, rowId),
     })
@@ -329,7 +326,7 @@ export const deriveColumns = <
   TRecord extends DatagridRecord
 >(
   params: DeriveColumnsParams<TRecord>
-): ReadonlyArray<DatagridColumn<TRecord, unknown>> => {
+): ReadonlyArray<DatagridColumn<TRecord>> => {
   const inferredColumns = deriveColumnsFromRecords(params.records);
   return pipe(
     Option.fromNullable(params.initialColumns),
