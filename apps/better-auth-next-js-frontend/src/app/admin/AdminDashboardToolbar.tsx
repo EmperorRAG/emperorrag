@@ -7,10 +7,11 @@ import useAdminPermissions from './useAdminPermissions';
 
 const AdminDashboardToolbar = () => {
   const [searchValue, setSearchValue] = useState('');
-  const { isLoading, permissions } = useAdminPermissions();
-  const canManageUsers = Array.isArray(permissions['user'])
-    ? permissions['user'].includes('create')
-    : false;
+  const {
+    isLoading,
+    canManageUsers,
+    error,
+  } = useAdminPermissions();
 
   // TODO(plan §4): Synchronize toolbar state with server actions from actions.ts.
   // TODO(plan §5): Hook buttons into workflow modals and optimistic updates.
@@ -28,13 +29,15 @@ const AdminDashboardToolbar = () => {
         }}
       />
 
+  {error ? <span role="status">{error}</span> : null}
+
       <div className={styles['toolbarActions']}>
         <button
           type="button"
           onClick={() => {
             // TODO(plan §5): Trigger create-user modal workflow.
           }}
-          disabled={!canManageUsers}
+          disabled={isLoading || !canManageUsers}
         >
           New user
         </button>
