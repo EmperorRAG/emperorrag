@@ -4,23 +4,7 @@ import { useState } from 'react';
 
 import styles from './page.module.css';
 
-interface AdminUserDialogsProps {
-  readonly onCreate?: () => void;
-  readonly onUpdate?: (identifier: string) => void;
-  readonly onBan?: (identifier: string) => void;
-  readonly onUnban?: (identifier: string) => void;
-  readonly onImpersonate?: (identifier: string) => void;
-  readonly onRemove?: (identifier: string) => void;
-}
-
-const AdminUserDialogs = ({
-  onCreate,
-  onUpdate,
-  onBan,
-  onUnban,
-  onImpersonate,
-  onRemove,
-}: AdminUserDialogsProps) => {
+const AdminUserDialogs = () => {
   const [activeUserId, setActiveUserId] = useState<string | null>(null);
 
   // TODO(plan §5): Replace placeholder markup with actual dialog components.
@@ -34,9 +18,7 @@ const AdminUserDialogs = ({
           type="button"
           onClick={() => {
             setActiveUserId('new-user');
-            if (onCreate) {
-              onCreate();
-            }
+            // TODO(plan §5): Trigger createAdminUser action flow.
           }}
         >
           Open create user dialog
@@ -45,10 +27,8 @@ const AdminUserDialogs = ({
           type="button"
           onClick={() => {
             const identifier = activeUserId ?? 'user-id';
-            if (onUpdate) {
-              onUpdate(identifier);
-            }
             // TODO(plan §5): Launch update dialog with selected user.
+            void identifier;
           }}
         >
           Open update dialog
@@ -57,9 +37,8 @@ const AdminUserDialogs = ({
           type="button"
           onClick={() => {
             const identifier = activeUserId ?? 'user-id';
-            if (onBan) {
-              onBan(identifier);
-            }
+            void identifier;
+            // TODO(plan §5): Connect to banAdminUser action.
           }}
         >
           Ban user
@@ -68,9 +47,8 @@ const AdminUserDialogs = ({
           type="button"
           onClick={() => {
             const identifier = activeUserId ?? 'user-id';
-            if (onUnban) {
-              onUnban(identifier);
-            }
+            void identifier;
+            // TODO(plan §5): Connect to unbanAdminUser action.
           }}
         >
           Unban user
@@ -79,9 +57,8 @@ const AdminUserDialogs = ({
           type="button"
           onClick={() => {
             const identifier = activeUserId ?? 'user-id';
-            if (onImpersonate) {
-              onImpersonate(identifier);
-            }
+            void identifier;
+            // TODO(plan §5): Connect to impersonateAdminUser action.
           }}
         >
           Impersonate user
@@ -90,9 +67,8 @@ const AdminUserDialogs = ({
           type="button"
           onClick={() => {
             const identifier = activeUserId ?? 'user-id';
-            if (onRemove) {
-              onRemove(identifier);
-            }
+            void identifier;
+            // TODO(plan §5): Connect to removeAdminUser action.
           }}
         >
           Remove user

@@ -5,15 +5,7 @@ import { useState } from 'react';
 import styles from './page.module.css';
 import useAdminPermissions from './useAdminPermissions';
 
-interface AdminDashboardToolbarProps {
-  readonly onSearch?: (value: string) => void;
-  readonly onRefresh?: () => void;
-}
-
-const AdminDashboardToolbar = ({
-  onSearch,
-  onRefresh,
-}: AdminDashboardToolbarProps) => {
+const AdminDashboardToolbar = () => {
   const [searchValue, setSearchValue] = useState('');
   const { isLoading, permissions } = useAdminPermissions();
   const canManageUsers = Array.isArray(permissions['user'])
@@ -32,10 +24,7 @@ const AdminDashboardToolbar = ({
         onChange={(event) => {
           const value = event.target.value;
           setSearchValue(value);
-          // TODO(plan §5): Debounce search and call onSearch with filters.
-          if (onSearch) {
-            onSearch(value);
-          }
+          // TODO(plan §5): Debounce search and trigger listAdminUsers action.
         }}
       />
 
@@ -53,9 +42,6 @@ const AdminDashboardToolbar = ({
         <button
           type="button"
           onClick={() => {
-            if (onRefresh) {
-              onRefresh();
-            }
             // TODO(plan §5): Revalidate datagrid state after mutations.
           }}
           disabled={isLoading}

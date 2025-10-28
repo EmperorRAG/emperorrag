@@ -17,26 +17,7 @@ const AdminDashboardData = async () => {
         {/* TODO(plan §4): Replace with datagrid once data wiring is complete. */}
         Admin datagrid placeholder
       </div>
-      <AdminUserDialogs
-        onCreate={() => {
-          // TODO(plan §5): Connect to createAdminUser action and modal workflow.
-        }}
-        onUpdate={() => {
-          // TODO(plan §5): Connect to updateAdminUser action with selected record.
-        }}
-        onBan={() => {
-          // TODO(plan §5): Connect to banAdminUser action and revalidation logic.
-        }}
-        onUnban={() => {
-          // TODO(plan §5): Connect to unbanAdminUser action.
-        }}
-        onImpersonate={() => {
-          // TODO(plan §5): Connect to impersonateAdminUser action then redirect.
-        }}
-        onRemove={() => {
-          // TODO(plan §5): Connect to removeAdminUser action and refresh grid.
-        }}
-      />
+      <AdminUserDialogs />
     </div>
   );
 };
@@ -46,14 +27,7 @@ const AdminDashboard = async () => {
     <section className={styles['container']}>
       <div className={styles['header']}>
         <h1>Admin dashboard</h1>
-        <AdminDashboardToolbar
-          onSearch={() => {
-            // TODO(plan §5): Trigger listAdminUsers action with search params.
-          }}
-          onRefresh={() => {
-            // TODO(plan §5): Revalidate server data when refresh is invoked.
-          }}
-        />
+        <AdminDashboardToolbar />
       </div>
 
       <Suspense
