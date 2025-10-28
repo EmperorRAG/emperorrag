@@ -17,6 +17,12 @@
     },
     {
       "path": "./packages/components"
+    },
+    {
+      "path": "./apps/better-auth-next-js-frontend-e2e"
+    },
+    {
+      "path": "./apps/better-auth-next-js-frontend"
     }
   ],
   "ts-node": {

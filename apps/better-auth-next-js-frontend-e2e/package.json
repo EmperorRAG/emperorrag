@@ -1,0 +1,10 @@
+{
+  "name": "better-auth-next-js-frontend-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "implicitDependencies": [
+      "better-auth-next-js-frontend"
+    ]
+  }
+}
