@@ -14,6 +14,16 @@
     },
     {
       "path": "./apps/better-auth-nest-js-microservice"
+    },
+    {
+      "path": "./packages/components"
     }
-  ]
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node10",
+      "customConditions": null
+    }
+  }
 }

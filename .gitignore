@@ -64,3 +64,5 @@ test-output
 # Backups (too large for git)
 **/backups/*.sql
 **/backups/*.dump
+
+storybook-static
