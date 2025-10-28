@@ -15,7 +15,7 @@ and insert TODO comments describing follow-up work.
 ## Scope & Preconditions
 
 -   Use `${input:implementationPlanPath}` as the canonical plan source.
--   Confine edits to `${input:workspaceRoot}` unless the plan specifies external locations.
+-   Confine edits strictly to `${input:projectRoot}` (the current working project directory); never modify files outside this tree.
 -   Respect repository instructions (e.g. `.github/instructions/nextjs.instructions.md`, `.github/instructions/reactjs.instructions.md`, `.github/instructions/markdown.instructions.md`).
 -   Do not implement business logic—only create scaffolding, signatures, and TODOs derived from the plan.
 -   Maintain existing code style, naming, and functional programming conventions highlighted in instructions.
@@ -23,7 +23,7 @@ and insert TODO comments describing follow-up work.
 ## Inputs
 
 -   `${input:implementationPlanPath:Relative path to the plan markdown}`
--   `${input:workspaceRoot:Root folder to treat as scope}`
+-   `${input:projectRoot:Root directory of the current project}`
 -   `${input:pagePath:Target Next.js page entry point}`
 -   `${input:primaryStack:Key framework or stack details}`
 -   `${input:sharedAssets:Comma-separated shared components or utils}`
@@ -45,7 +45,7 @@ and insert TODO comments describing follow-up work.
 
 ## Output Expectations
 
--   Files created/updated under `${input:workspaceRoot}` with stubs and TODO comments aligned to the plan’s sections.
+-   Files created/updated within `${input:projectRoot}` with stubs and TODO comments aligned to the plan’s sections.
 -   TypeScript/TSX signatures must compile under strict settings (no `any`; prefer `unknown` or typed placeholders).
 -   TODO comments should be descriptive and reference the relevant plan section (e.g. `TODO(plan §3): Implement data fetching effect`).
 -   No business logic implementations—only scaffolding and descriptive comments.
