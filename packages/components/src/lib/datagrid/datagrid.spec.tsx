@@ -55,7 +55,7 @@ describe('Datagrid', () => {
       />
     );
 
-  expect(screen.getByText('Loading...')).toBeTruthy();
+    expect(screen.getByText('Loading...')).toBeTruthy();
     const rows = screen.getAllByRole('row');
     expect(rows).toHaveLength(2);
   });
@@ -69,7 +69,7 @@ describe('Datagrid', () => {
       />
     );
 
-  expect(screen.getByText('No entries found')).toBeTruthy();
+    expect(screen.getByText('No entries found')).toBeTruthy();
   });
 
   it('prioritises error messaging over empty state content', () => {
@@ -81,8 +81,8 @@ describe('Datagrid', () => {
       />
     );
 
-  expect(screen.getByText('Unable to load data')).toBeTruthy();
-  expect(screen.queryByText('No entries found')).toBeNull();
+    expect(screen.getByText('Unable to load data')).toBeTruthy();
+    expect(screen.queryByText('No entries found')).toBeNull();
   });
 
   it('renders primitive and JSX cell values consistently', () => {
@@ -125,9 +125,9 @@ describe('Datagrid', () => {
       />
     );
 
-  expect(screen.getByRole('cell', { name: '42' })).toBeTruthy();
-  expect(screen.getByRole('cell', { name: 'True' })).toBeTruthy();
-  expect(screen.getByText('Rendered content')).toBeTruthy();
+    expect(screen.getByRole('cell', { name: '42' })).toBeTruthy();
+    expect(screen.getByRole('cell', { name: 'True' })).toBeTruthy();
+    expect(screen.getByText('Rendered content')).toBeTruthy();
   });
 
   it('should render successfully', () => {

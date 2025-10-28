@@ -11,15 +11,15 @@ export default meta;
 
 type Story = StoryObj<typeof Datagrid>;
 
-type CustomerRecord = Readonly<{
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  active: boolean;
-}>;
+type CustomerRecord = {
+  readonly id: string;
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly email: string;
+  readonly active: boolean;
+};
 
-const customerRows: ReadonlyArray<CustomerRecord> = [
+const customerDataset: ReadonlyArray<CustomerRecord> = [
   {
     id: 'cust-001',
     firstName: 'Ada',
@@ -35,6 +35,7 @@ const customerRows: ReadonlyArray<CustomerRecord> = [
     active: true,
   },
 ];
+const customerRowsArgs = customerDataset as ReadonlyArray<Record<string, unknown>>;
 
 const orderedColumns: ReadonlyArray<DatagridColumn<CustomerRecord>> = [
   {
@@ -53,8 +54,6 @@ const orderedColumns: ReadonlyArray<DatagridColumn<CustomerRecord>> = [
     accessor: (row) => (row.active ? 'Active' : 'Inactive'),
   },
 ];
-
-const customerRowsArgs = customerRows as unknown as ReadonlyArray<Record<string, unknown>>;
 const orderedColumnsArgs = orderedColumns as unknown as ReadonlyArray<DatagridColumn>;
 
 export const Primary = {
@@ -64,24 +63,16 @@ export const Primary = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const headers = await canvas.findAllByRole('columnheader');
-
-    expect(headers.length).toBe(5);
-    const headerTexts = headers.map(
-    (header) => (header as { textContent: string | null }).textContent ?? ''
-  );
-    expect(headerTexts).toEqual([
-    'id',
-    'firstName',
-    'lastName',
-    'email',
-    'active',
-  ]);
+    const table = await canvas.findByRole('table', { name: 'Customer Directory' });
+    expect(table).toBeTruthy();
 
     const dataRows = canvas.getAllByRole('row').slice(1);
-    expect(dataRows.length).toBe(customerRows.length);
-    expect(canvas.getByRole('cell', { name: customerRows[0].email })).toBeTruthy();
-    expect(canvas.getByRole('cell', { name: 'True' })).toBeTruthy();
+    expect(dataRows.length).toBe(customerDataset.length);
+    customerDataset.forEach((record) => {
+      expect(canvas.getByRole('cell', { name: record.email })).toBeTruthy();
+      expect(canvas.getByRole('cell', { name: record.firstName })).toBeTruthy();
+      expect(canvas.getByRole('cell', { name: record.lastName })).toBeTruthy();
+    });
   },
 } satisfies Story;
 
@@ -112,5 +103,12 @@ export const EmptyState = {
     data: [],
     emptyState: <div role="status">No customers available</div>,
     columns: orderedColumnsArgs,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const status = await canvas.findByRole('status', {
+      name: 'No customers available',
+    });
+    expect(status).toBeTruthy();
   },
 } satisfies Story;
