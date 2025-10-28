@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import type { ReactElement } from 'react';
 
 import Datagrid from './datagrid';
@@ -86,7 +86,7 @@ describe('Datagrid', () => {
   });
 
   it('renders primitive and JSX cell values consistently', () => {
-    const contentCell = <span>Rendered content</span>;
+  const jsxCell = <span>Rendered content</span>;
 
     type SampleRow = {
       id: number;
@@ -118,16 +118,23 @@ describe('Datagrid', () => {
           {
             id: 42,
             active: true,
-            content: contentCell,
+            content: jsxCell,
           },
         ]}
         columns={columns}
       />
     );
 
-    expect(screen.getByRole('cell', { name: '42' })).toBeTruthy();
-    expect(screen.getByRole('cell', { name: 'True' })).toBeTruthy();
-    expect(screen.getByText('Rendered content')).toBeTruthy();
+    const dataRow = screen.getAllByRole('row')[1];
+    const cells = within(dataRow).getAllByRole('cell');
+    const [identifierCell, statusCell, contentCellElement] = cells;
+
+    const identifierValue = (identifierCell as { textContent: string | null }).textContent?.trim();
+    const statusValue = (statusCell as { textContent: string | null }).textContent?.trim();
+
+    expect(identifierValue).toBe('42');
+    expect(statusValue).toBe('True');
+    expect(within(contentCellElement).getByText('Rendered content')).toBeTruthy();
   });
 
   it('should render successfully', () => {
