@@ -1,14 +1,8 @@
+import AdminDashboard from './AdminDashboard';
 
-import styles from './page.module.css';
-
-export default function Admin() {
-  return (
-    <div className={styles['container']}>
-      <h1>Welcome to Admin!</h1>
-      
-    </div>
-  );
+const AdminPage = () => {
+  // TODO(plan §4): Provide layout metadata (breadcrumbs, head tags) if needed.
+  return <AdminDashboard />;
 };
 
-
-
+export default AdminPage;
