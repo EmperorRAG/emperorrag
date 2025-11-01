@@ -43,5 +43,5 @@ export type {
   InferAuthClient,
   InferAuthServer,
   ServerConfig,
-
+  User
 } from './lib/better-auth-utilities.ts';

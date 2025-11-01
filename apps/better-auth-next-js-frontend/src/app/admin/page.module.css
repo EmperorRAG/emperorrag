@@ -1,0 +1,8 @@
+.adminPage {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	padding: 2rem;
+
+	/* TODO(plan §4): Refine layout spacing, typography, and responsive behavior for the admin users datagrid. */
+}
