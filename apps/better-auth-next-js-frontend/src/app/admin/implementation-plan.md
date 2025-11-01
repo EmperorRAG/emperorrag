@@ -17,13 +17,12 @@ This plan adheres to the repository's Next.js and React development guidelines, 
 
 ## 1. Backend Responsibilities
 
-The `better-auth-nest-js-microservice` is responsible for providing the necessary data to the frontend.
+The `better-auth-nest-js-microservice` already exposes the required Better Auth endpoints via the `@thallesp/nestjs-better-auth` integration, which maps the Better Auth package and its plugins into NestJS route handlers.
 
-- **Required Endpoint**: A RESTful API endpoint must be available to serve user data.
-  - **URL**: `GET /api/users`
-  - **Description**: Retrieves a list of all users.
-  - **Response**: A JSON array of user objects.
-- **Assumptions**: This plan assumes the endpoint exists and is accessible by the frontend application. If it does not exist, it must be created within the `better-auth-nest-js-microservice` project.
+- **Existing Endpoint**: `GET /api/users` is available out of the box and returns the Better Auth user collection managed by the microservice.
+  - **Description**: Retrieves a list of all users maintained by Better Auth.
+  - **Response**: JSON array of Better Auth user objects matching the shared `User` interface.
+- **Next Steps**: No additional backend development is needed for this POC beyond confirming the service is reachable from the frontend environment.
 
 ## 2. Shared Contracts
 
