@@ -1,4 +1,4 @@
-import Datagrid from '@emperorrag/components'
+import { Datagrid } from '@emperorrag/components'
 import styles from './page.module.css';
 
 const USERS_ENDPOINT = '/api/users';
