@@ -22,6 +22,7 @@ post_date: 2025-11-01
 - NestJS microservice that wraps the Better Auth SDK plus plugins, exposing REST handlers through `@thallesp/nestjs-better-auth`.
 - Prisma (PostgreSQL) is the persistence layer. Schemas and migrations live in `better-auth-db/prisma`.
 - Shared Better Auth glue code lives in `packages/better-auth-utilities`; do **not** place Better Auth contracts or adapters in `packages/utilities` (reserved for generic helpers).
+- `llms.md` sits alongside this file and provides an llms.txt-style index of key source, configuration, and database assets—consult it whenever you need a quick structural map of the project.
 
 ## Setup Commands
 
