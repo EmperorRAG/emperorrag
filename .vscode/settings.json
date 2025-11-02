@@ -37,7 +37,6 @@
 	"editor.defaultFormatter": null,
 	"editor.definitionLinkOpensInPeek": true,
 	"editor.detectIndentation": true,
-	"editor.experimentalGpuAcceleration": "off",
 	"editor.folding": true,
 	"editor.foldingHighlight": true,
 	"editor.foldingImportsByDefault": false,
@@ -209,5 +208,48 @@
 		"!**/vendor",
 		"!**/*.{prompt,instructions,chatmode}.{md,mkd,mdwn,mdown,markdown,markdn,mdtxt,mdtext,workbook}"
 	],
-	"prisma.scriptRunner": "pnpm"
+	"prisma.scriptRunner": "pnpm",
+	"[markdown]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+		"editor.formatOnPaste": true
+	},
+	"terminal.integrated.automationProfile.windows": {
+		"path": "C:\\Program Files\\Git\\bin\\bash.exe"
+	},
+	"terminal.integrated.cursorBlinking": true,
+	"terminal.integrated.cursorStyle": "underline",
+	"terminal.integrated.cursorStyleInactive": "none",
+	"terminal.integrated.enableMultiLinePasteWarning": "always",
+	"terminal.integrated.enableImages": true,
+	"terminal.integrated.smoothScrolling": true,
+	"terminal.integrated.suggest.windowsExecutableExtensions": {
+		"com": false,
+		"msi": false,
+		"pl": false,
+		"rb": false,
+		"vbs": false
+	},
+	"terminal.integrated.tabs.showActions": "always",
+	"terminal.integrated.tabs.showActiveTerminal": "always",
+	"terminal.integrated.windowsUseConptyDll": true,
+	"git.terminalGitEditor": true,
+	"powershell.buttons.showPanelMovementButtons": true,
+	"terminal.integrated.profiles.windows": {
+		"PowerShell": {
+			"source": "PowerShell",
+			"icon": "terminal-powershell",
+			"color": "terminal.ansiCyan"
+		},
+		"Command Prompt": {
+			"path": ["${env:windir}\\Sysnative\\cmd.exe", "${env:windir}\\System32\\cmd.exe"],
+			"args": [],
+			"icon": "terminal-cmd"
+		},
+		"Git Bash": {
+			"source": "Git Bash",
+			"icon": "github",
+			"color": "terminal.ansiGreen"
+		}
+	}
 }
