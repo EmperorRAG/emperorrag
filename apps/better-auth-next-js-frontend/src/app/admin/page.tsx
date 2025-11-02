@@ -66,7 +66,8 @@ const parseUserDates = (user: AdminUserResponse): AdminUser => ({
  * @returns An object containing the normalized user list along with an optional fault message when retrieval fails.
  */
 const fetchUsers = async (): Promise<FetchUsersResult> => {
-  console.log("🚀 ~ fetchUsers ~ USERS_URL:", USERS_URL)
+  // Trace the administrative endpoint invoked for Better Auth user retrieval.
+  console.log('🚀 ~ fetchUsers ~ USERS_URL:', USERS_URL);
   try {
     const response = await fetch(USERS_URL, {
       cache: 'no-store',
@@ -91,6 +92,9 @@ const fetchUsers = async (): Promise<FetchUsersResult> => {
     const payload = (await response.json()) as ReadonlyArray<AdminUserResponse>;
 
     const data: ReadonlyArray<AdminUser> = payload.map((user) => parseUserDates(user));
+
+    // Capture the total number of administrative users received for Console Ninja monitoring.
+    console.log('🚀 ~ fetchUsers ~ data.length:', data.length);
 
     return {
       data,
@@ -154,6 +158,12 @@ const columns = [
  */
 const AdminPage = async () => {
   const { data: users, error } = await fetchUsers();
+
+  // Surface the rendered user count alongside any Better Auth failure messaging.
+  console.log('🚀 ~ AdminPage ~ { users.length, error }:', {
+    usersLength: users.length,
+    error,
+  });
 
   return (
     <section className={styles.adminPage}>
