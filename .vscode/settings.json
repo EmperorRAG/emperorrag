@@ -135,6 +135,7 @@
 		"thallesp",
 		"TOTP",
 		"unban",
+		"Upserts",
 		"vite",
 		"vitest"
 	],
