@@ -9,6 +9,10 @@ import styles from './page.module.css';
 const BASE_URL = process.env.BETTER_AUTH_URL ?? 'http://localhost:3333';
 const USERS_ENDPOINT = '/api/auth/admin/list-users';
 const USERS_URL = new URL(USERS_ENDPOINT, BASE_URL).toString();
+const SIGN_IN_ENDPOINT = '/api/auth/sign-in/email';
+const SIGN_IN_URL = new URL(SIGN_IN_ENDPOINT, BASE_URL).toString();
+const ADMIN_EMAIL = process.env.BETTER_AUTH_NEXT_JS_FRONTEND_EMAIL;
+const ADMIN_PASSWORD = process.env.BETTER_AUTH_NEXT_JS_FRONTEND_PASSWORD;
 
 type AdminUser = User;
 
@@ -26,6 +30,130 @@ interface FetchUsersResult {
   readonly data: ReadonlyArray<AdminUser>;
   readonly error?: string;
 }
+
+interface SignInResult {
+  readonly cookieHeader?: string;
+  readonly error?: string;
+}
+
+/**
+ * @function splitSetCookieHeader
+ * @pure Decomposes a combined `set-cookie` header value into individual cookie directives.
+ * @description Handles comma-delimited cookie segments while preserving embedded attribute commas.
+ * @param headerValue - Raw `set-cookie` header string potentially containing multiple cookies.
+ * @returns Individual cookie directive strings extracted from the header.
+ */
+const splitSetCookieHeader = (headerValue: string): ReadonlyArray<string> =>
+  headerValue.split(/,(?=\s*[^\s]+=)/g).map((segment) => segment.trim());
+
+/**
+ * @function collectSetCookies
+ * @pure Retrieves all `set-cookie` header values from a fetch response.
+ * @description Supports the Node.js fetch extension alongside the standard header API.
+ * @param headers - Response headers instance supplied by the Better Auth microservice.
+ * @returns Discrete `set-cookie` directives describing the issued session cookies.
+ */
+const collectSetCookies = (headers: Headers): ReadonlyArray<string> => {
+  const headersWithGetSetCookie = headers as Headers & {
+    readonly getSetCookie?: () => string[];
+  };
+
+  if (typeof headersWithGetSetCookie.getSetCookie === 'function') {
+    return headersWithGetSetCookie.getSetCookie();
+  }
+
+  const rawHeader = headers.get('set-cookie');
+
+  if (!rawHeader) {
+    return [];
+  }
+
+  return splitSetCookieHeader(rawHeader);
+};
+
+/**
+ * @function toCookieHeader
+ * @pure Converts `set-cookie` directives into a `cookie` request header payload.
+ * @description Strips cookie attributes while retaining the `name=value` pairs expected by Better Auth.
+ * @param setCookies - Cookie directives issued by the sign-in response.
+ * @returns Canonical `cookie` header value ready for authenticated follow-up requests.
+ */
+const toCookieHeader = (setCookies: ReadonlyArray<string>): string =>
+  setCookies
+    .map((setCookie) => {
+      const [cookiePair] = setCookie.split(';');
+      return cookiePair?.trim() ?? '';
+    })
+    .filter((cookiePair) => cookiePair.length > 0)
+    .join('; ');
+
+/**
+ * @function performAdminSignIn
+ * @description Authenticates with the Better Auth microservice using seeded admin credentials.
+ * @returns Result containing an authenticated cookie header or a user-facing error message.
+ */
+const performAdminSignIn = async (): Promise<SignInResult> => {
+  if (!ADMIN_EMAIL || !ADMIN_PASSWORD) {
+    console.error('Better Auth admin credentials are missing from the environment.');
+
+    return {
+      error:
+        'Unable to authenticate with Better Auth. Confirm the admin email and password environment variables.',
+    };
+  }
+
+  try {
+    console.log('Attempting Better Auth admin sign-in via:', SIGN_IN_URL);
+
+    const response = await fetch(SIGN_IN_URL, {
+      method: 'POST',
+      cache: 'no-store',
+      headers: {
+        accept: 'application/json',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: ADMIN_EMAIL,
+        password: ADMIN_PASSWORD,
+        rememberMe: true,
+      }),
+    });
+
+    if (!response.ok) {
+      console.error(
+        `Better Auth admin sign-in failed. Status: ${response.status} ${response.statusText}`
+      );
+
+      return {
+        error: 'Authentication with Better Auth failed. Please verify the admin credentials.',
+      };
+    }
+
+    const sessionCookies = collectSetCookies(response.headers);
+
+    if (sessionCookies.length === 0) {
+      console.error('Better Auth admin sign-in succeeded but returned no session cookies.');
+
+      return {
+        error: 'Better Auth did not issue a session cookie. Please retry the request.',
+      };
+    }
+
+    const cookieHeader = toCookieHeader(sessionCookies);
+
+    console.log('Successfully authenticated with Better Auth admin API.');
+
+    return {
+      cookieHeader,
+    };
+  } catch (error) {
+    console.error('Unexpected error during Better Auth admin sign-in.', error);
+
+    return {
+      error: 'A connection error prevented Better Auth admin authentication.',
+    };
+  }
+};
 
 /**
  * @function toOptionalDate
@@ -68,11 +196,24 @@ const parseUserDates = (user: AdminUserResponse): AdminUser => ({
 const fetchUsers = async (): Promise<FetchUsersResult> => {
   // Trace the administrative endpoint invoked for Better Auth user retrieval.
   console.log('🚀 ~ fetchUsers ~ USERS_URL:', USERS_URL);
+
+  const { cookieHeader, error: authenticationError } = await performAdminSignIn();
+
+  if (!cookieHeader || authenticationError) {
+    return {
+      data: [],
+      error:
+        authenticationError ??
+        'Better Auth authentication did not return a session cookie. Please try again shortly.',
+    };
+  }
+
   try {
     const response = await fetch(USERS_URL, {
       cache: 'no-store',
       headers: {
         accept: 'application/json',
+        cookie: cookieHeader,
       },
     });
 
