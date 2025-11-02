@@ -1,8 +1,19 @@
 .adminPage {
-	display: flex;
-	flex-direction: column;
-	gap: 1.5rem;
-	padding: 2rem;
+	display: grid;
+	gap: 2rem;
+	padding: clamp(1.5rem, 2vw + 1rem, 3rem);
+	margin: 0 auto;
+	width: min(100%, 72rem);
+}
 
-	/* TODO(plan §4): Refine layout spacing, typography, and responsive behavior for the admin users datagrid. */
+.adminPage :global(table) {
+	width: 100%;
+}
+
+@media (max-width: 768px) {
+	.adminPage {
+		gap: 1.25rem;
+		padding: 1.25rem;
+		width: 100%;
+	}
 }
