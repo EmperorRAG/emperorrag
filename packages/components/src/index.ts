@@ -1,2 +1,2 @@
 
-export * from './lib/datagrid/datagrid';
+export { Datagrid } from './lib/datagrid/datagrid';

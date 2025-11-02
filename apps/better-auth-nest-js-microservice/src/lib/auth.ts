@@ -67,7 +67,7 @@ export const auth = betterAuth({
     bearer(),
 
     // Admin role management
-    admin(),
+    admin({ adminUserIds: [process.env.BETTER_AUTH_NEST_JS_MICROSERVICE_USER_ID ?? '0', process.env.BETTER_AUTH_NEXT_JS_FRONTEND_USER_ID ?? '1'] }),
 
     // Organization/multi-tenancy support
     organization(),

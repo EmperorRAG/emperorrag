@@ -6,13 +6,33 @@
 - Core domain is Better Auth integrations: utilities wrap the `better-auth` SDK, while the NestJS service exposes microservice endpoints.
 - TypeScript everywhere with strong functional programming conventions (Effect-TS, Option/Either, Match pipelines) and Jest/Vitest for testing.
 
+## Agent Navigation
+
+- Start with `llms.md` for a high-level map of documentation and subproject indexes.
+- When you work within a project directory, you **must** read that project's `AGENTS.md` for authoritative context and workflows before making changes.
+- Current project guides:
+  - [`apps/better-auth-nest-js-microservice/AGENTS.md`](apps/better-auth-nest-js-microservice/AGENTS.md): Better Auth NestJS service setup, Nx targets, Prisma guidance, and endpoint inventory.
+
 ## Repository Layout
 
 - `apps/better-auth-nest-js-microservice`: NestJS service bundled with Webpack; Jest unit tests live under `src/app`.
 - `apps/better-auth-nest-js-microservice-e2e`: Jest-based end-to-end suite that boots the microservice before running.
+- `apps/better-auth-next-js-frontend`: App Router Next.js frontend pinned to React 19; relies on `packages/components` for shared UI.
+- `apps/better-auth-next-js-frontend-e2e`: Playwright suite covering the Next.js experience end-to-end.
 - `packages/better-auth-utilities`: Publishable Effect-TS helper library composed of adapters, composites, and plugins.
 - `packages/utilities`: Shared Effect-TS primitives and helper utilities consumed by the other packages.
+- `packages/components`: Shared React component library (including the admin datagrid) consumed by the frontend.
 - Root project `@emperorrag/source` provides workspace-wide Nx targets like `local-registry` and `test-all-projects`.
+- `llms.md`: Root-level navigation map (per llms.txt spec) that summarizes key documentation and points to subproject indexes like `apps/better-auth-nest-js-microservice/llms.md` for directory-specific context.
+
+## Workspace Policies
+
+- Better Auth REST endpoints are already exposed by `apps/better-auth-nest-js-microservice` through `@thallesp/nestjs-better-auth`; do not scaffold duplicate controllers.
+- Shared Better Auth adapters and contracts belong in `packages/better-auth-utilities`. Use `packages/utilities` strictly for framework-agnostic helpers.
+- When generating Next.js routes or components, request user approval before invoking the Nx MCP `generate` flow (`apps/better-auth-next-js-frontend` is wired to `@nx/next`).
+- Follow project-specific instructions in each subproject's `AGENTS.md` before modifying code or adding new files.
+- Consult `.github/instructions/nextjs.instructions.md` and `.github/instructions/reactjs.instructions.md` for frontend work; align shared UI changes with guidance in `packages/components`.
+- Keep this document aligned with `llms.md`—update both when restructuring documentation or directories.
 
 ## Prerequisites & Tooling
 
@@ -46,6 +66,14 @@ pnpm exec nx graph       # Optional: open project dependency graph in your brows
 - Serve with production bundle: `pnpm exec nx serve better-auth-nest-js-microservice --configuration=production`.
 - Webpack dev server preview: `pnpm exec nx preview better-auth-nest-js-microservice`.
 
+### Frontend (`better-auth-next-js-frontend`)
+
+- Dev server: `pnpm exec nx dev better-auth-next-js-frontend` (Next.js App Router with hot reload).
+- Production build: `pnpm exec nx build better-auth-next-js-frontend` (outputs to `.next`).
+- Start production bundle: `pnpm exec nx start better-auth-next-js-frontend` (serves the compiled output).
+- Prefer server components for data fetching; leverage shared datagrid components from `packages/components` when rendering Better Auth data.
+- Always confirm with the user before running Nx scaffolding (`pnpm exec nx g @nx/next:page ...`) per workspace policy.
+
 ### Utility Libraries (`better-auth-utilities`, `utilities`)
 
 - Dev server (Vite): `pnpm exec nx dev better-auth-utilities` or `pnpm exec nx dev utilities`.
@@ -63,8 +91,10 @@ pnpm exec nx graph       # Optional: open project dependency graph in your brows
 - **Run everything**: `pnpm exec nx test-all-projects` or `pnpm exec nx run-many -t test --all --skip-nx-cache` when you want a fresh run.
 - **Unit tests (NestJS)**: `pnpm exec nx test better-auth-nest-js-microservice`. Jest config is under `apps/.../jest.config.ts`; coverage output goes to `apps/.../test-output/jest/coverage`.
 - **Unit tests (libraries)**: `pnpm exec nx test better-auth-utilities` and `pnpm exec nx test utilities`. These use Vitest; pass `-- --coverage` for V8 coverage reports in `test-output/vitest/coverage`.
+- **Frontend tests (Next.js)**: `pnpm exec nx test better-auth-next-js-frontend` (Jest + React Testing Library).
 - **Type checking**: `pnpm exec nx typecheck better-auth-nest-js-microservice` (or any project) runs `tsc --build --emitDeclarationOnly`.
-- **End-to-end**: `pnpm exec nx e2e better-auth-nest-js-microservice-e2e`. Nx ensures the app builds/serves before Jest E2E specs run.
+- **Playwright E2E (frontend)**: `pnpm exec nx e2e better-auth-next-js-frontend-e2e` (supports `-- --headed` for interactive runs).
+- **Microservice E2E**: `pnpm exec nx e2e better-auth-nest-js-microservice-e2e`. Nx ensures the app builds/serves before Jest E2E specs run.
 - **Focused runs**:
   - Jest: append `-- --testNamePattern="name"` or `-- --runTestsByPath src/app/foo.spec.ts`.
   - Vitest: append `-- --run tests/lib/client.spec.ts` or `-- --watch` for interactive mode.
@@ -84,6 +114,7 @@ pnpm exec nx graph       # Optional: open project dependency graph in your brows
 - Standard build per project: `pnpm exec nx build <project>` (Webpack for apps, Vite for libs). Nx builds dependencies first thanks to `dependsOn` graph.
 - Prepare publishable microservice artifacts: `pnpm exec nx prune better-auth-nest-js-microservice` (runs `build`, prunes lockfile, copies workspace modules).
 - Libraries ship from `dist/`; ensure `tsconfig.lib.json` and `vite.config.ts` stay aligned with Effect-TS expectations.
+- Frontend artifacts live under `apps/better-auth-next-js-frontend/.next`; deploy workflows should upload both server and client bundles per Next.js 15 guidance.
 - Workspace release flow: `pnpm dlx nx release --dry-run` to preview, then run without `--dry-run` to cut versions. A pre-version hook builds all projects (`pnpm dlx nx run-many -t build`).
 - When testing package publishing locally, first run `pnpm exec nx local-registry`, then `pnpm publish --registry http://localhost:4873` from the project’s `dist/` directory.
 

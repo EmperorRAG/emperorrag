@@ -46,3 +46,5 @@ export { UsernameService } from './adapters/username/username-nestjs.service.js'
 
 // Export base adapter interface for typing
 export type { AdapterContext, AdapterResponse } from './adapters/base/plugin-adapter.interface.ts';
+
+export type { User } from './core/users/users.utils.js'
