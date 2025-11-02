@@ -3,7 +3,7 @@ import type { User } from '@emperorrag/better-auth-utilities';
 import styles from './page.module.css';
 
 const BASE_URL = process.env.BETTER_AUTH_URL ?? 'http://localhost:3333';
-const USERS_ENDPOINT = '/api/users';
+const USERS_ENDPOINT = '/api/auth/admin/list-users';
 const USERS_URL = new URL(USERS_ENDPOINT, BASE_URL).toString();
 
 type AdminUser = User;
