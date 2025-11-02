@@ -22,6 +22,14 @@
 					}
 				}
 			},
+			"admin-on-startup": {
+				"executor": "nx:run-commands",
+				"cache": false,
+				"options": {
+					"command": "pnpm exec ts-node --project apps/better-auth-nest-js-microservice/tsconfig.app.json --esm apps/better-auth-nest-js-microservice/src/scripts/on-startup.ts",
+					"cwd": "."
+				}
+			},
 			"prune-lockfile": {
 				"dependsOn": [
 					"build"
@@ -61,7 +69,8 @@
 				"executor": "@nx/js:node",
 				"defaultConfiguration": "development",
 				"dependsOn": [
-					"build"
+					"build",
+					"admin-on-startup"
 				],
 				"options": {
 					"buildTarget": "better-auth-nest-js-microservice:build",
