@@ -232,7 +232,9 @@ const fetchUsers = async (): Promise<FetchUsersResult> => {
     // Marshal raw payload into strong domain types with normalized temporal fields.
     const payload = (await response.json()) as ReadonlyArray<AdminUserResponse>;
 
-    const data: ReadonlyArray<AdminUser> = payload.map((user) => parseUserDates(user));
+    console.log('🚀 ~ fetchUsers ~ payload:', payload);
+
+    const data: ReadonlyArray<AdminUser> = payload.users.map((user) => parseUserDates(user));
 
     // Capture the total number of administrative users received for Console Ninja monitoring.
     console.log('🚀 ~ fetchUsers ~ data.length:', data.length);
