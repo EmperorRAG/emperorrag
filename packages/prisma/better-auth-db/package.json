@@ -1,0 +1,93 @@
+{
+  "name": "@emperorrag/prisma-better-auth-db",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "files": [
+    "README.md",
+    "prisma",
+    "scripts",
+    "test-prisma-client.ts"
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "client": "./prisma/generated/client/index.js",
+      "schemas": "./prisma/generated/schemas/index.ts",
+      "types": "./prisma/generated/schemas/index.ts",
+      "default": "./prisma/generated/client/index.js"
+    }
+  ],
+  "nx": {
+    "name": "prisma-better-auth-db",
+    "targets": {
+      "prisma-generate": {
+        "executor": "nx:run-commands",
+        "cache": false,
+        "options": {
+          "command": "pnpm exec prisma generate --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+          "cwd": "."
+        }
+      },
+      "prisma-migrate": {
+        "executor": "nx:run-commands",
+        "cache": false,
+        "options": {
+          "command": "pnpm exec prisma migrate dev --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+          "cwd": "."
+        }
+      },
+      "prisma-migrate-deploy": {
+        "executor": "nx:run-commands",
+        "cache": false,
+        "options": {
+          "command": "pnpm exec prisma migrate deploy --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+          "cwd": "."
+        }
+      },
+      "prisma-push": {
+        "executor": "nx:run-commands",
+        "cache": false,
+        "options": {
+          "command": "pnpm exec prisma db push --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+          "cwd": "."
+        }
+      },
+      "prisma-reset": {
+        "executor": "nx:run-commands",
+        "cache": false,
+        "options": {
+          "command": "pnpm exec prisma migrate reset --schema=packages/prisma/better-auth-db/prisma/schema.prisma --force",
+          "cwd": "."
+        }
+      },
+      "prisma-validate": {
+        "executor": "nx:run-commands",
+        "cache": false,
+        "options": {
+          "command": "pnpm exec prisma validate --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+          "cwd": "."
+        }
+      },
+      "prisma-studio": {
+        "executor": "nx:run-commands",
+        "cache": false,
+        "options": {
+          "command": "pnpm exec prisma studio --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+          "cwd": "."
+        }
+      }
+    },
+    "tags": [
+      "prisma",
+      "database",
+      "shared"
+    ]
+  },
+  "dependencies": {
+    "@prisma/client": "6.17.1"
+  },
+  "devDependencies": {
+    "prisma": "^6.17.1"
+  }
+}
