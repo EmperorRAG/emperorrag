@@ -255,9 +255,16 @@
 		".github/chatmodes/personal": true
 	},
 	"search.exclude": {
-		"**/node_modules": true,
 		"**/bower_components": true,
-		"**/*.code-search": true
+		"**/*.code-search": true,
+		"**/node_modules": true,
+		"**/dist": true,
+		"**/out-tsc": true,
+		"**/.next": true,
+		"**/.nx": true,
+		"**/.pnpm-store": true,
+		"**/.verdaccio": true,
+		"**/prisma/generated": true
 	},
 	"files.exclude": {
 		"**/.git": true,
