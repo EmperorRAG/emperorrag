@@ -10,10 +10,8 @@ import {
 import type {
   CreateAPIKeyOptions,
   UpdateAPIKeyOptions,
-  ListAPIKeysOptions,
   APIKey
 } from './api-key.adapter.ts';
-import type { AdapterResponse } from '../base/plugin-adapter.interface.js';
 import { PluginNotAvailableError } from '../base/plugin-adapter.interface.js';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 import type { BetterAuthWithApiKey } from '../../test-utils/auth-types.js';
@@ -32,56 +30,10 @@ import {
   transformBetterAuthApiKeysToAPIKeys,
   createUpdateAPIKeyOptions,
   transformBetterAuthApiKeyToAPIKey,
-  createBetterAuthApiKeyUpdate,
 } from '../../test-utils/test-helpers.js';
 
 describe('APIKeyAdapter', () => {
   let adapter: APIKeyAdapter;
-
-  // Mock API responses - better-auth returns data wrapped in { data, error }
-  // const mockAPIKey: APIKey = {
-  //   id: 'key_123',
-  //   key: 'sk_test_123456',
-  //   name: 'Test API Key',
-  //   userId: 'user_123',
-  //   permissions: { read: ['*'], write: ['*'] },
-  //   metadata: { purpose: 'testing' },
-  //   createdAt: new Date(),
-  //   updatedAt: new Date(),
-  //   expiresAt: new Date(),
-  // };
-
-  // Better-Auth ApiKey type mock with all properties from better-auth
-  // const mockCreateApiKey = {
-  //   key: 'sk_test_123456',
-  //   metadata: { purpose: 'testing' },
-  //   permissions: { read: ['*'], write: ['*'] },
-  //   id: 'key_123',
-  //   name: 'Test API Key',
-  //   start: null,
-  //   prefix: 'sk_test',
-  //   userId: 'user_123',
-  //   refillInterval: 3600,
-  //   refillAmount: 100,
-  //   lastRefillAt: null,
-  //   enabled: true,
-  //   rateLimitEnabled: true,
-  //   rateLimitTimeWindow: 60,
-  //   rateLimitMax: 100,
-  //   requestCount: 0,
-  //   remaining: 100,
-  //   lastRequest: null,
-  //   expiresAt: new Date(),
-  //   createdAt: new Date(),
-  //   updatedAt: new Date(),
-  // };
-  const mockCreateApiKey = createAPIKey();
-
-  // Mock AdapterResponse for successful API key creation
-  const mockCreateSuccessResponse = createAdapterSuccessResponse(
-    mockCreateApiKey,
-    { message: 'API Test key created successfully' }
-  );
 
   // Mock AdapterResponse for API key creation error
   const mockCreateErrorResponse = createUnauthorizedErrorResponse<APIKey>();
@@ -153,7 +105,6 @@ describe('APIKeyAdapter', () => {
       } as unknown as BetterAuthWithApiKey;
 
       const testAdapter = new APIKeyAdapter({ auth: mockAuth, debug: false });
-      const originalIsAvailable = testAdapter.isAvailable.bind(testAdapter);
       testAdapter.isAvailable = () => typeof authWithoutPlugin.api.createApiKey === 'function';
 
       expect(testAdapter.isAvailable()).toBe(false);

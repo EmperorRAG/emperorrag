@@ -252,5 +252,6 @@
 			"icon": "github",
 			"color": "terminal.ansiGreen"
 		}
-	}
+	},
+	"postman.settings.dotenv-detection-notification-visibility": false
 }
