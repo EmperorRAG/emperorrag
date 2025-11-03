@@ -21,35 +21,27 @@
 		"paths": {
 			"@/*": ["./src/*"]
 		},
-		"outDir": "dist",
-		"rootDir": "src",
-		"tsBuildInfoFile": "dist/tsconfig.tsbuildinfo"
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
 	},
 	"include": [
 		"../../apps/better-auth-next-js-frontend/.next/types/**/*.ts",
 		"../../dist/apps/better-auth-next-js-frontend/.next/types/**/*.ts",
-		"next-env.d.ts",
-		"src/**/*.js",
-		"src/**/*.jsx",
-		"src/**/*.ts",
-		"src/**/*.tsx",
-		".next/types/**/*.ts"
+		"./next-env.d.ts",
+		"./src/**/*.js",
+		"./src/**/*.jsx",
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
+		"./.next/types/**/*.ts"
 	],
-  "exclude": [
-    "out-tsc",
-    "dist",
-    "node_modules",
-    "jest.config.ts",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts",
-    ".next"
-  ],
-  "references": [
-    {
-      "path": "../../packages/better-auth-utilities"
-    },
-    {
-      "path": "../../packages/components"
-    }
-  ]
+	"exclude": ["./out-tsc", "./dist", "./node_modules", "./jest.config.ts", "./src/**/*.spec.ts", "./src/**/*.test.ts", "./.next"],
+	"references": [
+		{
+			"path": "../../packages/better-auth-utilities"
+		},
+		{
+			"path": "../../packages/components"
+		}
+	]
 }
