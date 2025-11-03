@@ -1,3 +1,5 @@
+import type { UserPureType } from '@emperorrag/prisma-better-auth-db'
+
 export interface AdapterContext {
 	readonly headers?: Headers | Record<string, string>;
 	readonly [key: string]: unknown;
@@ -9,9 +11,6 @@ export interface AdapterResponse<TResult> {
 	readonly error?: unknown;
 	readonly message?: string;
 }
-
-import type { UserPureType } from '@emperorrag/prisma-better-auth-db'
-const us: UserPureType = 'admin';
 
 export interface AdminUser {
 	readonly id: string;
@@ -25,6 +24,11 @@ export interface AdminUser {
 	readonly banExpiresAt?: Date | null;
 	readonly createdAt: Date;
 	readonly updatedAt: Date;
+	readonly [key: string]: unknown;
+}
+
+export interface AdminUserPure extends UserPureType {
+	readonly banExpiresAt?: Date | null;
 	readonly [key: string]: unknown;
 }
 
