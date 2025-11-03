@@ -5,7 +5,6 @@ generator client {
 
 generator zod {
   provider = "prisma-zod-generator"
-  output   = "./generated"
   config   = "./zod-generator.config.json"
 }
 

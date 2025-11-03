@@ -1,3 +1,20 @@
 {
-	"mode": "full"
+	"mode": "custom",
+	"output": "./generated",
+	"useMultipleFiles": true,
+
+	"pureModels": true,
+	"variants": {
+		"pure": { "enabled": true },
+		"input": { "enabled": false },
+		"result": { "enabled": false }
+	},
+
+	"emit": {
+		"crud": true,
+		"objects": true,
+		"results": false,
+		"variants": true,
+		"enums": true
+	}
 }
