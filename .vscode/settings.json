@@ -74,6 +74,7 @@
 	"markdownlint.config": {
 		"ol-prefix": false
 	},
+	"yaml.format.printWidth": 300,
 	"terminal.integrated.defaultProfile.windows": "Git Bash",
 	"[jsonc]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -101,9 +102,11 @@
 		"chatmodes",
 		"cipe",
 		"Codacy",
+		"cognitionai",
 		"commitlint",
 		"cssmodule",
 		"datagrid",
+		"deepwiki",
 		"devkit",
 		"dotenv",
 		"dpage",
@@ -255,5 +258,8 @@
 			"color": "terminal.ansiGreen"
 		}
 	},
-	"postman.settings.dotenv-detection-notification-visibility": false
+	"postman.settings.dotenv-detection-notification-visibility": false,
+	"chat.modeFilesLocations": {
+		".github/chatmodes/personal": true
+	}
 }
