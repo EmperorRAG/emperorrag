@@ -264,7 +264,15 @@
 		"**/.svn": true,
 		"**/.hg": true,
 		"**/.DS_Store": true,
-		"**/Thumbs.db": true
+		"**/Thumbs.db": true,
+		"**/node_modules": true,
+		"**/dist": true,
+		"**/out-tsc": true,
+		"**/.next": true,
+		"**/.nx": true,
+		"**/.pnpm-store": true,
+		"**/.verdaccio": true,
+		"**/prisma/generated": true
 	},
 	"files.readonlyInclude": {
 		"=": true
