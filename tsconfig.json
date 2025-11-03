@@ -1,35 +1,35 @@
 {
-  "extends": "./tsconfig.base.json",
-  "compileOnSave": false,
-  "files": [],
-  "references": [
-    {
-      "path": "./packages/utilities"
-    },
-    {
-      "path": "./packages/better-auth-utilities"
-    },
-    {
-      "path": "./apps/better-auth-nest-js-microservice-e2e"
-    },
-    {
-      "path": "./apps/better-auth-nest-js-microservice"
-    },
-    {
-      "path": "./packages/components"
-    },
-    {
-      "path": "./apps/better-auth-next-js-frontend-e2e"
-    },
-    {
-      "path": "./apps/better-auth-next-js-frontend"
-    }
-  ],
-  "ts-node": {
-    "compilerOptions": {
-      "module": "commonjs",
-      "moduleResolution": "node10",
-      "customConditions": null
-    }
-  }
+	"extends": "./tsconfig.base.json",
+	"compileOnSave": false,
+	"files": [],
+	"references": [
+		{
+			"path": "./packages/utilities"
+		},
+		{
+			"path": "./packages/better-auth-utilities"
+		},
+		{
+			"path": "./apps/better-auth-nest-js-microservice-e2e"
+		},
+		{
+			"path": "./apps/better-auth-nest-js-microservice"
+		},
+		{
+			"path": "./packages/components"
+		},
+		{
+			"path": "./apps/better-auth-next-js-frontend-e2e"
+		},
+		{
+			"path": "./apps/better-auth-next-js-frontend"
+		}
+	],
+	"ts-node": {
+		"compilerOptions": {
+			"module": "commonjs",
+			"moduleResolution": "node10",
+			"customConditions": null
+		}
+	}
 }

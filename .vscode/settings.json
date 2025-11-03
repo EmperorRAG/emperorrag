@@ -39,7 +39,6 @@
 	"editor.detectIndentation": true,
 	"editor.folding": true,
 	"editor.foldingHighlight": true,
-	"editor.foldingImportsByDefault": false,
 	"editor.guides.indentation": true,
 	"editor.hover.delay": 200,
 	"editor.inlayHints.enabled": "on",

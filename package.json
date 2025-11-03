@@ -33,6 +33,7 @@
 		"@emperorrag/better-auth-utilities": "workspace:*",
 		"@emperorrag/components": "workspace:*",
 		"@emperorrag/utilities": "workspace:*",
+		"@emperorrag/prisma-better-auth-db": "workspace:*",
 		"@nestjs/cli": "^11.0.10",
 		"@nestjs/schematics": "^11.0.9",
 		"@nestjs/testing": "^11.1.6",
