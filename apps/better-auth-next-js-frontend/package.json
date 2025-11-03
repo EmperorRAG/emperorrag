@@ -9,10 +9,12 @@
 		]
 	},
 	"dependencies": {
-		"@emperorrag/components": "workspace:*",
-		"@emperorrag/better-auth-utilities": "workspace:*",
 		"next": "~15.2.4",
 		"react": "19.0.0",
 		"react-dom": "19.0.0"
+	},
+	"devDependencies": {
+		"@emperorrag/components": "workspace:*",
+		"@emperorrag/better-auth-utilities": "workspace:*"
 	}
 }
