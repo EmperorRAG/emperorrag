@@ -89,6 +89,9 @@ importers:
       '@emperorrag/components':
         specifier: workspace:*
         version: link:packages/components
+      '@emperorrag/prisma-better-auth-db':
+        specifier: workspace:*
+        version: link:packages/prisma/better-auth-db
       '@emperorrag/utilities':
         specifier: workspace:*
         version: link:packages/utilities
@@ -290,12 +293,6 @@ importers:
 
   apps/better-auth-next-js-frontend:
     dependencies:
-      '@emperorrag/better-auth-utilities':
-        specifier: workspace:*
-        version: link:../../packages/better-auth-utilities
-      '@emperorrag/components':
-        specifier: workspace:*
-        version: link:../../packages/components
       next:
         specifier: ~15.2.4
         version: 15.2.5(@babel/core@7.28.5)(@playwright/test@1.56.1)(@types/react-dom@19.0.0)(@types/react@19.0.0)(babel-plugin-macros@3.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.93.2)
@@ -305,6 +302,13 @@ importers:
       react-dom:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
+    devDependencies:
+      '@emperorrag/better-auth-utilities':
+        specifier: workspace:*
+        version: link:../../packages/better-auth-utilities
+      '@emperorrag/components':
+        specifier: workspace:*
+        version: link:../../packages/components
 
   apps/better-auth-next-js-frontend-e2e: {}
 
@@ -314,6 +318,9 @@ importers:
         specifier: ^3.18.4
         version: 3.18.4
     devDependencies:
+      '@emperorrag/prisma-better-auth-db':
+        specifier: workspace:*
+        version: link:../prisma/better-auth-db
       '@nx/vite':
         specifier: 21.6.5
         version: 21.6.5(@babel/traverse@7.28.5)(@swc-node/register@1.9.2(@swc/core@1.13.5(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.13.5(@swc/helpers@0.5.17))(nx@21.6.5(@swc-node/register@1.9.2(@swc/core@1.13.5(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.13.5(@swc/helpers@0.5.17)))(typescript@5.9.3)(verdaccio@6.2.1(encoding@0.1.13)(typanion@3.14.0))(vite@7.1.12(@types/node@20.19.9)(@types/picomatch@4.0.2)(jiti@2.6.1)(less@4.4.2)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))(vitest@3.2.4)
@@ -366,6 +373,16 @@ importers:
       vitest:
         specifier: ^3.0.0
         version: 3.2.4(@types/debug@4.1.12)(@types/jsdom@27.0.0)(@types/node@20.19.9)(@vitest/ui@3.2.4)(jiti@2.6.1)(jsdom@22.1.0)(less@4.4.2)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
+
+  packages/prisma/better-auth-db:
+    dependencies:
+      '@prisma/client':
+        specifier: 6.17.1
+        version: 6.17.1(prisma@6.18.0(magicast@0.3.5)(typescript@5.9.3))(typescript@5.9.3)
+    devDependencies:
+      prisma:
+        specifier: ^6.17.1
+        version: 6.18.0(magicast@0.3.5)(typescript@5.9.3)
 
   packages/utilities:
     dependencies:
@@ -15550,7 +15567,7 @@ snapshots:
       sirv: 3.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/debug@4.1.12)(@types/jsdom@27.0.0)(@types/node@20.19.9)(@vitest/ui@3.2.4)(jiti@2.4.2)(jsdom@22.1.0)(less@4.4.2)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/jsdom@27.0.0)(@types/node@20.19.9)(@vitest/ui@3.2.4)(jiti@2.6.1)(jsdom@22.1.0)(less@4.4.2)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
 
   '@vitest/utils@3.2.4':
     dependencies:

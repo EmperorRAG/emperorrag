@@ -10,6 +10,9 @@ export interface AdapterResponse<TResult> {
 	readonly message?: string;
 }
 
+import type { UserPureType } from '@emperorrag/prisma-better-auth-db'
+const us: UserPureType = 'admin';
+
 export interface AdminUser {
 	readonly id: string;
 	readonly email: string;
