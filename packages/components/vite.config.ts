@@ -7,7 +7,7 @@ import * as path from 'path';
 export default defineConfig(() => ({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/packages/components',
-  plugins: [react(), dts({ entryRoot: 'src', tsconfigPath: path.join(__dirname, 'tsconfig.lib.json') })],
+  plugins: [react(), dts({ entryRoot: './src', tsconfigPath: path.join(__dirname, 'tsconfig.lib.json') })],
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [ nxViteTsPaths() ],
@@ -23,7 +23,7 @@ export default defineConfig(() => ({
     },
     lib: {
       // Could also be a dictionary or array of multiple entry points.
-      entry: 'src/index.ts',
+      entry: './src/index.ts',
       name: 'components',
       fileName: 'index',
       // Change this to the formats you want to support.
