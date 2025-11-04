@@ -12,7 +12,9 @@
 			"client": "./prisma/generated/client/index.js",
 			"schemas": "./prisma/generated/schemas/index.ts",
 			"types": "./prisma/generated/schemas/index.ts",
-			"default": "./prisma/generated/client/index.js"
+			"default": "./prisma/generated/client/index.js",
+			"@emperorrag/source": "./src/index.ts",
+			"import": "./dist/index.js"
 		}
 	},
 	"files": [
@@ -91,6 +93,11 @@
 		"@prisma/client": "6.17.1"
 	},
 	"devDependencies": {
-		"prisma": "^6.17.1"
+		"prisma": "^6.17.1",
+		"tslib": "^2.3.0",
+		"vite-plugin-dts": "^4.5.4",
+		"vite": "^7.0.0",
+		"vitest": "^3.0.0",
+		"@nx/vite": "21.6.5"
 	}
 }
