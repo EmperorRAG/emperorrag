@@ -101,3 +101,5 @@ export const auth: AuthInstance = betterAuth({
     apiKey(),
   ],
 });
+
+export type AuthSession = typeof auth.$Infer.Session;
