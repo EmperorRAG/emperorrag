@@ -10,57 +10,46 @@ import { Context, Effect, pipe } from 'effect';
  * Error type for email service failures.
  */
 export class EmailServiceError {
-  readonly _tag = 'EmailServiceError';
-  constructor(
-    readonly message: string,
-    readonly cause?: unknown
-  ) {}
+	readonly _tag = 'EmailServiceError';
+	constructor(readonly message: string, readonly cause?: unknown) {}
 }
 
 /**
  * Error type for invalid email data.
  */
 export class InvalidEmailDataError {
-  readonly _tag = 'InvalidEmailDataError';
-  constructor(readonly message: string) {}
+	readonly _tag = 'InvalidEmailDataError';
+	constructor(readonly message: string) {}
 }
 
 /**
  * Email service interface for dependency injection.
  */
 export interface EmailService {
-  readonly sendEmail: (params: {
-    to: string;
-    subject: string;
-    html?: string;
-    text?: string;
-  }) => Effect.Effect<void, EmailServiceError>;
+	readonly sendEmail: (params: { to: string; subject: string; html?: string; text?: string }) => Effect.Effect<void, EmailServiceError>;
 }
 
 /**
  * Tag for the EmailService using Context.Tag pattern.
  */
-export class EmailServiceTag extends Context.Tag('EmailService')<
-  EmailServiceTag,
-  EmailService
->() {}
+export class EmailServiceTag extends Context.Tag('EmailService')<EmailServiceTag, EmailService>() {}
 
 /**
  * User type for email operations.
  */
 export interface User {
-  readonly email: string;
-  readonly name?: string;
-  readonly id: string;
+	readonly email: string;
+	readonly name?: string;
+	readonly id: string;
 }
 
 /**
  * Verification email data.
  */
 export interface VerificationEmailData {
-  readonly user: User;
-  readonly token: string;
-  readonly url: string;
+	readonly user: User;
+	readonly token: string;
+	readonly url: string;
 }
 
 /**
@@ -73,25 +62,20 @@ export interface VerificationEmailData {
  * @returns {Effect.Effect<User, InvalidEmailDataError, never>} An `Effect` that succeeds with the user
  * if valid, or fails with `InvalidEmailDataError`.
  */
-export const validateUserEmail = (
-  user: User
-): Effect.Effect<User, InvalidEmailDataError, never> =>
-  Effect.try({
-    try: () => {
-      if (!user.email || typeof user.email !== 'string') {
-        throw new InvalidEmailDataError('User email is required and must be a string');
-      }
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(user.email)) {
-        throw new InvalidEmailDataError('Invalid email format');
-      }
-      return user;
-    },
-    catch: (error) =>
-      error instanceof InvalidEmailDataError
-        ? error
-        : new InvalidEmailDataError('Unknown validation error'),
-  });
+export const validateUserEmail = (user: User): Effect.Effect<User, InvalidEmailDataError, never> =>
+	Effect.try({
+		try: () => {
+			if (!user.email || typeof user.email !== 'string') {
+				throw new InvalidEmailDataError('User email is required and must be a string');
+			}
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailRegex.test(user.email)) {
+				throw new InvalidEmailDataError('Invalid email format');
+			}
+			return user;
+		},
+		catch: (error) => (error instanceof InvalidEmailDataError ? error : new InvalidEmailDataError('Unknown validation error')),
+	});
 
 /**
  * Constructs the verification URL from the base URL and token.
@@ -107,8 +91,7 @@ export const validateUserEmail = (
  * const url = buildVerificationUrl('https://example.com', 'abc123');
  * // => 'https://example.com/api/auth/verify-email?token=abc123'
  */
-export const buildVerificationUrl = (baseUrl: string, token: string): string =>
-  `${baseUrl}/api/auth/verify-email?token=${token}`;
+export const buildVerificationUrl = (baseUrl: string, token: string): string => `${baseUrl}/api/auth/verify-email?token=${token}`;
 
 /**
  * Constructs the HTML content for the verification email.
@@ -124,10 +107,7 @@ export const buildVerificationUrl = (baseUrl: string, token: string): string =>
  * const html = buildVerificationEmailHtml('John', 'https://example.com/verify?token=xyz');
  * // => HTML string with personalized content
  */
-export const buildVerificationEmailHtml = (
-  userName: string | undefined,
-  verificationUrl: string
-): string => `
+export const buildVerificationEmailHtml = (userName: string | undefined, verificationUrl: string): string => `
 <!DOCTYPE html>
 <html>
 <head>
@@ -174,11 +154,8 @@ export const buildVerificationEmailHtml = (
  * @param verificationUrl - The verification URL.
  * @returns {string} The plain text content for the email.
  */
-export const buildVerificationEmailText = (
-  userName: string | undefined,
-  verificationUrl: string
-): string =>
-  `${userName ? `Hi ${userName}` : 'Hello'},
+export const buildVerificationEmailText = (userName: string | undefined, verificationUrl: string): string =>
+	`${userName ? `Hi ${userName}` : 'Hello'},
 
 Thank you for signing up! Please verify your email address by visiting the following link:
 
@@ -220,24 +197,22 @@ If you didn't create an account, you can safely ignore this email.`;
  *   }))
  * );
  */
-export const sendVerificationEmail = (
-  data: VerificationEmailData
-): Effect.Effect<void, EmailServiceError | InvalidEmailDataError, EmailServiceTag> =>
-  pipe(
-    validateUserEmail(data.user),
-    Effect.flatMap((validatedUser) =>
-      Effect.gen(function* () {
-        const emailService = yield* EmailServiceTag;
-        const verificationUrl = buildVerificationUrl(data.url, data.token);
-        const htmlContent = buildVerificationEmailHtml(validatedUser.name, verificationUrl);
-        const textContent = buildVerificationEmailText(validatedUser.name, verificationUrl);
+export const sendVerificationEmail = (data: VerificationEmailData): Effect.Effect<void, EmailServiceError | InvalidEmailDataError, EmailServiceTag> =>
+	pipe(
+		validateUserEmail(data.user),
+		Effect.flatMap((validatedUser) =>
+			Effect.gen(function* () {
+				const emailService = yield* EmailServiceTag;
+				const verificationUrl = buildVerificationUrl(data.url, data.token);
+				const htmlContent = buildVerificationEmailHtml(validatedUser.name, verificationUrl);
+				const textContent = buildVerificationEmailText(validatedUser.name, verificationUrl);
 
-        return yield* emailService.sendEmail({
-          to: validatedUser.email,
-          subject: 'Verify Your Email Address',
-          html: htmlContent,
-          text: textContent,
-        });
-      })
-    )
-  );
+				return yield* emailService.sendEmail({
+					to: validatedUser.email,
+					subject: 'Verify Your Email Address',
+					html: htmlContent,
+					text: textContent,
+				});
+			})
+		)
+	);

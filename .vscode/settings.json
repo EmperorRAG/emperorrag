@@ -264,7 +264,12 @@
 		"**/.nx": true,
 		"**/.pnpm-store": true,
 		"**/.verdaccio": true,
-		"**/prisma/generated": true
+		"**/prisma/generated/client/wasm*": true,
+		"**/prisma/generated/client/query*": true,
+		"**/prisma/generated/client/edge*": true,
+		"**/prisma/generated/client/default*": true,
+		"**/prisma/generated/client/client*": true,
+		"**/prisma/generated/client/runtime": true
 	},
 	"files.exclude": {
 		"**/.git": true,
@@ -279,7 +284,12 @@
 		"**/.nx": true,
 		"**/.pnpm-store": true,
 		"**/.verdaccio": true,
-		"**/prisma/generated": true
+		"**/prisma/generated/client/wasm*": true,
+		"**/prisma/generated/client/query*": true,
+		"**/prisma/generated/client/edge*": true,
+		"**/prisma/generated/client/default*": true,
+		"**/prisma/generated/client/client*": true,
+		"**/prisma/generated/client/runtime": true
 	},
 	"files.readonlyInclude": {
 		"=": true
@@ -291,5 +301,8 @@
 		"**/.git/**": true,
 		"**/node_modules/**": true,
 		"**/.vscode/**": true
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	}
 }

@@ -1,7 +1,30 @@
 /**
+ * @packageDocumentation
  * @module users.utils
- * @description Provides core utilities for user management in better-auth.
- * These functions are designed using the Effect-TS functional programming paradigm.
+ * @category Auth Utilities
+ *
+ * Provides the canonical Better Auth user interaction primitives that every
+ * downstream project in this workspace consumes. Both server-side and
+ * client-side use cases compose these helpers by supplying their own Better
+ * Auth instances (for example the NestJS microservice server instance or the
+ * React client instance) together with the inferred `$Infer.Session` and
+ * `$Infer.Instance` types produced by those instances.
+ *
+ * @remarks
+ * - All logic in this module adheres to the Effect-TS functional programming
+ *   paradigm documented in {@link https://github.com/EmperorRAG/emperorrag/blob/master/.github/instructions/fp-paradigm.instructions.md}.
+ * - Consumers MUST treat the inline TypeDoc as the single source of truth when
+ *   integrating these helpers; generated documentation and markdown guides are
+ *   derived from these comments.
+ * - Functions are written in a data-last style, return immutable values, and
+ *   use {@link Effect} pipelines to describe side effects.
+ * - Future client-facing helpers will reuse the same generic shapes exported
+ *   here so that any Better Auth plugin stack can be accommodated by simply
+ *   currying the relevant auth instance.
+ *
+ * @see {@link https://github.com/EmperorRAG/emperorrag/blob/master/AGENTS.md}
+ * @see {@link https://github.com/EmperorRAG/emperorrag/blob/master/apps/better-auth-nest-js-microservice/src/lib/auth/auth.ts}
+ * @since 0.0.1
  */
 
 import { Context, Effect, pipe } from 'effect';
@@ -12,6 +35,27 @@ import { Context, Effect, pipe } from 'effect';
 
 /**
  * Error thrown when a user is not found in the database.
+ *
+ * @category Errors
+ * @remarks
+ * - Raised by utilities such as {@link findUserById} when the underlying
+ *   Prisma adapter returns no record for the supplied identifier.
+ * - Downstream code SHOULD rely on the `_tag` discriminator to perform
+ *   pattern matching within Effect pipelines.
+ *
+ * @example
+ * ```ts
+ * import { Effect } from 'effect';
+ * import { findUserById, UserNotFoundError } from '@emperorrag/better-auth-utilities';
+ *
+ * const program = findUserById('unknown-id');
+ *
+ * Effect.runPromise(program).catch((error) => {
+ *   if (error instanceof UserNotFoundError) {
+ *     console.error('User missing');
+ *   }
+ * });
+ * ```
  */
 export class UserNotFoundError extends Error {
   readonly _tag = 'UserNotFoundError';
@@ -28,6 +72,13 @@ export class UserNotFoundError extends Error {
 
 /**
  * Error thrown when attempting to create a user that already exists.
+ *
+ * @category Errors
+ * @remarks
+ * - Emitted by {@link checkEmailUniqueness} and {@link createUser} when Prisma
+ *   signals a uniqueness violation.
+ * - The optional {@link email} property contains the conflicting address for
+ *   downstream auditing or tracing.
  */
 export class UserExistsError extends Error {
   readonly _tag = 'UserExistsError';
@@ -44,6 +95,11 @@ export class UserExistsError extends Error {
 
 /**
  * Error thrown when a database operation fails.
+ *
+ * @category Errors
+ * @remarks
+ * Wraps lower-level Prisma or driver exceptions so Effect pipelines can expose
+ * a stable error surface without leaking implementation-specific error types.
  */
 export class DatabaseError extends Error {
   readonly _tag = 'DatabaseError';
@@ -63,6 +119,12 @@ export class DatabaseError extends Error {
 
 /**
  * Minimal Prisma Client interface for user operations.
+ *
+ * @category Types
+ * @remarks
+ * Consumers may provide any Prisma client implementation that satisfies this
+ * structural contract. Additional fields are intentionally omitted to keep the
+ * dependency boundary narrow and test-friendly.
  */
 export interface PrismaClient {
   readonly user: {
@@ -74,6 +136,12 @@ export interface PrismaClient {
 
 /**
  * User model representing a user in the database.
+ *
+ * @category Types
+ * @remarks
+ * Mirrors the Better Auth canonical user representation. Downstream projects
+ * can extend this type via intersection with auth instance specific metadata
+ * inferred from `$Infer.User` when required.
  */
 export interface User {
   readonly id: string;
@@ -91,6 +159,12 @@ export interface User {
 
 /**
  * Data required to create a new user.
+ *
+ * @category Types
+ * @remarks
+ * Represents the minimal data payload accepted by {@link createUser}. Extra
+ * fields should be handled by higher-level factories that know about the
+ * plugin configuration for a given Better Auth instance.
  */
 export interface CreateUserData {
   readonly email: string;
@@ -100,7 +174,15 @@ export interface CreateUserData {
 }
 
 /**
- * Tag for the PrismaClient using Context.Tag pattern.
+ * Tag for the PrismaClient using the Effect Context.Tag pattern.
+ *
+ * @category Context
+ * @remarks
+ * - Allows dependency injection of a {@link PrismaClient} instance into Effect
+ *   pipelines without relying on global state.
+ * - Server-side utilities should provide the Prisma client scoped to the
+ *   request handling lifetime. Client-side utilities SHOULD NOT attempt to
+ *   resolve this tag.
  */
 export class PrismaClientTag extends Context.Tag('PrismaClient')<
   PrismaClientTag,
@@ -115,17 +197,23 @@ export class PrismaClientTag extends Context.Tag('PrismaClient')<
  * Validates a user ID.
  *
  * @pure
+ * @category Validation
  * @description Ensures the user ID is a non-empty string.
  *
  * @fp-pattern Pure function returning Effect for validation
- * @composition N/A - Single operation
+ * @composition {@link pipe} -> {@link Effect.try}
  *
  * @param userId - The user ID to validate.
- * @returns {Effect.Effect<string, UserNotFoundError>} Effect containing validated ID or error.
+ * @returns {Effect.Effect<string, UserNotFoundError>} Effect containing the validated ID or a {@link UserNotFoundError} failure.
  *
  * @example
- * const validatedEffect = validateUserId('user-123');
- * // Effect.runSync(validatedEffect) => 'user-123'
+ * ```ts
+ * import { Effect } from 'effect';
+ * import { validateUserId } from '@emperorrag/better-auth-utilities';
+ *
+ * const program = validateUserId('user-123');
+ * Effect.runSync(program); // => 'user-123'
+ * ```
  */
 export const validateUserId = (
   userId: string
@@ -147,18 +235,24 @@ export const validateUserId = (
  * Validates user creation data.
  *
  * @pure
+ * @category Validation
  * @description Ensures required fields (email, name) are present and valid.
  *
  * @fp-pattern Pure function returning Effect for validation
- * @composition N/A - Single operation
+ * @composition {@link pipe} -> {@link Effect.try}
  *
  * @param userData - The user data to validate.
- * @returns {Effect.Effect<CreateUserData, UserExistsError>} Effect containing validated data or error.
+ * @returns {Effect.Effect<CreateUserData, UserExistsError>} Effect containing the validated payload or a {@link UserExistsError}.
  *
  * @example
+ * ```ts
+ * import { Effect } from 'effect';
+ * import { validateUserData } from '@emperorrag/better-auth-utilities';
+ *
  * const data = { email: 'user@example.com', name: 'John Doe' };
- * const validatedEffect = validateUserData(data);
- * // Effect.runSync(validatedEffect) => { email: 'user@example.com', name: 'John Doe' }
+ * const program = validateUserData(data);
+ * Effect.runSync(program); // => { email: 'user@example.com', name: 'John Doe' }
+ * ```
  */
 export const validateUserData = (
   userData: CreateUserData
@@ -187,20 +281,25 @@ export const validateUserData = (
 /**
  * Checks if a user with the given email already exists.
  *
+ * @category Validation
  * @description Queries the database to check for email uniqueness.
  *
  * @fp-pattern Effectful function with database dependency
- * @composition Uses PrismaClient from Context
+ * @composition {@link Effect.gen} + {@link PrismaClientTag}
  *
  * @param email - The email to check.
- * @returns {Effect.Effect<void, UserExistsError | DatabaseError, PrismaClientTag>}
- * Effect that succeeds if email is unique or fails if email exists or database error occurs.
+ * @returns {Effect.Effect<void, UserExistsError | DatabaseError, PrismaClientTag>} Effect that succeeds if email is unique or fails if.email exists or a database error occurs.
  *
  * @example
- * const checkEffect = checkEmailUniqueness('user@example.com');
- * const result = await Effect.runPromise(
- *   Effect.provide(checkEffect, PrismaClientTag.of(prisma))
- * );
+ * ```ts
+ * import { Effect } from 'effect';
+ * import { PrismaClient } from '@prisma/client';
+ * import { PrismaClientTag, checkEmailUniqueness } from '@emperorrag/better-auth-utilities';
+ *
+ * const prisma = new PrismaClient();
+ * const program = Effect.provideService(checkEmailUniqueness('user@example.com'), PrismaClientTag, prisma);
+ * await Effect.runPromise(program);
+ * ```
  */
 export const checkEmailUniqueness = (
   email: string
@@ -232,31 +331,26 @@ export const checkEmailUniqueness = (
 /**
  * Finds a user by their ID.
  *
- * @description This function queries the database for a user with the given ID using Prisma.
- * The entire operation is wrapped in an `Effect` to handle potential failures like the user not being found
- * or a database connection issue. It uses the Effect Context pattern for dependency injection of PrismaClient.
+ * @category Queries
+ * @description Queries Prisma for a user record using the provided identifier.
+ *
+ * @fp-pattern Effectful function with database dependency
+ * @composition {@link pipe} -> {@link validateUserId} -> {@link Effect.gen}
  *
  * @param userId - The ID of the user to find.
- * @returns {Effect.Effect<User, UserNotFoundError | DatabaseError, PrismaClientTag>} An `Effect` that resolves
- * with the `User` object on success or fails with a `UserNotFoundError` or `DatabaseError`. It requires a `PrismaClient`
- * instance in its context.
+ * @returns {Effect.Effect<User, UserNotFoundError | DatabaseError, PrismaClientTag>} Effect resolving with the {@link User} or failing with {@link UserNotFoundError} / {@link DatabaseError}.
  *
  * @example
+ * ```ts
+ * import { Effect } from 'effect';
  * import { PrismaClient } from '@prisma/client';
- * const prisma = new PrismaClient();
- * const userEffect = findUserById('user-123');
- * const user = await Effect.runPromise(
- *   Effect.provide(userEffect, PrismaClientTag.of(prisma))
- * );
- * // => { id: 'user-123', email: 'user@example.com', ... }
+ * import { PrismaClientTag, findUserById } from '@emperorrag/better-auth-utilities';
  *
- * @example
- * // Using with Effect.gen for composition
- * const program = Effect.gen(function* () {
- *   const user = yield* findUserById('user-456');
- *   console.log('Found user:', user.email);
- *   return user;
- * });
+ * const prisma = new PrismaClient();
+ * const program = Effect.provideService(findUserById('user-123'), PrismaClientTag, prisma);
+ * const user = await Effect.runPromise(program);
+ * console.log(user.email);
+ * ```
  */
 export const findUserById = (
   userId: string
@@ -296,36 +390,27 @@ export const findUserById = (
 /**
  * Creates a new user in the database.
  *
- * @description This function uses Prisma to create a new user with the provided data.
- * It returns an `Effect` that encapsulates the creation process, handling potential errors
- * such as a user with the same email already existing or database connection issues.
- * The function uses the Effect Context pattern for dependency injection of PrismaClient.
+ * @category Mutations
+ * @description Persists a new user using the supplied {@link PrismaClient} implementation.
+ *
+ * @fp-pattern Effectful function with database dependency
+ * @composition {@link pipe} -> {@link validateUserData} -> {@link Effect.gen}
  *
  * @param userData - The data for the new user (email, name, optional image and emailVerified).
- * @returns {Effect.Effect<User, UserExistsError | DatabaseError, PrismaClientTag>} An `Effect` that resolves
- * with the newly created `User` object or fails with a `UserExistsError` or `DatabaseError`.
+ * @returns {Effect.Effect<User, UserExistsError | DatabaseError, PrismaClientTag>} Effect resolving with the created {@link User} or failing with {@link UserExistsError} / {@link DatabaseError}.
  *
  * @example
+ * ```ts
+ * import { Effect } from 'effect';
  * import { PrismaClient } from '@prisma/client';
- * const prisma = new PrismaClient();
- * const userData = { email: 'newuser@example.com', name: 'Jane Doe' };
- * const createEffect = createUser(userData);
- * const newUser = await Effect.runPromise(
- *   Effect.provide(createEffect, PrismaClientTag.of(prisma))
- * );
- * // => { id: 'user-789', email: 'newuser@example.com', name: 'Jane Doe', ... }
+ * import { PrismaClientTag, createUser } from '@emperorrag/better-auth-utilities';
  *
- * @example
- * // Using with Effect.gen for composition
- * const program = Effect.gen(function* () {
- *   const newUser = yield* createUser({
- *     email: 'admin@example.com',
- *     name: 'Admin User',
- *     emailVerified: true
- *   });
- *   console.log('Created user:', newUser.id);
- *   return newUser;
- * });
+ * const prisma = new PrismaClient();
+ * const payload = { email: 'newuser@example.com', name: 'Jane Doe' };
+ * const program = Effect.provideService(createUser(payload), PrismaClientTag, prisma);
+ * const user = await Effect.runPromise(program);
+ * console.log(user.id);
+ * ```
  */
 export const createUser = (
   userData: CreateUserData
