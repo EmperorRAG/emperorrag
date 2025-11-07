@@ -34,7 +34,8 @@
 	"files": [
 		"README.md",
 		"scripts",
-		"dist"
+		"dist",
+		"!**/*.tsbuildinfo"
 	],
 	"nx": {
 		"name": "prisma-better-auth-db",
@@ -103,7 +104,9 @@
 		]
 	},
 	"dependencies": {
-		"@prisma/client": "6.17.1"
+		"@prisma/client": "6.17.1",
+		"better-auth": "^1.3.27",
+		"zod": "^4.1.12"
 	},
 	"devDependencies": {
 		"prisma": "^6.17.1",
@@ -111,6 +114,7 @@
 		"vite-plugin-dts": "^4.5.4",
 		"vite": "^7.0.0",
 		"vitest": "^3.0.0",
-		"@nx/vite": "21.6.5"
+		"@nx/vite": "21.6.5",
+		"@swc-node/register": "~1.9.1"
 	}
 }

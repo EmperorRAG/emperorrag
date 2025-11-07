@@ -1,1 +1,1 @@
-export * from './lib/prisma-better-auth-db.js';
+export * from './lib/prisma-better-auth-db';
