@@ -3,25 +3,38 @@
 	"version": "0.0.1",
 	"type": "module",
 	"private": true,
-	"main": "./prisma/generated/client/index.js",
-	"module": "./prisma/generated/client/index.js",
-	"types": "./prisma/generated/client/index.d.ts",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
-			"client": "./prisma/generated/client/index.js",
-			"schemas": "./prisma/generated/schemas/index.ts",
-			"types": "./prisma/generated/schemas/index.ts",
-			"default": "./prisma/generated/client/index.js",
-			"@emperorrag/source": "./src/index.ts",
-			"import": "./dist/index.js"
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js",
+			"@emperorrag/source": "./src/index.ts"
+		},
+		"./client": {
+			"types": "./dist/lib/prisma/generated/client/index.d.ts",
+			"require": "./dist/lib/prisma/generated/client/index.js",
+			"import": "./dist/lib/prisma/generated/client/index.js",
+			"default": "./dist/lib/prisma/generated/client/index.js"
+		},
+		"./schemas": {
+			"types": "./dist/lib/prisma/generated/schemas/index.d.ts",
+			"import": "./dist/lib/prisma/generated/schemas/index.js",
+			"default": "./dist/lib/prisma/generated/schemas/index.js"
+		},
+		"./types": {
+			"types": "./dist/lib/prisma/generated/schemas/index.d.ts",
+			"import": "./dist/lib/prisma/generated/schemas/index.js",
+			"default": "./dist/lib/prisma/generated/schemas/index.js"
 		}
 	},
 	"files": [
 		"README.md",
-		"prisma",
 		"scripts",
-		"test-prisma-client.ts"
+		"dist"
 	],
 	"nx": {
 		"name": "prisma-better-auth-db",
