@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/client"
+  output   = "../../better-auth-db/src/lib/prisma/generated/client"
 }
 
 generator zod {

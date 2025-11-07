@@ -1,5 +1,3 @@
-import type { UserPureType } from '@emperorrag/prisma-better-auth-db'
-
 export interface AdapterContext {
 	readonly headers?: Headers | Record<string, string>;
 	readonly [key: string]: unknown;
@@ -24,11 +22,6 @@ export interface AdminUser {
 	readonly banExpiresAt?: Date | null;
 	readonly createdAt: Date;
 	readonly updatedAt: Date;
-	readonly [key: string]: unknown;
-}
-
-export interface AdminUserPure extends UserPureType {
-	readonly banExpiresAt?: Date | null;
 	readonly [key: string]: unknown;
 }
 
@@ -112,63 +105,49 @@ export interface ListUsersApiResult {
 	readonly error?: unknown;
 }
 
-export type ListUsersApi = (
-	input: ListUsersOptions & { readonly headers?: Headers | Record<string, string> }
-) => Promise<ListUsersApiResult>;
+export type ListUsersApi = (input: ListUsersOptions & { readonly headers?: Headers | Record<string, string> }) => Promise<ListUsersApiResult>;
 
 export interface CreateUserApiResult {
 	readonly data?: AdminUser;
 	readonly error?: unknown;
 }
 
-export type CreateUserApi = (
-	input: CreateUserOptions & { readonly headers?: Headers | Record<string, string> }
-) => Promise<CreateUserApiResult>;
+export type CreateUserApi = (input: CreateUserOptions & { readonly headers?: Headers | Record<string, string> }) => Promise<CreateUserApiResult>;
 
 export interface UpdateUserApiResult {
 	readonly data?: AdminUser;
 	readonly error?: unknown;
 }
 
-export type UpdateUserApi = (
-	input: UpdateUserOptions & { readonly headers?: Headers | Record<string, string> }
-) => Promise<UpdateUserApiResult>;
+export type UpdateUserApi = (input: UpdateUserOptions & { readonly headers?: Headers | Record<string, string> }) => Promise<UpdateUserApiResult>;
 
 export interface DeleteUserApiResult {
 	readonly data?: DeleteUserResult;
 	readonly error?: unknown;
 }
 
-export type DeleteUserApi = (
-	input: { readonly userId: string; readonly headers?: Headers | Record<string, string> }
-) => Promise<DeleteUserApiResult>;
+export type DeleteUserApi = (input: { readonly userId: string; readonly headers?: Headers | Record<string, string> }) => Promise<DeleteUserApiResult>;
 
 export interface BanUserApiResult {
 	readonly data?: AdminUser;
 	readonly error?: unknown;
 }
 
-export type BanUserApi = (
-	input: BanUserOptions & { readonly headers?: Headers | Record<string, string> }
-) => Promise<BanUserApiResult>;
+export type BanUserApi = (input: BanUserOptions & { readonly headers?: Headers | Record<string, string> }) => Promise<BanUserApiResult>;
 
 export interface UnbanUserApiResult {
 	readonly data?: AdminUser;
 	readonly error?: unknown;
 }
 
-export type UnbanUserApi = (
-	input: UnbanUserOptions & { readonly headers?: Headers | Record<string, string> }
-) => Promise<UnbanUserApiResult>;
+export type UnbanUserApi = (input: UnbanUserOptions & { readonly headers?: Headers | Record<string, string> }) => Promise<UnbanUserApiResult>;
 
 export interface ImpersonateUserApiResult {
 	readonly data?: AdminUserSession;
 	readonly error?: unknown;
 }
 
-export type ImpersonateUserApi = (
-	input: ImpersonateUserOptions & { readonly headers?: Headers | Record<string, string> }
-) => Promise<ImpersonateUserApiResult>;
+export type ImpersonateUserApi = (input: ImpersonateUserOptions & { readonly headers?: Headers | Record<string, string> }) => Promise<ImpersonateUserApiResult>;
 
 export interface ListUserSessionsApiResult {
 	readonly data?: ReadonlyArray<AdminSession>;

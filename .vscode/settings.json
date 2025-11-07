@@ -167,10 +167,6 @@
 		"editor.defaultFormatter": "redhat.vscode-yaml"
 	},
 	"editor.indentSize": "tabSize",
-	"editor.quickSuggestions": {
-		"comments": "inline",
-		"strings": "inline"
-	},
 	"todo-tree.tree.showBadges": true,
 	"todo-tree.tree.disableCompactFolders": true,
 	"todo-tree.tree.showCountsInTree": true,

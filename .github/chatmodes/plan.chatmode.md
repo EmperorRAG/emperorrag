@@ -1,6 +1,6 @@
 ---
 description: 'Strategic planning and architecture assistant focused on thoughtful analysis before implementation. Helps developers understand codebases, clarify requirements, and develop comprehensive implementation strategies.'
-tools: ['search', 'runCommands', 'context7/*', 'cognitionai/deepwiki/*', 'usages', 'vscodeAPI', 'problems', 'fetch', 'githubRepo', 'extensions']
+tools: ['search', 'context7/*', 'cognitionai/deepwiki/*', 'usages', 'vscodeAPI', 'problems', 'fetch', 'githubRepo', 'extensions']
 ---
 
 # Plan Mode - Strategic Planning & Architecture Assistant

@@ -6,19 +6,10 @@
 
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { PrismaClient } from '../../../prisma/generated/client/index.js';
+import { PrismaClient } from '../prisma/generated/client/index.js';
 
 // Import Better Auth plugins
-import {
-  username,
-  jwt,
-  bearer,
-  admin,
-  organization,
-  emailOTP,
-  twoFactor,
-  apiKey,
-} from 'better-auth/plugins';
+import { username, jwt, bearer, admin, organization, emailOTP, twoFactor, apiKey } from 'better-auth/plugins';
 
 // Initialize Prisma Client
 // Note: In production, this should be managed by the PrismaService
@@ -27,79 +18,75 @@ const prisma = new PrismaClient();
 // Configure Better Auth with Prisma adapter and plugins
 export type AuthInstance = ReturnType<typeof betterAuth>;
 export const auth: AuthInstance = betterAuth({
-  // Database configuration with Prisma
-  database: prismaAdapter(prisma, {
-    provider: 'postgresql',
-  }),
+	// Database configuration with Prisma
+	database: prismaAdapter(prisma, {
+		provider: 'postgresql',
+	}),
 
-  // Email and password authentication
-  emailAndPassword: {
-    enabled: true,
-  },
+	// Email and password authentication
+	emailAndPassword: {
+		enabled: true,
+	},
 
-  // CORS configuration
-  trustedOrigins: [
-    'http://localhost:3000',
-    'http://localhost:3001',
-    'http://localhost:4200',
-  ],
+	// CORS configuration
+	trustedOrigins: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:4200'],
 
-  // Session configuration
-  session: {
-    expiresIn: 60 * 60 * 24 * 7, // 7 days in seconds
-    updateAge: 60 * 60 * 24, // 1 day in seconds
-  },
+	// Session configuration
+	session: {
+		expiresIn: 60 * 60 * 24 * 7, // 7 days in seconds
+		updateAge: 60 * 60 * 24, // 1 day in seconds
+	},
 
-  // Secret for signing tokens (loaded from environment)
-  secret: process.env.BETTER_AUTH_SECRET || 'default-development-secret-change-in-production',
+	// Secret for signing tokens (loaded from environment)
+	secret: process.env.BETTER_AUTH_SECRET || 'default-development-secret-change-in-production',
 
-  // Plugin configuration
-  plugins: [
-    // Username authentication support (3-50 characters)
-    username({
-      minUsernameLength: 3,
-      maxUsernameLength: 50,
-    }),
+	// Plugin configuration
+	plugins: [
+		// Username authentication support (3-50 characters)
+		username({
+			minUsernameLength: 3,
+			maxUsernameLength: 50,
+		}),
 
-    // JWT token support
-    jwt(),
+		// JWT token support
+		jwt(),
 
-    // Bearer token support
-    bearer(),
+		// Bearer token support
+		bearer(),
 
-    // Admin role management
-    admin({ adminUserIds: [process.env.BETTER_AUTH_NEST_JS_MICROSERVICE_USER_ID ?? '0', process.env.BETTER_AUTH_NEXT_JS_FRONTEND_USER_ID ?? '1'] }),
+		// Admin role management
+		admin({ adminUserIds: [process.env.BETTER_AUTH_NEST_JS_MICROSERVICE_USER_ID ?? '0', process.env.BETTER_AUTH_NEXT_JS_FRONTEND_USER_ID ?? '1'] }),
 
-    // Organization/multi-tenancy support
-    organization(),
+		// Organization/multi-tenancy support
+		organization(),
 
-    // Email OTP authentication (6-digit OTP, 5 minutes expiry)
-    emailOTP({
-      otpLength: 6,
-      expiresIn: 300, // 5 minutes
-      async sendVerificationOTP({ email, otp, type }) {
-        // TODO: Implement email sending logic
-        console.log(`Sending OTP ${otp} to ${email} (type: ${type})`);
-        // In production, integrate with an email service like SendGrid, AWS SES, etc.
-        // type can be: 'sign-in', 'email-verification', or 'password-reset'
-      },
-    }),
+		// Email OTP authentication (6-digit OTP, 5 minutes expiry)
+		emailOTP({
+			otpLength: 6,
+			expiresIn: 300, // 5 minutes
+			async sendVerificationOTP({ email, otp, type }) {
+				// TODO: Implement email sending logic
+				console.log(`Sending OTP ${otp} to ${email} (type: ${type})`);
+				// In production, integrate with an email service like SendGrid, AWS SES, etc.
+				// type can be: 'sign-in', 'email-verification', or 'password-reset'
+			},
+		}),
 
-    // Two-factor authentication with TOTP
-    twoFactor({
-      issuer: 'My Auth Service',
-      otpOptions: {
-        async sendOTP({ user, otp }) {
-          // TODO: Implement OTP delivery (email, SMS, etc.)
-          console.log(`Sending 2FA OTP to user ${user.id}: ${otp}`);
-          // In production, integrate with an email/SMS service
-        },
-      },
-    }),
+		// Two-factor authentication with TOTP
+		twoFactor({
+			issuer: 'My Auth Service',
+			otpOptions: {
+				async sendOTP({ user, otp }) {
+					// TODO: Implement OTP delivery (email, SMS, etc.)
+					console.log(`Sending 2FA OTP to user ${user.id}: ${otp}`);
+					// In production, integrate with an email/SMS service
+				},
+			},
+		}),
 
-    // API key management
-    apiKey(),
-  ],
+		// API key management
+		apiKey(),
+	],
 });
 
 export type AuthSession = typeof auth.$Infer.Session;
