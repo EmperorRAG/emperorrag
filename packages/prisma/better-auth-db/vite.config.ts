@@ -17,6 +17,12 @@ export default defineConfig(() => ({
 				output: 'lib/prisma/generated/client',
 				includeIgnoredFiles: true,
 			},
+			{
+				input: 'src/lib/prisma/generated/schemas',
+				glob: '**/*',
+				output: 'lib/prisma/generated/schemas',
+				includeIgnoredFiles: true,
+			},
 		]),
 		dts({ entryRoot: './src', tsconfigPath: path.join(__dirname, 'tsconfig.lib.json') }),
 	],
@@ -34,16 +40,27 @@ export default defineConfig(() => ({
 			transformMixedEsModules: true,
 		},
 		lib: {
-			// Could also be a dictionary or array of multiple entry points.
-			entry: './src/index.ts',
-			name: '@emperorrag/prisma-better-auth-db',
-			fileName: 'index',
-			// Change this to the formats you want to support.
-			// Don't forget to update your package.json as well.
+			entry: {
+				index: path.resolve(__dirname, './src/index.ts'),
+				client: path.resolve(__dirname, './src/client.ts'),
+				schemas: path.resolve(__dirname, './src/schemas.ts'),
+				types: path.resolve(__dirname, './src/types.ts'),
+			},
+			fileName: (_format, entryName) => {
+				switch (entryName) {
+					case 'client':
+						return 'lib/prisma/generated/client/index';
+					case 'schemas':
+						return 'lib/prisma/generated/schemas/index';
+					case 'types':
+						return 'lib/prisma/generated/types/index';
+					default:
+						return 'index';
+				}
+			},
 			formats: ['es' as const],
 		},
 		rollupOptions: {
-			// External packages that should not be bundled into your library.
 			external: (id) => {
 				const normalizedId = id.replace(/\\/g, '/');
 				return normalizedId.includes('prisma/generated/client');

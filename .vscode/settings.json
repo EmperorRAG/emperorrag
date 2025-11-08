@@ -300,5 +300,6 @@
 	"workbench.editor.pinnedTabsOnSeparateRow": true,
 	"workbench.editor.showTabIndex": true,
 	"workbench.editor.wrapTabs": true,
-	"yaml.format.printWidth": 300
+	"yaml.format.printWidth": 300,
+	"editor.wordBasedSuggestions": "off"
 }

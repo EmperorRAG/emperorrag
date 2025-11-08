@@ -1,5 +1,19 @@
 {
-	"mode": "minimal",
+	"mode": "custom",
 	"output": "../../better-auth-db/src/lib/prisma/generated",
-	"useMultipleFiles": true
+	"useMultipleFiles": true,
+	"pureModels": true,
+	"pureModelsLean": true,
+	"emit": {
+		"crud": false,
+		"objects": false,
+		"results": false,
+		"variants": true,
+		"enums": true
+	},
+	"variants": {
+		"pure": { "enabled": true, "suffix": ".model" },
+		"input": { "enabled": false },
+		"result": { "enabled": false }
+	}
 }

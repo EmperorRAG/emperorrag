@@ -18,17 +18,20 @@
 			"types": "./dist/lib/prisma/generated/client/index.d.ts",
 			"require": "./dist/lib/prisma/generated/client/index.js",
 			"import": "./dist/lib/prisma/generated/client/index.js",
-			"default": "./dist/lib/prisma/generated/client/index.js"
+			"default": "./dist/lib/prisma/generated/client/index.js",
+			"@emperorrag/source": "./src/client.ts"
 		},
 		"./schemas": {
 			"types": "./dist/lib/prisma/generated/schemas/index.d.ts",
 			"import": "./dist/lib/prisma/generated/schemas/index.js",
-			"default": "./dist/lib/prisma/generated/schemas/index.js"
+			"default": "./dist/lib/prisma/generated/schemas/index.js",
+			"@emperorrag/source": "./src/schemas.ts"
 		},
 		"./types": {
-			"types": "./dist/lib/prisma/generated/schemas/index.d.ts",
-			"import": "./dist/lib/prisma/generated/schemas/index.js",
-			"default": "./dist/lib/prisma/generated/schemas/index.js"
+			"types": "./dist/lib/prisma/generated/types/index.d.ts",
+			"import": "./dist/lib/prisma/generated/types/index.js",
+			"default": "./dist/lib/prisma/generated/types/index.js",
+			"@emperorrag/source": "./src/types.ts"
 		}
 	},
 	"files": [
@@ -44,7 +47,7 @@
 				"executor": "nx:run-commands",
 				"cache": false,
 				"options": {
-					"command": "pnpm exec prisma generate --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+					"command": "npx prisma generate --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
 					"cwd": "."
 				}
 			},
@@ -52,7 +55,7 @@
 				"executor": "nx:run-commands",
 				"cache": false,
 				"options": {
-					"command": "pnpm exec prisma migrate dev --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+					"command": "npx prisma migrate dev --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
 					"cwd": "."
 				}
 			},
@@ -60,7 +63,7 @@
 				"executor": "nx:run-commands",
 				"cache": false,
 				"options": {
-					"command": "pnpm exec prisma migrate deploy --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+					"command": "npx prisma migrate deploy --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
 					"cwd": "."
 				}
 			},
@@ -68,7 +71,7 @@
 				"executor": "nx:run-commands",
 				"cache": false,
 				"options": {
-					"command": "pnpm exec prisma studio --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+					"command": "npx prisma studio --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
 					"cwd": "."
 				}
 			},
@@ -76,7 +79,7 @@
 				"executor": "nx:run-commands",
 				"cache": false,
 				"options": {
-					"command": "pnpm exec prisma db push --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+					"command": "npx prisma db push --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
 					"cwd": "."
 				}
 			},
@@ -84,7 +87,7 @@
 				"executor": "nx:run-commands",
 				"cache": false,
 				"options": {
-					"command": "pnpm exec prisma migrate reset --schema=packages/prisma/better-auth-db/prisma/schema.prisma --force",
+					"command": "npx prisma migrate reset --schema=packages/prisma/better-auth-db/prisma/schema.prisma --force",
 					"cwd": "."
 				}
 			},
@@ -92,7 +95,7 @@
 				"executor": "nx:run-commands",
 				"cache": false,
 				"options": {
-					"command": "pnpm exec prisma validate --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+					"command": "npx prisma validate --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
 					"cwd": "."
 				}
 			}
