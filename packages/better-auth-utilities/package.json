@@ -12,6 +12,24 @@
 			"types": "./dist/index.d.ts",
 			"import": "./dist/index.js",
 			"default": "./dist/index.js"
+		},
+		"./client": {
+			"types": "./dist/lib/client/index.d.ts",
+			"import": "./dist/lib/client/index.js",
+			"default": "./dist/lib/client/index.js",
+			"@emperorrag/source": "./src/lib/client.ts"
+		},
+		"./server": {
+			"types": "./dist/lib/server/index.d.ts",
+			"import": "./dist/lib/server/index.js",
+			"default": "./dist/lib/server/index.js",
+			"@emperorrag/source": "./src/lib/server.ts"
+		},
+		"./config": {
+			"types": "./dist/lib/config/index.d.ts",
+			"import": "./dist/lib/config/index.js",
+			"default": "./dist/lib/config/index.js",
+			"@emperorrag/source": "./src/lib/config.ts"
 		}
 	},
 	"files": [

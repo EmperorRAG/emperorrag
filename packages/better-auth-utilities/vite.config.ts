@@ -3,51 +3,61 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
 import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
+import externalsJson from './externals.json' with { type: 'json' };
+import { externalizePackages, toExternalizeConfig } from './externalize-packages.js';
 
 export default defineConfig(() => ({
-  root: __dirname,
-  cacheDir: '../../node_modules/.vite/packages/better-auth-utilities',
-  plugins: [
-    nxCopyAssetsPlugin(['*.md', 'package.json']),
-    dts({ entryRoot: './src', tsconfigPath: path.join(__dirname, 'tsconfig.lib.json') })
-  ],
-  // Uncomment this if you are using workers.
-  // worker: {
-  //  plugins: [ nxViteTsPaths() ],
-  // },
-  // Configuration for building your library.
-  // See: https://vitejs.dev/guide/build.html#library-mode
-  build: {
-    outDir: './dist',
-    emptyOutDir: true,
-    reportCompressedSize: true,
-    commonjsOptions: {
-      transformMixedEsModules: true,
-    },
-    lib: {
-      // Could also be a dictionary or array of multiple entry points.
-      entry: './src/index.ts',
-      name: '@emperorrag/better-auth-utilities',
-      fileName: 'index',
-      // Change this to the formats you want to support.
-      // Don't forget to update your package.json as well.
-      formats: ['es' as const]
-    },
-    rollupOptions: {
-      // External packages that should not be bundled into your library.
-      external: []
-    },
-  },
-  test: {
-    name: 'better-auth-utilities',
-    watch: false,
-    globals: true,
-    environment: 'node',
-    include: ['{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    reporters: ['default'],
-    coverage: {
-      reportsDirectory: './test-output/vitest/coverage',
-      provider: 'v8' as const,
-    }
-  },
+	root: __dirname,
+	cacheDir: '../../node_modules/.vite/packages/better-auth-utilities',
+	plugins: [nxCopyAssetsPlugin(['*.md', 'package.json']), dts({ entryRoot: './src', tsconfigPath: path.join(__dirname, 'tsconfig.lib.json') })],
+	// Uncomment this if you are using workers.
+	// worker: {
+	//  plugins: [ nxViteTsPaths() ],
+	// },
+	// Configuration for building your library.
+	// See: https://vitejs.dev/guide/build.html#library-mode
+	build: {
+		outDir: './dist',
+		emptyOutDir: true,
+		reportCompressedSize: true,
+		commonjsOptions: {
+			transformMixedEsModules: true,
+		},
+		lib: {
+			entry: {
+				index: path.resolve(__dirname, './src/index.ts'),
+				client: path.resolve(__dirname, './src/lib/client.ts'),
+				server: path.resolve(__dirname, './src/lib/server.ts'),
+				config: path.resolve(__dirname, './src/lib/config.ts'),
+			},
+			fileName: (_format: string, entryName: string) => {
+				switch (entryName) {
+					case 'client':
+						return 'lib/client/index';
+					case 'server':
+						return 'lib/server/index';
+					case 'config':
+						return 'lib/config/index';
+					default:
+						return 'index';
+				}
+			},
+			formats: ['es' as const],
+		},
+		rollupOptions: {
+			external: externalizePackages(toExternalizeConfig(externalsJson)),
+		},
+	},
+	test: {
+		name: 'better-auth-utilities',
+		watch: false,
+		globals: true,
+		environment: 'node',
+		include: ['{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+		reporters: ['default'],
+		coverage: {
+			reportsDirectory: './test-output/vitest/coverage',
+			provider: 'v8' as const,
+		},
+	},
 }));
