@@ -301,5 +301,12 @@
 	"workbench.editor.showTabIndex": true,
 	"workbench.editor.wrapTabs": true,
 	"yaml.format.printWidth": 300,
-	"editor.wordBasedSuggestions": "off"
+	"editor.wordBasedSuggestions": "off",
+	"vitest.filesWatcherInclude": "apps/**/*.{ts,tsx,js,jsx,vue,svelte,css,html}\npackages/**/*.{ts,tsx,js,jsx,vue,svelte,css,html}\n*.{json,ts}",
+	"vitest.configSearchPatternExclude": "{**/node_modules/**,**/.*/**,**/*.d.ts}",
+	"vitest.configSearchPatternInclude": "**/*{vite,vitest}*.config*.{ts,js,mjs,cjs,cts,mts}",
+	"vitest.vitestPackagePath": "node_modules/vitest/package.json",
+	"vitest.workspaceConfig": "vitest.workspace.ts",
+	"importCost.debug": true,
+	"importCost.timeout": 10000
 }

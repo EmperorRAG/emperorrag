@@ -33,11 +33,11 @@ export default defineConfig(() => ({
 			fileName: (_format: string, entryName: string) => {
 				switch (entryName) {
 					case 'client':
-						return 'lib/client/index';
+						return 'lib/client';
 					case 'server':
-						return 'lib/server/index';
+						return 'lib/server';
 					case 'config':
-						return 'lib/config/index';
+						return 'lib/config';
 					default:
 						return 'index';
 				}
