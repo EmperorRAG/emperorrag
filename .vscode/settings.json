@@ -37,7 +37,7 @@
 	"[yaml]": {
 		"editor.defaultFormatter": "redhat.vscode-yaml"
 	},
-	"chat.agent.thinkingStyle": "expanded",
+	"chat.agent.thinkingStyle": "collapsedPreview",
 	"chat.agentSessionsViewLocation": "view",
 	"chat.editor.fontFamily": "Fira Code, monospace",
 	"chat.edits2.enabled": true,
@@ -171,7 +171,10 @@
 		"**/.git/subtree-cache/**": true,
 		"**/.hg/store/**": true,
 		"**/.vscode/**": true,
-		"**/node_modules/**": true
+		"**/node_modules/**": true,
+		"**/dist/**": true,
+		"**/prisma/generated/**": true,
+		"**/out-tsc/**": true
 	},
 	"git.terminalGitEditor": true,
 	"github.copilot.chat.codeGeneration.useInstructionFiles": true,
@@ -186,7 +189,7 @@
 	"github.copilot.nextEditSuggestions.enabled": true,
 	"gitlens.ai.model": "vscode",
 	"inlineChat.enableV2": true,
-	"jest.jestCommandLine": "nx test --verbose",
+	"jest.jestCommandLine": "npx nx test --verbose",
 	"jest.runMode": "on-demand",
 	"markdown.extension.completion.enabled": true,
 	"markdown.extension.completion.root": "./",
@@ -211,8 +214,8 @@
 		"!**/*.{prompt,instructions,chatmode}.{md,mkd,mdwn,mdown,markdown,markdn,mdtxt,mdtext,workbook}"
 	],
 	"npm.enableRunFromFolder": true,
-	"npm.packageManager": "pnpm",
-	"npm.scriptRunner": "pnpm",
+	"npm.packageManager": "npm",
+	"npm.scriptRunner": "npm",
 	"postman.settings.dotenv-detection-notification-visibility": false,
 	"powershell.buttons.showPanelMovementButtons": true,
 	"powershell.powerShellDefaultVersion": "PowerShell (x64)",
@@ -307,6 +310,5 @@
 	"vitest.configSearchPatternInclude": "**/*{vite,vitest}*.config*.{ts,js,mjs,cjs,cts,mts}",
 	"vitest.vitestPackagePath": "node_modules/vitest/package.json",
 	"vitest.workspaceConfig": "vitest.workspace.ts",
-	"importCost.debug": true,
-	"importCost.timeout": 10000
+	"typescript.tsserver.watchOptions": "vscode"
 }

@@ -51,13 +51,13 @@ export default defineConfig(() => ({
 			fileName: (_format: string, entryName: string) => {
 				switch (entryName) {
 					case 'client':
-						return 'lib/prisma/generated/client/index';
+						return 'lib/prisma/generated/client/index.js';
 					case 'schemas':
-						return 'lib/prisma/generated/schemas/index';
+						return 'lib/prisma/generated/schemas/index.js';
 					case 'types':
-						return 'lib/prisma/generated/types/index';
+						return 'lib/prisma/generated/types/index.d.ts';
 					default:
-						return 'index';
+						return 'index.js';
 				}
 			},
 			formats: ['es' as const],

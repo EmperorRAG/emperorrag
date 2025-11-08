@@ -14,21 +14,21 @@
 			"default": "./dist/index.js"
 		},
 		"./client": {
-			"types": "./dist/lib/client/index.d.ts",
-			"import": "./dist/lib/client/index.js",
-			"default": "./dist/lib/client/index.js",
+			"types": "./dist/lib/client.d.ts",
+			"import": "./dist/lib/client.js",
+			"default": "./dist/lib/client.js",
 			"@emperorrag/source": "./src/lib/client.ts"
 		},
 		"./server": {
-			"types": "./dist/lib/server/index.d.ts",
-			"import": "./dist/lib/server/index.js",
-			"default": "./dist/lib/server/index.js",
+			"types": "./dist/lib/server.d.ts",
+			"import": "./dist/lib/server.js",
+			"default": "./dist/lib/server.js",
 			"@emperorrag/source": "./src/lib/server.ts"
 		},
 		"./config": {
-			"types": "./dist/lib/config/index.d.ts",
-			"import": "./dist/lib/config/index.js",
-			"default": "./dist/lib/config/index.js",
+			"types": "./dist/lib/config.d.ts",
+			"import": "./dist/lib/config.js",
+			"default": "./dist/lib/config.js",
 			"@emperorrag/source": "./src/lib/config.ts"
 		}
 	},
