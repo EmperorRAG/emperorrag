@@ -14,7 +14,7 @@
 		"react-dom": "19.0.0"
 	},
 	"devDependencies": {
-		"@emperorrag/components": "workspace:*",
-		"@emperorrag/better-auth-utilities": "workspace:*"
+		"@emperorrag/components": "*",
+		"@emperorrag/better-auth-utilities": "*"
 	}
 }

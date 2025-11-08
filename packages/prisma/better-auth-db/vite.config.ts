@@ -8,8 +8,16 @@ export default defineConfig(() => ({
 	root: __dirname,
 	cacheDir: '../../../node_modules/.vite/packages/prisma/better-auth-db',
 	plugins: [
-		nxCopyAssetsPlugin(['*.md', 'package.json', './src/lib/prisma/generated/client']),
-
+		nxCopyAssetsPlugin([
+			'*.md',
+			'package.json',
+			{
+				input: 'src/lib/prisma/generated/client',
+				glob: '**/*',
+				output: 'lib/prisma/generated/client',
+				includeIgnoredFiles: true,
+			},
+		]),
 		dts({ entryRoot: './src', tsconfigPath: path.join(__dirname, 'tsconfig.lib.json') }),
 	],
 	// Uncomment this if you are using workers.
@@ -36,7 +44,10 @@ export default defineConfig(() => ({
 		},
 		rollupOptions: {
 			// External packages that should not be bundled into your library.
-			external: [],
+			external: (id) => {
+				const normalizedId = id.replace(/\\/g, '/');
+				return normalizedId.includes('prisma/generated/client');
+			},
 		},
 	},
 	test: {
