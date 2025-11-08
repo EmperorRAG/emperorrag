@@ -17,7 +17,7 @@ const prisma = new PrismaClient();
 
 // Configure Better Auth with Prisma adapter and plugins
 export type AuthInstance = ReturnType<typeof betterAuth>;
-export const auth: AuthInstance = betterAuth({
+export const authInstance: AuthInstance = betterAuth({
 	// Database configuration with Prisma
 	database: prismaAdapter(prisma, {
 		provider: 'postgresql',
@@ -89,4 +89,4 @@ export const auth: AuthInstance = betterAuth({
 	],
 });
 
-export type AuthSession = typeof auth.$Infer.Session;
+export type AuthSession = typeof authInstance.$Infer.Session;

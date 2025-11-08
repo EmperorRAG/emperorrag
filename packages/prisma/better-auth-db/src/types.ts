@@ -1,1 +1,1 @@
-export type * from './lib/prisma/generated/schemas/index';
+export type * from './lib/prisma-better-auth-db';

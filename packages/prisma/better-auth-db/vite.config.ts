@@ -3,6 +3,8 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
 import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
+import externalsJson from './externals.json' with { type: 'json' };
+import { externalizePackages, toExternalizeConfig } from './externalize-packages.js';
 
 export default defineConfig(() => ({
 	root: __dirname,
@@ -46,7 +48,7 @@ export default defineConfig(() => ({
 				schemas: path.resolve(__dirname, './src/schemas.ts'),
 				types: path.resolve(__dirname, './src/types.ts'),
 			},
-			fileName: (_format, entryName) => {
+			fileName: (_format: string, entryName: string) => {
 				switch (entryName) {
 					case 'client':
 						return 'lib/prisma/generated/client/index';
@@ -61,10 +63,7 @@ export default defineConfig(() => ({
 			formats: ['es' as const],
 		},
 		rollupOptions: {
-			external: (id) => {
-				const normalizedId = id.replace(/\\/g, '/');
-				return normalizedId.includes('prisma/generated/client');
-			},
+			external: externalizePackages(toExternalizeConfig(externalsJson)),
 		},
 	},
 	test: {
