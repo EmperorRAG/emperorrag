@@ -1,16 +1,19 @@
-import type { UserPureType } from '@emperorrag/prisma-better-auth-db/schemas';
+import type { UserPureType } from '@emperorrag/prisma-better-auth-db/types';
 
-type UserCreateOneArgs = z.infer<typeof UserCreateOneZodSchema>;
-type UserCreateOneData = UserCreateOneArgs['data'];
+type EmailRequestType = {
+	user: UserPureType;
+	url: string;
+	token: string;
+};
 
-export interface SignInOptions {
+export interface SignInProps {
 	email: UserPureType['email'];
 	password: string;
 	rememberMe?: boolean;
 	callbackUrl?: string;
 }
 
-export interface SignUpOptions {
+export interface SignUpProps {
 	name: UserPureType['name'];
 	email: UserPureType['email'];
 	password: string;
@@ -22,37 +25,37 @@ export interface SignOutFetchOptions {
 	onSuccess?: () => void;
 }
 
-export interface SignOutOptions {
+export interface SignOutProps {
 	fetchOptions?: SignOutFetchOptions;
 }
 
-export interface sendVerificationEmailOptions {
-	user: UserPureType;
-	url: string;
-	token: string;
+export interface sendVerificationEmailArgs {
+	user: EmailRequestType['user'];
+	url: EmailRequestType['url'];
+	token: EmailRequestType['token'];
 }
 
-export interface sendResetPasswordOptions {
-	user: UserPureType;
-	url: string;
-	token: string;
+export interface sendResetPasswordArgs {
+	user: EmailRequestType['user'];
+	url: EmailRequestType['url'];
+	token: EmailRequestType['token'];
 }
 
-export interface onPasswordResetOptions {
-	user: UserPureType;
+export interface onPasswordResetArgs {
+	user: EmailRequestType['user'];
 }
 
-export interface requestPasswordResetOptions {
+export interface requestPasswordResetProps {
 	email: UserPureType['email'];
 	redirectTo?: string;
 }
 
-export interface resetPasswordOptions {
+export interface resetPasswordProps {
 	newPassword: string;
 	token: string;
 }
 
-export interface ChangePasswordOptions {
+export interface ChangePasswordProps {
 	newPassword: string;
 	currentPassword: string;
 	revokeOtherSessions?: boolean;
@@ -63,8 +66,8 @@ export interface EmailAndPasswordOptions {
 	disableSignUp?: boolean;
 	minPasswordLength?: number;
 	maxPasswordLength?: number;
-	sendResetPassword?: (options: sendResetPasswordOptions, request: Request) => Promise<void>;
-	onPasswordReset?: (options: onPasswordResetOptions, request: Request) => Promise<void>;
+	sendResetPassword?: (args: sendResetPasswordArgs, request: Request) => Promise<void>;
+	onPasswordReset?: (args: onPasswordResetArgs, request: Request) => Promise<void>;
 	resetPasswordTokenExpiresIn?: number;
 	password?: Record<string, unknown>;
 }
