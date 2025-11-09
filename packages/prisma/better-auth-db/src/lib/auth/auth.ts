@@ -18,12 +18,10 @@ import type {
 	AuthServerApiOf,
 	AuthServerApiEndpointOf,
 	AuthServerApiEndpointKeyOf,
-	AuthServerApiEndpointParametersOf,
-	AuthServerApiEndpointFirstParameter,
 	AuthServerApiEndpointBody,
 } from '@emperorrag/better-auth-utilities/server';
-import { createBetterAuthClient } from '@emperorrag/better-auth-utilities/client';
-import type { InferAuthClient } from '@emperorrag/better-auth-utilities/client';
+// import { createBetterAuthClient } from '@emperorrag/better-auth-utilities/client';
+// import type { InferAuthClient } from '@emperorrag/better-auth-utilities/client';
 
 // Initialize Prisma Client
 // Note: In production, this should be managed by the PrismaService

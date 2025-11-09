@@ -1,1 +1,1 @@
-export { authInstance } from './lib/prisma-better-auth-db';
+// export { authInstance } from './lib/prisma-better-auth-db';
