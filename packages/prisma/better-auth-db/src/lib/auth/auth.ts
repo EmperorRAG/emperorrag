@@ -104,7 +104,8 @@ const clientConfig = createClientConfig({ plugins: plugins });
 export const betterAuthConfig = defineConfig({
 	server: serverConfig,
 	client: clientConfig,
-	enabledServerPlugins: ['jwt', 'admin', 'apiKey', 'bearer', 'username', 'organization', 'emailOTP', 'twoFactor'],
+	enabledServerPlugins: ['jwt', 'admin', 'apiKey', 'bearer', 'username', 'organization'],
+	enabledClientPlugins: ['jwt', 'admin', 'apiKey', 'bearer', 'username', 'organization'],
 });
 
 export const authServer = createAuthServer(betterAuthConfig, prisma);
