@@ -80,8 +80,8 @@ vi.mock('better-auth/adapters/prisma', () => ({
 vi.mock('better-auth/plugins', () => mockPlugins);
 
 // Import after mocking
-import { createBetterAuthServer } from './server.js';
-import type { InferAuthServer, InferSession } from './server.ts';
+import { createAuthServer } from './server.js';
+import type { AuthServerOf, AuthServerSessionOf } from './server.ts';
 
 describe('better-auth-utilities: server', () => {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -135,7 +135,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			const server = createBetterAuthServer(config, mockPrismaClient);
+			const server = createAuthServer(config, mockPrismaClient);
 
 			expect(server).toBeDefined();
 			expect(mockBetterAuth).toHaveBeenCalledTimes(1);
@@ -151,7 +151,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockBetterAuth).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -173,7 +173,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockBetterAuth).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -200,7 +200,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockBetterAuth).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -228,7 +228,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockPrismaAdapter).toHaveBeenCalledWith(mockPrismaClient, {
 				provider: 'postgresql',
@@ -245,7 +245,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockBetterAuth).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -269,7 +269,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockBetterAuth).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -295,7 +295,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockBetterAuth).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -319,7 +319,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockBetterAuth).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -344,7 +344,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockBetterAuth).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -370,7 +370,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockBetterAuth).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -397,7 +397,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockBetterAuth).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -423,7 +423,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockBetterAuth).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -450,7 +450,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockPlugins.openAPI).toHaveBeenCalled();
 		});
@@ -469,7 +469,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockPlugins.jwt).toHaveBeenCalled();
 			expect(mockPlugins.twoFactor).toHaveBeenCalled();
@@ -489,7 +489,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockPlugins.jwt).toHaveBeenCalledWith(jwtConfig);
 		});
@@ -503,7 +503,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockPlugins.username).toHaveBeenCalled();
 			expect(mockPlugins.magicLink).toHaveBeenCalled();
@@ -521,7 +521,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockPlugins.siwe).toHaveBeenCalled();
 			expect(mockPlugins.genericOAuth).toHaveBeenCalled();
@@ -537,7 +537,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockPlugins.bearer).toHaveBeenCalled();
 			expect(mockPlugins.jwt).toHaveBeenCalled();
@@ -561,7 +561,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockPlugins.multiSession).toHaveBeenCalled();
 			expect(mockPlugins.anonymous).toHaveBeenCalled();
@@ -588,7 +588,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(consoleWarnSpy).toHaveBeenCalledWith('Unknown plugin: unknownPlugin');
 		});
@@ -607,7 +607,7 @@ describe('better-auth-utilities: server', () => {
 			});
 
 			// Should not throw
-			expect(() => createBetterAuthServer(config, mockPrismaClient)).not.toThrow();
+			expect(() => createAuthServer(config, mockPrismaClient)).not.toThrow();
 
 			expect(consoleErrorSpy).toHaveBeenCalledWith('Failed to initialize plugin jwt:', expect.any(Error));
 		});
@@ -625,7 +625,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockPlugins.jwt).toHaveBeenCalled();
 			expect(mockPlugins.twoFactor).toHaveBeenCalled();
@@ -658,7 +658,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockBetterAuth).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -676,7 +676,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockBetterAuth).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -700,7 +700,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockBetterAuth).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -718,7 +718,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			createBetterAuthServer(config, mockPrismaClient);
+			createAuthServer(config, mockPrismaClient);
 
 			expect(mockBetterAuth).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -776,7 +776,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			const server = createBetterAuthServer(config, mockPrismaClient);
+			const server = createAuthServer(config, mockPrismaClient);
 
 			expect(server).toBeDefined();
 			expect(mockBetterAuth).toHaveBeenCalledWith(
@@ -798,7 +798,7 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			const server = createBetterAuthServer(config, mockPrismaClient);
+			const server = createAuthServer(config, mockPrismaClient);
 
 			expect(server).toBeDefined();
 			// Should still have OpenAPI plugin
@@ -819,8 +819,8 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			const server = createBetterAuthServer(config, mockPrismaClient);
-			type Server = InferAuthServer<typeof server>;
+			const server = createAuthServer(config, mockPrismaClient);
+			type Server = AuthServerOf<typeof server>;
 
 			// This is a compile-time test - if it compiles, the type is correct
 			const _serverTypeTest: Server = server;
@@ -835,8 +835,8 @@ describe('better-auth-utilities: server', () => {
 				client: {},
 			});
 
-			const server = createBetterAuthServer(config, mockPrismaClient);
-			type Session = InferSession<typeof server>;
+			const server = createAuthServer(config, mockPrismaClient);
+			type Session = AuthServerSessionOf<typeof server>;
 
 			// This is a compile-time test
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

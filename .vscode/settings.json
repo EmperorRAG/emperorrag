@@ -328,5 +328,7 @@
 			"**/init-scripts",
 			"**/scripts"
 		]
-	}
+	},
+	"path-intellisense.autoTriggerNextSuggestion": true,
+	"editor.inlineSuggest.edits.renderSideBySide": "auto"
 }

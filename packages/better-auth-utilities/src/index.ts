@@ -4,7 +4,7 @@
  */
 
 export {
-	createBetterAuthServer,
+	createAuthServer,
 	createClientConfig,
 	createServerConfig,
 	defineConfig,
@@ -39,7 +39,7 @@ export type {
 	DEFAULT_CLIENT_CONFIG,
 	DEFAULT_SERVER_CONFIG,
 	InferAuthClient,
-	InferAuthServer,
+	AuthServerOf,
 	ServerConfig,
 	User,
 } from './lib/better-auth-utilities.ts';

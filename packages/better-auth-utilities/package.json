@@ -58,7 +58,6 @@
 		"vite-plugin-dts": "^4.5.4",
 		"vite": "^7.0.0",
 		"vitest": "^3.0.0",
-		"@nx/vite": "21.6.5",
-		"@emperorrag/prisma-better-auth-db": "*"
+		"@nx/vite": "21.6.5" 
 	}
 }

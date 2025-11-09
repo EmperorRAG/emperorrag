@@ -1,5 +1,5 @@
-import type { UserPureType } from '@emperorrag/prisma-better-auth-db/types';
-
+//import type { UserPureType } from '@emperorrag/prisma-better-auth-db/types';
+/*
 type EmailRequestType = {
 	user: UserPureType;
 	url: string;
@@ -71,3 +71,4 @@ export interface EmailAndPasswordOptions {
 	resetPasswordTokenExpiresIn?: number;
 	password?: Record<string, unknown>;
 }
+*/

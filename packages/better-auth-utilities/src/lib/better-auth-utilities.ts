@@ -18,8 +18,8 @@ export type {
 } from './config.ts';
 
 // Export server instance creation
-export { createBetterAuthServer } from './server.js';
-export type { InferAuthServer, InferSession } from './server.ts';
+export { createAuthServer } from './server.js';
+export type { AuthServerOf, AuthServerSessionOf } from './server.ts';
 
 // Export client instance creation
 export { createBetterAuthClient } from './client.js';

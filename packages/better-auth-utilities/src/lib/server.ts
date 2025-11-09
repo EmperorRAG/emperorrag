@@ -128,10 +128,7 @@ const PLUGIN_FACTORIES: Record<
  * const apiKeyResult = await auth.api.createApiKey({ body: { name: 'My Key' } });
  * ```
  */
-export function createBetterAuthServer<
-	ServerPlugins extends readonly AvailablePlugins[] = [],
-	ClientPlugins extends readonly AvailablePlugins[] = ServerPlugins,
->(
+export function createAuthServer<ServerPlugins extends readonly AvailablePlugins[] = [], ClientPlugins extends readonly AvailablePlugins[] = ServerPlugins>(
 	config: BetterAuthConfig<ServerPlugins, ClientPlugins>,
 	prismaClient: unknown // Type as unknown to avoid Prisma dependency in this file
 ): ReturnType<typeof betterAuth> {
@@ -222,23 +219,168 @@ export function createBetterAuthServer<
 }
 
 /**
- * Type helper to infer the full server type including all plugins.
+ * Resolves the canonical Better Auth server instance returned by {@link betterAuth}.
  *
- * @example
- * ```typescript
- * const auth = createAuthServer(authConfig, prisma);
- * export type AuthServer = InferAuthServer<typeof auth>;
- * ```
+ * @remarks Consumers typically import this alias and pair it with {@link createAuthServer}
+ * to share a single source of truth, as shown in `packages/prisma/better-auth-db/src/lib/auth/auth.ts`.
  */
-export type InferAuthServer<T extends ReturnType<typeof betterAuth>> = T;
+export type AuthServer = ReturnType<typeof betterAuth>;
 
 /**
- * Type helper to infer session type from server instance.
+ * Narrows the inferred Better Auth server created by {@link createAuthServer}.
+ *
+ * @typeParam TAuthServer - The concrete server instance produced by `createAuthServer`.
+ *
+ * @example
+ * ```typescript
+ * import { createAuthServer } from '@emperorrag/better-auth-utilities/server';
+ * import type { AuthServerOf } from '@emperorrag/better-auth-utilities/server';
+ *
+ * export const authServer = createAuthServer(config, prisma);
+ * export type AuthServer = AuthServerOf<typeof authServer>;
+ * ```
+ */
+export type AuthServerOf<TAuthServer extends AuthServer> = TAuthServer;
+
+/**
+ * Extracts the strongly typed Better Auth API surface from a server instance.
+ *
+ * @typeParam TAuthServer - The Better Auth server whose `api` contract should be exposed.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthServerApiOf } from '@emperorrag/better-auth-utilities/server';
+ *
+ * type AuthServerApi = AuthServerApiOf<AuthServer>;
+ * ```
+ */
+export type AuthServerApiOf<TAuthServer extends AuthServer> = TAuthServer['api'];
+
+/**
+ * Enumerates valid endpoint keys for a Better Auth server API.
+ *
+ * @typeParam TAuthServer - The Better Auth server whose endpoint keys are required.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthServerApiEndpointKeyOf } from '@emperorrag/better-auth-utilities/server';
+ *
+ * type EndpointKey = AuthServerApiEndpointKeyOf<AuthServer>;
+ * ```
+ */
+export type AuthServerApiEndpointKeyOf<TAuthServer extends AuthServer> = keyof AuthServerApiOf<TAuthServer>;
+
+/**
+ * Resolves the endpoint signature for a specific Better Auth API key.
+ *
+ * @typeParam TAuthServer - The Better Auth server instance providing the API.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthServerApiEndpointOf } from '@emperorrag/better-auth-utilities/server';
+ *
+ * type AnyEndpoint = AuthServerApiEndpointOf<AuthServer>;
+ * ```
+ */
+export type AuthServerApiEndpointOf<TAuthServer extends AuthServer> = AuthServerApiOf<TAuthServer>[AuthServerApiEndpointKeyOf<TAuthServer>];
+
+/**
+ * Retrieves the full parameter tuple for a concrete Better Auth API endpoint.
+ *
+ * @typeParam TAuthServer - The Better Auth server instance supplying the API.
+ * @typeParam TEndpointKey - The endpoint key whose parameter tuple should be inferred.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthServerApiEndpointParametersOf } from '@emperorrag/better-auth-utilities/server';
+ *
+ * type GetSessionParams = AuthServerApiEndpointParametersOf<AuthServer, 'getSession'>;
+ * ```
+ */
+export type AuthServerApiEndpointParametersOf<
+	TAuthServer extends AuthServer,
+	TEndpointKey extends AuthServerApiEndpointKeyOf<TAuthServer>,
+> = AuthServerApiOf<TAuthServer>[TEndpointKey] extends (...args: infer TParameters) => unknown ? TParameters : never;
+
+/**
+ * Picks the first argument accepted by a Better Auth API endpoint.
+ *
+ * @typeParam TAuthServer - The Better Auth server instance supplying the API.
+ * @typeParam TEndpointKey - The endpoint key whose first argument should be inferred.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthServerApiEndpointFirstParameter } from '@emperorrag/better-auth-utilities/server';
+ *
+ * type SignInArgs = AuthServerApiEndpointFirstParameter<AuthServer, 'signInEmail'>;
+ * ```
+ */
+export type AuthServerApiEndpointFirstParameter<TAuthServer extends AuthServer, TEndpointKey extends AuthServerApiEndpointKeyOf<TAuthServer>> =
+	AuthServerApiEndpointParametersOf<TAuthServer, TEndpointKey> extends [infer TFirst, ...unknown[]] ? TFirst : never;
+
+/**
+ * Extracts the request body contract for a Better Auth API endpoint.
+ *
+ * @typeParam TAuthServer - The Better Auth server supplying the API contract.
+ * @typeParam TEndpointKey - The endpoint key whose request body should be inferred.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthServerApiEndpointBody } from '@emperorrag/better-auth-utilities/server';
+ *
+ * type SignUpBody = AuthServerApiEndpointBody<AuthServer, 'signUpEmail'>;
+ * ```
+ */
+export type AuthServerApiEndpointBody<TAuthServer extends AuthServer, TEndpointKey extends AuthServerApiEndpointKeyOf<TAuthServer>> =
+	AuthServerApiEndpointFirstParameter<TAuthServer, TEndpointKey> extends { body: infer TBody } ? TBody : never;
+
+/**
+ * Type helper to infer session type from the typeof server instance.
  *
  * @example
  * ```typescript
  * const auth = createAuthServer(authConfig, prisma);
- * export type Session = InferSession<typeof auth>;
+ * export type Session = AuthServerSessionOf<typeof auth>;
  * ```
  */
-export type InferSession<T extends ReturnType<typeof betterAuth>> = T['$Infer']['Session'];
+/**
+ * Infers the Better Auth session payload, including plugin augmentations, from a server instance.
+ *
+ * @typeParam TAuth - The Better Auth server from which to derive the session structure.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthServerSessionOf } from '@emperorrag/better-auth-utilities/server';
+ *
+ * type AuthServerSession = AuthServerSessionOf<AuthServer>;
+ * ```
+ */
+export type AuthServerSessionOf<TAuth extends AuthServer> = TAuth['$Infer']['Session'];
+
+/**
+ * Extracts the raw session record embedded inside {@link AuthServerSessionOf}.
+ *
+ * @typeParam TAuth - The Better Auth server whose session record should be exposed.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthServerSessionUserSessionOf } from '@emperorrag/better-auth-utilities/server';
+ *
+ * type SessionRecord = AuthServerSessionUserSessionOf<AuthServer>;
+ * ```
+ */
+export type AuthServerSessionUserSessionOf<TAuth extends AuthServer> = TAuth['$Infer']['Session']['session'];
+
+/**
+ * Extracts the user profile representation embedded in the Better Auth session.
+ *
+ * @typeParam TAuth - The Better Auth server whose user payload should be exposed.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthServerSessionUserOf } from '@emperorrag/better-auth-utilities/server';
+ *
+ * type SessionUser = AuthServerSessionUserOf<AuthServer>;
+ * ```
+ */
+export type AuthServerSessionUserOf<TAuth extends AuthServer> = TAuth['$Infer']['Session']['user'];
