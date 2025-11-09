@@ -20,8 +20,17 @@ import type {
 	AuthServerApiEndpointKeyOf,
 	AuthServerApiEndpointBody,
 } from '@emperorrag/better-auth-utilities/server';
-// import { createBetterAuthClient } from '@emperorrag/better-auth-utilities/client';
-// import type { InferAuthClient } from '@emperorrag/better-auth-utilities/client';
+import { createAuthClient } from '@emperorrag/better-auth-utilities/client';
+import type {
+	AuthClientSessionOf,
+	AuthClientOf,
+	AuthClientSessionUserSessionOf,
+	AuthClientSessionUserOf,
+	AuthClientApiOf,
+	AuthClientApiEndpointOf,
+	AuthClientApiEndpointKeyOf,
+	AuthClientApiEndpointBody,
+} from '@emperorrag/better-auth-utilities/client';
 
 // Initialize Prisma Client
 // Note: In production, this should be managed by the PrismaService
@@ -109,3 +118,16 @@ export type AuthServerApiUpdateUserBody = AuthServerApiEndpointBody<AuthServer, 
 export type AuthServerSession = AuthServerSessionOf<AuthServer>;
 export type AuthServerSessionUserSession = AuthServerSessionUserSessionOf<AuthServer>;
 export type AuthServerSessionUser = AuthServerSessionUserOf<AuthServer>;
+
+export const authClient = createAuthClient(betterAuthConfig);
+
+export type AuthClient = AuthClientOf<typeof authClient>;
+export type AuthClientApi = AuthClientApiOf<AuthClient>;
+export type AuthClientApiEndpoint = AuthClientApiEndpointOf<AuthClient>;
+export type AuthClientApiEndpointKeys = AuthClientApiEndpointKeyOf<AuthClient>;
+export type AuthClientApiSignInBody = AuthClientApiEndpointBody<AuthClient, 'signIn'>;
+
+export type AuthClientSession = AuthClientSessionOf<AuthClient>;
+export type AuthClientSessionUserSession = AuthClientSessionUserSessionOf<AuthClient>;
+
+export type AuthClientSessionUser = AuthClientSessionUserOf<AuthClient>;

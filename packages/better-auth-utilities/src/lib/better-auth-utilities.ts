@@ -22,8 +22,21 @@ export { createAuthServer } from './server.js';
 export type { AuthServerOf, AuthServerSessionOf } from './server.ts';
 
 // Export client instance creation
-export { createBetterAuthClient } from './client.js';
-export type { InferAuthClient } from './client.ts';
+export { createAuthClient } from './client.js';
+export type {
+	InferAuthClient,
+	AuthClient,
+	AuthClientOf,
+	AuthClientApiOf,
+	AuthClientApiEndpointKeyOf,
+	AuthClientApiEndpointOf,
+	AuthClientApiEndpointParametersOf,
+	AuthClientApiEndpointFirstParameter,
+	AuthClientApiEndpointBody,
+	AuthClientSessionOf,
+	AuthClientSessionUserSessionOf,
+	AuthClientSessionUserOf,
+} from './client.ts';
 
 // Export NestJS adapter modules and services
 // (Adapters are not exported to avoid naming conflicts)
