@@ -32,7 +32,7 @@ export type {
 	AuthClientApiEndpointOf,
 	AuthClientApiEndpointParametersOf,
 	AuthClientApiEndpointFirstParameter,
-	AuthClientApiEndpointBody,
+	AuthClientApiEndpointArgsOf,
 	AuthClientSessionOf,
 	AuthClientSessionUserSessionOf,
 	AuthClientSessionUserOf,

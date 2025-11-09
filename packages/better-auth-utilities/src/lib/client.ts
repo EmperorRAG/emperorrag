@@ -193,22 +193,13 @@ export type InferAuthClient<T extends ReturnType<typeof createBetterAuthClientCo
 export const createBetterAuthClient = createAuthClient;
 
 type AuthClientReservedKey = '$fetch' | '$store' | '$Infer' | '$ERROR_CODES' | 'useSession';
+type AuthClientApiMembers<TAuthClient> = {
+	[TKey in keyof TAuthClient as TKey extends AuthClientReservedKey ? never : TKey]: TAuthClient[TKey];
+};
 
-type AuthClientApiEndpointKeyAccumulator<TValue, TPrefix extends string = never> = TValue extends (...args: unknown[]) => unknown
-	? TPrefix
-	: TValue extends Record<string, unknown>
-		? {
-				[TKey in keyof TValue & string]: AuthClientApiEndpointKeyAccumulator<TValue[TKey], TPrefix extends never ? TKey : `${TPrefix}.${TKey}`>;
-			}[keyof TValue & string]
-		: never;
-
-type AuthClientApiAtPath<TValue, TPath extends string> = TPath extends `${infer THead}.${infer TTail}`
-	? THead extends keyof TValue & string
-		? AuthClientApiAtPath<TValue[THead], TTail>
-		: never
-	: TPath extends keyof TValue & string
-		? TValue[TPath]
-		: never;
+type AuthClientApiEndpointKeys<TAuthClient> = {
+	[TKey in keyof AuthClientApiMembers<TAuthClient>]: AuthClientApiMembers<TAuthClient>[TKey] extends (...args: unknown[]) => unknown ? TKey : never;
+}[keyof AuthClientApiMembers<TAuthClient>];
 
 /**
  * Resolves the canonical Better Auth client instance returned by {@link createAuthClient}.
@@ -247,7 +238,7 @@ export type AuthClientOf<TAuthClient extends AuthClient> = TAuthClient;
  * type AuthClientApi = AuthClientApiOf<AuthClient>;
  * ```
  */
-export type AuthClientApiOf<TAuthClient extends AuthClient> = Omit<TAuthClient, AuthClientReservedKey>;
+export type AuthClientApiOf<TAuthClient extends AuthClient> = AuthClientApiMembers<TAuthClient>;
 
 /**
  * Enumerates valid endpoint keys for a Better Auth client API as `dot` separated paths.
@@ -261,7 +252,7 @@ export type AuthClientApiOf<TAuthClient extends AuthClient> = Omit<TAuthClient, 
  * type EndpointKey = AuthClientApiEndpointKeyOf<AuthClient>;
  * ```
  */
-export type AuthClientApiEndpointKeyOf<TAuthClient extends AuthClient> = AuthClientApiEndpointKeyAccumulator<AuthClientApiOf<TAuthClient>>;
+export type AuthClientApiEndpointKeyOf<TAuthClient extends AuthClient> = Extract<AuthClientApiEndpointKeys<TAuthClient>, string>;
 
 /**
  * Resolves the endpoint signature for a specific Better Auth client API key.
@@ -276,10 +267,10 @@ export type AuthClientApiEndpointKeyOf<TAuthClient extends AuthClient> = AuthCli
  * type AnyClientEndpoint = AuthClientApiEndpointOf<AuthClient, 'signIn.email'>;
  * ```
  */
-export type AuthClientApiEndpointOf<TAuthClient extends AuthClient, TEndpointKey extends AuthClientApiEndpointKeyOf<TAuthClient>> = AuthClientApiAtPath<
-	AuthClientApiOf<TAuthClient>,
-	TEndpointKey
->;
+export type AuthClientApiEndpointOf<
+	TAuthClient extends AuthClient,
+	TEndpointKey extends AuthClientApiEndpointKeyOf<TAuthClient> = AuthClientApiEndpointKeyOf<TAuthClient>,
+> = AuthClientApiOf<TAuthClient>[TEndpointKey];
 
 /**
  * Retrieves the full parameter tuple for a concrete Better Auth client API endpoint.
