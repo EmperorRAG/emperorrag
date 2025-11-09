@@ -310,5 +310,23 @@
 	"vitest.configSearchPatternInclude": "**/*{vite,vitest}*.config*.{ts,js,mjs,cjs,cts,mts}",
 	"vitest.vitestPackagePath": "node_modules/vitest/package.json",
 	"vitest.workspaceConfig": "vitest.workspace.ts",
-	"typescript.tsserver.watchOptions": "vscode"
+	"typescript.tsserver.watchOptions": {
+		"watchDirectory": "useFsEvents",
+		"fallbackPolling": "dynamicPriorityPolling",
+		"excludeDirectories": [
+			"**/dist",
+			"**/node_modules",
+			"**/.nx",
+			"**/.git",
+			"**/.next",
+			"**/.pnpm-store",
+			"**/coverage",
+			"**/tmp",
+			"**/prisma/generated",
+			"**/out-tsc",
+			"**/backups",
+			"**/init-scripts",
+			"**/scripts"
+		]
+	}
 }

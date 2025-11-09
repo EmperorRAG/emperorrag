@@ -4,15 +4,25 @@
  */
 
 // Export configuration utilities
-export { defineConfig, createClientConfig, createServerConfig} from './config.js';
-export type { AuthProvider, AvailablePlugins, BetterAuthConfig, ClientConfig, DEFAULT_CLIENT_CONFIG, DEFAULT_SERVER_CONFIG, OAuthProviderId, PluginConfigRegistry, ServerConfig } from './config.ts';
+export { defineConfig, createClientConfig, createServerConfig } from './config.js';
+export type {
+	AuthProvider,
+	AvailablePlugins,
+	BetterAuthConfig,
+	ClientConfig,
+	DEFAULT_CLIENT_CONFIG,
+	DEFAULT_SERVER_CONFIG,
+	OAuthProviderId,
+	PluginConfigRegistry,
+	ServerConfig,
+} from './config.ts';
 
 // Export server instance creation
-export { createAuthServer} from './server.js';
-export type { InferAuthServer, InferSession} from './server.ts';
+export { createBetterAuthServer } from './server.js';
+export type { InferAuthServer, InferSession } from './server.ts';
 
 // Export client instance creation
-export { createBetterAuthClient} from './client.js';
+export { createBetterAuthClient } from './client.js';
 export type { InferAuthClient } from './client.ts';
 
 // Export NestJS adapter modules and services
@@ -47,4 +57,4 @@ export { UsernameService } from './adapters/username/username-nestjs.service.js'
 // Export base adapter interface for typing
 export type { AdapterContext, AdapterResponse } from './adapters/base/plugin-adapter.interface.ts';
 
-export type { User } from './core/users/users.utils.js'
+export type { User } from './core/users/users.utils.js';
