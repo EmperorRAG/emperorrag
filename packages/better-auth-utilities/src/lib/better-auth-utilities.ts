@@ -28,14 +28,18 @@ export type {
 	AuthClient,
 	AuthClientOf,
 	AuthClientApiOf,
+	AuthClientApiKeyOf,
 	AuthClientApiEndpointKeyOf,
 	AuthClientApiEndpointOf,
+	AuthClientApiEndpointAtPath,
 	AuthClientApiEndpointParametersOf,
 	AuthClientApiEndpointFirstParameter,
 	AuthClientApiEndpointArgsOf,
 	AuthClientSessionOf,
 	AuthClientSessionUserSessionOf,
 	AuthClientSessionUserOf,
+	AuthClientUseSessionOf,
+	AuthClientErrorOf,
 } from './client.ts';
 
 // Export NestJS adapter modules and services

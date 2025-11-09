@@ -192,14 +192,37 @@ export type InferAuthClient<T extends ReturnType<typeof createBetterAuthClientCo
 
 export const createBetterAuthClient = createAuthClient;
 
-type AuthClientReservedKey = '$fetch' | '$store' | '$Infer' | '$ERROR_CODES' | 'useSession';
-type AuthClientApiMembers<TAuthClient> = {
-	[TKey in keyof TAuthClient as TKey extends AuthClientReservedKey ? never : TKey]: TAuthClient[TKey];
-};
+type AuthClientApiEndpointKeyAccumulator<TValue, TPrefix extends string> = TValue extends (...args: unknown[]) => unknown
+	? TPrefix
+	: TValue extends Record<string, unknown>
+		? {
+				[TKey in keyof TValue & string]: AuthClientApiEndpointKeyAccumulator<TValue[TKey], `${TPrefix}.${TKey}`>;
+			}[keyof TValue & string]
+		: never;
 
-type AuthClientApiEndpointKeys<TAuthClient> = {
-	[TKey in keyof AuthClientApiMembers<TAuthClient>]: AuthClientApiMembers<TAuthClient>[TKey] extends (...args: unknown[]) => unknown ? TKey : never;
-}[keyof AuthClientApiMembers<TAuthClient>];
+/**
+ * Traverses a Better Auth client value by a dot-separated path and yields the target member type.
+ *
+ * Keywords:
+ * - `type`: Declares this alias so the computed shape can be reused without duplication.
+ * - `extends`: Applies conditional typing twice—first to test whether the path contains a dot, then to verify that the head segment exists on the current value.
+ * - `infer`: Captures the head (`THead`) and tail (`TTail`) segments from the template literal so the recursion can peel each path part.
+ * - `` `${infer ...}.${infer ...}` ``: Uses a template literal to recognize nested paths and split them into head/tail pieces.
+ * - `keyof`: Restricts the head segment to actual keys on the current value to maintain type safety.
+ * - `& string`: Ensures we only compare against string keys because template literals produce string segments.
+ * - `? :` (conditional types): Branches between recursion, direct member lookup, or `never` when the path is invalid.
+ * - `never`: Marks an invalid path so downstream consumers receive a compile-time failure for impossible lookups.
+ *
+ * @typeParam TValue - The Better Auth client member being traversed.
+ * @typeParam TPath - The dot-separated path describing the desired member.
+ */
+type AuthClientApiAtPath<TValue, TPath extends string> = TPath extends `${infer THead}.${infer TTail}`
+	? THead extends keyof TValue & string
+		? AuthClientApiAtPath<TValue[THead], TTail>
+		: never
+	: TPath extends keyof TValue & string
+		? TValue[TPath]
+		: never;
 
 /**
  * Resolves the canonical Better Auth client instance returned by {@link createAuthClient}.
@@ -238,10 +261,40 @@ export type AuthClientOf<TAuthClient extends AuthClient> = TAuthClient;
  * type AuthClientApi = AuthClientApiOf<AuthClient>;
  * ```
  */
-export type AuthClientApiOf<TAuthClient extends AuthClient> = AuthClientApiMembers<TAuthClient>;
+export type AuthClientApiOf<TAuthClient extends AuthClient> = TAuthClient;
 
 /**
- * Enumerates valid endpoint keys for a Better Auth client API as `dot` separated paths.
+ * Enumerates every property exposed on a Better Auth client instance.
+ *
+ * @typeParam TAuthClient - The Better Auth client whose API keys are required.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthClientApiKeyOf } from '@emperorrag/better-auth-utilities/client';
+ *
+ * type AnyClientKey = AuthClientApiKeyOf<AuthClient>;
+ * ```
+ */
+export type AuthClientApiKeyOf<TAuthClient extends AuthClient> = keyof AuthClientApiOf<TAuthClient> & string;
+
+type AuthClientApiReservedKey = '$fetch' | '$store' | 'useSession' | '$ERROR_CODES' | '$Infer';
+
+/**
+ * Extracts the callable Better Auth client endpoints, omitting reserved helper utilities.
+ *
+ * @typeParam TAuthClient - The Better Auth client whose callable API surface is required.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthClientApiEndpointOf } from '@emperorrag/better-auth-utilities/client';
+ *
+ * type CallableApi = AuthClientApiEndpointOf<AuthClient>;
+ * ```
+ */
+export type AuthClientApiEndpointOf<TAuthClient extends AuthClient> = Omit<AuthClientApiOf<TAuthClient>, AuthClientApiReservedKey>;
+
+/**
+ * Lists every top-level Better Auth client endpoint once reserved keys are removed.
  *
  * @typeParam TAuthClient - The Better Auth client whose endpoint keys are required.
  *
@@ -252,25 +305,36 @@ export type AuthClientApiOf<TAuthClient extends AuthClient> = AuthClientApiMembe
  * type EndpointKey = AuthClientApiEndpointKeyOf<AuthClient>;
  * ```
  */
-export type AuthClientApiEndpointKeyOf<TAuthClient extends AuthClient> = Extract<AuthClientApiEndpointKeys<TAuthClient>, string>;
+export type AuthClientApiEndpointKeyOf<TAuthClient extends AuthClient> = keyof AuthClientApiEndpointOf<TAuthClient> & string;
+
+type AuthClientApiEndpointPathKeyOf<TAuthClient extends AuthClient> = Extract<
+	{
+		[TKey in AuthClientApiEndpointKeyOf<TAuthClient>]: AuthClientApiEndpointOf<TAuthClient>[TKey] extends (...args: unknown[]) => unknown
+			? TKey
+			: AuthClientApiEndpointOf<TAuthClient>[TKey] extends Record<string, unknown>
+				? TKey | AuthClientApiEndpointKeyAccumulator<AuthClientApiEndpointOf<TAuthClient>[TKey], `${TKey}`>
+				: never;
+	}[AuthClientApiEndpointKeyOf<TAuthClient>],
+	string
+>;
 
 /**
- * Resolves the endpoint signature for a specific Better Auth client API key.
+ * Resolves the endpoint signature for a specific Better Auth client endpoint path.
  *
  * @typeParam TAuthClient - The Better Auth client instance providing the API.
  * @typeParam TEndpointKey - The endpoint key whose call signature should be inferred.
  *
  * @example
  * ```typescript
- * import type { AuthClientApiEndpointOf } from '@emperorrag/better-auth-utilities/client';
+ * import type { AuthClientApiEndpointAtPath } from '@emperorrag/better-auth-utilities/client';
  *
- * type AnyClientEndpoint = AuthClientApiEndpointOf<AuthClient, 'signIn.email'>;
+ * type AnyClientEndpoint = AuthClientApiEndpointAtPath<AuthClient, 'signIn.email'>;
  * ```
  */
-export type AuthClientApiEndpointOf<
+export type AuthClientApiEndpointAtPath<
 	TAuthClient extends AuthClient,
-	TEndpointKey extends AuthClientApiEndpointKeyOf<TAuthClient> = AuthClientApiEndpointKeyOf<TAuthClient>,
-> = AuthClientApiOf<TAuthClient>[TEndpointKey];
+	TEndpointKey extends AuthClientApiEndpointPathKeyOf<TAuthClient> = AuthClientApiEndpointPathKeyOf<TAuthClient>,
+> = AuthClientApiAtPath<AuthClientApiEndpointOf<TAuthClient>, TEndpointKey>;
 
 /**
  * Retrieves the full parameter tuple for a concrete Better Auth client API endpoint.
@@ -285,8 +349,8 @@ export type AuthClientApiEndpointOf<
  * type SignInParams = AuthClientApiEndpointParametersOf<AuthClient, 'signIn.email'>;
  * ```
  */
-export type AuthClientApiEndpointParametersOf<TAuthClient extends AuthClient, TEndpointKey extends AuthClientApiEndpointKeyOf<TAuthClient>> =
-	AuthClientApiEndpointOf<TAuthClient, TEndpointKey> extends (...args: infer TParameters) => unknown ? TParameters : never;
+export type AuthClientApiEndpointParametersOf<TAuthClient extends AuthClient, TEndpointKey extends AuthClientApiEndpointPathKeyOf<TAuthClient>> =
+	AuthClientApiEndpointAtPath<TAuthClient, TEndpointKey> extends (...args: infer TParameters) => unknown ? TParameters : never;
 
 /**
  * Picks the first argument accepted by a Better Auth client API endpoint.
@@ -301,24 +365,46 @@ export type AuthClientApiEndpointParametersOf<TAuthClient extends AuthClient, TE
  * type SignInArgs = AuthClientApiEndpointFirstParameter<AuthClient, 'signIn.email'>;
  * ```
  */
-export type AuthClientApiEndpointFirstParameter<TAuthClient extends AuthClient, TEndpointKey extends AuthClientApiEndpointKeyOf<TAuthClient>> =
+export type AuthClientApiEndpointFirstParameter<TAuthClient extends AuthClient, TEndpointKey extends AuthClientApiEndpointPathKeyOf<TAuthClient>> =
 	AuthClientApiEndpointParametersOf<TAuthClient, TEndpointKey> extends [infer TFirst, ...unknown[]] ? TFirst : never;
 
+type AuthClientApiEndpointArgsAccumulator<TValue> = TValue extends (...args: infer TParameters) => unknown
+	? TParameters extends [infer TFirst, ...unknown[]]
+		? TFirst extends { body: infer TBody }
+			? TBody
+			: TFirst
+		: never
+	: TValue extends Record<string, unknown>
+		? {
+				[TKey in keyof TValue & string]: AuthClientApiEndpointArgsAccumulator<TValue[TKey]>;
+			}[keyof TValue & string]
+		: never;
+
 /**
- * Extracts the request body contract for a Better Auth client API endpoint.
+ * Extracts the argument payload for a Better Auth client API endpoint.
  *
  * @typeParam TAuthClient - The Better Auth client supplying the API contract.
- * @typeParam TEndpointKey - The endpoint key whose request body should be inferred.
+ * @typeParam TEndpointKey - The endpoint key whose argument payload should be inferred.
  *
  * @example
  * ```typescript
- * import type { AuthClientApiEndpointBody } from '@emperorrag/better-auth-utilities/client';
+ * import type { AuthClientApiEndpointArgsOf } from '@emperorrag/better-auth-utilities/client';
  *
- * type SignUpBody = AuthClientApiEndpointBody<AuthClient, 'signUp.email'>;
+ * type SignUpArgs = AuthClientApiEndpointArgsOf<AuthClient, 'signUp.email'>;
  * ```
  */
-export type AuthClientApiEndpointBody<TAuthClient extends AuthClient, TEndpointKey extends AuthClientApiEndpointKeyOf<TAuthClient>> =
-	AuthClientApiEndpointFirstParameter<TAuthClient, TEndpointKey> extends { body: infer TBody } ? TBody : never;
+export type AuthClientApiEndpointArgsOf<
+	TAuthClient extends AuthClient,
+	TEndpointKey extends AuthClientApiEndpointPathKeyOf<TAuthClient>,
+> = AuthClientApiEndpointArgsAccumulator<AuthClientApiEndpointAtPath<TAuthClient, TEndpointKey>>;
+
+/**
+ * @deprecated Use {@link AuthClientApiEndpointArgsOf} instead.
+ */
+export type AuthClientApiEndpointBody<
+	TAuthClient extends AuthClient,
+	TEndpointKey extends AuthClientApiEndpointPathKeyOf<TAuthClient>,
+> = AuthClientApiEndpointArgsOf<TAuthClient, TEndpointKey>;
 
 /**
  * Infers the Better Auth session payload, including plugin augmentations, from a client instance.
@@ -371,3 +457,17 @@ export type AuthClientSessionUserOf<TAuthCli extends AuthClient> =
 	}
 		? TUser
 		: never;
+
+/**
+ * Retrieves the `useSession` helper exposed by a Better Auth client instance.
+ *
+ * @typeParam TAuthClient - The Better Auth client whose session helper should be surfaced.
+ */
+export type AuthClientUseSessionOf<TAuthClient extends ReturnType<typeof createBetterAuthClientCore>> = TAuthClient['useSession'];
+
+/**
+ * Exposes the `$ERROR_CODES` catalog published by a Better Auth client instance.
+ *
+ * @typeParam TAuthClient - The Better Auth client whose error map should be retrieved.
+ */
+export type AuthClientErrorOf<TAuthClient extends ReturnType<typeof createBetterAuthClientCore>> = TAuthClient['$ERROR_CODES'];

@@ -125,7 +125,7 @@ export const authClient = createAuthClient(betterAuthConfig);
 export type AuthClient = AuthClientOf<typeof authClient>;
 export type AuthClientApi = AuthClientApiOf<AuthClient>;
 export type AuthClientApiEndpoint = AuthClientApiEndpointOf<AuthClient>;
-export type AuthClientApiEndpointKeys = AuthClientApiEndpointKeyOf<AuthClient>;
+export type AuthClientApiEndpointKey = AuthClientApiEndpointKeyOf<AuthClient>;
 export type AuthClientApiSignInArgs = AuthClientApiEndpointArgsOf<AuthClient, 'signIn'>;
 
 export type AuthClientSession = AuthClientSessionOf<AuthClient>;
