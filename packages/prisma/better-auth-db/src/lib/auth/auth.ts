@@ -18,7 +18,7 @@ import type {
 	AuthServerApiOf,
 	AuthServerApiEndpointOf,
 	AuthServerApiEndpointKeyOf,
-	AuthServerApiEndpointBody,
+	AuthServerEndpointBodyFor,
 } from '@emperorrag/better-auth-utilities/server';
 import { createAuthClient } from '@emperorrag/better-auth-utilities/client';
 import type {
@@ -30,6 +30,8 @@ import type {
 	AuthClientApiEndpointOf,
 	AuthClientApiEndpointKeyOf,
 	AuthClientErrorOf,
+	AuthClientApiMemberArgs,
+	AuthClientEndpointArgsFor,
 } from '@emperorrag/better-auth-utilities/client';
 
 // Initialize Prisma Client
@@ -144,42 +146,35 @@ export type AuthServerApiEndpoint = AuthServerApiEndpointOf<AuthServer>;
  * Enumerates all available Better Auth server endpoint keys.
  */
 export type AuthServerApiEndpointKeys = AuthServerApiEndpointKeyOf<AuthServer>;
-type AuthServerEndpointBodyFor<TKey extends string> =
-	Extract<AuthServerApiEndpointKeyOf<AuthServer>, TKey> extends infer TMapped
-		? TMapped extends AuthServerApiEndpointKeyOf<AuthServer>
-			? AuthServerApiEndpointBody<AuthServer, TMapped>
-			: never
-		: never;
-
-export type AuthServerApiAccountInfoBody = AuthServerEndpointBodyFor<'accountInfo'>;
-export type AuthServerApiCallbackOAuthBody = AuthServerEndpointBodyFor<'callbackOAuth'>;
-export type AuthServerApiChangeEmailBody = AuthServerEndpointBodyFor<'changeEmail'>;
-export type AuthServerApiChangePasswordBody = AuthServerEndpointBodyFor<'changePassword'>;
-export type AuthServerApiDeleteUserBody = AuthServerEndpointBodyFor<'deleteUser'>;
-export type AuthServerApiDeleteUserCallbackBody = AuthServerEndpointBodyFor<'deleteUserCallback'>;
-export type AuthServerApiForgetPasswordBody = AuthServerEndpointBodyFor<'forgetPassword'>;
-export type AuthServerApiForgetPasswordCallbackBody = AuthServerEndpointBodyFor<'forgetPasswordCallback'>;
-export type AuthServerApiGetAccessTokenBody = AuthServerEndpointBodyFor<'getAccessToken'>;
-export type AuthServerApiGetSessionBody = AuthServerEndpointBodyFor<'getSession'>;
-export type AuthServerApiLinkSocialAccountBody = AuthServerEndpointBodyFor<'linkSocialAccount'>;
-export type AuthServerApiListSessionsBody = AuthServerEndpointBodyFor<'listSessions'>;
-export type AuthServerApiListUserAccountsBody = AuthServerEndpointBodyFor<'listUserAccounts'>;
-export type AuthServerApiRefreshTokenBody = AuthServerEndpointBodyFor<'refreshToken'>;
-export type AuthServerApiRequestPasswordResetBody = AuthServerEndpointBodyFor<'requestPasswordReset'>;
-export type AuthServerApiRequestPasswordResetCallbackBody = AuthServerEndpointBodyFor<'requestPasswordResetCallback'>;
-export type AuthServerApiResetPasswordBody = AuthServerEndpointBodyFor<'resetPassword'>;
-export type AuthServerApiRevokeOtherSessionsBody = AuthServerEndpointBodyFor<'revokeOtherSessions'>;
-export type AuthServerApiRevokeSessionBody = AuthServerEndpointBodyFor<'revokeSession'>;
-export type AuthServerApiRevokeSessionsBody = AuthServerEndpointBodyFor<'revokeSessions'>;
-export type AuthServerApiSendVerificationEmailBody = AuthServerEndpointBodyFor<'sendVerificationEmail'>;
-export type AuthServerApiSetPasswordBody = AuthServerEndpointBodyFor<'setPassword'>;
-export type AuthServerApiSignInEmailBody = AuthServerEndpointBodyFor<'signInEmail'>;
-export type AuthServerApiSignInSocialBody = AuthServerEndpointBodyFor<'signInSocial'>;
-export type AuthServerApiSignOutBody = AuthServerEndpointBodyFor<'signOut'>;
-export type AuthServerApiSignUpEmailBody = AuthServerEndpointBodyFor<'signUpEmail'>;
-export type AuthServerApiUnlinkAccountBody = AuthServerEndpointBodyFor<'unlinkAccount'>;
-export type AuthServerApiUpdateUserBody = AuthServerEndpointBodyFor<'updateUser'>;
-export type AuthServerApiVerifyEmailBody = AuthServerEndpointBodyFor<'verifyEmail'>;
+export type AuthServerApiAccountInfoBody = AuthServerEndpointBodyFor<AuthServer, 'accountInfo'>;
+export type AuthServerApiCallbackOAuthBody = AuthServerEndpointBodyFor<AuthServer, 'callbackOAuth'>;
+export type AuthServerApiChangeEmailBody = AuthServerEndpointBodyFor<AuthServer, 'changeEmail'>;
+export type AuthServerApiChangePasswordBody = AuthServerEndpointBodyFor<AuthServer, 'changePassword'>;
+export type AuthServerApiDeleteUserBody = AuthServerEndpointBodyFor<AuthServer, 'deleteUser'>;
+export type AuthServerApiDeleteUserCallbackBody = AuthServerEndpointBodyFor<AuthServer, 'deleteUserCallback'>;
+export type AuthServerApiForgetPasswordBody = AuthServerEndpointBodyFor<AuthServer, 'forgetPassword'>;
+export type AuthServerApiForgetPasswordCallbackBody = AuthServerEndpointBodyFor<AuthServer, 'forgetPasswordCallback'>;
+export type AuthServerApiGetAccessTokenBody = AuthServerEndpointBodyFor<AuthServer, 'getAccessToken'>;
+export type AuthServerApiGetSessionBody = AuthServerEndpointBodyFor<AuthServer, 'getSession'>;
+export type AuthServerApiLinkSocialAccountBody = AuthServerEndpointBodyFor<AuthServer, 'linkSocialAccount'>;
+export type AuthServerApiListSessionsBody = AuthServerEndpointBodyFor<AuthServer, 'listSessions'>;
+export type AuthServerApiListUserAccountsBody = AuthServerEndpointBodyFor<AuthServer, 'listUserAccounts'>;
+export type AuthServerApiRefreshTokenBody = AuthServerEndpointBodyFor<AuthServer, 'refreshToken'>;
+export type AuthServerApiRequestPasswordResetBody = AuthServerEndpointBodyFor<AuthServer, 'requestPasswordReset'>;
+export type AuthServerApiRequestPasswordResetCallbackBody = AuthServerEndpointBodyFor<AuthServer, 'requestPasswordResetCallback'>;
+export type AuthServerApiResetPasswordBody = AuthServerEndpointBodyFor<AuthServer, 'resetPassword'>;
+export type AuthServerApiRevokeOtherSessionsBody = AuthServerEndpointBodyFor<AuthServer, 'revokeOtherSessions'>;
+export type AuthServerApiRevokeSessionBody = AuthServerEndpointBodyFor<AuthServer, 'revokeSession'>;
+export type AuthServerApiRevokeSessionsBody = AuthServerEndpointBodyFor<AuthServer, 'revokeSessions'>;
+export type AuthServerApiSendVerificationEmailBody = AuthServerEndpointBodyFor<AuthServer, 'sendVerificationEmail'>;
+export type AuthServerApiSetPasswordBody = AuthServerEndpointBodyFor<AuthServer, 'setPassword'>;
+export type AuthServerApiSignInEmailBody = AuthServerEndpointBodyFor<AuthServer, 'signInEmail'>;
+export type AuthServerApiSignInSocialBody = AuthServerEndpointBodyFor<AuthServer, 'signInSocial'>;
+export type AuthServerApiSignOutBody = AuthServerEndpointBodyFor<AuthServer, 'signOut'>;
+export type AuthServerApiSignUpEmailBody = AuthServerEndpointBodyFor<AuthServer, 'signUpEmail'>;
+export type AuthServerApiUnlinkAccountBody = AuthServerEndpointBodyFor<AuthServer, 'unlinkAccount'>;
+export type AuthServerApiUpdateUserBody = AuthServerEndpointBodyFor<AuthServer, 'updateUser'>;
+export type AuthServerApiVerifyEmailBody = AuthServerEndpointBodyFor<AuthServer, 'verifyEmail'>;
 
 /**
  * Captures the Better Auth session payload exposed by the server.
@@ -212,17 +207,7 @@ export type AuthClient = AuthClientOf<typeof authClient>;
  * Exposes the Better Auth client API subset, including plugin augmentations.
  */
 export type AuthClientApi = AuthClientApiOf<AuthClient>;
-
-type AuthClientApiMemberArgs<TKey extends keyof AuthClientApi> = AuthClientApi[TKey] extends (...args: infer TParameters) => unknown
-	? TParameters extends [infer TFirst, ...unknown[]]
-		? TFirst extends { body: infer TBody }
-			? TBody
-			: TFirst
-		: never
-	: never;
-
-type AuthClientEndpointArgsFor<TKey extends string> =
-	Extract<keyof AuthClientApi, TKey> extends infer TMapped ? (TMapped extends keyof AuthClientApi ? AuthClientApiMemberArgs<TMapped> : never) : never;
+export type AuthClientApiMemberArgsFor<TKey extends keyof AuthClientApi> = AuthClientApiMemberArgs<AuthClient, TKey>;
 /**
  * Represents any callable Better Auth client endpoint, including plugin-provided members.
  */
@@ -239,30 +224,30 @@ export type AuthClientError = AuthClientErrorOf<AuthClient>;
 /**
  * Describes the argument contract for the high-level `signIn` Better Auth client endpoint.
  */
-export type AuthClientApiAccountInfoArgs = AuthClientEndpointArgsFor<'accountInfo'>;
-export type AuthClientApiChangeEmailArgs = AuthClientEndpointArgsFor<'changeEmail'>;
-export type AuthClientApiChangePasswordArgs = AuthClientEndpointArgsFor<'changePassword'>;
-export type AuthClientApiDeleteUserArgs = AuthClientEndpointArgsFor<'deleteUser'>;
-export type AuthClientApiForgetPasswordArgs = AuthClientEndpointArgsFor<'forgetPassword'>;
-export type AuthClientApiGetAccessTokenArgs = AuthClientEndpointArgsFor<'getAccessToken'>;
-export type AuthClientApiGetSessionArgs = AuthClientEndpointArgsFor<'getSession'>;
-export type AuthClientApiLinkSocialArgs = AuthClientEndpointArgsFor<'linkSocial'>;
-export type AuthClientApiListAccountsArgs = AuthClientEndpointArgsFor<'listAccounts'>;
-export type AuthClientApiListSessionsArgs = AuthClientEndpointArgsFor<'listSessions'>;
-export type AuthClientApiRefreshTokenArgs = AuthClientEndpointArgsFor<'refreshToken'>;
-export type AuthClientApiRequestPasswordResetArgs = AuthClientEndpointArgsFor<'requestPasswordReset'>;
-export type AuthClientApiResetPasswordArgs = AuthClientEndpointArgsFor<'resetPassword'>;
-export type AuthClientApiRevokeOtherSessionsArgs = AuthClientEndpointArgsFor<'revokeOtherSessions'>;
-export type AuthClientApiRevokeSessionArgs = AuthClientEndpointArgsFor<'revokeSession'>;
-export type AuthClientApiRevokeSessionsArgs = AuthClientEndpointArgsFor<'revokeSessions'>;
-export type AuthClientApiSendVerificationEmailArgs = AuthClientEndpointArgsFor<'sendVerificationEmail'>;
-export type AuthClientApiSignInArgs = AuthClientEndpointArgsFor<'signIn'>;
-export type AuthClientApiSignOutArgs = AuthClientEndpointArgsFor<'signOut'>;
-export type AuthClientApiSignUpArgs = AuthClientEndpointArgsFor<'signUp'>;
-export type AuthClientApiUnlinkAccountArgs = AuthClientEndpointArgsFor<'unlinkAccount'>;
-export type AuthClientApiUpdateUserArgs = AuthClientEndpointArgsFor<'updateUser'>;
-export type AuthClientApiUseSessionArgs = AuthClientEndpointArgsFor<'useSession'>;
-export type AuthClientApiVerifyEmailArgs = AuthClientEndpointArgsFor<'verifyEmail'>;
+export type AuthClientApiAccountInfoArgs = AuthClientEndpointArgsFor<AuthClient, 'accountInfo'>;
+export type AuthClientApiChangeEmailArgs = AuthClientEndpointArgsFor<AuthClient, 'changeEmail'>;
+export type AuthClientApiChangePasswordArgs = AuthClientEndpointArgsFor<AuthClient, 'changePassword'>;
+export type AuthClientApiDeleteUserArgs = AuthClientEndpointArgsFor<AuthClient, 'deleteUser'>;
+export type AuthClientApiForgetPasswordArgs = AuthClientEndpointArgsFor<AuthClient, 'forgetPassword'>;
+export type AuthClientApiGetAccessTokenArgs = AuthClientEndpointArgsFor<AuthClient, 'getAccessToken'>;
+export type AuthClientApiGetSessionArgs = AuthClientEndpointArgsFor<AuthClient, 'getSession'>;
+export type AuthClientApiLinkSocialArgs = AuthClientEndpointArgsFor<AuthClient, 'linkSocial'>;
+export type AuthClientApiListAccountsArgs = AuthClientEndpointArgsFor<AuthClient, 'listAccounts'>;
+export type AuthClientApiListSessionsArgs = AuthClientEndpointArgsFor<AuthClient, 'listSessions'>;
+export type AuthClientApiRefreshTokenArgs = AuthClientEndpointArgsFor<AuthClient, 'refreshToken'>;
+export type AuthClientApiRequestPasswordResetArgs = AuthClientEndpointArgsFor<AuthClient, 'requestPasswordReset'>;
+export type AuthClientApiResetPasswordArgs = AuthClientEndpointArgsFor<AuthClient, 'resetPassword'>;
+export type AuthClientApiRevokeOtherSessionsArgs = AuthClientEndpointArgsFor<AuthClient, 'revokeOtherSessions'>;
+export type AuthClientApiRevokeSessionArgs = AuthClientEndpointArgsFor<AuthClient, 'revokeSession'>;
+export type AuthClientApiRevokeSessionsArgs = AuthClientEndpointArgsFor<AuthClient, 'revokeSessions'>;
+export type AuthClientApiSendVerificationEmailArgs = AuthClientEndpointArgsFor<AuthClient, 'sendVerificationEmail'>;
+export type AuthClientApiSignInArgs = AuthClientEndpointArgsFor<AuthClient, 'signIn'>;
+export type AuthClientApiSignOutArgs = AuthClientEndpointArgsFor<AuthClient, 'signOut'>;
+export type AuthClientApiSignUpArgs = AuthClientEndpointArgsFor<AuthClient, 'signUp'>;
+export type AuthClientApiUnlinkAccountArgs = AuthClientEndpointArgsFor<AuthClient, 'unlinkAccount'>;
+export type AuthClientApiUpdateUserArgs = AuthClientEndpointArgsFor<AuthClient, 'updateUser'>;
+export type AuthClientApiUseSessionArgs = AuthClientEndpointArgsFor<AuthClient, 'useSession'>;
+export type AuthClientApiVerifyEmailArgs = AuthClientEndpointArgsFor<AuthClient, 'verifyEmail'>;
 /**
  * Captures the Better Auth session payload returned by client helpers.
  */

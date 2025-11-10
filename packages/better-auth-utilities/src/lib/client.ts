@@ -368,6 +368,24 @@ export type AuthClientApiEndpointParametersOf<TAuthClient extends AuthClient, TE
 export type AuthClientApiEndpointFirstParameter<TAuthClient extends AuthClient, TEndpointKey extends AuthClientApiEndpointPathKeyOf<TAuthClient>> =
 	AuthClientApiEndpointParametersOf<TAuthClient, TEndpointKey> extends [infer TFirst, ...unknown[]] ? TFirst : never;
 
+export type AuthClientApiMemberArgs<
+	TAuthClient extends AuthClient,
+	TKey extends keyof AuthClientApiOf<TAuthClient>,
+> = AuthClientApiOf<TAuthClient>[TKey] extends (...args: infer TParameters) => unknown
+	? TParameters extends [infer TFirst, ...unknown[]]
+		? TFirst extends { body: infer TBody }
+			? TBody
+			: TFirst
+		: never
+	: never;
+
+export type AuthClientEndpointArgsFor<TAuthClient extends AuthClient, TKey extends string> =
+	Extract<keyof AuthClientApiOf<TAuthClient>, TKey> extends infer TMapped
+		? TMapped extends keyof AuthClientApiOf<TAuthClient>
+			? AuthClientApiMemberArgs<TAuthClient, TMapped>
+			: never
+		: never;
+
 type AuthClientApiEndpointArgsAccumulator<TValue> = TValue extends (...args: infer TParameters) => unknown
 	? TParameters extends [infer TFirst, ...unknown[]]
 		? TFirst extends { body: infer TBody }

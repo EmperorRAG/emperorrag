@@ -334,6 +334,13 @@ export type AuthServerApiEndpointFirstParameter<TAuthServer extends AuthServer, 
 export type AuthServerApiEndpointBody<TAuthServer extends AuthServer, TEndpointKey extends AuthServerApiEndpointKeyOf<TAuthServer>> =
 	AuthServerApiEndpointFirstParameter<TAuthServer, TEndpointKey> extends { body: infer TBody } ? TBody : never;
 
+export type AuthServerEndpointBodyFor<TAuthServer extends AuthServer, TKey extends string> =
+	Extract<AuthServerApiEndpointKeyOf<TAuthServer>, TKey> extends infer TMapped
+		? TMapped extends AuthServerApiEndpointKeyOf<TAuthServer>
+			? AuthServerApiEndpointBody<TAuthServer, TMapped>
+			: never
+		: never;
+
 /**
  * Type helper to infer session type from the typeof server instance.
  *
