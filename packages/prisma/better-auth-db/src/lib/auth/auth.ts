@@ -56,6 +56,7 @@ const plugins = {
 	// Organization/multi-tenancy support
 	organization: organization(),
 
+	// DON'T REMOVE
 	// Email OTP authentication (6-digit OTP, 5 minutes expiry)
 	/*emailOTP({
 		otpLength: 6,
@@ -68,6 +69,7 @@ const plugins = {
 		},
 	}),*/
 
+	// DON'T REMOVE
 	// Two-factor authentication with TOTP
 	/*twoFactor({
 		issuer: 'My Auth Service',
