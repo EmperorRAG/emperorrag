@@ -386,6 +386,32 @@ export type AuthClientEndpointArgsFor<TAuthClient extends AuthClient, TKey exten
 			: never
 		: never;
 
+export type AuthClientApiEndpointArgsFetchOptionsFor<TAuthClient extends AuthClient, TKey extends string> =
+	Extract<keyof AuthClientApiOf<TAuthClient>, TKey> extends infer TMapped
+		? TMapped extends keyof AuthClientApiOf<TAuthClient>
+			? AuthClientApiOf<TAuthClient>[TMapped] extends (...args: infer TParameters) => unknown
+				? TParameters extends [infer TFirst, ...unknown[]]
+					? TFirst extends { fetchOptions?: infer TFetchOptions }
+						? TFetchOptions | undefined
+						: undefined
+					: undefined
+				: never
+			: never
+		: never;
+
+export type AuthClientApiEndpointPrimaryArgsFor<TAuthClient extends AuthClient, TKey extends string> =
+	Extract<keyof AuthClientApiOf<TAuthClient>, TKey> extends infer TMapped
+		? TMapped extends keyof AuthClientApiOf<TAuthClient>
+			? AuthClientApiOf<TAuthClient>[TMapped] extends (...args: infer TParameters) => unknown
+				? TParameters extends [infer TFirst, ...unknown[]]
+					? TFirst extends Record<string, unknown>
+						? Omit<TFirst, 'fetchOptions'>
+						: TFirst
+					: undefined
+				: undefined
+			: never
+		: never;
+
 type AuthClientApiEndpointArgsAccumulator<TValue> = TValue extends (...args: infer TParameters) => unknown
 	? TParameters extends [infer TFirst, ...unknown[]]
 		? TFirst extends { body: infer TBody }
