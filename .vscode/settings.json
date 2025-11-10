@@ -327,5 +327,6 @@
 		]
 	},
 	"path-intellisense.autoTriggerNextSuggestion": true,
-	"editor.inlineSuggest.edits.renderSideBySide": "auto"
+	"editor.inlineSuggest.edits.renderSideBySide": "auto",
+	"chat.sendElementsToChat.enabled": false
 }
