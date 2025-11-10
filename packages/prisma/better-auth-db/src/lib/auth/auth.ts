@@ -104,6 +104,14 @@ const serverConfig = createServerConfig({
 
 const clientConfig = createClientConfig({ plugins: plugins });
 
+/**
+ * Resolves the unified Better Auth configuration shared between server and client helpers.
+ *
+ * @remarks
+ * Combines the explicit plugin map with explicit server and client configuration builders so that
+ * both `createAuthServer` and `createAuthClient` receive an equivalent shape. Environment defaults
+ * provide sensible fallbacks for local development yet remain overrideable via process variables.
+ */
 export const betterAuthConfig = defineConfig({
 	server: serverConfig,
 	client: clientConfig,
@@ -111,28 +119,95 @@ export const betterAuthConfig = defineConfig({
 	enabledClientPlugins: ['jwt', 'admin', 'apiKey', 'bearer', 'username', 'organization'],
 });
 
+/**
+ * Initializes the Better Auth server using the Prisma adapter and shared configuration.
+ *
+ * @remarks
+ * The Prisma client instance is injected to satisfy Better Auth's persistence requirements. This
+ * server export is the primary entry point for NestJS modules as well as other runtime hosts that
+ * expect a configured Better Auth HTTP handler.
+ */
 export const authServer = createAuthServer(betterAuthConfig, prisma);
 
+/**
+ * Strongly typed Better Auth server instance derived from {@link authServer}.
+ */
 export type AuthServer = AuthServerOf<typeof authServer>;
+/**
+ * Exposes the Better Auth server API surface for consumers needing endpoint contracts.
+ */
 export type AuthServerApi = AuthServerApiOf<AuthServer>;
+/**
+ * Represents any callable Better Auth server endpoint.
+ */
 export type AuthServerApiEndpoint = AuthServerApiEndpointOf<AuthServer>;
+/**
+ * Enumerates all available Better Auth server endpoint keys.
+ */
 export type AuthServerApiEndpointKeys = AuthServerApiEndpointKeyOf<AuthServer>;
+/**
+ * Narrows the request body shape for the `updateUser` server endpoint.
+ */
 export type AuthServerApiUpdateUserBody = AuthServerApiEndpointBody<AuthServer, 'updateUser'>;
 
+/**
+ * Captures the Better Auth session payload exposed by the server.
+ */
 export type AuthServerSession = AuthServerSessionOf<AuthServer>;
+/**
+ * Provides direct access to the session metadata portion of a Better Auth session.
+ */
 export type AuthServerSessionUserSession = AuthServerSessionUserSessionOf<AuthServer>;
+/**
+ * Extracts the user record embedded within a Better Auth session.
+ */
 export type AuthServerSessionUser = AuthServerSessionUserOf<AuthServer>;
 
+/**
+ * Creates a Better Auth client configured with the shared plugin suite and base settings.
+ *
+ * @remarks
+ * This client export allows downstream applications—such as Next.js frontends or integration tests—
+ * to perform typed operations against the Better Auth server using the same configuration used by
+ * the microservice.
+ */
 export const authClient = createAuthClient(betterAuthConfig);
 
+/**
+ * Strongly typed Better Auth client instance derived from {@link authClient}.
+ */
 export type AuthClient = AuthClientOf<typeof authClient>;
+/**
+ * Exposes the Better Auth client API subset, including plugin augmentations.
+ */
 export type AuthClientApi = AuthClientApiOf<AuthClient>;
+/**
+ * Represents any callable Better Auth client endpoint, including plugin-provided members.
+ */
 export type AuthClientApiEndpoint = AuthClientApiEndpointOf<AuthClient>;
+/**
+ * Enumerates all exposed Better Auth client endpoint keys.
+ */
 export type AuthClientApiEndpointKey = AuthClientApiEndpointKeyOf<AuthClient>;
+/**
+ * Surfaces the Better Auth error catalogue exposed by the client implementation.
+ */
 export type AuthClientError = AuthClientErrorOf<AuthClient>;
 
+/**
+ * Describes the argument contract for the high-level `signIn` Better Auth client endpoint.
+ */
 export type AuthClientApiSignInArgs = AuthClientApiEndpointArgsOf<AuthClient, 'signIn'>;
+/**
+ * Captures the Better Auth session payload returned by client helpers.
+ */
 export type AuthClientSession = AuthClientSessionOf<AuthClient>;
+/**
+ * Provides direct access to the session metadata portion returned via the client.
+ */
 export type AuthClientSessionUserSession = AuthClientSessionUserSessionOf<AuthClient>;
 
+/**
+ * Extracts the user record embedded inside a Better Auth session from the client perspective.
+ */
 export type AuthClientSessionUser = AuthClientSessionUserOf<AuthClient>;
