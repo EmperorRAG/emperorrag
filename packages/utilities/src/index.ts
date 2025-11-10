@@ -1,4 +1,4 @@
-export { fromArray } from './lib/helper-functions/fromArray.utils.js'
+export { fromArray } from './lib/helper-functions/fromArray.utils.js';
 export { toArray } from './lib/helper-functions/toArray.utils.js';
 export { mergeObjects } from './lib/helper-functions/mergeObjects.utils.js';
 export {
