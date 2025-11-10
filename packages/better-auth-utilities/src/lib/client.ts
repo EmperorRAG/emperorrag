@@ -277,7 +277,7 @@ export type AuthClientApiOf<TAuthClient extends AuthClient> = TAuthClient;
  */
 export type AuthClientApiKeyOf<TAuthClient extends AuthClient> = keyof AuthClientApiOf<TAuthClient> & string;
 
-type AuthClientApiReservedKey = '$fetch' | '$store' | 'useSession' | '$ERROR_CODES' | '$Infer';
+type AuthClientApiReservedKey = '$fetch' | '$store' | '$ERROR_CODES' | '$Infer';
 
 /**
  * Extracts the callable Better Auth client endpoints, omitting reserved helper utilities.
@@ -457,13 +457,6 @@ export type AuthClientSessionUserOf<TAuthCli extends AuthClient> =
 	}
 		? TUser
 		: never;
-
-/**
- * Retrieves the `useSession` helper exposed by a Better Auth client instance.
- *
- * @typeParam TAuthClient - The Better Auth client whose session helper should be surfaced.
- */
-export type AuthClientUseSessionOf<TAuthClient extends ReturnType<typeof createBetterAuthClientCore>> = TAuthClient['useSession'];
 
 /**
  * Exposes the `$ERROR_CODES` catalog published by a Better Auth client instance.

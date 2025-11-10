@@ -38,7 +38,6 @@ export type {
 	AuthClientSessionOf,
 	AuthClientSessionUserSessionOf,
 	AuthClientSessionUserOf,
-	AuthClientUseSessionOf,
 	AuthClientErrorOf,
 } from './client.ts';
 

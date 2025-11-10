@@ -30,6 +30,7 @@ import type {
 	AuthClientApiEndpointOf,
 	AuthClientApiEndpointKeyOf,
 	AuthClientApiEndpointArgsOf,
+	AuthClientErrorOf,
 } from '@emperorrag/better-auth-utilities/client';
 
 // Initialize Prisma Client
@@ -126,8 +127,9 @@ export type AuthClient = AuthClientOf<typeof authClient>;
 export type AuthClientApi = AuthClientApiOf<AuthClient>;
 export type AuthClientApiEndpoint = AuthClientApiEndpointOf<AuthClient>;
 export type AuthClientApiEndpointKey = AuthClientApiEndpointKeyOf<AuthClient>;
-export type AuthClientApiSignInArgs = AuthClientApiEndpointArgsOf<AuthClient, 'signIn'>;
+export type AuthClientError = AuthClientErrorOf<AuthClient>;
 
+export type AuthClientApiSignInArgs = AuthClientApiEndpointArgsOf<AuthClient, 'signIn'>;
 export type AuthClientSession = AuthClientSessionOf<AuthClient>;
 export type AuthClientSessionUserSession = AuthClientSessionUserSessionOf<AuthClient>;
 

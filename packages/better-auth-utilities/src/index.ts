@@ -52,7 +52,6 @@ export type {
 	AuthClientSessionOf,
 	AuthClientSessionUserSessionOf,
 	AuthClientSessionUserOf,
-	AuthClientUseSessionOf,
 	AuthClientErrorOf,
 	ServerConfig,
 	User,

@@ -45,17 +45,20 @@ export default defineConfig(() => ({
 			entry: {
 				index: path.resolve(__dirname, './src/index.ts'),
 				client: path.resolve(__dirname, './src/client.ts'),
+				server: path.resolve(__dirname, './src/server.ts'),
 				schemas: path.resolve(__dirname, './src/schemas.ts'),
 				types: path.resolve(__dirname, './src/types.ts'),
 			},
 			fileName: (_format: string, entryName: string) => {
 				switch (entryName) {
 					case 'client':
-						return 'lib/prisma/generated/client/index.js';
+						return 'client.js';
+					case 'server':
+						return 'server.js';
 					case 'schemas':
 						return 'lib/prisma/generated/schemas/index.js';
 					case 'types':
-						return 'lib/prisma/generated/types/index.d.ts';
+						return 'types.js';
 					default:
 						return 'index.js';
 				}
