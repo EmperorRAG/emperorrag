@@ -211,7 +211,8 @@
 		"!**/node_modules",
 		"!**/.git",
 		"!**/vendor",
-		"!**/*.{prompt,instructions,chatmode}.{md,mkd,mdwn,mdown,markdown,markdn,mdtxt,mdtext,workbook}"
+		"!**/*.{prompt,instructions,chatmode}.{md,mkd,mdwn,mdown,markdown,markdn,mdtxt,mdtext,workbook}",
+		"!**/official-documentation/**/*.{md,mkd,mdwn,mdown,markdown,markdn,mdtxt,mdtext,workbook}"
 	],
 	"npm.enableRunFromFolder": true,
 	"npm.packageManager": "npm",
