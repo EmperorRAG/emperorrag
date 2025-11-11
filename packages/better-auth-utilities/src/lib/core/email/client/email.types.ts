@@ -123,22 +123,51 @@ export type SignInEmailResult<TAuthClient extends AuthClient> = {
 	requiresVerification: boolean;
 };
 
+export type EmailAuthClientLogger = Readonly<{
+	debug: (message: string, metadata?: Readonly<Record<string, unknown>>) => void;
+	info: (message: string, metadata?: Readonly<Record<string, unknown>>) => void;
+	warn: (message: string, metadata?: Readonly<Record<string, unknown>>) => void;
+	error: (message: string, metadata?: Readonly<Record<string, unknown>>) => void;
+}>;
+
+export type EmailAuthClientTelemetry = Readonly<{
+	trackEvent: (name: string, properties?: Readonly<Record<string, unknown>>) => void | Promise<void>;
+}>;
+
+export type EmailAuthClientFeatureFlags = Readonly<Record<string, boolean>>;
+
+export type EmailAuthClientDeps<TAuthClient extends AuthClient = AuthClient> = Readonly<{
+	authClient: TAuthClient;
+	logger?: EmailAuthClientLogger;
+	telemetry?: EmailAuthClientTelemetry;
+	featureFlags?: EmailAuthClientFeatureFlags;
+}>;
+
+export type EmailAuthClientPreloaded<TAuthClient extends AuthClient = AuthClient> = Readonly<{
+	signUpEmail: ReturnType<signUpEmailProps<TAuthClient>>;
+	signInEmail: ReturnType<signInEmailProps<TAuthClient>>;
+	sendVerificationEmail: ReturnType<sendVerificationEmailProps>;
+	requestPasswordReset: ReturnType<requestPasswordResetProps>;
+	resetPassword: ReturnType<resetPasswordProps>;
+	changePassword: ReturnType<changePasswordProps>;
+}>;
+
 export interface signUpEmailProps<TAuthClient extends AuthClient> {
-	(input: SignUpEmailInput): Promise<SignUpEmailResult<TAuthClient>>;
+	(deps: EmailAuthClientDeps<TAuthClient>): (input: SignUpEmailInput) => Promise<SignUpEmailResult<TAuthClient>>;
 }
 export interface signInEmailProps<TAuthClient extends AuthClient> {
-	(input: SignInEmailInput): Promise<SignInEmailResult<TAuthClient>>;
+	(deps: EmailAuthClientDeps<TAuthClient>): (input: SignInEmailInput) => Promise<SignInEmailResult<TAuthClient>>;
 }
 export interface sendVerificationEmailProps {
-	(input: VerificationEmailInput): Promise<void>;
+	(deps: EmailAuthClientDeps): (input: VerificationEmailInput) => Promise<void>;
 }
 export interface requestPasswordResetProps {
-	(input: requestPasswordResetInput): Promise<void>;
+	(deps: EmailAuthClientDeps): (input: requestPasswordResetInput) => Promise<void>;
 }
 
 export interface resetPasswordProps {
-	(input: resetPasswordInput): Promise<void>;
+	(deps: EmailAuthClientDeps): (input: resetPasswordInput) => Promise<void>;
 }
 export interface changePasswordProps {
-	(input: ChangePasswordInput): Promise<void>;
+	(deps: EmailAuthClientDeps): (input: ChangePasswordInput) => Promise<void>;
 }
