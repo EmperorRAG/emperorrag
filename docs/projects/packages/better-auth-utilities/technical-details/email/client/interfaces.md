@@ -34,6 +34,7 @@ Interfaces define the shape of public APIs consumed by application code.
 
 - Optional higher-order helpers may compose these curried functions into concrete implementations, but the base API follows `(deps) => (input) => result` semantics for functional composition.
 - `createEmailAuthClient: (deps: EmailAuthClientDeps) => PreloadedEmailAuthClient` binds dependencies once and returns handlers that no longer require the dependency argument when invoked.
+- The preloaded bundle includes `signOut` alongside the other email handlers so controllers may reuse a single dependency injection.
 
 ## EmailAuthController
 

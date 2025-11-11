@@ -111,6 +111,15 @@ export type ChangePasswordInput = {
 	revokeOtherSessions?: boolean;
 };
 
+export type SignOutOptions = {
+	all?: boolean;
+	redirectTo?: string;
+	fetchOptions?: Readonly<{
+		onSuccess?: () => void | Promise<void>;
+		onError?: (error: unknown) => void | Promise<void>;
+	}>;
+};
+
 export type SignUpEmailResult<TAuthClient extends AuthClient> = {
 	user: AuthClientSessionUserOf<TAuthClient>;
 	session: AuthClientSessionUserSessionOf<TAuthClient>;
@@ -146,6 +155,7 @@ export type EmailAuthClientDeps<TAuthClient extends AuthClient = AuthClient> = R
 export type EmailAuthClientPreloaded<TAuthClient extends AuthClient = AuthClient> = Readonly<{
 	signUpEmail: ReturnType<signUpEmailProps<TAuthClient>>;
 	signInEmail: ReturnType<signInEmailProps<TAuthClient>>;
+	signOut: ReturnType<signOutProps<TAuthClient>>;
 	sendVerificationEmail: ReturnType<sendVerificationEmailProps>;
 	requestPasswordReset: ReturnType<requestPasswordResetProps>;
 	resetPassword: ReturnType<resetPasswordProps>;
@@ -157,6 +167,9 @@ export interface signUpEmailProps<TAuthClient extends AuthClient> {
 }
 export interface signInEmailProps<TAuthClient extends AuthClient> {
 	(deps: EmailAuthClientDeps<TAuthClient>): (input: SignInEmailInput) => Promise<SignInEmailResult<TAuthClient>>;
+}
+export interface signOutProps<TAuthClient extends AuthClient> {
+	(deps: EmailAuthClientDeps<TAuthClient>): (options?: SignOutOptions) => Promise<void>;
 }
 export interface sendVerificationEmailProps {
 	(deps: EmailAuthClientDeps): (input: VerificationEmailInput) => Promise<void>;

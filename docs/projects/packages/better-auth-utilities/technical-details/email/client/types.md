@@ -28,6 +28,7 @@ Type definitions ensure compile-time safety across the email feature surface.
 - `PasswordResetRequestInput` with `email`, optional `redirectTo`.
 - `ResetPasswordInput` with `token`, `newPassword`.
 - `ChangePasswordInput` with `currentPassword`, `newPassword`, optional `revokeOtherSessions`.
+- `SignOutOptions` with optional `all` flag to revoke every session, optional `redirectTo`, and room for fetch overrides.
 
 ## Dependencies
 
@@ -46,3 +47,4 @@ Type definitions ensure compile-time safety across the email feature surface.
 - `PasswordPolicy` capturing length, complexity, and history requirements.
 - `VerificationStatus` describing resend state.
 - `PreloadedEmailAuthClient` grouping every prebound handler so UI layers can reuse a single dependency injection call.
+- `SignOutOptions` enabling consumers to tailor sign-out scope and redirect behavior across handlers.
