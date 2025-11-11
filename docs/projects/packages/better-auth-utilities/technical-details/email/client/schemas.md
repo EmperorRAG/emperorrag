@@ -23,12 +23,12 @@ Schema definitions enforce payload correctness before requests reach Better Auth
 ## Sign-Up Schema
 
 - Fields: `name`, `email`, `password`, optional `image`, optional `callbackURL`.
-- Rules: Password length 8-128, email shape validation, image URL optional but must be https when present.
+- Rules: email shape validation, image URL optional but must be https or base64 when present.
 
 ## Sign-In Schema
 
 - Fields: `email`, `password`, optional `rememberMe`, optional `callbackURL`.
-- Rules: `rememberMe` defaults to false, callback URL validated against whitelist.
+- Rules: `rememberMe` defaults to false.
 
 ## Sign-Out Schema
 
