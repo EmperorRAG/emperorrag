@@ -5,12 +5,12 @@ post_slug: client-email-types
 microsoft_alias: project.management
 featured_image: "https://example.com/images/better-auth-email-types.jpg"
 categories:
-	- internal-documentation
+  - internal-documentation
 tags:
-	- better-auth
-	- email-authentication
-	- client
-	- typing
+  - better-auth
+  - email-authentication
+  - client
+  - typing
 ai_note: Document drafted with AI assistance
 summary: Type definitions required for client implementations of Better Auth email features.
 post_date: 2025-11-11
@@ -29,6 +29,12 @@ Type definitions ensure compile-time safety across the email feature surface.
 - `ResetPasswordInput` with `token`, `newPassword`.
 - `ChangePasswordInput` with `currentPassword`, `newPassword`, optional `revokeOtherSessions`.
 
+## Dependencies
+
+- `EmailAuthClientDeps` encapsulating a preloaded `AuthClient` instance plus shared configuration (logger, telemetry, feature flags).
+- `EmailAuthClientPreloaded` represents the result of invoking a helper with dependencies, exposing the simplified `(input) => Promise<...>` signature.
+- Helper functions use the functional pattern `(deps: EmailAuthClientDeps) => (input: SignUpEmailInput) => Promise<...>` so the dependency bundle is supplied once and the returned lambda accepts request payloads.
+
 ## Results
 
 - `SignUpEmailResult` bundling `user`, `session`, and optional `callbackURL`.
@@ -39,3 +45,4 @@ Type definitions ensure compile-time safety across the email feature surface.
 - `EmailAuthStatus` union representing idle, loading, success, and error states.
 - `PasswordPolicy` capturing length, complexity, and history requirements.
 - `VerificationStatus` describing resend state.
+- `PreloadedEmailAuthClient` grouping every prebound handler so UI layers can reuse a single dependency injection call.
