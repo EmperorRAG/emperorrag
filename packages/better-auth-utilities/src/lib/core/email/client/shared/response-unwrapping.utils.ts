@@ -35,7 +35,7 @@ export const runEffectSuccess = async <A, E>(effect: Effect.Effect<A, E>): Promi
  * Run an Effect expecting failure.
  *
  * @description Helper to run an Effect expecting it to fail and return the error.
- * Throws if the Effect succeeds.
+ * Uses Effect.flip to invert success/failure channels.
  *
  * @template A - The success type
  * @template E - The error type
@@ -51,12 +51,7 @@ export const runEffectSuccess = async <A, E>(effect: Effect.Effect<A, E>): Promi
  * ```
  */
 export const runEffectFailure = async <A, E>(effect: Effect.Effect<A, E>): Promise<E> => {
-	try {
-		await Effect.runPromise(effect);
-		throw new Error('Expected Effect to fail, but it succeeded');
-	} catch (error) {
-		return error as E;
-	}
+	return Effect.runPromise(Effect.flip(effect));
 };
 
 /**
