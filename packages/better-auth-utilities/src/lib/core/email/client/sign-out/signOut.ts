@@ -3,11 +3,19 @@ import type { AuthClient } from '../../../../client.js';
 import type { EmailAuthClientDeps, SignOutOptions, signOutProps } from '../email.types.js';
 import {
 	EmailAuthApiError,
-	EmailAuthDependenciesError,
 	EmailAuthInputError,
 	type EmailAuthError,
 } from '../email.error.js';
-import { isEmailAuthClientDeps, isSignOutOptions } from '../email.types.js';
+import { isSignOutOptions } from '../email.types.js';
+import {
+	type FetchResponse,
+	unwrapFetchResponse,
+	createApiErrorFactory,
+	createValidateDeps,
+	createLogValidationFailure,
+	createLogApiFailure,
+	createLogSuccess,
+} from '../shared/index.js';
 
 /**
  * Internal payload type for Better Auth sign-out response.
@@ -36,9 +44,7 @@ type SignOutErrorPayload = Readonly<{
  * @description Discriminated union representing the Better Fetch response pattern
  * for sign-out operations. Either contains data (success) or error (failure).
  */
-type SignOutFetchResponse =
-	| Readonly<{ data: SignOutSuccessPayload; error: null }>
-	| Readonly<{ data: null; error: SignOutErrorPayload }>;
+type SignOutFetchResponse = FetchResponse<SignOutSuccessPayload, SignOutErrorPayload>;
 
 // ============================================================================
 // Layer 1: Validation
@@ -47,34 +53,12 @@ type SignOutFetchResponse =
 /**
  * Validates email authentication client dependencies.
  *
- * @pure
- * @description Ensures the provided dependencies bundle satisfies the
- * `EmailAuthClientDeps` contract. Validates the presence of required `authClient`
- * and optional adapters (logger, telemetry, featureFlags).
+ * @description Factory-generated validator for sign-out operation dependencies.
+ * Uses shared validation utility to ensure consistent error handling across operations.
  *
- * @fp-pattern Higher-order function with type-safe validation
- *
- * @param deps - Dependencies bundle to validate
- * @returns {Effect.Effect<EmailAuthClientDeps<TAuthClient>, EmailAuthDependenciesError>}
- *   Success channel contains validated deps, error channel contains validation failure.
- *
- * @example
- * ```typescript
- * const deps = { authClient, logger };
- * const effect = validateDeps(deps);
- * // => Effect.succeed(deps) or Effect.fail(new EmailAuthDependenciesError(...))
- * ```
+ * @see {@link createValidateDeps} from shared/validation.ts
  */
-export const validateDeps = <TAuthClient extends AuthClient>(
-	deps: unknown
-): Effect.Effect<EmailAuthClientDeps<TAuthClient>, EmailAuthDependenciesError> =>
-	isEmailAuthClientDeps<TAuthClient>(deps)
-		? Effect.succeed(deps)
-		: Effect.fail(
-				new EmailAuthDependenciesError(
-					'Invalid email authentication dependencies: authClient is required and must satisfy AuthClient contract'
-				)
-		  );
+const validateDeps = createValidateDeps<AuthClient>('signOut');
 
 /**
  * Validates sign-out options payload.
@@ -170,92 +154,14 @@ export const callSignOutApi =
 // ============================================================================
 
 /**
- * Type guard for Better Fetch failure responses.
- *
- * @pure
- * @description Discriminates between success and error branches of Better Fetch
- * union type `{ data: T, error: null } | { data: null, error: E }`. Returns true
- * when response represents a failure (data is null, error is present).
- *
- * @fp-pattern Type guard for discriminated union
- *
- * @param response - Better Fetch response to check
- * @returns {boolean} True if response is a failure, false if success
- *
- * @example
- * ```typescript
- * const success = { data: { success: true }, error: null };
- * const failure = { data: null, error: { message: 'Failed' } };
- *
- * isFetchFailure(success); // => false
- * isFetchFailure(failure); // => true
- * ```
- */
-export const isFetchFailure = <TData, TError>(
-	response: Readonly<{ data: TData | null; error: TError | null }>
-): response is Readonly<{ data: null; error: TError }> => response.data === null && response.error !== null;
-
-/**
- * Unwraps Better Fetch response into Effect channels.
- *
- * @pure
- * @description Higher-order function that unwraps Better Fetch discriminated union
- * `{ data: T, error: null } | { data: null, error: E }` into Effect's error and
- * success channels. Accepts an error factory to transform fetch errors into
- * domain-specific error types.
- *
- * @fp-pattern Higher-order function with error factory injection
- * @composition Composes `isFetchFailure` type guard with Effect constructors
- *
- * @param errorFactory - Factory function to create domain error from fetch error
- * @returns {(response: FetchResponse) => Effect.Effect<TData, TDomainError>}
- *   Function that unwraps response into Effect channels.
- *
- * @example
- * ```typescript
- * const unwrap = unwrapFetchResponse(createSignOutApiError);
- * const effect = unwrap({ data: { success: true }, error: null });
- * // => Effect.succeed({ success: true })
- *
- * const errorEffect = unwrap({ data: null, error: { message: 'Failed' } });
- * // => Effect.fail(new EmailAuthApiError(...))
- * ```
- */
-export const unwrapFetchResponse =
-	<TData, TError, TDomainError extends EmailAuthError>(errorFactory: (error: TError) => TDomainError) =>
-	(
-		response: Readonly<{ data: TData | null; error: TError | null }>
-	): Effect.Effect<TData, TDomainError> =>
-		isFetchFailure(response)
-			? Effect.fail(errorFactory(response.error))
-			: Effect.succeed(response.data as TData);
-
-/**
  * Creates EmailAuthApiError from sign-out error payload.
  *
- * @pure
- * @description Factory function that transforms Better Auth fetch error into
- * domain-specific `EmailAuthApiError`. Extracts status code and message from
- * error payload and preserves original error as cause.
+ * @description Factory-generated error constructor for sign-out operation.
+ * Uses shared error factory utility to ensure consistent error handling.
  *
- * @fp-pattern Error factory for domain error construction
- *
- * @param error - Better Auth fetch error payload
- * @returns {EmailAuthApiError} Domain error with status and cause
- *
- * @example
- * ```typescript
- * const error = { status: 401, message: 'Unauthorized' };
- * const domainError = createSignOutApiError(error);
- * // => EmailAuthApiError { message: 'Sign-out failed', status: 401, cause: error }
- * ```
+ * @see {@link createApiErrorFactory} from shared/response-unwrapping.ts
  */
-export const createSignOutApiError = (error: SignOutErrorPayload): EmailAuthApiError =>
-	new EmailAuthApiError(
-		`Sign-out failed${error.message ? `: ${error.message}` : ''}`,
-		error.status,
-		error
-	);
+const createSignOutApiError = createApiErrorFactory('Sign out');
 
 // ============================================================================
 // Layer 4: Callback Execution
@@ -380,103 +286,32 @@ export const executeOnErrorCallback = (
 /**
  * Logs validation failure for dependencies or input.
  *
- * @description Side effect that logs validation errors using the provided logger.
- * Wrapped in Effect.sync to integrate with Effect pipeline. Never fails the Effect.
+ * @description Factory-generated logger for sign-out validation failures.
+ * Uses shared logging utility to ensure consistent logging across operations.
  *
- * @fp-pattern Side effect wrapper for logging
- *
- * @param logger - Optional logger for error messages
- * @param error - Validation error to log
- * @returns {Effect.Effect<void, never>}
- *   Effect that logs error and completes successfully. Never fails.
- *
- * @example
- * ```typescript
- * const effect = logValidationFailure(logger, new EmailAuthInputError('Invalid'));
- * // => Effect.sync wrapping logger.error call
- * ```
+ * @see {@link createLogValidationFailure} from shared/logging.ts
  */
-export const logValidationFailure = (
-	logger: EmailAuthClientDeps['logger'],
-	error: EmailAuthDependenciesError | EmailAuthInputError
-): Effect.Effect<void, never> =>
-	Effect.sync(() => {
-		logger?.error?.('Sign-out validation failed', {
-			operation: 'signOut',
-			errorType: error._tag,
-			message: error.message,
-		});
-	});
+const logValidationFailure = createLogValidationFailure('Sign out');
 
 /**
  * Logs API call failure.
  *
- * @description Side effect that logs API errors using the provided logger.
- * Wrapped in Effect.sync to integrate with Effect pipeline. Never fails the Effect.
+ * @description Factory-generated logger for sign-out API failures.
+ * Uses shared logging utility to ensure consistent logging and telemetry.
  *
- * @fp-pattern Side effect wrapper for logging
- *
- * @param logger - Optional logger for error messages
- * @param error - API error to log
- * @returns {Effect.Effect<void, never>}
- *   Effect that logs error and completes successfully. Never fails.
- *
- * @example
- * ```typescript
- * const effect = logApiFailure(logger, new EmailAuthApiError('Failed', 401));
- * // => Effect.sync wrapping logger.error call
- * ```
+ * @see {@link createLogApiFailure} from shared/logging.ts
  */
-export const logApiFailure = (
-	logger: EmailAuthClientDeps['logger'],
-	error: EmailAuthApiError
-): Effect.Effect<void, never> =>
-	Effect.sync(() => {
-		logger?.error?.('Sign-out API call failed', {
-			operation: 'signOut',
-			errorType: error._tag,
-			message: error.message,
-			status: error.status,
-		});
-	});
+const logApiFailure = createLogApiFailure('Sign out');
 
 /**
  * Logs successful sign-out completion.
  *
- * @description Side effect that logs success using the provided logger and telemetry.
- * Wrapped in Effect.sync to integrate with Effect pipeline. Never fails the Effect.
+ * @description Factory-generated logger for sign-out success.
+ * Uses shared logging utility to ensure consistent logging and telemetry.
  *
- * @fp-pattern Side effect wrapper for logging and telemetry
- *
- * @param logger - Optional logger for info messages
- * @param telemetry - Optional telemetry tracker
- * @param options - Sign-out options used in the operation
- * @returns {Effect.Effect<void, never>}
- *   Effect that logs success and completes successfully. Never fails.
- *
- * @example
- * ```typescript
- * const effect = logSignOutSuccess(logger, telemetry, { all: true });
- * // => Effect.sync wrapping logger.info and telemetry.trackEvent calls
- * ```
+ * @see {@link createLogSuccess} from shared/logging.ts
  */
-export const logSignOutSuccess = (
-	logger: EmailAuthClientDeps['logger'],
-	telemetry: EmailAuthClientDeps['telemetry'],
-	options?: SignOutOptions
-): Effect.Effect<void, never> =>
-	Effect.sync(() => {
-		logger?.info?.('Sign-out completed successfully', {
-			operation: 'signOut',
-			allSessions: options?.all ?? false,
-			hasRedirect: options?.redirectTo !== undefined,
-		});
-
-		telemetry?.trackEvent?.('auth.signOut.success', {
-			allSessions: options?.all ?? false,
-			hasRedirect: options?.redirectTo !== undefined,
-		});
-	});
+const logSignOutSuccess = createLogSuccess('Sign out');
 
 // ============================================================================
 // Layer 6: Pipeline
@@ -536,7 +371,7 @@ export const signOut: signOutProps<AuthClient> =
 		Effect.gen(function* () {
 			// Layer 1: Validate dependencies
 			const validatedDeps = yield* pipe(
-				validateDeps<TAuthClient>(deps),
+				validateDeps(deps),
 				Effect.tapError((error) => logValidationFailure(deps.logger, error))
 			);
 
@@ -552,7 +387,14 @@ export const signOut: signOutProps<AuthClient> =
 			// Layer 3: Unwrap response
 			yield* pipe(
 				unwrapFetchResponse(createSignOutApiError)(response),
-				Effect.tapError((error) => logApiFailure(validatedDeps.logger, error)),
+				Effect.tapError((error) =>
+					logApiFailure(
+						validatedDeps.logger,
+						validatedDeps.telemetry,
+						validatedDeps.featureFlags,
+						error
+					)
+				),
 				Effect.tapError((error) =>
 					executeOnErrorCallback(validatedDeps.logger, validatedOptions, error)
 				),
@@ -563,7 +405,15 @@ export const signOut: signOutProps<AuthClient> =
 			yield* executeOnSuccessCallback(validatedDeps.logger, validatedOptions);
 
 			// Layer 5: Log success
-			yield* logSignOutSuccess(validatedDeps.logger, validatedDeps.telemetry, validatedOptions);
+			yield* logSignOutSuccess(
+				validatedDeps.logger,
+				validatedDeps.telemetry,
+				validatedDeps.featureFlags,
+				{
+					allSessions: validatedOptions?.all ?? false,
+					hasRedirect: validatedOptions?.redirectTo !== undefined,
+				}
+			);
 
 			// Return void
 			return;
