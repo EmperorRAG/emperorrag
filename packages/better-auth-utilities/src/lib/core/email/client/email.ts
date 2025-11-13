@@ -1,3 +1,4 @@
+import { Effect } from 'effect';
 import type { BetterFetchError } from '@better-fetch/fetch';
 import type {
 	changePasswordProps,
@@ -9,10 +10,14 @@ import type {
 	resetPasswordProps,
 } from './email.types.js';
 import { isEmailAuthClientDeps, isSignUpEmailInput } from './email.types.js';
+import {
+	EmailAuthDependenciesError,
+	EmailAuthInputError,
+	EmailAuthApiError,
+	EmailAuthDataMissingError,
+	EmailAuthSessionError,
+} from './email.error.js';
 import type { AuthClient, AuthClientSessionOf, AuthClientSessionUserOf, AuthClientSessionUserSessionOf } from '../../../client.js';
-
-const invalidDependenciesError = new Error('Invalid dependencies provided to signUpEmail');
-const invalidInputError = new Error('Invalid sign up payload');
 
 type FetchSuccess<TData> = Readonly<{ data: TData; error: null }>;
 type FetchFailure<TError> = Readonly<{ data: null; error: TError }>;
@@ -28,72 +33,104 @@ type SignUpErrorPayload = BetterFetchError & Readonly<Record<string, unknown>>;
 
 const isFetchFailure = <TData, TError>(response: FetchResponse<TData, TError>): response is FetchFailure<TError> => response.error !== null;
 
-const createMissingDataError = (message: string, cause?: unknown): Error => Object.assign(new Error(message), { cause });
-
-export const signUpEmail: signUpEmailProps<AuthClient> = (deps) => async (input) => {
-	// Branch: Validate dependencies structure using runtime type guard
-	// TODO: Refactor to use library-provided dependency validation utilities
-	if (!isEmailAuthClientDeps<AuthClient>(deps)) {
-		throw invalidDependenciesError;
-	}
-
-	// Branch: Validate input payload structure using runtime type guard
-	// TODO: Refactor to use library-provided input validation utilities
-	if (!isSignUpEmailInput(input)) {
-		throw invalidInputError;
-	}
-
-	const { authClient, logger, telemetry, featureFlags } = deps;
-
-	try {
-		// Branch: Execute Better Auth sign-up API call and cast to Better Fetch response union type
-		// TODO: Refactor to use library-provided Better Auth client wrapper with built-in response unwrapping
-		const signUpResponse = (await authClient.signUp.email({
-			name: input.name,
-			email: input.email,
-			password: input.password,
-			image: input.image,
-			callbackURL: input.callbackUrl,
-		})) as FetchResponse<SignUpSuccessPayload<AuthClient>, SignUpErrorPayload>;
-
-		// Branch: Handle Better Fetch error response (discriminated union failure case)
-		// TODO: Refactor to use library-provided error handling utilities with standardized logging/telemetry
-		if (isFetchFailure(signUpResponse)) {
-			logger?.error('signUpEmail failed', { error: signUpResponse.error });
-			void telemetry?.trackEvent('signUpEmail.failed', {
-				errorStatus: signUpResponse.error.status,
-				errorMessage: signUpResponse.error.message,
-				featureFlags,
-			});
-			throw signUpResponse.error;
+/**
+ * Signs up a new user via email authentication.
+ *
+ * @description Validates dependencies and input, calls Better Auth sign-up API,
+ * resolves session, and returns the authenticated user with session.
+ *
+ * @fp-pattern Curried dependency injection with Effect-based error handling
+ * @composition Effect.gen with sequential validation and API calls
+ *
+ * @param deps - Email auth client dependencies (auth client, logger, telemetry)
+ * @returns {Effect.Effect<SignUpEmailResult, EmailAuthError>} Effect that resolves
+ * with authenticated user/session or fails with typed error.
+ *
+ * @example
+ * ```typescript
+ * const program = signUpEmail(deps)({ email: 'user@example.com', password: 'secret', name: 'User' });
+ * const result = await Effect.runPromise(program);
+ * ```
+ */
+export const signUpEmail: signUpEmailProps<AuthClient> = (deps) => (input) =>
+	Effect.gen(function* () {
+		// Validate dependencies structure
+		if (!isEmailAuthClientDeps<AuthClient>(deps)) {
+			return yield* Effect.fail(
+				new EmailAuthDependenciesError('Invalid dependencies provided to signUpEmail')
+			);
 		}
 
-		// Branch: Extract user and session from successful Better Fetch response data
-		// TODO: Refactor to use library-provided response payload extractors
-		const { user: userPayload, session: sessionFromResponse = null } = signUpResponse.data;
+		// Validate input payload structure
+		if (!isSignUpEmailInput(input)) {
+			return yield* Effect.fail(
+				new EmailAuthInputError('Invalid sign up payload')
+			);
+		}
 
-		// Branch: Validate required user payload exists in response
-		// TODO: Refactor to use library-provided payload validation with Option/Either patterns
-		if (!userPayload) {
-			const missingUserError = createMissingDataError('Sign up response is missing user payload');
-			logger?.error('signUpEmail failed', { error: missingUserError });
+		const { authClient, logger, telemetry, featureFlags } = deps;
+
+		// Execute Better Auth sign-up API call
+		const signUpResponse = yield* Effect.tryPromise({
+			try: () =>
+				authClient.signUp.email({
+					name: input.name,
+					email: input.email,
+					password: input.password,
+					image: input.image,
+					callbackURL: input.callbackUrl,
+				}),
+			catch: (error) => new EmailAuthApiError('Sign up API call failed', undefined, error),
+		});
+
+		// Cast to Better Fetch response union type
+		const response = signUpResponse as FetchResponse<
+			SignUpSuccessPayload<AuthClient>,
+			SignUpErrorPayload
+		>;
+
+		// Handle Better Fetch error response
+		if (isFetchFailure(response)) {
+			logger?.error('signUpEmail failed', { error: response.error });
 			void telemetry?.trackEvent('signUpEmail.failed', {
-				errorMessage: missingUserError.message,
+				errorStatus: response.error.status,
+				errorMessage: response.error.message,
 				featureFlags,
 			});
-			throw missingUserError;
+			return yield* Effect.fail(
+				new EmailAuthApiError('Sign up failed', response.error.status, response.error)
+			);
+		}
+
+		// Extract user and session from successful response
+		const { user: userPayload, session: sessionFromResponse = null } = response.data;
+
+		// Validate required user payload exists
+		if (!userPayload) {
+			const error = new EmailAuthDataMissingError('Sign up response is missing user payload');
+			logger?.error('signUpEmail failed', { error });
+			void telemetry?.trackEvent('signUpEmail.failed', {
+				errorMessage: error.message,
+				featureFlags,
+			});
+			return yield* Effect.fail(error);
 		}
 
 		let resolvedSession: AuthClientSessionUserSessionOf<AuthClient> | null = sessionFromResponse ?? null;
 
-		// Branch: Fallback session retrieval when sign-up response lacks session data
-		// (occurs when email verification is required before session creation)
-		// TODO: Refactor to use library-provided session resolution utilities with retry/fallback logic
+		// Fallback session retrieval when sign-up response lacks session data
 		if (!resolvedSession) {
-			const sessionResponse = (await authClient.getSession()) as FetchResponse<AuthClientSessionOf<AuthClient> | null, SignUpErrorPayload>;
+			const sessionResult = yield* Effect.tryPromise({
+				try: () => authClient.getSession(),
+				catch: (error) => new EmailAuthSessionError('Failed to fetch session', error),
+			});
 
-			// Branch: Handle session fetch failure gracefully (warn but continue to final validation)
-			// TODO: Refactor to use library-provided error recovery patterns
+			const sessionResponse = sessionResult as FetchResponse<
+				AuthClientSessionOf<AuthClient> | null,
+				SignUpErrorPayload
+			>;
+
+			// Handle session fetch failure gracefully (warn but continue to final validation)
 			if (isFetchFailure(sessionResponse)) {
 				logger?.warn('signUpEmail session fetch failed', { error: sessionResponse.error });
 				void telemetry?.trackEvent('signUpEmail.sessionFetchFailed', {
@@ -102,105 +139,94 @@ export const signUpEmail: signUpEmailProps<AuthClient> = (deps) => async (input)
 					featureFlags,
 				});
 			} else {
-				// Branch: Extract session from successful getSession response
-				// TODO: Refactor to use library-provided session extractors
+				// Extract session from successful getSession response
 				resolvedSession = sessionResponse.data?.session ?? null;
 			}
 		}
 
-		// Branch: Final validation that session was successfully resolved
-		// TODO: Refactor to use library-provided required field validation with Either/Effect patterns
+		// Final validation that session was successfully resolved
 		if (!resolvedSession) {
-			const sessionMissingError = createMissingDataError('Unable to resolve session after sign up');
-			logger?.error('signUpEmail failed', { error: sessionMissingError });
+			const error = new EmailAuthSessionError('Unable to resolve session after sign up');
+			logger?.error('signUpEmail failed', { error });
 			void telemetry?.trackEvent('signUpEmail.failed', {
-				errorMessage: sessionMissingError.message,
+				errorMessage: error.message,
 				featureFlags,
 			});
-			throw sessionMissingError;
+			return yield* Effect.fail(error);
 		}
 
-		// Branch: Log successful sign-up operation with structured metadata
-		// TODO: Refactor to use library-provided success logging utilities
+		// Log successful sign-up operation
 		logger?.info('signUpEmail succeeded', {
 			userId: userPayload.id,
 			sessionId: resolvedSession.id,
 		});
 
-		// Branch: Track successful sign-up analytics event
-		// TODO: Refactor to use library-provided telemetry event builders
+		// Track successful sign-up analytics event
 		void telemetry?.trackEvent('signUpEmail.success', {
 			userId: userPayload.id,
 			featureFlags,
 		});
 
-		// Branch: Return successful sign-up result with user, session, and callback URL
-		// TODO: Refactor to use library-provided result constructors
+		// Return successful sign-up result
 		return {
 			user: userPayload,
 			session: resolvedSession,
 			callbackUrl: input.callbackUrl,
 		};
-	} catch (error) {
-		// Branch: Catch-all error handler for unexpected failures during sign-up flow
-		// TODO: Refactor to use library-provided error normalization and enrichment utilities
-		logger?.error('signUpEmail failed', { error });
-		throw error;
-	}
-};
+	});
 
 export const signInEmail: signInEmailProps<AuthClient> =
 	({ authClient }) =>
-	async ({ email, password, rememberMe, callbackUrl }) => {
+	({ email, password, rememberMe, callbackUrl }) => {
 		void authClient;
 		void email;
 		void password;
 		void rememberMe;
 		void callbackUrl;
-		throw new Error('Not implemented');
+		return Effect.fail(new EmailAuthInputError('Not implemented'));
 	};
 
 export const signOut: signOutProps<AuthClient> =
 	({ authClient }) =>
-	async (options) => {
+	(options) => {
 		void authClient;
 		void options;
-		throw new Error('Not implemented');
+		return Effect.fail(new EmailAuthInputError('Not implemented'));
 	};
 
 export const sendVerificationEmail: sendVerificationEmailProps =
 	({ authClient }) =>
-	async ({ email, callbackUrl }) => {
+	({ email, callbackUrl }) => {
 		void authClient;
 		void email;
 		void callbackUrl;
-		throw new Error('Not implemented');
+		return Effect.fail(new EmailAuthInputError('Not implemented'));
 	};
 
 export const requestPasswordReset: requestPasswordResetProps =
 	({ authClient }) =>
-	async ({ email, redirectTo }) => {
+	({ email, redirectTo }) => {
 		void authClient;
 		void email;
 		void redirectTo;
-		throw new Error('Not implemented');
+		return Effect.fail(new EmailAuthInputError('Not implemented'));
 	};
 
 export const resetPassword: resetPasswordProps =
 	({ authClient }) =>
-	async ({ newPassword, token }) => {
+	({ newPassword, token }) => {
 		void authClient;
 		void newPassword;
 		void token;
-		throw new Error('Not implemented');
+		return Effect.fail(new EmailAuthInputError('Not implemented'));
 	};
 
 export const changePassword: changePasswordProps =
 	({ authClient }) =>
-	async ({ newPassword, currentPassword, revokeOtherSessions }) => {
+	({ newPassword, currentPassword, revokeOtherSessions }) => {
 		void authClient;
 		void newPassword;
 		void currentPassword;
 		void revokeOtherSessions;
-		throw new Error('Not implemented');
+		return Effect.fail(new EmailAuthInputError('Not implemented'));
 	};
