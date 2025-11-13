@@ -3,24 +3,15 @@ import type {
 	changePasswordProps,
 	requestPasswordResetProps,
 	sendVerificationEmailProps,
-	signOutProps,
 	resetPasswordProps,
 } from './email.types.js';
 import {
 	EmailAuthInputError,
 } from './email.error.js';
-import type { AuthClient} from '../../../client.js';
 
 export { signUpEmail } from './sign-up-email/signUpEmail.js';
 export { signInEmail } from './sign-in-email/signInEmail.js';
-
-export const signOut: signOutProps<AuthClient> =
-	({ authClient }) =>
-	(options) => {
-		void authClient;
-		void options;
-		return Effect.fail(new EmailAuthInputError('Not implemented'));
-	};
+export { signOut } from './sign-out/signOut.js';
 
 export const sendVerificationEmail: sendVerificationEmailProps =
 	({ authClient }) =>
