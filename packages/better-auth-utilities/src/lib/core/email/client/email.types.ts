@@ -73,8 +73,9 @@ export interface EmailAndPasswordOptions {
 }
 */
 
-import { Match, pipe } from 'effect';
+import { Match, pipe, Effect } from 'effect';
 import type { AuthClient, AuthClientSessionUserOf, AuthClientSessionUserSessionOf } from '../../../client.js';
+import type { EmailAuthError } from './email.error.js';
 
 export type SignUpEmailInput = {
 	name: string;
@@ -164,26 +165,26 @@ export type EmailAuthClientPreloaded<TAuthClient extends AuthClient = AuthClient
 }>;
 
 export interface signUpEmailProps<TAuthClient extends AuthClient> {
-	(deps: EmailAuthClientDeps<TAuthClient>): (input: SignUpEmailInput) => Promise<SignUpEmailResult<TAuthClient>>;
+	(deps: EmailAuthClientDeps<TAuthClient>): (input: SignUpEmailInput) => Effect.Effect<SignUpEmailResult<TAuthClient>, EmailAuthError>;
 }
 export interface signInEmailProps<TAuthClient extends AuthClient> {
-	(deps: EmailAuthClientDeps<TAuthClient>): (input: SignInEmailInput) => Promise<SignInEmailResult<TAuthClient>>;
+	(deps: EmailAuthClientDeps<TAuthClient>): (input: SignInEmailInput) => Effect.Effect<SignInEmailResult<TAuthClient>, EmailAuthError>;
 }
 export interface signOutProps<TAuthClient extends AuthClient> {
-	(deps: EmailAuthClientDeps<TAuthClient>): (options?: SignOutOptions) => Promise<void>;
+	(deps: EmailAuthClientDeps<TAuthClient>): (options?: SignOutOptions) => Effect.Effect<void, EmailAuthError>;
 }
 export interface sendVerificationEmailProps {
-	(deps: EmailAuthClientDeps): (input: VerificationEmailInput) => Promise<void>;
+	(deps: EmailAuthClientDeps): (input: VerificationEmailInput) => Effect.Effect<void, EmailAuthError>;
 }
 export interface requestPasswordResetProps {
-	(deps: EmailAuthClientDeps): (input: requestPasswordResetInput) => Promise<void>;
+	(deps: EmailAuthClientDeps): (input: requestPasswordResetInput) => Effect.Effect<void, EmailAuthError>;
 }
 
 export interface resetPasswordProps {
-	(deps: EmailAuthClientDeps): (input: resetPasswordInput) => Promise<void>;
+	(deps: EmailAuthClientDeps): (input: resetPasswordInput) => Effect.Effect<void, EmailAuthError>;
 }
 export interface changePasswordProps {
-	(deps: EmailAuthClientDeps): (input: ChangePasswordInput) => Promise<void>;
+	(deps: EmailAuthClientDeps): (input: ChangePasswordInput) => Effect.Effect<void, EmailAuthError>;
 }
 
 const loggerKeys = ['debug', 'info', 'warn', 'error'] as const;
