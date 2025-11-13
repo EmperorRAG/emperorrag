@@ -31,10 +31,14 @@ const isFetchFailure = <TData, TError>(response: FetchResponse<TData, TError>): 
 const createMissingDataError = (message: string, cause?: unknown): Error => Object.assign(new Error(message), { cause });
 
 export const signUpEmail: signUpEmailProps<AuthClient> = (deps) => async (input) => {
+	// Branch: Validate dependencies structure using runtime type guard
+	// TODO: Refactor to use library-provided dependency validation utilities
 	if (!isEmailAuthClientDeps<AuthClient>(deps)) {
 		throw invalidDependenciesError;
 	}
 
+	// Branch: Validate input payload structure using runtime type guard
+	// TODO: Refactor to use library-provided input validation utilities
 	if (!isSignUpEmailInput(input)) {
 		throw invalidInputError;
 	}
@@ -42,6 +46,8 @@ export const signUpEmail: signUpEmailProps<AuthClient> = (deps) => async (input)
 	const { authClient, logger, telemetry, featureFlags } = deps;
 
 	try {
+		// Branch: Execute Better Auth sign-up API call and cast to Better Fetch response union type
+		// TODO: Refactor to use library-provided Better Auth client wrapper with built-in response unwrapping
 		const signUpResponse = (await authClient.signUp.email({
 			name: input.name,
 			email: input.email,
@@ -50,6 +56,8 @@ export const signUpEmail: signUpEmailProps<AuthClient> = (deps) => async (input)
 			callbackURL: input.callbackUrl,
 		})) as FetchResponse<SignUpSuccessPayload<AuthClient>, SignUpErrorPayload>;
 
+		// Branch: Handle Better Fetch error response (discriminated union failure case)
+		// TODO: Refactor to use library-provided error handling utilities with standardized logging/telemetry
 		if (isFetchFailure(signUpResponse)) {
 			logger?.error('signUpEmail failed', { error: signUpResponse.error });
 			void telemetry?.trackEvent('signUpEmail.failed', {
@@ -60,8 +68,12 @@ export const signUpEmail: signUpEmailProps<AuthClient> = (deps) => async (input)
 			throw signUpResponse.error;
 		}
 
+		// Branch: Extract user and session from successful Better Fetch response data
+		// TODO: Refactor to use library-provided response payload extractors
 		const { user: userPayload, session: sessionFromResponse = null } = signUpResponse.data;
 
+		// Branch: Validate required user payload exists in response
+		// TODO: Refactor to use library-provided payload validation with Option/Either patterns
 		if (!userPayload) {
 			const missingUserError = createMissingDataError('Sign up response is missing user payload');
 			logger?.error('signUpEmail failed', { error: missingUserError });
@@ -74,9 +86,14 @@ export const signUpEmail: signUpEmailProps<AuthClient> = (deps) => async (input)
 
 		let resolvedSession: AuthClientSessionUserSessionOf<AuthClient> | null = sessionFromResponse ?? null;
 
+		// Branch: Fallback session retrieval when sign-up response lacks session data
+		// (occurs when email verification is required before session creation)
+		// TODO: Refactor to use library-provided session resolution utilities with retry/fallback logic
 		if (!resolvedSession) {
 			const sessionResponse = (await authClient.getSession()) as FetchResponse<AuthClientSessionOf<AuthClient> | null, SignUpErrorPayload>;
 
+			// Branch: Handle session fetch failure gracefully (warn but continue to final validation)
+			// TODO: Refactor to use library-provided error recovery patterns
 			if (isFetchFailure(sessionResponse)) {
 				logger?.warn('signUpEmail session fetch failed', { error: sessionResponse.error });
 				void telemetry?.trackEvent('signUpEmail.sessionFetchFailed', {
@@ -85,10 +102,14 @@ export const signUpEmail: signUpEmailProps<AuthClient> = (deps) => async (input)
 					featureFlags,
 				});
 			} else {
+				// Branch: Extract session from successful getSession response
+				// TODO: Refactor to use library-provided session extractors
 				resolvedSession = sessionResponse.data?.session ?? null;
 			}
 		}
 
+		// Branch: Final validation that session was successfully resolved
+		// TODO: Refactor to use library-provided required field validation with Either/Effect patterns
 		if (!resolvedSession) {
 			const sessionMissingError = createMissingDataError('Unable to resolve session after sign up');
 			logger?.error('signUpEmail failed', { error: sessionMissingError });
@@ -99,22 +120,30 @@ export const signUpEmail: signUpEmailProps<AuthClient> = (deps) => async (input)
 			throw sessionMissingError;
 		}
 
+		// Branch: Log successful sign-up operation with structured metadata
+		// TODO: Refactor to use library-provided success logging utilities
 		logger?.info('signUpEmail succeeded', {
 			userId: userPayload.id,
 			sessionId: resolvedSession.id,
 		});
 
+		// Branch: Track successful sign-up analytics event
+		// TODO: Refactor to use library-provided telemetry event builders
 		void telemetry?.trackEvent('signUpEmail.success', {
 			userId: userPayload.id,
 			featureFlags,
 		});
 
+		// Branch: Return successful sign-up result with user, session, and callback URL
+		// TODO: Refactor to use library-provided result constructors
 		return {
 			user: userPayload,
 			session: resolvedSession,
 			callbackUrl: input.callbackUrl,
 		};
 	} catch (error) {
+		// Branch: Catch-all error handler for unexpected failures during sign-up flow
+		// TODO: Refactor to use library-provided error normalization and enrichment utilities
 		logger?.error('signUpEmail failed', { error });
 		throw error;
 	}
