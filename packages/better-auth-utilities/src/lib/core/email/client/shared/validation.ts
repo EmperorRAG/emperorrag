@@ -12,6 +12,9 @@ import type { EmailAuthClientDeps } from '../email.types.js';
 import { isEmailAuthClientDeps } from '../email.types.js';
 import { EmailAuthDependenciesError, type EmailAuthError } from '../email.error.js';
 
+// Re-export isEmailAuthClientDeps for use in mocks
+export { isEmailAuthClientDeps };
+
 /**
  * Generic validator factory.
  *
@@ -47,11 +50,7 @@ import { EmailAuthDependenciesError, type EmailAuthError } from '../email.error.
  * ```
  */
 export const createValidator =
-	<TInput, TError extends EmailAuthError>(
-		guard: (input: unknown) => input is TInput,
-		errorFactory: (message: string) => TError,
-		errorMessage: string
-	) =>
+	<TInput, TError extends EmailAuthError>(guard: (input: unknown) => input is TInput, errorFactory: (message: string) => TError, errorMessage: string) =>
 	(input: unknown): Effect.Effect<TInput, TError> =>
 		guard(input) ? Effect.succeed(input) : Effect.fail(errorFactory(errorMessage));
 
