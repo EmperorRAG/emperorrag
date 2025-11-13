@@ -3,7 +3,6 @@ import type {
 	changePasswordProps,
 	requestPasswordResetProps,
 	sendVerificationEmailProps,
-	signInEmailProps,
 	signOutProps,
 	resetPasswordProps,
 } from './email.types.js';
@@ -12,16 +11,8 @@ import {
 } from './email.error.js';
 import type { AuthClient} from '../../../client.js';
 
-export const signInEmail: signInEmailProps<AuthClient> =
-	({ authClient }) =>
-	({ email, password, rememberMe, callbackUrl }) => {
-		void authClient;
-		void email;
-		void password;
-		void rememberMe;
-		void callbackUrl;
-		return Effect.fail(new EmailAuthInputError('Not implemented'));
-	};
+export { signUpEmail } from './sign-up-email/signUpEmail.js';
+export { signInEmail } from './sign-in-email/signInEmail.js';
 
 export const signOut: signOutProps<AuthClient> =
 	({ authClient }) =>
