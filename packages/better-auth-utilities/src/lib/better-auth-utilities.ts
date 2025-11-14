@@ -24,19 +24,11 @@ export type { AuthServerOf, AuthServerSessionOf } from './server.ts';
 // Export client instance creation
 export { createAuthClient } from './client.js';
 export type {
-	InferAuthClient,
-	AuthClient,
-	AuthClientOf,
-	AuthClientApiOf,
-	AuthClientApiKeyOf,
-	AuthClientApiEndpointKeyOf,
-	AuthClientApiEndpointOf,
-	AuthClientApiEndpointAtPath,
-	AuthClientApiEndpointParametersOf,
-	AuthClientApiEndpointFirstParameter,
-	AuthClientApiEndpointArgsOf,
-	AuthClientSessionOf,
-	AuthClientSessionUserSessionOf,
-	AuthClientSessionUserOf,
-	AuthClientErrorOf,
-} from './client.ts';
+	AuthClientApiEndpointFor,
+	AuthClientApiEndpointKeyFor,
+	AuthClientApiFor,
+	AuthClientApiKeyFor,
+	AuthClientFor,
+	AuthClientSignInFor,
+	AuthClientSignUpFor,
+} from './client.types.ts';
