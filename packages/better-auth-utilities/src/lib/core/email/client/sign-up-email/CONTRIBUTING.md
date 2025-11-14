@@ -4,51 +4,36 @@
 
 ### Type Extraction Pattern
 
-All type definitions follow the "extract from Better Auth" pattern (same as sign-in module):
+See [Universal Type Extraction Pattern](../CONTRIBUTING.md#type-extraction-pattern) for the standard approach.
+
+**Sign-up specific example:**
 
 ```typescript
-// ✅ Correct: Extract input type from Better Auth API
+// ✅ Correct: Extract from Better Auth signUp.email API
 export type SignUpEmailInput<T> = Parameters<
   'email' extends keyof AuthClientSignUpFor<T>
     ? AuthClientSignUpFor<T>['email']
     : never
 >[0];
 
-// ✅ Correct: Extract result type from Better Auth API
 export type SignUpEmailResult<T> = ReturnType<
   'email' extends keyof AuthClientSignUpFor<T>
     ? AuthClientSignUpFor<T>['email']
     : never
 >;
-
-// ❌ Wrong: Manual type definition (loses Better Auth plugin awareness)
-export type SignUpEmailInput = {
-  name: string;
-  email: string;
-  password: string;
-  image?: string;
-};
 ```
-
-**Why**: Type extraction ensures automatic synchronization when Better Auth adds new fields or changes existing signatures through plugins.
 
 ### Curried Service Pattern
 
-Identical to sign-in module (see [Sign-In CONTRIBUTING](../sign-in-email/CONTRIBUTING.md#curried-service-pattern)):
-
-```typescript
-// ✅ Correct: Curried deps → input → Effect
-export const signUpEmail: signUpEmailProps = (deps) => (input) => {
-  return Effect.tryPromise({
-    try: () => deps.authClient.signUp.email(input),
-    catch: (error) => new EmailAuthApiError(...)
-  });
-};
-```
+See [Universal Curried Service Pattern](../CONTRIBUTING.md#curried-service-pattern) and [Sign-In Module Implementation](../sign-in-email/CONTRIBUTING.md#curried-service-pattern) for detailed examples.
 
 ### Validation Schema Pattern
 
-Sign-up schema includes **name** field (required) and **image** field (optional URL), but excludes **rememberMe** (sign-in only):
+**Sign-up schema differences from sign-in:**
+
+- **name** field: Required (user display name)
+- **image** field: Optional URL (profile image)
+- **No rememberMe field** (sign-in only)
 
 ```typescript
 // ✅ Correct: Sign-up schema with name and image
@@ -87,9 +72,11 @@ export const signUpEmailInputSchema = z.object({
 });
 ```
 
-**Why**: Sign-up requires name for user display, accepts optional profile image URL, but doesn't include session duration flags (that's sign-in's responsibility).
+See [Universal Validation Patterns](../CONTRIBUTING.md#validation-patterns) for shared validation requirements.
 
 ## Error Handling Strategy
+
+See [Universal Error Handling](../CONTRIBUTING.md#error-handling) for the standard approach.
 
 ### Sign-Up Specific Errors
 
@@ -129,32 +116,9 @@ Match.value(error).pipe(
 | 429 | Rate limit | "Too many registration attempts" |
 | 500 | Server error | "Registration failed. Try again." |
 
-### Service Layer Focus
-
-Service layer only throws `EmailAuthApiError` (same as sign-in):
-
-```typescript
-// ✅ Correct: Service layer only handles API errors
-export const signUpEmail: signUpEmailProps = (deps) => (input) => {
-  return Effect.tryPromise({
-    try: () => deps.authClient.signUp.email(input),
-    catch: (error) => {
-      const message = error instanceof Error ? error.message : 'Sign up failed';
-      const status = error && typeof error === 'object' && 'status' in error
-        ? (error.status as number)
-        : undefined;
-      return new EmailAuthApiError(message, status, error);
-    },
-  });
-};
-
-// ❌ Wrong: Validating name in service layer
-if (!input.name) {
-  return Effect.fail(new EmailAuthInputError('Name required'));
-}
-```
-
 ## Testing Requirements
+
+See [Universal Testing Requirements](../CONTRIBUTING.md#testing-requirements) for shared patterns.
 
 ### Type Tests
 
@@ -260,6 +224,8 @@ describe('signUpEmailInputSchema', () => {
 });
 ```
 
+See [Universal Schema Tests](../CONTRIBUTING.md#schema-validation-tests) for additional validation test patterns.
+
 ### Service Tests
 
 Test sign-up specific scenarios including duplicate email handling:
@@ -351,107 +317,7 @@ describe('signUpEmail', () => {
 });
 ```
 
-## Common Mistakes
-
-### ❌ Wrong: Including rememberMe in sign-up schema
-
-```typescript
-// Sign-up doesn't support session duration flags
-export const signUpEmailInputSchema = z.object({
-  name: z.string().min(1),
-  email: z.string().email(),
-  password: z.string().min(1),
-  rememberMe: z.boolean().optional(), // ❌ Not part of signUp API
-});
-```
-
-### ✅ Correct: Sign-up specific fields only
-
-```typescript
-// Only include fields supported by signUp.email
-export const signUpEmailInputSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  email: z.string().email('Invalid email format'),
-  password: z.string().min(1, 'Password is required'),
-  image: z.string().url('Invalid image URL').optional(),
-  callbackURL: z.string().url('Invalid callback URL').optional(),
-  fetchOptions: z.object({
-    onSuccess: z.function().optional(),
-    onError: z.function().optional(),
-  }).optional(),
-});
-```
-
-### ❌ Wrong: Not validating image as URL
-
-```typescript
-// image should be validated as URL format
-export const signUpEmailInputSchema = z.object({
-  name: z.string().min(1),
-  email: z.string().email(),
-  password: z.string().min(1),
-  image: z.string().optional(), // ❌ Missing URL validation
-});
-```
-
-### ✅ Correct: Validate image as URL
-
-```typescript
-// Ensure image is valid URL when provided
-export const signUpEmailInputSchema = z.object({
-  name: z.string().min(1),
-  email: z.string().email(),
-  password: z.string().min(1),
-  image: z.string().url().optional(), // ✅ URL validation
-});
-```
-
-### ❌ Wrong: Missing name field in schema
-
-```typescript
-// name is required for sign-up
-export const signUpEmailInputSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(1),
-});
-```
-
-### ✅ Correct: Include required name field
-
-```typescript
-// name is required field for user display
-export const signUpEmailInputSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  email: z.string().email(),
-  password: z.string().min(1),
-});
-```
-
-### ❌ Wrong: Not handling 409 Conflict errors
-
-```typescript
-// Sign-up should handle duplicate email errors
-Match.value(error).pipe(
-  Match.tag('EmailAuthApiError', (e) =>
-    `Sign up failed: ${e.message}` // ❌ Generic message for all statuses
-  ),
-  Match.exhaustive
-);
-```
-
-### ✅ Correct: Handle duplicate email specifically
-
-```typescript
-// Provide user-friendly messages for duplicate emails
-Match.value(error).pipe(
-  Match.tag('EmailAuthApiError', (e) => {
-    if (e.status === 409) return 'Email already registered';
-    if (e.status === 400) return 'Invalid registration data';
-    return `Sign up failed: ${e.message}`;
-  }),
-  Match.exhaustive
-);
-```
+See [Universal Service Tests](../CONTRIBUTING.md#service-layer-tests) for additional testing patterns.
 
 ## Related Documentation
 
