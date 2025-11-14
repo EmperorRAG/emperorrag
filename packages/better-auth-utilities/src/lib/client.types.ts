@@ -44,3 +44,17 @@ export type AuthClientApiFor<T extends AuthClientFor<ReturnType<typeof createAut
 	AuthClientFor<T>,
 	AuthClientApiKeyFor<T>
 >;
+
+/**
+ * Type helper to extract the signIn method type from an AuthClient.
+ *
+ * @description Returns the type of the signIn method, including any plugin-specific overloads.
+ *
+ * @example
+ * ```typescript
+ * type SignInMethod = AuthClientSignInFor<typeof authClient>;
+ * // (credentials: {...}) => Promise<...>
+ * ```
+ */
+export type AuthClientSignInFor<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> =
+	'signIn' extends AuthClientApiKeyFor<T> ? AuthClientApiFor<T>['signIn'] : never;
