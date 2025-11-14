@@ -1,6 +1,6 @@
 import type { createAuthClient } from 'better-auth/client';
 import type { AuthClientFor, AuthClientSignInFor } from '../../../../client.types.js';
-import type { EmailAuthError } from '../email.error.js';
+import type { EmailAuthError } from '../shared/email.error.js';
 import type { Effect } from 'effect';
 
 export type EmailAuthClientDeps<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> = Readonly<{

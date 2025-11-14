@@ -1,11 +1,6 @@
 import { Effect } from 'effect';
-import type { changePasswordProps, requestPasswordResetProps, resetPasswordProps } from './email.types.js';
+import type { changePasswordProps, requestPasswordResetProps, resetPasswordProps } from '../email.types.js';
 import { EmailAuthInputError } from './email.error.js';
-
-export { signUpEmail } from './sign-up-email/signUpEmail.js';
-export { signInEmail } from './sign-in-email/signInEmail.js';
-export { signOut } from './sign-out/signOut.js';
-export { sendVerificationEmail } from './send-verification-email/sendVerificationEmail.js';
 
 export const requestPasswordReset: requestPasswordResetProps =
 	({ authClient }) =>

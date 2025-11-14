@@ -1,6 +1,6 @@
 import { Effect } from 'effect';
 import type { signInEmailProps } from './signInEmail.types.js';
-import { EmailAuthApiError } from '../email.error.js';
+import { EmailAuthApiError } from '../shared/email.error.js';
 
 /**
  * Sign in a user via email and password using Better Auth.
