@@ -47,36 +47,20 @@ export type SignOutOptions = {
 	}>;
 };
 
-export type SignUpEmailResult<TAuthClient extends AuthClient> = {
+export type SignUpEmailResult<TAuthClient extends AuthClient = AuthClient> = {
 	user: AuthClientSessionUserOf<TAuthClient>;
 	session: AuthClientSessionUserSessionOf<TAuthClient>;
 	callbackUrl?: string;
 };
 
-export type SignInEmailResult<TAuthClient extends AuthClient> = {
+export type SignInEmailResult<TAuthClient extends AuthClient = AuthClient> = {
 	user: AuthClientSessionUserOf<TAuthClient>;
 	session: AuthClientSessionUserSessionOf<TAuthClient>;
 	requiresVerification: boolean;
 };
 
-export type EmailAuthClientLogger = Readonly<{
-	debug: (message: string, metadata?: Readonly<Record<string, unknown>>) => void;
-	info: (message: string, metadata?: Readonly<Record<string, unknown>>) => void;
-	warn: (message: string, metadata?: Readonly<Record<string, unknown>>) => void;
-	error: (message: string, metadata?: Readonly<Record<string, unknown>>) => void;
-}>;
-
-export type EmailAuthClientTelemetry = Readonly<{
-	trackEvent: (name: string, properties?: Readonly<Record<string, unknown>>) => void | Promise<void>;
-}>;
-
-export type EmailAuthClientFeatureFlags = Readonly<Record<string, boolean>>;
-
 export type EmailAuthClientDeps<TAuthClient extends AuthClient = AuthClient> = Readonly<{
 	authClient: TAuthClient;
-	logger?: EmailAuthClientLogger;
-	telemetry?: EmailAuthClientTelemetry;
-	featureFlags?: EmailAuthClientFeatureFlags;
 }>;
 
 export type EmailAuthClientPreloaded<TAuthClient extends AuthClient = AuthClient> = Readonly<{
@@ -89,13 +73,13 @@ export type EmailAuthClientPreloaded<TAuthClient extends AuthClient = AuthClient
 	changePassword: ReturnType<changePasswordProps>;
 }>;
 
-export interface signUpEmailProps<TAuthClient extends AuthClient> {
+export interface signUpEmailProps<TAuthClient extends AuthClient = AuthClient> {
 	(deps: EmailAuthClientDeps<TAuthClient>): (input: SignUpEmailInput) => Effect.Effect<SignUpEmailResult<TAuthClient>, EmailAuthError>;
 }
-export interface signInEmailProps<TAuthClient extends AuthClient> {
+export interface signInEmailProps<TAuthClient extends AuthClient = AuthClient> {
 	(deps: EmailAuthClientDeps<TAuthClient>): (input: SignInEmailInput) => Effect.Effect<SignInEmailResult<TAuthClient>, EmailAuthError>;
 }
-export interface signOutProps<TAuthClient extends AuthClient> {
+export interface signOutProps<TAuthClient extends AuthClient = AuthClient> {
 	(deps: EmailAuthClientDeps<TAuthClient>): (options?: SignOutOptions) => Effect.Effect<void, EmailAuthError>;
 }
 export interface sendVerificationEmailProps {
@@ -112,9 +96,7 @@ export interface changePasswordProps {
 	(deps: EmailAuthClientDeps): (input: ChangePasswordInput) => Effect.Effect<void, EmailAuthError>;
 }
 
-const loggerKeys = ['debug', 'info', 'warn', 'error'] as const;
-const telemetryKeys = ['trackEvent'] as const;
-const emailAuthClientDepKeys = ['authClient', 'logger', 'telemetry', 'featureFlags'] as const;
+const emailAuthClientDepKeys = ['authClient'] as const;
 const signUpKeys = ['name', 'email', 'password', 'image', 'callbackUrl'] as const;
 const signInKeys = ['email', 'password', 'rememberMe', 'callbackUrl'] as const;
 const signOutKeys = ['all', 'redirectTo', 'fetchOptions'] as const;
@@ -210,65 +192,6 @@ const isOptionalFunction = (value: unknown): value is ((...args: never[]) => unk
 		Match.orElse(() => false)
 	);
 
-const isFeatureFlags = (value: unknown): value is EmailAuthClientFeatureFlags =>
-	pipe(
-		value,
-		Match.value,
-		Match.when(isRecord, (candidate: Record<string, unknown>) => pipe(Object.values(candidate), (entries) => entries.every((entry) => isBoolean(entry)))),
-		Match.orElse(() => false)
-	);
-
-const isOptionalFeatureFlags = (value: unknown): value is EmailAuthClientFeatureFlags | undefined =>
-	pipe(
-		value,
-		Match.value,
-		Match.when(isUndefined, () => true),
-		Match.when(isFeatureFlags, () => true),
-		Match.orElse(() => false)
-	);
-
-const isLogger = (value: unknown): value is EmailAuthClientLogger =>
-	pipe(
-		value,
-		Match.value,
-		Match.when(
-			isRecord,
-			(candidate) =>
-				hasOnlyKeys(candidate, loggerKeys) &&
-				isFunction(candidate.debug) &&
-				isFunction(candidate.info) &&
-				isFunction(candidate.warn) &&
-				isFunction(candidate.error)
-		),
-		Match.orElse(() => false)
-	);
-
-const isOptionalLogger = (value: unknown): value is EmailAuthClientLogger | undefined =>
-	pipe(
-		value,
-		Match.value,
-		Match.when(isUndefined, () => true),
-		Match.when(isLogger, () => true),
-		Match.orElse(() => false)
-	);
-
-const isTelemetry = (value: unknown): value is EmailAuthClientTelemetry =>
-	pipe(
-		value,
-		Match.value,
-		Match.when(isRecord, (candidate) => hasOnlyKeys(candidate, telemetryKeys) && isFunction(candidate.trackEvent)),
-		Match.orElse(() => false)
-	);
-
-const isOptionalTelemetry = (value: unknown): value is EmailAuthClientTelemetry | undefined =>
-	pipe(
-		value,
-		Match.value,
-		Match.when(isUndefined, () => true),
-		Match.when(isTelemetry, () => true),
-		Match.orElse(() => false)
-	);
-
 const isAuthClient = (value: unknown): value is AuthClient =>
 	pipe(
 		value,
@@ -314,15 +237,7 @@ export const isEmailAuthClientDeps = <TAuthClient extends AuthClient>(value: unk
 	pipe(
 		value,
 		Match.value,
-		Match.when(
-			isRecord,
-			(candidate) =>
-				hasOnlyKeys(candidate, emailAuthClientDepKeys) &&
-				isAuthClient(candidate.authClient) &&
-				isOptionalLogger(candidate.logger) &&
-				isOptionalTelemetry(candidate.telemetry) &&
-				isOptionalFeatureFlags(candidate.featureFlags)
-		),
+		Match.when(isRecord, (candidate) => hasOnlyKeys(candidate, emailAuthClientDepKeys) && isAuthClient(candidate.authClient)),
 		Match.orElse(() => false)
 	);
 

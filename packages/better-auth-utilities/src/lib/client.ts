@@ -443,14 +443,6 @@ export type AuthClientApiEndpointArgsOf<
 > = AuthClientApiEndpointArgsAccumulator<AuthClientApiEndpointAtPath<TAuthClient, TEndpointKey>>;
 
 /**
- * @deprecated Use {@link AuthClientApiEndpointArgsOf} instead.
- */
-export type AuthClientApiEndpointBody<
-	TAuthClient extends AuthClient,
-	TEndpointKey extends AuthClientApiEndpointPathKeyOf<TAuthClient>,
-> = AuthClientApiEndpointArgsOf<TAuthClient, TEndpointKey>;
-
-/**
  * Infers the Better Auth session payload, including plugin augmentations, from a client instance.
  *
  * @typeParam TAuthCli - The Better Auth client from which to derive the session structure.
