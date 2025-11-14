@@ -17,12 +17,3 @@ export { isFetchFailure, unwrapFetchResponse, createApiErrorFactory } from './re
 
 // Validation utilities
 export { createValidator, createValidateDeps } from './validation.js';
-
-// Logging utilities
-export {
-	createLogValidationFailure,
-	createLogApiFailure,
-	createLogDataMissingFailure,
-	createLogSessionFailure,
-	createLogSuccess,
-} from './logging.js';
