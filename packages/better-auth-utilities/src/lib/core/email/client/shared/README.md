@@ -20,18 +20,6 @@ The email authentication module uses a discriminated union error type `EmailAuth
 - Invalid authClient type (not a Better Auth client instance)
 - Schema validation failure in controller layer
 
-**Example:**
-
-```typescript
-const result = emailAuthClientDepsSchema.safeParse(deps);
-if (!result.success) {
-  throw new EmailAuthDependenciesError(
-    'Invalid dependencies',
-    result.error
-  );
-}
-```
-
 #### EmailAuthInputError
 
 **Purpose**: Indicates input payload validation failures
@@ -51,14 +39,6 @@ if (!result.success) {
 
 **Purpose**: Indicates Better Auth API call failures
 **When Thrown**: API request fails with error response
-**HTTP Status Codes**:
-
-- `400` - Bad Request (validation failure)
-- `401` - Unauthorized (invalid credentials)
-- `409` - Conflict (email already exists)
-- `429` - Too Many Requests (rate limiting)
-- `500` - Internal Server Error
-- `undefined` - Network failure (no response)
 
 **Implementation:** See [email.error.ts](./email.error.ts)
 
@@ -120,63 +100,6 @@ Zod schema validating the structure of `EmailAuthClientDeps`.
 
 **Usage:** Controller layer validates dependencies before passing to service functions.
 
-## Usage
-
-### Error Handling with Match
-
-```typescript
-import { Effect, Match } from 'effect';
-import type { EmailAuthError } from './shared/email.error.js';
-
-const program = signInEmail({ authClient })({ email, password });
-
-Effect.runPromise(program).catch((error: EmailAuthError) => {
-  const message = Match.value(error).pipe(
-    Match.tag('EmailAuthDependenciesError', () =>
-      'Configuration error: Invalid auth client'
-    ),
-    Match.tag('EmailAuthInputError', (e) =>
-      `Validation error: ${e.message}`
-    ),
-    Match.tag('EmailAuthApiError', (e) =>
-      e.status === 401
-        ? 'Invalid credentials'
-        : `API error (${e.status}): ${e.message}`
-    ),
-    Match.tag('EmailAuthDataMissingError', () =>
-      'Unexpected response structure'
-    ),
-    Match.tag('EmailAuthSessionError', () =>
-      'Session error'
-    ),
-    Match.exhaustive
-  );
-
-  console.error(message);
-});
-```
-
-### Shared Dependency Pattern
-
-All email operations follow the same dependency injection pattern:
-
-```typescript
-// Step 1: Create dependency bundle once
-const deps: EmailAuthClientDeps<typeof authClient> = {
-  authClient: createAuthClient({ baseURL: '...' })
-};
-
-// Step 2: Reuse across operations
-const signIn = signInEmail(deps);
-const signUp = signUpEmail(deps);
-const signOut = signOutEmail(deps);
-
-// Step 3: Execute operations
-await Effect.runPromise(signIn({ email, password }));
-await Effect.runPromise(signUp({ name, email, password }));
-await Effect.runPromise(signOut({}));
-```
-
 ## API Reference
 
 ### Error Classes
@@ -210,70 +133,3 @@ See [email.schema.ts](./email.schema.ts) for emailAuthClientDepsSchema. Validate
 - [`sign-up-email/`](../sign-up-email/README.md) - Email/password sign-up implementation
 - [`sign-out/`](../sign-out/README.md) - Sign-out implementation
 - [Parent README](../README.md) - Email client operations overview
-
-## Design Decisions
-
-### Why Discriminated Union Errors?
-
-Discriminated unions with `_tag` enable:
-
-1. **Type-safe pattern matching**: Compiler ensures exhaustive error handling
-2. **Effect-TS integration**: Works seamlessly with `Match.tag()`
-3. **Clear error boundaries**: Each error type represents specific failure mode
-4. **Better debugging**: `cause` property preserves error chain
-
-### Why Readonly Dependencies?
-
-Immutability prevents bugs:
-
-```typescript
-// Prevented by type system:
-deps.authClient = newClient; // ❌ Type error
-
-// Must create new instance:
-const newDeps = { authClient: newClient }; // ✅ Safe
-```
-
-### Why Minimal Dependencies?
-
-Phase 8 cleanup removed logger, telemetry, and feature flags because:
-
-1. **Simplicity**: Single dependency (authClient) easier to understand
-2. **Separation of concerns**: Logging/telemetry belongs in separate layer
-3. **Type inference**: Simpler type parameters improve developer experience
-4. **Less coupling**: Fewer dependencies = easier testing
-
-### Why Passthrough Schema?
-
-`.passthrough()` on `authClient` schema allows:
-
-- Better Auth plugins to add custom fields
-- Type system captures plugin fields automatically
-- Runtime validation remains flexible
-- No manual schema updates when plugins added
-
-## Future Considerations
-
-### EmailAuthDataMissingError Usage
-
-Currently unused but reserved for:
-
-- Response parsing operations
-- Data transformation layers
-- Optional field validation
-
-### EmailAuthSessionError Usage
-
-Reserved for:
-
-- Session-dependent operations (change password, etc.)
-- Token refresh flows
-- Multi-factor authentication
-
-### Potential Schema Enhancements
-
-Consider adding:
-
-- `emailAuthClientSchema` for full client validation
-- Better Auth version compatibility checks
-- Plugin detection and validation

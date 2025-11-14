@@ -7,6 +7,7 @@
 See [Universal Error Handling](../CONTRIBUTING.md#error-handling) for error handling patterns.
 
 **Shared error implementations:** See [email.error.ts](./email.error.ts) for all error class definitions:
+
 - `EmailAuthDependenciesError`
 - `EmailAuthInputError`
 - `EmailAuthApiError` (includes `status` parameter)
@@ -17,11 +18,13 @@ See [Universal Error Handling](../CONTRIBUTING.md#error-handling) for error hand
 ### Shared Types
 
 **Shared type implementations:** See [email.types.ts](./email.types.ts) for:
+
 - `EmailAuthClientDeps<T>` - Generic readonly dependency type
 
 ### Validation Schemas
 
 **Shared schema implementations:** See [email.schema.ts](./email.schema.ts) for:
+
 - `emailAuthClientDepsSchema` - Validates authClient with passthrough for plugin extensions
 
 ## Related Documentation
