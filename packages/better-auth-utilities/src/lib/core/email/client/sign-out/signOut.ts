@@ -1,21 +1,9 @@
 import { Effect, pipe } from 'effect';
 import type { AuthClient } from '../../../../client.js';
-import type { EmailAuthClientDeps, SignOutOptions, signOutProps } from '../email.types.js';
-import {
-	EmailAuthApiError,
-	EmailAuthInputError,
-	type EmailAuthError,
-} from '../email.error.js';
+import type { SignOutOptions, signOutProps } from '../email.types.js';
+import { EmailAuthApiError, EmailAuthInputError, type EmailAuthError } from '../email.error.js';
 import { isSignOutOptions } from '../email.types.js';
-import {
-	type FetchResponse,
-	unwrapFetchResponse,
-	createApiErrorFactory,
-	createValidateDeps,
-	createLogValidationFailure,
-	createLogApiFailure,
-	createLogSuccess,
-} from '../shared/index.js';
+import { type FetchResponse, unwrapFetchResponse, createApiErrorFactory, createValidateDeps } from '../shared/index.js';
 
 /**
  * Internal payload type for Better Auth sign-out response.
@@ -87,16 +75,14 @@ const validateDeps = createValidateDeps<AuthClient>('signOut');
  * // => Effect.fail(new EmailAuthInputError(...))
  * ```
  */
-export const validateSignOutOptions = (
-	options: unknown
-): Effect.Effect<SignOutOptions | undefined, EmailAuthInputError> =>
+export const validateSignOutOptions = (options: unknown): Effect.Effect<SignOutOptions | undefined, EmailAuthInputError> =>
 	isSignOutOptions(options)
 		? Effect.succeed(options)
 		: Effect.fail(
 				new EmailAuthInputError(
 					'Invalid sign-out options: must be undefined or an object with optional "all" (boolean), "redirectTo" (string), and "fetchOptions" (object with optional onSuccess/onError callbacks)'
 				)
-		  );
+			);
 
 // ============================================================================
 // Layer 2: API Call
@@ -132,21 +118,14 @@ export const callSignOutApi =
 					? {
 							...(options.all !== undefined && { all: options.all }),
 							...(options.redirectTo !== undefined && { redirectTo: options.redirectTo }),
-					  }
+						}
 					: undefined;
 
-				const response = await authClient.signOut(
-					apiOptions as Parameters<typeof authClient.signOut>[0]
-				);
+				const response = await authClient.signOut(apiOptions as Parameters<typeof authClient.signOut>[0]);
 
 				return response as SignOutFetchResponse;
 			},
-			catch: (error) =>
-				new EmailAuthApiError(
-					'Sign-out API call failed',
-					undefined,
-					error
-				),
+			catch: (error) => new EmailAuthApiError('Sign-out API call failed', undefined, error),
 		});
 
 // ============================================================================
@@ -172,16 +151,15 @@ const createSignOutApiError = createApiErrorFactory('Sign out');
  *
  * @description Safely executes the user-provided `onSuccess` callback from
  * `SignOutOptions.fetchOptions`. Wraps callback in try-catch to prevent failures
- * from breaking the Effect pipeline. Logs warnings on callback errors but never
+ * from breaking the Effect pipeline. Silently handles callback errors and never
  * fails the Effect.
  *
  * @fp-pattern Safe side effect execution with error isolation
  *
- * @param logger - Optional logger for warning messages
  * @param options - Sign-out options potentially containing onSuccess callback
  * @returns {Effect.Effect<void, never>}
  *   Effect that executes callback and completes successfully regardless of outcome.
- *   Never fails (callback errors are logged, not propagated).
+ *   Never fails (callback errors are silently handled, not propagated).
  *
  * @example
  * ```typescript
@@ -194,31 +172,20 @@ const createSignOutApiError = createApiErrorFactory('Sign out');
  * // => Effect.sync wrapping safe callback execution
  * ```
  */
-export const executeOnSuccessCallback = (
-	logger: EmailAuthClientDeps['logger'],
-	options?: SignOutOptions
-): Effect.Effect<void, never> =>
+export const executeOnSuccessCallback = (options?: SignOutOptions): Effect.Effect<void, never> =>
 	Effect.sync(() => {
 		const callback = options?.fetchOptions?.onSuccess;
-		if (!callback) {
-			return;
-		}
-
-		try {
-			const result = callback();
-			if (result instanceof Promise) {
-				result.catch((error) => {
-					logger?.warn?.('Sign-out onSuccess callback rejected', {
-						operation: 'signOut',
-						error: error instanceof Error ? error.message : String(error),
+		if (callback) {
+			try {
+				const result = callback();
+				if (result instanceof Promise) {
+					result.catch(() => {
+						// Silently handle callback rejection
 					});
-				});
+				}
+			} catch {
+				// Silently handle callback error
 			}
-		} catch (error) {
-			logger?.warn?.('Sign-out onSuccess callback threw error', {
-				operation: 'signOut',
-				error: error instanceof Error ? error.message : String(error),
-			});
 		}
 	});
 
@@ -227,17 +194,16 @@ export const executeOnSuccessCallback = (
  *
  * @description Safely executes the user-provided `onError` callback from
  * `SignOutOptions.fetchOptions`. Wraps callback in try-catch to prevent failures
- * from breaking the Effect pipeline. Logs warnings on callback errors but never
+ * from breaking the Effect pipeline. Silently handles callback errors and never
  * fails the Effect.
  *
  * @fp-pattern Safe side effect execution with error isolation
  *
- * @param logger - Optional logger for warning messages
  * @param options - Sign-out options potentially containing onError callback
  * @param error - The error that triggered this callback
  * @returns {Effect.Effect<void, never>}
  *   Effect that executes callback and completes successfully regardless of outcome.
- *   Never fails (callback errors are logged, not propagated).
+ *   Never fails (callback errors are silently handled, not propagated).
  *
  * @example
  * ```typescript
@@ -250,71 +216,25 @@ export const executeOnSuccessCallback = (
  * // => Effect.sync wrapping safe callback execution
  * ```
  */
-export const executeOnErrorCallback = (
-	logger: EmailAuthClientDeps['logger'],
-	options: SignOutOptions | undefined,
-	error: EmailAuthError
-): Effect.Effect<void, never> =>
+export const executeOnErrorCallback = (options: SignOutOptions | undefined, error: EmailAuthError): Effect.Effect<void, never> =>
 	Effect.sync(() => {
 		const callback = options?.fetchOptions?.onError;
-		if (!callback) {
-			return;
-		}
-
-		try {
-			const result = callback(error);
-			if (result instanceof Promise) {
-				result.catch((callbackError) => {
-					logger?.warn?.('Sign-out onError callback rejected', {
-						operation: 'signOut',
-						error: callbackError instanceof Error ? callbackError.message : String(callbackError),
+		if (callback) {
+			try {
+				const result = callback(error);
+				if (result instanceof Promise) {
+					result.catch(() => {
+						// Silently handle callback rejection
 					});
-				});
+				}
+			} catch {
+				// Silently handle callback error
 			}
-		} catch (callbackError) {
-			logger?.warn?.('Sign-out onError callback threw error', {
-				operation: 'signOut',
-				error: callbackError instanceof Error ? callbackError.message : String(callbackError),
-			});
 		}
 	});
 
 // ============================================================================
-// Layer 5: Logging
-// ============================================================================
-
-/**
- * Logs validation failure for dependencies or input.
- *
- * @description Factory-generated logger for sign-out validation failures.
- * Uses shared logging utility to ensure consistent logging across operations.
- *
- * @see {@link createLogValidationFailure} from shared/logging.ts
- */
-const logValidationFailure = createLogValidationFailure('Sign out');
-
-/**
- * Logs API call failure.
- *
- * @description Factory-generated logger for sign-out API failures.
- * Uses shared logging utility to ensure consistent logging and telemetry.
- *
- * @see {@link createLogApiFailure} from shared/logging.ts
- */
-const logApiFailure = createLogApiFailure('Sign out');
-
-/**
- * Logs successful sign-out completion.
- *
- * @description Factory-generated logger for sign-out success.
- * Uses shared logging utility to ensure consistent logging and telemetry.
- *
- * @see {@link createLogSuccess} from shared/logging.ts
- */
-const logSignOutSuccess = createLogSuccess('Sign out');
-
-// ============================================================================
-// Layer 6: Pipeline
+// Layer 5: Pipeline
 // ============================================================================
 
 /**
@@ -322,18 +242,17 @@ const logSignOutSuccess = createLogSuccess('Sign out');
  *
  * @description Orchestrates the complete sign-out flow using Effect-TS for
  * functional composition. Validates dependencies and options, calls Better Auth
- * sign-out API, executes callbacks, and logs results. Returns void on success.
+ * sign-out API, and executes callbacks. Returns void on success.
  *
- * Follows the established FP decomposition pattern with 6 layers:
+ * Follows the established FP decomposition pattern with 5 layers:
  * 1. Validation (deps + options)
  * 2. API Call (authClient.signOut)
  * 3. Response Unwrapping (Better Fetch union)
  * 4. Callback Execution (onSuccess/onError from fetchOptions)
- * 5. Logging (validation, API, success)
- * 6. Pipeline (Effect.gen orchestration)
+ * 5. Pipeline (Effect.gen orchestration)
  *
  * @fp-pattern Effect.gen pipeline with error handling and callback execution
- * @composition Composes validation → API call → unwrap → callbacks → logging
+ * @composition Composes validation → API call → unwrap → callbacks
  *
  * @param deps - Email authentication client dependencies
  * @returns {(options?: SignOutOptions) => Effect.Effect<void, EmailAuthError>}
@@ -366,20 +285,14 @@ const logSignOutSuccess = createLogSuccess('Sign out');
  * ```
  */
 export const signOut: signOutProps<AuthClient> =
-	<TAuthClient extends AuthClient>(deps: EmailAuthClientDeps<TAuthClient>) =>
+	<TAuthClient extends AuthClient>(deps: { authClient: TAuthClient }) =>
 	(options?: SignOutOptions): Effect.Effect<void, EmailAuthError> =>
 		Effect.gen(function* () {
 			// Layer 1: Validate dependencies
-			const validatedDeps = yield* pipe(
-				validateDeps(deps),
-				Effect.tapError((error) => logValidationFailure(deps.logger, error))
-			);
+			const validatedDeps = yield* validateDeps(deps);
 
 			// Layer 1: Validate options
-			const validatedOptions = yield* pipe(
-				validateSignOutOptions(options),
-				Effect.tapError((error) => logValidationFailure(validatedDeps.logger, error))
-			);
+			const validatedOptions = yield* validateSignOutOptions(options);
 
 			// Layer 2: Call sign-out API
 			const response = yield* callSignOutApi(validatedDeps.authClient)(validatedOptions);
@@ -387,33 +300,12 @@ export const signOut: signOutProps<AuthClient> =
 			// Layer 3: Unwrap response
 			yield* pipe(
 				unwrapFetchResponse(createSignOutApiError)(response),
-				Effect.tapError((error) =>
-					logApiFailure(
-						validatedDeps.logger,
-						validatedDeps.telemetry,
-						validatedDeps.featureFlags,
-						error
-					)
-				),
-				Effect.tapError((error) =>
-					executeOnErrorCallback(validatedDeps.logger, validatedOptions, error)
-				),
+				Effect.tapError((error) => executeOnErrorCallback(validatedOptions, error)),
 				Effect.catchAll((error) => Effect.fail(error))
 			);
 
 			// Layer 4: Execute onSuccess callback
-			yield* executeOnSuccessCallback(validatedDeps.logger, validatedOptions);
-
-			// Layer 5: Log success
-			yield* logSignOutSuccess(
-				validatedDeps.logger,
-				validatedDeps.telemetry,
-				validatedDeps.featureFlags,
-				{
-					allSessions: validatedOptions?.all ?? false,
-					hasRedirect: validatedOptions?.redirectTo !== undefined,
-				}
-			);
+			yield* executeOnSuccessCallback(validatedOptions);
 
 			// Return void
 			return;
