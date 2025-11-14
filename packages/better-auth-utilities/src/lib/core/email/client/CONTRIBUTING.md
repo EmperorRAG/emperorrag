@@ -11,6 +11,7 @@ This document defines universal patterns and requirements for all email authenti
 **Why**: Automatic synchronization with Better Auth changes and plugin additions.
 
 **Example implementations:**
+
 - [signInEmail.types.ts](./sign-in-email/signInEmail.types.ts)
 - [signUpEmail.types.ts](./sign-up-email/signUpEmail.types.ts)
 
@@ -21,6 +22,7 @@ This document defines universal patterns and requirements for all email authenti
 **Why**: Enables clean dependency injection, partial application, and easier testing.
 
 **Example implementations:**
+
 - [signInEmail.service.ts](./sign-in-email/signInEmail.service.ts)
 - [signUpEmail.service.ts](./sign-up-email/signUpEmail.service.ts)
 
@@ -55,6 +57,7 @@ This document defines universal patterns and requirements for all email authenti
 **Why**: Runtime validation catches invalid inputs before API calls, generates clear error messages.
 
 **Example implementations:**
+
 - [signInEmail.schema.ts](./sign-in-email/signInEmail.schema.ts)
 - [signUpEmail.schema.ts](./sign-up-email/signUpEmail.schema.ts)
 - [shared/email.schema.ts](./shared/email.schema.ts)

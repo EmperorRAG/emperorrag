@@ -8,7 +8,7 @@ The email client module provides functional, type-safe wrappers around Better Au
 
 ### Module Organization
 
-```
+```plaintext
 client/
 ├── shared/           # Foundation: Error types, shared types, validation schemas
 ├── sign-in-email/    # Multi-file: Email/password authentication
@@ -24,7 +24,7 @@ client/
 
 ### Dependency Graph
 
-```
+```plaintext
 All Operations
     ↓
 Shared Utilities (email.error.ts, email.types.ts, email.schema.ts)

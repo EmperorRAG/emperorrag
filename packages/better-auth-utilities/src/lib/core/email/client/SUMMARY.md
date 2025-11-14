@@ -6,7 +6,7 @@ Functional wrappers around Better Auth's email authentication APIs, providing ty
 
 ## Directory Structure
 
-```
+```plaintext
 client/
 ├── shared/                       # Foundation utilities (3/3 complete)
 │   ├── email.error.ts            # Discriminated union error types
