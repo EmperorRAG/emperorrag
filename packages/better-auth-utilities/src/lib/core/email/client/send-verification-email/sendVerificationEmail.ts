@@ -9,20 +9,12 @@
  * @module sendVerificationEmail
  */
 
-import { Effect, pipe } from 'effect';
+import { Effect } from 'effect';
 import type { AuthClient } from '../../../../client.js';
 import type { VerificationEmailInput, sendVerificationEmailProps } from '../email.types.js';
 import { EmailAuthInputError, EmailAuthApiError } from '../email.error.js';
 import { isVerificationEmailInput } from '../email.types.js';
-import {
-	createValidateDeps,
-	unwrapFetchResponse,
-	createApiErrorFactory,
-	createLogValidationFailure,
-	createLogApiFailure,
-	createLogSuccess,
-	type FetchResponse,
-} from '../shared/index.js';
+import { createValidateDeps, unwrapFetchResponse, createApiErrorFactory, type FetchResponse } from '../shared/index.js';
 
 // ============================================================================
 // Type Definitions
@@ -121,57 +113,23 @@ export const callSendVerificationEmailApi =
 const createSendVerificationEmailApiError = createApiErrorFactory('Send verification email');
 
 // ============================================================================
-// Layer 4: Logging
-// ============================================================================
-
-/**
- * Logs validation failures for send verification email operation.
- *
- * @description Factory-generated validation failure logger with operation-specific context.
- *
- * @see {@link createLogValidationFailure} from shared/logging.ts
- */
-const logValidationFailure = createLogValidationFailure('Send verification email');
-
-/**
- * Logs API call failures for send verification email operation.
- *
- * @description Factory-generated API failure logger with operation-specific context
- * and telemetry tracking.
- *
- * @see {@link createLogApiFailure} from shared/logging.ts
- */
-const logApiFailure = createLogApiFailure('Send verification email');
-
-/**
- * Logs successful verification email send operations.
- *
- * @description Factory-generated success logger with operation-specific context
- * and telemetry tracking.
- *
- * @see {@link createLogSuccess} from shared/logging.ts
- */
-const logSuccess = createLogSuccess('Send verification email');
-
-// ============================================================================
 // Main Function: Composed Pipeline
 // ============================================================================
 
 /**
  * Sends a verification email through Better Auth.
  *
- * @description High-level function that composes validation, API calls, logging, and
+ * @description High-level function that composes validation, API calls, and
  * error handling into a single Effect pipeline. Significantly simpler than signUpEmail
  * as it returns void with no session or payload extraction layers.
  *
  * @fp-pattern Effect.gen for sequential composition with error propagation
- * @composition Combines 4 layers: Validation → API → Unwrapping → Logging
+ * @composition Combines 3 layers: Validation → API → Unwrapping
  *
- * Architecture (4 layers, simplified from signUpEmail's 8 layers):
+ * Architecture (3 layers):
  * 1. Validation: Dependencies and input validation
  * 2. API Call: Better Auth sendVerificationEmail endpoint
  * 3. Response Unwrapping: Error handling for Better Fetch responses
- * 4. Logging: Validation, API failures, and success tracking
  *
  * Error Channel:
  * - EmailAuthDependenciesError: Invalid dependencies (missing authClient, wrong shape)
@@ -183,7 +141,7 @@ const logSuccess = createLogSuccess('Send verification email');
  *
  * @example
  * ```typescript
- * const send = sendVerificationEmail({ authClient, logger, telemetry, featureFlags });
+ * const send = sendVerificationEmail({ authClient });
  * const program = send({ email: 'user@example.com', callbackUrl: 'https://app.com/verify' });
  *
  * // Execute the Effect
@@ -208,43 +166,19 @@ export const sendVerificationEmail: sendVerificationEmailProps = (deps) => (inpu
 		// ====================================================================
 
 		// Validate dependencies bundle
-		const validatedDeps = yield* pipe(
-			validateDeps(deps),
-			Effect.catchAll((depsError) =>
-				pipe(
-					logValidationFailure(deps.logger, depsError),
-					Effect.flatMap(() => Effect.fail(depsError))
-				)
-			)
-		);
+		const validatedDeps = yield* validateDeps(deps);
 
-		const { authClient, logger, telemetry, featureFlags } = validatedDeps;
+		const { authClient } = validatedDeps;
 
 		// Validate input payload
-		const validatedInput = yield* pipe(
-			validateVerificationEmailInput(input),
-			Effect.catchAll((inputError) =>
-				pipe(
-					logValidationFailure(logger, inputError),
-					Effect.flatMap(() => Effect.fail(inputError))
-				)
-			)
-		);
+		const validatedInput = yield* validateVerificationEmailInput(input);
 
 		// ====================================================================
 		// Layer 2: API Call
 		// ====================================================================
 
 		// Call Better Auth sendVerificationEmail endpoint
-		const apiResponse = yield* pipe(
-			callSendVerificationEmailApi(authClient)(validatedInput),
-			Effect.catchAll((apiError) =>
-				pipe(
-					logApiFailure(logger, telemetry, featureFlags, apiError),
-					Effect.flatMap(() => Effect.fail(apiError))
-				)
-			)
-		);
+		const apiResponse = yield* callSendVerificationEmailApi(authClient)(validatedInput);
 
 		// ====================================================================
 		// Layer 3: Response Unwrapping
@@ -253,25 +187,7 @@ export const sendVerificationEmail: sendVerificationEmailProps = (deps) => (inpu
 		// Unwrap Better Fetch discriminated union response
 		// For void responses, unwrapFetchResponse simply checks for errors
 		const unwrap = unwrapFetchResponse(createSendVerificationEmailApiError);
-		yield* pipe(
-			unwrap(apiResponse),
-			Effect.catchAll((apiError) =>
-				pipe(
-					logApiFailure(logger, telemetry, featureFlags, apiError),
-					Effect.flatMap(() => Effect.fail(apiError))
-				)
-			)
-		);
-
-		// ====================================================================
-		// Layer 4: Logging
-		// ====================================================================
-
-		// Log successful verification email send
-		yield* logSuccess(logger, telemetry, featureFlags, {
-			email: validatedInput.email,
-			hasCallbackUrl: !!validatedInput.callbackUrl,
-		});
+		yield* unwrap(apiResponse);
 
 		// Return void (no payload data for verification email operations)
 	});
