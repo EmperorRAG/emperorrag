@@ -10,17 +10,7 @@ The sign-in email module provides a functional, type-safe wrapper around Better 
 
 #### SignInEmailInput<T>
 
-Generic type that extracts the credentials structure from Better Auth's `signIn.email` method.
-
-**Type Extraction Pattern:**
-
-```typescript
-export type SignInEmailInput<T> = Parameters<
-  'email' extends keyof AuthClientSignInFor<T>
-    ? AuthClientSignInFor<T>['email']
-    : never
->[0];
-```
+Generic type that extracts the credentials structure from Better Auth's `signIn.email` method using `Parameters` utility type.
 
 **Why Type Extraction?**
 
@@ -28,78 +18,29 @@ export type SignInEmailInput<T> = Parameters<
 - **API Synchronization**: Type changes in Better Auth immediately reflect in our types
 - **Zero Maintenance**: No manual type updates needed when Better Auth evolves
 
-**Extracted Fields:**
+**Implementation:** See [signInEmail.types.ts](./signInEmail.types.ts)
 
-```typescript
-{
-  email: string;           // User's email address
-  password: string;        // User's password
-  rememberMe?: boolean;    // Optional: Extend session duration
-  callbackURL?: string;    // Optional: Redirect URL after sign-in
-  fetchOptions?: {         // Optional: Callback handlers
-    onSuccess?: Function;
-    onError?: Function;
-  };
-}
-```
+**Extracted Fields:** email (string), password (string), rememberMe (boolean, optional), callbackURL (string, optional), fetchOptions (object with callbacks, optional)
 
 #### SignInEmailResult<T>
 
-Generic type that extracts the Promise-wrapped result from Better Auth's `signIn.email` method.
+Generic type that extracts the Promise-wrapped result from Better Auth's `signIn.email` method using `ReturnType` utility type.
 
-**Type Extraction Pattern:**
+**Implementation:** See [signInEmail.types.ts](./signInEmail.types.ts)
 
-```typescript
-export type SignInEmailResult<T> = ReturnType<
-  'email' extends keyof AuthClientSignInFor<T>
-    ? AuthClientSignInFor<T>['email']
-    : never
->;
-```
-
-**Typical Structure:**
-
-```typescript
-Promise<{
-  data?: {
-    user: {
-      id: string;
-      email: string;
-      name?: string;
-      // Additional fields from Better Auth plugins
-    };
-    session: {
-      token: string;
-      expiresAt: string;
-      // Additional fields from Better Auth plugins
-    };
-  };
-  error?: {
-    message: string;
-    status?: number;
-  };
-}>
-```
+**Typical Structure:** Promise resolving to object with optional `data` (contains user and session) and optional `error` (contains message and status). User includes id, email, name, and plugin fields. Session includes token, expiresAt, and plugin fields.
 
 #### signInEmailProps<T>
 
-Interface defining the curried service function signature.
+Interface defining the curried service function signature: deps → input → Effect.
 
-**Signature:**
-
-```typescript
-interface signInEmailProps<T> {
-  (deps: EmailAuthClientDeps<T>):
-    (input: SignInEmailInput<T>) =>
-      Effect.Effect<Awaited<SignInEmailResult<T>>, EmailAuthError>;
-}
-```
+**Implementation:** See [signInEmail.types.ts](./signInEmail.types.ts)
 
 **Currying Stages:**
 
-1. **Stage 1 (Dependencies)**: `(deps) =>` - Inject Better Auth client
-2. **Stage 2 (Input)**: `(input) =>` - Provide sign-in credentials
-3. **Result**: `Effect<...>` - Lazy computation with typed error channel
+1. **Stage 1 (Dependencies)**: Inject Better Auth client
+2. **Stage 2 (Input)**: Provide sign-in credentials
+3. **Result**: Lazy Effect with typed error channel
 
 ### Validation Layer
 
@@ -107,20 +48,7 @@ interface signInEmailProps<T> {
 
 Zod schema providing runtime validation for sign-in credentials.
 
-**Schema Definition:**
-
-```typescript
-export const signInEmailInputSchema = z.object({
-  email: z.string().email(),                    // Valid email format required
-  password: z.string().min(1),                  // Non-empty password required
-  rememberMe: z.boolean().optional(),           // Optional boolean flag
-  callbackURL: z.string().url().optional(),     // Optional valid URL
-  fetchOptions: z.object({                      // Optional callback handlers
-    onSuccess: z.function().optional(),
-    onError: z.function().optional(),
-  }).optional(),
-});
-```
+**Implementation:** See [signInEmail.schema.ts](./signInEmail.schema.ts)
 
 **Validation Rules:**
 
@@ -130,43 +58,13 @@ export const signInEmailInputSchema = z.object({
 - `callbackURL`: Must be valid URL when provided
 - `fetchOptions`: Must be object with optional function properties when provided
 
-**Usage in Controller Layer (Future):**
-
-```typescript
-const validateInput = validateWithSchema(
-  signInEmailInputSchema,
-  (message, cause) => new EmailAuthInputError(message, cause)
-);
-
-const validInput = yield* validateInput(rawInput);
-```
-
 ### Service Layer
 
 #### signInEmail
 
-Pure function implementing the sign-in operation as an Effect.
+Pure function implementing the sign-in operation as an Effect. Wraps `authClient.signIn.email` with Effect.tryPromise and maps errors to EmailAuthApiError.
 
-**Implementation:**
-
-```typescript
-export const signInEmail: signInEmailProps = (deps) => (input) => {
-  const { authClient } = deps;
-
-  return Effect.tryPromise({
-    try: () => authClient.signIn.email(input),
-    catch: (error) => {
-      const message = error instanceof Error
-        ? error.message
-        : 'Sign in failed';
-      const status = error && typeof error === 'object' && 'status' in error
-        ? (error.status as number)
-        : undefined;
-      return new EmailAuthApiError(message, status, error);
-    },
-  });
-};
-```
+**Implementation:** See [signInEmail.service.ts](./signInEmail.service.ts)
 
 **Error Mapping:**
 
@@ -415,145 +313,19 @@ export const signInHandler = (authClient: AuthClient) =>
 
 ### Service Layer Tests
 
-```typescript
-import { describe, it, expect, vi } from 'vitest';
-import { Effect } from 'effect';
-import { signInEmail } from './signInEmail.service.js';
-import { EmailAuthApiError } from '../shared/email.error.js';
+Service tests verify Effect-based error handling, HTTP status mapping, and cause preservation.
 
-describe('signInEmail', () => {
-  it('should return user and session on successful sign-in', async () => {
-    const mockAuthClient = {
-      signIn: {
-        email: vi.fn().mockResolvedValue({
-          data: {
-            user: { id: '1', email: 'user@example.com', name: 'John Doe' },
-            session: { token: 'abc123', expiresAt: '2025-12-31' },
-          },
-        }),
-      },
-    };
+**Test Coverage**: Successful sign-in returns user data, 401 errors on invalid credentials, cause property preserved in errors.
 
-    const result = await Effect.runPromise(
-      signInEmail({ authClient: mockAuthClient })({
-        email: 'user@example.com',
-        password: 'password123',
-      })
-    );
-
-    expect(result.data.user.email).toBe('user@example.com');
-    expect(result.data.session.token).toBe('abc123');
-  });
-
-  it('should throw EmailAuthApiError with 401 status on invalid credentials', async () => {
-    const mockAuthClient = {
-      signIn: {
-        email: vi.fn().mockRejectedValue(
-          Object.assign(new Error('Invalid credentials'), { status: 401 })
-        ),
-      },
-    };
-
-    const program = signInEmail({ authClient: mockAuthClient })({
-      email: 'user@example.com',
-      password: 'wrong-password',
-    });
-
-    try {
-      await Effect.runPromise(program);
-      expect.fail('Should have thrown EmailAuthApiError');
-    } catch (error) {
-      expect(error).toBeInstanceOf(EmailAuthApiError);
-      expect((error as EmailAuthApiError).status).toBe(401);
-      expect((error as EmailAuthApiError).message).toBe('Invalid credentials');
-    }
-  });
-
-  it('should preserve cause in EmailAuthApiError', async () => {
-    const originalError = new Error('Network timeout');
-    const mockAuthClient = {
-      signIn: {
-        email: vi.fn().mockRejectedValue(originalError),
-      },
-    };
-
-    const program = signInEmail({ authClient: mockAuthClient })({
-      email: 'user@example.com',
-      password: 'password123',
-    });
-
-    try {
-      await Effect.runPromise(program);
-      expect.fail('Should have thrown EmailAuthApiError');
-    } catch (error) {
-      expect(error).toBeInstanceOf(EmailAuthApiError);
-      expect((error as EmailAuthApiError).cause).toBe(originalError);
-    }
-  });
-});
-```
+**Implementation:** Test files not yet created (planned with controller layer)
 
 ### Schema Validation Tests
 
-```typescript
-import { describe, it, expect } from 'vitest';
-import { signInEmailInputSchema } from './signInEmail.schema.js';
+Schema tests verify Zod validation rules for email format, password requirements, optional fields, and URL validation.
 
-describe('signInEmailInputSchema', () => {
-  it('should accept valid sign-in credentials', () => {
-    const result = signInEmailInputSchema.safeParse({
-      email: 'user@example.com',
-      password: 'password123',
-    });
+**Test Coverage**: Valid credentials accepted, rememberMe flag supported, invalid email/password/callbackURL rejected with proper error paths.
 
-    expect(result.success).toBe(true);
-  });
-
-  it('should accept credentials with rememberMe flag', () => {
-    const result = signInEmailInputSchema.safeParse({
-      email: 'user@example.com',
-      password: 'password123',
-      rememberMe: true,
-    });
-
-    expect(result.success).toBe(true);
-  });
-
-  it('should reject invalid email format', () => {
-    const result = signInEmailInputSchema.safeParse({
-      email: 'not-an-email',
-      password: 'password123',
-    });
-
-    expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0].path).toEqual(['email']);
-    }
-  });
-
-  it('should reject empty password', () => {
-    const result = signInEmailInputSchema.safeParse({
-      email: 'user@example.com',
-      password: '',
-    });
-
-    expect(result.success).toBe(false);
-  });
-
-  it('should reject invalid callbackURL', () => {
-    const result = signInEmailInputSchema.safeParse({
-      email: 'user@example.com',
-      password: 'password123',
-      callbackURL: 'not-a-url',
-    });
-
-    expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0].path).toEqual(['callbackURL']);
-    }
-  });
-});
-```
+**Implementation:** Test files not yet created (planned with controller layer)
 
 ## Related Modules
 
@@ -579,15 +351,9 @@ await Effect.runPromise(signIn({ email: 'user2@example.com', password: 'pass2' }
 
 ### Why Type Extraction?
 
-Type extraction eliminates manual type maintenance:
+Type extraction eliminates manual type maintenance. When Better Auth changes API signatures (adds required fields, removes fields, changes types), our types automatically stay synchronized because they're derived from Better Auth's actual types using TypeScript utility types.
 
-```typescript
-// ✅ Type extraction: Automatic synchronization with Better Auth
-export type SignInEmailInput<T> = Parameters<AuthClientSignInFor<T>['email']>[0];
-
-// ❌ Manual types: Requires updates when Better Auth changes
-export type SignInEmailInput = { email: string; password: string };
-```
+**Implementation:** See [signInEmail.types.ts](./signInEmail.types.ts) for type extraction pattern using `Parameters` and `ReturnType`.
 
 ### Why Effect Instead of Promise?
 

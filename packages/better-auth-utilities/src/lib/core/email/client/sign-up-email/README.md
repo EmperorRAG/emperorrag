@@ -10,33 +10,11 @@ The sign-up email module provides a functional, type-safe wrapper around Better 
 
 #### SignUpEmailInput<T>
 
-Generic type that extracts the registration credentials structure from Better Auth's `signUp.email` method.
+Generic type that extracts the registration credentials structure from Better Auth's `signUp.email` method using `Parameters` utility type.
 
-**Type Extraction Pattern:**
+**Implementation:** See [signUpEmail.types.ts](./signUpEmail.types.ts)
 
-```typescript
-export type SignUpEmailInput<T> = Parameters<
-  'email' extends keyof AuthClientSignUpFor<T>
-    ? AuthClientSignUpFor<T>['email']
-    : never
->[0];
-```
-
-**Extracted Fields:**
-
-```typescript
-{
-  name: string;            // User's display name (required)
-  email: string;           // User's email address (required)
-  password: string;        // User's password (required)
-  image?: string;          // Optional: Profile image URL
-  callbackURL?: string;    // Optional: Redirect URL after registration
-  fetchOptions?: {         // Optional: Callback handlers
-    onSuccess?: Function;
-    onError?: Function;
-  };
-}
-```
+**Extracted Fields:** name (string, required), email (string, required), password (string, required), image (string URL, optional), callbackURL (string, optional), fetchOptions (object with callbacks, optional)
 
 **Key Differences from Sign-In:**
 
@@ -46,56 +24,17 @@ export type SignUpEmailInput<T> = Parameters<
 
 #### SignUpEmailResult<T>
 
-Generic type that extracts the Promise-wrapped result from Better Auth's `signUp.email` method.
+Generic type that extracts the Promise-wrapped result from Better Auth's `signUp.email` method using `ReturnType` utility type.
 
-**Type Extraction Pattern:**
+**Implementation:** See [signUpEmail.types.ts](./signUpEmail.types.ts)
 
-```typescript
-export type SignUpEmailResult<T> = ReturnType<
-  'email' extends keyof AuthClientSignUpFor<T>
-    ? AuthClientSignUpFor<T>['email']
-    : never
->;
-```
-
-**Typical Structure:**
-
-```typescript
-Promise<{
-  data?: {
-    user: {
-      id: string;
-      email: string;
-      name: string;
-      image?: string;
-      // Additional fields from Better Auth plugins
-    };
-    session: {
-      token: string;
-      expiresAt: string;
-      // Additional fields from Better Auth plugins
-    };
-  };
-  error?: {
-    message: string;
-    status?: number;
-  };
-}>
-```
+**Typical Structure:** Promise resolving to object with optional `data` (contains user with id, email, name, image, and plugin fields; session with token, expiresAt, and plugin fields) and optional `error` (contains message and status).
 
 #### signUpEmailProps<T>
 
-Interface defining the curried service function signature (identical pattern to sign-in).
+Interface defining the curried service function signature: deps → input → Effect (identical pattern to sign-in).
 
-**Signature:**
-
-```typescript
-interface signUpEmailProps<T> {
-  (deps: EmailAuthClientDeps<T>):
-    (input: SignUpEmailInput<T>) =>
-      Effect.Effect<Awaited<SignUpEmailResult<T>>, EmailAuthError>;
-}
-```
+**Implementation:** See [signUpEmail.types.ts](./signUpEmail.types.ts)
 
 ### Validation Layer
 
@@ -103,21 +42,7 @@ interface signUpEmailProps<T> {
 
 Zod schema providing runtime validation for registration credentials.
 
-**Schema Definition:**
-
-```typescript
-export const signUpEmailInputSchema = z.object({
-  name: z.string().min(1, 'Name is required'),              // Required display name
-  email: z.string().email('Invalid email format'),          // Valid email format
-  password: z.string().min(1, 'Password is required'),      // Non-empty password
-  image: z.string().url('Invalid image URL').optional(),    // Optional valid URL
-  callbackURL: z.string().url('Invalid callback URL').optional(),
-  fetchOptions: z.object({
-    onSuccess: z.function().optional(),
-    onError: z.function().optional(),
-  }).optional(),
-});
-```
+**Implementation:** See [signUpEmail.schema.ts](./signUpEmail.schema.ts)
 
 **Validation Rules:**
 
@@ -138,28 +63,9 @@ export const signUpEmailInputSchema = z.object({
 
 #### signUpEmail
 
-Pure function implementing the registration operation as an Effect.
+Pure function implementing the registration operation as an Effect. Wraps `authClient.signUp.email` with Effect.tryPromise and maps errors to EmailAuthApiError.
 
-**Implementation:**
-
-```typescript
-export const signUpEmail: signUpEmailProps = (deps) => (input) => {
-  const { authClient } = deps;
-
-  return Effect.tryPromise({
-    try: () => authClient.signUp.email(input),
-    catch: (error) => {
-      const message = error instanceof Error
-        ? error.message
-        : 'Sign up failed';
-      const status = error && typeof error === 'object' && 'status' in error
-        ? (error.status as number)
-        : undefined;
-      return new EmailAuthApiError(message, status, error);
-    },
-  });
-};
-```
+**Implementation:** See [signUpEmail.service.ts](./signUpEmail.service.ts)
 
 **Error Mapping:**
 
@@ -457,139 +363,19 @@ export const handleRegistration = async (formData: FormData) => {
 
 ### Service Layer Tests
 
-```typescript
-import { describe, it, expect, vi } from 'vitest';
-import { Effect } from 'effect';
-import { signUpEmail } from './signUpEmail.service.js';
-import { EmailAuthApiError } from '../shared/email.error.js';
+Service tests verify Effect-based error handling, HTTP status mapping (especially 409 for duplicate emails, 422 for weak passwords), and cause preservation.
 
-describe('signUpEmail', () => {
-  it('should return user with name and email on successful registration', async () => {
-    const mockAuthClient = {
-      signUp: {
-        email: vi.fn().mockResolvedValue({
-          data: {
-            user: {
-              id: '1',
-              email: 'john@example.com',
-              name: 'John Doe',
-              image: 'https://example.com/john.jpg',
-            },
-            session: { token: 'abc123', expiresAt: '2025-12-31' },
-          },
-        }),
-      },
-    };
+**Test Coverage**: Successful registration returns user with name/email/image, 409 errors on duplicate email, 422 errors on weak password.
 
-    const result = await Effect.runPromise(
-      signUpEmail({ authClient: mockAuthClient })({
-        name: 'John Doe',
-        email: 'john@example.com',
-        password: 'password123',
-        image: 'https://example.com/john.jpg',
-      })
-    );
-
-    expect(result.data.user.name).toBe('John Doe');
-    expect(result.data.user.email).toBe('john@example.com');
-    expect(result.data.user.image).toBe('https://example.com/john.jpg');
-  });
-
-  it('should throw EmailAuthApiError with 409 for duplicate email', async () => {
-    const mockAuthClient = {
-      signUp: {
-        email: vi.fn().mockRejectedValue(
-          Object.assign(new Error('Email already exists'), { status: 409 })
-        ),
-      },
-    };
-
-    const program = signUpEmail({ authClient: mockAuthClient })({
-      name: 'John Doe',
-      email: 'existing@example.com',
-      password: 'password123',
-    });
-
-    try {
-      await Effect.runPromise(program);
-      expect.fail('Should have thrown EmailAuthApiError');
-    } catch (error) {
-      expect(error).toBeInstanceOf(EmailAuthApiError);
-      expect((error as EmailAuthApiError).status).toBe(409);
-    }
-  });
-
-  it('should throw EmailAuthApiError with 422 for weak password', async () => {
-    const mockAuthClient = {
-      signUp: {
-        email: vi.fn().mockRejectedValue(
-          Object.assign(new Error('Password too weak'), { status: 422 })
-        ),
-      },
-    };
-
-    const program = signUpEmail({ authClient: mockAuthClient })({
-      name: 'John Doe',
-      email: 'john@example.com',
-      password: '123',
-    });
-
-    try {
-      await Effect.runPromise(program);
-      expect.fail('Should have thrown EmailAuthApiError');
-    } catch (error) {
-      expect(error).toBeInstanceOf(EmailAuthApiError);
-      expect((error as EmailAuthApiError).status).toBe(422);
-    }
-  });
-});
-```
+**Implementation:** Test files not yet created (planned with controller layer)
 
 ### Schema Validation Tests
 
-```typescript
-import { describe, it, expect } from 'vitest';
-import { signUpEmailInputSchema } from './signUpEmail.schema.js';
+Schema tests verify Zod validation rules for required name field, email format, password requirements, optional image URL, and callbackURL validation.
 
-describe('signUpEmailInputSchema', () => {
-  it('should accept valid registration with name', () => {
-    const result = signUpEmailInputSchema.safeParse({
-      name: 'John Doe',
-      email: 'john@example.com',
-      password: 'password123',
-    });
-    expect(result.success).toBe(true);
-  });
+**Test Coverage**: Valid registration accepted with name, missing name rejected, optional image URL accepted, invalid image URL rejected.
 
-  it('should reject missing name', () => {
-    const result = signUpEmailInputSchema.safeParse({
-      email: 'john@example.com',
-      password: 'password123',
-    });
-    expect(result.success).toBe(false);
-  });
-
-  it('should accept optional image URL', () => {
-    const result = signUpEmailInputSchema.safeParse({
-      name: 'John Doe',
-      email: 'john@example.com',
-      password: 'password123',
-      image: 'https://example.com/avatar.jpg',
-    });
-    expect(result.success).toBe(true);
-  });
-
-  it('should reject invalid image URL', () => {
-    const result = signUpEmailInputSchema.safeParse({
-      name: 'John Doe',
-      email: 'john@example.com',
-      password: 'password123',
-      image: 'not-a-url',
-    });
-    expect(result.success).toBe(false);
-  });
-});
-```
+**Implementation:** Test files not yet created (planned with controller layer)
 
 ## Related Modules
 

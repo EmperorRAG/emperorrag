@@ -38,23 +38,9 @@ Better Auth Client
 
 ### Type Extraction
 
-All operations extract types from Better Auth APIs using TypeScript utility types:
+All operations extract types from Better Auth APIs using TypeScript utility types (`Parameters` for inputs, `ReturnType` for outputs).
 
-```typescript
-// Extract method input (first parameter)
-export type OperationInput<T> = Parameters<
-  'method' extends keyof AuthClientFor<T>['operation']
-    ? AuthClientFor<T>['operation']['method']
-    : never
->[0];
-
-// Extract method result (return type)
-export type OperationResult<T> = ReturnType<
-  'method' extends keyof AuthClientFor<T>['operation']
-    ? AuthClientFor<T>['operation']['method']
-    : never
->;
-```
+**Implementation:** See [signInEmail.types.ts](./sign-in-email/signInEmail.types.ts), [signUpEmail.types.ts](./sign-up-email/signUpEmail.types.ts)
 
 **Benefits**:
 
@@ -67,18 +53,9 @@ export type OperationResult<T> = ReturnType<
 
 ### Dependency Injection via Currying
 
-All operations follow a two-stage curried pattern:
+All operations follow a two-stage curried pattern: inject dependencies, then provide input, then execute Effect.
 
-```typescript
-// Stage 1: Inject dependencies (Better Auth client)
-const operation = operationService(deps);
-
-// Stage 2: Provide operation input
-const program = operation(input);
-
-// Execute (lazy - nothing happens until runPromise)
-const result = await Effect.runPromise(program);
-```
+**Implementation:** See [signInEmail.service.ts](./sign-in-email/signInEmail.service.ts), [signUpEmail.service.ts](./sign-up-email/signUpEmail.service.ts)
 
 **Benefits**:
 
@@ -87,53 +64,11 @@ const result = await Effect.runPromise(program);
 - **Composition**: Combine operations in pipelines using `pipe` and `flatMap`
 - **Separation of Concerns**: Dependencies configured once at application boundary
 
-**Example**:
-
-```typescript
-// Configure once at app startup
-const deps = { authClient: createAuthClient({ baseURL: '/api/auth' }) };
-const signIn = signInEmail(deps);
-const signUp = signUpEmail(deps);
-
-// Reuse throughout application
-await Effect.runPromise(signIn({ email: 'user1@example.com', password: 'pass1' }));
-await Effect.runPromise(signIn({ email: 'user2@example.com', password: 'pass2' }));
-await Effect.runPromise(signUp({ name: 'New User', email: 'new@example.com', password: 'pass3' }));
-```
+**Usage Example:** Configure dependencies once at app startup, create partially applied functions (signIn, signUp), reuse throughout application with different inputs.
 
 ### Effect-Based Composition
 
-All operations return `Effect.Effect<Success, EmailAuthError>` for lazy evaluation and composition:
-
-```typescript
-// Define program (doesn't execute yet)
-const program = Effect.gen(function* () {
-  // Sign up new user
-  const signUpResult = yield* signUpEmail(deps)({
-    name: 'John Doe',
-    email: 'john@example.com',
-    password: 'securePass123'
-  });
-
-  // Send verification email
-  yield* sendVerificationEmail(deps)({
-    email: signUpResult.data.user.email
-  });
-
-  // Track analytics event
-  yield* trackEvent({ type: 'user_registered', userId: signUpResult.data.user.id });
-
-  return signUpResult.data.user;
-});
-
-// Execute with built-in error handling, retry, timeout
-const user = await Effect.runPromise(
-  program.pipe(
-    Effect.retry({ times: 3 }),
-    Effect.timeout('10 seconds')
-  )
-);
-```
+All operations return `Effect.Effect<Success, EmailAuthError>` for lazy evaluation and composition.
 
 **Benefits**:
 
@@ -143,47 +78,15 @@ const user = await Effect.runPromise(
 - **Built-in Operators**: Retry, timeout, fallback, race, etc. without custom implementations
 - **Testability**: Mock effects without mocking modules or global state
 
+**Usage:** Define programs with Effect.gen yielding multiple operations, execute with Effect.runPromise, compose with pipe/retry/timeout operators. See Integration Patterns section for concrete examples.
+
 ### Structured Error Handling
 
-All operations throw errors from the `EmailAuthError` discriminated union:
+All operations throw errors from the `EmailAuthError` discriminated union with five variants: EmailAuthDependenciesError, EmailAuthInputError, EmailAuthApiError (includes HTTP status), EmailAuthDataMissingError, EmailAuthSessionError.
 
-```typescript
-type EmailAuthError =
-  | EmailAuthDependenciesError  // Dependency validation failures
-  | EmailAuthInputError         // Input validation failures
-  | EmailAuthApiError           // Better Auth API call failures (includes HTTP status)
-  | EmailAuthDataMissingError   // Response data missing
-  | EmailAuthSessionError;      // Session resolution failures
-```
+**Implementation:** See [shared/email.error.ts](./shared/email.error.ts)
 
-**Pattern Matching with Match**:
-
-```typescript
-import { Match } from 'effect';
-
-const handleError = (error: EmailAuthError): string =>
-  Match.value(error).pipe(
-    Match.tag('EmailAuthDependenciesError', () =>
-      'Configuration error. Contact support.'
-    ),
-    Match.tag('EmailAuthInputError', (e) =>
-      `Invalid input: ${e.message}`
-    ),
-    Match.tag('EmailAuthApiError', (e) => {
-      if (e.status === 401) return 'Invalid credentials';
-      if (e.status === 409) return 'Email already registered';
-      if (e.status === 429) return 'Too many attempts. Try again later.';
-      return `API error: ${e.message}`;
-    }),
-    Match.tag('EmailAuthDataMissingError', () =>
-      'Unexpected response structure'
-    ),
-    Match.tag('EmailAuthSessionError', () =>
-      'Session error'
-    ),
-    Match.exhaustive  // Compiler ensures all tags handled
-  );
-```
+**Pattern Matching:** Use Effect Match.value with Match.tag for each error type. Compiler ensures all tags handled with Match.exhaustive.
 
 **Benefits**:
 
@@ -191,6 +94,8 @@ const handleError = (error: EmailAuthError): string =>
 - **HTTP Status Mapping**: `EmailAuthApiError.status` enables REST API responses
 - **Error Chain**: `cause` property preserves original errors for debugging
 - **Type Safety**: Pattern matching provides type narrowing for each error variant
+
+**Usage:** See Integration Patterns section for concrete error handling examples in React, NestJS, Express, and Next.js contexts.
 
 ## Operations Guide
 
@@ -633,87 +538,15 @@ const deleteAccountFlow = Effect.gen(function* () {
 
 ### Service Layer Tests
 
-```typescript
-import { describe, it, expect, vi } from 'vitest';
-import { Effect } from 'effect';
-import { signInEmail } from './signInEmail.service.js';
-import { EmailAuthApiError } from '../shared/email.error.js';
+Service tests verify Effect-based error handling with mocked Better Auth clients. Focus on successful operations returning expected data and error scenarios throwing appropriate EmailAuthApiError instances with correct HTTP status codes.
 
-describe('signInEmail service', () => {
-  it('should return user data on successful sign-in', async () => {
-    const mockClient = {
-      signIn: {
-        email: vi.fn().mockResolvedValue({
-          data: { user: { id: '1', email: 'user@example.com' } }
-        })
-      }
-    };
-
-    const result = await Effect.runPromise(
-      signInEmail({ authClient: mockClient })({
-        email: 'user@example.com',
-        password: 'password123'
-      })
-    );
-
-    expect(result.data.user.email).toBe('user@example.com');
-  });
-
-  it('should throw EmailAuthApiError with 401 on invalid credentials', async () => {
-    const mockClient = {
-      signIn: {
-        email: vi.fn().mockRejectedValue(
-          Object.assign(new Error('Invalid credentials'), { status: 401 })
-        )
-      }
-    };
-
-    const program = signInEmail({ authClient: mockClient })({
-      email: 'user@example.com',
-      password: 'wrong-password'
-    });
-
-    await expect(Effect.runPromise(program)).rejects.toThrow(EmailAuthApiError);
-  });
-});
-```
+**Implementation:** See individual module test files (not yet created - planned with controller layer)
 
 ### Integration Tests
 
-```typescript
-describe('Authentication flow', () => {
-  it('should sign up, verify, and sign in user', async () => {
-    const authClient = createAuthClient({ baseURL: 'http://localhost:3000' });
-    const deps = { authClient };
+Integration tests verify end-to-end authentication flows across multiple operations (sign-up, verification, sign-in) using real or test Better Auth client instances. Ensure session tokens are created and data propagates correctly between operations.
 
-    // Sign up
-    const signUpResult = await Effect.runPromise(
-      signUpEmail(deps)({
-        name: 'Test User',
-        email: 'test@example.com',
-        password: 'testPass123'
-      })
-    );
-
-    expect(signUpResult.data.user.email).toBe('test@example.com');
-
-    // Send verification
-    await Effect.runPromise(
-      sendVerificationEmail(deps)({ email: 'test@example.com' })
-    );
-
-    // Sign in
-    const signInResult = await Effect.runPromise(
-      signInEmail(deps)({
-        email: 'test@example.com',
-        password: 'testPass123'
-      })
-    );
-
-    expect(signInResult.data.session.token).toBeDefined();
-  });
-});
-```
+**Implementation:** See E2E test suites (not yet created - planned with controller layer)
 
 ## Related Documentation
 

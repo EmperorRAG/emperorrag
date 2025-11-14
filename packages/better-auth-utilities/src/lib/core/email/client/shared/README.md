@@ -43,17 +43,9 @@ if (!result.success) {
 - Password too short/long
 - Invalid URL formats (callbackURL, image)
 
-**Example:**
+**Implementation:** See [email.error.ts](./email.error.ts)
 
-```typescript
-const result = signUpEmailInputSchema.safeParse(input);
-if (!result.success) {
-  throw new EmailAuthInputError(
-    'Invalid sign-up input',
-    result.error
-  );
-}
-```
+**Usage:** Throw when Zod schema validation fails, passing validation error as cause.
 
 #### EmailAuthApiError
 
@@ -68,20 +60,9 @@ if (!result.success) {
 - `500` - Internal Server Error
 - `undefined` - Network failure (no response)
 
-**Example:**
+**Implementation:** See [email.error.ts](./email.error.ts)
 
-```typescript
-return Effect.tryPromise({
-  try: () => authClient.signUp.email(input),
-  catch: (error) => {
-    const message = error instanceof Error ? error.message : 'Sign up failed';
-    const status = error && typeof error === 'object' && 'status' in error
-      ? (error.status as number)
-      : undefined;
-    return new EmailAuthApiError(message, status, error);
-  },
-});
-```
+**Usage:** Catch errors from Better Auth API calls in Effect.tryPromise catch block, extract status code when available.
 
 #### EmailAuthDataMissingError
 
@@ -119,25 +100,9 @@ Generic type defining the dependency bundle structure for all email operations.
 - **Readonly**: Prevents accidental mutations
 - **Minimal**: Contains only `authClient` property (removed logger, telemetry, featureFlags in Phase 8 cleanup)
 
-**Type Definition:**
+**Implementation:** See [email.types.ts](./email.types.ts)
 
-```typescript
-export type EmailAuthClientDeps<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> = Readonly<{
-  authClient: T;
-}>;
-```
-
-**Usage Pattern:**
-
-```typescript
-// Define deps at application boundary
-const deps: EmailAuthClientDeps<typeof authClient> = {
-  authClient: myAuthClient
-};
-
-// Pass to service functions
-const program = signInEmail(deps)({ email, password });
-```
+**Usage Pattern:** Create readonly object with authClient property at application boundary, pass to service functions.
 
 ### Validation Layer
 
@@ -151,16 +116,9 @@ Zod schema validating the structure of `EmailAuthClientDeps`.
 - Uses `.passthrough()` to allow plugin-added properties
 - Runtime validation cannot verify Better Auth client structure (accepts any object)
 
-**Usage in Controllers:**
+**Implementation:** See [email.schema.ts](./email.schema.ts)
 
-```typescript
-const validateDeps = validateWithSchema(
-  emailAuthClientDepsSchema,
-  (message, cause) => new EmailAuthDependenciesError(message, cause)
-);
-
-const validatedDeps = yield* validateDeps(deps);
-```
+**Usage:** Controller layer validates dependencies before passing to service functions.
 
 ## Usage
 
@@ -223,11 +181,9 @@ await Effect.runPromise(signOut({}));
 
 ### Error Classes
 
-All error classes follow identical constructor patterns:
+All error classes follow identical constructor patterns with message (string) and optional cause (unknown) parameters.
 
-```typescript
-constructor(message: string, cause?: unknown)
-```
+**Implementation:** See [email.error.ts](./email.error.ts)
 
 All error classes include:
 
@@ -242,31 +198,11 @@ All error classes include:
 
 ### Types
 
-#### EmailAuthClientDeps<T>
-
-```typescript
-type EmailAuthClientDeps<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>>
-> = Readonly<{
-  authClient: T;
-}>;
-```
-
-**Type Parameters**:
-
-- `T` - Better Auth client type (defaults to base client type)
+See [email.types.ts](./email.types.ts) for EmailAuthClientDeps<T> type definition. Type parameter T captures Better Auth client type with plugins, defaults to base client type.
 
 ### Schemas
 
-#### emailAuthClientDepsSchema
-
-```typescript
-const emailAuthClientDepsSchema: z.ZodObject<{
-  authClient: z.ZodObject<{}, "passthrough", z.ZodTypeAny>
-}>
-```
-
-**Validation**: Checks for `authClient` property with object type
+See [email.schema.ts](./email.schema.ts) for emailAuthClientDepsSchema. Validates authClient property with object type using passthrough for plugin properties.
 
 ## Related Modules
 
