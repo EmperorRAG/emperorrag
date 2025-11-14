@@ -24,7 +24,23 @@ export type AuthClientFor<T extends ReturnType<typeof createAuthClient> = Return
  * // 'signIn' | 'signOut' | 'session' | 'signUp' | ... (no $ prefixed keys)
  * ```
  */
-export type AuthClientApiKeyFor<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> = Omit<
+export type AuthClientApiKeyFor<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> = Exclude<
 	keyof AuthClientFor<T>,
 	AuthClientReservedKey
+>;
+
+/**
+ * Type helper to extract only the API methods from an AuthClient type, excluding reserved internal properties.
+ *
+ * @description Returns a Pick type containing only the public API methods, filtering out Better Auth internals.
+ *
+ * @example
+ * ```typescript
+ * type MyClientApi = AuthClientApiFor<typeof authClient>;
+ * // { signIn: ..., signOut: ..., session: ..., signUp: ... } (no $ prefixed properties)
+ * ```
+ */
+export type AuthClientApiFor<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> = Pick<
+	AuthClientFor<T>,
+	AuthClientApiKeyFor<T>
 >;
