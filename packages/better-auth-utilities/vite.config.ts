@@ -8,7 +8,15 @@ import { externalizePackages, toExternalizeConfig } from './externalize-packages
 export default defineConfig(() => ({
 	root: __dirname,
 	cacheDir: '../../node_modules/.vite/packages/better-auth-utilities',
-	plugins: [nxCopyAssetsPlugin(['*.md', 'package.json']), dts({ entryRoot: './src', tsconfigPath: path.join(__dirname, 'tsconfig.lib.json') })],
+	plugins: [
+		nxCopyAssetsPlugin(['*.md', 'package.json']),
+		dts({
+			entryRoot: './src',
+			tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
+			rollupTypes: true,
+			staticImport: true,
+		}),
+	],
 	// Uncomment this if you are using workers.
 	// worker: {
 	//  plugins: [ nxViteTsPaths() ],
@@ -18,25 +26,28 @@ export default defineConfig(() => ({
 	build: {
 		outDir: './dist',
 		emptyOutDir: true,
-		reportCompressedSize: true,
+		reportCompressedSize: false,
+		minify: false,
+		sourcemap: true,
 		commonjsOptions: {
 			transformMixedEsModules: true,
+			esmExternals: true,
 		},
 		lib: {
 			entry: {
 				index: path.resolve(__dirname, './src/index.ts'),
-				client: path.resolve(__dirname, './src/lib/client.ts'),
-				server: path.resolve(__dirname, './src/lib/server.ts'),
-				config: path.resolve(__dirname, './src/lib/config.ts'),
+				client: path.resolve(__dirname, './src/lib/client/client.ts'),
+				server: path.resolve(__dirname, './src/lib/server/server.ts'),
+				config: path.resolve(__dirname, './src/lib/config/config.ts'),
 			},
 			fileName: (_format: string, entryName: string) => {
 				switch (entryName) {
 					case 'client':
-						return 'lib/client.js';
+						return 'lib/client/client.js';
 					case 'server':
-						return 'lib/server.js';
+						return 'lib/server/server.js';
 					case 'config':
-						return 'lib/config.js';
+						return 'lib/config/config.js';
 					default:
 						return 'index.js';
 				}
@@ -45,6 +56,19 @@ export default defineConfig(() => ({
 		},
 		rollupOptions: {
 			external: externalizePackages(toExternalizeConfig(externalsJson)),
+			output: {
+				preserveModules: true,
+				preserveModulesRoot: 'src',
+				exports: 'named' as const,
+				hoistTransitiveImports: false,
+			},
+			maxParallelFileOps: 20,
+			treeshake: {
+				moduleSideEffects: false,
+				propertyReadSideEffects: false,
+				tryCatchDeoptimization: false,
+				unknownGlobalSideEffects: false,
+			},
 		},
 	},
 }));

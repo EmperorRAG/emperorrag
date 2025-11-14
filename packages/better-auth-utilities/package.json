@@ -2,6 +2,7 @@
 	"name": "@emperorrag/better-auth-utilities",
 	"version": "0.0.1",
 	"type": "module",
+	"sideEffects": false,
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
@@ -14,27 +15,30 @@
 			"default": "./dist/index.js"
 		},
 		"./client": {
-			"@emperorrag/source": "./src/lib/client.ts",
-			"types": "./dist/lib/client.d.ts",
-			"import": "./dist/lib/client.js",
-			"default": "./dist/lib/client.js"
+			"@emperorrag/source": "./src/lib/client/client.ts",
+			"types": "./dist/lib/client/client.d.ts",
+			"import": "./dist/lib/client/client.js",
+			"default": "./dist/lib/client/client.js"
 		},
 		"./server": {
-			"@emperorrag/source": "./src/lib/server.ts",
-			"types": "./dist/lib/server.d.ts",
-			"import": "./dist/lib/server.js",
-			"default": "./dist/lib/server.js"
+			"@emperorrag/source": "./src/lib/server/server.ts",
+			"types": "./dist/lib/server/server.d.ts",
+			"import": "./dist/lib/server/server.js",
+			"default": "./dist/lib/server/server.js"
 		},
 		"./config": {
-			"@emperorrag/source": "./src/lib/config.ts",
-			"types": "./dist/lib/config.d.ts",
-			"import": "./dist/lib/config.js",
-			"default": "./dist/lib/config.js"
+			"@emperorrag/source": "./src/lib/config/config.ts",
+			"types": "./dist/lib/config/config.d.ts",
+			"import": "./dist/lib/config/config.js",
+			"default": "./dist/lib/config/config.js"
 		}
 	},
 	"files": [
 		"dist",
-		"!**/*.tsbuildinfo"
+		"src",
+		"!**/*.tsbuildinfo",
+		"!**/*.test.*",
+		"!**/*.spec.*"
 	],
 	"nx": {
 		"name": "better-auth-utilities",
