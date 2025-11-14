@@ -1,5 +1,5 @@
 import type { createAuthClient } from 'better-auth/client';
-import type { AuthClientFor } from '../../../../client.types.js';
+import type { AuthClientFor } from '../../../../client/client.types.js';
 import type { EmailAuthError } from '../shared/email.error.js';
 import type { EmailAuthClientDeps } from '../shared/email.types.js';
 import type { Effect } from 'effect';

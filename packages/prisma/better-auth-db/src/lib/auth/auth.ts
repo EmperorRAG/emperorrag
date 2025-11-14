@@ -20,7 +20,7 @@ import type {
 	AuthServerApiEndpointKeyOf,
 	AuthServerEndpointBodyFor,
 } from '@emperorrag/better-auth-utilities/server';
-import { createAuthClient } from '@emperorrag/better-auth-utilities/client';
+import { createAuthClient } from 'packages/better-auth-utilities/dist/lib/client/client';
 import type {
 	AuthClientSessionOf,
 	AuthClientOf,
@@ -33,7 +33,7 @@ import type {
 	AuthClientApiMemberArgs,
 	AuthClientApiEndpointArgsFetchOptionsFor,
 	AuthClientApiEndpointPrimaryArgsFor,
-} from '@emperorrag/better-auth-utilities/client';
+} from 'packages/better-auth-utilities/dist/lib/client/client';
 
 // Initialize Prisma Client
 // Note: In production, this should be managed by the PrismaService

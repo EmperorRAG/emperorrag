@@ -4,7 +4,7 @@
  * Targets >90% code coverage with unit and integration tests.
  */
 
-import { defineConfig } from './config.js';
+import { defineConfig } from '../config/config.js';
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 
 // Hoist mocks to ensure they're available before imports

@@ -27,7 +27,7 @@ import {
 	oneTimeToken,
 	multiSession,
 } from 'better-auth/plugins';
-import type { BetterAuthConfig, AvailablePlugins } from './config.ts';
+import type { BetterAuthConfig, AvailablePlugins } from '../config/config.js';
 
 // ============================================================================
 // PLUGIN FACTORY FUNCTIONS
