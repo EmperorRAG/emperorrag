@@ -1,8 +1,8 @@
 import type { createAuthClient } from 'better-auth/client';
 import type { AuthClientFor, AuthClientSignUpFor } from '../../../../client.types.js';
 import type { EmailAuthError } from '../shared/email.error.js';
+import type { EmailAuthClientDeps } from '../shared/email.types.js';
 import type { Effect } from 'effect';
-import type { EmailAuthClientDeps } from '../sign-in-email/signInEmail.types.js';
 
 /**
  * Type helper to extract the input parameter type for signUp.email.
@@ -55,6 +55,3 @@ export type SignUpEmailResult<T extends AuthClientFor<ReturnType<typeof createAu
 export interface signUpEmailProps<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> {
 	(deps: EmailAuthClientDeps<T>): (input: SignUpEmailInput<T>) => Effect.Effect<Awaited<SignUpEmailResult<T>>, EmailAuthError>;
 }
-
-// Re-export shared type
-export type { EmailAuthClientDeps };

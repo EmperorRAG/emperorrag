@@ -3,9 +3,9 @@
  * @description Barrel export for signUpEmail module
  */
 
-export type { SignUpEmailInput, SignUpEmailResult, signUpEmailProps, EmailAuthClientDeps } from './signUpEmail.types.js';
+export type { SignUpEmailInput, SignUpEmailResult, signUpEmailProps } from './signUpEmail.types.js';
 
-export { signUpEmailInputSchema, emailAuthClientDepsSchema } from './signUpEmail.schema.js';
+export { signUpEmailInputSchema } from './signUpEmail.schema.js';
 export { signUpEmail } from './signUpEmail.service.js';
 
 // Controller exports (when implemented)

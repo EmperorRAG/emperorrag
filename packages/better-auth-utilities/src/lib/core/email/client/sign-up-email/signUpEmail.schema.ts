@@ -33,11 +33,3 @@ export const signUpEmailInputSchema = z.object({
 		})
 		.optional(),
 });
-
-/**
- * Re-export shared emailAuthClientDepsSchema from signInEmail module.
- *
- * @description Validates the dependency bundle contains a valid authClient object.
- * Dependencies structure is identical across all email auth operations.
- */
-export { emailAuthClientDepsSchema } from '../sign-in-email/signInEmail.schema.js';
