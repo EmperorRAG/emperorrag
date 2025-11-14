@@ -1,25 +1,32 @@
 {
-  "compilerOptions": {
-    "composite": true,
-    "declarationMap": true,
-    "emitDeclarationOnly": true,
-    "importHelpers": true,
-    "isolatedModules": true,
-    "lib": [
-      "es2022"
-    ],
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "noEmitOnError": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "es2022",
-    "customConditions": [
-      "@emperorrag/source"
-    ]
-  }
+	"compilerOptions": {
+		"baseUrl": ".",
+		"composite": true,
+		"declarationMap": true,
+		"emitDeclarationOnly": true,
+		"importHelpers": true,
+		"isolatedModules": true,
+		"lib": ["es2022"],
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
+		"noEmitOnError": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noUnusedLocals": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "es2022",
+		"customConditions": ["@emperorrag/source"],
+		"paths": {
+			"@emperorrag/better-auth-utilities": ["packages/better-auth-utilities/src/index.ts"],
+			"@emperorrag/better-auth-utilities/*": ["packages/better-auth-utilities/src/*"],
+			"@emperorrag/utilities": ["packages/utilities/src/index.ts"],
+			"@emperorrag/utilities/*": ["packages/utilities/src/*"],
+			"@emperorrag/components": ["packages/components/src/index.ts"],
+			"@emperorrag/components/*": ["packages/components/src/*"],
+			"@emperorrag/prisma-better-auth-db": ["packages/prisma/better-auth-db/src/index.ts"],
+			"@emperorrag/prisma-better-auth-db/*": ["packages/prisma/better-auth-db/src/*"]
+		}
+	}
 }
