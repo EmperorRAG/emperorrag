@@ -88,13 +88,13 @@ export const validateVerificationEmailInput = (input: unknown): Effect.Effect<Ve
  */
 export const callSendVerificationEmailApi =
 	<TAuthClient extends AuthClient>(authClient: TAuthClient) =>
-	(input: VerificationEmailInput): Effect.Effect<FetchResponse<void, VerificationEmailErrorPayload>, EmailAuthApiError> =>
+	(input: VerificationEmailInput): Effect.Effect<FetchResponse<void, VerificationEmailErrorPayload, TAuthClient>, EmailAuthApiError> =>
 		Effect.tryPromise({
 			try: () =>
 				authClient.sendVerificationEmail({
 					email: input.email,
 					callbackURL: input.callbackUrl,
-				}) as Promise<FetchResponse<void, VerificationEmailErrorPayload>>,
+				}) as Promise<FetchResponse<void, VerificationEmailErrorPayload, TAuthClient>>,
 			catch: (error) => new EmailAuthApiError('Send verification email API call failed', undefined, error),
 		});
 

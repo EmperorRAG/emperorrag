@@ -76,7 +76,7 @@ export const validateSignInInput = (input: unknown): Effect.Effect<SignInEmailIn
  */
 export const callSignInApi =
 	<TAuthClient extends AuthClient>(authClient: TAuthClient) =>
-	(input: SignInEmailInput): Effect.Effect<FetchResponse<SignInSuccessPayload<TAuthClient>, SignInErrorPayload>, EmailAuthApiError> =>
+	(input: SignInEmailInput): Effect.Effect<FetchResponse<SignInSuccessPayload<TAuthClient>, SignInErrorPayload, TAuthClient>, EmailAuthApiError> =>
 		Effect.tryPromise({
 			try: () =>
 				authClient.signIn.email({
@@ -84,7 +84,7 @@ export const callSignInApi =
 					password: input.password,
 					rememberMe: input.rememberMe,
 					callbackURL: input.callbackUrl,
-				}) as Promise<FetchResponse<SignInSuccessPayload<TAuthClient>, SignInErrorPayload>>,
+				}) as Promise<FetchResponse<SignInSuccessPayload<TAuthClient>, SignInErrorPayload, TAuthClient>>,
 			catch: (error) => new EmailAuthApiError('Sign in API call failed', undefined, error),
 		});
 

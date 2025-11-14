@@ -31,8 +31,10 @@ type SignOutErrorPayload = Readonly<{
  *
  * @description Discriminated union representing the Better Fetch response pattern
  * for sign-out operations. Either contains data (success) or error (failure).
+ *
+ * @template TAuthClient - Optional AuthClient type for plugin awareness (defaults to AuthClient)
  */
-type SignOutFetchResponse = FetchResponse<SignOutSuccessPayload, SignOutErrorPayload>;
+type SignOutFetchResponse<TAuthClient extends AuthClient = AuthClient> = FetchResponse<SignOutSuccessPayload, SignOutErrorPayload, TAuthClient>;
 
 // ============================================================================
 // Layer 1: Validation
@@ -111,7 +113,7 @@ export const validateSignOutOptions = (options: unknown): Effect.Effect<SignOutO
  */
 export const callSignOutApi =
 	<TAuthClient extends AuthClient>(authClient: TAuthClient) =>
-	(options?: SignOutOptions): Effect.Effect<SignOutFetchResponse, EmailAuthApiError> =>
+	(options?: SignOutOptions): Effect.Effect<SignOutFetchResponse<TAuthClient>, EmailAuthApiError> =>
 		Effect.tryPromise({
 			try: async () => {
 				const apiOptions = options

@@ -76,7 +76,7 @@ export const validateSignUpInput = (input: unknown): Effect.Effect<SignUpEmailIn
  */
 export const callSignUpApi =
 	<TAuthClient extends AuthClient>(authClient: TAuthClient) =>
-	(input: SignUpEmailInput): Effect.Effect<FetchResponse<SignUpSuccessPayload<TAuthClient>, SignUpErrorPayload>, EmailAuthApiError> =>
+	(input: SignUpEmailInput): Effect.Effect<FetchResponse<SignUpSuccessPayload<TAuthClient>, SignUpErrorPayload, TAuthClient>, EmailAuthApiError> =>
 		Effect.tryPromise({
 			try: () =>
 				authClient.signUp.email({
@@ -85,7 +85,7 @@ export const callSignUpApi =
 					password: input.password,
 					image: input.image,
 					callbackURL: input.callbackUrl,
-				}) as Promise<FetchResponse<SignUpSuccessPayload<TAuthClient>, SignUpErrorPayload>>,
+				}) as Promise<FetchResponse<SignUpSuccessPayload<TAuthClient>, SignUpErrorPayload, TAuthClient>>,
 			catch: (error) => new EmailAuthApiError('Sign up API call failed', undefined, error),
 		});
 
@@ -105,9 +105,9 @@ export const callSignUpApi =
  */
 export const fetchSession = <TAuthClient extends AuthClient>(
 	authClient: TAuthClient
-): Effect.Effect<FetchResponse<AuthClientSessionOf<TAuthClient> | null, SignUpErrorPayload>, EmailAuthSessionError> =>
+): Effect.Effect<FetchResponse<AuthClientSessionOf<TAuthClient> | null, SignUpErrorPayload, TAuthClient>, EmailAuthSessionError> =>
 	Effect.tryPromise({
-		try: () => authClient.getSession() as Promise<FetchResponse<AuthClientSessionOf<TAuthClient> | null, SignUpErrorPayload>>,
+		try: () => authClient.getSession() as Promise<FetchResponse<AuthClientSessionOf<TAuthClient> | null, SignUpErrorPayload, TAuthClient>>,
 		catch: (error) => new EmailAuthSessionError('Failed to fetch session', error),
 	});
 
