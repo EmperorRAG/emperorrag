@@ -3,35 +3,9 @@
  * @description Public API for the better-auth-utilities library.
  */
 
-export {
-	createAuthServer,
-	createClientConfig,
-	createServerConfig,
-	defineConfig,
-	createAuthClient,
-	AdminModule,
-	APIKeyModule,
-	BearerModule,
-	EmailOTPModule,
-	GenericOAuthModule,
-	JWTModule,
-	OrganizationModule,
-	TwoFactorModule,
-	UsernameModule,
-	AdminService,
-	APIKeyService,
-	BearerService,
-	EmailOTPService,
-	GenericOAuthService,
-	JWTService,
-	OrganizationService,
-	TwoFactorService,
-	UsernameService,
-} from './lib/better-auth-utilities.js';
+export { createAuthServer, createClientConfig, createServerConfig, defineConfig, createAuthClient } from './lib/better-auth-utilities.js';
 
 export type {
-	AdapterContext,
-	AdapterResponse,
 	AuthProvider,
 	AvailablePlugins,
 	BetterAuthConfig,
@@ -54,6 +28,5 @@ export type {
 	AuthClientSessionUserOf,
 	AuthClientErrorOf,
 	ServerConfig,
-	User,
 	AuthServerOf,
 } from './lib/better-auth-utilities.ts';
