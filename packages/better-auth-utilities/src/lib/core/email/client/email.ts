@@ -1,26 +1,11 @@
 import { Effect } from 'effect';
-import type {
-	changePasswordProps,
-	requestPasswordResetProps,
-	sendVerificationEmailProps,
-	resetPasswordProps,
-} from './email.types.js';
-import {
-	EmailAuthInputError,
-} from './email.error.js';
+import type { changePasswordProps, requestPasswordResetProps, resetPasswordProps } from './email.types.js';
+import { EmailAuthInputError } from './email.error.js';
 
 export { signUpEmail } from './sign-up-email/signUpEmail.js';
 export { signInEmail } from './sign-in-email/signInEmail.js';
 export { signOut } from './sign-out/signOut.js';
-
-export const sendVerificationEmail: sendVerificationEmailProps =
-	({ authClient }) =>
-	({ email, callbackUrl }) => {
-		void authClient;
-		void email;
-		void callbackUrl;
-		return Effect.fail(new EmailAuthInputError('Not implemented'));
-	};
+export { sendVerificationEmail } from './send-verification-email/sendVerificationEmail.js';
 
 export const requestPasswordReset: requestPasswordResetProps =
 	({ authClient }) =>
