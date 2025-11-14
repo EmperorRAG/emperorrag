@@ -1,35 +1,9 @@
 import { Effect, pipe } from 'effect';
-import type {
-	EmailAuthClientDeps,
-	SignUpEmailInput,
-	SignUpEmailResult,
-	signUpEmailProps,
-} from '../email.types.js';
+import type { SignUpEmailInput, SignUpEmailResult, signUpEmailProps } from '../email.types.js';
 import { isSignUpEmailInput } from '../email.types.js';
-import {
-	EmailAuthInputError,
-	EmailAuthApiError,
-	EmailAuthDataMissingError,
-	EmailAuthSessionError,
-} from '../email.error.js';
-import {
-	type FetchResponse,
-	isFetchFailure,
-	unwrapFetchResponse,
-	createApiErrorFactory,
-	createValidateDeps,
-	createLogValidationFailure,
-	createLogApiFailure,
-	createLogDataMissingFailure,
-	createLogSessionFailure,
-	createLogSuccess,
-} from '../shared/index.js';
-import type {
-	AuthClient,
-	AuthClientSessionOf,
-	AuthClientSessionUserOf,
-	AuthClientSessionUserSessionOf,
-} from '../../../../client.js';
+import { EmailAuthInputError, EmailAuthApiError, EmailAuthDataMissingError, EmailAuthSessionError } from '../email.error.js';
+import { type FetchResponse, isFetchFailure, unwrapFetchResponse, createApiErrorFactory, createValidateDeps } from '../shared/index.js';
+import type { AuthClient, AuthClientSessionOf, AuthClientSessionUserOf, AuthClientSessionUserSessionOf } from '../../../../client.js';
 
 // ============================================================================
 // Type Definitions
@@ -44,7 +18,8 @@ type SignUpSuccessPayload<TAuthClient extends AuthClient> = Readonly<{
 type SignUpErrorPayload = Readonly<{
 	status?: number;
 	message?: string;
-}> & Readonly<Record<string, unknown>>;
+}> &
+	Readonly<Record<string, unknown>>;
 
 // ============================================================================
 // Layer 1: Validation
@@ -75,12 +50,8 @@ const validateDeps = createValidateDeps<AuthClient>('signUpEmail');
  * // => Effect.succeed(input) or Effect.fail(new EmailAuthInputError(...))
  * ```
  */
-export const validateSignUpInput = (
-	input: unknown
-): Effect.Effect<SignUpEmailInput, EmailAuthInputError> =>
-	isSignUpEmailInput(input)
-		? Effect.succeed(input)
-		: Effect.fail(new EmailAuthInputError('Invalid sign up payload'));
+export const validateSignUpInput = (input: unknown): Effect.Effect<SignUpEmailInput, EmailAuthInputError> =>
+	isSignUpEmailInput(input) ? Effect.succeed(input) : Effect.fail(new EmailAuthInputError('Invalid sign up payload'));
 
 // ============================================================================
 // Layer 2: API Calls
@@ -105,12 +76,7 @@ export const validateSignUpInput = (
  */
 export const callSignUpApi =
 	<TAuthClient extends AuthClient>(authClient: TAuthClient) =>
-	(
-		input: SignUpEmailInput
-	): Effect.Effect<
-		FetchResponse<SignUpSuccessPayload<TAuthClient>, SignUpErrorPayload>,
-		EmailAuthApiError
-	> =>
+	(input: SignUpEmailInput): Effect.Effect<FetchResponse<SignUpSuccessPayload<TAuthClient>, SignUpErrorPayload>, EmailAuthApiError> =>
 		Effect.tryPromise({
 			try: () =>
 				authClient.signUp.email({
@@ -139,15 +105,9 @@ export const callSignUpApi =
  */
 export const fetchSession = <TAuthClient extends AuthClient>(
 	authClient: TAuthClient
-): Effect.Effect<
-	FetchResponse<AuthClientSessionOf<TAuthClient> | null, SignUpErrorPayload>,
-	EmailAuthSessionError
-> =>
+): Effect.Effect<FetchResponse<AuthClientSessionOf<TAuthClient> | null, SignUpErrorPayload>, EmailAuthSessionError> =>
 	Effect.tryPromise({
-		try: () =>
-			authClient.getSession() as Promise<
-				FetchResponse<AuthClientSessionOf<TAuthClient> | null, SignUpErrorPayload>
-			>,
+		try: () => authClient.getSession() as Promise<FetchResponse<AuthClientSessionOf<TAuthClient> | null, SignUpErrorPayload>>,
 		catch: (error) => new EmailAuthSessionError('Failed to fetch session', error),
 	});
 
@@ -189,9 +149,7 @@ const createSignUpApiError = createApiErrorFactory('Sign up');
 export const extractUserPayload = <TAuthClient extends AuthClient>(
 	data: SignUpSuccessPayload<TAuthClient>
 ): Effect.Effect<AuthClientSessionUserOf<TAuthClient>, EmailAuthDataMissingError> =>
-	data.user
-		? Effect.succeed(data.user)
-		: Effect.fail(new EmailAuthDataMissingError('Sign up response is missing user payload'));
+	data.user ? Effect.succeed(data.user) : Effect.fail(new EmailAuthDataMissingError('Sign up response is missing user payload'));
 
 /**
  * Extracts optional session from sign-up success response.
@@ -232,29 +190,21 @@ export const extractSessionFromFetch = <TAuthClient extends AuthClient>(
  * Resolves session with fallback logic.
  *
  * @description If initial session is null, attempts to fetch from API. If fetch fails,
- * logs warning but continues (returns null). Final validation happens in pipeline.
+ * returns null (graceful degradation). Final validation happens in pipeline.
  *
  * @param authClient - Better Auth client instance
- * @param logger - Optional logger for warnings
- * @param telemetry - Optional telemetry for event tracking
- * @param featureFlags - Optional feature flags for telemetry context
  * @returns {Function} Curried function accepting initial session
  *
  * @example
  * ```typescript
  * const program = pipe(
  *   extractSessionFromResponse(data),
- *   (session) => resolveSession(authClient, logger, telemetry, featureFlags)(session)
+ *   (session) => resolveSession(authClient)(session)
  * );
  * ```
  */
 export const resolveSession =
-	<TAuthClient extends AuthClient>(
-		authClient: TAuthClient,
-		logger?: EmailAuthClientDeps<TAuthClient>['logger'],
-		telemetry?: EmailAuthClientDeps<TAuthClient>['telemetry'],
-		featureFlags?: EmailAuthClientDeps<TAuthClient>['featureFlags']
-	) =>
+	<TAuthClient extends AuthClient>(authClient: TAuthClient) =>
 	(
 		initialSession: AuthClientSessionUserSessionOf<TAuthClient> | null
 	): Effect.Effect<AuthClientSessionUserSessionOf<TAuthClient> | null, EmailAuthSessionError> =>
@@ -266,24 +216,13 @@ export const resolveSession =
 						pipe(
 							sessionResponse,
 							// Unwrap the Better Fetch response
-							(response) =>
-								isFetchFailure(response)
-									? Effect.sync(() => {
-											logger?.warn('signUpEmail session fetch failed', { error: response.error });
-											void telemetry?.trackEvent('signUpEmail.sessionFetchFailed', {
-												errorStatus: response.error.status,
-												errorMessage: response.error.message,
-												featureFlags,
-											});
-											return null;
-									  })
-									: Effect.succeed(response.data),
+							(response) => (isFetchFailure(response) ? Effect.succeed(null) : Effect.succeed(response.data)),
 							Effect.map(extractSessionFromFetch<TAuthClient>)
 						)
 					),
 					// Catch any errors and return null (graceful degradation)
 					Effect.catchAll(() => Effect.succeed(null))
-			  );
+				);
 
 /**
  * Validates that session is non-null after resolution.
@@ -305,66 +244,10 @@ export const resolveSession =
 export const requireSession = <TAuthClient extends AuthClient>(
 	session: AuthClientSessionUserSessionOf<TAuthClient> | null
 ): Effect.Effect<AuthClientSessionUserSessionOf<TAuthClient>, EmailAuthSessionError> =>
-	session
-		? Effect.succeed(session)
-		: Effect.fail(new EmailAuthSessionError('Unable to resolve session after sign up'));
+	session ? Effect.succeed(session) : Effect.fail(new EmailAuthSessionError('Unable to resolve session after sign up'));
 
 // ============================================================================
-// Layer 6: Logging & Telemetry
-// ============================================================================
-
-/**
- * Logs validation failure.
- *
- * @description Factory-generated logger for sign-up validation failures.
- * Uses shared logging utility to ensure consistent logging across operations.
- *
- * @see {@link createLogValidationFailure} from shared/logging.ts
- */
-const logValidationFailure = createLogValidationFailure('Sign up');
-
-/**
- * Logs and tracks API failure.
- *
- * @description Factory-generated logger for sign-up API failures.
- * Uses shared logging utility to ensure consistent logging and telemetry.
- *
- * @see {@link createLogApiFailure} from shared/logging.ts
- */
-const logApiFailure = createLogApiFailure('Sign up');
-
-/**
- * Logs and tracks data missing error.
- *
- * @description Factory-generated logger for sign-up data missing failures.
- * Uses shared logging utility to ensure consistent logging and telemetry.
- *
- * @see {@link createLogDataMissingFailure} from shared/logging.ts
- */
-const logDataMissingFailure = createLogDataMissingFailure('Sign up');
-
-/**
- * Logs and tracks session resolution error.
- *
- * @description Factory-generated logger for sign-up session failures.
- * Uses shared logging utility to ensure consistent logging and telemetry.
- *
- * @see {@link createLogSessionFailure} from shared/logging.ts
- */
-const logSessionFailure = createLogSessionFailure('Sign up');
-
-/**
- * Logs and tracks successful sign-up.
- *
- * @description Factory-generated logger for sign-up success.
- * Uses shared logging utility to ensure consistent logging and telemetry.
- *
- * @see {@link createLogSuccess} from shared/logging.ts
- */
-const logSuccess = createLogSuccess('Sign up');
-
-// ============================================================================
-// Layer 7: Result Builders
+// Layer 6: Result Builders
 // ============================================================================
 
 /**
@@ -394,7 +277,7 @@ export const buildSignUpResult = <TAuthClient extends AuthClient>(
 });
 
 // ============================================================================
-// Layer 8: Composed Pipeline
+// Layer 7: Composed Pipeline
 // ============================================================================
 
 /**
@@ -402,20 +285,19 @@ export const buildSignUpResult = <TAuthClient extends AuthClient>(
  *
  * @description Validates dependencies and input, calls Better Auth sign-up API,
  * resolves session with fallback, and returns the authenticated user with session.
- * Composed from 20+ pure, testable functions following Single Responsibility Principle.
+ * Composed from pure, testable functions following Single Responsibility Principle.
  *
  * @fp-pattern Curried dependency injection with Effect-based error handling
- * @composition pipe with Effect.flatMap orchestration across 8 functional layers:
+ * @composition pipe with Effect.flatMap orchestration across 7 functional layers:
  *   1. Validation: validateDeps, validateSignUpInput
  *   2. API calls: callSignUpApi, fetchSession
  *   3. Response unwrapping: unwrapFetchResponse, createSignUpApiError
  *   4. Payload extraction: extractUserPayload, extractSessionFromResponse
  *   5. Session resolution: resolveSession, requireSession
- *   6. Logging: logValidationFailure, logApiFailure, logDataMissingFailure, logSessionFailure, logSuccess
- *   7. Result builders: buildSignUpResult
- *   8. Pipeline orchestration: Effect.gen with flatMap composition
+ *   6. Result builders: buildSignUpResult
+ *   7. Pipeline orchestration: Effect.gen with flatMap composition
  *
- * @param deps - Email auth client dependencies (auth client, logger, telemetry)
+ * @param deps - Email auth client dependencies (auth client)
  * @returns {Effect.Effect<SignUpEmailResult, EmailAuthError>} Effect that resolves
  * with authenticated user/session or fails with typed error.
  *
@@ -428,52 +310,29 @@ export const buildSignUpResult = <TAuthClient extends AuthClient>(
 export const signUpEmail: signUpEmailProps<AuthClient> = (deps) => (input) =>
 	Effect.gen(function* () {
 		// Layer 1: Validate dependencies
-		const validatedDeps = yield* pipe(
-			validateDeps(deps),
-			Effect.tapError((error) => logValidationFailure(deps.logger, error))
-		);
+		const validatedDeps = yield* validateDeps(deps);
 
 		// Layer 1: Validate input
-		const validatedInput = yield* pipe(
-			validateSignUpInput(input),
-			Effect.tapError((error) => logValidationFailure(validatedDeps.logger, error))
-		);
+		const validatedInput = yield* validateSignUpInput(input);
 
-		const { authClient, logger, telemetry, featureFlags } = validatedDeps;
+		const { authClient } = validatedDeps;
 
 		// Layer 2: Call sign-up API
 		const signUpResponse = yield* callSignUpApi(authClient)(validatedInput);
 
 		// Layer 3: Unwrap Better Fetch response
-		const signUpData = yield* pipe(
-			unwrapFetchResponse(createSignUpApiError)(signUpResponse),
-			Effect.tapError((error) => logApiFailure(logger, telemetry, featureFlags, error as EmailAuthApiError))
-		);
+		const signUpData = yield* unwrapFetchResponse(createSignUpApiError)(signUpResponse);
 
 		// Layer 4: Extract user payload
-		const user = yield* pipe(
-			extractUserPayload<AuthClient>(signUpData),
-			Effect.tapError((error) => logDataMissingFailure(logger, telemetry, featureFlags, error))
-		);
+		const user = yield* extractUserPayload<AuthClient>(signUpData);
 
 		// Layer 4 & 5: Extract and resolve session
 		const initialSession = extractSessionFromResponse<AuthClient>(signUpData);
-		const resolvedSession = yield* resolveSession(authClient, logger, telemetry, featureFlags)(
-			initialSession
-		);
+		const resolvedSession = yield* resolveSession(authClient)(initialSession);
 
 		// Layer 5: Require session (final validation)
-		const session = yield* pipe(
-			requireSession<AuthClient>(resolvedSession),
-			Effect.tapError((error) => logSessionFailure(logger, telemetry, featureFlags, error))
-		);
+		const session = yield* requireSession<AuthClient>(resolvedSession);
 
-		// Layer 6: Log success
-		yield* logSuccess(logger, telemetry, featureFlags, {
-			userId: user.id,
-			sessionId: session.id,
-		});
-
-		// Layer 7: Build result
+		// Layer 6: Build result
 		return buildSignUpResult<AuthClient>(user, session, validatedInput.callbackUrl);
 	});
