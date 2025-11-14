@@ -1,5 +1,5 @@
 import { Effect } from 'effect';
-import type { SignInEmailInput, SignInEmailResult, signInEmailProps } from '../email.types.js';
+import type { SignInEmailInput, signInEmailProps } from './signInEmail.types.js';
 import { isSignInEmailInput } from '../email.types.js';
 import { EmailAuthInputError, EmailAuthApiError, EmailAuthDataMissingError, EmailAuthSessionError } from '../email.error.js';
 import { type FetchResponse, unwrapFetchResponse, createApiErrorFactory, createValidateDeps } from '../shared/index.js';
@@ -83,7 +83,7 @@ export const callSignInApi =
 					email: input.email,
 					password: input.password,
 					rememberMe: input.rememberMe,
-					callbackURL: input.callbackUrl,
+					callbackURL: input.callbackURL,
 				}) as Promise<FetchResponse<SignInSuccessPayload<TAuthClient>, SignInErrorPayload, TAuthClient>>,
 			catch: (error) => new EmailAuthApiError('Sign in API call failed', undefined, error),
 		});
