@@ -14,22 +14,22 @@
 			"default": "./dist/index.js"
 		},
 		"./client": {
+			"@emperorrag/source": "./src/lib/client.ts",
 			"types": "./dist/lib/client.d.ts",
 			"import": "./dist/lib/client.js",
-			"default": "./dist/lib/client.js",
-			"@emperorrag/source": "./src/lib/client.ts"
+			"default": "./dist/lib/client.js"
 		},
 		"./server": {
+			"@emperorrag/source": "./src/lib/server.ts",
 			"types": "./dist/lib/server.d.ts",
 			"import": "./dist/lib/server.js",
-			"default": "./dist/lib/server.js",
-			"@emperorrag/source": "./src/lib/server.ts"
+			"default": "./dist/lib/server.js"
 		},
 		"./config": {
+			"@emperorrag/source": "./src/lib/config.ts",
 			"types": "./dist/lib/config.d.ts",
 			"import": "./dist/lib/config.js",
-			"default": "./dist/lib/config.js",
-			"@emperorrag/source": "./src/lib/config.ts"
+			"default": "./dist/lib/config.js"
 		}
 	},
 	"files": [
@@ -58,6 +58,6 @@
 		"vite-plugin-dts": "^4.5.4",
 		"vite": "^7.0.0",
 		"vitest": "^3.0.0",
-		"@nx/vite": "21.6.5" 
+		"@nx/vite": "21.6.5"
 	}
 }
