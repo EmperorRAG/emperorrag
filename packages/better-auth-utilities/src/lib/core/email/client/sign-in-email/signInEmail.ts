@@ -1,32 +1,9 @@
-import { Effect, pipe } from 'effect';
-import type {
-	SignInEmailInput,
-	SignInEmailResult,
-	signInEmailProps,
-} from '../email.types.js';
+import { Effect } from 'effect';
+import type { SignInEmailInput, SignInEmailResult, signInEmailProps } from '../email.types.js';
 import { isSignInEmailInput } from '../email.types.js';
-import {
-	EmailAuthInputError,
-	EmailAuthApiError,
-	EmailAuthDataMissingError,
-	EmailAuthSessionError,
-} from '../email.error.js';
-import {
-	type FetchResponse,
-	unwrapFetchResponse,
-	createApiErrorFactory,
-	createValidateDeps,
-	createLogValidationFailure,
-	createLogApiFailure,
-	createLogDataMissingFailure,
-	createLogSessionFailure,
-	createLogSuccess,
-} from '../shared/index.js';
-import type {
-	AuthClient,
-	AuthClientSessionUserOf,
-	AuthClientSessionUserSessionOf,
-} from '../../../../client.js';
+import { EmailAuthInputError, EmailAuthApiError, EmailAuthDataMissingError, EmailAuthSessionError } from '../email.error.js';
+import { type FetchResponse, unwrapFetchResponse, createApiErrorFactory, createValidateDeps } from '../shared/index.js';
+import type { AuthClient, AuthClientSessionUserOf, AuthClientSessionUserSessionOf } from '../../../../client.js';
 
 // ============================================================================
 // Type Definitions
@@ -41,7 +18,8 @@ type SignInSuccessPayload<TAuthClient extends AuthClient> = Readonly<{
 type SignInErrorPayload = Readonly<{
 	status?: number;
 	message?: string;
-}> & Readonly<Record<string, unknown>>;
+}> &
+	Readonly<Record<string, unknown>>;
 
 // ============================================================================
 // Layer 1: Validation
@@ -72,12 +50,8 @@ const validateDeps = createValidateDeps<AuthClient>('signInEmail');
  * // => Effect.succeed(input) or Effect.fail(new EmailAuthInputError(...))
  * ```
  */
-export const validateSignInInput = (
-	input: unknown
-): Effect.Effect<SignInEmailInput, EmailAuthInputError> =>
-	isSignInEmailInput(input)
-		? Effect.succeed(input)
-		: Effect.fail(new EmailAuthInputError('Invalid sign in payload'));
+export const validateSignInInput = (input: unknown): Effect.Effect<SignInEmailInput, EmailAuthInputError> =>
+	isSignInEmailInput(input) ? Effect.succeed(input) : Effect.fail(new EmailAuthInputError('Invalid sign in payload'));
 
 // ============================================================================
 // Layer 2: API Call
@@ -102,12 +76,7 @@ export const validateSignInInput = (
  */
 export const callSignInApi =
 	<TAuthClient extends AuthClient>(authClient: TAuthClient) =>
-	(
-		input: SignInEmailInput
-	): Effect.Effect<
-		FetchResponse<SignInSuccessPayload<TAuthClient>, SignInErrorPayload>,
-		EmailAuthApiError
-	> =>
+	(input: SignInEmailInput): Effect.Effect<FetchResponse<SignInSuccessPayload<TAuthClient>, SignInErrorPayload>, EmailAuthApiError> =>
 		Effect.tryPromise({
 			try: () =>
 				authClient.signIn.email({
@@ -157,9 +126,7 @@ const createSignInApiError = createApiErrorFactory('Sign in');
 export const extractUserPayload = <TAuthClient extends AuthClient>(
 	data: SignInSuccessPayload<TAuthClient>
 ): Effect.Effect<AuthClientSessionUserOf<TAuthClient>, EmailAuthDataMissingError> =>
-	data.user
-		? Effect.succeed(data.user)
-		: Effect.fail(new EmailAuthDataMissingError('Sign in response is missing user payload'));
+	data.user ? Effect.succeed(data.user) : Effect.fail(new EmailAuthDataMissingError('Sign in response is missing user payload'));
 
 /**
  * Extracts and validates session from sign-in success response.
@@ -184,9 +151,7 @@ export const extractUserPayload = <TAuthClient extends AuthClient>(
 export const requireSession = <TAuthClient extends AuthClient>(
 	data: SignInSuccessPayload<TAuthClient>
 ): Effect.Effect<AuthClientSessionUserSessionOf<TAuthClient>, EmailAuthSessionError> =>
-	data.session
-		? Effect.succeed(data.session)
-		: Effect.fail(new EmailAuthSessionError('Sign in response is missing session'));
+	data.session ? Effect.succeed(data.session) : Effect.fail(new EmailAuthSessionError('Sign in response is missing session'));
 
 /**
  * Extracts email verification requirement flag from sign-in response.
@@ -204,66 +169,11 @@ export const requireSession = <TAuthClient extends AuthClient>(
  * // => true or false
  * ```
  */
-export const extractRequiresVerification = <TAuthClient extends AuthClient>(
-	data: SignInSuccessPayload<TAuthClient>
-): boolean => data.requiresVerification ?? false;
+export const extractRequiresVerification = <TAuthClient extends AuthClient>(data: SignInSuccessPayload<TAuthClient>): boolean =>
+	data.requiresVerification ?? false;
 
 // ============================================================================
-// Layer 5: Logging & Telemetry
-// ============================================================================
-
-/**
- * Logs validation failure.
- *
- * @description Factory-generated logger for sign-in validation failures.
- * Uses shared logging utility to ensure consistent logging across operations.
- *
- * @see {@link createLogValidationFailure} from shared/logging.ts
- */
-const logValidationFailure = createLogValidationFailure('Sign in');
-
-/**
- * Logs and tracks API failure.
- *
- * @description Factory-generated logger for sign-in API failures.
- * Uses shared logging utility to ensure consistent logging and telemetry.
- *
- * @see {@link createLogApiFailure} from shared/logging.ts
- */
-const logApiFailure = createLogApiFailure('Sign in');
-
-/**
- * Logs and tracks data missing error.
- *
- * @description Factory-generated logger for sign-in data missing failures.
- * Uses shared logging utility to ensure consistent logging and telemetry.
- *
- * @see {@link createLogDataMissingFailure} from shared/logging.ts
- */
-const logDataMissingFailure = createLogDataMissingFailure('Sign in');
-
-/**
- * Logs and tracks session missing error.
- *
- * @description Factory-generated logger for sign-in session failures.
- * Uses shared logging utility to ensure consistent logging and telemetry.
- *
- * @see {@link createLogSessionFailure} from shared/logging.ts
- */
-const logSignInSessionFailure = createLogSessionFailure('Sign in');
-
-/**
- * Logs and tracks successful sign-in.
- *
- * @description Factory-generated logger for sign-in success.
- * Uses shared logging utility to ensure consistent logging and telemetry.
- *
- * @see {@link createLogSuccess} from shared/logging.ts
- */
-const logSignInSuccess = createLogSuccess('Sign in');
-
-// ============================================================================
-// Layer 6: Result Builder
+// Layer 5: Result Builder
 // ============================================================================
 
 /**
@@ -294,7 +204,7 @@ export const buildSignInResult = <TAuthClient extends AuthClient>(
 });
 
 // ============================================================================
-// Layer 7: Composed Pipeline
+// Layer 6: Composed Pipeline
 // ============================================================================
 
 /**
@@ -305,19 +215,18 @@ export const buildSignInResult = <TAuthClient extends AuthClient>(
  * (no fallback needed unlike sign-up). Includes `requiresVerification` flag to indicate
  * if email verification is needed.
  *
- * Composed from 15 pure, testable functions following Single Responsibility Principle.
+ * Composed from 10 pure, testable functions following Single Responsibility Principle.
  *
  * @fp-pattern Curried dependency injection with Effect-based error handling
- * @composition pipe with Effect.flatMap orchestration across 7 functional layers:
+ * @composition pipe with Effect.flatMap orchestration across 6 functional layers:
  *   1. Validation: validateDeps, validateSignInInput
  *   2. API call: callSignInApi
  *   3. Response unwrapping: unwrapFetchResponse, createSignInApiError
  *   4. Payload extraction: extractUserPayload, requireSession, extractRequiresVerification
- *   5. Logging: logValidationFailure, logApiFailure, logDataMissingFailure, logSignInSessionFailure, logSignInSuccess
- *   6. Result builder: buildSignInResult
- *   7. Pipeline orchestration: Effect.gen with flatMap composition
+ *   5. Result builder: buildSignInResult
+ *   6. Pipeline orchestration: Effect.gen with flatMap composition
  *
- * @param deps - Email auth client dependencies (auth client, logger, telemetry)
+ * @param deps - Email auth client dependencies (auth client)
  * @returns {Effect.Effect<SignInEmailResult, EmailAuthError>} Effect that resolves
  * with authenticated user/session or fails with typed error.
  *
@@ -331,50 +240,28 @@ export const buildSignInResult = <TAuthClient extends AuthClient>(
 export const signInEmail: signInEmailProps<AuthClient> = (deps) => (input) =>
 	Effect.gen(function* () {
 		// Layer 1: Validate dependencies
-		const validatedDeps = yield* pipe(
-			validateDeps(deps),
-			Effect.tapError((error) => logValidationFailure(deps.logger, error))
-		);
+		const validatedDeps = yield* validateDeps(deps);
 
 		// Layer 1: Validate input
-		const validatedInput = yield* pipe(
-			validateSignInInput(input),
-			Effect.tapError((error) => logValidationFailure(validatedDeps.logger, error))
-		);
+		const validatedInput = yield* validateSignInInput(input);
 
-		const { authClient, logger, telemetry, featureFlags } = validatedDeps;
+		const { authClient } = validatedDeps;
 
 		// Layer 2: Call sign-in API
 		const signInResponse = yield* callSignInApi(authClient)(validatedInput);
 
 		// Layer 3: Unwrap Better Fetch response
-		const signInData = yield* pipe(
-			unwrapFetchResponse(createSignInApiError)(signInResponse),
-			Effect.tapError((error) => logApiFailure(logger, telemetry, featureFlags, error as EmailAuthApiError))
-		);
+		const signInData = yield* unwrapFetchResponse(createSignInApiError)(signInResponse);
 
 		// Layer 4: Extract user payload
-		const user = yield* pipe(
-			extractUserPayload<AuthClient>(signInData),
-			Effect.tapError((error) => logDataMissingFailure(logger, telemetry, featureFlags, error))
-		);
+		const user = yield* extractUserPayload<AuthClient>(signInData);
 
 		// Layer 4: Extract session (always present for sign-in)
-		const session = yield* pipe(
-			requireSession<AuthClient>(signInData),
-			Effect.tapError((error) => logSignInSessionFailure(logger, telemetry, featureFlags, error))
-		);
+		const session = yield* requireSession<AuthClient>(signInData);
 
 		// Layer 4: Extract verification flag
 		const requiresVerification = extractRequiresVerification<AuthClient>(signInData);
 
-		// Layer 5: Log success
-		yield* logSignInSuccess(logger, telemetry, featureFlags, {
-			userId: user.id,
-			sessionId: session.id,
-			requiresVerification,
-		});
-
-		// Layer 6: Build result
+		// Layer 5: Build result
 		return buildSignInResult<AuthClient>(user, session, requiresVerification);
 	});
