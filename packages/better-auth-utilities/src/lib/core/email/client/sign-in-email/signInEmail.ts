@@ -1,5 +1,5 @@
 import { Effect } from 'effect';
-import type { SignInEmailInput, signInEmailProps } from './signInEmail.types.js';
+import type { SignInEmailInput, SignInEmailResult, signInEmailProps } from './signInEmail.types.js';
 import { isSignInEmailInput } from '../email.types.js';
 import { EmailAuthInputError, EmailAuthApiError, EmailAuthDataMissingError, EmailAuthSessionError } from '../email.error.js';
 import { type FetchResponse, unwrapFetchResponse, createApiErrorFactory, createValidateDeps } from '../shared/index.js';
