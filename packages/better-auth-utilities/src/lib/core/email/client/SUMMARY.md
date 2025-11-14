@@ -103,46 +103,27 @@ See [shared/SUMMARY.md](./shared/SUMMARY.md) for quick reference.
 
 ### Type Extraction Pattern
 
-All operations extract types from Better Auth APIs:
-
-```typescript
-// Extract input type
-export type SignInEmailInput<T> = Parameters<
-  AuthClientSignInFor<T>['email']
->[0];
-
-// Extract result type
-export type SignInEmailResult<T> = ReturnType<
-  AuthClientSignInFor<T>['email']
->;
-```
+All operations extract types from Better Auth APIs using `Parameters` and `ReturnType` utilities.
 
 **Why**: Automatic synchronization with Better Auth API changes and plugin additions.
 
+**Examples**: See [signInEmail.types.ts](./sign-in-email/signInEmail.types.ts), [signUpEmail.types.ts](./sign-up-email/signUpEmail.types.ts)
+
 ### Curried Service Pattern
 
-All services follow curried dependency injection:
-
-```typescript
-export const operation = (deps: EmailAuthClientDeps) => (input: Input) =>
-  Effect.tryPromise({
-    try: () => deps.authClient.operation.method(input),
-    catch: (error) => new EmailAuthApiError(...)
-  });
-```
+All services follow curried dependency injection (deps → input → Effect).
 
 **Why**: Clean dependency injection, partial application, testability.
 
+**Examples**: See [signInEmail.service.ts](./sign-in-email/signInEmail.service.ts), [signUpEmail.service.ts](./sign-up-email/signUpEmail.service.ts)
+
 ### Effect-Based Composition
 
-All operations return Effect for lazy evaluation:
-
-```typescript
-const program = signInEmail(deps)({ email, password });
-const result = await Effect.runPromise(program);
-```
+All operations return Effect for lazy evaluation.
 
 **Why**: Composability, typed errors, retry/timeout strategies, testability.
+
+**Usage**: Call service with deps, then call result with input, then run with `Effect.runPromise`.
 
 ## Quick Links
 
