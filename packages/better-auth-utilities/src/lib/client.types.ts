@@ -46,6 +46,34 @@ export type AuthClientApiFor<T extends AuthClientFor<ReturnType<typeof createAut
 >;
 
 /**
+ * Type helper to extract the union of all API endpoint types from an AuthClient.
+ *
+ * @description Returns a union of all property types in the API surface (signIn type | signOut type | session type | ...).
+ *
+ * @example
+ * ```typescript
+ * type AllEndpoints = AuthClientApiEndpointFor<typeof authClient>;
+ * // Will be a union of all method/property types
+ * ```
+ */
+export type AuthClientApiEndpointFor<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> =
+	AuthClientApiFor<T>[keyof AuthClientApiFor<T>];
+
+/**
+ * Type helper to extract the union of all keys from API endpoint types.
+ *
+ * @description Returns a union of all property keys across all API endpoints.
+ *
+ * @example
+ * ```typescript
+ * type AllEndpointKeys = AuthClientApiEndpointKeyFor<typeof authClient>;
+ * // Union of all keys from all endpoint objects
+ * ```
+ */
+export type AuthClientApiEndpointKeyFor<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> =
+	keyof AuthClientApiEndpointFor<T>;
+
+/**
  * Type helper to extract the signIn method type from an AuthClient.
  *
  * @description Returns the type of the signIn method, including any plugin-specific overloads.
