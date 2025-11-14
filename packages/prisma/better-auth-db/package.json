@@ -9,34 +9,34 @@
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
+			"@emperorrag/source": "./src/index.ts",
 			"types": "./dist/index.d.ts",
 			"import": "./dist/index.js",
-			"default": "./dist/index.js",
-			"@emperorrag/source": "./src/index.ts"
+			"default": "./dist/index.js"
 		},
 		"./client": {
+			"@emperorrag/source": "./src/client.ts",
 			"types": "./dist/client.d.ts",
 			"import": "./dist/client.js",
-			"default": "./dist/client.js",
-			"@emperorrag/source": "./src/client.ts"
+			"default": "./dist/client.js"
 		},
 		"./server": {
+			"@emperorrag/source": "./src/server.ts",
 			"types": "./dist/server.d.ts",
 			"import": "./dist/server.js",
-			"default": "./dist/server.js",
-			"@emperorrag/source": "./src/server.ts"
+			"default": "./dist/server.js"
 		},
 		"./schemas": {
+			"@emperorrag/source": "./src/schemas.ts",
 			"types": "./dist/lib/prisma/generated/schemas/index.d.ts",
 			"import": "./dist/lib/prisma/generated/schemas/index.js",
-			"default": "./dist/lib/prisma/generated/schemas/index.js",
-			"@emperorrag/source": "./src/schemas.ts"
+			"default": "./dist/lib/prisma/generated/schemas/index.js"
 		},
 		"./types": {
+			"@emperorrag/source": "./src/types.ts",
 			"types": "./dist/types.d.ts",
 			"import": "./dist/types.js",
-			"default": "./dist/types.js",
-			"@emperorrag/source": "./src/types.ts"
+			"default": "./dist/types.js"
 		}
 	},
 	"files": [
