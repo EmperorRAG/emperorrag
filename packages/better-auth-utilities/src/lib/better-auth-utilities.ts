@@ -19,7 +19,20 @@ export type {
 
 // Export server instance creation
 export { createAuthServer } from './server/server.js';
-export type { AuthServerOf, AuthServerSessionOf } from './server/server.ts';
+
+// Export server types
+export type {
+	AuthServerFor,
+	AuthServerApiKeyFor,
+	AuthServerApiFor,
+	AuthServerApiEndpointKeyFor,
+	AuthServerApiEndpointFor,
+	AuthServerSessionFor,
+	AuthServerSessionUserFor,
+	AuthServerSessionUserSessionFor,
+	AuthServerSignInFor,
+	AuthServerSignUpFor,
+} from './server/server.types.ts';
 
 // Export client instance creation
 export { createAuthClient } from './client/client.js';
