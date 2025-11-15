@@ -19,7 +19,6 @@ export type {
 
 // Export server instance creation
 export { createAuthServer } from './server/server.js';
-export type { AuthServerOf, AuthServerSessionOf } from './server/server.ts';
 
 // Export server types
 export type {

@@ -20,7 +20,6 @@ export type {
 	AuthClientSignInFor,
 	AuthClientSignUpFor,
 	ServerConfig,
-	AuthServerOf,
 	AuthServerFor,
 	AuthServerApiKeyFor,
 	AuthServerApiFor,
