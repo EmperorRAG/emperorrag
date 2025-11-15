@@ -55,7 +55,7 @@
 					"{projectRoot}/prisma/migrations/**/*"
 				],
 				"outputs": [
-					"{projectRoot}/src/lib/prisma/generated"
+					"{projectRoot}/prisma/generated"
 				],
 				"options": {
 					"command": "npx prisma generate --schema=packages/prisma/better-auth-db/prisma/schema.prisma",

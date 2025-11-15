@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../../better-auth-db/src/lib/prisma/generated/client"
+  output   = "./generated/client"
 }
 
 datasource db {

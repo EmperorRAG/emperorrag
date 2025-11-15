@@ -28,13 +28,7 @@ import { authClient, authServer, betterAuthConfig } from '@emperorrag/prisma-bet
 
 ## Prisma Client Usage
 
-The Prisma Client is generated internally and used by the Better Auth configuration. If you need direct database access, the Prisma Client is located at:
-
-```plaintext
-packages/prisma/better-auth-db/src/lib/prisma/generated/client/
-```
-
-However, this is **not exported** from the package. For database operations, consider:
+The Prisma Client is generated internally and used by the Better Auth configuration. If you need direct database access, the Prisma Client is located at:\n\n```plaintext\npackages/prisma/better-auth-db/prisma/generated/client/\n```\n\nHowever, this is **not exported** from the package. For database operations, consider:
 
 1. Using Better Auth's built-in methods
 2. Creating separate database service utilities

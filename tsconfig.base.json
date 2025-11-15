@@ -19,6 +19,7 @@
 		"target": "es2022",
 		"customConditions": ["@emperorrag/source"],
 		"paths": {
+			"@prisma/client": ["packages/prisma/better-auth-db/prisma/generated/client"],
 			"@emperorrag/better-auth-utilities": ["packages/better-auth-utilities/src/index.ts"],
 			"@emperorrag/better-auth-utilities/*": ["packages/better-auth-utilities/src/*"],
 			"@emperorrag/utilities": ["packages/utilities/src/index.ts"],

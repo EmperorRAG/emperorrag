@@ -4,7 +4,7 @@
  * Uses the adapter pattern from better-auth-utilities for NestJS integration.
  */
 
-import { PrismaClient } from '../prisma/generated/client/index';
+import { PrismaClient } from '@prisma/client';
 import { defineConfig, createServerConfig, createClientConfig } from '@emperorrag/better-auth-utilities/config';
 
 // Import Better Auth plugins

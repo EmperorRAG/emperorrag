@@ -1,5 +1,5 @@
 {
 	"exact": ["zod", "better-auth", "better-auth/adapters/prisma", "better-auth/plugins"],
 	"startsWith": ["zod/", "better-auth/", "node:"],
-	"includes": ["prisma/generated/client"]
+	"includes": ["@prisma/client"]
 }
