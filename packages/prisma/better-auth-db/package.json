@@ -1,0 +1,133 @@
+{
+	"name": "@emperorrag/prisma-better-auth-db",
+	"version": "0.0.1",
+	"type": "module",
+	"sideEffects": false,
+	"private": true,
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"@emperorrag/source": "./src/index.ts",
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		},
+		"./client": {
+			"@emperorrag/source": "./src/client.ts",
+			"types": "./dist/client.d.ts",
+			"import": "./dist/client.js",
+			"default": "./dist/client.js"
+		},
+		"./server": {
+			"@emperorrag/source": "./src/server.ts",
+			"types": "./dist/server.d.ts",
+			"import": "./dist/server.js",
+			"default": "./dist/server.js"
+		},
+		"./types": {
+			"@emperorrag/source": "./src/types.ts",
+			"types": "./dist/types.d.ts",
+			"import": "./dist/types.js",
+			"default": "./dist/types.js"
+		}
+	},
+	"files": [
+		"README.md",
+		"scripts",
+		"dist",
+		"src",
+		"!src/lib/prisma/generated/**",
+		"!**/*.tsbuildinfo",
+		"!**/*.test.*",
+		"!**/*.spec.*"
+	],
+	"nx": {
+		"name": "prisma-better-auth-db",
+		"targets": {
+			"prisma-generate": {
+				"executor": "nx:run-commands",
+				"cache": true,
+				"inputs": [
+					"{projectRoot}/prisma/schema.prisma",
+					"{projectRoot}/prisma/migrations/**/*"
+				],
+				"outputs": [
+					"{projectRoot}/prisma/generated"
+				],
+				"options": {
+					"command": "npx prisma generate --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+					"cwd": "."
+				}
+			},
+			"prisma-migrate": {
+				"executor": "nx:run-commands",
+				"cache": false,
+				"options": {
+					"command": "npx prisma migrate dev --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+					"cwd": "."
+				}
+			},
+			"prisma-migrate-deploy": {
+				"executor": "nx:run-commands",
+				"cache": false,
+				"options": {
+					"command": "npx prisma migrate deploy --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+					"cwd": "."
+				}
+			},
+			"prisma-studio": {
+				"executor": "nx:run-commands",
+				"cache": false,
+				"options": {
+					"command": "npx prisma studio --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+					"cwd": "."
+				}
+			},
+			"prisma-push": {
+				"executor": "nx:run-commands",
+				"cache": false,
+				"options": {
+					"command": "npx prisma db push --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+					"cwd": "."
+				}
+			},
+			"prisma-reset": {
+				"executor": "nx:run-commands",
+				"cache": false,
+				"options": {
+					"command": "npx prisma migrate reset --schema=packages/prisma/better-auth-db/prisma/schema.prisma --force",
+					"cwd": "."
+				}
+			},
+			"prisma-validate": {
+				"executor": "nx:run-commands",
+				"cache": false,
+				"options": {
+					"command": "npx prisma validate --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
+					"cwd": "."
+				}
+			}
+		},
+		"tags": [
+			"prisma",
+			"database",
+			"shared"
+		]
+	},
+	"dependencies": {
+		"better-auth": "^1.3.27",
+		"zod": "^4.1.12",
+		"effect": "^3.18.4"
+	},
+	"devDependencies": {
+		"tslib": "^2.3.0",
+		"vite-plugin-dts": "^4.5.4",
+		"vite": "^7.0.0",
+		"vitest": "^3.0.0",
+		"@nx/vite": "21.6.5",
+		"@swc-node/register": "~1.9.1"
+	}
+}

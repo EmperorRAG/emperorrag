@@ -10,16 +10,6 @@
 		"tsBuildInfoFile": "./dist/tsconfig.lib.tsbuildinfo"
 	},
 	"exclude": [
-		"./out-tsc",
-		"./dist",
-		"**/*.spec.ts",
-		"**/*.test.ts",
-		"**/*.spec.tsx",
-		"**/*.test.tsx",
-		"**/*.spec.js",
-		"**/*.test.js",
-		"**/*.spec.jsx",
-		"**/*.test.jsx",
 		"./vite.config.ts",
 		"./vite.config.mts",
 		"./vitest.config.ts",
@@ -31,11 +21,7 @@
 		"./src/**/*.test.js",
 		"./src/**/*.spec.js",
 		"./src/**/*.test.jsx",
-		"./src/**/*.spec.jsx",
-		"**/*.stories.ts",
-		"**/*.stories.js",
-		"**/*.stories.jsx",
-		"**/*.stories.tsx"
+		"./src/**/*.spec.jsx"
 	],
 	"include": ["./src/**/*.js", "./src/**/*.jsx", "./src/**/*.ts", "./src/**/*.tsx"]
 }
