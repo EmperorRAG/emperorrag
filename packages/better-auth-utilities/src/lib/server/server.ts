@@ -6,91 +6,8 @@
 import { betterAuth } from 'better-auth';
 import type { BetterAuthOptions } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
-import {
-	apiKey,
-	bearer,
-	jwt,
-	openAPI,
-	twoFactor,
-	admin,
-	organization,
-	username,
-	magicLink,
-	siwe,
-	genericOAuth,
-	oneTap,
-	anonymous,
-	phoneNumber,
-	emailOTP,
-	deviceAuthorization,
-	lastLoginMethod,
-	oneTimeToken,
-	multiSession,
-} from 'better-auth/plugins';
 import type { BetterAuthConfig, AvailablePlugins } from '../config/config.js';
-
-// ============================================================================
-// PLUGIN FACTORY FUNCTIONS
-// ============================================================================
-
-/**
- * Maps plugin names to their factory functions with configurations.
- * Each plugin returns a different type, so we use `any` for flexibility.
- */
-const PLUGIN_FACTORIES: Record<
-	AvailablePlugins,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	(config?: unknown) => any
-> = {
-	// Core authentication plugins
-	username: (config) => username(config as Parameters<typeof username>[0]),
-	magicLink: (config) => magicLink(config as Parameters<typeof magicLink>[0]),
-	twoFactor: (config) => twoFactor(config as Parameters<typeof twoFactor>[0]),
-	admin: (config) => admin(config as Parameters<typeof admin>[0]),
-	organization: (config) => organization(config as Parameters<typeof organization>[0]),
-	passkey: () => {
-		throw new Error('Passkey plugin requires @better-auth/passkey package or correct import path');
-	},
-
-	// OAuth/Auth plugins
-	oidc: () => {
-		throw new Error('OIDC plugin requires correct import or @better-auth/oidc package');
-	},
-	siwe: (config) => siwe(config as Parameters<typeof siwe>[0]),
-	genericOAuth: (config) => genericOAuth(config as Parameters<typeof genericOAuth>[0]),
-	oneTap: (config) => oneTap(config as Parameters<typeof oneTap>[0]),
-
-	// Integration plugins (these would need the actual packages installed)
-	stripe: () => {
-		throw new Error('Stripe plugin requires @better-auth/stripe package');
-	},
-	polar: () => {
-		throw new Error('Polar plugin requires @polar-sh/better-auth package');
-	},
-	dodopayments: () => {
-		throw new Error('Dodo Payments plugin requires @dodopayments/better-auth package');
-	},
-	dubAnalytics: () => {
-		throw new Error('Dub Analytics plugin requires @dub/better-auth package');
-	},
-
-	// Security plugins
-	bearer: (config) => bearer(config as Parameters<typeof bearer>[0]),
-	jwt: (config) => jwt(config as Parameters<typeof jwt>[0]),
-	apiKey: (config) => apiKey(config as Parameters<typeof apiKey>[0]),
-	haveIBeenPwned: () => {
-		throw new Error('Have I Been Pwned plugin requires @better-auth/hibp package');
-	},
-
-	// Advanced plugins
-	multiSession: (config) => multiSession(config as Parameters<typeof multiSession>[0]),
-	anonymous: (config) => anonymous(config as Parameters<typeof anonymous>[0]),
-	phoneNumber: (config) => phoneNumber(config as Parameters<typeof phoneNumber>[0]),
-	emailOTP: (config) => emailOTP(config as Parameters<typeof emailOTP>[0]),
-	deviceAuthorization: (config) => deviceAuthorization(config as Parameters<typeof deviceAuthorization>[0]),
-	lastLoginMethod: (config) => lastLoginMethod(config as Parameters<typeof lastLoginMethod>[0]),
-	oneTimeToken: (config) => oneTimeToken(config as Parameters<typeof oneTimeToken>[0]),
-};
+import { SERVER_PLUGIN_FACTORIES, ALWAYS_INCLUDED_SERVER_PLUGINS } from './server.constants.js';
 
 // ============================================================================
 // SERVER INSTANCE CREATION
@@ -137,13 +54,13 @@ export function createAuthServer<ServerPlugins extends readonly AvailablePlugins
 	const plugins: any[] = [];
 
 	// Always add OpenAPI plugin for documentation
-	plugins.push(openAPI());
+	plugins.push(ALWAYS_INCLUDED_SERVER_PLUGINS.openAPI());
 
 	// Add enabled server plugins
 	const enabledPlugins = config.enabledServerPlugins || ([] as readonly AvailablePlugins[]);
 
 	for (const pluginName of enabledPlugins) {
-		const factory = PLUGIN_FACTORIES[pluginName];
+		const factory = SERVER_PLUGIN_FACTORIES[pluginName];
 		if (!factory) {
 			console.warn(`Unknown plugin: ${pluginName}`);
 			continue;
@@ -217,6 +134,156 @@ export function createAuthServer<ServerPlugins extends readonly AvailablePlugins
 
 	return betterAuth(authOptions);
 }
+
+/**
+ * Resolves the canonical Better Auth server instance returned by {@link betterAuth}.
+ *
+ * @remarks Consumers typically import this alias and pair it with {@link createAuthServer}
+ * to share a single source of truth, as shown in `packages/prisma/better-auth-db/src/lib/auth/auth.ts`.
+ */
+export type AuthServer = ReturnType<typeof betterAuth>;
+
+/**
+ * Narrows the inferred Better Auth server created by {@link createAuthServer}.
+ *
+ * @typeParam TAuthServer - The concrete server instance produced by `createAuthServer`.
+ *
+ * @example
+ * ```typescript
+ * import { createAuthServer } from '@emperorrag/better-auth-utilities/server';
+ * import type { AuthServerOf } from '@emperorrag/better-auth-utilities/server';
+ *
+ * export const authServer = createAuthServer(config, prisma);
+ * export type AuthServer = AuthServerOf<typeof authServer>;
+ * ```
+ */
+export type AuthServerOf<TAuthServer extends AuthServer> = TAuthServer;
+
+/**
+ * Infers the Better Auth session payload, including plugin augmentations, from a server instance.
+ *
+ * @typeParam TAuth - The Better Auth server from which to derive the session structure.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthServerSessionOf } from '@emperorrag/better-auth-utilities/server';
+ *
+ * type AuthServerSession = AuthServerSessionOf<AuthServer>;
+ * ```
+ */
+export type AuthServerSessionOf<TAuth extends AuthServer> = TAuth['$Infer']['Session'];
+
+/**
+ * Extracts the strongly typed Better Auth API surface from a server instance.
+ *
+ * @typeParam TAuthServer - The Better Auth server whose `api` contract should be exposed.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthServerApiOf } from '@emperorrag/better-auth-utilities/server';
+ *
+ * type AuthServerApi = AuthServerApiOf<AuthServer>;
+ * ```
+ */
+export type AuthServerApiOf<TAuthServer extends AuthServer> = TAuthServer['api'];
+
+/**
+ * Enumerates valid endpoint keys for a Better Auth server API.
+ *
+ * @typeParam TAuthServer - The Better Auth server whose endpoint keys are required.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthServerApiEndpointKeyOf } from '@emperorrag/better-auth-utilities/server';
+ *
+ * type EndpointKey = AuthServerApiEndpointKeyOf<AuthServer>;
+ * ```
+ */
+export type AuthServerApiEndpointKeyOf<TAuthServer extends AuthServer> = keyof AuthServerApiOf<TAuthServer>;
+
+/**
+ * Resolves the endpoint signature for a specific Better Auth API key.
+ *
+ * @typeParam TAuthServer - The Better Auth server instance providing the API.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthServerApiEndpointOf } from '@emperorrag/better-auth-utilities/server';
+ *
+ * type AnyEndpoint = AuthServerApiEndpointOf<AuthServer>;
+ * ```
+ */
+export type AuthServerApiEndpointOf<TAuthServer extends AuthServer> = AuthServerApiOf<TAuthServer>[AuthServerApiEndpointKeyOf<TAuthServer>];
+
+/**
+ * Extracts the raw session record embedded inside {@link AuthServerSessionOf}.
+ *
+ * @typeParam TAuth - The Better Auth server whose session record should be exposed.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthServerSessionUserSessionOf } from '@emperorrag/better-auth-utilities/server';
+ *
+ * type SessionRecord = AuthServerSessionUserSessionOf<AuthServer>;
+ * ```
+ */
+export type AuthServerSessionUserSessionOf<TAuth extends AuthServer> = TAuth['$Infer']['Session']['session'];
+
+/**
+ * Extracts the user profile representation embedded in the Better Auth session.
+ *
+ * @typeParam TAuth - The Better Auth server whose user payload should be exposed.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthServerSessionUserOf } from '@emperorrag/better-auth-utilities/server';
+ *
+ * type SessionUser = AuthServerSessionUserOf<AuthServer>;
+ * ```
+ */
+export type AuthServerSessionUserOf<TAuth extends AuthServer> = TAuth['$Infer']['Session']['user'];
+
+/**
+ * Extracts the request body contract for a Better Auth API endpoint.
+ *
+ * @typeParam TAuthServer - The Better Auth server supplying the API contract.
+ * @typeParam TKey - String literal type matching an endpoint key.
+ *
+ * @example
+ * ```typescript
+ * import type { AuthServerEndpointBodyFor } from '@emperorrag/better-auth-utilities/server';
+ *
+ * type SignUpBody = AuthServerEndpointBodyFor<AuthServer, 'signUpEmail'>;
+ * ```
+ */
+export type AuthServerEndpointBodyFor<TAuthServer extends AuthServer, TKey extends string> =
+	Extract<AuthServerApiEndpointKeyOf<TAuthServer>, TKey> extends infer TMapped
+		? TMapped extends AuthServerApiEndpointKeyOf<TAuthServer>
+			? AuthServerApiEndpointFirstParameter<TAuthServer, TMapped> extends { body: infer TBody }
+				? TBody
+				: never
+			: never
+		: never;
+
+/**
+ * Retrieves the full parameter tuple for a concrete Better Auth API endpoint.
+ *
+ * @typeParam TAuthServer - The Better Auth server instance supplying the API.
+ * @typeParam TEndpointKey - The endpoint key whose parameter tuple should be inferred.
+ */
+type AuthServerApiEndpointParametersOf<
+	TAuthServer extends AuthServer,
+	TEndpointKey extends AuthServerApiEndpointKeyOf<TAuthServer>,
+> = AuthServerApiOf<TAuthServer>[TEndpointKey] extends (...args: infer TParameters) => unknown ? TParameters : never;
+
+/**
+ * Picks the first argument accepted by a Better Auth API endpoint.
+ *
+ * @typeParam TAuthServer - The Better Auth server instance supplying the API.
+ * @typeParam TEndpointKey - The endpoint key whose first argument should be inferred.
+ */
+type AuthServerApiEndpointFirstParameter<TAuthServer extends AuthServer, TEndpointKey extends AuthServerApiEndpointKeyOf<TAuthServer>> =
+	AuthServerApiEndpointParametersOf<TAuthServer, TEndpointKey> extends [infer TFirst, ...unknown[]] ? TFirst : never;
 
 // Re-export types from server.types.ts for consistent "For" suffix naming pattern (matching client types)
 export type {
