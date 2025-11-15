@@ -2,6 +2,7 @@
 	"name": "@emperorrag/prisma-better-auth-db",
 	"version": "0.0.1",
 	"type": "module",
+	"sideEffects": false,
 	"private": true,
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
@@ -26,12 +27,6 @@
 			"import": "./dist/server.js",
 			"default": "./dist/server.js"
 		},
-		"./schemas": {
-			"@emperorrag/source": "./src/schemas.ts",
-			"types": "./dist/lib/prisma/generated/schemas/index.d.ts",
-			"import": "./dist/lib/prisma/generated/schemas/index.js",
-			"default": "./dist/lib/prisma/generated/schemas/index.js"
-		},
 		"./types": {
 			"@emperorrag/source": "./src/types.ts",
 			"types": "./dist/types.d.ts",
@@ -43,14 +38,24 @@
 		"README.md",
 		"scripts",
 		"dist",
-		"!**/*.tsbuildinfo"
+		"src",
+		"!**/*.tsbuildinfo",
+		"!**/*.test.*",
+		"!**/*.spec.*"
 	],
 	"nx": {
 		"name": "prisma-better-auth-db",
 		"targets": {
 			"prisma-generate": {
 				"executor": "nx:run-commands",
-				"cache": false,
+				"cache": true,
+				"inputs": [
+					"{projectRoot}/prisma/schema.prisma",
+					"{projectRoot}/prisma/migrations/**/*"
+				],
+				"outputs": [
+					"{projectRoot}/src/lib/prisma/generated"
+				],
 				"options": {
 					"command": "npx prisma generate --schema=packages/prisma/better-auth-db/prisma/schema.prisma",
 					"cwd": "."

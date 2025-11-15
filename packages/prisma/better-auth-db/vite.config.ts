@@ -19,12 +19,6 @@ export default defineConfig(() => ({
 				output: 'lib/prisma/generated/client',
 				includeIgnoredFiles: true,
 			},
-			{
-				input: 'src/lib/prisma/generated/schemas',
-				glob: '**/*',
-				output: 'lib/prisma/generated/schemas',
-				includeIgnoredFiles: true,
-			},
 		]),
 		dts({ entryRoot: './src', tsconfigPath: path.join(__dirname, 'tsconfig.lib.json') }),
 	],
@@ -37,16 +31,18 @@ export default defineConfig(() => ({
 	build: {
 		outDir: './dist',
 		emptyOutDir: true,
-		reportCompressedSize: true,
+		reportCompressedSize: false,
+		minify: false,
+		sourcemap: true,
 		commonjsOptions: {
 			transformMixedEsModules: true,
+			esmExternals: true,
 		},
 		lib: {
 			entry: {
 				index: path.resolve(__dirname, './src/index.ts'),
 				client: path.resolve(__dirname, './src/client.ts'),
 				server: path.resolve(__dirname, './src/server.ts'),
-				schemas: path.resolve(__dirname, './src/schemas.ts'),
 				types: path.resolve(__dirname, './src/types.ts'),
 			},
 			fileName: (_format: string, entryName: string) => {
@@ -55,8 +51,6 @@ export default defineConfig(() => ({
 						return 'client.js';
 					case 'server':
 						return 'server.js';
-					case 'schemas':
-						return 'lib/prisma/generated/schemas/index.js';
 					case 'types':
 						return 'types.js';
 					default:
@@ -67,6 +61,19 @@ export default defineConfig(() => ({
 		},
 		rollupOptions: {
 			external: externalizePackages(toExternalizeConfig(externalsJson)),
+			output: {
+				preserveModules: true,
+				preserveModulesRoot: 'src',
+				exports: 'named' as const,
+				hoistTransitiveImports: false,
+			},
+			maxParallelFileOps: 20,
+			treeshake: {
+				moduleSideEffects: false,
+				propertyReadSideEffects: false,
+				tryCatchDeoptimization: false,
+				unknownGlobalSideEffects: false,
+			},
 		},
 	},
 	test: {

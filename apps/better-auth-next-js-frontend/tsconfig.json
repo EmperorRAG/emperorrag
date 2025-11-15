@@ -53,6 +53,9 @@
   ],
   "references": [
     {
+      "path": "../../packages/prisma/better-auth-db"
+    },
+    {
       "path": "../../packages/better-auth-utilities"
     },
     {

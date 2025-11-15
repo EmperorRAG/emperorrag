@@ -138,5 +138,3 @@ export const Datagrid = <
     </div>
   );
 };
-
-export default Datagrid;

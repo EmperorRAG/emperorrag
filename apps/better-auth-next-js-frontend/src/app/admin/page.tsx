@@ -3,7 +3,7 @@
  * @description Renders the Better Auth admin dashboard while adhering to an imperative declarative programming paradigm for server-side data access and tabular presentation.
  */
 import { Datagrid } from '@emperorrag/components';
-import type { User } from '@emperorrag/better-auth-utilities';
+import type { User } from '@emperorrag/prisma-better-auth-db/types';
 import styles from './page.module.css';
 
 const BASE_URL = process.env.BETTER_AUTH_URL ?? 'http://localhost:3333';
@@ -18,11 +18,10 @@ type AdminUser = User;
 
 type AdminUserResponse = Omit<
   AdminUser,
-  'createdAt' | 'updatedAt' | 'bannedUntil' | 'banExpires'
+  'createdAt' | 'updatedAt' | 'banExpires'
 > & {
   readonly createdAt: string;
   readonly updatedAt: string;
-  readonly bannedUntil?: string | null;
   readonly banExpires?: string | null;
 };
 
@@ -159,16 +158,11 @@ const performAdminSignIn = async (): Promise<SignInResult> => {
  * @function toOptionalDate
  * @description Normalizes nullable timestamp strings within the imperative declarative transformation flow.
  * @param value - Raw ISO timestamp that may be nullish when Better Auth omits ban metadata.
- * @returns A concrete {@link Date}, `null`, or `undefined` to mirror the original signal precisely.
+ * @returns A concrete {@link Date} or `null` to match Prisma's nullable DateTime type.
  */
-const toOptionalDate = (value: string | null | undefined): Date | null | undefined => {
-  // Interpret nullable ISO timestamps as Date instances or propagate absence markers.
-  if (value === undefined) {
-    return undefined;
-  }
-
-  // Preserve explicit nulls so downstream components can distinguish unset dates.
-  if (value === null) {
+const toOptionalDate = (value: string | null | undefined): Date | null => {
+  // Interpret nullable ISO timestamps as Date instances or null.
+  if (value === undefined || value === null) {
     return null;
   }
 
@@ -185,7 +179,6 @@ const parseUserDates = (user: AdminUserResponse): AdminUser => ({
   ...user,
   createdAt: new Date(user.createdAt),
   updatedAt: new Date(user.updatedAt),
-  bannedUntil: toOptionalDate(user.bannedUntil),
   banExpires: toOptionalDate(user.banExpires),
 });
 
@@ -230,7 +223,7 @@ const fetchUsers = async (): Promise<FetchUsersResult> => {
     }
 
     // Marshal raw payload into strong domain types with normalized temporal fields.
-    const payload = (await response.json()) as ReadonlyArray<AdminUserResponse>;
+    const payload = (await response.json()) as { users: ReadonlyArray<AdminUserResponse> };
 
     console.log('🚀 ~ fetchUsers ~ payload:', payload);
 
@@ -314,7 +307,6 @@ const AdminPage = async () => {
         data={users}
         columns={columns}
         caption="Better Auth admin users"
-        rowId={(user: AdminUser) => user.id}
         emptyState={<span>No Better Auth users found yet.</span>}
         errorState={error ? <span>{error}</span> : undefined}
       />

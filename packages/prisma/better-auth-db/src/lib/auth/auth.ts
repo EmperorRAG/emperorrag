@@ -20,20 +20,7 @@ import type {
 	AuthServerApiEndpointKeyOf,
 	AuthServerEndpointBodyFor,
 } from '@emperorrag/better-auth-utilities/server';
-import { createAuthClient } from 'packages/better-auth-utilities/dist/lib/client/client';
-import type {
-	AuthClientSessionOf,
-	AuthClientOf,
-	AuthClientSessionUserSessionOf,
-	AuthClientSessionUserOf,
-	AuthClientApiOf,
-	AuthClientApiEndpointOf,
-	AuthClientApiEndpointKeyOf,
-	AuthClientErrorOf,
-	AuthClientApiMemberArgs,
-	AuthClientApiEndpointArgsFetchOptionsFor,
-	AuthClientApiEndpointPrimaryArgsFor,
-} from 'packages/better-auth-utilities/dist/lib/client/client';
+import { createAuthClient } from '@emperorrag/better-auth-utilities/client';
 
 // Initialize Prisma Client
 // Note: In production, this should be managed by the PrismaService
@@ -201,88 +188,9 @@ export type AuthServerSessionUser = AuthServerSessionUserOf<AuthServer>;
 export const authClient = createAuthClient(betterAuthConfig);
 
 /**
- * Strongly typed Better Auth client instance derived from {@link authClient}.
+ * Type alias for the Better Auth client instance.
+ *
+ * @remarks
+ * Consumers can use this type or `typeof authClient` directly for type inference.
  */
-export type AuthClient = AuthClientOf<typeof authClient>;
-/**
- * Exposes the Better Auth client API subset, including plugin augmentations.
- */
-export type AuthClientApi = AuthClientApiOf<AuthClient>;
-export type AuthClientApiMemberArgsFor<TKey extends keyof AuthClientApi> = AuthClientApiMemberArgs<AuthClient, TKey>;
-/**
- * Represents any callable Better Auth client endpoint, including plugin-provided members.
- */
-export type AuthClientApiEndpoint = AuthClientApiEndpointOf<AuthClient>;
-/**
- * Enumerates all exposed Better Auth client endpoint keys.
- */
-export type AuthClientApiEndpointKey = AuthClientApiEndpointKeyOf<AuthClient>;
-/**
- * Surfaces the Better Auth error catalogue exposed by the client implementation.
- */
-export type AuthClientError = AuthClientErrorOf<AuthClient>;
-
-/**
- * Describes the argument contract for the high-level `signIn` Better Auth client endpoint.
- */
-export type AuthClientApiAccountInfoArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'accountInfo'>;
-export type AuthClientApiChangeEmailArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'changeEmail'>;
-export type AuthClientApiChangePasswordArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'changePassword'>;
-export type AuthClientApiDeleteUserArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'deleteUser'>;
-export type AuthClientApiForgetPasswordArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'forgetPassword'>;
-export type AuthClientApiGetAccessTokenArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'getAccessToken'>;
-export type AuthClientApiGetSessionArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'getSession'>;
-export type AuthClientApiLinkSocialArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'linkSocial'>;
-export type AuthClientApiListAccountsArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'listAccounts'>;
-export type AuthClientApiListSessionsArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'listSessions'>;
-export type AuthClientApiRefreshTokenArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'refreshToken'>;
-export type AuthClientApiRequestPasswordResetArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'requestPasswordReset'>;
-export type AuthClientApiResetPasswordArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'resetPassword'>;
-export type AuthClientApiRevokeOtherSessionsArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'revokeOtherSessions'>;
-export type AuthClientApiRevokeSessionArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'revokeSession'>;
-export type AuthClientApiRevokeSessionsArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'revokeSessions'>;
-export type AuthClientApiSendVerificationEmailArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'sendVerificationEmail'>;
-export type AuthClientApiSignInArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'signIn'>;
-export type AuthClientApiSignOutArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'signOut'>;
-export type AuthClientApiSignUpArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'signUp'>;
-export type AuthClientApiUnlinkAccountArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'unlinkAccount'>;
-export type AuthClientApiUpdateUserArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'updateUser'>;
-export type AuthClientApiUseSessionArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'useSession'>;
-export type AuthClientApiVerifyEmailArgs = AuthClientApiEndpointPrimaryArgsFor<AuthClient, 'verifyEmail'>;
-export type AuthClientApiAccountInfoFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'accountInfo'>;
-export type AuthClientApiChangeEmailFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'changeEmail'>;
-export type AuthClientApiChangePasswordFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'changePassword'>;
-export type AuthClientApiDeleteUserFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'deleteUser'>;
-export type AuthClientApiForgetPasswordFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'forgetPassword'>;
-export type AuthClientApiGetAccessTokenFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'getAccessToken'>;
-export type AuthClientApiGetSessionFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'getSession'>;
-export type AuthClientApiLinkSocialFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'linkSocial'>;
-export type AuthClientApiListAccountsFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'listAccounts'>;
-export type AuthClientApiListSessionsFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'listSessions'>;
-export type AuthClientApiRefreshTokenFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'refreshToken'>;
-export type AuthClientApiRequestPasswordResetFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'requestPasswordReset'>;
-export type AuthClientApiResetPasswordFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'resetPassword'>;
-export type AuthClientApiRevokeOtherSessionsFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'revokeOtherSessions'>;
-export type AuthClientApiRevokeSessionFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'revokeSession'>;
-export type AuthClientApiRevokeSessionsFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'revokeSessions'>;
-export type AuthClientApiSendVerificationEmailFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'sendVerificationEmail'>;
-export type AuthClientApiSignInFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'signIn'>;
-export type AuthClientApiSignOutFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'signOut'>;
-export type AuthClientApiSignUpFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'signUp'>;
-export type AuthClientApiUnlinkAccountFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'unlinkAccount'>;
-export type AuthClientApiUpdateUserFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'updateUser'>;
-export type AuthClientApiUseSessionFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'useSession'>;
-export type AuthClientApiVerifyEmailFetchOptions = AuthClientApiEndpointArgsFetchOptionsFor<AuthClient, 'verifyEmail'>;
-/**
- * Captures the Better Auth session payload returned by client helpers.
- */
-export type AuthClientSession = AuthClientSessionOf<AuthClient>;
-/**
- * Provides direct access to the session metadata portion returned via the client.
- */
-export type AuthClientSessionUserSession = AuthClientSessionUserSessionOf<AuthClient>;
-
-/**
- * Extracts the user record embedded inside a Better Auth session from the client perspective.
- */
-export type AuthClientSessionUser = AuthClientSessionUserOf<AuthClient>;
+export type AuthClient = typeof authClient;
