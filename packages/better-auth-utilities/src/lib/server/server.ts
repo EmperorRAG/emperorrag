@@ -391,3 +391,17 @@ export type AuthServerSessionUserSessionOf<TAuth extends AuthServer> = TAuth['$I
  * ```
  */
 export type AuthServerSessionUserOf<TAuth extends AuthServer> = TAuth['$Infer']['Session']['user'];
+
+// Re-export types from server.types.ts for consistent "For" suffix naming pattern (matching client types)
+export type {
+	AuthServerFor,
+	AuthServerApiKeyFor,
+	AuthServerApiFor,
+	AuthServerApiEndpointKeyFor,
+	AuthServerApiEndpointFor,
+	AuthServerSessionFor,
+	AuthServerSessionUserFor,
+	AuthServerSessionUserSessionFor,
+	AuthServerSignInFor,
+	AuthServerSignUpFor,
+} from './server.types.js';
