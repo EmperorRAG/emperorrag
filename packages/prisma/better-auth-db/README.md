@@ -1,176 +1,147 @@
-# Better Auth Database
+# Better Auth Database Package
 
-PostgreSQL database with Prisma ORM configured for Better Auth.
+PostgreSQL database schema and Better Auth configuration for the Emperorrag monorepo.
+
+## Package Exports
+
+This package exports Better Auth server and client instances configured with Prisma adapter. It does **not** export the Prisma Client itself - the generated Prisma client remains an internal implementation detail.
+
+### Available Exports
+
+```typescript
+// Better Auth client instance
+import { authClient, betterAuthConfig } from '@emperorrag/prisma-better-auth-db/client';
+
+// Better Auth server instance  
+import { authServer, betterAuthConfig } from '@emperorrag/prisma-better-auth-db/server';
+
+// TypeScript types only
+import type { AuthClient, AuthServer } from '@emperorrag/prisma-better-auth-db/types';
+```
+
+### Main Export
+
+```typescript
+// Exports both authClient and authServer
+import { authClient, authServer, betterAuthConfig } from '@emperorrag/prisma-better-auth-db';
+```
+
+## Prisma Client Usage
+
+The Prisma Client is generated internally and used by the Better Auth configuration. If you need direct database access, the Prisma Client is located at:
+
+```
+packages/prisma/better-auth-db/src/lib/prisma/generated/client/
+```
+
+However, this is **not exported** from the package. For database operations, consider:
+1. Using Better Auth's built-in methods
+2. Creating separate database service utilities
+3. Accessing the internal Prisma client path directly (development only)
 
 ## Initial Setup
 
 ```bash
-# Ensure PostgreSQL is running
-npx nx start postgresql
-
 # Generate Prisma Client (from monorepo root)
-cd tools/postgresql/better-auth-db
-pnpm run prisma:generate
+npx nx run prisma-better-auth-db:prisma-generate
+
+# Apply migrations
+npx nx run prisma-better-auth-db:prisma-migrate
 ```
 
-## Prisma Commands
+## Nx Prisma Commands
 
-All commands should be run from the `tools/postgresql/better-auth-db` directory or via Nx from the monorepo root.
+All Prisma commands are available as Nx targets:
 
 ```bash
 # Generate Prisma Client
-pnpm run prisma:generate
+npx nx run prisma-better-auth-db:prisma-generate
 
 # Create and apply migration
-pnpm run prisma:migrate
+npx nx run prisma-better-auth-db:prisma-migrate
 
 # Apply migrations (production)
-pnpm run prisma:migrate:deploy
+npx nx run prisma-better-auth-db:prisma-migrate-deploy
 
 # Open Prisma Studio
-pnpm run prisma:studio
+npx nx run prisma-better-auth-db:prisma-studio
 
 # Push schema without migration
-pnpm run prisma:push
+npx nx run prisma-better-auth-db:prisma-push
 
 # Reset database
-pnpm run prisma:reset
+npx nx run prisma-better-auth-db:prisma-reset
 
 # Validate schema
-pnpm run prisma:validate
+npx nx run prisma-better-auth-db:prisma-validate
 ```
 
-## Better Auth CLI
-
-```bash
-# Generate schema from Better Auth config
-pnpm run better-auth:generate
-
-# Apply Better Auth migrations
-pnpm run better-auth:migrate
-```
-
-## Using Prisma Client
+## Integration Example
 
 ```typescript
-import { PrismaClient } from '@my-projects-monorepo/better-auth-db/prisma/generated/client';
+// In your application
+import { authServer } from '@emperorrag/prisma-better-auth-db/server';
+import { authClient } from '@emperorrag/prisma-better-auth-db/client';
 
-const prisma = new PrismaClient();
+// Server-side (NestJS, Express, etc.)
+app.use('/api/auth/*', authServer.handler);
 
-// Query users
-const users = await prisma.user.findMany();
-
-// Create user
-const user = await prisma.user.create({
-  data: {
-    email: 'user@example.com',
-    name: 'John Doe',
-  },
-});
+// Client-side (Next.js, React, etc.)
+const session = await authClient.useSession();
 ```
 
-## Integration with Better Auth
+## Schema Management
 
-```typescript
-import { betterAuth } from 'better-auth';
-import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { PrismaClient } from '@my-projects-monorepo/better-auth-db/prisma/generated/client';
-
-const prisma = new PrismaClient();
-
-export const auth = betterAuth({
-  database: prismaAdapter(prisma, {
-    provider: 'postgresql',
-  }),
-  emailAndPassword: {
-    enabled: true,
-  },
-});
+The Prisma schema is located at:
+```
+packages/prisma/better-auth-db/prisma/schema.prisma
 ```
 
-## Schema Updates
+When updating the schema:
 
-When Better Auth plugins are added or configuration changes:
+1. Modify `schema.prisma`
+2. Run `npx nx run prisma-better-auth-db:prisma-migrate` to create migration
+3. Run `npx nx run prisma-better-auth-db:prisma-generate` to regenerate client
+4. Rebuild the package: `npx nx build prisma-better-auth-db`
 
-```bash
-# Regenerate schema with Better Auth CLI
-npx @better-auth/cli generate --config ../../../services/auth-service/src/auth.ts
+## Package Architecture
 
-# Create Prisma migration
-pnpm run prisma:migrate
-
-# Regenerate Prisma Client
-pnpm run prisma:generate
-```
+- **Internal**: Prisma Client generation and database schema
+- **Exported**: Better Auth server/client instances configured with Prisma adapter
+- **Not Exported**: Raw Prisma Client (use Better Auth methods instead)
 
 ## Connection String Format
 
 ```plaintext
-DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA&sslmode=MODE"
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA"
 ```
 
 Example:
-
 ```plaintext
 DATABASE_URL="postgresql://better_auth_user:password@localhost:5432/better_auth_db?schema=public"
-```
-
-For production with SSL:
-
-```plaintext
-DATABASE_URL="postgresql://user:password@host:5432/database?schema=public&sslmode=require"
 ```
 
 ## Directory Structure
 
 ```plaintext
-better-auth-db/
-├── .env                    # Local environment (gitignored)
-├── .env.example            # Environment template
-├── package.json            # npm scripts for Prisma
-├── README.md               # This file
-└── prisma/
-    ├── schema.prisma       # Prisma schema definition
-    ├── generated/          # Generated Prisma Client (gitignored)
-    └── migrations/         # Prisma migrations
+packages/prisma/better-auth-db/
+├── prisma/
+│   ├── schema.prisma           # Database schema
+│   └── migrations/             # Migration history
+├── src/
+│   ├── lib/
+│   │   ├── auth/
+│   │   │   └── auth.ts         # Better Auth configuration
+│   │   └── prisma/
+│   │       └── generated/      # Generated client (internal only)
+│   ├── client.ts               # Client export
+│   ├── server.ts               # Server export
+│   ├── types.ts                # Type exports
+│   └── index.ts                # Main export
+└── dist/                       # Built package (no Prisma client)
 ```
-
-## Troubleshooting
-
-### Prisma Client Generation Fails
-
-```bash
-# Ensure DATABASE_URL is set
-cat .env
-
-# Validate schema
-pnpm run prisma:validate
-
-# Regenerate client
-pnpm run prisma:generate
-```
-
-### Migration Issues
-
-```bash
-# Check database connection
-docker exec monorepo-postgres pg_isready -U postgres
-
-# Verify database exists
-docker exec monorepo-postgres psql -U postgres -c "\l" | grep better_auth
-
-# Reset and start fresh (development only)
-pnpm run prisma:reset
-```
-
-## Notes
-
-- All Prisma and Better Auth dependencies are installed at the monorepo root
-- Prisma Client is generated to `./prisma/generated/client` for isolation
-- Database connection details are in `.env` file (never commit this)
-- Use `.env.example` as a template for new environments
 
 ---
 
-**Last Updated**: October 13, 2025
-**Version**: 1.0.0
+**Last Updated**: November 15, 2025  
+**Version**: 0.0.1

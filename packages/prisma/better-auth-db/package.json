@@ -39,6 +39,7 @@
 		"scripts",
 		"dist",
 		"src",
+		"!src/lib/prisma/generated/**",
 		"!**/*.tsbuildinfo",
 		"!**/*.test.*",
 		"!**/*.spec.*"
