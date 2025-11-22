@@ -7,41 +7,6 @@
 import { defineConfig } from '../config/config.js';
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 
-// Create mock factories
-/*const createMockBetterAuth = () => vi.fn(() => ({
-  api: {},
-  $Infer: { Session: {} },
-}));
-
-const createMockPrismaAdapter = () => vi.fn(() => 'prisma-adapter');
-
-const createMockPlugins = () => ({
-  apiKey: vi.fn(() => ({ name: 'mock-plugin' })),
-  bearer: vi.fn(() => ({ name: 'mock-plugin' })),
-  jwt: vi.fn(() => ({ name: 'mock-plugin' })),
-  openAPI: vi.fn(() => ({ name: 'mock-plugin' })),
-  twoFactor: vi.fn(() => ({ name: 'mock-plugin' })),
-  admin: vi.fn(() => ({ name: 'mock-plugin' })),
-  organization: vi.fn(() => ({ name: 'mock-plugin' })),
-  username: vi.fn(() => ({ name: 'mock-plugin' })),
-  magicLink: vi.fn(() => ({ name: 'mock-plugin' })),
-  siwe: vi.fn(() => ({ name: 'mock-plugin' })),
-  genericOAuth: vi.fn(() => ({ name: 'mock-plugin' })),
-  oneTap: vi.fn(() => ({ name: 'mock-plugin' })),
-  anonymous: vi.fn(() => ({ name: 'mock-plugin' })),
-  phoneNumber: vi.fn(() => ({ name: 'mock-plugin' })),
-  emailOTP: vi.fn(() => ({ name: 'mock-plugin' })),
-  deviceAuthorization: vi.fn(() => ({ name: 'mock-plugin' })),
-  lastLoginMethod: vi.fn(() => ({ name: 'mock-plugin' })),
-  oneTimeToken: vi.fn(() => ({ name: 'mock-plugin' })),
-  multiSession: vi.fn(() => ({ name: 'mock-plugin' })),
-});
-
-// Initialize mocks
-const mockBetterAuth = createMockBetterAuth();
-const mockPrismaAdapter = createMockPrismaAdapter();
-const mockPlugins = createMockPlugins();*/
-
 // Hoist mocks to ensure they're available before imports
 const { mockBetterAuth, mockPrismaAdapter, mockPlugins } = vi.hoisted(() => ({
 	mockBetterAuth: vi.fn(),
@@ -81,7 +46,7 @@ vi.mock('better-auth/plugins', () => mockPlugins);
 
 // Import after mocking
 import { createAuthServer } from './server.js';
-import type { AuthServerOf, AuthServerSessionOf } from './server.ts';
+import type { AuthServerFor, AuthServerSessionFor } from './server.types.ts';
 
 describe('better-auth-utilities: server', () => {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -820,7 +785,7 @@ describe('better-auth-utilities: server', () => {
 			});
 
 			const server = createAuthServer(config, mockPrismaClient);
-			type Server = AuthServerOf<typeof server>;
+			type Server = AuthServerFor<typeof server>;
 
 			// This is a compile-time test - if it compiles, the type is correct
 			const _serverTypeTest: Server = server;
@@ -836,7 +801,7 @@ describe('better-auth-utilities: server', () => {
 			});
 
 			const server = createAuthServer(config, mockPrismaClient);
-			type Session = AuthServerSessionOf<typeof server>;
+			type Session = AuthServerSessionFor<typeof server>;
 
 			// This is a compile-time test
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,4 +1,14 @@
-import type { betterAuth } from 'better-auth';
+import type { betterAuth, BetterAuthOptions } from 'better-auth';
+
+/**
+ * Type helper to extract the database configuration type from Better Auth options.
+ *
+ * @pure
+ * @description Returns the type of the `database` property from BetterAuthOptions.
+ * This allows the configuration to accept any valid Better Auth database adapter or configuration,
+ * including native Node.js SQLite instances.
+ */
+export type AuthServerDatabaseOptions = BetterAuthOptions['database'];
 
 /**
  * Reserved keys on the Better Auth server instance that should not be included in the API surface type extraction.
