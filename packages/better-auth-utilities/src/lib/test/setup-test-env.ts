@@ -4,8 +4,9 @@ import { toNodeHandler } from 'better-auth/node';
 import { getMigrations } from 'better-auth/db';
 import { createAuthServer } from '../server/server.js';
 import { createAuthClient } from '../client/client.js';
+import type { ServerConfig } from '../config/config.js';
 
-export async function setupTestEnv() {
+export async function setupTestEnv(options?: { serverConfig?: Partial<ServerConfig> }) {
 	// 1. Create in-memory SQLite DB
 	const db = new DatabaseSync(':memory:');
 
@@ -19,6 +20,7 @@ export async function setupTestEnv() {
 				emailAndPassword: {
 					enabled: true,
 				},
+				...options?.serverConfig,
 			},
 			client: {
 				// Client config will be updated with actual URL later
