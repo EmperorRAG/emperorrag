@@ -78,4 +78,8 @@ export class SessionAuthServerDataMissingError extends Error {
  * @description Discriminated union of all possible error types that can occur
  * during session authentication operations.
  */
-export type SessionAuthServerError = SessionAuthServerDependenciesError | SessionAuthServerInputError | SessionAuthServerApiError | SessionAuthServerDataMissingError;
+export type SessionAuthServerError =
+	| SessionAuthServerDependenciesError
+	| SessionAuthServerInputError
+	| SessionAuthServerApiError
+	| SessionAuthServerDataMissingError;

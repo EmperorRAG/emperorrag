@@ -65,11 +65,7 @@ describe('getSession', () => {
 	it('should return null session when not authenticated', async () => {
 		const { authClient } = env;
 
-		const result = await Effect.runPromise(
-			Effect.either(
-				getSession({ authClient })()
-			)
-		);
+		const result = await Effect.runPromise(Effect.either(getSession({ authClient })()));
 
 		expect(Either.isRight(result)).toBeTruthy();
 		if (Either.isRight(result)) {
