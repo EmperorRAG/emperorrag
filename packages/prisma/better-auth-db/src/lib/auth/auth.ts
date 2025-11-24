@@ -10,25 +10,7 @@ import { defineConfig, createServerConfig, createClientConfig } from '@emperorra
 // Import Better Auth plugins
 import { username, jwt, bearer, admin, organization, /*emailOTP, twoFactor,*/ apiKey } from 'better-auth/plugins';
 import { createAuthServer } from '@emperorrag/better-auth-utilities/server/server';
-import type {
-	AuthServerSessionFor,
-	AuthServerFor,
-	AuthServerSessionUserSessionFor,
-	AuthServerSessionUserFor,
-	AuthServerApiFor,
-	AuthServerApiEndpointFor,
-	AuthServerApiEndpointKeyFor,
-} from '@emperorrag/better-auth-utilities/server/server.types';
 import { createAuthClient } from '@emperorrag/better-auth-utilities/client/client';
-import type { betterAuth } from 'better-auth';
-
-/**
- * Helper to extract body type from an endpoint.
- */
-export type AuthServerEndpointBodyFor<
-	T extends AuthServerFor<ReturnType<typeof betterAuth>>,
-	K extends AuthServerApiEndpointKeyFor<T>,
-> = AuthServerApiFor<T>[K] extends (args: { body: infer B; [key: string]: any }) => any ? B : never;
 
 // Initialize Prisma Client
 // Note: In production, this should be managed by the PrismaService
@@ -127,65 +109,6 @@ export const betterAuthConfig = defineConfig({
 export const authServer = createAuthServer(betterAuthConfig, prisma);
 
 /**
- * Strongly typed Better Auth server instance derived from {@link authServer}.
- */
-export type AuthServer = AuthServerFor<typeof authServer>;
-/**
- * Exposes the Better Auth server API surface for consumers needing endpoint contracts.
- */
-export type AuthServerApi = AuthServerApiFor<AuthServer>;
-/**
- * Represents any callable Better Auth server endpoint.
- */
-export type AuthServerApiEndpoint = AuthServerApiEndpointFor<AuthServer>;
-/**
- * Enumerates all available Better Auth server endpoint keys.
- */
-export type AuthServerApiEndpointKeys = AuthServerApiEndpointKeyFor<AuthServer>;
-export type AuthServerApiAccountInfoBody = AuthServerEndpointBodyFor<AuthServer, 'accountInfo'>;
-export type AuthServerApiCallbackOAuthBody = AuthServerEndpointBodyFor<AuthServer, 'callbackOAuth'>;
-export type AuthServerApiChangeEmailBody = AuthServerEndpointBodyFor<AuthServer, 'changeEmail'>;
-export type AuthServerApiChangePasswordBody = AuthServerEndpointBodyFor<AuthServer, 'changePassword'>;
-export type AuthServerApiDeleteUserBody = AuthServerEndpointBodyFor<AuthServer, 'deleteUser'>;
-export type AuthServerApiDeleteUserCallbackBody = AuthServerEndpointBodyFor<AuthServer, 'deleteUserCallback'>;
-export type AuthServerApiForgetPasswordBody = AuthServerEndpointBodyFor<AuthServer, 'forgetPassword'>;
-export type AuthServerApiForgetPasswordCallbackBody = AuthServerEndpointBodyFor<AuthServer, 'forgetPasswordCallback'>;
-export type AuthServerApiGetAccessTokenBody = AuthServerEndpointBodyFor<AuthServer, 'getAccessToken'>;
-export type AuthServerApiGetSessionBody = AuthServerEndpointBodyFor<AuthServer, 'getSession'>;
-export type AuthServerApiLinkSocialAccountBody = AuthServerEndpointBodyFor<AuthServer, 'linkSocialAccount'>;
-export type AuthServerApiListSessionsBody = AuthServerEndpointBodyFor<AuthServer, 'listSessions'>;
-export type AuthServerApiListUserAccountsBody = AuthServerEndpointBodyFor<AuthServer, 'listUserAccounts'>;
-export type AuthServerApiRefreshTokenBody = AuthServerEndpointBodyFor<AuthServer, 'refreshToken'>;
-export type AuthServerApiRequestPasswordResetBody = AuthServerEndpointBodyFor<AuthServer, 'requestPasswordReset'>;
-export type AuthServerApiRequestPasswordResetCallbackBody = AuthServerEndpointBodyFor<AuthServer, 'requestPasswordResetCallback'>;
-export type AuthServerApiResetPasswordBody = AuthServerEndpointBodyFor<AuthServer, 'resetPassword'>;
-export type AuthServerApiRevokeOtherSessionsBody = AuthServerEndpointBodyFor<AuthServer, 'revokeOtherSessions'>;
-export type AuthServerApiRevokeSessionBody = AuthServerEndpointBodyFor<AuthServer, 'revokeSession'>;
-export type AuthServerApiRevokeSessionsBody = AuthServerEndpointBodyFor<AuthServer, 'revokeSessions'>;
-export type AuthServerApiSendVerificationEmailBody = AuthServerEndpointBodyFor<AuthServer, 'sendVerificationEmail'>;
-export type AuthServerApiSetPasswordBody = AuthServerEndpointBodyFor<AuthServer, 'setPassword'>;
-export type AuthServerApiSignInEmailBody = AuthServerEndpointBodyFor<AuthServer, 'signInEmail'>;
-export type AuthServerApiSignInSocialBody = AuthServerEndpointBodyFor<AuthServer, 'signInSocial'>;
-export type AuthServerApiSignOutBody = AuthServerEndpointBodyFor<AuthServer, 'signOut'>;
-export type AuthServerApiSignUpEmailBody = AuthServerEndpointBodyFor<AuthServer, 'signUpEmail'>;
-export type AuthServerApiUnlinkAccountBody = AuthServerEndpointBodyFor<AuthServer, 'unlinkAccount'>;
-export type AuthServerApiUpdateUserBody = AuthServerEndpointBodyFor<AuthServer, 'updateUser'>;
-export type AuthServerApiVerifyEmailBody = AuthServerEndpointBodyFor<AuthServer, 'verifyEmail'>;
-
-/**
- * Captures the Better Auth session payload exposed by the server.
- */
-export type AuthServerSession = AuthServerSessionFor<AuthServer>;
-/**
- * Provides direct access to the session metadata portion of a Better Auth session.
- */
-export type AuthServerSessionUserSession = AuthServerSessionUserSessionFor<AuthServer>;
-/**
- * Extracts the user record embedded within a Better Auth session.
- */
-export type AuthServerSessionUser = AuthServerSessionUserFor<AuthServer>;
-
-/**
  * Creates a Better Auth client configured with the shared plugin suite and base settings.
  *
  * @remarks
@@ -194,11 +117,3 @@ export type AuthServerSessionUser = AuthServerSessionUserFor<AuthServer>;
  * the microservice.
  */
 export const authClient = createAuthClient(betterAuthConfig);
-
-/**
- * Type alias for the Better Auth client instance.
- *
- * @remarks
- * Consumers can use this type or `typeof authClient` directly for type inference.
- */
-export type AuthClient = typeof authClient;
