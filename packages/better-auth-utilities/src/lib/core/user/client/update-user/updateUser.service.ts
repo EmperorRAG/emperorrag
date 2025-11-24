@@ -11,7 +11,7 @@ import type { UpdateUserProps } from './updateUser.types.js';
  * @param deps - Dependencies bundle containing the Better Auth client
  * @returns Curried function accepting input and returning an Effect
  */
-export const updateUser: UpdateUserProps = (deps) => (input) => {
+export const updateUserClient: UpdateUserProps = (deps) => (input) => {
 	const { authClient } = deps;
 
 	return Effect.tryPromise({

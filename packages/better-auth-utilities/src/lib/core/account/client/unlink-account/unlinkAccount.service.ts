@@ -11,7 +11,7 @@ import type { UnlinkAccountProps } from './unlinkAccount.types.js';
  * @param deps - Dependencies bundle containing the Better Auth client
  * @returns Curried function accepting input and returning an Effect
  */
-export const unlinkAccount: UnlinkAccountProps = (deps) => (input) => {
+export const unlinkAccountClient: UnlinkAccountProps = (deps) => (input) => {
 	const { authClient } = deps;
 
 	return Effect.tryPromise({

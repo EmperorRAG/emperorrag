@@ -36,7 +36,7 @@ import { EmailAuthApiError } from '../shared/email.error.js';
  * @param deps - Dependencies bundle containing the Better Auth client
  * @returns Curried function accepting sign-up input and returning an Effect
  */
-export const signUpEmail: signUpEmailProps = (deps) => (input) => {
+export const signUpEmailClient: signUpEmailProps = (deps) => (input) => {
 	const { authClient } = deps;
 
 	return Effect.tryPromise({

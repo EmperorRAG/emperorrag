@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { Effect, Either } from 'effect';
-import { updateUser } from './updateUser.service.js';
+import { updateUserClient } from './updateUser.service.js';
 import { setupTestEnv } from '../../../../test/setup-test-env.js';
 
 describe('updateUser', () => {
@@ -39,7 +39,7 @@ describe('updateUser', () => {
 		// 3. Update user
 		const result = await Effect.runPromise(
 			Effect.either(
-				updateUser({ authClient })({
+				updateUserClient({ authClient })({
 					name: newName,
 					fetchOptions: {
 						headers: {
@@ -78,7 +78,7 @@ describe('updateUser', () => {
 
 		const result = await Effect.runPromise(
 			Effect.either(
-				updateUser({ authClient })({
+				updateUserClient({ authClient })({
 					name: newName,
 				} as any)
 			)

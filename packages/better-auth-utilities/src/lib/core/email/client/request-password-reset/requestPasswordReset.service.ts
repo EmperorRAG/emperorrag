@@ -34,7 +34,7 @@ import { EmailAuthApiError } from '../shared/email.error.js';
  * @param deps - Dependencies bundle containing the Better Auth client
  * @returns Curried function accepting request password reset input and returning an Effect
  */
-export const requestPasswordReset: requestPasswordResetProps = (deps) => (input) => {
+export const requestPasswordResetClient: requestPasswordResetProps = (deps) => (input) => {
 	const { authClient } = deps;
 
 	return Effect.tryPromise({
