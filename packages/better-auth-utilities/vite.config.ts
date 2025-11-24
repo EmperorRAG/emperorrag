@@ -1,9 +1,34 @@
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
+import * as fs from 'fs';
 import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 import externalsJson from './externals.json' with { type: 'json' };
 import { externalizePackages, toExternalizeConfig } from './externalize-packages.js';
+
+function getEntries(dir: string, baseDir: string = dir): Record<string, string> {
+	const entries: Record<string, string> = {};
+	if (!fs.existsSync(dir)) return entries;
+
+	const files = fs.readdirSync(dir);
+
+	for (const file of files) {
+		const fullPath = path.join(dir, file);
+		const stat = fs.statSync(fullPath);
+
+		if (stat.isDirectory()) {
+			if (file === 'test' || file === '__tests__') continue;
+			Object.assign(entries, getEntries(fullPath, baseDir));
+		} else if (stat.isFile() && file.endsWith('.ts') && !file.endsWith('.d.ts')) {
+			if (file.endsWith('.spec.ts') || file.endsWith('.test.ts') || file === 'setup-test-env.ts') continue;
+
+			const relativePath = path.relative(baseDir, fullPath);
+			const entryName = relativePath.replace(/\.ts$/, '').replace(/\\/g, '/');
+			entries[entryName] = fullPath;
+		}
+	}
+	return entries;
+}
 
 export default defineConfig(() => ({
 	root: __dirname,
@@ -13,7 +38,7 @@ export default defineConfig(() => ({
 		dts({
 			entryRoot: './src',
 			tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
-			rollupTypes: true,
+			rollupTypes: false,
 			staticImport: true,
 		}),
 	],
@@ -34,24 +59,8 @@ export default defineConfig(() => ({
 			esmExternals: true,
 		},
 		lib: {
-			entry: {
-				index: path.resolve(__dirname, './src/index.ts'),
-				client: path.resolve(__dirname, './src/lib/client/client.ts'),
-				server: path.resolve(__dirname, './src/lib/server/server.ts'),
-				config: path.resolve(__dirname, './src/lib/config/config.ts'),
-			},
-			fileName: (_format: string, entryName: string) => {
-				switch (entryName) {
-					case 'client':
-						return 'lib/client/client.js';
-					case 'server':
-						return 'lib/server/server.js';
-					case 'config':
-						return 'lib/config/config.js';
-					default:
-						return 'index.js';
-				}
-			},
+			entry: getEntries(path.resolve(__dirname, 'src')),
+			fileName: (_format: string, entryName: string) => `${entryName}.js`,
 			formats: ['es' as const],
 		},
 		rollupOptions: {

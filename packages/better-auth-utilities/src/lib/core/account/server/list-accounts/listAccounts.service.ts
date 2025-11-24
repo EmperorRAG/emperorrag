@@ -1,4 +1,4 @@
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import { AccountAuthServerApiError } from '../shared/account.error.js';
 import type { ListAccountsServerProps } from './listAccounts.types.js';
 

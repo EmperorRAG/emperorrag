@@ -118,7 +118,7 @@ export type SignInEmailServerResult<T extends AuthServerFor<ReturnType<typeof be
  *
  * @example
  * ```typescript
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  * import { signInEmailServer } from './signInEmail.service.js';
  *
  * const program = Effect.gen(function* () {

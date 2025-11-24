@@ -3,7 +3,7 @@
  * @description Server-side service for send verification email operation using Better Auth API.
  */
 
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
 import type { sendVerificationEmailServerProps } from './sendVerificationEmail.types.js';
 import { EmailAuthServerApiError } from '../shared/email.error.js';
@@ -42,7 +42,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  *
  * @example
  * ```typescript
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  * import { sendVerificationEmailServer } from './sendVerificationEmail.service.js';
  *
  * // Create the send verification email program
@@ -64,7 +64,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  * @example
  * ```typescript
  * // Handle already verified email
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  *
  * const program = sendVerificationEmailServer({ authServer })({
  *   body: { email: 'verified@example.com' }

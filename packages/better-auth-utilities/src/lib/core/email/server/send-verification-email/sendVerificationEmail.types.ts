@@ -126,7 +126,7 @@ export type SendVerificationEmailServerResult<T extends AuthServerFor<ReturnType
  *
  * @example
  * ```typescript
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  * import { sendVerificationEmailServer } from './sendVerificationEmail.service.js';
  *
  * const program = Effect.gen(function* () {

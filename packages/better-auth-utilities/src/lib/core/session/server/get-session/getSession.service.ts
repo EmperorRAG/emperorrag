@@ -1,4 +1,4 @@
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import { SessionAuthServerApiError } from '../shared/session.error.js';
 import type { GetSessionServerProps } from './getSession.types.js';
 

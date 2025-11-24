@@ -3,7 +3,7 @@
  * @description Server-side service for social sign-in operation using Better Auth API.
  */
 
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
 import type { SignInSocialServerProps } from './signIn.types.js';
 import { OAuthAuthServerApiError } from '../shared/oauth.error.js';

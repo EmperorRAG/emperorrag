@@ -1,4 +1,4 @@
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import { AccountAuthApiError } from '../shared/account.error.js';
 import type { LinkSocialProps } from './linkSocial.types.js';
 

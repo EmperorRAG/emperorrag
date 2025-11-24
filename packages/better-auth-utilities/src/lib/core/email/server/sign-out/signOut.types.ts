@@ -107,7 +107,7 @@ export type SignOutServerResult<T extends AuthServerFor<ReturnType<typeof better
  *
  * @example
  * ```typescript
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  * import { signOutServer } from './signOut.service.js';
  *
  * const program = Effect.gen(function* () {

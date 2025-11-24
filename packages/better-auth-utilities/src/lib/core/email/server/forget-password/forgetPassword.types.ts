@@ -129,7 +129,7 @@ export type ForgetPasswordServerResult<T extends AuthServerFor<ReturnType<typeof
  *
  * @example
  * ```typescript
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  * import { forgetPasswordServer } from './forgetPassword.service.js';
  *
  * const program = Effect.gen(function* () {

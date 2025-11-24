@@ -60,7 +60,7 @@ export interface FeatureProps<T extends AuthClientFor<ReturnType<typeof createAu
 3. **Pure**: Mark functions with `@pure`.
 
 ```typescript
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import type { FeatureProps } from './featureName.types.js';
 import { DomainAuthApiError } from '../shared/domain.error.js';
 

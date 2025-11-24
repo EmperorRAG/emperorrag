@@ -3,7 +3,7 @@
  * @description Server-side service for sign-out operation using Better Auth API.
  */
 
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
 import type { signOutServerProps } from './signOut.types.js';
 import { EmailAuthServerApiError } from '../shared/email.error.js';
@@ -43,7 +43,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  *
  * @example
  * ```typescript
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  * import { headers } from 'next/headers';
  * import { signOutServer } from './signOut.service.js';
  *
@@ -63,7 +63,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  * @example
  * ```typescript
  * // Handle expired session gracefully
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  *
  * const program = signOutServer({ authServer })({
  *   headers: requestHeaders
@@ -83,7 +83,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  * @example
  * ```typescript
  * // Sign-out with cleanup actions
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  *
  * const signOutWithCleanup = Effect.gen(function* () {
  *   // Sign out user

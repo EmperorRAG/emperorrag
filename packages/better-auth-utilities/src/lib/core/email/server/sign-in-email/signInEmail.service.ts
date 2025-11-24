@@ -3,7 +3,7 @@
  * @description Server-side service for sign-in email operation using Better Auth API.
  */
 
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
 import type { signInEmailServerProps } from './signInEmail.types.js';
 import { EmailAuthServerApiError } from '../shared/email.error.js';
@@ -42,7 +42,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  *
  * @example
  * ```typescript
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  * import { headers } from 'next/headers';
  * import { signInEmailServer } from './signInEmail.service.js';
  *
@@ -89,7 +89,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  * @example
  * ```typescript
  * // Composition with other operations
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  *
  * const signInAndFetchProfile = Effect.gen(function* () {
  *   // Sign in
