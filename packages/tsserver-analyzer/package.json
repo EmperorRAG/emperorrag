@@ -1,0 +1,28 @@
+{
+	"name": "@emperorrag/tsserver-analyzer",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"bin": {
+		"tsserver-analyzer": "./src/index.ts"
+	},
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"@emperorrag/source": "./src/index.ts",
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		}
+	},
+	"dependencies": {
+		"ts-node": "^10.9.1",
+		"typescript": "^5.0.0"
+	},
+	"devDependencies": {
+		"@types/node": "^20.0.0"
+	}
+}
