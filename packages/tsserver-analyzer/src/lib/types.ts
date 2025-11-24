@@ -23,7 +23,7 @@ export interface ResponseArgs {
 
 export interface PerformanceStat {
 	name: string;
-	description?: string;
+	resource?: string;
 	count: number;
 	totalDurationMicros: number;
 	maxDurationMicros: number;
@@ -31,7 +31,7 @@ export interface PerformanceStat {
 
 export interface SlowOperation {
 	name: string;
-	description?: string;
+	resource?: string;
 	durationMs: number;
 	timestamp: number;
 	args?: any;

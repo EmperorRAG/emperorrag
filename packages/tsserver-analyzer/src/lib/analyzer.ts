@@ -22,16 +22,16 @@ export class Analyzer {
 				const startTs = this.pendingRequests.get(reqSeq)!;
 				const durationMicros = event.ts - startTs;
 				const command = event.args.command || 'unknown';
-				const desc = this.getDescription(event.args);
-				const key = desc ? `${command} (${desc})` : command;
+				const resource = this.getResource(event.args);
+				const key = resource ? `${command} (${resource})` : command;
 
-				this.recordStat(this.commandStats, key, command, desc, durationMicros);
+				this.recordStat(this.commandStats, key, command, resource, durationMicros);
 
 				if (durationMicros > 500000) {
 					// > 500ms
 					this.slowOps.push({
 						name: `Command: ${command}`,
-						description: this.getDescription(event.args),
+						resource: this.getResource(event.args),
 						durationMs: durationMicros / 1000,
 						timestamp: event.ts,
 						args: event.args,
@@ -43,16 +43,16 @@ export class Analyzer {
 
 		// 2. Handle Internal Trace Events (ph: 'X' has duration)
 		if (event.ph === 'X' && event.dur !== undefined) {
-			const desc = this.getDescription(event.args);
-			const key = desc ? `${event.name} (${desc})` : event.name;
+			const resource = this.getResource(event.args);
+			const key = resource ? `${event.name} (${resource})` : event.name;
 
-			this.recordStat(this.internalStats, key, event.name, desc, event.dur);
+			this.recordStat(this.internalStats, key, event.name, resource, event.dur);
 
 			if (event.dur > 500000) {
 				// > 500ms
 				this.slowOps.push({
 					name: `Internal: ${event.name}`,
-					description: this.getDescription(event.args),
+					resource: this.getResource(event.args),
 					durationMs: event.dur / 1000,
 					timestamp: event.ts,
 					args: event.args,
@@ -61,7 +61,7 @@ export class Analyzer {
 		}
 	}
 
-	private getDescription(args: any): string | undefined {
+	private getResource(args: any): string | undefined {
 		if (!args) return undefined;
 		if (typeof args.name === 'string') return args.name;
 		if (typeof args.file === 'string') return args.file;
@@ -71,8 +71,8 @@ export class Analyzer {
 		return undefined;
 	}
 
-	private recordStat(map: Map<string, PerformanceStat>, key: string, name: string, description: string | undefined, durationMicros: number) {
-		const stat = map.get(key) || { name, description, count: 0, totalDurationMicros: 0, maxDurationMicros: 0 };
+	private recordStat(map: Map<string, PerformanceStat>, key: string, name: string, resource: string | undefined, durationMicros: number) {
+		const stat = map.get(key) || { name, resource, count: 0, totalDurationMicros: 0, maxDurationMicros: 0 };
 		stat.count++;
 		stat.totalDurationMicros += durationMicros;
 		stat.maxDurationMicros = Math.max(stat.maxDurationMicros, durationMicros);
