@@ -5,22 +5,30 @@
  */
 
 import { PrismaClient } from '@prisma/client';
-import { defineConfig, createServerConfig, createClientConfig } from '@emperorrag/better-auth-utilities/config';
+import { defineConfig, createServerConfig, createClientConfig } from '@emperorrag/better-auth-utilities/config/config';
 
 // Import Better Auth plugins
 import { username, jwt, bearer, admin, organization, /*emailOTP, twoFactor,*/ apiKey } from 'better-auth/plugins';
-import { createAuthServer } from '@emperorrag/better-auth-utilities/server';
+import { createAuthServer } from '@emperorrag/better-auth-utilities/server/server';
 import type {
-	AuthServerSessionOf,
-	AuthServerOf,
-	AuthServerSessionUserSessionOf,
-	AuthServerSessionUserOf,
-	AuthServerApiOf,
-	AuthServerApiEndpointOf,
-	AuthServerApiEndpointKeyOf,
-	AuthServerEndpointBodyFor,
-} from '@emperorrag/better-auth-utilities/server';
-import { createAuthClient } from '@emperorrag/better-auth-utilities/client';
+	AuthServerSessionFor,
+	AuthServerFor,
+	AuthServerSessionUserSessionFor,
+	AuthServerSessionUserFor,
+	AuthServerApiFor,
+	AuthServerApiEndpointFor,
+	AuthServerApiEndpointKeyFor,
+} from '@emperorrag/better-auth-utilities/server/server.types';
+import { createAuthClient } from '@emperorrag/better-auth-utilities/client/client';
+import type { betterAuth } from 'better-auth';
+
+/**
+ * Helper to extract body type from an endpoint.
+ */
+export type AuthServerEndpointBodyFor<
+	T extends AuthServerFor<ReturnType<typeof betterAuth>>,
+	K extends AuthServerApiEndpointKeyFor<T>,
+> = AuthServerApiFor<T>[K] extends (args: { body: infer B; [key: string]: any }) => any ? B : never;
 
 // Initialize Prisma Client
 // Note: In production, this should be managed by the PrismaService
@@ -121,19 +129,19 @@ export const authServer = createAuthServer(betterAuthConfig, prisma);
 /**
  * Strongly typed Better Auth server instance derived from {@link authServer}.
  */
-export type AuthServer = AuthServerOf<typeof authServer>;
+export type AuthServer = AuthServerFor<typeof authServer>;
 /**
  * Exposes the Better Auth server API surface for consumers needing endpoint contracts.
  */
-export type AuthServerApi = AuthServerApiOf<AuthServer>;
+export type AuthServerApi = AuthServerApiFor<AuthServer>;
 /**
  * Represents any callable Better Auth server endpoint.
  */
-export type AuthServerApiEndpoint = AuthServerApiEndpointOf<AuthServer>;
+export type AuthServerApiEndpoint = AuthServerApiEndpointFor<AuthServer>;
 /**
  * Enumerates all available Better Auth server endpoint keys.
  */
-export type AuthServerApiEndpointKeys = AuthServerApiEndpointKeyOf<AuthServer>;
+export type AuthServerApiEndpointKeys = AuthServerApiEndpointKeyFor<AuthServer>;
 export type AuthServerApiAccountInfoBody = AuthServerEndpointBodyFor<AuthServer, 'accountInfo'>;
 export type AuthServerApiCallbackOAuthBody = AuthServerEndpointBodyFor<AuthServer, 'callbackOAuth'>;
 export type AuthServerApiChangeEmailBody = AuthServerEndpointBodyFor<AuthServer, 'changeEmail'>;
@@ -167,15 +175,15 @@ export type AuthServerApiVerifyEmailBody = AuthServerEndpointBodyFor<AuthServer,
 /**
  * Captures the Better Auth session payload exposed by the server.
  */
-export type AuthServerSession = AuthServerSessionOf<AuthServer>;
+export type AuthServerSession = AuthServerSessionFor<AuthServer>;
 /**
  * Provides direct access to the session metadata portion of a Better Auth session.
  */
-export type AuthServerSessionUserSession = AuthServerSessionUserSessionOf<AuthServer>;
+export type AuthServerSessionUserSession = AuthServerSessionUserSessionFor<AuthServer>;
 /**
  * Extracts the user record embedded within a Better Auth session.
  */
-export type AuthServerSessionUser = AuthServerSessionUserOf<AuthServer>;
+export type AuthServerSessionUser = AuthServerSessionUserFor<AuthServer>;
 
 /**
  * Creates a Better Auth client configured with the shared plugin suite and base settings.

@@ -32,6 +32,12 @@
 			"types": "./dist/types.d.ts",
 			"import": "./dist/types.js",
 			"default": "./dist/types.js"
+		},
+		"./*": {
+			"@emperorrag/source": "./src/lib/*.ts",
+			"types": "./dist/lib/*.d.ts",
+			"import": "./dist/lib/*.js",
+			"default": "./dist/lib/*.js"
 		}
 	},
 	"files": [

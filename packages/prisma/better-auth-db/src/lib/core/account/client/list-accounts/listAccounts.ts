@@ -1,0 +1,4 @@
+import { listAccounts as listAccountsUtility } from '@emperorrag/better-auth-utilities/core/account/client/list-accounts/listAccounts';
+import { authClient } from '../../../../auth/auth';
+
+export const listAccounts = listAccountsUtility({ authClient });
