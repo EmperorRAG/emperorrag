@@ -6,7 +6,7 @@
 export type { SendVerificationEmailInput, SendVerificationEmailResult, sendVerificationEmailProps } from './sendVerificationEmail.types.js';
 
 export { sendVerificationEmailInputSchema } from './sendVerificationEmail.schema.js';
-export { sendVerificationEmail } from './sendVerificationEmail.service.js';
+export { sendVerificationEmailClient } from './sendVerificationEmail.service.js';
 
 // Controller exports (when implemented)
 // export { sendVerificationEmailController } from './sendVerificationEmail.controller.js';

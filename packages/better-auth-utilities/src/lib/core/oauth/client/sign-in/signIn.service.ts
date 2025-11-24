@@ -11,7 +11,7 @@ import type { SignInSocialProps } from './signIn.types.js';
  * @param deps - Dependencies bundle containing the Better Auth client
  * @returns Curried function accepting input and returning an Effect
  */
-export const signInSocial: SignInSocialProps = (deps) => (input) => {
+export const signInSocialClient: SignInSocialProps = (deps) => (input) => {
 	const { authClient } = deps;
 
 	return Effect.tryPromise({

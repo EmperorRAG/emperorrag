@@ -11,7 +11,7 @@ import type { ListAccountsProps } from './listAccounts.types.js';
  * @param deps - Dependencies bundle containing the Better Auth client
  * @returns Curried function accepting input and returning an Effect
  */
-export const listAccounts: ListAccountsProps = (deps) => (input) => {
+export const listAccountsClient: ListAccountsProps = (deps) => () => {
 	const { authClient } = deps;
 
 	return Effect.tryPromise({

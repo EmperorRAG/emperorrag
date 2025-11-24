@@ -11,7 +11,7 @@ import type { GetSessionProps } from './getSession.types.js';
  * @param deps - Dependencies bundle containing the Better Auth client
  * @returns Curried function accepting input and returning an Effect
  */
-export const getSession: GetSessionProps = (deps) => (input) => {
+export const getSessionClient: GetSessionProps = (deps) => () => {
 	const { authClient } = deps;
 
 	return Effect.tryPromise({
