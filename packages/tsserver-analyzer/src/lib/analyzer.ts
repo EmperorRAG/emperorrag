@@ -17,6 +17,13 @@ export class Analyzer {
 	public internalStats = new Map<string, PerformanceStat>();
 	public slowOps: SlowOperation[] = [];
 
+	public resetFileSpecificState() {
+		this.pendingRequests.clear();
+		this.lastChatBlockTimestamp = 0;
+		this.inferredProjectFiles.clear();
+		this.recentFindSourceFiles = [];
+	}
+
 	processEvent(event: TraceEvent) {
 		// Track chat block activity
 		if (this.isChatBlock(event.args)) {

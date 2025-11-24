@@ -36,7 +36,7 @@ function loadTsConfigPaths(): string[] {
 	return [];
 }
 
-function findLatestTraceFile(): string | null {
+function findSessionTraceFiles(): string[] {
 	let logsDir = '';
 	if (process.platform === 'win32') {
 		logsDir = path.join(process.env.APPDATA || '', 'Code', 'logs');
@@ -47,7 +47,8 @@ function findLatestTraceFile(): string | null {
 	}
 
 	if (!fs.existsSync(logsDir)) {
-		return null;
+		console.log(`Logs directory not found: ${logsDir}`);
+		return [];
 	}
 
 	// Get all session directories (YYYYMMDDTHHMMSS)
@@ -57,8 +58,17 @@ function findLatestTraceFile(): string | null {
 		.sort()
 		.reverse(); // Newest first
 
+	if (sessions.length === 0) {
+		console.log(`No session directories found in ${logsDir}`);
+		return [];
+	}
+
+	// Iterate through sessions until we find one with trace files
 	for (const session of sessions) {
 		const sessionDir = path.join(logsDir, session);
+		// console.log(`Checking session: ${sessionDir}`);
+		const traceFiles: string[] = [];
+
 		// Look for window folders
 		const windows = fs.readdirSync(sessionDir).filter((name) => name.startsWith('window'));
 
@@ -66,62 +76,74 @@ function findLatestTraceFile(): string | null {
 			const tsLogDir = path.join(sessionDir, window, 'exthost', 'vscode.typescript-language-features');
 			if (fs.existsSync(tsLogDir)) {
 				// Look for tsserver-log-* folders
-				const serverLogs = fs
-					.readdirSync(tsLogDir)
-					.filter((name) => name.startsWith('tsserver-log-'))
-					.sort()
-					.reverse();
+				const serverLogs = fs.readdirSync(tsLogDir).filter((name) => name.startsWith('tsserver-log-'));
 
 				for (const serverLog of serverLogs) {
 					const traceDir = path.join(tsLogDir, serverLog);
-					const traceFiles = fs.readdirSync(traceDir).filter((name) => name.startsWith('trace.') && name.endsWith('.json'));
+					const files = fs.readdirSync(traceDir).filter((name) => name.startsWith('trace.') && name.endsWith('.json'));
 
-					if (traceFiles.length > 0) {
-						// Return the first one found in the newest session
-						return path.join(traceDir, traceFiles[0]);
+					for (const file of files) {
+						traceFiles.push(path.join(traceDir, file));
 					}
 				}
 			}
 		}
-	}
-	return null;
-}
 
-async function main() {
-	let logFilePath = process.argv[2];
-
-	if (!logFilePath) {
-		console.log('No trace file provided. Attempting to find the latest VS Code TSServer trace...');
-		const latestTrace = findLatestTraceFile();
-		if (latestTrace) {
-			logFilePath = latestTrace;
-			console.log(`Found latest trace file: ${logFilePath}`);
+		if (traceFiles.length > 0) {
+			console.log(`Found ${traceFiles.length} trace files in session ${session}`);
+			return traceFiles;
 		}
 	}
 
-	if (!logFilePath || !fs.existsSync(logFilePath)) {
-		console.error('Please provide a valid path to trace.json');
-		console.error('Usage: npx ts-node packages/tsserver-analyzer/src/index.ts <path-to-trace>');
-		process.exit(1);
+	return [];
+}
+
+async function main() {
+	let logFilePaths: string[] = [];
+
+	if (process.argv[2]) {
+		logFilePaths = [process.argv[2]];
+	} else {
+		console.log('No trace file provided. Attempting to find all trace files from the latest VS Code session...');
+		logFilePaths = findSessionTraceFiles();
+		if (logFilePaths.length > 0) {
+			console.log(`Found ${logFilePaths.length} trace files.`);
+			logFilePaths.forEach((p) => console.log(` - ${p}`));
+		}
 	}
 
-	console.log(`Analyzing trace ${logFilePath}...`);
+	if (logFilePaths.length === 0) {
+		console.error('Please provide a valid path to trace.json or ensure VS Code logs exist.');
+		console.error('Usage: npx ts-node packages/tsserver-analyzer/src/index.ts [path-to-trace]');
+		process.exit(1);
+	}
 
 	const mappedPaths = loadTsConfigPaths();
 	console.log(`Loaded ${mappedPaths.length} path mappings from tsconfig.base.json`);
 
-	const fileStream = fs.createReadStream(logFilePath);
-	const rl = readline.createInterface({
-		input: fileStream,
-		crlfDelay: Infinity,
-	});
-
 	const analyzer = new Analyzer(mappedPaths);
 
-	for await (const line of rl) {
-		const event = parseTraceLine(line);
-		if (event) {
-			analyzer.processEvent(event);
+	for (const logFilePath of logFilePaths) {
+		if (!fs.existsSync(logFilePath)) {
+			console.warn(`Skipping missing file: ${logFilePath}`);
+			continue;
+		}
+
+		console.log(`Analyzing ${logFilePath}...`);
+		// Reset state specific to a single process/file to avoid cross-contamination
+		analyzer.resetFileSpecificState();
+
+		const fileStream = fs.createReadStream(logFilePath);
+		const rl = readline.createInterface({
+			input: fileStream,
+			crlfDelay: Infinity,
+		});
+
+		for await (const line of rl) {
+			const event = parseTraceLine(line);
+			if (event) {
+				analyzer.processEvent(event);
+			}
 		}
 	}
 
