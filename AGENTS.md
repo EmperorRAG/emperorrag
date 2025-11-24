@@ -10,6 +10,7 @@
 
 - Start with `llms.md` for a high-level map of documentation and subproject indexes.
 - When you work within a project directory, you **must** read that project's `AGENTS.md` for authoritative context and workflows before making changes.
+- Use the `ListFiles.sh` script provided in the context to retrieve nested folder structures.
 - Current project guides:
   - [`apps/better-auth-nest-js-microservice/AGENTS.md`](apps/better-auth-nest-js-microservice/AGENTS.md): Better Auth NestJS service setup, Nx targets, Prisma guidance, and endpoint inventory.
 
