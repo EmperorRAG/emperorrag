@@ -5,6 +5,8 @@ export class Analyzer {
 	private pendingRequests = new Map<number, number>();
 	private lastChatBlockTimestamp = 0;
 	private pathMappedFiles = new Set<string>();
+	private inferredProjectFiles = new Map<string, string[]>();
+	private recentFindSourceFiles: { ts: number; file: string }[] = [];
 
 	constructor(pathMappedFiles: string[] = []) {
 		// Normalize paths to lowercase for case-insensitive comparison on Windows
@@ -19,6 +21,13 @@ export class Analyzer {
 		// Track chat block activity
 		if (this.isChatBlock(event.args)) {
 			this.lastChatBlockTimestamp = event.ts;
+		}
+
+		// Track files in inferred projects
+		if (event.name === 'projectInfo' && event.args?.projectName?.includes('inferredProject')) {
+			if (event.args.fileNames && Array.isArray(event.args.fileNames)) {
+				this.inferredProjectFiles.set(event.args.projectName, event.args.fileNames);
+			}
 		}
 
 		// 1. Handle Request/Response Pairs (Latency)
@@ -61,12 +70,42 @@ export class Analyzer {
 			if (event.name === 'updateGraph' && resource?.includes('inferredProject')) {
 				if (this.lastChatBlockTimestamp >= event.ts && this.lastChatBlockTimestamp <= event.ts + event.dur) {
 					resource += ' (Triggered by Chat Code Block)';
+				} else {
+					// Try to find what files are in this inferred project
+					// Strategy 1: Check projectInfo (if available)
+					const files = this.inferredProjectFiles.get(resource);
+					if (files && files.length > 0) {
+						const firstFile = files[0];
+						const fileName = firstFile.split('/').pop() || firstFile;
+						resource += ` (Contains: ${fileName}${files.length > 1 ? ' + ' + (files.length - 1) + ' more' : ''})`;
+					} else {
+						// Strategy 2: Check recent findSourceFile events within this updateGraph window
+						const duration = event.dur || 0;
+						const containedFiles = this.recentFindSourceFiles.filter((f) => f.ts >= event.ts && f.ts <= event.ts + duration).map((f) => f.file);
+
+						if (containedFiles.length > 0) {
+							// Deduplicate
+							const uniqueFiles = Array.from(new Set(containedFiles));
+							const firstFile = uniqueFiles[0];
+							const fileName = firstFile.split('/').pop() || firstFile;
+							resource += ` (Contains: ${fileName}${uniqueFiles.length > 1 ? ' + ' + (uniqueFiles.length - 1) + ' more' : ''})`;
+						}
+					}
 				}
 			}
 
 			// Check if this file is a path-mapped file from tsconfig
-			if (event.name === 'findSourceFile' && resource && this.isPathMapped(resource)) {
-				resource += ' (Triggered by tsconfig paths)';
+			if (event.name === 'findSourceFile' && resource) {
+				if (this.isPathMapped(resource)) {
+					resource += ' (Triggered by tsconfig paths)';
+				}
+				// Track for inferred project correlation
+				this.recentFindSourceFiles.push({ ts: event.ts, file: resource });
+				// Prune old events (older than 10 seconds to keep memory low, assuming updateGraph isn't longer than that)
+				const pruneThreshold = event.ts - 10000000;
+				if (this.recentFindSourceFiles.length > 0 && this.recentFindSourceFiles[0].ts < pruneThreshold) {
+					this.recentFindSourceFiles = this.recentFindSourceFiles.filter((f) => f.ts >= pruneThreshold);
+				}
 			}
 
 			const key = resource ? `${event.name} (${resource})` : event.name;

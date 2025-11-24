@@ -3,7 +3,8 @@
 	"compilerOptions": {
 		"outDir": "./out-tsc/vitest",
 		"types": ["vitest/globals", "vitest/importMeta", "vite/client", "node", "vitest"],
-		"forceConsistentCasingInFileNames": true
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true
 	},
 	"include": [
 		"./vitest.config.ts",
