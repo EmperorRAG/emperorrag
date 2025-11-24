@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
 import type { ReactElement } from 'react';
 
-import Datagrid from './datagrid';
+import { Datagrid } from './datagrid';
 import type { DatagridColumn } from './datagrid.types';
 
 describe('Datagrid', () => {
