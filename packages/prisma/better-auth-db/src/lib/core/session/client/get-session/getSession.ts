@@ -1,4 +1,4 @@
 import { getSessionClient as getSessionUtility } from '@emperorrag/better-auth-utilities/core/session/client/get-session/getSession';
-import { authClient } from '../../../../auth/auth';
+import { authClient } from '../../../../client/client';
 
 export const getSession = getSessionUtility({ authClient });

@@ -1,1 +1,2 @@
-export { authServer, betterAuthConfig } from './lib/auth/auth';
+export { authServer } from './lib/server/server';
+export { betterAuthConfig } from './lib/config/config';

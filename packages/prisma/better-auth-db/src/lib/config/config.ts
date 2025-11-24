@@ -1,20 +1,11 @@
 /**
- * @file services/my-nest-js-auth-microservice/src/lib/auth.ts
+ * @file packages/prisma/better-auth-db/src/lib/config/config.ts
  * @description Better Auth configuration with comprehensive plugin support.
  * Uses the adapter pattern from better-auth-utilities for NestJS integration.
  */
 
-import { PrismaClient } from '@prisma/client';
 import { defineConfig, createServerConfig, createClientConfig } from '@emperorrag/better-auth-utilities/config/config';
-
-// Import Better Auth plugins
 import { username, jwt, bearer, admin, organization, /*emailOTP, twoFactor,*/ apiKey } from 'better-auth/plugins';
-import { createAuthServer } from '@emperorrag/better-auth-utilities/server/server';
-import { createAuthClient } from '@emperorrag/better-auth-utilities/client/client';
-
-// Initialize Prisma Client
-// Note: In production, this should be managed by the PrismaService
-const prisma = new PrismaClient();
 
 const plugins = {
 	// Username authentication support (3-50 characters)
@@ -97,23 +88,3 @@ export const betterAuthConfig = defineConfig({
 	enabledServerPlugins: ['jwt', 'admin', 'apiKey', 'bearer', 'username', 'organization'],
 	enabledClientPlugins: ['jwt', 'admin', 'apiKey', 'bearer', 'username', 'organization'],
 });
-
-/**
- * Initializes the Better Auth server using the Prisma adapter and shared configuration.
- *
- * @remarks
- * The Prisma client instance is injected to satisfy Better Auth's persistence requirements. This
- * server export is the primary entry point for NestJS modules as well as other runtime hosts that
- * expect a configured Better Auth HTTP handler.
- */
-export const authServer = createAuthServer(betterAuthConfig, prisma);
-
-/**
- * Creates a Better Auth client configured with the shared plugin suite and base settings.
- *
- * @remarks
- * This client export allows downstream applications—such as Next.js frontends or integration tests—
- * to perform typed operations against the Better Auth server using the same configuration used by
- * the microservice.
- */
-export const authClient = createAuthClient(betterAuthConfig);
