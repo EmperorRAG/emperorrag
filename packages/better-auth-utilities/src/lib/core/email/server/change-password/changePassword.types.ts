@@ -131,7 +131,7 @@ export type ChangePasswordServerResult<T extends AuthServerFor<ReturnType<typeof
  *
  * @example
  * ```typescript
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  * import { changePasswordServer } from './changePassword.service.js';
  *
  * const program = Effect.gen(function* () {

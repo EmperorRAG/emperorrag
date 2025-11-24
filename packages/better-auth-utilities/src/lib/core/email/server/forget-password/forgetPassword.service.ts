@@ -3,7 +3,7 @@
  * @description Server-side service for forget password operation using Better Auth API.
  */
 
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
 import type { forgetPasswordServerProps } from './forgetPassword.types.js';
 import { EmailAuthServerApiError } from '../shared/email.error.js';
@@ -44,7 +44,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  *
  * @example
  * ```typescript
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  * import { forgetPasswordServer } from './forgetPassword.service.js';
  *
  * // Create the password reset request program
@@ -66,7 +66,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  * @example
  * ```typescript
  * // Handle rate limiting gracefully
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  *
  * const program = forgetPasswordServer({ authServer })({
  *   body: { email: 'user@example.com' }
@@ -86,7 +86,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  * @example
  * ```typescript
  * // Password reset with audit logging
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  *
  * const forgetPasswordWithAudit = Effect.gen(function* () {
  *   const email = 'user@example.com';

@@ -1,4 +1,4 @@
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import type { createAuthClient } from 'better-auth/client';
 import type { AuthClientFor } from '../../../../client/client.types.js';
 import type { SessionAuthClientDeps } from '../shared/session.types.js';
@@ -9,20 +9,18 @@ import type { SessionAuthError } from '../shared/session.error.js';
  *
  * @description Infers the input type directly from the `getSession` method of the Better Auth client.
  */
-export type GetSessionInput<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> =
-	Parameters<
-		'getSession' extends keyof T ? (T['getSession'] extends (...args: any) => any ? T['getSession'] : never) : never
-	>[0];
+export type GetSessionInput<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> = Parameters<
+	'getSession' extends keyof T ? (T['getSession'] extends (...args: any) => any ? T['getSession'] : never) : never
+>[0];
 
 /**
  * Result type for the getSession operation.
  *
  * @description Infers the return type directly from the `getSession` method of the Better Auth client.
  */
-export type GetSessionResult<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> =
-	ReturnType<
-		'getSession' extends keyof T ? (T['getSession'] extends (...args: any) => any ? T['getSession'] : never) : never
-	>;
+export type GetSessionResult<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> = ReturnType<
+	'getSession' extends keyof T ? (T['getSession'] extends (...args: any) => any ? T['getSession'] : never) : never
+>;
 
 /**
  * Functional interface for the getSession service.

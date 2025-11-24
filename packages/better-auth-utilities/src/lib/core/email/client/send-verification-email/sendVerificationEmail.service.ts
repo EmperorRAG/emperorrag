@@ -1,4 +1,4 @@
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import type { sendVerificationEmailProps } from './sendVerificationEmail.types.js';
 import { EmailAuthApiError } from '../shared/email.error.js';
 
@@ -17,7 +17,7 @@ import { EmailAuthApiError } from '../shared/email.error.js';
  *
  * @example
  * ```typescript
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  * import { sendVerificationEmail } from './sendVerificationEmail.service.js';
  *
  * const program = Effect.gen(function* () {

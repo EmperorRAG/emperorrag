@@ -1,4 +1,4 @@
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import type { betterAuth } from 'better-auth';
 import type { AuthServerFor } from '../../../../server/server.types.js';
 import type { SessionAuthServerDeps } from '../shared/session.types.js';

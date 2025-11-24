@@ -1,4 +1,4 @@
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import type { createAuthClient } from 'better-auth/client';
 import type { AuthClientFor } from '../../../../client/client.types.js';
 import type { OAuthAuthClientDeps } from '../shared/oauth.types.js';

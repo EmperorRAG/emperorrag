@@ -1,4 +1,4 @@
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import type { UpdateUserServerProps } from './updateUser.types.js';
 import { UserAuthServerApiError } from '../shared/user.error.js';
 

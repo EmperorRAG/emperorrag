@@ -1,4 +1,4 @@
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import { OAuthAuthApiError } from '../shared/oauth.error.js';
 import type { SignInSocialProps } from './signIn.types.js';
 

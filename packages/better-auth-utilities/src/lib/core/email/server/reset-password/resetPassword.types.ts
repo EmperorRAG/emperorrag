@@ -129,7 +129,7 @@ export type ResetPasswordServerResult<T extends AuthServerFor<ReturnType<typeof 
  *
  * @example
  * ```typescript
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  * import { resetPasswordServer } from './resetPassword.service.js';
  *
  * const program = Effect.gen(function* () {

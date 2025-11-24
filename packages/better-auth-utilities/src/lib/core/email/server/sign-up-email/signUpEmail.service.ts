@@ -3,7 +3,7 @@
  * @description Server-side service for sign-up email operation using Better Auth API.
  */
 
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
 import type { signUpEmailServerProps } from './signUpEmail.types.js';
 import { EmailAuthServerApiError } from '../shared/email.error.js';
@@ -43,7 +43,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  *
  * @example
  * ```typescript
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  * import { headers } from 'next/headers';
  * import { signUpEmailServer } from './signUpEmail.service.js';
  *
@@ -72,7 +72,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  * @example
  * ```typescript
  * // Handle duplicate email error
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  *
  * const program = signUpEmailServer({ authServer })({
  *   body: {
@@ -97,7 +97,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  * @example
  * ```typescript
  * // Registration with post-signup actions
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  *
  * const registerAndWelcome = Effect.gen(function* () {
  *   // Register user
