@@ -3,12 +3,18 @@ import { TraceEvent, PerformanceStat, SlowOperation } from './types.js';
 export class Analyzer {
 	// Map request seq -> start timestamp (micros)
 	private pendingRequests = new Map<number, number>();
+	private lastChatBlockTimestamp = 0;
 
 	public commandStats = new Map<string, PerformanceStat>();
 	public internalStats = new Map<string, PerformanceStat>();
 	public slowOps: SlowOperation[] = [];
 
 	processEvent(event: TraceEvent) {
+		// Track chat block activity
+		if (this.isChatBlock(event.args)) {
+			this.lastChatBlockTimestamp = event.ts;
+		}
+
 		// 1. Handle Request/Response Pairs (Latency)
 		if (event.name === 'request' && event.args?.seq !== undefined) {
 			this.pendingRequests.set(event.args.seq, event.ts);
@@ -43,7 +49,15 @@ export class Analyzer {
 
 		// 2. Handle Internal Trace Events (ph: 'X' has duration)
 		if (event.ph === 'X' && event.dur !== undefined) {
-			const resource = this.getResource(event.args);
+			let resource = this.getResource(event.args);
+
+			// Special handling for updateGraph on Inferred Projects triggered by Chat
+			if (event.name === 'updateGraph' && resource?.includes('inferredProject')) {
+				if (this.lastChatBlockTimestamp >= event.ts && this.lastChatBlockTimestamp <= event.ts + event.dur) {
+					resource += ' (Triggered by Chat Code Block)';
+				}
+			}
+
 			const key = resource ? `${event.name} (${resource})` : event.name;
 
 			this.recordStat(this.internalStats, key, event.name, resource, event.dur);
@@ -52,7 +66,7 @@ export class Analyzer {
 				// > 500ms
 				this.slowOps.push({
 					name: `Internal: ${event.name}`,
-					resource: this.getResource(event.args),
+					resource: resource,
 					durationMs: event.dur / 1000,
 					timestamp: event.ts,
 					args: event.args,
@@ -61,7 +75,18 @@ export class Analyzer {
 		}
 	}
 
+	private isChatBlock(args: any): boolean {
+		if (!args) return false;
+		const candidates = [args.name, args.file, args.fileName, args.path, args.projectName];
+		for (const c of candidates) {
+			if (typeof c === 'string' && c.includes('vscode-chat-code-block')) return true;
+		}
+		return false;
+	}
+
 	private getResource(args: any): string | undefined {
+		if (this.isChatBlock(args)) return '[VS Code Chat Code Block]';
+
 		if (!args) return undefined;
 		if (typeof args.name === 'string') return args.name;
 		if (typeof args.file === 'string') return args.file;
