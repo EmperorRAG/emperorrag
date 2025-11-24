@@ -39,7 +39,8 @@ function printReport(analyzer: Analyzer) {
 		.sort((a: any, b: any) => b.durationMs - a.durationMs)
 		.slice(0, 10)
 		.forEach((op: any) => {
-			console.log(`[${(op.timestamp / 1000000).toFixed(2)}s] ${op.name}: ${op.durationMs.toFixed(2)}ms`);
+			const desc = op.description ? ` (${op.description})` : '';
+			console.log(`[${(op.timestamp / 1000000).toFixed(2)}s] ${op.name}${desc}: ${op.durationMs.toFixed(2)}ms`);
 			if (op.args) console.log(`    Args: ${JSON.stringify(op.args).slice(0, 100)}...`);
 		});
 
@@ -51,15 +52,17 @@ function printReport(analyzer: Analyzer) {
 }
 
 function printStatsTable(statsMap: Map<string, any>) {
-	const tableData = Array.from(statsMap.entries())
-		.map(([name, stat]) => ({
-			Name: name,
+	const tableData = Array.from(statsMap.values())
+		.map((stat) => ({
+			Name: stat.name,
+			Description: stat.description || '',
 			Count: stat.count,
 			'Avg (ms)': (stat.totalDurationMicros / stat.count / 1000).toFixed(2),
 			'Max (ms)': (stat.maxDurationMicros / 1000).toFixed(2),
 			'Total (ms)': (stat.totalDurationMicros / 1000).toFixed(2),
 		}))
-		.sort((a, b) => parseFloat(b['Total (ms)']) - parseFloat(a['Total (ms)'])); // Sort by total time impact
+		.sort((a, b) => parseFloat(b['Total (ms)']) - parseFloat(a['Total (ms)'])) // Sort by total time impact
+		.slice(0, 50); // Limit to top 50 to prevent console flooding
 
 	console.table(tableData);
 }
