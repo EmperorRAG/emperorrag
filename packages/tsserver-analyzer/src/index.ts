@@ -1,7 +1,39 @@
 import * as fs from 'fs';
 import * as readline from 'readline';
+import * as path from 'path';
 import { parseTraceLine } from './lib/parser.js';
 import { Analyzer } from './lib/analyzer.js';
+
+function loadTsConfigPaths(): string[] {
+	const tsConfigPath = path.join(process.cwd(), 'tsconfig.base.json');
+	if (!fs.existsSync(tsConfigPath)) {
+		console.warn('Warning: tsconfig.base.json not found in current directory. Path mapping detection will be disabled.');
+		return [];
+	}
+
+	try {
+		const content = fs.readFileSync(tsConfigPath, 'utf-8');
+		// Simple comment stripping
+		const jsonContent = content.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, '$1');
+		const tsConfig = JSON.parse(jsonContent);
+
+		if (tsConfig.compilerOptions && tsConfig.compilerOptions.paths) {
+			const paths: string[] = [];
+			for (const key in tsConfig.compilerOptions.paths) {
+				const values = tsConfig.compilerOptions.paths[key];
+				for (const value of values) {
+					// Remove wildcards and normalize
+					const cleanPath = value.replace(/\*/g, '').replace(/\\/g, '/');
+					paths.push(cleanPath);
+				}
+			}
+			return paths;
+		}
+	} catch (e) {
+		console.warn('Warning: Failed to parse tsconfig.base.json', e);
+	}
+	return [];
+}
 
 async function main() {
 	const logFilePath = process.argv[2];
@@ -13,13 +45,16 @@ async function main() {
 
 	console.log(`Analyzing trace ${logFilePath}...`);
 
+	const mappedPaths = loadTsConfigPaths();
+	console.log(`Loaded ${mappedPaths.length} path mappings from tsconfig.base.json`);
+
 	const fileStream = fs.createReadStream(logFilePath);
 	const rl = readline.createInterface({
 		input: fileStream,
 		crlfDelay: Infinity,
 	});
 
-	const analyzer = new Analyzer();
+	const analyzer = new Analyzer(mappedPaths);
 
 	for await (const line of rl) {
 		const event = parseTraceLine(line);

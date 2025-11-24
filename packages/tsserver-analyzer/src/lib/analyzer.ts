@@ -4,6 +4,12 @@ export class Analyzer {
 	// Map request seq -> start timestamp (micros)
 	private pendingRequests = new Map<number, number>();
 	private lastChatBlockTimestamp = 0;
+	private pathMappedFiles = new Set<string>();
+
+	constructor(pathMappedFiles: string[] = []) {
+		// Normalize paths to lowercase for case-insensitive comparison on Windows
+		this.pathMappedFiles = new Set(pathMappedFiles.map((p) => p.toLowerCase().replace(/\\/g, '/')));
+	}
 
 	public commandStats = new Map<string, PerformanceStat>();
 	public internalStats = new Map<string, PerformanceStat>();
@@ -58,6 +64,11 @@ export class Analyzer {
 				}
 			}
 
+			// Check if this file is a path-mapped file from tsconfig
+			if (event.name === 'findSourceFile' && resource && this.isPathMapped(resource)) {
+				resource += ' (Triggered by tsconfig paths)';
+			}
+
 			const key = resource ? `${event.name} (${resource})` : event.name;
 
 			this.recordStat(this.internalStats, key, event.name, resource, event.dur);
@@ -102,5 +113,16 @@ export class Analyzer {
 		stat.totalDurationMicros += durationMicros;
 		stat.maxDurationMicros = Math.max(stat.maxDurationMicros, durationMicros);
 		map.set(key, stat);
+	}
+
+	private isPathMapped(filePath: string): boolean {
+		// Normalize slashes for comparison
+		const normalizedPath = filePath.replace(/\\/g, '/');
+		for (const mappedPath of this.pathMappedFiles) {
+			if (normalizedPath.includes(mappedPath)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
