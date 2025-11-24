@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { Effect, Either } from 'effect';
-import { getSession } from './getSession.service.js';
+import { getSessionClient } from './getSession.service.js';
 import { setupTestEnv } from '../../../../test/setup-test-env.js';
 
 describe('getSession', () => {
@@ -38,7 +38,7 @@ describe('getSession', () => {
 		// 3. Get session
 		const result = await Effect.runPromise(
 			Effect.either(
-				getSession({ authClient })({
+				getSessionClient({ authClient })({
 					fetchOptions: {
 						headers: {
 							Cookie: cookie || '',
@@ -65,7 +65,7 @@ describe('getSession', () => {
 	it('should return null session when not authenticated', async () => {
 		const { authClient } = env;
 
-		const result = await Effect.runPromise(Effect.either(getSession({ authClient })()));
+		const result = await Effect.runPromise(Effect.either(getSessionClient({ authClient })()));
 
 		expect(Either.isRight(result)).toBeTruthy();
 		if (Either.isRight(result)) {
