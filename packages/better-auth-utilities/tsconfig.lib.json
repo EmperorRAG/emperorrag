@@ -5,6 +5,7 @@
 		"tsBuildInfoFile": "./dist/tsconfig.lib.tsbuildinfo",
 		"emitDeclarationOnly": true,
 		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
 		"types": ["node", "vite/client"]
 	},
 	"include": ["./src/**/*.ts", "./vite.config.ts", "./vite.config.mts", "./externalize-packages.ts", "./externals.json"],
