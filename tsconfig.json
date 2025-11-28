@@ -29,6 +29,15 @@
     },
     {
       "path": "./packages/tsserver-analyzer"
+    },
+    {
+      "path": "./apps/ts-analyzer-next-e2e"
+    },
+    {
+      "path": "./apps/ts-analyzer-next"
+    },
+    {
+      "path": "./apps/ts-analyzer-next-e2e"
     }
   ],
   "ts-node": {
