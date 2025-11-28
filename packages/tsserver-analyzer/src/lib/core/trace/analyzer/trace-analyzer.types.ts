@@ -1,14 +1,3 @@
-export interface TraceEvent {
-	name: string;
-	cat?: string;
-	ph: string; // 'B' | 'E' | 'I' | 'X' | 'M'
-	ts: number; // microseconds
-	pid: number;
-	tid: number;
-	dur?: number; // microseconds (for 'X' events)
-	args?: any;
-}
-
 export interface RequestArgs {
 	seq: number;
 	command: string;
@@ -35,4 +24,15 @@ export interface SlowOperation {
 	durationMs: number;
 	timestamp: number;
 	args?: any;
+}
+
+export interface AnalyzerState {
+	pendingRequests: Map<number, number>;
+	lastChatBlockTimestamp: number;
+	pathMappedFiles: Set<string>;
+	inferredProjectFiles: Map<string, string[]>;
+	recentFindSourceFiles: { ts: number; file: string }[];
+	commandStats: Map<string, PerformanceStat>;
+	internalStats: Map<string, PerformanceStat>;
+	slowOps: SlowOperation[];
 }
