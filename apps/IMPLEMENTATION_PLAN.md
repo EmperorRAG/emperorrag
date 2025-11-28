@@ -2,7 +2,7 @@
 
 ## Key constraints (applies to all sections)
 
-* Analyzer must be built first: `nx build tsserver-analyzer`.
+* Analyzer must be built first: `nx build @emperorrag/tsserver-analyzer`.
 * Next app will call the **built CLI** via Node child process and parse JSON from stdout.
 * All UI lives in `apps/ts-analyzer-next` using App Router.
 * UI components are built with **Radix UI primitives & Radix Themes** and styled with **CSS modules** (`*.module.css`) only.
@@ -23,12 +23,12 @@
 ## CLI / build + invocation strategy (MVP pragmatic)
 
 1. **Standardise build output directory (recommended)**
-   When building the analyzer with Nx, ensure the project build uses a predictable output path. E.g. set `outputPath` to `dist/tsserver-analyzer` in the analyzer's `project.json` (or pass an option at build time).
+   The analyzer build is handled by Nx inferred tasks, which outputs to `packages/tsserver-analyzer/dist`.
 
    Example Nx build command for dev:
 
    ```bash
-   nx build tsserver-analyzer --outputPath=dist/tsserver-analyzer
+   nx build @emperorrag/tsserver-analyzer
    ```
 
 2. **Create local npm scripts inside `apps/ts-analyzer-next/package.json` (or workspace root)**
@@ -36,13 +36,13 @@
    * `analyzer:build` — builds the analyzer:
 
      ```bash
-     nx build tsserver-analyzer --outputPath=dist/tsserver-analyzer
+     nx build @emperorrag/tsserver-analyzer
      ```
 
    * `analyzer:run-cli` — run the built CLI directly (useful for manual testing):
 
      ```bash
-     node dist/tsserver-analyzer/index.js --json
+     node packages/tsserver-analyzer/dist/index.js --json
      ```
 
      (Note: the CLI `--json` flag assumes the analyzer supports a JSON output mode. If it currently only prints human text, adjust the analyzer to provide a JSON flag or the wrapper will attempt to parse JSON from stdout.)
@@ -72,7 +72,7 @@
 * Endpoint: `POST /api/analyze`
 * Server-side flow:
 
-  1. Optionally run `nx build tsserver-analyzer` if you want auto-build-on-request (not recommended for production; prefer build step during dev/CI).
+  1. Optionally run `nx build @emperorrag/tsserver-analyzer` if you want auto-build-on-request (not recommended for production; prefer build step during dev/CI).
   2. Execute `node <dist path>/index.js --json` (or built entry) via `spawn`.
   3. Collect stdout; parse JSON.
   4. Return `200 { success: true, result: AnalysisResult }` or `500 { success: false, error, raw: stdout }`.
@@ -148,7 +148,17 @@ Acceptance: run → running shown → results table(s) and JSON appear → error
    * It will call the built analyzer (node + path + `--json`) and handle stdout parsing/timeouts.
 4. **Implement App Router API** at `app/api/analyze/route.ts` calling `runAnalyzerCli`.
 5. **Install Radix packages** you need (primitives used) in the app `package.json`.
-6. **Create base components** with Radix primitives and CSS modules:
+6. **Generate base components** using Nx (with Radix primitives and CSS modules):
+
+   ```bash
+   nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/Button/Button.tsx --style=css
+   nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/Header/Header.tsx --style=css
+   nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/RunAnalyzerForm/RunAnalyzerForm.tsx --style=css
+   nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/ResultsTable/ResultsTable.tsx --style=css
+   nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/JsonViewer/JsonViewer.tsx --style=css
+   nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/ErrorBanner/ErrorBanner.tsx --style=css
+   nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/Spinner/Spinner.tsx --style=css
+   ```
 
    * `Button/ Button.module.css`
    * `Header/ Header.module.css`
@@ -157,7 +167,13 @@ Acceptance: run → running shown → results table(s) and JSON appear → error
    * `JsonViewer/ JsonViewer.module.css`
    * `ErrorBanner/ ErrorBanner.module.css`
 7. **Implement `useAnalyzer` hook** that POSTs to `/api/analyze`.
-8. **Wire `app/page.tsx`** to compose components, calling `useAnalyzer`.
+8. **Generate and wire `app/page.tsx`**:
+
+   ```bash
+   nx g @nx/next:page --path=apps/ts-analyzer-next/app/page.tsx --style=css
+   ```
+
+   Compose components, calling `useAnalyzer`.
 9. **Dev workflow**: document dev command that runs `analyzer:build` then `nx dev ts-analyzer-next`.
 10. **Manual testing**: verify `nx build tsserver-analyzer` produces expected dist file, `node dist/.../index.js --json` outputs JSON, and app `/api/analyze` returns parsed result.
 
@@ -194,7 +210,7 @@ Acceptance: run → running shown → results table(s) and JSON appear → error
 
 ## Deliverables checklist (updated)
 
-* [ ] `nx build` script for `tsserver-analyzer` standardized to `dist/tsserver-analyzer`.
+* [ ] `nx build` script for `@emperorrag/tsserver-analyzer` (outputs to `packages/tsserver-analyzer/dist`).
 * [ ] App-level npm scripts: `analyzer:build`, `dev` (build analyzer + start app).
 * [ ] `app/api/analyze/route.ts` that spawns CLI and parses JSON.
 * [ ] `src/lib/analyzerCli.ts` wrapper encapsulating spawn/parse/timeouts.
@@ -211,7 +227,7 @@ Acceptance: run → running shown → results table(s) and JSON appear → error
 
 If you want, I can now produce the **starter file scaffolding** for the app side only (no analyzer source)—including:
 
-* `app/api/analyze/route.ts` (spawn-based implementation that expects a built analyzer at `dist/tsserver-analyzer/index.js` and `--json` output),
+* `app/api/analyze/route.ts` (spawn-based implementation that expects a built analyzer at `packages/tsserver-analyzer/dist/index.js` and `--json` output),
 * `src/lib/analyzerCli.ts` (spawn wrapper),
 * `src/lib/types/index.ts`,
 * `src/hooks/useAnalyzer.ts`,
