@@ -33,7 +33,7 @@ export async function runAnalyzerCli(): Promise<AnalysisResult> {
 
 ## 2. Implement API Route
 
-Create `apps/ts-analyzer-next/app/api/analyze/route.ts`.
+Create `apps/ts-analyzer-next/src/app/api/analyze/route.ts`.
 
 **Requirements:**
 

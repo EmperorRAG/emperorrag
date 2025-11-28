@@ -27,26 +27,29 @@ export function useAnalyzer() {
 }
 ```
 
-## 2. Generate Page
+## 2. Generate Feature Component
 
-Run the Nx command:
+Create a Client Component to hold the feature logic, keeping the page as a Server Component.
 
 ```bash
-nx g @nx/next:page --path=apps/ts-analyzer-next/app/page.tsx --style=css
+nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/AnalyzerFeature/AnalyzerFeature.tsx --style=css
 ```
 
-## 3. Implement `app/page.tsx`
+## 3. Implement `AnalyzerFeature`
 
-Compose the UI using the components and hook.
+Implement the UI logic in `apps/ts-analyzer-next/src/components/AnalyzerFeature/AnalyzerFeature.tsx`.
 
 ```tsx
-import { useAnalyzer } from '../src/hooks/useAnalyzer';
-import { Header } from '../src/components/Header/Header';
-import { RunAnalyzerForm } from '../src/components/RunAnalyzerForm/RunAnalyzerForm';
-import { ResultsTable } from '../src/components/ResultsTable/ResultsTable';
+'use client';
+
+import { useAnalyzer } from '../../hooks/useAnalyzer';
+import { Header } from '../Header';
+import { RunAnalyzerForm } from '../RunAnalyzerForm';
+import { ResultsTable } from '../ResultsTable';
+import { ErrorBanner } from '../ErrorBanner';
 // ... imports
 
-export default function Page() {
+export function AnalyzerFeature() {
   const { status, result, error, runAnalysis } = useAnalyzer();
 
   return (
@@ -67,7 +70,27 @@ export default function Page() {
 }
 ```
 
-## 4. Update `app/layout.tsx`
+## 4. Generate Page
+
+Run the Nx command:
+
+```bash
+nx g @nx/next:page --path=apps/ts-analyzer-next/src/app/page.tsx --style=css
+```
+
+## 5. Implement `src/app/page.tsx`
+
+Render the feature component.
+
+```tsx
+import { AnalyzerFeature } from '../components/AnalyzerFeature/AnalyzerFeature';
+
+export default function Page() {
+  return <AnalyzerFeature />;
+}
+```
+
+## 6. Update `src/app/layout.tsx`
 
 Ensure `Theme` provider (if using Radix Themes) or global CSS is applied.
 
