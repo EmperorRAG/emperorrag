@@ -4,3 +4,4 @@
  */
 
 export * from './lib/tsserver-analyzer.js';
+export * from './lib/tsserver-analyzer.module.js';
