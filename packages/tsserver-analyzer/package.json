@@ -3,6 +3,9 @@
 	"version": "0.0.1",
 	"type": "module",
 	"sideEffects": false,
+	"scripts": {
+		"run": "npx nx build tsserver-analyzer && node dist/cli.js"
+	},
 	"bin": {
 		"tsserver-analyzer": "./src/cli.ts"
 	},
