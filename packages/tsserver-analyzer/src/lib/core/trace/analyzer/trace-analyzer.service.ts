@@ -1,183 +1,256 @@
-import { Effect, Ref, Context } from 'effect';
 import { TraceEvent } from '../parser/trace-parser.types.js';
-import type { AnalyzerState, PerformanceStat, SlowOperation } from './trace-analyzer.types.js';
+import type { AnalyzerState, PerformanceStat } from './trace-analyzer.types.js';
 import { getResource, isChatBlock, isPathMapped } from './trace-analyzer.utils.js';
-
-/**
- * Service tag for the Trace Analyzer.
- * Provides capabilities to process trace events, retrieve aggregated statistics, and reset the analyzer state.
- */
-export class TraceAnalyzer extends Context.Tag('TraceAnalyzer')<
-	TraceAnalyzer,
-	{
-		/**
-		 * Processes a single trace event and updates the internal state.
-		 * @param event - The trace event to process.
-		 */
-		processEvent: (event: TraceEvent) => Effect.Effect<void>;
-		/**
-		 * Retrieves the current aggregated statistics.
-		 */
-		getStats: Effect.Effect<{
-			commandStats: Map<string, PerformanceStat>;
-			internalStats: Map<string, PerformanceStat>;
-			slowOps: SlowOperation[];
-		}>;
-		/**
-		 * Resets the file-specific state of the analyzer (e.g., pending requests, recent files),
-		 * while preserving global configuration like path mappings.
-		 */
-		reset: Effect.Effect<void>;
-	}
->() {}
 
 /**
  * Helper function to record performance statistics into a map.
  * Updates count, total duration, and max duration for a given operation key.
  */
-const recordStat = (map: Map<string, PerformanceStat>, key: string, name: string, resource: string | undefined, durationMicros: number) => {
-	const stat = map.get(key) || { name, resource, count: 0, totalDurationMicros: 0, maxDurationMicros: 0 };
-	stat.count++;
-	stat.totalDurationMicros += durationMicros;
-	stat.maxDurationMicros = Math.max(stat.maxDurationMicros, durationMicros);
-	map.set(key, stat);
-};
-
-/**
- * Creates a new instance of the Trace Analyzer service.
- *
- * @param pathMappedFiles - A list of file paths that are mapped via tsconfig paths.
- *                          These are used to identify if file operations are triggered by path mappings.
- * @returns An Effect that produces the TraceAnalyzer service implementation.
- */
-export const make = (pathMappedFiles: string[] = []) => {
-	const initialState: AnalyzerState = {
-		pendingRequests: new Map(),
-		lastChatBlockTimestamp: 0,
-		pathMappedFiles: new Set(pathMappedFiles.map((p) => p.toLowerCase().replace(/\\/g, '/'))),
-		inferredProjectFiles: new Map(),
-		recentFindSourceFiles: [],
-		commandStats: new Map(),
-		internalStats: new Map(),
-		slowOps: [],
+const recordStat =
+	(key: string) =>
+	(name: string) =>
+	(resource: string | undefined) =>
+	(durationMicros: number) =>
+	(map: Map<string, PerformanceStat>): Map<string, PerformanceStat> => {
+		const stat = map.get(key) || { name, resource, count: 0, totalDurationMicros: 0, maxDurationMicros: 0 };
+		return new Map(map).set(key, {
+			...stat,
+			count: stat.count + 1,
+			totalDurationMicros: stat.totalDurationMicros + durationMicros,
+			maxDurationMicros: Math.max(stat.maxDurationMicros, durationMicros),
+		});
 	};
 
-	return Ref.make(initialState).pipe(
-		Effect.map((stateRef) => ({
-			processEvent: (event: TraceEvent) =>
-				Ref.update(stateRef, (state) => {
-					// Track chat block activity
-					if (isChatBlock(event.args)) {
-						state.lastChatBlockTimestamp = event.ts;
-					}
+/**
+ * Creates the initial state for the Trace Analyzer.
+ *
+ * @param pathMappedFiles - A list of file paths that are mapped via tsconfig paths.
+ * @returns The initial AnalyzerState.
+ */
+export const createInitialState = (pathMappedFiles: string[] = []): AnalyzerState => ({
+	pendingRequests: new Map(),
+	lastChatBlockTimestamp: 0,
+	pathMappedFiles: new Set(pathMappedFiles.map((p) => p.toLowerCase().replace(/\\/g, '/'))),
+	inferredProjectFiles: new Map(),
+	recentFindSourceFiles: [],
+	commandStats: new Map(),
+	internalStats: new Map(),
+	slowOps: [],
+});
 
-					// Track files in inferred projects
-					if (event.name === 'projectInfo' && event.args?.projectName?.includes('inferredProject')) {
-						if (event.args.fileNames && Array.isArray(event.args.fileNames)) {
-							state.inferredProjectFiles.set(event.args.projectName, event.args.fileNames);
-						}
-					}
+/**
+ * Updates the last chat block timestamp if the event is a chat block.
+ */
+const updateChatBlockTimestamp =
+	(event: TraceEvent) =>
+	(state: AnalyzerState): number =>
+		isChatBlock(event.args) ? event.ts : state.lastChatBlockTimestamp;
 
-					// 1. Handle Request/Response Pairs (Latency)
-					if (event.name === 'request' && event.args?.seq !== undefined) {
-						state.pendingRequests.set(event.args.seq, event.ts);
-					} else if (event.name === 'response' && event.args?.seq !== undefined) {
-						const reqSeq = event.args.request_seq ?? event.args.seq;
+/**
+ * Updates the inferred project files map if the event is a projectInfo event for an inferred project.
+ */
+const updateInferredProjectFiles =
+	(event: TraceEvent) =>
+	(state: AnalyzerState): Map<string, string[]> =>
+		event.name === 'projectInfo' && event.args?.projectName?.includes('inferredProject') && event.args.fileNames && Array.isArray(event.args.fileNames)
+			? new Map(state.inferredProjectFiles).set(event.args.projectName, event.args.fileNames)
+			: state.inferredProjectFiles;
 
-						if (state.pendingRequests.has(reqSeq)) {
-							const startTs = state.pendingRequests.get(reqSeq)!;
-							const durationMicros = event.ts - startTs;
-							const command = event.args.command || 'unknown';
-							const resource = getResource(event.args);
-							const key = resource ? `${command} (${resource})` : command;
+/**
+ * Handles request events by updating the pending requests map.
+ */
+const handleRequest =
+	(event: TraceEvent) =>
+	(state: AnalyzerState): AnalyzerState =>
+		event.name === 'request' && event.args?.seq !== undefined
+			? { ...state, pendingRequests: new Map(state.pendingRequests).set(event.args.seq, event.ts) }
+			: state;
 
-							recordStat(state.commandStats, key, command, resource, durationMicros);
+/**
+ * Handles response events by calculating duration and updating statistics.
+ */
+const handleResponse =
+	(event: TraceEvent) =>
+	(state: AnalyzerState): AnalyzerState =>
+		event.name !== 'response' || event.args?.seq === undefined
+			? state
+			: ((reqSeq) =>
+					!state.pendingRequests.has(reqSeq)
+						? state
+						: ((startTs) =>
+								((durationMicros) =>
+									((command) =>
+										((resource) =>
+											((key) =>
+												((commandStats) =>
+													((slowOps) =>
+														((pendingRequests) => ({
+															...state,
+															commandStats,
+															slowOps,
+															pendingRequests,
+														}))(new Map(Array.from(state.pendingRequests.entries()).filter(([k]) => k !== reqSeq))))(
+														durationMicros > 500000
+															? [
+																	...state.slowOps,
+																	{
+																		name: `Command: ${command}`,
+																		resource: getResource(event.args),
+																		durationMs: durationMicros / 1000,
+																		timestamp: event.ts,
+																		args: event.args,
+																	},
+																]
+															: state.slowOps
+													))(recordStat(key)(command)(resource)(durationMicros)(state.commandStats)))(
+												resource ? `${command} (${resource})` : command
+											))(getResource(event.args)))(event.args.command || 'unknown'))(event.ts - startTs))(
+								state.pendingRequests.get(reqSeq)!
+							))(event.args.request_seq ?? event.args.seq);
 
-							if (durationMicros > 500000) {
-								state.slowOps.push({
-									name: `Command: ${command}`,
-									resource: getResource(event.args),
-									durationMs: durationMicros / 1000,
-									timestamp: event.ts,
-									args: event.args,
-								});
-							}
-							state.pendingRequests.delete(reqSeq);
-						}
-					}
+/**
+ * Enriches the resource string with context from chat blocks.
+ */
+const enrichWithChatContext =
+	(event: TraceEvent) =>
+	(state: AnalyzerState) =>
+	(resource: string): string =>
+		state.lastChatBlockTimestamp >= event.ts && state.lastChatBlockTimestamp <= event.ts + (event.dur || 0)
+			? resource + ' (Triggered by Chat Code Block)'
+			: resource;
 
-					// 2. Handle Internal Trace Events (ph: 'X' has duration)
-					if (event.ph === 'X' && event.dur !== undefined) {
-						let resource = getResource(event.args);
+/**
+ * Enriches the resource string with context from inferred project files.
+ */
+const enrichWithInferredFiles =
+	(state: AnalyzerState) =>
+	(resource: string): string =>
+		((files) =>
+			files && files.length > 0
+				? resource + ` (Contains: ${files[0].split('/').pop() || files[0]}${files.length > 1 ? ' + ' + (files.length - 1) + ' more' : ''})`
+				: resource)(state.inferredProjectFiles.get(resource));
 
-						// Special handling for updateGraph on Inferred Projects triggered by Chat
-						if (event.name === 'updateGraph' && resource?.includes('inferredProject')) {
-							if (state.lastChatBlockTimestamp >= event.ts && state.lastChatBlockTimestamp <= event.ts + event.dur) {
-								resource += ' (Triggered by Chat Code Block)';
-							} else {
-								const files = state.inferredProjectFiles.get(resource);
-								if (files && files.length > 0) {
-									const firstFile = files[0];
-									const fileName = firstFile.split('/').pop() || firstFile;
-									resource += ` (Contains: ${fileName}${files.length > 1 ? ' + ' + (files.length - 1) + ' more' : ''})`;
-								} else {
-									const duration = event.dur || 0;
-									const containedFiles = state.recentFindSourceFiles
-										.filter((f) => f.ts >= event.ts && f.ts <= event.ts + duration)
-										.map((f) => f.file);
+/**
+ * Enriches the resource string with context from recent findSourceFile events.
+ */
+const enrichWithRecentFiles =
+	(event: TraceEvent) =>
+	(state: AnalyzerState) =>
+	(resource: string): string =>
+		state.inferredProjectFiles.has(resource)
+			? resource
+			: ((containedFiles) =>
+					containedFiles.length === 0
+						? resource
+						: ((uniqueFiles) =>
+								resource +
+								` (Contains: ${uniqueFiles[0].split('/').pop() || uniqueFiles[0]}${uniqueFiles.length > 1 ? ' + ' + (uniqueFiles.length - 1) + ' more' : ''})`)(
+								Array.from(new Set(containedFiles))
+							))(state.recentFindSourceFiles.filter((f) => f.ts >= event.ts && f.ts <= event.ts + (event.dur || 0)).map((f) => f.file));
 
-									if (containedFiles.length > 0) {
-										const uniqueFiles = Array.from(new Set(containedFiles));
-										const firstFile = uniqueFiles[0];
-										const fileName = firstFile.split('/').pop() || firstFile;
-										resource += ` (Contains: ${fileName}${uniqueFiles.length > 1 ? ' + ' + (uniqueFiles.length - 1) + ' more' : ''})`;
-									}
-								}
-							}
-						}
+/**
+ * Enriches the resource string with context from path mappings.
+ */
+const enrichWithPathMapping =
+	(event: TraceEvent) =>
+	(state: AnalyzerState) =>
+	(resource: string): string =>
+		event.name === 'findSourceFile' && isPathMapped(state.pathMappedFiles)(resource) ? resource + ' (Triggered by tsconfig paths)' : resource;
 
-						// Check if this file is a path-mapped file from tsconfig
-						if (event.name === 'findSourceFile' && resource) {
-							if (isPathMapped(state.pathMappedFiles)(resource)) {
-								resource += ' (Triggered by tsconfig paths)';
-							}
-							state.recentFindSourceFiles.push({ ts: event.ts, file: resource });
-							const pruneThreshold = event.ts - 10000000;
-							if (state.recentFindSourceFiles.length > 0 && state.recentFindSourceFiles[0].ts < pruneThreshold) {
-								state.recentFindSourceFiles = state.recentFindSourceFiles.filter((f) => f.ts >= pruneThreshold);
-							}
-						}
+/**
+ * Applies all enrichment logic to the resource string.
+ */
+const enrichResource =
+	(event: TraceEvent) =>
+	(state: AnalyzerState) =>
+	(resource: string): string =>
+		event.name === 'updateGraph' && resource?.includes('inferredProject')
+			? ((chatEnriched) =>
+					chatEnriched !== resource
+						? chatEnriched
+						: ((inferredEnriched) => (inferredEnriched !== resource ? inferredEnriched : enrichWithRecentFiles(event)(state)(resource)))(
+								enrichWithInferredFiles(state)(resource)
+							))(enrichWithChatContext(event)(state)(resource))
+			: enrichWithPathMapping(event)(state)(resource);
 
-						const key = resource ? `${event.name} (${resource})` : event.name;
+/**
+ * Updates the list of recent findSourceFile events.
+ */
+const updateRecentFindSourceFiles =
+	(event: TraceEvent) =>
+	(resource: string) =>
+	(state: AnalyzerState): { ts: number; file: string }[] =>
+		event.name !== 'findSourceFile' || !resource
+			? state.recentFindSourceFiles
+			: ((newRecent) =>
+					((pruneThreshold) =>
+						newRecent.length > 0 && newRecent[0].ts < pruneThreshold ? newRecent.filter((f) => f.ts >= pruneThreshold) : newRecent)(
+						event.ts - 10000000
+					))([...state.recentFindSourceFiles, { ts: event.ts, file: resource }]);
 
-						recordStat(state.internalStats, key, event.name, resource, event.dur);
+/**
+ * Handles internal trace events (phase 'X') by updating statistics and recent files.
+ */
+const handleInternalEvent =
+	(event: TraceEvent) =>
+	(state: AnalyzerState): AnalyzerState =>
+		event.ph !== 'X' || event.dur === undefined
+			? state
+			: ((rawResource) =>
+					((resource) =>
+						((key) =>
+							((internalStats) =>
+								((slowOps) =>
+									((recentFindSourceFiles) => ({
+										...state,
+										internalStats,
+										slowOps,
+										recentFindSourceFiles,
+									}))(resource ? updateRecentFindSourceFiles(event)(resource)(state) : state.recentFindSourceFiles))(
+									event.dur! > 500000
+										? [
+												...state.slowOps,
+												{
+													name: `Internal: ${event.name}`,
+													resource: resource,
+													durationMs: event.dur! / 1000,
+													timestamp: event.ts,
+													args: event.args,
+												},
+											]
+										: state.slowOps
+								))(recordStat(key)(event.name)(resource)(event.dur!)(state.internalStats)))(
+							resource ? `${event.name} (${resource})` : event.name
+						))(rawResource ? enrichResource(event)(state)(rawResource) : undefined))(getResource(event.args));
 
-						if (event.dur > 500000) {
-							state.slowOps.push({
-								name: `Internal: ${event.name}`,
-								resource: resource,
-								durationMs: event.dur / 1000,
-								timestamp: event.ts,
-								args: event.args,
-							});
-						}
-					}
-					return state;
-				}),
-			getStats: Ref.get(stateRef).pipe(
-				Effect.map((state) => ({
-					commandStats: state.commandStats,
-					internalStats: state.internalStats,
-					slowOps: state.slowOps,
-				}))
-			),
-			reset: Ref.update(stateRef, (state) => ({
-				...state,
-				pendingRequests: new Map(),
-				lastChatBlockTimestamp: 0,
-				inferredProjectFiles: new Map(),
-				recentFindSourceFiles: [],
-			})),
-		}))
-	);
-};
+/**
+ * Processes a single trace event and returns the updated state.
+ *
+ * @param event - The trace event to process.
+ * @returns A function that takes the current state and returns the updated state.
+ */
+export const processEvent =
+	(event: TraceEvent) =>
+	(state: AnalyzerState): AnalyzerState =>
+		((stateWithMeta) =>
+			((stateAfterRequest) => ((stateAfterResponse) => handleInternalEvent(event)(stateAfterResponse))(handleResponse(event)(stateAfterRequest)))(
+				handleRequest(event)(stateWithMeta)
+			))({
+			...state,
+			lastChatBlockTimestamp: updateChatBlockTimestamp(event)(state),
+			inferredProjectFiles: updateInferredProjectFiles(event)(state),
+		});
+
+/**
+ * Resets the file-specific state of the analyzer.
+ *
+ * @param state - The current state.
+ * @returns The reset state.
+ */
+export const reset = (state: AnalyzerState): AnalyzerState => ({
+	...state,
+	pendingRequests: new Map(),
+	lastChatBlockTimestamp: 0,
+	inferredProjectFiles: new Map(),
+	recentFindSourceFiles: [],
+});
