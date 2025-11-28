@@ -1,3 +1,1 @@
-export function tsserverAnalyzer(): string {
-  return 'tsserver-analyzer';
-}
+export * from './core/index.js';
