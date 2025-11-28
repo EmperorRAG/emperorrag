@@ -1,12 +1,22 @@
 import { spawn } from 'child_process';
 import path from 'path';
+import fs from 'fs';
 import { AnalysisResult } from './types';
 
 export async function runAnalyzerCli(): Promise<AnalysisResult> {
 	return new Promise((resolve, reject) => {
 		// We assume the command is run from the workspace root where 'packages' folder is located.
 		// If running via 'nx serve', CWD is usually the workspace root.
-		const analyzerScriptPath = path.join(process.cwd(), 'packages', 'tsserver-analyzer', 'dist', 'index.js');
+		let analyzerScriptPath = path.join(process.cwd(), 'packages', 'tsserver-analyzer', 'dist', 'cli.js');
+
+		if (!fs.existsSync(analyzerScriptPath)) {
+			// If not found, try to resolve relative to the workspace root assuming we are in apps/ts-analyzer-next
+			const workspaceRoot = path.resolve(process.cwd(), '..', '..');
+			const altPath = path.join(workspaceRoot, 'packages', 'tsserver-analyzer', 'dist', 'cli.js');
+			if (fs.existsSync(altPath)) {
+				analyzerScriptPath = altPath;
+			}
+		}
 
 		const child = spawn('node', [analyzerScriptPath, '--json'], {
 			stdio: ['ignore', 'pipe', 'pipe'],
