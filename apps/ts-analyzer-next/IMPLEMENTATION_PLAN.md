@@ -33,24 +33,13 @@
 
 2. **Create local npm scripts inside `apps/ts-analyzer-next/package.json` (or workspace root)**
 
-   * `analyzer:build` — builds the analyzer:
+   * `dev` — start Next dev (Nx handles build dependencies):
 
      ```bash
-     nx build @emperorrag/tsserver-analyzer
+     nx dev ts-analyzer-next
      ```
 
-   * `analyzer:run-cli` — run the built CLI directly (useful for manual testing):
-
-     ```bash
-     node packages/tsserver-analyzer/dist/index.js --json
-     ```
-
-     (Note: the CLI `--json` flag assumes the analyzer supports a JSON output mode. If it currently only prints human text, adjust the analyzer to provide a JSON flag or the wrapper will attempt to parse JSON from stdout.)
-   * `dev` — build analyzer then start Next dev:
-
-     ```bash
-     npm run analyzer:build && nx dev ts-analyzer-next
-     ```
+   *Note: The build dependency on `@emperorrag/tsserver-analyzer` is handled by Nx task dependencies.*
 
 3. **API route will spawn the built CLI** (server-side only):
 
@@ -211,7 +200,7 @@ Acceptance: run → running shown → results table(s) and JSON appear → error
 ## Deliverables checklist (updated)
 
 * [ ] `nx build` script for `@emperorrag/tsserver-analyzer` (outputs to `packages/tsserver-analyzer/dist`).
-* [ ] App-level npm scripts: `analyzer:build`, `dev` (build analyzer + start app).
+* [ ] App-level npm scripts: `dev` (start app).
 * [ ] `app/api/analyze/route.ts` that spawns CLI and parses JSON.
 * [ ] `src/lib/analyzerCli.ts` wrapper encapsulating spawn/parse/timeouts.
 * [ ] `src/lib/types/index.ts`.
