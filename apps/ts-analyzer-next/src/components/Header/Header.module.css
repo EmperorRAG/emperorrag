@@ -1,0 +1,14 @@
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: var(--space-3) var(--space-4);
+	background-color: var(--color-surface);
+	border-bottom: 1px solid #eee;
+}
+
+.title {
+	margin: 0;
+	font-size: 1.25rem;
+	color: var(--color-text);
+}

@@ -7,13 +7,13 @@
 Run the following Nx commands to scaffold the components:
 
 ```bash
-nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/Button/Button.tsx --style=css
-nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/Header/Header.tsx --style=css
-nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/RunAnalyzerForm/RunAnalyzerForm.tsx --style=css
-nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/ResultsTable/ResultsTable.tsx --style=css
-nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/JsonViewer/JsonViewer.tsx --style=css
-nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/ErrorBanner/ErrorBanner.tsx --style=css
-nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/Spinner/Spinner.tsx --style=css
+npx nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/Button/Button.tsx --style=css
+npx nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/Header/Header.tsx --style=css
+npx nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/RunAnalyzerForm/RunAnalyzerForm.tsx --style=css
+npx nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/ResultsTable/ResultsTable.tsx --style=css
+npx nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/JsonViewer/JsonViewer.tsx --style=css
+npx nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/ErrorBanner/ErrorBanner.tsx --style=css
+npx nx g @nx/next:component --path=apps/ts-analyzer-next/src/components/Spinner/Spinner.tsx --style=css
 ```
 
 ## 2. Implement Components
