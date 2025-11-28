@@ -3,19 +3,38 @@ import { TraceEvent } from '../parser/trace-parser.types.js';
 import type { AnalyzerState, PerformanceStat, SlowOperation } from './trace-analyzer.types.js';
 import { getResource, isChatBlock, isPathMapped } from './trace-analyzer.utils.js';
 
+/**
+ * Service tag for the Trace Analyzer.
+ * Provides capabilities to process trace events, retrieve aggregated statistics, and reset the analyzer state.
+ */
 export class TraceAnalyzer extends Context.Tag('TraceAnalyzer')<
 	TraceAnalyzer,
 	{
+		/**
+		 * Processes a single trace event and updates the internal state.
+		 * @param event - The trace event to process.
+		 */
 		processEvent: (event: TraceEvent) => Effect.Effect<void>;
+		/**
+		 * Retrieves the current aggregated statistics.
+		 */
 		getStats: Effect.Effect<{
 			commandStats: Map<string, PerformanceStat>;
 			internalStats: Map<string, PerformanceStat>;
 			slowOps: SlowOperation[];
 		}>;
+		/**
+		 * Resets the file-specific state of the analyzer (e.g., pending requests, recent files),
+		 * while preserving global configuration like path mappings.
+		 */
 		reset: Effect.Effect<void>;
 	}
 >() {}
 
+/**
+ * Helper function to record performance statistics into a map.
+ * Updates count, total duration, and max duration for a given operation key.
+ */
 const recordStat = (map: Map<string, PerformanceStat>, key: string, name: string, resource: string | undefined, durationMicros: number) => {
 	const stat = map.get(key) || { name, resource, count: 0, totalDurationMicros: 0, maxDurationMicros: 0 };
 	stat.count++;
@@ -24,6 +43,13 @@ const recordStat = (map: Map<string, PerformanceStat>, key: string, name: string
 	map.set(key, stat);
 };
 
+/**
+ * Creates a new instance of the Trace Analyzer service.
+ *
+ * @param pathMappedFiles - A list of file paths that are mapped via tsconfig paths.
+ *                          These are used to identify if file operations are triggered by path mappings.
+ * @returns An Effect that produces the TraceAnalyzer service implementation.
+ */
 export const make = (pathMappedFiles: string[] = []) => {
 	const initialState: AnalyzerState = {
 		pendingRequests: new Map(),
@@ -112,7 +138,7 @@ export const make = (pathMappedFiles: string[] = []) => {
 
 						// Check if this file is a path-mapped file from tsconfig
 						if (event.name === 'findSourceFile' && resource) {
-							if (isPathMapped(resource, state.pathMappedFiles)) {
+							if (isPathMapped(state.pathMappedFiles)(resource)) {
 								resource += ' (Triggered by tsconfig paths)';
 							}
 							state.recentFindSourceFiles.push({ ts: event.ts, file: resource });
