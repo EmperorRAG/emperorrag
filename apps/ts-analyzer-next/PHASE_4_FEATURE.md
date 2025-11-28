@@ -90,7 +90,7 @@ export default function Page() {
 }
 ```
 
-## 6. Update `src/app/layout.tsx`
+## 6. Implement `src/app/layout.tsx`
 
 Ensure `Theme` provider (if using Radix Themes) or global CSS is applied.
 
