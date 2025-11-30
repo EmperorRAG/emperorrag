@@ -1,10 +1,10 @@
-import { runExpectToBeTableTest } from '../../helper-functions/runTableTest.utils.js';
+import { runExpectToBeTableTest } from '../../helper-functions/runTableTest.utils';
 import {
 	getAllFunctionInputLabelExpectedObjects,
 	getAllObjectInputLabelExpectedObjects,
 	getAllPrimitiveInputLabelExpectedObjects,
-} from './stringable.fixtures.js';
-import { isValuePrimitiveStringable, isValueStringable } from './stringable.types.js';
+} from './stringable.fixtures';
+import { isValuePrimitiveStringable, isValueStringable } from './stringable.types';
 import { describe } from 'vitest';
 
 const runExpectToBeTableTestIsValueStringable = runExpectToBeTableTest(isValueStringable);
@@ -52,7 +52,10 @@ describe('PrimitiveStringable Types', () => {
 	 * 1. Define a set of primitive values (string, number, boolean, undefined, null, symbol, bigint).
 	 * 2. For each value, assert that IsValuePrimitiveStringable returns true.
 	 */
-	runExpectToBeTableTestIsPrimitiveValueStringable('IsValuePrimitiveStringable returns true for all primitive types', getAllPrimitiveInputLabelExpectedObjects());
+	runExpectToBeTableTestIsPrimitiveValueStringable(
+		'IsValuePrimitiveStringable returns true for all primitive types',
+		getAllPrimitiveInputLabelExpectedObjects()
+	);
 
 	/**
 	 * Unit test: Verifies that IsValuePrimitiveStringable returns false for various object types.

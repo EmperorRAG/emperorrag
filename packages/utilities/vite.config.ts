@@ -47,6 +47,18 @@ export default defineConfig(() => ({
 		rollupOptions: {
 			// External packages that should not be bundled into your library.
 			external: externalizePackages(toExternalizeConfig(externalsJson)),
+			output: {
+				preserveModules: true,
+				preserveModulesRoot: 'src',
+				exports: 'named' as const,
+				hoistTransitiveImports: false,
+			},
+			treeshake: {
+				moduleSideEffects: false,
+				propertyReadSideEffects: false,
+				tryCatchDeoptimization: false,
+				unknownGlobalSideEffects: false,
+			},
 		},
 	},
 }));

@@ -1,5 +1,5 @@
 {
-	"exact": ["effect"],
-	"startsWith": ["node:", "effect/"],
+	"exact": ["effect", "vitest", "chai", "magic-string", "loupe", "tinyrainbow", "pathe", "strip-literal", "tinyspy"],
+	"startsWith": ["node:", "effect/", "vitest/", "@vitest/", "chai/", "magic-string/", "loupe/", "tinyrainbow/", "pathe/", "strip-literal/", "tinyspy/"],
 	"includes": []
 }
