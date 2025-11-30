@@ -3,6 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"nx": {
+		"name": "ts-analyzer-next",
 		"tags": [
 			"frontend next ts-server-analyzer ts-analyzer-next"
 		]

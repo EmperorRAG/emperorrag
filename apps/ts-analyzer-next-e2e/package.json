@@ -1,10 +1,10 @@
 {
-  "name": "@emperorrag/ts-analyzer-next-e2e",
-  "version": "0.0.1",
-  "private": true,
-  "nx": {
-    "implicitDependencies": [
-      "@emperorrag/ts-analyzer-next"
-    ]
-  }
+	"name": "ts-analyzer-next-e2e",
+	"version": "0.0.1",
+	"private": true,
+	"nx": {
+		"implicitDependencies": [
+			"ts-analyzer-next"
+		]
+	}
 }
