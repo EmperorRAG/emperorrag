@@ -1,6 +1,6 @@
 import * as Effect from 'effect/Effect';
-import { UserAuthApiError } from '../shared/user.error.js';
-import type { UpdateUserProps } from './updateUser.types.js';
+import { UserAuthApiError } from '../shared/user.error';
+import type { UpdateUserProps } from './updateUser.types';
 
 /**
  * Update user details.

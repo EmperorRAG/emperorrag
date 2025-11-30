@@ -4,8 +4,8 @@
  */
 
 import { createAuthClient as createBetterAuthClientCore } from 'better-auth/client';
-import type { BetterAuthConfig, AvailablePlugins } from '../config/config.js';
-import { CLIENT_PLUGIN_FACTORIES } from './client.constants.js';
+import type { BetterAuthConfig, AvailablePlugins } from '../config/config';
+import { CLIENT_PLUGIN_FACTORIES } from './client.constants';
 
 /**
  * Creates a fully configured better-auth client instance from a BetterAuthConfig.

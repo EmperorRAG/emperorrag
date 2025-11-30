@@ -4,7 +4,7 @@
  */
 
 import type { betterAuth } from 'better-auth';
-import type { AuthServerFor } from '../../../../server/server.types.js';
+import type { AuthServerFor } from '../../../../server/server.types';
 
 /**
  * Shared dependency type for server email authentication operations.
@@ -25,7 +25,7 @@ import type { AuthServerFor } from '../../../../server/server.types.js';
  * ```typescript
  * import { betterAuth } from 'better-auth';
  * import { username, admin, organization } from 'better-auth/plugins';
- * import type { EmailAuthServerDeps } from './email.types.js';
+ * import type { EmailAuthServerDeps } from './email.types';
  *
  * // Create server with plugins
  * const authServer = betterAuth({

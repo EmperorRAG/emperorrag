@@ -1,3 +1,3 @@
-export * from './listAccounts.service.js';
-export * from './listAccounts.types.js';
-export * from './listAccounts.schema.js';
+export * from './listAccounts.service';
+export * from './listAccounts.types';
+export * from './listAccounts.schema';

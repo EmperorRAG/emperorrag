@@ -20,7 +20,7 @@ import { z } from 'zod';
  *
  * @example
  * ```typescript
- * import { emailAuthServerDepsSchema } from './email.schema.js';
+ * import { emailAuthServerDepsSchema } from './email.schema';
  *
  * const deps = { authServer: betterAuth({ ... }) };
  *

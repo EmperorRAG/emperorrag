@@ -1,6 +1,6 @@
 import * as Effect from 'effect/Effect';
-import { AccountAuthServerApiError } from '../shared/account.error.js';
-import type { ListAccountsServerProps } from './listAccounts.types.js';
+import { AccountAuthServerApiError } from '../shared/account.error';
+import type { ListAccountsServerProps } from './listAccounts.types';
 
 /**
  * List all accounts linked to the current user (Server).

@@ -1,7 +1,7 @@
 import type { betterAuth } from 'better-auth';
-import type { AuthServerFor, AuthServerApiFor } from '../../../../server/server.types.js';
-import type { AccountAuthServerError } from '../shared/account.error.js';
-import type { AccountAuthServerDeps } from '../shared/account.types.js';
+import type { AuthServerFor, AuthServerApiFor } from '../../../../server/server.types';
+import type { AccountAuthServerError } from '../shared/account.error';
+import type { AccountAuthServerDeps } from '../shared/account.types';
 import type { Effect } from 'effect';
 
 /**

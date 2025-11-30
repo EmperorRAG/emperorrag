@@ -1,6 +1,6 @@
 import * as Effect from 'effect/Effect';
-import { AccountAuthApiError } from '../shared/account.error.js';
-import type { ListAccountsProps } from './listAccounts.types.js';
+import { AccountAuthApiError } from '../shared/account.error';
+import type { ListAccountsProps } from './listAccounts.types';
 
 /**
  * List all accounts linked to the current user.

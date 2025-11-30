@@ -1,8 +1,8 @@
 import * as Effect from 'effect/Effect';
 import type { createAuthClient } from 'better-auth/client';
-import type { AuthClientFor } from '../../../../client/client.types.js';
-import type { OAuthAuthClientDeps } from '../shared/oauth.types.js';
-import type { OAuthAuthError } from '../shared/oauth.error.js';
+import type { AuthClientFor } from '../../../../client/client.types';
+import type { OAuthAuthClientDeps } from '../shared/oauth.types';
+import type { OAuthAuthError } from '../shared/oauth.error';
 
 /**
  * Input parameters for the signIn social operation.

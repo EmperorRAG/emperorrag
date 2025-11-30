@@ -10,11 +10,11 @@ export type {
 	ChangePasswordServerParams,
 	ChangePasswordServerResult,
 	changePasswordServerProps,
-} from './changePassword.types.js';
+} from './changePassword.types';
 
-export { changePasswordServerBodySchema, changePasswordServerParamsSchema } from './changePassword.schema.js';
+export { changePasswordServerBodySchema, changePasswordServerParamsSchema } from './changePassword.schema';
 
-export { changePasswordServer } from './changePassword.service.js';
+export { changePasswordServer } from './changePassword.service';
 
 // Controller exports (when implemented)
-// export { changePasswordServerController } from './changePassword.controller.js';
+// export { changePasswordServerController } from './changePassword.controller';

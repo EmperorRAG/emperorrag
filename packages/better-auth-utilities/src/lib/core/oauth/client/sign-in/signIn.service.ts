@@ -1,6 +1,6 @@
 import * as Effect from 'effect/Effect';
-import { OAuthAuthApiError } from '../shared/oauth.error.js';
-import type { SignInSocialProps } from './signIn.types.js';
+import { OAuthAuthApiError } from '../shared/oauth.error';
+import type { SignInSocialProps } from './signIn.types';
 
 /**
  * Initiates a social sign-in flow.

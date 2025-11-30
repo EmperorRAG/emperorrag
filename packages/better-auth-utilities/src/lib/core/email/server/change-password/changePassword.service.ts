@@ -5,8 +5,8 @@
 
 import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
-import type { changePasswordServerProps } from './changePassword.types.js';
-import { EmailAuthServerApiError } from '../shared/email.error.js';
+import type { changePasswordServerProps } from './changePassword.types';
+import { EmailAuthServerApiError } from '../shared/email.error';
 
 /**
  * Change user password using Better Auth server API.
@@ -46,7 +46,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  * ```typescript
  * import * as Effect from 'effect/Effect';
  * import { headers } from 'next/headers';
- * import { changePasswordServer } from './changePassword.service.js';
+ * import { changePasswordServer } from './changePassword.service';
  *
  * // Create the password change program
  * const program = Effect.gen(function* () {

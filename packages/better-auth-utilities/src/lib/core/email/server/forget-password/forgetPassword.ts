@@ -10,11 +10,11 @@ export type {
 	ForgetPasswordServerParams,
 	ForgetPasswordServerResult,
 	forgetPasswordServerProps,
-} from './forgetPassword.types.js';
+} from './forgetPassword.types';
 
-export { forgetPasswordServerBodySchema, forgetPasswordServerParamsSchema } from './forgetPassword.schema.js';
+export { forgetPasswordServerBodySchema, forgetPasswordServerParamsSchema } from './forgetPassword.schema';
 
-export { forgetPasswordServer } from './forgetPassword.service.js';
+export { forgetPasswordServer } from './forgetPassword.service';
 
 // Controller exports (when implemented)
-// export { forgetPasswordServerController } from './forgetPassword.controller.js';
+// export { forgetPasswordServerController } from './forgetPassword.controller';

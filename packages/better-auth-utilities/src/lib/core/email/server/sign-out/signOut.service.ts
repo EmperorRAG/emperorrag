@@ -5,8 +5,8 @@
 
 import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
-import type { signOutServerProps } from './signOut.types.js';
-import { EmailAuthServerApiError } from '../shared/email.error.js';
+import type { signOutServerProps } from './signOut.types';
+import { EmailAuthServerApiError } from '../shared/email.error';
 
 /**
  * Terminate the current user session using Better Auth server API.
@@ -45,7 +45,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  * ```typescript
  * import * as Effect from 'effect/Effect';
  * import { headers } from 'next/headers';
- * import { signOutServer } from './signOut.service.js';
+ * import { signOutServer } from './signOut.service';
  *
  * // Create the sign-out program
  * const program = Effect.gen(function* () {

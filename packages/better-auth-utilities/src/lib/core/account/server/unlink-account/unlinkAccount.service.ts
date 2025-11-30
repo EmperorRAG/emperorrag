@@ -1,6 +1,6 @@
 import * as Effect from 'effect/Effect';
-import { AccountAuthServerApiError } from '../shared/account.error.js';
-import type { UnlinkAccountServerProps } from './unlinkAccount.types.js';
+import { AccountAuthServerApiError } from '../shared/account.error';
+import type { UnlinkAccountServerProps } from './unlinkAccount.types';
 
 /**
  * Unlink a provider from the current user (Server).

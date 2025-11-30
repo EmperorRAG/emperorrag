@@ -1,3 +1,3 @@
-export * from './updateUser.types.js';
-export * from './updateUser.schema.js';
-export * from './updateUser.service.js';
+export * from './updateUser.types';
+export * from './updateUser.schema';
+export * from './updateUser.service';

@@ -1,6 +1,6 @@
 import * as Effect from 'effect/Effect';
-import { SessionAuthServerApiError } from '../shared/session.error.js';
-import type { GetSessionServerProps } from './getSession.types.js';
+import { SessionAuthServerApiError } from '../shared/session.error';
+import type { GetSessionServerProps } from './getSession.types';
 
 /**
  * Retrieves the current user session (Server-Side).

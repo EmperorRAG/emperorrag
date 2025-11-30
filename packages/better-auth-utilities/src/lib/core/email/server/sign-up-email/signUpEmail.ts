@@ -9,11 +9,11 @@ export type {
 	SignUpEmailServerParams,
 	SignUpEmailServerResult,
 	signUpEmailServerProps,
-} from './signUpEmail.types.js';
+} from './signUpEmail.types';
 
-export { signUpEmailServerBodySchema, signUpEmailServerParamsSchema } from './signUpEmail.schema.js';
+export { signUpEmailServerBodySchema, signUpEmailServerParamsSchema } from './signUpEmail.schema';
 
-export { signUpEmailServer } from './signUpEmail.service.js';
+export { signUpEmailServer } from './signUpEmail.service';
 
 // Controller exports (when implemented)
-// export { signUpEmailServerController } from './signUpEmail.controller.js';
+// export { signUpEmailServerController } from './signUpEmail.controller';

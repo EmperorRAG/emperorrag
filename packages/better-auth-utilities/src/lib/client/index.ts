@@ -1,3 +1,3 @@
-export * from './client.js';
-export * from './client.types.js';
-export * from './client.constants.js';
+export * from './client';
+export * from './client.types';
+export * from './client.constants';

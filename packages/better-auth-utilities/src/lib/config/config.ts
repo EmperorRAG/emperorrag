@@ -4,7 +4,7 @@
  * plugin system, and intelligent defaults.
  */
 
-import type { AuthServerDatabaseOptions } from '../server/server.types.js';
+import type { AuthServerDatabaseOptions } from '../server/server.types';
 
 // ============================================================================
 // PLUGIN TYPES & REGISTRY

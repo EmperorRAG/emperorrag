@@ -1,8 +1,8 @@
 import type { Effect } from 'effect';
 import type { createAuthClient } from 'better-auth/client';
-import type { AuthClientFor } from '../../../../client/client.types.js';
-import type { AccountAuthClientDeps } from '../shared/account.types.js';
-import type { AccountAuthError } from '../shared/account.error.js';
+import type { AuthClientFor } from '../../../../client/client.types';
+import type { AccountAuthClientDeps } from '../shared/account.types';
+import type { AccountAuthError } from '../shared/account.error';
 
 /**
  * Input for unlinking an account.

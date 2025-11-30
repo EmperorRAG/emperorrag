@@ -10,11 +10,11 @@ export type {
 	ResetPasswordServerParams,
 	ResetPasswordServerResult,
 	resetPasswordServerProps,
-} from './resetPassword.types.js';
+} from './resetPassword.types';
 
-export { resetPasswordServerBodySchema, resetPasswordServerParamsSchema } from './resetPassword.schema.js';
+export { resetPasswordServerBodySchema, resetPasswordServerParamsSchema } from './resetPassword.schema';
 
-export { resetPasswordServer } from './resetPassword.service.js';
+export { resetPasswordServer } from './resetPassword.service';
 
 // Controller exports (when implemented)
-// export { resetPasswordServerController } from './resetPassword.controller.js';
+// export { resetPasswordServerController } from './resetPassword.controller';

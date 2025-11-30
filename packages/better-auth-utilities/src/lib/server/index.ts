@@ -1,3 +1,3 @@
-export * from './server.js';
-export * from './server.types.js';
-export * from './server.constants.js';
+export * from './server';
+export * from './server.types';
+export * from './server.constants';

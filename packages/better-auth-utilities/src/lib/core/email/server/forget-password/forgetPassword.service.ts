@@ -5,8 +5,8 @@
 
 import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
-import type { forgetPasswordServerProps } from './forgetPassword.types.js';
-import { EmailAuthServerApiError } from '../shared/email.error.js';
+import type { forgetPasswordServerProps } from './forgetPassword.types';
+import { EmailAuthServerApiError } from '../shared/email.error';
 
 /**
  * Request password reset email using Better Auth server API.
@@ -45,7 +45,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
- * import { forgetPasswordServer } from './forgetPassword.service.js';
+ * import { forgetPasswordServer } from './forgetPassword.service';
  *
  * // Create the password reset request program
  * const program = Effect.gen(function* () {

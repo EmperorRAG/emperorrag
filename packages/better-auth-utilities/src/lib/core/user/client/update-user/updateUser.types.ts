@@ -1,7 +1,7 @@
 import type { createAuthClient } from 'better-auth/client';
-import type { AuthClientFor } from '../../../../client/client.types.js';
-import type { UserAuthError } from '../shared/user.error.js';
-import type { UserAuthClientDeps } from '../shared/user.types.js';
+import type { AuthClientFor } from '../../../../client/client.types';
+import type { UserAuthError } from '../shared/user.error';
+import type { UserAuthClientDeps } from '../shared/user.types';
 import type { Effect } from 'effect';
 
 /**

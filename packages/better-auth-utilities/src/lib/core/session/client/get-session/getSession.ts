@@ -1,3 +1,3 @@
-export * from './getSession.types.js';
-export * from './getSession.schema.js';
-export * from './getSession.service.js';
+export * from './getSession.types';
+export * from './getSession.schema';
+export * from './getSession.service';

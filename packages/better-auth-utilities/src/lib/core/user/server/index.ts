@@ -1,3 +1,3 @@
-export * from './shared/user.error.js';
-export * from './shared/user.types.js';
-export * from './update-user/updateUser.js';
+export * from './shared/user.error';
+export * from './shared/user.types';
+export * from './update-user/updateUser';

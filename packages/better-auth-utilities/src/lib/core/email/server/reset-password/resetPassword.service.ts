@@ -5,8 +5,8 @@
 
 import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
-import type { resetPasswordServerProps } from './resetPassword.types.js';
-import { EmailAuthServerApiError } from '../shared/email.error.js';
+import type { resetPasswordServerProps } from './resetPassword.types';
+import { EmailAuthServerApiError } from '../shared/email.error';
 
 /**
  * Reset user password using Better Auth server API.
@@ -47,7 +47,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  * ```typescript
  * import * as Effect from 'effect/Effect';
  * import { headers } from 'next/headers';
- * import { resetPasswordServer } from './resetPassword.service.js';
+ * import { resetPasswordServer } from './resetPassword.service';
  *
  * // Create the password reset program
  * const program = Effect.gen(function* () {

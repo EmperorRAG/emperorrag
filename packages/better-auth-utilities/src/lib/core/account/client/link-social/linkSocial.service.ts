@@ -1,6 +1,6 @@
 import * as Effect from 'effect/Effect';
-import { AccountAuthApiError } from '../shared/account.error.js';
-import type { LinkSocialProps } from './linkSocial.types.js';
+import { AccountAuthApiError } from '../shared/account.error';
+import type { LinkSocialProps } from './linkSocial.types';
 
 /**
  * Link a social account to the current user.

@@ -4,9 +4,9 @@
  */
 
 import type { betterAuth } from 'better-auth';
-import type { AuthServerFor } from '../../../../server/server.types.js';
-import type { EmailAuthServerError } from '../shared/email.error.js';
-import type { EmailAuthServerDeps } from '../shared/email.types.js';
+import type { AuthServerFor } from '../../../../server/server.types';
+import type { EmailAuthServerError } from '../shared/email.error';
+import type { EmailAuthServerDeps } from '../shared/email.types';
 import type { Effect } from 'effect';
 
 /**
@@ -130,7 +130,7 @@ export type ForgetPasswordServerResult<T extends AuthServerFor<ReturnType<typeof
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
- * import { forgetPasswordServer } from './forgetPassword.service.js';
+ * import { forgetPasswordServer } from './forgetPassword.service';
  *
  * const program = Effect.gen(function* () {
  *   yield* forgetPasswordServer({ authServer })({

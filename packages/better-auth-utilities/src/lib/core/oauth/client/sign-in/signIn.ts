@@ -1,3 +1,3 @@
-export * from './signIn.types.js';
-export * from './signIn.schema.js';
-export * from './signIn.service.js';
+export * from './signIn.types';
+export * from './signIn.schema';
+export * from './signIn.service';

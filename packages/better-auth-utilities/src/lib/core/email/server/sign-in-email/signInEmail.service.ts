@@ -5,8 +5,8 @@
 
 import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
-import type { signInEmailServerProps } from './signInEmail.types.js';
-import { EmailAuthServerApiError } from '../shared/email.error.js';
+import type { signInEmailServerProps } from './signInEmail.types';
+import { EmailAuthServerApiError } from '../shared/email.error';
 
 /**
  * Sign in a user via email and password using Better Auth server API.
@@ -44,7 +44,7 @@ import { EmailAuthServerApiError } from '../shared/email.error.js';
  * ```typescript
  * import * as Effect from 'effect/Effect';
  * import { headers } from 'next/headers';
- * import { signInEmailServer } from './signInEmail.service.js';
+ * import { signInEmailServer } from './signInEmail.service';
  *
  * // Create the sign-in program
  * const program = Effect.gen(function* () {

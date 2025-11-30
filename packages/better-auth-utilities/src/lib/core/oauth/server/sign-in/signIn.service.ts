@@ -5,8 +5,8 @@
 
 import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
-import type { SignInSocialServerProps } from './signIn.types.js';
-import { OAuthAuthServerApiError } from '../shared/oauth.error.js';
+import type { SignInSocialServerProps } from './signIn.types';
+import { OAuthAuthServerApiError } from '../shared/oauth.error';
 
 /**
  * Sign in a user via social provider using Better Auth server API.

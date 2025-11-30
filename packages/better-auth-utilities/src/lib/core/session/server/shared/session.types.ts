@@ -1,5 +1,5 @@
 import type { betterAuth } from 'better-auth';
-import type { AuthServerFor } from '../../../../server/server.types.js';
+import type { AuthServerFor } from '../../../../server/server.types';
 
 /**
  * Dependencies required for session authentication operations (Server).

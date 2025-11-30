@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { Effect, Either } from 'effect';
-import { updateUserClient } from './updateUser.service.js';
-import { setupTestEnv } from '../../../../test/setup-test-env.js';
+import { updateUserClient } from './updateUser.service';
+import { setupTestEnv } from '../../../../test/setup-test-env';
 
 describe('updateUser', () => {
 	let env: Awaited<ReturnType<typeof setupTestEnv>>;

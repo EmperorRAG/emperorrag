@@ -9,11 +9,11 @@ export type {
 	SignInEmailServerParams,
 	SignInEmailServerResult,
 	signInEmailServerProps,
-} from './signInEmail.types.js';
+} from './signInEmail.types';
 
-export { signInEmailServerBodySchema, signInEmailServerParamsSchema } from './signInEmail.schema.js';
+export { signInEmailServerBodySchema, signInEmailServerParamsSchema } from './signInEmail.schema';
 
-export { signInEmailServer } from './signInEmail.service.js';
+export { signInEmailServer } from './signInEmail.service';
 
 // Controller exports (when implemented)
-// export { signInEmailServerController } from './signInEmail.controller.js';
+// export { signInEmailServerController } from './signInEmail.controller';

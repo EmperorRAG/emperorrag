@@ -4,10 +4,10 @@
  */
 
 import type { betterAuth } from 'better-auth';
-import type { AuthServerFor } from '../../../../server/server.types.js';
+import type { AuthServerFor } from '../../../../server/server.types';
 import type { Effect } from 'effect';
-import type { OAuthAuthServerError } from '../shared/oauth.error.js';
-import type { OAuthAuthServerDeps } from '../shared/oauth.types.js';
+import type { OAuthAuthServerError } from '../shared/oauth.error';
+import type { OAuthAuthServerDeps } from '../shared/oauth.types';
 
 /**
  * Input parameters for the server-side social sign-in operation.

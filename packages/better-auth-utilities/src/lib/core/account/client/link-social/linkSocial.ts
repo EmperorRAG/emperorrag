@@ -1,3 +1,3 @@
-export * from './linkSocial.types.js';
-export * from './linkSocial.schema.js';
-export * from './linkSocial.service.js';
+export * from './linkSocial.types';
+export * from './linkSocial.schema';
+export * from './linkSocial.service';

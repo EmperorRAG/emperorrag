@@ -1,8 +1,8 @@
 import * as Effect from 'effect/Effect';
 import type { createAuthClient } from 'better-auth/client';
-import type { AuthClientFor } from '../../../../client/client.types.js';
-import type { SessionAuthClientDeps } from '../shared/session.types.js';
-import type { SessionAuthError } from '../shared/session.error.js';
+import type { AuthClientFor } from '../../../../client/client.types';
+import type { SessionAuthClientDeps } from '../shared/session.types';
+import type { SessionAuthError } from '../shared/session.error';
 
 /**
  * Input parameters for the getSession operation.

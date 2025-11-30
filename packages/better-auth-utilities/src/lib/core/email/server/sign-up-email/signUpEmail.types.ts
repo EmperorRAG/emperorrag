@@ -4,9 +4,9 @@
  */
 
 import type { betterAuth } from 'better-auth';
-import type { AuthServerFor, AuthServerSignUpFor } from '../../../../server/server.types.js';
-import type { EmailAuthServerError } from '../shared/email.error.js';
-import type { EmailAuthServerDeps } from '../shared/email.types.js';
+import type { AuthServerFor, AuthServerSignUpFor } from '../../../../server/server.types';
+import type { EmailAuthServerError } from '../shared/email.error';
+import type { EmailAuthServerDeps } from '../shared/email.types';
 import type { Effect } from 'effect';
 
 /**
@@ -120,7 +120,7 @@ export type SignUpEmailServerResult<T extends AuthServerFor<ReturnType<typeof be
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
- * import { signUpEmailServer } from './signUpEmail.service.js';
+ * import { signUpEmailServer } from './signUpEmail.service';
  *
  * const program = Effect.gen(function* () {
  *   const result = yield* signUpEmailServer({ authServer })({

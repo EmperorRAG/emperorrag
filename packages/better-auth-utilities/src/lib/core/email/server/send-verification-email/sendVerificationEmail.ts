@@ -10,11 +10,11 @@ export type {
 	SendVerificationEmailServerParams,
 	SendVerificationEmailServerResult,
 	sendVerificationEmailServerProps,
-} from './sendVerificationEmail.types.js';
+} from './sendVerificationEmail.types';
 
-export { sendVerificationEmailServerBodySchema, sendVerificationEmailServerParamsSchema } from './sendVerificationEmail.schema.js';
+export { sendVerificationEmailServerBodySchema, sendVerificationEmailServerParamsSchema } from './sendVerificationEmail.schema';
 
-export { sendVerificationEmailServer } from './sendVerificationEmail.service.js';
+export { sendVerificationEmailServer } from './sendVerificationEmail.service';
 
 // Controller exports (when implemented)
-// export { sendVerificationEmailServerController } from './sendVerificationEmail.controller.js';
+// export { sendVerificationEmailServerController } from './sendVerificationEmail.controller';

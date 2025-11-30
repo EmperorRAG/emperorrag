@@ -1,3 +1,3 @@
-export * from './unlinkAccount.types.js';
-export * from './unlinkAccount.schema.js';
-export * from './unlinkAccount.service.js';
+export * from './unlinkAccount.types';
+export * from './unlinkAccount.schema';
+export * from './unlinkAccount.service';

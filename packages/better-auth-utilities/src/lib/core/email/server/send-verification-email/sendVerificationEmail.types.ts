@@ -4,9 +4,9 @@
  */
 
 import type { betterAuth } from 'better-auth';
-import type { AuthServerFor } from '../../../../server/server.types.js';
-import type { EmailAuthServerError } from '../shared/email.error.js';
-import type { EmailAuthServerDeps } from '../shared/email.types.js';
+import type { AuthServerFor } from '../../../../server/server.types';
+import type { EmailAuthServerError } from '../shared/email.error';
+import type { EmailAuthServerDeps } from '../shared/email.types';
 import type { Effect } from 'effect';
 
 /**
@@ -127,7 +127,7 @@ export type SendVerificationEmailServerResult<T extends AuthServerFor<ReturnType
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
- * import { sendVerificationEmailServer } from './sendVerificationEmail.service.js';
+ * import { sendVerificationEmailServer } from './sendVerificationEmail.service';
  *
  * const program = Effect.gen(function* () {
  *   yield* sendVerificationEmailServer({ authServer })({

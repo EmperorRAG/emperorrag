@@ -4,7 +4,7 @@
  */
 
 // Export configuration utilities
-export { defineConfig, createClientConfig, createServerConfig } from './config/config.js';
+export { defineConfig, createClientConfig, createServerConfig } from './config/config';
 export type {
 	AuthProvider,
 	AvailablePlugins,
@@ -15,10 +15,10 @@ export type {
 	OAuthProviderId,
 	PluginConfigRegistry,
 	ServerConfig,
-} from './config/config.ts';
+} from './config/config';
 
 // Export server instance creation
-export { createAuthServer } from './server/server.js';
+export { createAuthServer } from './server/server';
 
 // Export server types
 export type {
@@ -32,10 +32,10 @@ export type {
 	AuthServerSessionUserSessionFor,
 	AuthServerSignInFor,
 	AuthServerSignUpFor,
-} from './server/server.types.ts';
+} from './server/server.types';
 
 // Export client instance creation
-export { createAuthClient } from './client/client.js';
+export { createAuthClient } from './client/client';
 export type {
 	AuthClientApiEndpointFor,
 	AuthClientApiEndpointKeyFor,
@@ -44,4 +44,4 @@ export type {
 	AuthClientFor,
 	AuthClientSignInFor,
 	AuthClientSignUpFor,
-} from './client/client.types.ts';
+} from './client/client.types';

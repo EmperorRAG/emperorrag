@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { Effect, Either } from 'effect';
-import { getSessionClient } from './getSession.service.js';
-import { setupTestEnv } from '../../../../test/setup-test-env.js';
+import { getSessionClient } from './getSession.service';
+import { setupTestEnv } from '../../../../test/setup-test-env';
 
 describe('getSession', () => {
 	let env: Awaited<ReturnType<typeof setupTestEnv>>;
