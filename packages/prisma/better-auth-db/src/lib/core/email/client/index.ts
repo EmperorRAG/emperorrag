@@ -3,10 +3,10 @@
  * @description Email client exports.
  */
 
-export * from './change-password/index.js';
-export * from './request-password-reset/index.js';
-export * from './reset-password/index.js';
-export * from './send-verification-email/index.js';
-export * from './sign-in-email/index.js';
-export * from './sign-out/index.js';
-export * from './sign-up-email/index.js';
+export * from './change-password/index';
+export * from './request-password-reset/index';
+export * from './reset-password/index';
+export * from './send-verification-email/index';
+export * from './sign-in-email/index';
+export * from './sign-out/index';
+export * from './sign-up-email/index';

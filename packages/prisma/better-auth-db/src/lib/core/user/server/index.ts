@@ -3,4 +3,4 @@
  * @description User server exports.
  */
 
-export * from './update-user/index.js';
+export * from './update-user/index';

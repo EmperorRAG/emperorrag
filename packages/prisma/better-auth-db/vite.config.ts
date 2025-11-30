@@ -4,7 +4,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 import externalsJson from './externals.json' with { type: 'json' };
-import { externalizePackages, toExternalizeConfig } from './externalize-packages.js';
+import { externalizePackages, toExternalizeConfig } from './externalize-packages';
 
 function getEntries(dir: string, baseDir: string = dir): Record<string, string> {
 	const entries: Record<string, string> = {};
