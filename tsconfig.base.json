@@ -28,28 +28,52 @@
 			"@emperorrag/better-auth-utilities/change-password/client": [
 				"packages/better-auth-utilities/src/lib/core/email/client/change-password/changePassword.ts"
 			],
+			"@emperorrag/better-auth-utilities/change-password/server": [
+				"packages/better-auth-utilities/src/lib/core/email/server/change-password/changePassword.ts"
+			],
 			"@emperorrag/better-auth-utilities/request-password-reset/client": [
 				"packages/better-auth-utilities/src/lib/core/email/client/request-password-reset/requestPasswordReset.ts"
+			],
+			"@emperorrag/better-auth-utilities/request-password-reset/server": [
+				"packages/better-auth-utilities/src/lib/core/email/server/forget-password/forgetPassword.ts"
 			],
 			"@emperorrag/better-auth-utilities/reset-password/client": [
 				"packages/better-auth-utilities/src/lib/core/email/client/reset-password/resetPassword.ts"
 			],
+			"@emperorrag/better-auth-utilities/reset-password/server": [
+				"packages/better-auth-utilities/src/lib/core/email/server/reset-password/resetPassword.ts"
+			],
 			"@emperorrag/better-auth-utilities/send-verification-email/client": [
 				"packages/better-auth-utilities/src/lib/core/email/client/send-verification-email/sendVerificationEmail.ts"
 			],
+			"@emperorrag/better-auth-utilities/send-verification-email/server": [
+				"packages/better-auth-utilities/src/lib/core/email/server/send-verification-email/sendVerificationEmail.ts"
+			],
 			"@emperorrag/better-auth-utilities/sign-in-email/client": ["packages/better-auth-utilities/src/lib/core/email/client/sign-in-email/signInEmail.ts"],
+			"@emperorrag/better-auth-utilities/sign-in-email/server": ["packages/better-auth-utilities/src/lib/core/email/server/sign-in-email/signInEmail.ts"],
 			"@emperorrag/better-auth-utilities/sign-out/client": ["packages/better-auth-utilities/src/lib/core/email/client/sign-out/signOut.ts"],
+			"@emperorrag/better-auth-utilities/sign-out/server": ["packages/better-auth-utilities/src/lib/core/email/server/sign-out/signOut.ts"],
 			"@emperorrag/better-auth-utilities/sign-up-email/client": ["packages/better-auth-utilities/src/lib/core/email/client/sign-up-email/signUpEmail.ts"],
+			"@emperorrag/better-auth-utilities/sign-up-email/server": ["packages/better-auth-utilities/src/lib/core/email/server/sign-up-email/signUpEmail.ts"],
 			"@emperorrag/better-auth-utilities/link-social/client": ["packages/better-auth-utilities/src/lib/core/account/client/link-social/linkSocial.ts"],
 			"@emperorrag/better-auth-utilities/list-accounts/client": [
 				"packages/better-auth-utilities/src/lib/core/account/client/list-accounts/listAccounts.ts"
 			],
+			"@emperorrag/better-auth-utilities/list-accounts/server": [
+				"packages/better-auth-utilities/src/lib/core/account/server/list-accounts/listAccounts.ts"
+			],
 			"@emperorrag/better-auth-utilities/unlink-account/client": [
 				"packages/better-auth-utilities/src/lib/core/account/client/unlink-account/unlinkAccount.ts"
 			],
+			"@emperorrag/better-auth-utilities/unlink-account/server": [
+				"packages/better-auth-utilities/src/lib/core/account/server/unlink-account/unlinkAccount.ts"
+			],
 			"@emperorrag/better-auth-utilities/get-session/client": ["packages/better-auth-utilities/src/lib/core/session/client/get-session/getSession.ts"],
+			"@emperorrag/better-auth-utilities/get-session/server": ["packages/better-auth-utilities/src/lib/core/session/server/get-session/getSession.ts"],
 			"@emperorrag/better-auth-utilities/update-user/client": ["packages/better-auth-utilities/src/lib/core/user/client/update-user/updateUser.ts"],
+			"@emperorrag/better-auth-utilities/update-user/server": ["packages/better-auth-utilities/src/lib/core/user/server/update-user/updateUser.ts"],
 			"@emperorrag/better-auth-utilities/sign-in/client": ["packages/better-auth-utilities/src/lib/core/oauth/client/sign-in/signIn.ts"],
+			"@emperorrag/better-auth-utilities/sign-in/server": ["packages/better-auth-utilities/src/lib/core/oauth/server/sign-in/signIn.ts"],
 			"@emperorrag/utilities": ["packages/utilities/src/utilities.ts"],
 			"@emperorrag/utilities/helper-functions": ["packages/utilities/src/lib/helper-functions/helperFunctions.ts"],
 			"@emperorrag/utilities/types": ["packages/utilities/src/lib/types/types.ts"],
