@@ -19,7 +19,6 @@
 		"./src/**/*.spec.js",
 		"./src/**/*.test.jsx",
 		"./src/**/*.spec.jsx",
-		"./src/lib/test/**/*",
 		"./externalize-packages.ts",
 		"./externals.json"
 	],
