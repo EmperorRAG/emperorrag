@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as readline from 'readline';
 import { Effect, Console, Option } from 'effect';
-import { TraceAnalyzer } from '../tsserver-analyzer.js';
-import { parseTraceLine } from '../core/trace/parser/trace-parser.service.js';
+import { TraceAnalyzer } from '../../tsserver-analyzer.js';
+import { parseTraceLine } from '../trace/parser/trace-parser.service.js';
 
 export const runAnalysis = (logFilePaths: string[]) =>
 	Effect.gen(function* (_) {

@@ -1,5 +1,5 @@
 import { Console, Effect } from 'effect';
-import type { PerformanceStat, SlowOperation } from '../core/trace/analyzer/trace-analyzer.types.js';
+import type { PerformanceStat, SlowOperation } from '../trace/analyzer/trace-analyzer.types.js';
 
 const OPERATION_DESCRIPTIONS: Record<string, string> = {
 	updateGraph: 'Re-calculates the project structure and dependencies.',
