@@ -2,16 +2,34 @@
 	"name": "@emperorrag/utilities",
 	"version": "0.0.1",
 	"type": "module",
-	"main": "./dist/index.js",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
+	"main": "./dist/utilities.js",
+	"module": "./dist/utilities.js",
+	"types": "./dist/utilities.d.ts",
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
-			"@emperorrag/source": "./src/index.ts",
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"default": "./dist/index.js"
+			"@emperorrag/source": "./src/utilities.ts",
+			"types": "./dist/utilities.d.ts",
+			"import": "./dist/utilities.js",
+			"default": "./dist/utilities.js"
+		},
+		"./helper-functions": {
+			"@emperorrag/source": "./src/lib/helper-functions/helperFunctions.ts",
+			"types": "./dist/lib/helper-functions/helperFunctions.d.ts",
+			"import": "./dist/lib/helper-functions/helperFunctions.js",
+			"default": "./dist/lib/helper-functions/helperFunctions.js"
+		},
+		"./types": {
+			"@emperorrag/source": "./src/lib/types/types.ts",
+			"types": "./dist/lib/types/types.d.ts",
+			"import": "./dist/lib/types/types.js",
+			"default": "./dist/lib/types/types.js"
+		},
+		"./object-utils": {
+			"@emperorrag/source": "./src/lib/helper-functions/object.utils.ts",
+			"types": "./dist/lib/helper-functions/object.utils.d.ts",
+			"import": "./dist/lib/helper-functions/object.utils.js",
+			"default": "./dist/lib/helper-functions/object.utils.js"
 		}
 	},
 	"files": [

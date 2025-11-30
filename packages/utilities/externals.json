@@ -1,0 +1,5 @@
+{
+	"exact": ["effect"],
+	"startsWith": ["node:", "effect/"],
+	"includes": []
+}
