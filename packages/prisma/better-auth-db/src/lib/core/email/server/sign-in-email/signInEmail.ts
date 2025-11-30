@@ -1,4 +1,4 @@
-import { signInEmailServer as signInEmailUtility } from '@emperorrag/better-auth-utilities/core';
+import { signInEmailServer as signInEmailUtility } from '@emperorrag/better-auth-utilities/sign-in-email/server';
 import { authServer } from '../../../../server/server';
 
 export const signInEmail = signInEmailUtility({ authServer });
