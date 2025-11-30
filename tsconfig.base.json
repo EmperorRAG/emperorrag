@@ -20,8 +20,11 @@
 		"customConditions": ["@emperorrag/source"],
 		"paths": {
 			"@prisma/client": ["packages/prisma/better-auth-db/prisma/generated/client"],
-			"@emperorrag/better-auth-utilities": ["packages/better-auth-utilities/src/index.ts"],
-			"@emperorrag/better-auth-utilities/*": ["packages/better-auth-utilities/src/*"],
+			"@emperorrag/better-auth-utilities": ["packages/better-auth-utilities/src/better-auth-utilities.ts"],
+			"@emperorrag/better-auth-utilities/client": ["packages/better-auth-utilities/src/lib/client/index.ts"],
+			"@emperorrag/better-auth-utilities/server": ["packages/better-auth-utilities/src/lib/server/index.ts"],
+			"@emperorrag/better-auth-utilities/config": ["packages/better-auth-utilities/src/lib/config/index.ts"],
+			"@emperorrag/better-auth-utilities/core": ["packages/better-auth-utilities/src/lib/core/index.ts"],
 			"@emperorrag/utilities": ["packages/utilities/src/utilities.ts"],
 			"@emperorrag/utilities/helper-functions": ["packages/utilities/src/lib/helper-functions/helperFunctions.ts"],
 			"@emperorrag/utilities/types": ["packages/utilities/src/lib/types/types.ts"],

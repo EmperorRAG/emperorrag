@@ -1,12 +1,12 @@
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
-import * as fs from 'fs';
+// import * as fs from 'fs';
 import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 import externalsJson from './externals.json' with { type: 'json' };
 import { externalizePackages, toExternalizeConfig } from './externalize-packages.js';
 
-function getEntries(dir: string, baseDir: string = dir): Record<string, string> {
+/*function getEntries(dir: string, baseDir: string = dir): Record<string, string> {
 	const entries: Record<string, string> = {};
 	if (!fs.existsSync(dir)) return entries;
 
@@ -28,7 +28,7 @@ function getEntries(dir: string, baseDir: string = dir): Record<string, string> 
 		}
 	}
 	return entries;
-}
+}*/
 
 export default defineConfig(() => ({
 	root: __dirname,
@@ -59,7 +59,13 @@ export default defineConfig(() => ({
 			esmExternals: true,
 		},
 		lib: {
-			entry: getEntries(path.resolve(__dirname, 'src')),
+			entry: {
+				'better-auth-utilities': './src/better-auth-utilities.ts',
+				'lib/client/index': './src/lib/client/index.ts',
+				'lib/server/index': './src/lib/server/index.ts',
+				'lib/config/index': './src/lib/config/index.ts',
+				'lib/core/index': './src/lib/core/index.ts',
+			},
 			fileName: (_format: string, entryName: string) => `${entryName}.js`,
 			formats: ['es' as const],
 		},

@@ -3,22 +3,40 @@
 	"version": "0.0.1",
 	"type": "module",
 	"sideEffects": false,
-	"main": "./dist/index.js",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
+	"main": "./dist/better-auth-utilities.js",
+	"module": "./dist/better-auth-utilities.js",
+	"types": "./dist/better-auth-utilities.d.ts",
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
-			"@emperorrag/source": "./src/index.ts",
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"default": "./dist/index.js"
+			"@emperorrag/source": "./src/better-auth-utilities.ts",
+			"types": "./dist/better-auth-utilities.d.ts",
+			"import": "./dist/better-auth-utilities.js",
+			"default": "./dist/better-auth-utilities.js"
 		},
-		"./*": {
-			"@emperorrag/source": "./src/lib/*.ts",
-			"types": "./dist/lib/*.d.ts",
-			"import": "./dist/lib/*.js",
-			"default": "./dist/lib/*.js"
+		"./client": {
+			"@emperorrag/source": "./src/lib/client/index.ts",
+			"types": "./dist/lib/client/index.d.ts",
+			"import": "./dist/lib/client/index.js",
+			"default": "./dist/lib/client/index.js"
+		},
+		"./server": {
+			"@emperorrag/source": "./src/lib/server/index.ts",
+			"types": "./dist/lib/server/index.d.ts",
+			"import": "./dist/lib/server/index.js",
+			"default": "./dist/lib/server/index.js"
+		},
+		"./config": {
+			"@emperorrag/source": "./src/lib/config/index.ts",
+			"types": "./dist/lib/config/index.d.ts",
+			"import": "./dist/lib/config/index.js",
+			"default": "./dist/lib/config/index.js"
+		},
+		"./core": {
+			"@emperorrag/source": "./src/lib/core/index.ts",
+			"types": "./dist/lib/core/index.d.ts",
+			"import": "./dist/lib/core/index.js",
+			"default": "./dist/lib/core/index.js"
 		}
 	},
 	"files": [
