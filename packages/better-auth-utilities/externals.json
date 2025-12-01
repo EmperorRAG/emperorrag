@@ -1,5 +1,5 @@
 {
-	"exact": ["zod", "better-auth", "better-auth/adapters/prisma", "better-auth/plugins", "effect"],
+	"exact": ["zod", "better-auth", "better-auth/adapters/prisma", "better-auth/plugins", "effect", "http", "https"],
 	"startsWith": ["zod/", "better-auth/", "node:", "effect/"],
 	"includes": ["prisma/generated/client"]
 }
