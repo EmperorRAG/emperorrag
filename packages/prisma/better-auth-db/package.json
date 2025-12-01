@@ -15,11 +15,155 @@
 			"import": "./dist/index.js",
 			"default": "./dist/index.js"
 		},
-		"./*": {
-			"@emperorrag/source": "./src/lib/*.ts",
-			"types": "./dist/lib/*.d.ts",
-			"import": "./dist/lib/*.js",
-			"default": "./dist/lib/*.js"
+		"./change-password/client": {
+			"@emperorrag/source": "./src/lib/core/email/client/change-password/changePassword.ts",
+			"types": "./dist/lib/core/email/client/change-password/changePassword.d.ts",
+			"import": "./dist/lib/core/email/client/change-password/changePassword.js",
+			"default": "./dist/lib/core/email/client/change-password/changePassword.js"
+		},
+		"./change-password/server": {
+			"@emperorrag/source": "./src/lib/core/email/server/change-password/changePassword.ts",
+			"types": "./dist/lib/core/email/server/change-password/changePassword.d.ts",
+			"import": "./dist/lib/core/email/server/change-password/changePassword.js",
+			"default": "./dist/lib/core/email/server/change-password/changePassword.js"
+		},
+		"./request-password-reset/client": {
+			"@emperorrag/source": "./src/lib/core/email/client/request-password-reset/requestPasswordReset.ts",
+			"types": "./dist/lib/core/email/client/request-password-reset/requestPasswordReset.d.ts",
+			"import": "./dist/lib/core/email/client/request-password-reset/requestPasswordReset.js",
+			"default": "./dist/lib/core/email/client/request-password-reset/requestPasswordReset.js"
+		},
+		"./request-password-reset/server": {
+			"@emperorrag/source": "./src/lib/core/email/server/forget-password/forgetPassword.ts",
+			"types": "./dist/lib/core/email/server/forget-password/forgetPassword.d.ts",
+			"import": "./dist/lib/core/email/server/forget-password/forgetPassword.js",
+			"default": "./dist/lib/core/email/server/forget-password/forgetPassword.js"
+		},
+		"./reset-password/client": {
+			"@emperorrag/source": "./src/lib/core/email/client/reset-password/resetPassword.ts",
+			"types": "./dist/lib/core/email/client/reset-password/resetPassword.d.ts",
+			"import": "./dist/lib/core/email/client/reset-password/resetPassword.js",
+			"default": "./dist/lib/core/email/client/reset-password/resetPassword.js"
+		},
+		"./reset-password/server": {
+			"@emperorrag/source": "./src/lib/core/email/server/reset-password/resetPassword.ts",
+			"types": "./dist/lib/core/email/server/reset-password/resetPassword.d.ts",
+			"import": "./dist/lib/core/email/server/reset-password/resetPassword.js",
+			"default": "./dist/lib/core/email/server/reset-password/resetPassword.js"
+		},
+		"./send-verification-email/client": {
+			"@emperorrag/source": "./src/lib/core/email/client/send-verification-email/sendVerificationEmail.ts",
+			"types": "./dist/lib/core/email/client/send-verification-email/sendVerificationEmail.d.ts",
+			"import": "./dist/lib/core/email/client/send-verification-email/sendVerificationEmail.js",
+			"default": "./dist/lib/core/email/client/send-verification-email/sendVerificationEmail.js"
+		},
+		"./send-verification-email/server": {
+			"@emperorrag/source": "./src/lib/core/email/server/send-verification-email/sendVerificationEmail.ts",
+			"types": "./dist/lib/core/email/server/send-verification-email/sendVerificationEmail.d.ts",
+			"import": "./dist/lib/core/email/server/send-verification-email/sendVerificationEmail.js",
+			"default": "./dist/lib/core/email/server/send-verification-email/sendVerificationEmail.js"
+		},
+		"./sign-in-email/client": {
+			"@emperorrag/source": "./src/lib/core/email/client/sign-in-email/signInEmail.ts",
+			"types": "./dist/lib/core/email/client/sign-in-email/signInEmail.d.ts",
+			"import": "./dist/lib/core/email/client/sign-in-email/signInEmail.js",
+			"default": "./dist/lib/core/email/client/sign-in-email/signInEmail.js"
+		},
+		"./sign-in-email/server": {
+			"@emperorrag/source": "./src/lib/core/email/server/sign-in-email/signInEmail.ts",
+			"types": "./dist/lib/core/email/server/sign-in-email/signInEmail.d.ts",
+			"import": "./dist/lib/core/email/server/sign-in-email/signInEmail.js",
+			"default": "./dist/lib/core/email/server/sign-in-email/signInEmail.js"
+		},
+		"./sign-out/client": {
+			"@emperorrag/source": "./src/lib/core/email/client/sign-out/signOut.ts",
+			"types": "./dist/lib/core/email/client/sign-out/signOut.d.ts",
+			"import": "./dist/lib/core/email/client/sign-out/signOut.js",
+			"default": "./dist/lib/core/email/client/sign-out/signOut.js"
+		},
+		"./sign-out/server": {
+			"@emperorrag/source": "./src/lib/core/email/server/sign-out/signOut.ts",
+			"types": "./dist/lib/core/email/server/sign-out/signOut.d.ts",
+			"import": "./dist/lib/core/email/server/sign-out/signOut.js",
+			"default": "./dist/lib/core/email/server/sign-out/signOut.js"
+		},
+		"./sign-up-email/client": {
+			"@emperorrag/source": "./src/lib/core/email/client/sign-up-email/signUpEmail.ts",
+			"types": "./dist/lib/core/email/client/sign-up-email/signUpEmail.d.ts",
+			"import": "./dist/lib/core/email/client/sign-up-email/signUpEmail.js",
+			"default": "./dist/lib/core/email/client/sign-up-email/signUpEmail.js"
+		},
+		"./sign-up-email/server": {
+			"@emperorrag/source": "./src/lib/core/email/server/sign-up-email/signUpEmail.ts",
+			"types": "./dist/lib/core/email/server/sign-up-email/signUpEmail.d.ts",
+			"import": "./dist/lib/core/email/server/sign-up-email/signUpEmail.js",
+			"default": "./dist/lib/core/email/server/sign-up-email/signUpEmail.js"
+		},
+		"./link-social/client": {
+			"@emperorrag/source": "./src/lib/core/account/client/link-social/linkSocial.ts",
+			"types": "./dist/lib/core/account/client/link-social/linkSocial.d.ts",
+			"import": "./dist/lib/core/account/client/link-social/linkSocial.js",
+			"default": "./dist/lib/core/account/client/link-social/linkSocial.js"
+		},
+		"./list-accounts/client": {
+			"@emperorrag/source": "./src/lib/core/account/client/list-accounts/listAccounts.ts",
+			"types": "./dist/lib/core/account/client/list-accounts/listAccounts.d.ts",
+			"import": "./dist/lib/core/account/client/list-accounts/listAccounts.js",
+			"default": "./dist/lib/core/account/client/list-accounts/listAccounts.js"
+		},
+		"./list-accounts/server": {
+			"@emperorrag/source": "./src/lib/core/account/server/list-accounts/listAccounts.ts",
+			"types": "./dist/lib/core/account/server/list-accounts/listAccounts.d.ts",
+			"import": "./dist/lib/core/account/server/list-accounts/listAccounts.js",
+			"default": "./dist/lib/core/account/server/list-accounts/listAccounts.js"
+		},
+		"./unlink-account/client": {
+			"@emperorrag/source": "./src/lib/core/account/client/unlink-account/unlinkAccount.ts",
+			"types": "./dist/lib/core/account/client/unlink-account/unlinkAccount.d.ts",
+			"import": "./dist/lib/core/account/client/unlink-account/unlinkAccount.js",
+			"default": "./dist/lib/core/account/client/unlink-account/unlinkAccount.js"
+		},
+		"./unlink-account/server": {
+			"@emperorrag/source": "./src/lib/core/account/server/unlink-account/unlinkAccount.ts",
+			"types": "./dist/lib/core/account/server/unlink-account/unlinkAccount.d.ts",
+			"import": "./dist/lib/core/account/server/unlink-account/unlinkAccount.js",
+			"default": "./dist/lib/core/account/server/unlink-account/unlinkAccount.js"
+		},
+		"./get-session/client": {
+			"@emperorrag/source": "./src/lib/core/session/client/get-session/getSession.ts",
+			"types": "./dist/lib/core/session/client/get-session/getSession.d.ts",
+			"import": "./dist/lib/core/session/client/get-session/getSession.js",
+			"default": "./dist/lib/core/session/client/get-session/getSession.js"
+		},
+		"./get-session/server": {
+			"@emperorrag/source": "./src/lib/core/session/server/get-session/getSession.ts",
+			"types": "./dist/lib/core/session/server/get-session/getSession.d.ts",
+			"import": "./dist/lib/core/session/server/get-session/getSession.js",
+			"default": "./dist/lib/core/session/server/get-session/getSession.js"
+		},
+		"./update-user/client": {
+			"@emperorrag/source": "./src/lib/core/user/client/update-user/updateUser.ts",
+			"types": "./dist/lib/core/user/client/update-user/updateUser.d.ts",
+			"import": "./dist/lib/core/user/client/update-user/updateUser.js",
+			"default": "./dist/lib/core/user/client/update-user/updateUser.js"
+		},
+		"./update-user/server": {
+			"@emperorrag/source": "./src/lib/core/user/server/update-user/updateUser.ts",
+			"types": "./dist/lib/core/user/server/update-user/updateUser.d.ts",
+			"import": "./dist/lib/core/user/server/update-user/updateUser.js",
+			"default": "./dist/lib/core/user/server/update-user/updateUser.js"
+		},
+		"./sign-in/client": {
+			"@emperorrag/source": "./src/lib/core/oauth/client/sign-in/signIn.ts",
+			"types": "./dist/lib/core/oauth/client/sign-in/signIn.d.ts",
+			"import": "./dist/lib/core/oauth/client/sign-in/signIn.js",
+			"default": "./dist/lib/core/oauth/client/sign-in/signIn.js"
+		},
+		"./sign-in/server": {
+			"@emperorrag/source": "./src/lib/core/oauth/server/sign-in/signIn.ts",
+			"types": "./dist/lib/core/oauth/server/sign-in/signIn.d.ts",
+			"import": "./dist/lib/core/oauth/server/sign-in/signIn.js",
+			"default": "./dist/lib/core/oauth/server/sign-in/signIn.js"
 		}
 	},
 	"files": [
