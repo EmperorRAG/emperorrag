@@ -4,7 +4,7 @@
  */
 
 // Export configuration utilities
-export { defineConfig, createClientConfig, createServerConfig } from './config/config';
+export { defineConfig, createClientConfig, createServerConfig } from './config/config.service';
 export { DEFAULT_CLIENT_CONFIG, DEFAULT_SERVER_CONFIG } from './config/config.constants';
 export type {
 	AuthProvider,
@@ -17,7 +17,7 @@ export type {
 } from './config/config.types';
 
 // Export server instance creation
-export { createAuthServer } from './server/server';
+export { createAuthServer } from './server/server.service';
 
 // Export server types
 export type {
@@ -34,7 +34,7 @@ export type {
 } from './server/server.types';
 
 // Export client instance creation
-export { createAuthClient } from './client/client';
+export { createAuthClient } from './client/client.service';
 export type {
 	AuthClientApiEndpointFor,
 	AuthClientApiEndpointKeyFor,

@@ -4,7 +4,7 @@
  * Targets >90% code coverage with unit and integration tests.
  */
 
-import { defineConfig, createServerConfig, createClientConfig } from './config';
+import { defineConfig, createServerConfig, createClientConfig } from './config.service';
 import { getBaseURL, DEFAULT_SERVER_CONFIG, DEFAULT_CLIENT_CONFIG } from './config.constants';
 import type { ServerConfig, ClientConfig, AvailablePlugins } from './config.types';
 

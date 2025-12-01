@@ -2,9 +2,9 @@ import { createServer } from 'http';
 import { DatabaseSync } from 'node:sqlite';
 import { toNodeHandler } from 'better-auth/node';
 import { getMigrations } from 'better-auth/db';
-import { createAuthServer } from '../server/server';
-import { createAuthClient } from '../client/client';
-import type { ServerConfig } from '../config/config';
+import { createAuthServer } from '../server/server.service';
+import { createAuthClient } from '../client/client.service';
+import type { ServerConfig } from '../config/config.service';
 
 export async function setupTestEnv(options?: { serverConfig?: Partial<ServerConfig> }) {
 	// 1. Create in-memory SQLite DB
