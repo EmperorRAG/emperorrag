@@ -40,6 +40,7 @@ export default defineConfig(() => ({
 			tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
 			rollupTypes: false,
 			staticImport: true,
+			outDir: './dist',
 		}),
 	],
 	// Uncomment this if you are using workers.
