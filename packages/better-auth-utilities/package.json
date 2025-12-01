@@ -3,6 +3,9 @@
 	"version": "0.0.1",
 	"type": "module",
 	"sideEffects": false,
+	"scripts": {
+		"generate-graph": "madge --extensions ts --json src > dependency-graph.json && madge --extensions ts --image dependency-graph.svg src"
+	},
 	"main": "./dist/better-auth-utilities.barrel.js",
 	"module": "./dist/better-auth-utilities.barrel.js",
 	"types": "./dist/better-auth-utilities.barrel.d.ts",
@@ -212,6 +215,7 @@
 		"vite-plugin-dts": "^4.5.4",
 		"vite": "^7.0.0",
 		"vitest": "^3.0.0",
-		"@nx/vite": "21.6.5"
+		"@nx/vite": "21.6.5",
+		"madge": "^8.0.0"
 	}
 }
