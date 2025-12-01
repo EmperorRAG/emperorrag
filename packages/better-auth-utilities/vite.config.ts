@@ -61,10 +61,10 @@ export default defineConfig(() => ({
 		lib: {
 			entry: {
 				'better-auth-utilities': './src/better-auth-utilities.ts',
-				'lib/client/index': './src/lib/client/index.ts',
-				'lib/server/index': './src/lib/server/index.ts',
-				'lib/config/index': './src/lib/config/index.ts',
-				'lib/core/index': './src/lib/core/index.ts',
+				'lib/client/client.barrel': './src/lib/client/client.barrel.ts',
+				'lib/server/server.barrel': './src/lib/server/server.barrel.ts',
+				'lib/config/config.barrel': './src/lib/config/config.barrel.ts',
+				'lib/core/core.barrel': './src/lib/core/core.barrel.ts',
 				'lib/core/email/client/change-password/changePassword': './src/lib/core/email/client/change-password/changePassword.ts',
 				'lib/core/email/server/change-password/changePassword': './src/lib/core/email/server/change-password/changePassword.ts',
 				'lib/core/email/client/request-password-reset/requestPasswordReset':

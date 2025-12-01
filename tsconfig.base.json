@@ -21,10 +21,10 @@
 		"paths": {
 			"@prisma/client": ["packages/prisma/better-auth-db/prisma/generated/client"],
 			"@emperorrag/better-auth-utilities": ["packages/better-auth-utilities/src/better-auth-utilities.ts"],
-			"@emperorrag/better-auth-utilities/client": ["packages/better-auth-utilities/src/lib/client/index.ts"],
-			"@emperorrag/better-auth-utilities/server": ["packages/better-auth-utilities/src/lib/server/index.ts"],
-			"@emperorrag/better-auth-utilities/config": ["packages/better-auth-utilities/src/lib/config/index.ts"],
-			"@emperorrag/better-auth-utilities/core": ["packages/better-auth-utilities/src/lib/core/index.ts"],
+			"@emperorrag/better-auth-utilities/client": ["packages/better-auth-utilities/src/lib/client/client.barrel.ts"],
+			"@emperorrag/better-auth-utilities/server": ["packages/better-auth-utilities/src/lib/server/server.barrel.ts"],
+			"@emperorrag/better-auth-utilities/config": ["packages/better-auth-utilities/src/lib/config/config.barrel.ts"],
+			"@emperorrag/better-auth-utilities/core": ["packages/better-auth-utilities/src/lib/core/core.barrel.ts"],
 			"@emperorrag/better-auth-utilities/change-password/client": [
 				"packages/better-auth-utilities/src/lib/core/email/client/change-password/changePassword.ts"
 			],

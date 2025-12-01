@@ -15,28 +15,28 @@
 			"default": "./dist/better-auth-utilities.js"
 		},
 		"./client": {
-			"@emperorrag/source": "./src/lib/client/index.ts",
-			"types": "./dist/lib/client/index.d.ts",
-			"import": "./dist/lib/client/index.js",
-			"default": "./dist/lib/client/index.js"
+			"@emperorrag/source": "./src/lib/client/client.barrel.ts",
+			"types": "./dist/lib/client/client.barrel.d.ts",
+			"import": "./dist/lib/client/client.barrel.js",
+			"default": "./dist/lib/client/client.barrel.js"
 		},
 		"./server": {
-			"@emperorrag/source": "./src/lib/server/index.ts",
-			"types": "./dist/lib/server/index.d.ts",
-			"import": "./dist/lib/server/index.js",
-			"default": "./dist/lib/server/index.js"
+			"@emperorrag/source": "./src/lib/server/server.barrel.ts",
+			"types": "./dist/lib/server/server.barrel.d.ts",
+			"import": "./dist/lib/server/server.barrel.js",
+			"default": "./dist/lib/server/server.barrel.js"
 		},
 		"./config": {
-			"@emperorrag/source": "./src/lib/config/index.ts",
-			"types": "./dist/lib/config/index.d.ts",
-			"import": "./dist/lib/config/index.js",
-			"default": "./dist/lib/config/index.js"
+			"@emperorrag/source": "./src/lib/config/config.barrel.ts",
+			"types": "./dist/lib/config/config.barrel.d.ts",
+			"import": "./dist/lib/config/config.barrel.js",
+			"default": "./dist/lib/config/config.barrel.js"
 		},
 		"./core": {
-			"@emperorrag/source": "./src/lib/core/index.ts",
-			"types": "./dist/lib/core/index.d.ts",
-			"import": "./dist/lib/core/index.js",
-			"default": "./dist/lib/core/index.js"
+			"@emperorrag/source": "./src/lib/core/core.barrel.ts",
+			"types": "./dist/lib/core/core.barrel.d.ts",
+			"import": "./dist/lib/core/core.barrel.js",
+			"default": "./dist/lib/core/core.barrel.js"
 		},
 		"./change-password/client": {
 			"@emperorrag/source": "./src/lib/core/email/client/change-password/changePassword.ts",
