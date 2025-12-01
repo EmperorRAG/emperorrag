@@ -60,7 +60,7 @@ export default defineConfig(() => ({
 		},
 		lib: {
 			entry: {
-				'better-auth-utilities': './src/better-auth-utilities.ts',
+				'better-auth-utilities.barrel': './src/better-auth-utilities.barrel.ts',
 				'lib/client/client.barrel': './src/lib/client/client.barrel.ts',
 				'lib/server/server.barrel': './src/lib/server/server.barrel.ts',
 				'lib/config/config.barrel': './src/lib/config/config.barrel.ts',

@@ -3,16 +3,16 @@
 	"version": "0.0.1",
 	"type": "module",
 	"sideEffects": false,
-	"main": "./dist/better-auth-utilities.js",
-	"module": "./dist/better-auth-utilities.js",
-	"types": "./dist/better-auth-utilities.d.ts",
+	"main": "./dist/better-auth-utilities.barrel.js",
+	"module": "./dist/better-auth-utilities.barrel.js",
+	"types": "./dist/better-auth-utilities.barrel.d.ts",
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
-			"@emperorrag/source": "./src/better-auth-utilities.ts",
-			"types": "./dist/better-auth-utilities.d.ts",
-			"import": "./dist/better-auth-utilities.js",
-			"default": "./dist/better-auth-utilities.js"
+			"@emperorrag/source": "./src/better-auth-utilities.barrel.ts",
+			"types": "./dist/better-auth-utilities.barrel.d.ts",
+			"import": "./dist/better-auth-utilities.barrel.js",
+			"default": "./dist/better-auth-utilities.barrel.js"
 		},
 		"./client": {
 			"@emperorrag/source": "./src/lib/client/client.barrel.ts",
