@@ -6,4 +6,3 @@
 export * from './client/client.barrel';
 export * from './server/server.barrel';
 export * from './shared/config/config.barrel';
-export * from './test/setup-test-env';

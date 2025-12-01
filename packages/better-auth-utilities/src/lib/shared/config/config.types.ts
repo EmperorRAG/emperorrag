@@ -3,7 +3,17 @@
  * @description Type definitions for better-auth configuration.
  */
 
-import type { AuthServerDatabaseOptions } from '../../server/server.types';
+import type { BetterAuthOptions } from 'better-auth';
+
+/**
+ * Type helper to extract the database configuration type from Better Auth options.
+ *
+ * @pure
+ * @description Returns the type of the `database` property from BetterAuthOptions.
+ * This allows the configuration to accept any valid Better Auth database adapter or configuration,
+ * including native Node.js SQLite instances.
+ */
+export type AuthServerDatabaseOptions = BetterAuthOptions['database'];
 
 // ============================================================================
 // PLUGIN TYPES & REGISTRY

@@ -13,4 +13,4 @@ export { authServer } from './server/server';
 export { authClient } from './client/client';
 
 // Re-export types from better-auth-utilities
-export type { AuthProvider, AvailablePlugins, BetterAuthConfig, ClientConfig, ServerConfig } from '@emperorrag/better-auth-utilities';
+export type { AuthProvider, AvailablePlugins, BetterAuthConfig, ClientConfig, ServerConfig } from '@emperorrag/better-auth-utilities/config';

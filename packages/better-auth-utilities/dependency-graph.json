@@ -300,8 +300,7 @@
   "lib/lib.barrel.ts": [
     "lib/client/client.barrel.ts",
     "lib/server/server.barrel.ts",
-    "lib/shared/config/config.barrel.ts",
-    "lib/test/setup-test-env.ts"
+    "lib/shared/config/config.barrel.ts"
   ],
   "lib/server/config/config.service.ts": [
     "lib/shared/config/config.types.ts"
@@ -569,7 +568,9 @@
   "lib/server/server.spec.ts": [
     "lib/test/setup-test-env.ts"
   ],
-  "lib/server/server.types.ts": [],
+  "lib/server/server.types.ts": [
+    "lib/shared/config/config.types.ts"
+  ],
   "lib/shared/config/config.barrel.ts": [
     "lib/shared/config/config.constants.ts",
     "lib/shared/config/config.service.ts",
@@ -588,9 +589,7 @@
     "lib/shared/config/config.service.ts",
     "lib/shared/config/config.types.ts"
   ],
-  "lib/shared/config/config.types.ts": [
-    "lib/server/server.types.ts"
-  ],
+  "lib/shared/config/config.types.ts": [],
   "lib/test/integration.spec.ts": [
     "lib/test/setup-test-env.ts"
   ],
