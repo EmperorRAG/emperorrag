@@ -4,7 +4,9 @@
  * Uses the adapter pattern from better-auth-utilities for NestJS integration.
  */
 
-import { defineConfig, createServerConfig, createClientConfig } from '@emperorrag/better-auth-utilities/config';
+import { defineConfig } from '@emperorrag/better-auth-utilities/config';
+import { createServerConfig } from '@emperorrag/better-auth-utilities/server';
+import { createClientConfig } from '@emperorrag/better-auth-utilities/client';
 import { username, jwt, bearer, admin, organization, /*emailOTP, twoFactor,*/ apiKey } from 'better-auth/plugins';
 
 const plugins = {

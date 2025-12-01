@@ -2,7 +2,7 @@
 	"extends": "../../../tsconfig.base.json",
 	"compilerOptions": {
 		"outDir": "./dist",
-		"tsBuildInfoFile": "./dist/tsconfig.lib.tsbuildinfo",
+		"tsBuildInfoFile": "./tsconfig.lib.tsbuildinfo",
 		"emitDeclarationOnly": true,
 		"forceConsistentCasingInFileNames": true,
 		"types": ["node", "vite/client"]
