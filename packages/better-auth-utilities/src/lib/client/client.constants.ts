@@ -20,7 +20,7 @@ import {
 	oneTimeTokenClient,
 	multiSessionClient,
 } from 'better-auth/client/plugins';
-import type { AvailablePlugins } from '../config/config';
+import type { AvailablePlugins } from '../config/config.types';
 
 /**
  * Maps plugin names to their client factory functions.

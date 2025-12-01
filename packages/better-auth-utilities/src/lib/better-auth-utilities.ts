@@ -5,17 +5,16 @@
 
 // Export configuration utilities
 export { defineConfig, createClientConfig, createServerConfig } from './config/config';
+export { DEFAULT_CLIENT_CONFIG, DEFAULT_SERVER_CONFIG } from './config/config.constants';
 export type {
 	AuthProvider,
 	AvailablePlugins,
 	BetterAuthConfig,
 	ClientConfig,
-	DEFAULT_CLIENT_CONFIG,
-	DEFAULT_SERVER_CONFIG,
 	OAuthProviderId,
 	PluginConfigRegistry,
 	ServerConfig,
-} from './config/config';
+} from './config/config.types';
 
 // Export server instance creation
 export { createAuthServer } from './server/server';

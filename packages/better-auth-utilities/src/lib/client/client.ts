@@ -4,7 +4,7 @@
  */
 
 import { createAuthClient as createBetterAuthClientCore } from 'better-auth/client';
-import type { BetterAuthConfig, AvailablePlugins } from '../config/config';
+import type { BetterAuthConfig, AvailablePlugins } from '../config/config.types';
 import { CLIENT_PLUGIN_FACTORIES } from './client.constants';
 
 /**
