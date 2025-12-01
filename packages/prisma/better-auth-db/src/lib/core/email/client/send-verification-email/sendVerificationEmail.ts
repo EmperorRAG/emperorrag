@@ -1,4 +1,4 @@
 import { sendVerificationEmailClient as sendVerificationEmailUtility } from '@emperorrag/better-auth-utilities/send-verification-email/client';
 import { authClient } from '../../../../client/client';
 
-export const sendVerificationEmail = sendVerificationEmailUtility({ authClient });
+export const sendVerificationEmailClient = sendVerificationEmailUtility({ authClient });
