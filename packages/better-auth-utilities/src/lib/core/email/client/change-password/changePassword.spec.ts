@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { setupTestEnv } from '../../../../test/setup-test-env.js';
+import { setupTestEnv } from '../../../../test/setup-test-env';
 
 describe('Change Password', () => {
 	let env: Awaited<ReturnType<typeof setupTestEnv>>;

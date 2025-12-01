@@ -18,8 +18,8 @@
  * @example
  * ```typescript
  * import { Effect, pipe } from 'effect';
- * import { requestPasswordResetInputSchema } from './requestPasswordReset.schema.js';
- * import { requestPasswordReset } from './requestPasswordReset.service.js';
+ * import { requestPasswordResetInputSchema } from './requestPasswordReset.schema';
+ * import { requestPasswordReset } from './requestPasswordReset.service';
  *
  * export const requestPasswordResetController = (deps) => (rawInput) =>
  *   pipe(

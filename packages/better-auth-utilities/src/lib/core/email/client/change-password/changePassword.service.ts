@@ -1,6 +1,6 @@
 import * as Effect from 'effect/Effect';
-import type { changePasswordProps } from './changePassword.types.js';
-import { EmailAuthApiError } from '../shared/email.error.js';
+import type { changePasswordProps } from './changePassword.types';
+import { EmailAuthApiError } from '../shared/email.error';
 
 /**
  * Change the password for the currently authenticated user using Better Auth.
@@ -18,7 +18,7 @@ import { EmailAuthApiError } from '../shared/email.error.js';
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
- * import { changePassword } from './changePassword.service.js';
+ * import { changePassword } from './changePassword.service';
  *
  * const program = Effect.gen(function* () {
  *   const result = yield* changePassword({ authClient })({

@@ -1,5 +1,5 @@
 import type { createAuthClient } from 'better-auth/client';
-import type { AuthClientFor } from '../../../../client/client.types.js';
+import type { AuthClientFor } from '../../../../client/client.types';
 
 /**
  * Shared dependency type for email authentication operations.

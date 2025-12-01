@@ -3,10 +3,10 @@
  * @description Barrel export for resetPassword module
  */
 
-export type { ResetPasswordInput, ResetPasswordResult, resetPasswordProps } from './resetPassword.types.js';
+export type { ResetPasswordInput, ResetPasswordResult, resetPasswordProps } from './resetPassword.types';
 
-export { resetPasswordInputSchema } from './resetPassword.schema.js';
-export { resetPasswordClient } from './resetPassword.service.js';
+export { resetPasswordInputSchema } from './resetPassword.schema';
+export { resetPasswordClient } from './resetPassword.service';
 
 // Controller exports (when implemented)
-// export { resetPasswordController } from './resetPassword.controller.js';
+// export { resetPasswordController } from './resetPassword.controller';

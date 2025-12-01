@@ -18,8 +18,8 @@
  * @example
  * ```typescript
  * import { Effect, pipe } from 'effect';
- * import { signOutInputSchema } from './signOut.schema.js';
- * import { signOut } from './signOut.service.js';
+ * import { signOutInputSchema } from './signOut.schema';
+ * import { signOut } from './signOut.service';
  *
  * export const signOutController = (deps) => (rawInput) =>
  *   pipe(

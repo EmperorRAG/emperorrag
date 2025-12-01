@@ -1,6 +1,6 @@
 import * as Effect from 'effect/Effect';
-import type { requestPasswordResetProps } from './requestPasswordReset.types.js';
-import { EmailAuthApiError } from '../shared/email.error.js';
+import type { requestPasswordResetProps } from './requestPasswordReset.types';
+import { EmailAuthApiError } from '../shared/email.error';
 
 /**
  * Request a password reset email for the specified email address using Better Auth.
@@ -18,7 +18,7 @@ import { EmailAuthApiError } from '../shared/email.error.js';
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
- * import { requestPasswordReset } from './requestPasswordReset.service.js';
+ * import { requestPasswordReset } from './requestPasswordReset.service';
  *
  * const program = Effect.gen(function* () {
  *   const result = yield* requestPasswordReset({ authClient })({

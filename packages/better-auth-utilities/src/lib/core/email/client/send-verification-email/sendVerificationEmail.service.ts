@@ -1,6 +1,6 @@
 import * as Effect from 'effect/Effect';
-import type { sendVerificationEmailProps } from './sendVerificationEmail.types.js';
-import { EmailAuthApiError } from '../shared/email.error.js';
+import type { sendVerificationEmailProps } from './sendVerificationEmail.types';
+import { EmailAuthApiError } from '../shared/email.error';
 
 /**
  * Send a verification email to the specified email address using Better Auth.
@@ -18,7 +18,7 @@ import { EmailAuthApiError } from '../shared/email.error.js';
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
- * import { sendVerificationEmail } from './sendVerificationEmail.service.js';
+ * import { sendVerificationEmail } from './sendVerificationEmail.service';
  *
  * const program = Effect.gen(function* () {
  *   const result = yield* sendVerificationEmail({ authClient })({

@@ -1,6 +1,6 @@
 import * as Effect from 'effect/Effect';
-import type { signOutProps } from './signOut.types.js';
-import { EmailAuthApiError } from '../shared/email.error.js';
+import type { signOutProps } from './signOut.types';
+import { EmailAuthApiError } from '../shared/email.error';
 
 /**
  * Sign out the currently authenticated user using Better Auth.
@@ -18,7 +18,7 @@ import { EmailAuthApiError } from '../shared/email.error.js';
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
- * import { signOut } from './signOut.service.js';
+ * import { signOut } from './signOut.service';
  *
  * const program = Effect.gen(function* () {
  *   const result = yield* signOut({ authClient })({

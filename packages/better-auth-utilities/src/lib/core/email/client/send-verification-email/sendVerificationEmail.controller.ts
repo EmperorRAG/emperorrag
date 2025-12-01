@@ -18,8 +18,8 @@
  * @example
  * ```typescript
  * import { Effect, pipe } from 'effect';
- * import { sendVerificationEmailInputSchema } from './sendVerificationEmail.schema.js';
- * import { sendVerificationEmail } from './sendVerificationEmail.service.js';
+ * import { sendVerificationEmailInputSchema } from './sendVerificationEmail.schema';
+ * import { sendVerificationEmail } from './sendVerificationEmail.service';
  *
  * export const sendVerificationEmailController = (deps) => (rawInput) =>
  *   pipe(

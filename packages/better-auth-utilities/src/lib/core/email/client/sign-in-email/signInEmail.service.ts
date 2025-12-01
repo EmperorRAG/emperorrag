@@ -1,6 +1,6 @@
 import * as Effect from 'effect/Effect';
-import type { signInEmailProps } from './signInEmail.types.js';
-import { EmailAuthApiError } from '../shared/email.error.js';
+import type { signInEmailProps } from './signInEmail.types';
+import { EmailAuthApiError } from '../shared/email.error';
 
 /**
  * Sign in a user via email and password using Better Auth.
@@ -18,7 +18,7 @@ import { EmailAuthApiError } from '../shared/email.error.js';
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
- * import { signInEmail } from './signInEmail.service.js';
+ * import { signInEmail } from './signInEmail.service';
  *
  * const program = Effect.gen(function* () {
  *   const result = yield* signInEmail({ authClient })({
