@@ -3,7 +3,7 @@
  * @description Public API for the better-auth-utilities library.
  */
 
-export { createAuthServer, createClientConfig, createServerConfig, defineConfig, createAuthClient } from './lib/better-auth-utilities';
+export { createAuthServer, createClientConfig, createServerConfig, defineConfig, createAuthClient } from './lib/lib.barrel';
 
 export type {
 	AuthProvider,
@@ -30,4 +30,4 @@ export type {
 	AuthServerSessionUserSessionFor,
 	AuthServerSignInFor,
 	AuthServerSignUpFor,
-} from './lib/better-auth-utilities';
+} from './lib/lib.barrel';
