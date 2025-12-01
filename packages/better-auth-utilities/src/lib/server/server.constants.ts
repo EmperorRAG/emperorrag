@@ -24,7 +24,7 @@ import {
 	oneTimeToken,
 	multiSession,
 } from 'better-auth/plugins';
-import type { AvailablePlugins } from '../config/config.types';
+import type { AvailablePlugins } from '../shared/config/config.types';
 
 /**
  * Maps plugin names to their server factory functions.

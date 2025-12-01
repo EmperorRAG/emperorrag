@@ -6,7 +6,7 @@
 import { betterAuth } from 'better-auth';
 import type { BetterAuthOptions } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
-import type { BetterAuthConfig, AvailablePlugins } from '../config/config.types';
+import type { BetterAuthConfig, AvailablePlugins } from '../shared/config/config.types';
 import { SERVER_PLUGIN_FACTORIES, ALWAYS_INCLUDED_SERVER_PLUGINS } from './server.constants';
 
 // ============================================================================
