@@ -3,17 +3,6 @@
  * @description Barrel export for server-side reset password module.
  */
 
-export type {
-	AuthServerResetPasswordFor,
-	ResetPasswordServerInput,
-	ResetPasswordServerHeaders,
-	ResetPasswordServerParams,
-	ResetPasswordServerResult,
-	resetPasswordServerProps,
-} from './resetPassword.types';
-
-export { resetPasswordServerBodySchema, resetPasswordServerParamsSchema } from './resetPassword.schema';
-
 export { resetPasswordServer } from './resetPassword.service';
 
 // Controller exports (when implemented)
