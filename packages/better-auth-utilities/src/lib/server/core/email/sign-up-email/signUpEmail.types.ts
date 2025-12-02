@@ -3,76 +3,53 @@
  * @description Type definitions for server-side sign-up email operation.
  */
 
-import type { AuthServerFor, AuthServerSignUpFor } from '../../../server.types';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { EmailAuthServerError } from '../shared/email.error';
 import type { EmailAuthServerDeps } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
 /**
- * Type helper to extract the body parameter type for auth.api.signUpEmail.
+ * Type helper to extract the signUp endpoint type from an AuthServer.
  *
  * @pure
- * @description Extracts the 'body' property type from the first parameter of signUpEmail.
- * Includes user registration data: name, email, password, and optional fields.
+ * @description Returns the type of the `signUpEmail` method from the server API. This method creates
+ * new user accounts with email and password, optionally including name and other fields, returning
+ * session data or throwing an APIError on failure.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @example
  * ```typescript
- * type Body = SignUpEmailServerInput<typeof authServer>;
- * // { name: string, email: string, password: string, callbackURL?: string, image?: string }
+ * type SignUpMethod = SignUpEmailServerFor<typeof authServer>;
+ * // (args: { body: { email: string, password: string, name?: string }, headers?: Headers, ... }) => Promise<Session>
+ *
+ * // Usage in implementation
+ * const signUp: SignUpEmailServerFor = authServer.api.signUpEmail;
+ * const session = await signUp({
+ *   body: { email: 'newuser@example.com', password: 'secret', name: 'John Doe' },
+ *   headers: request.headers
+ * });
  * ```
  */
-export type SignUpEmailServerInput<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerSignUpFor<T>>[0] extends { body: infer B } ? B : never;
+export type SignUpEmailServerFor<T extends AuthServerFor = AuthServerFor> =
+	'signUpEmail' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['signUpEmail'] : never;
 
 /**
- * Type helper to extract the headers parameter type for auth.api.signUpEmail.
+ * Type helper to extract the input parameter type for auth.api.signUpEmail.
  *
  * @pure
- * @description Server operations accept Headers for session cookie creation after registration.
- *
- * @example
- * ```typescript
- * import { headers } from 'next/headers';
- *
- * const requestHeaders: SignUpEmailServerHeaders = await headers();
- * ```
- */
-export type SignUpEmailServerHeaders = Headers;
-
-/**
- * Type helper for the complete parameter structure accepted by signUpEmail service.
- *
- * @pure
- * @description Combines body, headers, and Better Auth server options into a single type.
+ * @description Extracts the first parameter type from the signUpEmail method.
+ * Includes user registration data: name, email, password, headers, and optional fields.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
- * @remarks
- * - body: Required registration data (name, email, password, etc.)
- * - headers: Optional Headers for session cookie creation (recommended)
- * - asResponse: Optional flag to return full Response object instead of parsed data
- * - returnHeaders: Optional flag to include response headers in result
- *
  * @example
  * ```typescript
- * const params: SignUpEmailServerParams<typeof authServer> = {
- *   body: {
- *     name: 'John Doe',
- *     email: 'john@example.com',
- *     password: 'securePassword123',
- *     image: 'https://example.com/avatar.jpg'
- *   },
- *   headers: await headers()
- * };
+ * type Input = SignUpEmailServerInput<typeof authServer>;
+ * // { body: { name: string, email: string, password: string, ... }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type SignUpEmailServerParams<T extends AuthServerFor = AuthServerFor> = {
-	body: SignUpEmailServerInput<T>;
-	headers?: SignUpEmailServerHeaders;
-	asResponse?: boolean;
-	returnHeaders?: boolean;
-};
+export type SignUpEmailServerInput<T extends AuthServerFor = AuthServerFor> = Parameters<SignUpEmailServerFor<T>>[0];
 
 /**
  * Type helper to extract the result type from auth.api.signUpEmail.
@@ -89,21 +66,21 @@ export type SignUpEmailServerParams<T extends AuthServerFor = AuthServerFor> = {
  * // { user: { id: string, name: string, email: string, ... }, session: { id: string, ... }, ... }
  * ```
  */
-export type SignUpEmailServerResult<T extends AuthServerFor = AuthServerFor> = Awaited<ReturnType<AuthServerSignUpFor<T>>>;
+export type SignUpEmailServerResult<T extends AuthServerFor = AuthServerFor> = Awaited<ReturnType<SignUpEmailServerFor<T>>>;
 
 /**
  * Function signature for signUpEmail server service.
  *
  * @pure
- * @description Curried function accepting dependencies first, then parameters, returning an Effect.
+ * @description Curried function accepting dependencies first, then input, returning an Effect.
  * Follows the same pattern as signInEmail for consistency.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @remarks
  * **Currying Stages:**
- * 1. Accept dependencies (authServer) → Return function accepting params
- * 2. Accept params (body, headers) → Return Effect
+ * 1. Accept dependencies (authServer) → Return function accepting input
+ * 2. Accept input (body, headers, etc.) → Return Effect
  * 3. Effect executes lazily when run
  *
  * **Error Channel:**
@@ -133,5 +110,5 @@ export type SignUpEmailServerResult<T extends AuthServerFor = AuthServerFor> = A
  * ```
  */
 export interface signUpEmailServerProps<T extends AuthServerFor = AuthServerFor> {
-	(deps: EmailAuthServerDeps<T>): (params: SignUpEmailServerParams<T>) => Effect.Effect<SignUpEmailServerResult<T>, EmailAuthServerError>;
+	(deps: EmailAuthServerDeps<T>): (input: SignUpEmailServerInput<T>) => Effect.Effect<SignUpEmailServerResult<T>, EmailAuthServerError>;
 }

@@ -224,30 +224,6 @@ export type AuthServerSignInFor<T extends AuthServerFor = AuthServerFor> =
 	'signInEmail' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['signInEmail'] : never;
 
 /**
- * Type helper to extract the signUp endpoint type from an AuthServer.
- *
- * @pure
- * @description Returns the type of the `signUpEmail` method from the server API. This method creates
- * new user accounts with email and password, optionally including name and other fields, returning
- * session data or throwing an APIError on failure.
- *
- * @example
- * ```typescript
- * type SignUpMethod = AuthServerSignUpFor<typeof authServer>;
- * // (args: { body: { email: string, password: string, name?: string }, headers?: Headers, ... }) => Promise<Session>
- *
- * // Usage in implementation
- * const signUp: SignUpMethod = authServer.api.signUpEmail;
- * const session = await signUp({
- *   body: { email: 'newuser@example.com', password: 'secret', name: 'John Doe' },
- *   headers: request.headers
- * });
- * ```
- */
-export type AuthServerSignUpFor<T extends AuthServerFor = AuthServerFor> =
-	'signUpEmail' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['signUpEmail'] : never;
-
-/**
  * Type helper to extract the signOut endpoint type from an AuthServer.
  *
  * @pure
