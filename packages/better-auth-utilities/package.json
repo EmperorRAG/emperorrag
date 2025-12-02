@@ -4,7 +4,7 @@
 	"type": "module",
 	"sideEffects": false,
 	"scripts": {
-		"generate-graph": "madge --extensions ts --json src > dependency-graph.json && madge --extensions ts --image dependency-graph.svg src"
+		"generate-graph": "madge --extensions ts --include-npm --json src > dependency-graph.json && madge --extensions ts --include-npm --image dependency-graph.svg src"
 	},
 	"main": "./dist/better-auth-utilities.barrel.js",
 	"module": "./dist/better-auth-utilities.barrel.js",
