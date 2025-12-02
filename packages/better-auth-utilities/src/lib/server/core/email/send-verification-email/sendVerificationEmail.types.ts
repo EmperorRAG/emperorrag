@@ -7,7 +7,7 @@ import type { betterAuth } from 'better-auth';
 import type { AuthServerFor } from '../../../server.types';
 import type { EmailAuthServerError } from '../shared/email.error';
 import type { EmailAuthServerDeps } from '../shared/email.types';
-import type { Effect } from 'effect';
+import type * as Effect from 'effect/Effect';
 
 /**
  * Type helper to extract the sendVerificationEmail method type from auth.api.

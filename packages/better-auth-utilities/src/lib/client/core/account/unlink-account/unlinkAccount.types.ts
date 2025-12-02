@@ -1,4 +1,4 @@
-import type { Effect } from 'effect';
+import type * as Effect from 'effect/Effect';
 import type { createAuthClient } from 'better-auth/client';
 import type { AuthClientFor } from '../../../client.types';
 import type { AccountAuthClientDeps } from '../shared/account.types';

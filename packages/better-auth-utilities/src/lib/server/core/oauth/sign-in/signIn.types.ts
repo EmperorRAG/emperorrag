@@ -5,7 +5,7 @@
 
 import type { betterAuth } from 'better-auth';
 import type { AuthServerFor } from '../../../server.types';
-import type { Effect } from 'effect';
+import type * as Effect from 'effect/Effect';
 import type { OAuthAuthServerError } from '../shared/oauth.error';
 import type { OAuthAuthServerDeps } from '../shared/oauth.types';
 

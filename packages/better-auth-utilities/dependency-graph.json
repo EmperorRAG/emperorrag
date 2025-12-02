@@ -31,7 +31,7 @@
   ],
   "lib/client/core/account/link-social/linkSocial.types.ts": [
     "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/account/shared/account.error.ts",
     "lib/client/core/account/shared/account.types.ts"
@@ -49,7 +49,7 @@
   ],
   "lib/client/core/account/list-accounts/listAccounts.types.ts": [
     "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/account/shared/account.error.ts",
     "lib/client/core/account/shared/account.types.ts"
@@ -72,7 +72,7 @@
   ],
   "lib/client/core/account/unlink-account/unlinkAccount.types.ts": [
     "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/account/shared/account.error.ts",
     "lib/client/core/account/shared/account.types.ts"
@@ -95,7 +95,7 @@
   ],
   "lib/client/core/email/change-password/changePassword.types.ts": [
     "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
@@ -119,7 +119,7 @@
   ],
   "lib/client/core/email/request-password-reset/requestPasswordReset.types.ts": [
     "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
@@ -143,7 +143,7 @@
   ],
   "lib/client/core/email/reset-password/resetPassword.types.ts": [
     "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
@@ -167,7 +167,7 @@
   ],
   "lib/client/core/email/send-verification-email/sendVerificationEmail.types.ts": [
     "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
@@ -199,7 +199,7 @@
   ],
   "lib/client/core/email/sign-in-email/signInEmail.types.ts": [
     "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
@@ -223,7 +223,7 @@
   ],
   "lib/client/core/email/sign-out/signOut.types.ts": [
     "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
@@ -247,7 +247,7 @@
   ],
   "lib/client/core/email/sign-up-email/signUpEmail.types.ts": [
     "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
@@ -285,7 +285,8 @@
     "lib/client/core/session/shared/session.error.ts"
   ],
   "lib/client/core/session/get-session/getSession.spec.ts": [
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
+    "../../../node_modules/effect/dist/dts/Either.d.ts",
     "../../../node_modules/vitest/dist/index.d.ts",
     "lib/client/core/session/get-session/getSession.service.ts",
     "lib/test/setup-test-env.ts"
@@ -319,7 +320,8 @@
     "lib/client/core/user/update-user/updateUser.types.ts"
   ],
   "lib/client/core/user/update-user/updateUser.spec.ts": [
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
+    "../../../node_modules/effect/dist/dts/Either.d.ts",
     "../../../node_modules/vitest/dist/index.d.ts",
     "lib/client/core/user/update-user/updateUser.service.ts",
     "lib/test/setup-test-env.ts"
@@ -329,7 +331,7 @@
   ],
   "lib/client/core/user/update-user/updateUser.types.ts": [
     "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/user/shared/user.error.ts",
     "lib/client/core/user/shared/user.types.ts"
@@ -350,7 +352,7 @@
   ],
   "lib/server/core/account/list-accounts/listAccounts.types.ts": [
     "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/account/shared/account.error.ts",
     "lib/server/core/account/shared/account.types.ts",
     "lib/server/server.types.ts"
@@ -373,7 +375,7 @@
   ],
   "lib/server/core/account/unlink-account/unlinkAccount.types.ts": [
     "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/account/shared/account.error.ts",
     "lib/server/core/account/shared/account.types.ts",
     "lib/server/server.types.ts"
@@ -396,7 +398,7 @@
   ],
   "lib/server/core/email/change-password/changePassword.types.ts": [
     "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
     "lib/server/server.types.ts"
@@ -419,7 +421,7 @@
   ],
   "lib/server/core/email/forget-password/forgetPassword.types.ts": [
     "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
     "lib/server/server.types.ts"
@@ -442,7 +444,7 @@
   ],
   "lib/server/core/email/reset-password/resetPassword.types.ts": [
     "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
     "lib/server/server.types.ts"
@@ -465,7 +467,7 @@
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts": [
     "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
     "lib/server/server.types.ts"
@@ -496,7 +498,7 @@
   ],
   "lib/server/core/email/sign-in-email/signInEmail.types.ts": [
     "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
     "lib/server/server.types.ts"
@@ -519,7 +521,7 @@
   ],
   "lib/server/core/email/sign-out/signOut.types.ts": [
     "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
     "lib/server/server.types.ts"
@@ -542,7 +544,7 @@
   ],
   "lib/server/core/email/sign-up-email/signUpEmail.types.ts": [
     "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
     "lib/server/server.types.ts"
@@ -566,7 +568,7 @@
   ],
   "lib/server/core/oauth/sign-in/signIn.types.ts": [
     "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/oauth/shared/oauth.error.ts",
     "lib/server/core/oauth/shared/oauth.types.ts",
     "lib/server/server.types.ts"
@@ -580,7 +582,8 @@
     "lib/server/core/session/shared/session.error.ts"
   ],
   "lib/server/core/session/get-session/getSession.spec.ts": [
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
+    "../../../node_modules/effect/dist/dts/Either.d.ts",
     "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/session/get-session/getSession.service.ts",
     "lib/test/setup-test-env.ts"
@@ -614,7 +617,8 @@
     "lib/server/core/user/update-user/updateUser.types.ts"
   ],
   "lib/server/core/user/update-user/updateUser.spec.ts": [
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
+    "../../../node_modules/effect/dist/dts/Either.d.ts",
     "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/user/update-user/updateUser.service.ts",
     "lib/test/setup-test-env.ts"
@@ -624,7 +628,7 @@
   ],
   "lib/server/core/user/update-user/updateUser.types.ts": [
     "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/user/shared/user.error.ts",
     "lib/server/core/user/shared/user.types.ts",
     "lib/server/server.types.ts"

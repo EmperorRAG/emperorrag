@@ -2,7 +2,7 @@ import type { createAuthClient } from 'better-auth/client';
 import type { AuthClientFor } from '../../../client.types';
 import type { EmailAuthError } from '../shared/email.error';
 import type { EmailAuthClientDeps } from '../shared/email.types';
-import type { Effect } from 'effect';
+import type * as Effect from 'effect/Effect';
 
 /**
  * Type helper to extract the input parameter type for signOut.

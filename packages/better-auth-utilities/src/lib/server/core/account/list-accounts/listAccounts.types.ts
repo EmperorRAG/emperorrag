@@ -2,7 +2,7 @@ import type { betterAuth } from 'better-auth';
 import type { AuthServerFor, AuthServerApiFor } from '../../../server.types';
 import type { AccountAuthServerError } from '../shared/account.error';
 import type { AccountAuthServerDeps } from '../shared/account.types';
-import type { Effect } from 'effect';
+import type * as Effect from 'effect/Effect';
 
 /**
  * Type helper to extract the body parameter type for auth.api.listAccounts.

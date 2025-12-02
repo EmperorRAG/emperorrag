@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { Effect, Either } from 'effect';
+import * as Effect from 'effect/Effect';
+import * as Either from 'effect/Either';
 import { getSessionClient } from './getSession.service';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 
