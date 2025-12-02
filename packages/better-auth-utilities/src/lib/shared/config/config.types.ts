@@ -1,9 +1,18 @@
 /**
  * @file libs/better-auth-utilities/src/lib/config/config.types.ts
  * @description Type definitions for better-auth configuration.
+ *
+ * @remarks
+ * This file uses the 'better-auth/types' subpath import to optimize TS Server performance.
+ * This avoids loading runtime code when only types are needed.
  */
 
-import type { BetterAuthOptions } from 'better-auth';
+// =============================================================================
+// Subpath Import (Optimized for TS Server Performance)
+// Using 'better-auth/types' instead of root 'better-auth' to avoid loading
+// runtime code when only types are needed.
+// =============================================================================
+import type { BetterAuthOptions } from 'better-auth/types';
 
 /**
  * Type helper to extract the database configuration type from Better Auth options.

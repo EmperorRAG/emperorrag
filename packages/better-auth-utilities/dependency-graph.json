@@ -655,7 +655,7 @@
   "lib/server/server.service.ts": [
     "../../../node_modules/better-auth/dist/adapters/prisma-adapter/index.d.ts",
     "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/better-auth/dist/index.d.ts",
+    "../../../node_modules/better-auth/dist/types/index.d.ts",
     "lib/server/server.constants.ts",
     "lib/shared/config/config.types.ts"
   ],
@@ -681,7 +681,7 @@
     "lib/shared/config/config.types.ts"
   ],
   "lib/shared/config/config.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts"
+    "../../../node_modules/better-auth/dist/types/index.d.ts"
   ],
   "lib/test/integration.spec.ts": [
     "../../../node_modules/vitest/dist/index.d.ts",

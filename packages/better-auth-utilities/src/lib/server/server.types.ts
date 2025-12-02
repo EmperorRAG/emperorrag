@@ -1,3 +1,8 @@
+// =============================================================================
+// Subpath Import (Optimized for TS Server Performance)
+// Using 'better-auth/types' instead of root 'better-auth' to avoid loading
+// runtime code when only types are needed.
+// =============================================================================
 import type { betterAuth } from 'better-auth';
 import type { AuthServerDatabaseOptions } from '../shared/config/config.types';
 

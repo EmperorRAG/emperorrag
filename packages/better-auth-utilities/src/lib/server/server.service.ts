@@ -1,10 +1,23 @@
 /**
  * @file libs/better-auth-utilities/src/lib/server.ts
  * @description Server-side better-auth instance creation with full plugin support.
+ *
+ * @remarks
+ * This file uses granular subpath imports from better-auth to optimize TS Server performance:
+ * - Runtime: `betterAuth` from root 'better-auth' (required for runtime functionality)
+ * - Types: `BetterAuthOptions` from 'better-auth/types' (avoids loading runtime code for types)
+ * - Adapters: `prismaAdapter` from 'better-auth/adapters/prisma' (dedicated subpath)
  */
 
+// =============================================================================
+// Subpath Imports (Optimized for TS Server Performance)
+// =============================================================================
+
+// Runtime import - betterAuth function is only available from root
 import { betterAuth } from 'better-auth';
-import type { BetterAuthOptions } from 'better-auth';
+// Type import - using dedicated types subpath to avoid loading runtime code
+import type { BetterAuthOptions } from 'better-auth/types';
+// Adapter import - using dedicated adapter subpath
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import type { BetterAuthConfig, AvailablePlugins } from '../shared/config/config.types';
 import { SERVER_PLUGIN_FACTORIES, ALWAYS_INCLUDED_SERVER_PLUGINS } from './server.constants';
