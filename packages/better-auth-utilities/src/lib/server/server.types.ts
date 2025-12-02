@@ -423,24 +423,24 @@ export type AuthServerSignInSocialFor<T extends AuthServerFor = AuthServerFor> =
 	'signInSocial' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['signInSocial'] : never;
 
 /**
- * Type helper to extract the listAccounts endpoint type from an AuthServer.
+ * Type helper to extract the listUserAccounts endpoint type from an AuthServer.
  *
  * @pure
- * @description Returns the type of the `listAccounts` method from the server API. This method retrieves
+ * @description Returns the type of the `listUserAccounts` method from the server API. This method retrieves
  * all linked accounts (OAuth providers, credentials) for the authenticated user.
  *
  * @example
  * ```typescript
- * type ListAccountsMethod = AuthServerListAccountsFor<typeof authServer>;
+ * type ListUserAccountsMethod = AuthServerListUserAccountsFor<typeof authServer>;
  * // (args: { headers: Headers, ... }) => Promise<Account[]>
  *
  * // Usage in implementation
- * const listAccounts: ListAccountsMethod = authServer.api.listAccounts;
- * const accounts = await listAccounts({ headers: request.headers });
+ * const listUserAccounts: ListUserAccountsMethod = authServer.api.listUserAccounts;
+ * const accounts = await listUserAccounts({ headers: request.headers });
  * ```
  */
-export type AuthServerListAccountsFor<T extends AuthServerFor = AuthServerFor> =
-	'listAccounts' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['listAccounts'] : never;
+export type AuthServerListUserAccountsFor<T extends AuthServerFor = AuthServerFor> =
+	'listUserAccounts' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['listUserAccounts'] : never;
 
 /**
  * Type helper to extract the unlinkAccount endpoint type from an AuthServer.
@@ -464,3 +464,284 @@ export type AuthServerListAccountsFor<T extends AuthServerFor = AuthServerFor> =
  */
 export type AuthServerUnlinkAccountFor<T extends AuthServerFor = AuthServerFor> =
 	'unlinkAccount' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['unlinkAccount'] : never;
+
+/**
+ * Type helper to extract the callbackOAuth endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `callbackOAuth` method from the server API. This method handles
+ * the OAuth callback after provider authentication.
+ *
+ * @example
+ * ```typescript
+ * type CallbackOAuthMethod = AuthServerCallbackOAuthFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerCallbackOAuthFor<T extends AuthServerFor = AuthServerFor> =
+	'callbackOAuth' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['callbackOAuth'] : never;
+
+/**
+ * Type helper to extract the verifyEmail endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `verifyEmail` method from the server API. This method verifies
+ * a user's email address using the verification token.
+ *
+ * @example
+ * ```typescript
+ * type VerifyEmailMethod = AuthServerVerifyEmailFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerVerifyEmailFor<T extends AuthServerFor = AuthServerFor> =
+	'verifyEmail' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['verifyEmail'] : never;
+
+/**
+ * Type helper to extract the changeEmail endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `changeEmail` method from the server API. This method allows
+ * users to change their email address.
+ *
+ * @example
+ * ```typescript
+ * type ChangeEmailMethod = AuthServerChangeEmailFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerChangeEmailFor<T extends AuthServerFor = AuthServerFor> =
+	'changeEmail' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['changeEmail'] : never;
+
+/**
+ * Type helper to extract the setPassword endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `setPassword` method from the server API. This method allows
+ * users to set a password (typically for OAuth-only accounts).
+ *
+ * @example
+ * ```typescript
+ * type SetPasswordMethod = AuthServerSetPasswordFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerSetPasswordFor<T extends AuthServerFor = AuthServerFor> =
+	'setPassword' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['setPassword'] : never;
+
+/**
+ * Type helper to extract the deleteUser endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `deleteUser` method from the server API. This method allows
+ * users to delete their account.
+ *
+ * @example
+ * ```typescript
+ * type DeleteUserMethod = AuthServerDeleteUserFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerDeleteUserFor<T extends AuthServerFor = AuthServerFor> =
+	'deleteUser' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['deleteUser'] : never;
+
+/**
+ * Type helper to extract the deleteUserCallback endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `deleteUserCallback` method from the server API. This method handles
+ * the callback after user deletion confirmation.
+ *
+ * @example
+ * ```typescript
+ * type DeleteUserCallbackMethod = AuthServerDeleteUserCallbackFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerDeleteUserCallbackFor<T extends AuthServerFor = AuthServerFor> =
+	'deleteUserCallback' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['deleteUserCallback'] : never;
+
+/**
+ * Type helper to extract the forgetPasswordCallback endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `forgetPasswordCallback` method from the server API. This method handles
+ * the callback from the forget password email link.
+ *
+ * @example
+ * ```typescript
+ * type ForgetPasswordCallbackMethod = AuthServerForgetPasswordCallbackFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerForgetPasswordCallbackFor<T extends AuthServerFor = AuthServerFor> =
+	'forgetPasswordCallback' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['forgetPasswordCallback'] : never;
+
+/**
+ * Type helper to extract the requestPasswordReset endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `requestPasswordReset` method from the server API. This method initiates
+ * the password reset workflow.
+ *
+ * @example
+ * ```typescript
+ * type RequestPasswordResetMethod = AuthServerRequestPasswordResetFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerRequestPasswordResetFor<T extends AuthServerFor = AuthServerFor> =
+	'requestPasswordReset' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['requestPasswordReset'] : never;
+
+/**
+ * Type helper to extract the requestPasswordResetCallback endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `requestPasswordResetCallback` method from the server API. This method handles
+ * the callback from the password reset email link.
+ *
+ * @example
+ * ```typescript
+ * type RequestPasswordResetCallbackMethod = AuthServerRequestPasswordResetCallbackFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerRequestPasswordResetCallbackFor<T extends AuthServerFor = AuthServerFor> =
+	'requestPasswordResetCallback' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['requestPasswordResetCallback'] : never;
+
+/**
+ * Type helper to extract the listSessions endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `listSessions` method from the server API. This method retrieves
+ * all active sessions for the authenticated user.
+ *
+ * @example
+ * ```typescript
+ * type ListSessionsMethod = AuthServerListSessionsFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerListSessionsFor<T extends AuthServerFor = AuthServerFor> =
+	'listSessions' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['listSessions'] : never;
+
+/**
+ * Type helper to extract the revokeSession endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `revokeSession` method from the server API. This method revokes
+ * a specific session by ID.
+ *
+ * @example
+ * ```typescript
+ * type RevokeSessionMethod = AuthServerRevokeSessionFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerRevokeSessionFor<T extends AuthServerFor = AuthServerFor> =
+	'revokeSession' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['revokeSession'] : never;
+
+/**
+ * Type helper to extract the revokeSessions endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `revokeSessions` method from the server API. This method revokes
+ * all sessions for the authenticated user.
+ *
+ * @example
+ * ```typescript
+ * type RevokeSessionsMethod = AuthServerRevokeSessionsFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerRevokeSessionsFor<T extends AuthServerFor = AuthServerFor> =
+	'revokeSessions' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['revokeSessions'] : never;
+
+/**
+ * Type helper to extract the revokeOtherSessions endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `revokeOtherSessions` method from the server API. This method revokes
+ * all sessions except the current one.
+ *
+ * @example
+ * ```typescript
+ * type RevokeOtherSessionsMethod = AuthServerRevokeOtherSessionsFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerRevokeOtherSessionsFor<T extends AuthServerFor = AuthServerFor> =
+	'revokeOtherSessions' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['revokeOtherSessions'] : never;
+
+/**
+ * Type helper to extract the linkSocialAccount endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `linkSocialAccount` method from the server API. This method links
+ * a social OAuth provider to an existing user account.
+ *
+ * @example
+ * ```typescript
+ * type LinkSocialAccountMethod = AuthServerLinkSocialAccountFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerLinkSocialAccountFor<T extends AuthServerFor = AuthServerFor> =
+	'linkSocialAccount' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['linkSocialAccount'] : never;
+
+/**
+ * Type helper to extract the refreshToken endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `refreshToken` method from the server API. This method refreshes
+ * an expired access token using a refresh token.
+ *
+ * @example
+ * ```typescript
+ * type RefreshTokenMethod = AuthServerRefreshTokenFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerRefreshTokenFor<T extends AuthServerFor = AuthServerFor> =
+	'refreshToken' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['refreshToken'] : never;
+
+/**
+ * Type helper to extract the getAccessToken endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `getAccessToken` method from the server API. This method retrieves
+ * the current access token for the session.
+ *
+ * @example
+ * ```typescript
+ * type GetAccessTokenMethod = AuthServerGetAccessTokenFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerGetAccessTokenFor<T extends AuthServerFor = AuthServerFor> =
+	'getAccessToken' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['getAccessToken'] : never;
+
+/**
+ * Type helper to extract the accountInfo endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `accountInfo` method from the server API. This method retrieves
+ * account information for the authenticated user.
+ *
+ * @example
+ * ```typescript
+ * type AccountInfoMethod = AuthServerAccountInfoFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerAccountInfoFor<T extends AuthServerFor = AuthServerFor> =
+	'accountInfo' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['accountInfo'] : never;
+
+/**
+ * Type helper to extract the ok endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `ok` utility method from the server API.
+ *
+ * @example
+ * ```typescript
+ * type OkMethod = AuthServerOkFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerOkFor<T extends AuthServerFor = AuthServerFor> = 'ok' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['ok'] : never;
+
+/**
+ * Type helper to extract the error endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `error` utility method from the server API.
+ *
+ * @example
+ * ```typescript
+ * type ErrorMethod = AuthServerErrorFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerErrorFor<T extends AuthServerFor = AuthServerFor> = 'error' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['error'] : never;
