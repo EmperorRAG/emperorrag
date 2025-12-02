@@ -1,20 +1,4 @@
 {
-  "better-auth-utilities.barrel.ts": [
-    "lib/client/client.barrel.ts",
-    "lib/server/server.barrel.ts",
-    "lib/shared/config/config.barrel.ts"
-  ],
-  "lib/client/client.barrel.ts": [
-    "lib/client/client.constants.ts",
-    "lib/client/client.service.ts",
-    "lib/client/client.types.ts",
-    "lib/client/config/config.service.ts",
-    "lib/client/core/account/account.barrel.ts",
-    "lib/client/core/email/email.barrel.ts",
-    "lib/client/core/oauth/oauth.barrel.ts",
-    "lib/client/core/session/session.barrel.ts",
-    "lib/client/core/user/user.barrel.ts"
-  ],
   "lib/client/client.constants.ts": [
     "lib/shared/config/config.types.ts"
   ],
@@ -28,13 +12,6 @@
   "lib/client/client.types.ts": [],
   "lib/client/config/config.service.ts": [
     "lib/shared/config/config.types.ts"
-  ],
-  "lib/client/core/account/account.barrel.ts": [
-    "lib/client/core/account/link-social/linkSocial.ts",
-    "lib/client/core/account/list-accounts/listAccounts.ts",
-    "lib/client/core/account/shared/account.error.ts",
-    "lib/client/core/account/shared/account.types.ts",
-    "lib/client/core/account/unlink-account/unlinkAccount.ts"
   ],
   "lib/client/core/account/link-social/linkSocial.schema.ts": [],
   "lib/client/core/account/link-social/linkSocial.service.ts": [
@@ -97,18 +74,6 @@
     "lib/client/core/email/shared/email.types.ts"
   ],
   "lib/client/core/email/change-password/changePassword.utils.ts": [],
-  "lib/client/core/email/email.barrel.ts": [
-    "lib/client/core/email/change-password/changePassword.ts",
-    "lib/client/core/email/request-password-reset/requestPasswordReset.ts",
-    "lib/client/core/email/reset-password/resetPassword.ts",
-    "lib/client/core/email/send-verification-email/sendVerificationEmail.ts",
-    "lib/client/core/email/shared/email.error.ts",
-    "lib/client/core/email/shared/email.schema.ts",
-    "lib/client/core/email/shared/email.types.ts",
-    "lib/client/core/email/sign-in-email/signInEmail.ts",
-    "lib/client/core/email/sign-out/signOut.ts",
-    "lib/client/core/email/sign-up-email/signUpEmail.ts"
-  ],
   "lib/client/core/email/request-password-reset/requestPasswordReset.controller.ts": [],
   "lib/client/core/email/request-password-reset/requestPasswordReset.schema.ts": [],
   "lib/client/core/email/request-password-reset/requestPasswordReset.service.ts": [
@@ -222,11 +187,6 @@
     "lib/client/core/email/shared/email.types.ts"
   ],
   "lib/client/core/email/sign-up-email/signUpEmail.utils.ts": [],
-  "lib/client/core/oauth/oauth.barrel.ts": [
-    "lib/client/core/oauth/shared/oauth.error.ts",
-    "lib/client/core/oauth/shared/oauth.types.ts",
-    "lib/client/core/oauth/sign-in/signIn.ts"
-  ],
   "lib/client/core/oauth/shared/oauth.error.ts": [],
   "lib/client/core/oauth/shared/oauth.types.ts": [
     "lib/client/client.types.ts"
@@ -261,11 +221,6 @@
     "lib/client/core/session/shared/session.error.ts",
     "lib/client/core/session/shared/session.types.ts"
   ],
-  "lib/client/core/session/session.barrel.ts": [
-    "lib/client/core/session/get-session/getSession.ts",
-    "lib/client/core/session/shared/session.error.ts",
-    "lib/client/core/session/shared/session.types.ts"
-  ],
   "lib/client/core/session/shared/session.error.ts": [],
   "lib/client/core/session/shared/session.types.ts": [
     "lib/client/client.types.ts"
@@ -291,19 +246,8 @@
     "lib/client/core/user/shared/user.error.ts",
     "lib/client/core/user/shared/user.types.ts"
   ],
-  "lib/client/core/user/user.barrel.ts": [
-    "lib/client/core/user/shared/user.error.ts",
-    "lib/client/core/user/shared/user.types.ts",
-    "lib/client/core/user/update-user/updateUser.ts"
-  ],
   "lib/server/config/config.service.ts": [
     "lib/shared/config/config.types.ts"
-  ],
-  "lib/server/core/account/account.barrel.ts": [
-    "lib/server/core/account/list-accounts/listAccounts.ts",
-    "lib/server/core/account/shared/account.error.ts",
-    "lib/server/core/account/shared/account.types.ts",
-    "lib/server/core/account/unlink-account/unlinkAccount.ts"
   ],
   "lib/server/core/account/list-accounts/listAccounts.schema.ts": [],
   "lib/server/core/account/list-accounts/listAccounts.service.ts": [
@@ -350,18 +294,6 @@
     "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/email/email.barrel.ts": [
-    "lib/server/core/email/change-password/changePassword.ts",
-    "lib/server/core/email/forget-password/forgetPassword.ts",
-    "lib/server/core/email/reset-password/resetPassword.ts",
-    "lib/server/core/email/send-verification-email/sendVerificationEmail.ts",
-    "lib/server/core/email/shared/email.error.ts",
-    "lib/server/core/email/shared/email.schema.ts",
-    "lib/server/core/email/shared/email.types.ts",
-    "lib/server/core/email/sign-in-email/signInEmail.ts",
-    "lib/server/core/email/sign-out/signOut.ts",
-    "lib/server/core/email/sign-up-email/signUpEmail.ts"
   ],
   "lib/server/core/email/forget-password/forgetPassword.schema.ts": [],
   "lib/server/core/email/forget-password/forgetPassword.service.ts": [
@@ -464,11 +396,6 @@
     "lib/server/core/email/shared/email.types.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/oauth/oauth.barrel.ts": [
-    "lib/server/core/oauth/shared/oauth.error.ts",
-    "lib/server/core/oauth/shared/oauth.types.ts",
-    "lib/server/core/oauth/sign-in/signIn.ts"
-  ],
   "lib/server/core/oauth/shared/oauth.error.ts": [],
   "lib/server/core/oauth/shared/oauth.types.ts": [
     "lib/server/server.types.ts"
@@ -503,11 +430,6 @@
     "lib/server/core/session/shared/session.types.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/session/session.barrel.ts": [
-    "lib/server/core/session/get-session/getSession.ts",
-    "lib/server/core/session/shared/session.error.ts",
-    "lib/server/core/session/shared/session.types.ts"
-  ],
   "lib/server/core/session/shared/session.error.ts": [],
   "lib/server/core/session/shared/session.types.ts": [
     "lib/server/server.types.ts"
@@ -533,22 +455,6 @@
     "lib/server/core/user/shared/user.types.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/user/user.barrel.ts": [
-    "lib/server/core/user/shared/user.error.ts",
-    "lib/server/core/user/shared/user.types.ts",
-    "lib/server/core/user/update-user/updateUser.ts"
-  ],
-  "lib/server/server.barrel.ts": [
-    "lib/server/config/config.service.ts",
-    "lib/server/core/account/account.barrel.ts",
-    "lib/server/core/email/email.barrel.ts",
-    "lib/server/core/oauth/oauth.barrel.ts",
-    "lib/server/core/session/session.barrel.ts",
-    "lib/server/core/user/user.barrel.ts",
-    "lib/server/server.constants.ts",
-    "lib/server/server.service.ts",
-    "lib/server/server.types.ts"
-  ],
   "lib/server/server.constants.ts": [
     "lib/shared/config/config.types.ts"
   ],
@@ -560,11 +466,6 @@
     "lib/test/setup-test-env.ts"
   ],
   "lib/server/server.types.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
-  "lib/shared/config/config.barrel.ts": [
-    "lib/shared/config/config.constants.ts",
-    "lib/shared/config/config.service.ts",
     "lib/shared/config/config.types.ts"
   ],
   "lib/shared/config/config.constants.ts": [
