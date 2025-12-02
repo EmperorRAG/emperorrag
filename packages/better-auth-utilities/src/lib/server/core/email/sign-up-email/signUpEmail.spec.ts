@@ -1,11 +1,15 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
+import { signUpEmailServer } from './signUpEmail.service';
 
 describe('Server Sign Up Email', () => {
 	let env: Awaited<ReturnType<typeof setupTestEnv>>;
+	let wrappedAuthServer: ReturnType<typeof signUpEmailServer>;
 
 	beforeAll(async () => {
 		env = await setupTestEnv();
+		const deps = env;
+		wrappedAuthServer = signUpEmailServer(deps);
 	});
 
 	afterAll(async () => {
@@ -13,12 +17,14 @@ describe('Server Sign Up Email', () => {
 	});
 
 	it('should sign up a user via server api', async () => {
-		const { authServer } = env;
+		//const { authServer } = env;
+		//const wrappedAuthServerC = wrappedAuthServer({});
 		const email = 'server-signup@example.com';
 		const password = 'password123';
 		const name = 'Server Sign Up';
 
-		const res = await authServer.api.signUpEmail({
+		//const res = await authServer.api.signUpEmail({
+		const res = wrappedAuthServer({
 			body: {
 				email,
 				password,
