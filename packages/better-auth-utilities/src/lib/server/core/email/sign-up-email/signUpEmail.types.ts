@@ -20,18 +20,18 @@ import type * as Effect from 'effect/Effect';
  *
  * @example
  * ```typescript
- * type SignUpMethod = SignUpEmailServerFor<typeof authServer>;
+ * type SignUpMethod = AuthServerApiSignUpEmailPropsFor<typeof authServer>;
  * // (args: { body: { email: string, password: string, name?: string }, headers?: Headers, ... }) => Promise<Session>
  *
  * // Usage in implementation
- * const signUp: SignUpEmailServerFor = authServer.api.signUpEmail;
+ * const signUp: AuthServerApiSignUpEmailPropsFor = authServer.api.signUpEmail;
  * const session = await signUp({
  *   body: { email: 'newuser@example.com', password: 'secret', name: 'John Doe' },
  *   headers: request.headers
  * });
  * ```
  */
-export type SignUpEmailServerFor<T extends AuthServerFor = AuthServerFor> =
+export type AuthServerApiSignUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> =
 	'signUpEmail' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['signUpEmail'] : never;
 
 /**
@@ -45,28 +45,28 @@ export type SignUpEmailServerFor<T extends AuthServerFor = AuthServerFor> =
  *
  * @example
  * ```typescript
- * type Input = SignUpEmailServerInput<typeof authServer>;
+ * type Input = AuthServerApiSignUpEmailParamsFor<typeof authServer>;
  * // { body: { name: string, email: string, password: string, ... }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type SignUpEmailServerInput<T extends AuthServerFor = AuthServerFor> = Parameters<SignUpEmailServerFor<T>>[0];
+export type AuthServerApiSignUpEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiSignUpEmailPropsFor<T>>[0];
 
 /**
- * Type helper to extract the result type from auth.api.signUpEmail.
+ * Type helper to extract the return type from auth.api.signUpEmail.
  *
  * @pure
- * @description Extracts the resolved Promise return type from the server API method.
- * Includes newly created user data, session information, and plugin-added fields.
+ * @description Extracts the Promise return type from the server API method.
+ * The Promise resolves to newly created user data, session information, and plugin-added fields.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @example
  * ```typescript
- * type Result = SignUpEmailServerResult<typeof authServer>;
- * // { user: { id: string, name: string, email: string, ... }, session: { id: string, ... }, ... }
+ * type Result = AuthServerApiSignUpEmailResultFor<typeof authServer>;
+ * // Promise<{ user: { id: string, name: string, email: string, ... }, session: { id: string, ... }, ... }>
  * ```
  */
-export type SignUpEmailServerResult<T extends AuthServerFor = AuthServerFor> = Awaited<ReturnType<SignUpEmailServerFor<T>>>;
+export type AuthServerApiSignUpEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiSignUpEmailPropsFor<T>>;
 
 /**
  * Function signature for signUpEmail server service.
@@ -109,6 +109,8 @@ export type SignUpEmailServerResult<T extends AuthServerFor = AuthServerFor> = A
  * await Effect.runPromise(program);
  * ```
  */
-export interface signUpEmailServerProps<T extends AuthServerFor = AuthServerFor> {
-	(deps: EmailAuthServerDeps<T>): (input: SignUpEmailServerInput<T>) => Effect.Effect<SignUpEmailServerResult<T>, EmailAuthServerError>;
+export interface signUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
+	(
+		deps: EmailAuthServerDeps<T>
+	): (params: AuthServerApiSignUpEmailParamsFor<T>) => Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<T>>, EmailAuthServerError>;
 }

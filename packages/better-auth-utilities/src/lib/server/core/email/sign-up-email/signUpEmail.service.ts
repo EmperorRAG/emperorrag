@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
-import type { signUpEmailServerProps } from './signUpEmail.types';
+import type { signUpEmailPropsFor } from './signUpEmail.types';
 import { EmailAuthServerApiError } from '../shared/email.error';
 
 /**
@@ -120,7 +120,7 @@ import { EmailAuthServerApiError } from '../shared/email.error';
  * });
  * ```
  */
-export const signUpEmailServer: signUpEmailServerProps = (deps) => (params) => {
+export const signUpEmailServer: signUpEmailPropsFor = (deps) => (params) => {
 	const { authServer } = deps;
 
 	return Effect.tryPromise({
