@@ -12,20 +12,17 @@
 // Individual Plugin Subpath Imports (Optimized for TS Server Performance)
 // =============================================================================
 
-// Core authentication plugins (ACTIVE)
-import { admin } from 'better-auth/plugins/admin';
-import { bearer } from 'better-auth/plugins/bearer';
-import { emailOTP } from 'better-auth/plugins/email-otp';
-import { jwt } from 'better-auth/plugins/jwt';
-import { organization } from 'better-auth/plugins/organization';
-import { twoFactor } from 'better-auth/plugins/two-factor';
-import { username } from 'better-auth/plugins/username';
-
 // =============================================================================
-// Commented Out Plugin Imports (Not Currently Used)
-// These plugins are defined in AvailablePlugins but not enabled in any config.
-// Uncomment when needed to reduce TS Server type resolution overhead.
+// ALL PLUGIN IMPORTS COMMENTED OUT
+// These plugins are not currently used in production. Uncomment when needed.
 // =============================================================================
+// import { admin } from 'better-auth/plugins/admin';
+// import { bearer } from 'better-auth/plugins/bearer';
+// import { emailOTP } from 'better-auth/plugins/email-otp';
+// import { jwt } from 'better-auth/plugins/jwt';
+// import { organization } from 'better-auth/plugins/organization';
+// import { twoFactor } from 'better-auth/plugins/two-factor';
+// import { username } from 'better-auth/plugins/username';
 // import { anonymous } from 'better-auth/plugins/anonymous';
 // import { deviceAuthorization } from 'better-auth/plugins/device-authorization';
 // import { genericOAuth } from 'better-auth/plugins/generic-oauth';
@@ -39,10 +36,7 @@ import { username } from 'better-auth/plugins/username';
 // Bundle Import (Required for plugins without individual subpaths)
 // These plugins are only exported from the 'better-auth/plugins' bundle
 // =============================================================================
-import { apiKey, openAPI } from 'better-auth/plugins';
-
-// Commented out - not currently used:
-// import { oneTap, lastLoginMethod } from 'better-auth/plugins';
+// import { apiKey, openAPI, oneTap, lastLoginMethod } from 'better-auth/plugins';
 
 // =============================================================================
 // Commented Out Original Bundle Import (For Reference)
@@ -112,13 +106,24 @@ export const SERVER_PLUGIN_FACTORIES: Record<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	(config?: unknown) => any
 > = {
-	// Core authentication plugins (ACTIVE)
-	username: (config) => username(config as Parameters<typeof username>[0]),
-	twoFactor: (config) => twoFactor(config as Parameters<typeof twoFactor>[0]),
-	admin: (config) => admin(config as Parameters<typeof admin>[0]),
-	organization: (config) => organization(config as Parameters<typeof organization>[0]),
+	// =============================================================================
+	// ALL PLUGIN FACTORIES COMMENTED OUT
+	// These return placeholder throws. Uncomment imports and factory implementations when needed.
+	// =============================================================================
 
-	// Core authentication plugins (COMMENTED OUT - uncomment import and factory when needed)
+	// Core authentication plugins (COMMENTED OUT)
+	username: () => {
+		throw new Error('Username plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	twoFactor: () => {
+		throw new Error('TwoFactor plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	admin: () => {
+		throw new Error('Admin plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	organization: () => {
+		throw new Error('Organization plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
 	magicLink: () => {
 		throw new Error('MagicLink plugin is commented out. Uncomment import in server.constants.ts to enable.');
 	},
@@ -154,18 +159,24 @@ export const SERVER_PLUGIN_FACTORIES: Record<
 		throw new Error('Dub Analytics plugin requires @dub/better-auth package');
 	},
 
-	// Security plugins (ACTIVE)
-	bearer: (config) => bearer(config as Parameters<typeof bearer>[0]),
-	jwt: (config) => jwt(config as Parameters<typeof jwt>[0]),
-	apiKey: (config) => apiKey(config as Parameters<typeof apiKey>[0]),
+	// Security plugins (COMMENTED OUT)
+	bearer: () => {
+		throw new Error('Bearer plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	jwt: () => {
+		throw new Error('JWT plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	apiKey: () => {
+		throw new Error('ApiKey plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
 	haveIBeenPwned: () => {
 		throw new Error('Have I Been Pwned plugin requires @better-auth/hibp package');
 	},
 
-	// Advanced plugins (ACTIVE)
-	emailOTP: (config) => emailOTP(config as Parameters<typeof emailOTP>[0]),
-
 	// Advanced plugins (COMMENTED OUT)
+	emailOTP: () => {
+		throw new Error('EmailOTP plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
 	multiSession: () => {
 		throw new Error('MultiSession plugin is commented out. Uncomment import in server.constants.ts to enable.');
 	},
@@ -210,6 +221,10 @@ export const SERVER_PLUGIN_FACTORIES: Record<
  * const openAPIPlugin = ALWAYS_INCLUDED_SERVER_PLUGINS.openAPI();
  * ```
  */
-export const ALWAYS_INCLUDED_SERVER_PLUGINS = {
-	openAPI: openAPI,
-} as const;
+// COMMENTED OUT - openAPI import is commented out
+// export const ALWAYS_INCLUDED_SERVER_PLUGINS = {
+// 	openAPI: openAPI,
+// } as const;
+
+// Placeholder export to maintain API compatibility
+export const ALWAYS_INCLUDED_SERVER_PLUGINS = {} as const;

@@ -11,27 +11,26 @@
 // =============================================================================
 // Bundle Import (No individual subpaths available for client plugins)
 // The 'better-auth/client/plugins' export does not provide individual plugin subpaths
-// Only importing actively used plugins to reduce TS Server type resolution overhead
 // =============================================================================
-import {
-	// Active plugins
-	apiKeyClient,
-	twoFactorClient,
-	adminClient,
-	organizationClient,
-	usernameClient,
-	emailOTPClient,
-	// Commented out - not currently used:
-	// magicLinkClient,
-	// siweClient,
-	// genericOAuthClient,
-	// oneTapClient,
-	// anonymousClient,
-	// phoneNumberClient,
-	// lastLoginMethodClient,
-	// oneTimeTokenClient,
-	// multiSessionClient,
-} from 'better-auth/client/plugins';
+// ALL CLIENT PLUGIN IMPORTS COMMENTED OUT
+// These plugins are not currently used in production. Uncomment when needed.
+// import {
+// 	apiKeyClient,
+// 	twoFactorClient,
+// 	adminClient,
+// 	organizationClient,
+// 	usernameClient,
+// 	emailOTPClient,
+// 	magicLinkClient,
+// 	siweClient,
+// 	genericOAuthClient,
+// 	oneTapClient,
+// 	anonymousClient,
+// 	phoneNumberClient,
+// 	lastLoginMethodClient,
+// 	oneTimeTokenClient,
+// 	multiSessionClient,
+// } from 'better-auth/client/plugins';
 import type { AvailablePlugins } from '../shared/config/config.types';
 
 /**
@@ -43,13 +42,24 @@ export const CLIENT_PLUGIN_FACTORIES: Record<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	(config?: unknown) => any
 > = {
-	// Core authentication plugins (ACTIVE)
-	username: () => usernameClient(),
-	twoFactor: (config) => twoFactorClient(config as Parameters<typeof twoFactorClient>[0]),
-	admin: (config) => adminClient(config as Parameters<typeof adminClient>[0]),
-	organization: (config) => organizationClient(config as Parameters<typeof organizationClient>[0]),
+	// =============================================================================
+	// ALL CLIENT PLUGIN FACTORIES COMMENTED OUT
+	// These return placeholder throws. Uncomment imports and factory implementations when needed.
+	// =============================================================================
 
 	// Core authentication plugins (COMMENTED OUT)
+	username: () => {
+		throw new Error('Username client plugin is commented out. Uncomment import in client.constants.ts to enable.');
+	},
+	twoFactor: () => {
+		throw new Error('TwoFactor client plugin is commented out. Uncomment import in client.constants.ts to enable.');
+	},
+	admin: () => {
+		throw new Error('Admin client plugin is commented out. Uncomment import in client.constants.ts to enable.');
+	},
+	organization: () => {
+		throw new Error('Organization client plugin is commented out. Uncomment import in client.constants.ts to enable.');
+	},
 	magicLink: () => {
 		throw new Error('MagicLink client plugin is commented out. Uncomment import in client.constants.ts to enable.');
 	},
@@ -85,7 +95,7 @@ export const CLIENT_PLUGIN_FACTORIES: Record<
 		throw new Error('Dub Analytics client plugin requires @dub/better-auth package');
 	},
 
-	// Security plugins
+	// Security plugins (COMMENTED OUT)
 	bearer: () => {
 		// Bearer plugin is typically server-only, no client plugin needed
 		return null;
@@ -94,15 +104,17 @@ export const CLIENT_PLUGIN_FACTORIES: Record<
 		// JWT client is available but typically included automatically
 		return null;
 	},
-	apiKey: () => apiKeyClient(),
+	apiKey: () => {
+		throw new Error('ApiKey client plugin is commented out. Uncomment import in client.constants.ts to enable.');
+	},
 	haveIBeenPwned: () => {
 		throw new Error('Have I Been Pwned client plugin requires @better-auth/hibp package');
 	},
 
-	// Advanced plugins (ACTIVE)
-	emailOTP: () => emailOTPClient(),
-
 	// Advanced plugins (COMMENTED OUT)
+	emailOTP: () => {
+		throw new Error('EmailOTP client plugin is commented out. Uncomment import in client.constants.ts to enable.');
+	},
 	multiSession: () => {
 		throw new Error('MultiSession client plugin is commented out. Uncomment import in client.constants.ts to enable.');
 	},

@@ -20,7 +20,10 @@ import type { BetterAuthOptions } from 'better-auth/types';
 // Adapter import - using dedicated adapter subpath
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import type { BetterAuthConfig, AvailablePlugins } from '../shared/config/config.types';
-import { SERVER_PLUGIN_FACTORIES, ALWAYS_INCLUDED_SERVER_PLUGINS } from './server.constants';
+// Note: ALWAYS_INCLUDED_SERVER_PLUGINS is currently empty (openAPI commented out)
+// Uncomment the import when re-enabling automatic plugins
+// import { SERVER_PLUGIN_FACTORIES, ALWAYS_INCLUDED_SERVER_PLUGINS } from './server.constants';
+import { SERVER_PLUGIN_FACTORIES } from './server.constants';
 
 // ============================================================================
 // SERVER INSTANCE CREATION
@@ -66,8 +69,12 @@ export function createAuthServer<ServerPlugins extends readonly AvailablePlugins
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const plugins: any[] = [];
 
-	// Always add OpenAPI plugin for documentation
-	plugins.push(ALWAYS_INCLUDED_SERVER_PLUGINS.openAPI());
+	// OpenAPI plugin commented out - uncomment when needed
+	// To re-enable:
+	// 1. Uncomment the openAPI import in server.constants.ts
+	// 2. Uncomment ALWAYS_INCLUDED_SERVER_PLUGINS.openAPI in server.constants.ts
+	// 3. Uncomment the line below
+	// plugins.push(ALWAYS_INCLUDED_SERVER_PLUGINS.openAPI());
 
 	// Add enabled server plugins
 	const enabledPlugins = config.enabledServerPlugins || ([] as readonly AvailablePlugins[]);
