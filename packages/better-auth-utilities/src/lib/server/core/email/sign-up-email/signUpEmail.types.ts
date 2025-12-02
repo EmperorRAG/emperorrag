@@ -3,7 +3,6 @@
  * @description Type definitions for server-side sign-up email operation.
  */
 
-import type { betterAuth } from 'better-auth';
 import type { AuthServerFor, AuthServerSignUpFor } from '../../../server.types';
 import type { EmailAuthServerError } from '../shared/email.error';
 import type { EmailAuthServerDeps } from '../shared/email.types';
@@ -24,11 +23,7 @@ import type * as Effect from 'effect/Effect';
  * // { name: string, email: string, password: string, callbackURL?: string, image?: string }
  * ```
  */
-export type SignUpEmailServerInput<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = Parameters<
-	AuthServerSignUpFor<T>
->[0] extends { body: infer B }
-	? B
-	: never;
+export type SignUpEmailServerInput<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerSignUpFor<T>>[0] extends { body: infer B } ? B : never;
 
 /**
  * Type helper to extract the headers parameter type for auth.api.signUpEmail.
@@ -72,7 +67,7 @@ export type SignUpEmailServerHeaders = Headers;
  * };
  * ```
  */
-export type SignUpEmailServerParams<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = {
+export type SignUpEmailServerParams<T extends AuthServerFor = AuthServerFor> = {
 	body: SignUpEmailServerInput<T>;
 	headers?: SignUpEmailServerHeaders;
 	asResponse?: boolean;
@@ -94,9 +89,7 @@ export type SignUpEmailServerParams<T extends AuthServerFor<ReturnType<typeof be
  * // { user: { id: string, name: string, email: string, ... }, session: { id: string, ... }, ... }
  * ```
  */
-export type SignUpEmailServerResult<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = Awaited<
-	ReturnType<AuthServerSignUpFor<T>>
->;
+export type SignUpEmailServerResult<T extends AuthServerFor = AuthServerFor> = Awaited<ReturnType<AuthServerSignUpFor<T>>>;
 
 /**
  * Function signature for signUpEmail server service.
@@ -139,6 +132,6 @@ export type SignUpEmailServerResult<T extends AuthServerFor<ReturnType<typeof be
  * await Effect.runPromise(program);
  * ```
  */
-export interface signUpEmailServerProps<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> {
+export interface signUpEmailServerProps<T extends AuthServerFor = AuthServerFor> {
 	(deps: EmailAuthServerDeps<T>): (params: SignUpEmailServerParams<T>) => Effect.Effect<SignUpEmailServerResult<T>, EmailAuthServerError>;
 }

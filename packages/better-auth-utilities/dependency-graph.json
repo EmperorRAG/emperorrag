@@ -542,7 +542,6 @@
     "lib/server/core/email/sign-up-email/signUpEmail.service.ts"
   ],
   "lib/server/core/email/sign-up-email/signUpEmail.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
