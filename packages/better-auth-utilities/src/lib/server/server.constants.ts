@@ -1,29 +1,67 @@
 /**
  * @file libs/better-auth-utilities/src/lib/server/server.constants.ts
  * @description Server-side better-auth constants and plugin factory mappings.
+ *
+ * @remarks
+ * This file uses granular subpath imports from better-auth to optimize TS Server performance.
+ * Each plugin is imported from its dedicated subpath (e.g., 'better-auth/plugins/admin')
+ * instead of the bundled 'better-auth/plugins' export to reduce type resolution overhead.
  */
 
-import {
-	apiKey,
-	bearer,
-	jwt,
-	openAPI,
-	twoFactor,
-	admin,
-	organization,
-	username,
-	magicLink,
-	siwe,
-	genericOAuth,
-	oneTap,
-	anonymous,
-	phoneNumber,
-	emailOTP,
-	deviceAuthorization,
-	lastLoginMethod,
-	oneTimeToken,
-	multiSession,
-} from 'better-auth/plugins';
+// =============================================================================
+// Individual Plugin Subpath Imports (Optimized for TS Server Performance)
+// =============================================================================
+
+// Core authentication plugins
+import { admin } from 'better-auth/plugins/admin';
+import { anonymous } from 'better-auth/plugins/anonymous';
+import { bearer } from 'better-auth/plugins/bearer';
+import { deviceAuthorization } from 'better-auth/plugins/device-authorization';
+import { emailOTP } from 'better-auth/plugins/email-otp';
+import { genericOAuth } from 'better-auth/plugins/generic-oauth';
+import { jwt } from 'better-auth/plugins/jwt';
+import { magicLink } from 'better-auth/plugins/magic-link';
+import { multiSession } from 'better-auth/plugins/multi-session';
+import { oneTimeToken } from 'better-auth/plugins/one-time-token';
+import { organization } from 'better-auth/plugins/organization';
+import { phoneNumber } from 'better-auth/plugins/phone-number';
+import { siwe } from 'better-auth/plugins/siwe';
+import { twoFactor } from 'better-auth/plugins/two-factor';
+import { username } from 'better-auth/plugins/username';
+
+// =============================================================================
+// Bundle Import (Required for plugins without individual subpaths)
+// These plugins are only exported from the 'better-auth/plugins' bundle
+// =============================================================================
+import { apiKey, openAPI, oneTap, lastLoginMethod } from 'better-auth/plugins';
+
+// =============================================================================
+// Commented Out Original Bundle Import (For Reference)
+// The following import was replaced with individual subpath imports above.
+// Uncomment if you need to revert to bundle import for any reason.
+// =============================================================================
+// import {
+// 	apiKey,
+// 	bearer,
+// 	jwt,
+// 	openAPI,
+// 	twoFactor,
+// 	admin,
+// 	organization,
+// 	username,
+// 	magicLink,
+// 	siwe,
+// 	genericOAuth,
+// 	oneTap,
+// 	anonymous,
+// 	phoneNumber,
+// 	emailOTP,
+// 	deviceAuthorization,
+// 	lastLoginMethod,
+// 	oneTimeToken,
+// 	multiSession,
+// } from 'better-auth/plugins';
+
 import type { AvailablePlugins } from '../shared/config/config.types';
 
 /**

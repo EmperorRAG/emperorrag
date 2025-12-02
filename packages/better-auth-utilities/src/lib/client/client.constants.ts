@@ -1,8 +1,17 @@
 /**
  * @file libs/better-auth-utilities/src/lib/client.constants.ts
  * @description Client-side better-auth constants and plugin factory mappings.
+ *
+ * @remarks
+ * Unlike server plugins, client plugins do not have individual subpath exports in better-auth.
+ * The 'better-auth/client/plugins' bundle is the only available import path.
+ * This is a limitation of the better-auth package structure, not an optimization choice.
  */
 
+// =============================================================================
+// Bundle Import (No individual subpaths available for client plugins)
+// The 'better-auth/client/plugins' export does not provide individual plugin subpaths
+// =============================================================================
 import {
 	apiKeyClient,
 	twoFactorClient,

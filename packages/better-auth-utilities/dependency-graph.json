@@ -634,7 +634,22 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/server.constants.ts": [
+    "../../../node_modules/better-auth/dist/index.d.ts",
+    "../../../node_modules/better-auth/dist/plugins/admin/index.d.ts",
+    "../../../node_modules/better-auth/dist/plugins/anonymous/index.d.ts",
+    "../../../node_modules/better-auth/dist/plugins/bearer/index.d.ts",
+    "../../../node_modules/better-auth/dist/plugins/device-authorization/index.d.ts",
+    "../../../node_modules/better-auth/dist/plugins/email-otp/index.d.ts",
+    "../../../node_modules/better-auth/dist/plugins/generic-oauth/index.d.ts",
     "../../../node_modules/better-auth/dist/plugins/index.d.ts",
+    "../../../node_modules/better-auth/dist/plugins/jwt/index.d.ts",
+    "../../../node_modules/better-auth/dist/plugins/magic-link/index.d.ts",
+    "../../../node_modules/better-auth/dist/plugins/one-time-token/index.d.ts",
+    "../../../node_modules/better-auth/dist/plugins/organization/index.d.ts",
+    "../../../node_modules/better-auth/dist/plugins/phone-number/index.d.ts",
+    "../../../node_modules/better-auth/dist/plugins/siwe/index.d.ts",
+    "../../../node_modules/better-auth/dist/plugins/two-factor/index.d.ts",
+    "../../../node_modules/better-auth/dist/plugins/username/index.d.ts",
     "lib/shared/config/config.types.ts"
   ],
   "lib/server/server.service.ts": [
