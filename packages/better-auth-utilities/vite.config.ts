@@ -65,8 +65,6 @@ export default defineConfig(() => ({
 				'lib/client/client.barrel': './src/lib/client/client.barrel.ts',
 				'lib/server/server.barrel': './src/lib/server/server.barrel.ts',
 				'lib/shared/config/config.barrel': './src/lib/shared/config/config.barrel.ts',
-				'lib/client/core/core.barrel': './src/lib/client/core/core.barrel.ts',
-				'lib/server/core/core.barrel': './src/lib/server/core/core.barrel.ts',
 				'lib/client/core/email/change-password/changePassword': './src/lib/client/core/email/change-password/changePassword.ts',
 				'lib/server/core/email/change-password/changePassword': './src/lib/server/core/email/change-password/changePassword.ts',
 				'lib/client/core/email/request-password-reset/requestPasswordReset':
