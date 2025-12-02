@@ -11,23 +11,26 @@
 // =============================================================================
 // Bundle Import (No individual subpaths available for client plugins)
 // The 'better-auth/client/plugins' export does not provide individual plugin subpaths
+// Only importing actively used plugins to reduce TS Server type resolution overhead
 // =============================================================================
 import {
+	// Active plugins
 	apiKeyClient,
 	twoFactorClient,
 	adminClient,
 	organizationClient,
 	usernameClient,
-	magicLinkClient,
-	siweClient,
-	genericOAuthClient,
-	oneTapClient,
-	anonymousClient,
-	phoneNumberClient,
 	emailOTPClient,
-	lastLoginMethodClient,
-	oneTimeTokenClient,
-	multiSessionClient,
+	// Commented out - not currently used:
+	// magicLinkClient,
+	// siweClient,
+	// genericOAuthClient,
+	// oneTapClient,
+	// anonymousClient,
+	// phoneNumberClient,
+	// lastLoginMethodClient,
+	// oneTimeTokenClient,
+	// multiSessionClient,
 } from 'better-auth/client/plugins';
 import type { AvailablePlugins } from '../shared/config/config.types';
 
@@ -40,23 +43,33 @@ export const CLIENT_PLUGIN_FACTORIES: Record<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	(config?: unknown) => any
 > = {
-	// Core authentication plugins
+	// Core authentication plugins (ACTIVE)
 	username: () => usernameClient(),
-	magicLink: () => magicLinkClient(),
 	twoFactor: (config) => twoFactorClient(config as Parameters<typeof twoFactorClient>[0]),
 	admin: (config) => adminClient(config as Parameters<typeof adminClient>[0]),
 	organization: (config) => organizationClient(config as Parameters<typeof organizationClient>[0]),
+
+	// Core authentication plugins (COMMENTED OUT)
+	magicLink: () => {
+		throw new Error('MagicLink client plugin is commented out. Uncomment import in client.constants.ts to enable.');
+	},
 	passkey: () => {
 		throw new Error('Passkey client plugin requires @better-auth/passkey package or correct import path');
 	},
 
-	// OAuth/Auth plugins
+	// OAuth/Auth plugins (COMMENTED OUT)
 	oidc: () => {
 		throw new Error('OIDC client plugin requires correct import or @better-auth/oidc package');
 	},
-	siwe: () => siweClient(),
-	genericOAuth: () => genericOAuthClient(),
-	oneTap: (config) => oneTapClient(config as Parameters<typeof oneTapClient>[0]),
+	siwe: () => {
+		throw new Error('SIWE client plugin is commented out. Uncomment import in client.constants.ts to enable.');
+	},
+	genericOAuth: () => {
+		throw new Error('GenericOAuth client plugin is commented out. Uncomment import in client.constants.ts to enable.');
+	},
+	oneTap: () => {
+		throw new Error('OneTap client plugin is commented out. Uncomment import in client.constants.ts to enable.');
+	},
 
 	// Integration plugins (require separate packages)
 	stripe: () => {
@@ -86,15 +99,27 @@ export const CLIENT_PLUGIN_FACTORIES: Record<
 		throw new Error('Have I Been Pwned client plugin requires @better-auth/hibp package');
 	},
 
-	// Advanced plugins
-	multiSession: () => multiSessionClient(),
-	anonymous: () => anonymousClient(),
-	phoneNumber: () => phoneNumberClient(),
+	// Advanced plugins (ACTIVE)
 	emailOTP: () => emailOTPClient(),
+
+	// Advanced plugins (COMMENTED OUT)
+	multiSession: () => {
+		throw new Error('MultiSession client plugin is commented out. Uncomment import in client.constants.ts to enable.');
+	},
+	anonymous: () => {
+		throw new Error('Anonymous client plugin is commented out. Uncomment import in client.constants.ts to enable.');
+	},
+	phoneNumber: () => {
+		throw new Error('PhoneNumber client plugin is commented out. Uncomment import in client.constants.ts to enable.');
+	},
 	deviceAuthorization: () => {
 		// Device authorization is typically server-only
 		return null;
 	},
-	lastLoginMethod: () => lastLoginMethodClient(),
-	oneTimeToken: () => oneTimeTokenClient(),
+	lastLoginMethod: () => {
+		throw new Error('LastLoginMethod client plugin is commented out. Uncomment import in client.constants.ts to enable.');
+	},
+	oneTimeToken: () => {
+		throw new Error('OneTimeToken client plugin is commented out. Uncomment import in client.constants.ts to enable.');
+	},
 };
