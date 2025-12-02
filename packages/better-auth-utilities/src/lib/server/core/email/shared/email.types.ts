@@ -3,7 +3,6 @@
  * @description Server-side dependency types for email authentication operations.
  */
 
-import type { betterAuth } from 'better-auth';
 import type { AuthServerFor } from '../../../server.types';
 
 /**
@@ -42,6 +41,6 @@ import type { AuthServerFor } from '../../../server.types';
  * await deps.authServer.api.createApiKey({ ... });
  * ```
  */
-export type EmailAuthServerDeps<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = Readonly<{
+export type EmailAuthServerDeps<T extends AuthServerFor = AuthServerFor> = Readonly<{
 	authServer: T;
 }>;
