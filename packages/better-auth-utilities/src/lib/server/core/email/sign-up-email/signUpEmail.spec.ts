@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { signUpEmailServer } from './signUpEmail.service';
+import * as Effect from 'effect/Effect';
 
 describe('Server Sign Up Email', () => {
 	let env: Awaited<ReturnType<typeof setupTestEnv>>;
@@ -24,14 +25,15 @@ describe('Server Sign Up Email', () => {
 		const name = 'Server Sign Up';
 
 		//const res = await authServer.api.signUpEmail({
-		const res = wrappedAuthServer({
-			body: {
-				email,
-				password,
-				name,
-			},
-		});
-
+		const res = await Effect.runPromise(
+			wrappedAuthServer({
+				body: {
+					email,
+					password,
+					name,
+				},
+			})
+		);
 		expect(res).toBeDefined();
 		expect(res.user).toBeDefined();
 		expect(res.user.email).toBe(email);
