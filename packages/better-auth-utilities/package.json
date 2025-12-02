@@ -3,22 +3,361 @@
 	"version": "0.0.1",
 	"type": "module",
 	"sideEffects": false,
-	"main": "./dist/index.js",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
+	"scripts": {
+		"generate-graph": "madge --extensions ts --include-npm --json src > dependency-graph.json && madge --extensions ts --include-npm --image dependency-graph.svg src"
+	},
+	"main": "./dist/better-auth-utilities.barrel.js",
+	"module": "./dist/better-auth-utilities.barrel.js",
+	"types": "./dist/better-auth-utilities.barrel.d.ts",
 	"exports": {
 		"./package.json": "./package.json",
-		".": {
-			"@emperorrag/source": "./src/index.ts",
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"default": "./dist/index.js"
+		"./client/service": {
+			"@emperorrag/source": "./src/lib/client/client.service.ts",
+			"types": "./dist/lib/client/client.service.d.ts",
+			"import": "./dist/lib/client/client.service.js",
+			"default": "./dist/lib/client/client.service.js"
 		},
-		"./*": {
-			"@emperorrag/source": "./src/lib/*.ts",
-			"types": "./dist/lib/*.d.ts",
-			"import": "./dist/lib/*.js",
-			"default": "./dist/lib/*.js"
+		"./client/types": {
+			"@emperorrag/source": "./src/lib/client/client.types.ts",
+			"types": "./dist/lib/client/client.types.d.ts",
+			"import": "./dist/lib/client/client.types.js",
+			"default": "./dist/lib/client/client.types.js"
+		},
+		"./client/constants": {
+			"@emperorrag/source": "./src/lib/client/client.constants.ts",
+			"types": "./dist/lib/client/client.constants.d.ts",
+			"import": "./dist/lib/client/client.constants.js",
+			"default": "./dist/lib/client/client.constants.js"
+		},
+		"./client/config": {
+			"@emperorrag/source": "./src/lib/client/config/config.service.ts",
+			"types": "./dist/lib/client/config/config.service.d.ts",
+			"import": "./dist/lib/client/config/config.service.js",
+			"default": "./dist/lib/client/config/config.service.js"
+		},
+		"./server/service": {
+			"@emperorrag/source": "./src/lib/server/server.service.ts",
+			"types": "./dist/lib/server/server.service.d.ts",
+			"import": "./dist/lib/server/server.service.js",
+			"default": "./dist/lib/server/server.service.js"
+		},
+		"./server/types": {
+			"@emperorrag/source": "./src/lib/server/server.types.ts",
+			"types": "./dist/lib/server/server.types.d.ts",
+			"import": "./dist/lib/server/server.types.js",
+			"default": "./dist/lib/server/server.types.js"
+		},
+		"./server/constants": {
+			"@emperorrag/source": "./src/lib/server/server.constants.ts",
+			"types": "./dist/lib/server/server.constants.d.ts",
+			"import": "./dist/lib/server/server.constants.js",
+			"default": "./dist/lib/server/server.constants.js"
+		},
+		"./server/config": {
+			"@emperorrag/source": "./src/lib/server/config/config.service.ts",
+			"types": "./dist/lib/server/config/config.service.d.ts",
+			"import": "./dist/lib/server/config/config.service.js",
+			"default": "./dist/lib/server/config/config.service.js"
+		},
+		"./shared/config/types": {
+			"@emperorrag/source": "./src/lib/shared/config/config.types.ts",
+			"types": "./dist/lib/shared/config/config.types.d.ts",
+			"import": "./dist/lib/shared/config/config.types.js",
+			"default": "./dist/lib/shared/config/config.types.js"
+		},
+		"./shared/config/constants": {
+			"@emperorrag/source": "./src/lib/shared/config/config.constants.ts",
+			"types": "./dist/lib/shared/config/config.constants.d.ts",
+			"import": "./dist/lib/shared/config/config.constants.js",
+			"default": "./dist/lib/shared/config/config.constants.js"
+		},
+		"./shared/config/service": {
+			"@emperorrag/source": "./src/lib/shared/config/config.service.ts",
+			"types": "./dist/lib/shared/config/config.service.d.ts",
+			"import": "./dist/lib/shared/config/config.service.js",
+			"default": "./dist/lib/shared/config/config.service.js"
+		},
+		"./client/account/types": {
+			"@emperorrag/source": "./src/lib/client/core/account/shared/account.types.ts",
+			"types": "./dist/lib/client/core/account/shared/account.types.d.ts",
+			"import": "./dist/lib/client/core/account/shared/account.types.js",
+			"default": "./dist/lib/client/core/account/shared/account.types.js"
+		},
+		"./client/account/error": {
+			"@emperorrag/source": "./src/lib/client/core/account/shared/account.error.ts",
+			"types": "./dist/lib/client/core/account/shared/account.error.d.ts",
+			"import": "./dist/lib/client/core/account/shared/account.error.js",
+			"default": "./dist/lib/client/core/account/shared/account.error.js"
+		},
+		"./client/email/types": {
+			"@emperorrag/source": "./src/lib/client/core/email/shared/email.types.ts",
+			"types": "./dist/lib/client/core/email/shared/email.types.d.ts",
+			"import": "./dist/lib/client/core/email/shared/email.types.js",
+			"default": "./dist/lib/client/core/email/shared/email.types.js"
+		},
+		"./client/email/error": {
+			"@emperorrag/source": "./src/lib/client/core/email/shared/email.error.ts",
+			"types": "./dist/lib/client/core/email/shared/email.error.d.ts",
+			"import": "./dist/lib/client/core/email/shared/email.error.js",
+			"default": "./dist/lib/client/core/email/shared/email.error.js"
+		},
+		"./client/email/schema": {
+			"@emperorrag/source": "./src/lib/client/core/email/shared/email.schema.ts",
+			"types": "./dist/lib/client/core/email/shared/email.schema.d.ts",
+			"import": "./dist/lib/client/core/email/shared/email.schema.js",
+			"default": "./dist/lib/client/core/email/shared/email.schema.js"
+		},
+		"./client/oauth/types": {
+			"@emperorrag/source": "./src/lib/client/core/oauth/shared/oauth.types.ts",
+			"types": "./dist/lib/client/core/oauth/shared/oauth.types.d.ts",
+			"import": "./dist/lib/client/core/oauth/shared/oauth.types.js",
+			"default": "./dist/lib/client/core/oauth/shared/oauth.types.js"
+		},
+		"./client/oauth/error": {
+			"@emperorrag/source": "./src/lib/client/core/oauth/shared/oauth.error.ts",
+			"types": "./dist/lib/client/core/oauth/shared/oauth.error.d.ts",
+			"import": "./dist/lib/client/core/oauth/shared/oauth.error.js",
+			"default": "./dist/lib/client/core/oauth/shared/oauth.error.js"
+		},
+		"./client/session/types": {
+			"@emperorrag/source": "./src/lib/client/core/session/shared/session.types.ts",
+			"types": "./dist/lib/client/core/session/shared/session.types.d.ts",
+			"import": "./dist/lib/client/core/session/shared/session.types.js",
+			"default": "./dist/lib/client/core/session/shared/session.types.js"
+		},
+		"./client/session/error": {
+			"@emperorrag/source": "./src/lib/client/core/session/shared/session.error.ts",
+			"types": "./dist/lib/client/core/session/shared/session.error.d.ts",
+			"import": "./dist/lib/client/core/session/shared/session.error.js",
+			"default": "./dist/lib/client/core/session/shared/session.error.js"
+		},
+		"./client/user/types": {
+			"@emperorrag/source": "./src/lib/client/core/user/shared/user.types.ts",
+			"types": "./dist/lib/client/core/user/shared/user.types.d.ts",
+			"import": "./dist/lib/client/core/user/shared/user.types.js",
+			"default": "./dist/lib/client/core/user/shared/user.types.js"
+		},
+		"./client/user/error": {
+			"@emperorrag/source": "./src/lib/client/core/user/shared/user.error.ts",
+			"types": "./dist/lib/client/core/user/shared/user.error.d.ts",
+			"import": "./dist/lib/client/core/user/shared/user.error.js",
+			"default": "./dist/lib/client/core/user/shared/user.error.js"
+		},
+		"./server/account/types": {
+			"@emperorrag/source": "./src/lib/server/core/account/shared/account.types.ts",
+			"types": "./dist/lib/server/core/account/shared/account.types.d.ts",
+			"import": "./dist/lib/server/core/account/shared/account.types.js",
+			"default": "./dist/lib/server/core/account/shared/account.types.js"
+		},
+		"./server/account/error": {
+			"@emperorrag/source": "./src/lib/server/core/account/shared/account.error.ts",
+			"types": "./dist/lib/server/core/account/shared/account.error.d.ts",
+			"import": "./dist/lib/server/core/account/shared/account.error.js",
+			"default": "./dist/lib/server/core/account/shared/account.error.js"
+		},
+		"./server/email/types": {
+			"@emperorrag/source": "./src/lib/server/core/email/shared/email.types.ts",
+			"types": "./dist/lib/server/core/email/shared/email.types.d.ts",
+			"import": "./dist/lib/server/core/email/shared/email.types.js",
+			"default": "./dist/lib/server/core/email/shared/email.types.js"
+		},
+		"./server/email/error": {
+			"@emperorrag/source": "./src/lib/server/core/email/shared/email.error.ts",
+			"types": "./dist/lib/server/core/email/shared/email.error.d.ts",
+			"import": "./dist/lib/server/core/email/shared/email.error.js",
+			"default": "./dist/lib/server/core/email/shared/email.error.js"
+		},
+		"./server/email/schema": {
+			"@emperorrag/source": "./src/lib/server/core/email/shared/email.schema.ts",
+			"types": "./dist/lib/server/core/email/shared/email.schema.d.ts",
+			"import": "./dist/lib/server/core/email/shared/email.schema.js",
+			"default": "./dist/lib/server/core/email/shared/email.schema.js"
+		},
+		"./server/oauth/types": {
+			"@emperorrag/source": "./src/lib/server/core/oauth/shared/oauth.types.ts",
+			"types": "./dist/lib/server/core/oauth/shared/oauth.types.d.ts",
+			"import": "./dist/lib/server/core/oauth/shared/oauth.types.js",
+			"default": "./dist/lib/server/core/oauth/shared/oauth.types.js"
+		},
+		"./server/oauth/error": {
+			"@emperorrag/source": "./src/lib/server/core/oauth/shared/oauth.error.ts",
+			"types": "./dist/lib/server/core/oauth/shared/oauth.error.d.ts",
+			"import": "./dist/lib/server/core/oauth/shared/oauth.error.js",
+			"default": "./dist/lib/server/core/oauth/shared/oauth.error.js"
+		},
+		"./server/session/types": {
+			"@emperorrag/source": "./src/lib/server/core/session/shared/session.types.ts",
+			"types": "./dist/lib/server/core/session/shared/session.types.d.ts",
+			"import": "./dist/lib/server/core/session/shared/session.types.js",
+			"default": "./dist/lib/server/core/session/shared/session.types.js"
+		},
+		"./server/session/error": {
+			"@emperorrag/source": "./src/lib/server/core/session/shared/session.error.ts",
+			"types": "./dist/lib/server/core/session/shared/session.error.d.ts",
+			"import": "./dist/lib/server/core/session/shared/session.error.js",
+			"default": "./dist/lib/server/core/session/shared/session.error.js"
+		},
+		"./server/user/types": {
+			"@emperorrag/source": "./src/lib/server/core/user/shared/user.types.ts",
+			"types": "./dist/lib/server/core/user/shared/user.types.d.ts",
+			"import": "./dist/lib/server/core/user/shared/user.types.js",
+			"default": "./dist/lib/server/core/user/shared/user.types.js"
+		},
+		"./server/user/error": {
+			"@emperorrag/source": "./src/lib/server/core/user/shared/user.error.ts",
+			"types": "./dist/lib/server/core/user/shared/user.error.d.ts",
+			"import": "./dist/lib/server/core/user/shared/user.error.js",
+			"default": "./dist/lib/server/core/user/shared/user.error.js"
+		},
+		"./change-password/client": {
+			"@emperorrag/source": "./src/lib/client/core/email/change-password/changePassword.ts",
+			"types": "./dist/lib/client/core/email/change-password/changePassword.d.ts",
+			"import": "./dist/lib/client/core/email/change-password/changePassword.js",
+			"default": "./dist/lib/client/core/email/change-password/changePassword.js"
+		},
+		"./change-password/server": {
+			"@emperorrag/source": "./src/lib/server/core/email/change-password/changePassword.ts",
+			"types": "./dist/lib/server/core/email/change-password/changePassword.d.ts",
+			"import": "./dist/lib/server/core/email/change-password/changePassword.js",
+			"default": "./dist/lib/server/core/email/change-password/changePassword.js"
+		},
+		"./request-password-reset/client": {
+			"@emperorrag/source": "./src/lib/client/core/email/request-password-reset/requestPasswordReset.ts",
+			"types": "./dist/lib/client/core/email/request-password-reset/requestPasswordReset.d.ts",
+			"import": "./dist/lib/client/core/email/request-password-reset/requestPasswordReset.js",
+			"default": "./dist/lib/client/core/email/request-password-reset/requestPasswordReset.js"
+		},
+		"./request-password-reset/server": {
+			"@emperorrag/source": "./src/lib/server/core/email/forget-password/forgetPassword.ts",
+			"types": "./dist/lib/server/core/email/forget-password/forgetPassword.d.ts",
+			"import": "./dist/lib/server/core/email/forget-password/forgetPassword.js",
+			"default": "./dist/lib/server/core/email/forget-password/forgetPassword.js"
+		},
+		"./reset-password/client": {
+			"@emperorrag/source": "./src/lib/client/core/email/reset-password/resetPassword.ts",
+			"types": "./dist/lib/client/core/email/reset-password/resetPassword.d.ts",
+			"import": "./dist/lib/client/core/email/reset-password/resetPassword.js",
+			"default": "./dist/lib/client/core/email/reset-password/resetPassword.js"
+		},
+		"./reset-password/server": {
+			"@emperorrag/source": "./src/lib/server/core/email/reset-password/resetPassword.ts",
+			"types": "./dist/lib/server/core/email/reset-password/resetPassword.d.ts",
+			"import": "./dist/lib/server/core/email/reset-password/resetPassword.js",
+			"default": "./dist/lib/server/core/email/reset-password/resetPassword.js"
+		},
+		"./send-verification-email/client": {
+			"@emperorrag/source": "./src/lib/client/core/email/send-verification-email/sendVerificationEmail.ts",
+			"types": "./dist/lib/client/core/email/send-verification-email/sendVerificationEmail.d.ts",
+			"import": "./dist/lib/client/core/email/send-verification-email/sendVerificationEmail.js",
+			"default": "./dist/lib/client/core/email/send-verification-email/sendVerificationEmail.js"
+		},
+		"./send-verification-email/server": {
+			"@emperorrag/source": "./src/lib/server/core/email/send-verification-email/sendVerificationEmail.ts",
+			"types": "./dist/lib/server/core/email/send-verification-email/sendVerificationEmail.d.ts",
+			"import": "./dist/lib/server/core/email/send-verification-email/sendVerificationEmail.js",
+			"default": "./dist/lib/server/core/email/send-verification-email/sendVerificationEmail.js"
+		},
+		"./sign-in-email/client": {
+			"@emperorrag/source": "./src/lib/client/core/email/sign-in-email/signInEmail.ts",
+			"types": "./dist/lib/client/core/email/sign-in-email/signInEmail.d.ts",
+			"import": "./dist/lib/client/core/email/sign-in-email/signInEmail.js",
+			"default": "./dist/lib/client/core/email/sign-in-email/signInEmail.js"
+		},
+		"./sign-in-email/server": {
+			"@emperorrag/source": "./src/lib/server/core/email/sign-in-email/signInEmail.ts",
+			"types": "./dist/lib/server/core/email/sign-in-email/signInEmail.d.ts",
+			"import": "./dist/lib/server/core/email/sign-in-email/signInEmail.js",
+			"default": "./dist/lib/server/core/email/sign-in-email/signInEmail.js"
+		},
+		"./sign-out/client": {
+			"@emperorrag/source": "./src/lib/client/core/email/sign-out/signOut.ts",
+			"types": "./dist/lib/client/core/email/sign-out/signOut.d.ts",
+			"import": "./dist/lib/client/core/email/sign-out/signOut.js",
+			"default": "./dist/lib/client/core/email/sign-out/signOut.js"
+		},
+		"./sign-out/server": {
+			"@emperorrag/source": "./src/lib/server/core/email/sign-out/signOut.ts",
+			"types": "./dist/lib/server/core/email/sign-out/signOut.d.ts",
+			"import": "./dist/lib/server/core/email/sign-out/signOut.js",
+			"default": "./dist/lib/server/core/email/sign-out/signOut.js"
+		},
+		"./sign-up-email/client": {
+			"@emperorrag/source": "./src/lib/client/core/email/sign-up-email/signUpEmail.ts",
+			"types": "./dist/lib/client/core/email/sign-up-email/signUpEmail.d.ts",
+			"import": "./dist/lib/client/core/email/sign-up-email/signUpEmail.js",
+			"default": "./dist/lib/client/core/email/sign-up-email/signUpEmail.js"
+		},
+		"./sign-up-email/server": {
+			"@emperorrag/source": "./src/lib/server/core/email/sign-up-email/signUpEmail.ts",
+			"types": "./dist/lib/server/core/email/sign-up-email/signUpEmail.d.ts",
+			"import": "./dist/lib/server/core/email/sign-up-email/signUpEmail.js",
+			"default": "./dist/lib/server/core/email/sign-up-email/signUpEmail.js"
+		},
+		"./link-social/client": {
+			"@emperorrag/source": "./src/lib/client/core/account/link-social/linkSocial.ts",
+			"types": "./dist/lib/client/core/account/link-social/linkSocial.d.ts",
+			"import": "./dist/lib/client/core/account/link-social/linkSocial.js",
+			"default": "./dist/lib/client/core/account/link-social/linkSocial.js"
+		},
+		"./list-accounts/client": {
+			"@emperorrag/source": "./src/lib/client/core/account/list-accounts/listAccounts.ts",
+			"types": "./dist/lib/client/core/account/list-accounts/listAccounts.d.ts",
+			"import": "./dist/lib/client/core/account/list-accounts/listAccounts.js",
+			"default": "./dist/lib/client/core/account/list-accounts/listAccounts.js"
+		},
+		"./list-accounts/server": {
+			"@emperorrag/source": "./src/lib/server/core/account/list-accounts/listAccounts.ts",
+			"types": "./dist/lib/server/core/account/list-accounts/listAccounts.d.ts",
+			"import": "./dist/lib/server/core/account/list-accounts/listAccounts.js",
+			"default": "./dist/lib/server/core/account/list-accounts/listAccounts.js"
+		},
+		"./unlink-account/client": {
+			"@emperorrag/source": "./src/lib/client/core/account/unlink-account/unlinkAccount.ts",
+			"types": "./dist/lib/client/core/account/unlink-account/unlinkAccount.d.ts",
+			"import": "./dist/lib/client/core/account/unlink-account/unlinkAccount.js",
+			"default": "./dist/lib/client/core/account/unlink-account/unlinkAccount.js"
+		},
+		"./unlink-account/server": {
+			"@emperorrag/source": "./src/lib/server/core/account/unlink-account/unlinkAccount.ts",
+			"types": "./dist/lib/server/core/account/unlink-account/unlinkAccount.d.ts",
+			"import": "./dist/lib/server/core/account/unlink-account/unlinkAccount.js",
+			"default": "./dist/lib/server/core/account/unlink-account/unlinkAccount.js"
+		},
+		"./get-session/client": {
+			"@emperorrag/source": "./src/lib/client/core/session/get-session/getSession.ts",
+			"types": "./dist/lib/client/core/session/get-session/getSession.d.ts",
+			"import": "./dist/lib/client/core/session/get-session/getSession.js",
+			"default": "./dist/lib/client/core/session/get-session/getSession.js"
+		},
+		"./get-session/server": {
+			"@emperorrag/source": "./src/lib/server/core/session/get-session/getSession.ts",
+			"types": "./dist/lib/server/core/session/get-session/getSession.d.ts",
+			"import": "./dist/lib/server/core/session/get-session/getSession.js",
+			"default": "./dist/lib/server/core/session/get-session/getSession.js"
+		},
+		"./update-user/client": {
+			"@emperorrag/source": "./src/lib/client/core/user/update-user/updateUser.ts",
+			"types": "./dist/lib/client/core/user/update-user/updateUser.d.ts",
+			"import": "./dist/lib/client/core/user/update-user/updateUser.js",
+			"default": "./dist/lib/client/core/user/update-user/updateUser.js"
+		},
+		"./update-user/server": {
+			"@emperorrag/source": "./src/lib/server/core/user/update-user/updateUser.ts",
+			"types": "./dist/lib/server/core/user/update-user/updateUser.d.ts",
+			"import": "./dist/lib/server/core/user/update-user/updateUser.js",
+			"default": "./dist/lib/server/core/user/update-user/updateUser.js"
+		},
+		"./sign-in/client": {
+			"@emperorrag/source": "./src/lib/client/core/oauth/sign-in/signIn.ts",
+			"types": "./dist/lib/client/core/oauth/sign-in/signIn.d.ts",
+			"import": "./dist/lib/client/core/oauth/sign-in/signIn.js",
+			"default": "./dist/lib/client/core/oauth/sign-in/signIn.js"
+		},
+		"./sign-in/server": {
+			"@emperorrag/source": "./src/lib/server/core/oauth/sign-in/signIn.ts",
+			"types": "./dist/lib/server/core/oauth/sign-in/signIn.d.ts",
+			"import": "./dist/lib/server/core/oauth/sign-in/signIn.js",
+			"default": "./dist/lib/server/core/oauth/sign-in/signIn.js"
 		}
 	},
 	"files": [
@@ -50,6 +389,7 @@
 		"vite-plugin-dts": "^4.5.4",
 		"vite": "^7.0.0",
 		"vitest": "^3.0.0",
-		"@nx/vite": "21.6.5"
+		"@nx/vite": "21.6.5",
+		"madge": "^8.0.0"
 	}
 }

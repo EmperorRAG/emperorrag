@@ -1,4 +1,4 @@
-import { sendVerificationEmailServer as sendVerificationEmailUtility } from '@emperorrag/better-auth-utilities/core/email/server/send-verification-email/sendVerificationEmail';
+import { sendVerificationEmailServer as sendVerificationEmailUtility } from '@emperorrag/better-auth-utilities/send-verification-email/server';
 import { authServer } from '../../../../server/server';
 
-export const sendVerificationEmail = sendVerificationEmailUtility({ authServer });
+export const sendVerificationEmailServer = sendVerificationEmailUtility({ authServer });

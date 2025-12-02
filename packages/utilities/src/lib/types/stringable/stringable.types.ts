@@ -1,7 +1,7 @@
 import { pipe, Match } from 'effect';
-import { isFunction } from '../function.types.js';
-import { isValueObject } from '../object/object.types.js';
-import { isPrimitive } from '../primitive.types.js';
+import { isFunction } from '../function.types';
+import { isValueObject } from '../object/object.types';
+import { isPrimitive } from '../primitive.types';
 
 /**
  * A type representing any value that can be safely passed to the `String()` constructor.

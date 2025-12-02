@@ -1,4 +1,4 @@
-import { listAccountsServer as listAccountsUtility } from '@emperorrag/better-auth-utilities/core/account/server/list-accounts/listAccounts';
+import { listAccountsServer as listAccountsUtility } from '@emperorrag/better-auth-utilities/list-accounts/server';
 import { authServer } from '../../../../server/server';
 
-export const listAccounts = listAccountsUtility({ authServer });
+export const listAccountsServer = listAccountsUtility({ authServer });

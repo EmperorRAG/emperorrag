@@ -3,4 +3,4 @@
  * @description OAuth client exports.
  */
 
-export * from './sign-in/index.js';
+export * from './sign-in/index';

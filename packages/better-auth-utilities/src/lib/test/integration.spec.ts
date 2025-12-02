@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { setupTestEnv } from './setup-test-env.js';
+import { setupTestEnv } from './setup-test-env';
 
 describe('Better Auth Integration', () => {
 	let env: Awaited<ReturnType<typeof setupTestEnv>>;

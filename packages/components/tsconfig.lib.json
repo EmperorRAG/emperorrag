@@ -3,7 +3,6 @@
 	"compilerOptions": {
 		"outDir": "./out-tsc/lib",
 		"types": ["node", "@nx/react/typings/cssmodule.d.ts", "@nx/react/typings/image.d.ts", "vite/client"],
-		"rootDir": "./src",
 		"jsx": "react-jsx",
 		"module": "esnext",
 		"moduleResolution": "bundler",

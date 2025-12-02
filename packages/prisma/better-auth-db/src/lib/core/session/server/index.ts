@@ -3,4 +3,4 @@
  * @description Session server exports.
  */
 
-export * from './get-session/index.js';
+export * from './get-session/index';

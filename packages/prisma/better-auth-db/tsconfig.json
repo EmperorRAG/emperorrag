@@ -4,9 +4,6 @@
   "include": [],
   "references": [
     {
-      "path": "../../better-auth-utilities"
-    },
-    {
       "path": "./tsconfig.lib.json"
     },
     {

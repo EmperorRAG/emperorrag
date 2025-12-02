@@ -3,5 +3,5 @@
  * @description Session functionality exports.
  */
 
-export * as client from './client/index.js';
-export * as server from './server/index.js';
+export * as client from './client/index';
+export * as server from './server/index';

@@ -3,4 +3,4 @@
  * @description Client exports for Better Auth.
  */
 
-export * from './client.js';
+export * from './client';

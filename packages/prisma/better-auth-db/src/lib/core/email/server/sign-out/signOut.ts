@@ -1,4 +1,4 @@
-import { signOutServer as signOutUtility } from '@emperorrag/better-auth-utilities/core/email/server/sign-out/signOut';
+import { signOutServer as signOutUtility } from '@emperorrag/better-auth-utilities/sign-out/server';
 import { authServer } from '../../../../server/server';
 
-export const signOut = signOutUtility({ authServer });
+export const signOutServer = signOutUtility({ authServer });

@@ -3,6 +3,6 @@
  * @description Account client exports.
  */
 
-export * from './link-social/index.js';
-export * from './list-accounts/index.js';
-export * from './unlink-account/index.js';
+export * from './link-social/index';
+export * from './list-accounts/index';
+export * from './unlink-account/index';

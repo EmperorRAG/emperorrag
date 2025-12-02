@@ -3,4 +3,4 @@
  * @description Server exports for Better Auth.
  */
 
-export * from './server.js';
+export * from './server';
