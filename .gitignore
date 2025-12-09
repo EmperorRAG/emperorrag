@@ -1,17 +1,15 @@
-# See https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
-
 # compiled output
-dist
-tmp
-out-tsc
+dist/
+tmp/
+out-tsc/
 *.tsbuildinfo
 
 # dependencies
-node_modules
-.pnpm-store
+node_modules/
+.pnpm-store/
 
 # IDEs and editors
-/.idea
+.idea/
 .project
 .classpath
 .c9/
@@ -27,30 +25,34 @@ node_modules
 !.vscode/extensions.json
 
 # misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
+.sass-cache/
+connect.lock
+coverage/
+libpeerconnection.log
 npm-debug.log
 yarn-error.log
 testem.log
-/typings
+typings/
 
 # System Files
 .DS_Store
 Thumbs.db
 
-.nx/cache
-.nx/workspace-data
+# Nx cache
+.nx/cache/
+.nx/workspace-data/
+
+# Cursor / instructions
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
 
+# Vite/Vitest timestamp artifacts
 vite.config.*.timestamp*
 vitest.config.*.timestamp*
-test-output
+test-output/
 
 # Prisma generated files
-**/prisma/generated
+**/prisma/generated/
 
 # Environment files
 **/*.env
@@ -65,8 +67,10 @@ test-output
 **/backups/*.sql
 **/backups/*.dump
 
-storybook-static
+# Storybook static builds
+storybook-static/
+**/.storybook-static/
 
 # Next.js
-.next
-out
+.next/
+out/

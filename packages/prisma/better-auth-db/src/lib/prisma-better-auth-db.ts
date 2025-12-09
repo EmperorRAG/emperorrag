@@ -4,13 +4,13 @@
  */
 
 // Export configuration
-export { betterAuthConfig } from './config/config.js';
+export { betterAuthConfig } from './config/config';
 
 // Export server instance
-export { authServer } from './server/server.js';
+export { authServer } from './server/server';
 
 // Export client instance
-export { authClient } from './client/client.js';
+export { authClient } from './client/client';
 
 // Re-export types from better-auth-utilities
-export type { AuthProvider, AvailablePlugins, BetterAuthConfig, ClientConfig, ServerConfig } from '@emperorrag/better-auth-utilities';
+export type { AuthProvider, AvailablePlugins, BetterAuthConfig, ClientConfig, ServerConfig } from '@emperorrag/better-auth-utilities/config';

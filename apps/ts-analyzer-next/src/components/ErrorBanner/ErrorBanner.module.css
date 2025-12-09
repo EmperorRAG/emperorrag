@@ -1,0 +1,38 @@
+.container {
+	background-color: #fee2e2;
+	border: 1px solid #fecaca;
+	color: #991b1b;
+	padding: var(--space-3);
+	border-radius: var(--radius-md);
+	margin-bottom: var(--space-3);
+}
+
+.message {
+	font-weight: 500;
+}
+
+.trigger {
+	background: none;
+	border: none;
+	color: #991b1b;
+	text-decoration: underline;
+	cursor: pointer;
+	padding: 0;
+	margin-top: var(--space-2);
+	font-size: 0.875rem;
+}
+
+.content {
+	margin-top: var(--space-2);
+	background-color: rgba(255, 255, 255, 0.5);
+	padding: var(--space-2);
+	border-radius: var(--radius-sm);
+	overflow-x: auto;
+}
+
+.pre {
+	margin: 0;
+	font-family: monospace;
+	font-size: 0.75rem;
+	white-space: pre-wrap;
+}

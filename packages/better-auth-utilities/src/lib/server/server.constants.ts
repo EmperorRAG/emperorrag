@@ -1,30 +1,71 @@
 /**
  * @file libs/better-auth-utilities/src/lib/server/server.constants.ts
  * @description Server-side better-auth constants and plugin factory mappings.
+ *
+ * @remarks
+ * This file uses granular subpath imports from better-auth to optimize TS Server performance.
+ * Each plugin is imported from its dedicated subpath (e.g., 'better-auth/plugins/admin')
+ * instead of the bundled 'better-auth/plugins' export to reduce type resolution overhead.
  */
 
-import {
-	apiKey,
-	bearer,
-	jwt,
-	openAPI,
-	twoFactor,
-	admin,
-	organization,
-	username,
-	magicLink,
-	siwe,
-	genericOAuth,
-	oneTap,
-	anonymous,
-	phoneNumber,
-	emailOTP,
-	deviceAuthorization,
-	lastLoginMethod,
-	oneTimeToken,
-	multiSession,
-} from 'better-auth/plugins';
-import type { AvailablePlugins } from '../config/config.ts';
+// =============================================================================
+// Individual Plugin Subpath Imports (Optimized for TS Server Performance)
+// =============================================================================
+
+// =============================================================================
+// ALL PLUGIN IMPORTS COMMENTED OUT
+// These plugins are not currently used in production. Uncomment when needed.
+// =============================================================================
+// import { admin } from 'better-auth/plugins/admin';
+// import { bearer } from 'better-auth/plugins/bearer';
+// import { emailOTP } from 'better-auth/plugins/email-otp';
+// import { jwt } from 'better-auth/plugins/jwt';
+// import { organization } from 'better-auth/plugins/organization';
+// import { twoFactor } from 'better-auth/plugins/two-factor';
+// import { username } from 'better-auth/plugins/username';
+// import { anonymous } from 'better-auth/plugins/anonymous';
+// import { deviceAuthorization } from 'better-auth/plugins/device-authorization';
+// import { genericOAuth } from 'better-auth/plugins/generic-oauth';
+// import { magicLink } from 'better-auth/plugins/magic-link';
+// import { multiSession } from 'better-auth/plugins/multi-session';
+// import { oneTimeToken } from 'better-auth/plugins/one-time-token';
+// import { phoneNumber } from 'better-auth/plugins/phone-number';
+// import { siwe } from 'better-auth/plugins/siwe';
+
+// =============================================================================
+// Bundle Import (Required for plugins without individual subpaths)
+// These plugins are only exported from the 'better-auth/plugins' bundle
+// =============================================================================
+// import { apiKey, openAPI, oneTap, lastLoginMethod } from 'better-auth/plugins';
+
+// =============================================================================
+// Commented Out Original Bundle Import (For Reference)
+// The following import was replaced with individual subpath imports above.
+// Uncomment if you need to revert to bundle import for any reason.
+// =============================================================================
+// import {
+// 	apiKey,
+// 	bearer,
+// 	jwt,
+// 	openAPI,
+// 	twoFactor,
+// 	admin,
+// 	organization,
+// 	username,
+// 	magicLink,
+// 	siwe,
+// 	genericOAuth,
+// 	oneTap,
+// 	anonymous,
+// 	phoneNumber,
+// 	emailOTP,
+// 	deviceAuthorization,
+// 	lastLoginMethod,
+// 	oneTimeToken,
+// 	multiSession,
+// } from 'better-auth/plugins';
+
+import type { AvailablePlugins } from '../shared/config/config.types';
 
 /**
  * Maps plugin names to their server factory functions.
@@ -65,23 +106,44 @@ export const SERVER_PLUGIN_FACTORIES: Record<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	(config?: unknown) => any
 > = {
-	// Core authentication plugins
-	username: (config) => username(config as Parameters<typeof username>[0]),
-	magicLink: (config) => magicLink(config as Parameters<typeof magicLink>[0]),
-	twoFactor: (config) => twoFactor(config as Parameters<typeof twoFactor>[0]),
-	admin: (config) => admin(config as Parameters<typeof admin>[0]),
-	organization: (config) => organization(config as Parameters<typeof organization>[0]),
+	// =============================================================================
+	// ALL PLUGIN FACTORIES COMMENTED OUT
+	// These return placeholder throws. Uncomment imports and factory implementations when needed.
+	// =============================================================================
+
+	// Core authentication plugins (COMMENTED OUT)
+	username: () => {
+		throw new Error('Username plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	twoFactor: () => {
+		throw new Error('TwoFactor plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	admin: () => {
+		throw new Error('Admin plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	organization: () => {
+		throw new Error('Organization plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	magicLink: () => {
+		throw new Error('MagicLink plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
 	passkey: () => {
 		throw new Error('Passkey plugin requires @better-auth/passkey package or correct import path');
 	},
 
-	// OAuth/Auth plugins
+	// OAuth/Auth plugins (COMMENTED OUT)
 	oidc: () => {
 		throw new Error('OIDC plugin requires correct import or @better-auth/oidc package');
 	},
-	siwe: (config) => siwe(config as Parameters<typeof siwe>[0]),
-	genericOAuth: (config) => genericOAuth(config as Parameters<typeof genericOAuth>[0]),
-	oneTap: (config) => oneTap(config as Parameters<typeof oneTap>[0]),
+	siwe: () => {
+		throw new Error('SIWE plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	genericOAuth: () => {
+		throw new Error('GenericOAuth plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	oneTap: () => {
+		throw new Error('OneTap plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
 
 	// Integration plugins (require separate packages)
 	stripe: () => {
@@ -97,22 +159,42 @@ export const SERVER_PLUGIN_FACTORIES: Record<
 		throw new Error('Dub Analytics plugin requires @dub/better-auth package');
 	},
 
-	// Security plugins
-	bearer: (config) => bearer(config as Parameters<typeof bearer>[0]),
-	jwt: (config) => jwt(config as Parameters<typeof jwt>[0]),
-	apiKey: (config) => apiKey(config as Parameters<typeof apiKey>[0]),
+	// Security plugins (COMMENTED OUT)
+	bearer: () => {
+		throw new Error('Bearer plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	jwt: () => {
+		throw new Error('JWT plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	apiKey: () => {
+		throw new Error('ApiKey plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
 	haveIBeenPwned: () => {
 		throw new Error('Have I Been Pwned plugin requires @better-auth/hibp package');
 	},
 
-	// Advanced plugins
-	multiSession: (config) => multiSession(config as Parameters<typeof multiSession>[0]),
-	anonymous: (config) => anonymous(config as Parameters<typeof anonymous>[0]),
-	phoneNumber: (config) => phoneNumber(config as Parameters<typeof phoneNumber>[0]),
-	emailOTP: (config) => emailOTP(config as Parameters<typeof emailOTP>[0]),
-	deviceAuthorization: (config) => deviceAuthorization(config as Parameters<typeof deviceAuthorization>[0]),
-	lastLoginMethod: (config) => lastLoginMethod(config as Parameters<typeof lastLoginMethod>[0]),
-	oneTimeToken: (config) => oneTimeToken(config as Parameters<typeof oneTimeToken>[0]),
+	// Advanced plugins (COMMENTED OUT)
+	emailOTP: () => {
+		throw new Error('EmailOTP plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	multiSession: () => {
+		throw new Error('MultiSession plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	anonymous: () => {
+		throw new Error('Anonymous plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	phoneNumber: () => {
+		throw new Error('PhoneNumber plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	deviceAuthorization: () => {
+		throw new Error('DeviceAuthorization plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	lastLoginMethod: () => {
+		throw new Error('LastLoginMethod plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
+	oneTimeToken: () => {
+		throw new Error('OneTimeToken plugin is commented out. Uncomment import in server.constants.ts to enable.');
+	},
 };
 
 /**
@@ -139,6 +221,10 @@ export const SERVER_PLUGIN_FACTORIES: Record<
  * const openAPIPlugin = ALWAYS_INCLUDED_SERVER_PLUGINS.openAPI();
  * ```
  */
-export const ALWAYS_INCLUDED_SERVER_PLUGINS = {
-	openAPI: openAPI,
-} as const;
+// COMMENTED OUT - openAPI import is commented out
+// export const ALWAYS_INCLUDED_SERVER_PLUGINS = {
+// 	openAPI: openAPI,
+// } as const;
+
+// Placeholder export to maintain API compatibility
+export const ALWAYS_INCLUDED_SERVER_PLUGINS = {} as const;

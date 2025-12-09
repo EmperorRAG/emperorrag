@@ -3,7 +3,7 @@
  * @description Better Auth client initialization.
  */
 
-import { createAuthClient } from '@emperorrag/better-auth-utilities/client/client';
+import { createAuthClient } from '@emperorrag/better-auth-utilities/client';
 import { betterAuthConfig } from '../config/config';
 
 /**

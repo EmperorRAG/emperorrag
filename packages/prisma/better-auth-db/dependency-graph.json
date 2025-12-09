@@ -1,0 +1,249 @@
+{
+  "index.ts": [
+    "lib/prisma-better-auth-db.ts"
+  ],
+  "lib/.vitest-placeholder.spec.ts": [],
+  "lib/client/client.ts": [
+    "lib/config/config.ts"
+  ],
+  "lib/client/index.ts": [
+    "lib/client/client.ts"
+  ],
+  "lib/config/config.ts": [],
+  "lib/config/index.ts": [
+    "lib/config/config.ts"
+  ],
+  "lib/core/account/client/index.ts": [
+    "lib/core/account/client/link-social/index.ts",
+    "lib/core/account/client/list-accounts/index.ts",
+    "lib/core/account/client/unlink-account/index.ts"
+  ],
+  "lib/core/account/client/link-social/index.ts": [
+    "lib/core/account/client/link-social/linkSocial.ts"
+  ],
+  "lib/core/account/client/link-social/linkSocial.ts": [
+    "lib/client/client.ts"
+  ],
+  "lib/core/account/client/list-accounts/index.ts": [
+    "lib/core/account/client/list-accounts/listAccounts.ts"
+  ],
+  "lib/core/account/client/list-accounts/listAccounts.ts": [
+    "lib/client/client.ts"
+  ],
+  "lib/core/account/client/unlink-account/index.ts": [
+    "lib/core/account/client/unlink-account/unlinkAccount.ts"
+  ],
+  "lib/core/account/client/unlink-account/unlinkAccount.ts": [
+    "lib/client/client.ts"
+  ],
+  "lib/core/account/index.ts": [
+    "lib/core/account/client/index.ts",
+    "lib/core/account/server/index.ts"
+  ],
+  "lib/core/account/server/index.ts": [
+    "lib/core/account/server/list-accounts/index.ts",
+    "lib/core/account/server/unlink-account/index.ts"
+  ],
+  "lib/core/account/server/list-accounts/index.ts": [
+    "lib/core/account/server/list-accounts/listAccounts.ts"
+  ],
+  "lib/core/account/server/list-accounts/listAccounts.ts": [
+    "lib/server/server.ts"
+  ],
+  "lib/core/account/server/unlink-account/index.ts": [
+    "lib/core/account/server/unlink-account/unlinkAccount.ts"
+  ],
+  "lib/core/account/server/unlink-account/unlinkAccount.ts": [
+    "lib/server/server.ts"
+  ],
+  "lib/core/email/client/change-password/changePassword.ts": [
+    "lib/client/client.ts"
+  ],
+  "lib/core/email/client/change-password/index.ts": [
+    "lib/core/email/client/change-password/changePassword.ts"
+  ],
+  "lib/core/email/client/index.ts": [
+    "lib/core/email/client/change-password/index.ts",
+    "lib/core/email/client/request-password-reset/index.ts",
+    "lib/core/email/client/reset-password/index.ts",
+    "lib/core/email/client/send-verification-email/index.ts",
+    "lib/core/email/client/sign-in-email/index.ts",
+    "lib/core/email/client/sign-out/index.ts",
+    "lib/core/email/client/sign-up-email/index.ts"
+  ],
+  "lib/core/email/client/request-password-reset/index.ts": [
+    "lib/core/email/client/request-password-reset/requestPasswordReset.ts"
+  ],
+  "lib/core/email/client/request-password-reset/requestPasswordReset.ts": [
+    "lib/client/client.ts"
+  ],
+  "lib/core/email/client/reset-password/index.ts": [
+    "lib/core/email/client/reset-password/resetPassword.ts"
+  ],
+  "lib/core/email/client/reset-password/resetPassword.ts": [
+    "lib/client/client.ts"
+  ],
+  "lib/core/email/client/send-verification-email/index.ts": [
+    "lib/core/email/client/send-verification-email/sendVerificationEmail.ts"
+  ],
+  "lib/core/email/client/send-verification-email/sendVerificationEmail.ts": [
+    "lib/client/client.ts"
+  ],
+  "lib/core/email/client/sign-in-email/index.ts": [
+    "lib/core/email/client/sign-in-email/signInEmail.ts"
+  ],
+  "lib/core/email/client/sign-in-email/signInEmail.ts": [
+    "lib/client/client.ts"
+  ],
+  "lib/core/email/client/sign-out/index.ts": [
+    "lib/core/email/client/sign-out/signOut.ts"
+  ],
+  "lib/core/email/client/sign-out/signOut.ts": [
+    "lib/client/client.ts"
+  ],
+  "lib/core/email/client/sign-up-email/index.ts": [
+    "lib/core/email/client/sign-up-email/signUpEmail.ts"
+  ],
+  "lib/core/email/client/sign-up-email/signUpEmail.ts": [
+    "lib/client/client.ts"
+  ],
+  "lib/core/email/index.ts": [
+    "lib/core/email/client/index.ts",
+    "lib/core/email/server/index.ts"
+  ],
+  "lib/core/email/server/change-password/changePassword.ts": [
+    "lib/server/server.ts"
+  ],
+  "lib/core/email/server/change-password/index.ts": [
+    "lib/core/email/server/change-password/changePassword.ts"
+  ],
+  "lib/core/email/server/forget-password/forgetPassword.ts": [
+    "lib/server/server.ts"
+  ],
+  "lib/core/email/server/forget-password/index.ts": [
+    "lib/core/email/server/forget-password/forgetPassword.ts"
+  ],
+  "lib/core/email/server/index.ts": [
+    "lib/core/email/server/change-password/index.ts",
+    "lib/core/email/server/forget-password/index.ts",
+    "lib/core/email/server/reset-password/index.ts",
+    "lib/core/email/server/send-verification-email/index.ts",
+    "lib/core/email/server/sign-in-email/index.ts",
+    "lib/core/email/server/sign-out/index.ts",
+    "lib/core/email/server/sign-up-email/index.ts"
+  ],
+  "lib/core/email/server/reset-password/index.ts": [
+    "lib/core/email/server/reset-password/resetPassword.ts"
+  ],
+  "lib/core/email/server/reset-password/resetPassword.ts": [
+    "lib/server/server.ts"
+  ],
+  "lib/core/email/server/send-verification-email/index.ts": [
+    "lib/core/email/server/send-verification-email/sendVerificationEmail.ts"
+  ],
+  "lib/core/email/server/send-verification-email/sendVerificationEmail.ts": [
+    "lib/server/server.ts"
+  ],
+  "lib/core/email/server/sign-in-email/index.ts": [
+    "lib/core/email/server/sign-in-email/signInEmail.ts"
+  ],
+  "lib/core/email/server/sign-in-email/signInEmail.ts": [
+    "lib/server/server.ts"
+  ],
+  "lib/core/email/server/sign-out/index.ts": [
+    "lib/core/email/server/sign-out/signOut.ts"
+  ],
+  "lib/core/email/server/sign-out/signOut.ts": [
+    "lib/server/server.ts"
+  ],
+  "lib/core/email/server/sign-up-email/index.ts": [
+    "lib/core/email/server/sign-up-email/signUpEmail.ts"
+  ],
+  "lib/core/email/server/sign-up-email/signUpEmail.ts": [
+    "lib/server/server.ts"
+  ],
+  "lib/core/index.ts": [
+    "lib/core/account/index.ts",
+    "lib/core/email/index.ts",
+    "lib/core/oauth/index.ts",
+    "lib/core/session/index.ts",
+    "lib/core/user/index.ts"
+  ],
+  "lib/core/oauth/client/index.ts": [
+    "lib/core/oauth/client/sign-in/index.ts"
+  ],
+  "lib/core/oauth/client/sign-in/index.ts": [
+    "lib/core/oauth/client/sign-in/signIn.ts"
+  ],
+  "lib/core/oauth/client/sign-in/signIn.ts": [
+    "lib/client/client.ts"
+  ],
+  "lib/core/oauth/index.ts": [
+    "lib/core/oauth/client/index.ts",
+    "lib/core/oauth/server/index.ts"
+  ],
+  "lib/core/oauth/server/index.ts": [
+    "lib/core/oauth/server/sign-in/index.ts"
+  ],
+  "lib/core/oauth/server/sign-in/index.ts": [
+    "lib/core/oauth/server/sign-in/signIn.ts"
+  ],
+  "lib/core/oauth/server/sign-in/signIn.ts": [
+    "lib/server/server.ts"
+  ],
+  "lib/core/session/client/get-session/getSession.ts": [
+    "lib/client/client.ts"
+  ],
+  "lib/core/session/client/get-session/index.ts": [
+    "lib/core/session/client/get-session/getSession.ts"
+  ],
+  "lib/core/session/client/index.ts": [
+    "lib/core/session/client/get-session/index.ts"
+  ],
+  "lib/core/session/index.ts": [
+    "lib/core/session/client/index.ts",
+    "lib/core/session/server/index.ts"
+  ],
+  "lib/core/session/server/get-session/getSession.ts": [
+    "lib/server/server.ts"
+  ],
+  "lib/core/session/server/get-session/index.ts": [
+    "lib/core/session/server/get-session/getSession.ts"
+  ],
+  "lib/core/session/server/index.ts": [
+    "lib/core/session/server/get-session/index.ts"
+  ],
+  "lib/core/user/client/index.ts": [
+    "lib/core/user/client/update-user/index.ts"
+  ],
+  "lib/core/user/client/update-user/index.ts": [
+    "lib/core/user/client/update-user/updateUser.ts"
+  ],
+  "lib/core/user/client/update-user/updateUser.ts": [
+    "lib/client/client.ts"
+  ],
+  "lib/core/user/index.ts": [
+    "lib/core/user/client/index.ts",
+    "lib/core/user/server/index.ts"
+  ],
+  "lib/core/user/server/index.ts": [
+    "lib/core/user/server/update-user/index.ts"
+  ],
+  "lib/core/user/server/update-user/index.ts": [
+    "lib/core/user/server/update-user/updateUser.ts"
+  ],
+  "lib/core/user/server/update-user/updateUser.ts": [
+    "lib/server/server.ts"
+  ],
+  "lib/prisma-better-auth-db.ts": [
+    "lib/client/client.ts",
+    "lib/config/config.ts",
+    "lib/server/server.ts"
+  ],
+  "lib/server/index.ts": [
+    "lib/server/server.ts"
+  ],
+  "lib/server/server.ts": [
+    "lib/config/config.ts"
+  ]
+}

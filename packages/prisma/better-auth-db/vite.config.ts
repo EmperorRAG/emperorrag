@@ -1,12 +1,12 @@
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
-import * as fs from 'fs';
+// import * as fs from 'fs';
 import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 import externalsJson from './externals.json' with { type: 'json' };
-import { externalizePackages, toExternalizeConfig } from './externalize-packages.js';
+import { externalizePackages, toExternalizeConfig } from './externalize-packages';
 
-function getEntries(dir: string, baseDir: string = dir): Record<string, string> {
+/*function getEntries(dir: string, baseDir: string = dir): Record<string, string> {
 	const entries: Record<string, string> = {};
 	if (!fs.existsSync(dir)) return entries;
 
@@ -28,7 +28,7 @@ function getEntries(dir: string, baseDir: string = dir): Record<string, string> 
 		}
 	}
 	return entries;
-}
+}*/
 
 export default defineConfig(() => ({
 	root: __dirname,
@@ -40,6 +40,7 @@ export default defineConfig(() => ({
 			tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
 			rollupTypes: false,
 			staticImport: true,
+			outDir: 'dist',
 		}),
 	],
 	// Uncomment this if you are using workers.
@@ -59,7 +60,36 @@ export default defineConfig(() => ({
 			esmExternals: true,
 		},
 		lib: {
-			entry: getEntries(path.resolve(__dirname, 'src')),
+			entry: {
+				index: 'src/index.ts',
+				'lib/core/email/client/change-password/changePassword': 'src/lib/core/email/client/change-password/changePassword.ts',
+				'lib/core/email/server/change-password/changePassword': 'src/lib/core/email/server/change-password/changePassword.ts',
+				'lib/core/email/client/request-password-reset/requestPasswordReset': 'src/lib/core/email/client/request-password-reset/requestPasswordReset.ts',
+				'lib/core/email/server/forget-password/forgetPassword': 'src/lib/core/email/server/forget-password/forgetPassword.ts',
+				'lib/core/email/client/reset-password/resetPassword': 'src/lib/core/email/client/reset-password/resetPassword.ts',
+				'lib/core/email/server/reset-password/resetPassword': 'src/lib/core/email/server/reset-password/resetPassword.ts',
+				'lib/core/email/client/send-verification-email/sendVerificationEmail':
+					'src/lib/core/email/client/send-verification-email/sendVerificationEmail.ts',
+				'lib/core/email/server/send-verification-email/sendVerificationEmail':
+					'src/lib/core/email/server/send-verification-email/sendVerificationEmail.ts',
+				'lib/core/email/client/sign-in-email/signInEmail': 'src/lib/core/email/client/sign-in-email/signInEmail.ts',
+				'lib/core/email/server/sign-in-email/signInEmail': 'src/lib/core/email/server/sign-in-email/signInEmail.ts',
+				'lib/core/email/client/sign-out/signOut': 'src/lib/core/email/client/sign-out/signOut.ts',
+				'lib/core/email/server/sign-out/signOut': 'src/lib/core/email/server/sign-out/signOut.ts',
+				'lib/core/email/client/sign-up-email/signUpEmail': 'src/lib/core/email/client/sign-up-email/signUpEmail.ts',
+				'lib/core/email/server/sign-up-email/signUpEmail': 'src/lib/core/email/server/sign-up-email/signUpEmail.ts',
+				'lib/core/account/client/link-social/linkSocial': 'src/lib/core/account/client/link-social/linkSocial.ts',
+				'lib/core/account/client/list-accounts/listAccounts': 'src/lib/core/account/client/list-accounts/listAccounts.ts',
+				'lib/core/account/server/list-accounts/listAccounts': 'src/lib/core/account/server/list-accounts/listAccounts.ts',
+				'lib/core/account/client/unlink-account/unlinkAccount': 'src/lib/core/account/client/unlink-account/unlinkAccount.ts',
+				'lib/core/account/server/unlink-account/unlinkAccount': 'src/lib/core/account/server/unlink-account/unlinkAccount.ts',
+				'lib/core/session/client/get-session/getSession': 'src/lib/core/session/client/get-session/getSession.ts',
+				'lib/core/session/server/get-session/getSession': 'src/lib/core/session/server/get-session/getSession.ts',
+				'lib/core/user/client/update-user/updateUser': 'src/lib/core/user/client/update-user/updateUser.ts',
+				'lib/core/user/server/update-user/updateUser': 'src/lib/core/user/server/update-user/updateUser.ts',
+				'lib/core/oauth/client/sign-in/signIn': 'src/lib/core/oauth/client/sign-in/signIn.ts',
+				'lib/core/oauth/server/sign-in/signIn': 'src/lib/core/oauth/server/sign-in/signIn.ts',
+			},
 			fileName: (_format: string, entryName: string) => `${entryName}.js`,
 			formats: ['es' as const],
 		},

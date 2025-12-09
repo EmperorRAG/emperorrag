@@ -1,4 +1,4 @@
-import { unlinkAccountServer as unlinkAccountUtility } from '@emperorrag/better-auth-utilities/core/account/server/unlink-account/unlinkAccount';
+import { unlinkAccountServer as unlinkAccountUtility } from '@emperorrag/better-auth-utilities/unlink-account/server';
 import { authServer } from '../../../../server/server';
 
-export const unlinkAccount = unlinkAccountUtility({ authServer });
+export const unlinkAccountServer = unlinkAccountUtility({ authServer });

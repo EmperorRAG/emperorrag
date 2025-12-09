@@ -1,0 +1,36 @@
+/**
+ * @file changePassword.controller.ts
+ * @description Controller placeholder for changePassword
+ *
+ * @future-implementation
+ * This file is reserved for implementing a controller layer that will:
+ * - Accept raw input (e.g., HTTP request body, CLI args)
+ * - Validate input using changePasswordInputSchema
+ * - Call changePassword service with validated data
+ * - Handle Effect execution and error mapping
+ *
+ * @fp-pattern Higher-order function with validation layer
+ * @composition
+ *   - Schema validation (Zod) → Service call (Effect) → Result mapping
+ *   - Separates validation concerns from business logic
+ *   - Enables reuse of service layer across different input sources
+ *
+ * @example
+ * ```typescript
+ * import { Effect, pipe } from 'effect';
+ * import { changePasswordInputSchema } from './changePassword.schema';
+ * import { changePassword } from './changePassword.service';
+ *
+ * export const changePasswordController = (deps) => (rawInput) =>
+ *   pipe(
+ *     Effect.try(() => changePasswordInputSchema.parse(rawInput)),
+ *     Effect.flatMap((validInput) => changePassword(deps)(validInput)),
+ *     Effect.mapError((error) => ({
+ *       status: error instanceof EmailAuthApiError ? error.status : 400,
+ *       message: error.message
+ *     }))
+ *   );
+ * ```
+ */
+
+// Controller implementation will be added here when needed

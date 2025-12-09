@@ -1,16 +1,18 @@
 {
 	"extends": "../../tsconfig.base.json",
 	"compilerOptions": {
-		"outDir": "./out-tsc/lib",
-		"tsBuildInfoFile": "./dist/tsconfig.lib.tsbuildinfo",
+		"outDir": "./out-tsc",
+		"tsBuildInfoFile": "./out-tsc/tsconfig.lib.tsbuildinfo",
 		"emitDeclarationOnly": true,
+
 		"forceConsistentCasingInFileNames": true,
-		"resolveJsonModule": true,
 		"types": ["node", "vite/client"]
 	},
-	"include": ["./src/**/*.ts", "./vite.config.ts", "./vite.config.mts", "./externalize-packages.ts", "./externals.json"],
+	"include": ["./src/**/*.ts"],
 	"references": [],
 	"exclude": [
+		"./vite.config.ts",
+		"./vite.config.mts",
 		"./vitest.config.ts",
 		"./vitest.config.mts",
 		"./src/**/*.test.ts",
@@ -20,7 +22,6 @@
 		"./src/**/*.test.js",
 		"./src/**/*.spec.js",
 		"./src/**/*.test.jsx",
-		"./src/**/*.spec.jsx",
-		"./src/lib/test/**/*"
+		"./src/**/*.spec.jsx"
 	]
 }

@@ -4,7 +4,7 @@
  */
 
 import { PrismaClient } from '@prisma/client';
-import { createAuthServer } from '@emperorrag/better-auth-utilities/server/server';
+import { createAuthServer } from '@emperorrag/better-auth-utilities/server';
 import { betterAuthConfig } from '../config/config';
 
 // Initialize Prisma Client

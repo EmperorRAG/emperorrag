@@ -3,4 +3,4 @@
  * @description Configuration exports for Better Auth.
  */
 
-export * from './config.js';
+export * from './config';
