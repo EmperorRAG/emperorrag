@@ -3,86 +3,45 @@
  * @description Zod validation schemas for server-side sign-in email operation.
  */
 
+import { pipe } from 'effect';
+import * as Effect from 'effect/Effect';
+import * as Option from 'effect/Option';
 import { z } from 'zod';
+import type { AuthServerFor } from '../../../server.types';
+import { getAuthServerConfig, getEmailAndPasswordConfig } from '../shared/email.utils';
 
 /**
- * Zod schema for validating signInEmail server body parameters.
+ * Creates a dynamic Zod schema for signInEmail parameters based on the AuthServer configuration.
  *
  * @pure
- * @description Validates the authentication credentials and options for sign-in.
+ * @description Generates a Zod schema that enforces password policies from the Better Auth configuration.
  *
- * @remarks
- * **Required Fields:**
- * - email: Valid email format
- * - password: Non-empty string (minimum 1 character)
- *
- * **Optional Fields:**
- * - rememberMe: Boolean flag for persistent session
- * - callbackURL: Valid URL for post-authentication redirect
- *
- * @example
- * ```typescript
- * const body = {
- *   email: 'user@example.com',
- *   password: 'securePassword123',
- *   rememberMe: true,
- *   callbackURL: 'https://example.com/dashboard'
- * };
- *
- * const result = signInEmailServerBodySchema.safeParse(body);
- * if (!result.success) {
- *   console.error('Validation failed:', result.error);
- * }
- * ```
+ * @param authServer - The Better Auth server instance
+ * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
  */
-export const signInEmailServerBodySchema = z.object({
-	email: z.string().email('Invalid email format'),
-	password: z.string().min(1, 'Password is required'),
-	rememberMe: z.boolean().optional(),
-	callbackURL: z.string().url('Invalid callback URL').optional(),
-});
+export const createSignInEmailServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(authServer: T) =>
+	Effect.gen(function* () {
+		const config = getAuthServerConfig(authServer);
 
-/**
- * Zod schema for validating complete signInEmail server parameters.
- *
- * @pure
- * @description Validates the full parameter structure including body, headers, and options.
- *
- * @remarks
- * **Structure:**
- * - body: Required authentication credentials (validated by signInEmailServerBodySchema)
- * - headers: Optional Headers instance for session cookie handling
- * - asResponse: Optional boolean to return full Response object
- * - returnHeaders: Optional boolean to include response headers in result
- *
- * **Usage Context:**
- * - Controller layer: Validate before calling service
- * - Testing: Ensure test data matches expected structure
- * - Type guards: Runtime verification of parameter shape
- *
- * @example
- * ```typescript
- * import { headers } from 'next/headers';
- *
- * const params = {
- *   body: {
- *     email: 'user@example.com',
- *     password: 'securePassword123'
- *   },
- *   headers: await headers(),
- *   asResponse: false
- * };
- *
- * const result = signInEmailServerParamsSchema.safeParse(params);
- * if (result.success) {
- *   // Proceed with sign-in
- *   await signInEmailServer(deps)(result.data);
- * }
- * ```
- */
-export const signInEmailServerParamsSchema = z.object({
-	body: signInEmailServerBodySchema,
-	headers: z.instanceof(Headers).optional(),
-	asResponse: z.boolean().optional(),
-	returnHeaders: z.boolean().optional(),
-});
+		const passwordConfig = pipe(config, Option.flatMap(getEmailAndPasswordConfig));
+
+		const minPasswordLength = pipe(
+			passwordConfig,
+			Option.flatMap((c) => Option.fromNullable(c.minPasswordLength)),
+			Option.getOrElse(() => 1)
+		);
+
+		const bodySchema = z.object({
+			email: z.string().email('Invalid email format'),
+			password: z.string().min(minPasswordLength, 'Password is required'),
+			rememberMe: z.boolean().optional(),
+			callbackURL: z.string().url('Invalid callback URL').optional(),
+		});
+
+		return z.object({
+			body: bodySchema,
+			headers: z.instanceof(Headers).optional(),
+			asResponse: z.boolean().optional(),
+			returnHeaders: z.boolean().optional(),
+		});
+	});
