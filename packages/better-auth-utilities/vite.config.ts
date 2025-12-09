@@ -113,7 +113,7 @@ export default defineConfig(() => ({
 				'lib/server/core/email/sign-up-email/signUpEmail': './src/lib/server/core/email/sign-up-email/signUpEmail.ts',
 				'lib/client/core/account/link-social/linkSocial': './src/lib/client/core/account/link-social/linkSocial.ts',
 				'lib/client/core/account/list-accounts/listAccounts': './src/lib/client/core/account/list-accounts/listAccounts.ts',
-				'lib/server/core/account/list-accounts/listAccounts': './src/lib/server/core/account/list-accounts/listAccounts.ts',
+				'lib/server/core/account/list-user-accounts/listUserAccounts': './src/lib/server/core/account/list-user-accounts/listUserAccounts.ts',
 				'lib/client/core/account/unlink-account/unlinkAccount': './src/lib/client/core/account/unlink-account/unlinkAccount.ts',
 				'lib/server/core/account/unlink-account/unlinkAccount': './src/lib/server/core/account/unlink-account/unlinkAccount.ts',
 				'lib/client/core/session/get-session/getSession': './src/lib/client/core/session/get-session/getSession.ts',

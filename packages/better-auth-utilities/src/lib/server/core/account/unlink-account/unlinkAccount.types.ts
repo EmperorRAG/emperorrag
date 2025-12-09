@@ -1,53 +1,139 @@
-import type { betterAuth } from 'better-auth';
-import type { AuthServerFor, AuthServerApiFor } from '../../../server.types';
+/**
+ * @file libs/better-auth-utilities/src/lib/server/core/account/unlink-account/unlinkAccount.types.ts
+ * @description Type definitions for server-side unlink account operation.
+ */
+
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { AccountAuthServerError } from '../shared/account.error';
-import type { AccountAuthServerDeps } from '../shared/account.types';
+import type { AccountAuthServerService } from '../shared/account.types';
 import type * as Effect from 'effect/Effect';
 
 /**
- * Type helper to extract the body parameter type for auth.api.unlinkAccount.
+ * Type helper to extract the unlinkAccount endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `unlinkAccount` method from the server API. This method
+ * removes a linked OAuth/social account from the authenticated user.
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @example
+ * ```typescript
+ * type UnlinkAccountMethod = AuthServerApiUnlinkAccountPropsFor<typeof authServer>;
+ * // (args: { body: { providerId: string }, headers: Headers, ... }) => Promise<...>
+ *
+ * // Usage in implementation
+ * const unlinkAccount: AuthServerApiUnlinkAccountPropsFor = authServer.api.unlinkAccount;
+ * const result = await unlinkAccount({
+ *   body: { providerId: 'google' },
+ *   headers: request.headers
+ * });
+ * ```
  */
-export type UnlinkAccountServerInput<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = Parameters<
-	'unlinkAccount' extends keyof AuthServerApiFor<T>
-		? AuthServerApiFor<T>['unlinkAccount'] extends (...args: any) => any
-			? AuthServerApiFor<T>['unlinkAccount']
-			: never
-		: never
->[0] extends { body: infer B }
-	? B
-	: never;
+export type AuthServerApiUnlinkAccountPropsFor<T extends AuthServerFor = AuthServerFor> =
+	'unlinkAccount' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['unlinkAccount'] : never;
 
 /**
- * Type helper to extract the headers parameter type for auth.api.unlinkAccount.
+ * Type helper to extract the input parameter type for auth.api.unlinkAccount.
+ *
+ * @pure
+ * @description Extracts the first parameter type from the unlinkAccount method.
+ * Includes provider ID, headers (required), and request options.
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @example
+ * ```typescript
+ * type Input = AuthServerApiUnlinkAccountParamsFor<typeof authServer>;
+ * // { body: { providerId: string }, headers: Headers, asResponse?: boolean, ... }
+ * ```
  */
-export type UnlinkAccountServerHeaders = Headers;
+export type AuthServerApiUnlinkAccountParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiUnlinkAccountPropsFor<T>>[0];
 
 /**
- * Type helper for the complete parameter structure accepted by unlinkAccount service.
+ * Type helper to extract the return type from auth.api.unlinkAccount.
+ *
+ * @pure
+ * @description Extracts the Promise return type from the server API method.
+ * The Promise resolves to success confirmation.
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @example
+ * ```typescript
+ * type Result = AuthServerApiUnlinkAccountResultFor<typeof authServer>;
+ * // Promise<{ status: boolean }>
+ * ```
  */
-export type UnlinkAccountServerParams<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = {
-	body: UnlinkAccountServerInput<T>;
-	headers?: UnlinkAccountServerHeaders;
-	asResponse?: boolean;
-	returnHeaders?: boolean;
-};
-
-/**
- * Type helper to extract the result type from auth.api.unlinkAccount.
- */
-export type UnlinkAccountServerResult<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = Awaited<
-	ReturnType<
-		'unlinkAccount' extends keyof AuthServerApiFor<T>
-			? AuthServerApiFor<T>['unlinkAccount'] extends (...args: any) => any
-				? AuthServerApiFor<T>['unlinkAccount']
-				: () => Promise<unknown>
-			: () => Promise<unknown>
-	>
->;
+export type AuthServerApiUnlinkAccountResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiUnlinkAccountPropsFor<T>>;
 
 /**
  * Function signature for unlinkAccount server service.
+ *
+ * @pure
+ * @description Function accepting input parameters, returning an Effect that requires AccountAuthServerService context.
+ * Dependencies are accessed through Effect's context layer rather than curried function arguments.
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @remarks
+ * **Context-Based Dependency Injection:**
+ * - Dependencies (authServer) are provided via Effect's context layer (AccountAuthServerServiceFor<T>)
+ * - Function accepts only the API parameters directly
+ * - Effect executes lazily when run with provided context
+ *
+ * **Error Channel:**
+ * - AccountAuthServerApiError: API call failures with HTTP status codes
+ * - Other AccountAuthServerError types from validation layers (if using controller)
+ *
+ * @example
+ * ```typescript
+ * import * as Effect from 'effect/Effect';
+ * import { unlinkAccountServerService } from './unlinkAccount.service';
+ *
+ * const program = unlinkAccountServerService({
+ *   body: { providerId: 'google' },
+ *   headers: requestHeaders
+ * });
+ *
+ * // Provide context and run
+ * await Effect.runPromise(
+ *   program.pipe(Effect.provideService(AccountAuthServerServiceTag, { authServer }))
+ * );
+ * ```
  */
-export interface UnlinkAccountServerProps<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> {
-	(deps: AccountAuthServerDeps<T>): (params: UnlinkAccountServerParams<T>) => Effect.Effect<UnlinkAccountServerResult<T>, AccountAuthServerError>;
+export interface unlinkAccountPropsFor<T extends AuthServerFor = AuthServerFor> {
+	(
+		params: AuthServerApiUnlinkAccountParamsFor<T>
+	): Effect.Effect<Awaited<AuthServerApiUnlinkAccountResultFor<T>>, AccountAuthServerError, AccountAuthServerService>;
 }
+
+/**
+ * Type guard for validating AuthServerApiUnlinkAccountParamsFor.
+ *
+ * @pure
+ * @description Narrows an unknown value to AuthServerApiUnlinkAccountParamsFor<T> by checking
+ * the required structural properties. Use after Zod validation to provide type narrowing
+ * without casting.
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @param value - The value to check
+ * @returns True if value conforms to AuthServerApiUnlinkAccountParamsFor<T> structure
+ */
+export const isAuthServerApiUnlinkAccountParamsFor = <T extends AuthServerFor = AuthServerFor>(
+	value: unknown
+): value is AuthServerApiUnlinkAccountParamsFor<T> => {
+	if (typeof value !== 'object' || value === null) return false;
+	const obj = value as Record<string, unknown>;
+
+	if (typeof obj.body !== 'object' || obj.body === null) return false;
+	const body = obj.body as Record<string, unknown>;
+
+	if (typeof body.providerId !== 'string') return false;
+
+	// headers is required for unlinkAccount
+	if (!(obj.headers instanceof Headers)) return false;
+
+	return true;
+};

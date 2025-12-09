@@ -1,33 +1,124 @@
+/**
+ * @file libs/better-auth-utilities/src/lib/server/core/account/unlink-account/unlinkAccount.service.ts
+ * @description Server-side service for unlink account operation using Better Auth API.
+ */
+
 import * as Effect from 'effect/Effect';
+import { APIError } from 'better-auth/api';
+import type { AuthServerApiUnlinkAccountParamsFor, unlinkAccountPropsFor } from './unlinkAccount.types';
 import { AccountAuthServerApiError } from '../shared/account.error';
-import type { UnlinkAccountServerProps } from './unlinkAccount.types';
+import type { AuthServerFor } from '../../../server.types';
+import { AccountAuthServerServiceTag } from '../shared/account.service';
 
 /**
- * Unlink a provider from the current user (Server).
+ * Unlink an OAuth/social account from the authenticated user using Better Auth server API.
  *
  * @pure
- * @description Wraps the Better Auth server `unlinkAccount` API call in an Effect.
+ * @description Wraps auth.api.unlinkAccount in an Effect, converting Promise-based
+ * errors into typed AccountAuthServerApiError failures. Removes a linked provider
+ * account from the current user.
  *
- * @param deps - Dependencies bundle containing the Better Auth server instance
- * @returns Curried function accepting params and returning an Effect
+ * @remarks
+ * **Context-Based Dependency Injection:**
+ * - Dependencies (authServer) are accessed via Effect's context layer
+ * - Function accepts only the API parameters directly
+ * - Effect executes lazily when run with provided context
+ *
+ * **Unlink Account Process:**
+ * - Validates session from headers
+ * - Verifies the provider account exists for the user
+ * - Ensures user has at least one login method remaining
+ * - Removes the provider account link
+ * - Returns success confirmation
+ *
+ * **Error Handling:**
+ * - Better Auth throws APIError instances on failure
+ * - Common errors: Unauthorized (401), provider not found (404), last login method (400)
+ * - Status codes extracted and preserved in AccountAuthServerApiError
+ * - Error cause chain maintained for debugging
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @param params - The unlink account parameters including body and headers (required)
+ * @returns Effect requiring AccountAuthServerService context
+ *
+ * @example
+ * ```typescript
+ * import * as Effect from 'effect/Effect';
+ * import { unlinkAccountServerService } from './unlinkAccount.service';
+ *
+ * // Create the unlink account program
+ * const program = unlinkAccountServerService({
+ *   body: { providerId: 'google' },
+ *   headers: requestHeaders
+ * });
+ *
+ * // Provide context and execute
+ * await Effect.runPromise(
+ *   program.pipe(Effect.provideService(AccountAuthServerServiceTag, { authServer }))
+ * );
+ * ```
+ *
+ * @example
+ * ```typescript
+ * // Handle provider not found error
+ * import * as Effect from 'effect/Effect';
+ *
+ * const program = unlinkAccountServerService({
+ *   body: { providerId: 'github' },
+ *   headers: requestHeaders
+ * });
+ *
+ * const handled = Effect.catchTag(program, 'AccountAuthServerApiError', (error) => {
+ *   if (error.status === 404) {
+ *     console.error('Provider not linked to this account');
+ *     return Effect.fail(new Error('Provider not found'));
+ *   }
+ *   return Effect.fail(error);
+ * });
+ *
+ * await Effect.runPromise(
+ *   handled.pipe(Effect.provideService(AccountAuthServerServiceTag, { authServer }))
+ * );
+ * ```
+ *
+ * @example
+ * ```typescript
+ * // Handle last login method error
+ * import * as Effect from 'effect/Effect';
+ *
+ * const program = unlinkAccountServerService({
+ *   body: { providerId: 'google' },
+ *   headers: requestHeaders
+ * });
+ *
+ * const handled = Effect.catchTag(program, 'AccountAuthServerApiError', (error) => {
+ *   if (error.status === 400) {
+ *     console.error('Cannot unlink last login method');
+ *     return Effect.fail(new Error('Add another login method first'));
+ *   }
+ *   return Effect.fail(error);
+ * });
+ *
+ * await Effect.runPromise(
+ *   handled.pipe(Effect.provideService(AccountAuthServerServiceTag, { authServer }))
+ * );
+ * ```
  */
-export const unlinkAccountServer: UnlinkAccountServerProps = (deps) => (params) => {
-	const { authServer } = deps;
-
-	return Effect.tryPromise({
-		try: async () => {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const api = authServer.api as any;
-			if (typeof api.unlinkAccount !== 'function') {
-				throw new Error('unlinkAccount method not found on authServer.api');
-			}
-			return api.unlinkAccount(params);
-		},
-		catch: (error) => {
-			const message = error instanceof Error ? error.message : 'Unlink account failed';
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const status = error && typeof error === 'object' && 'status' in error ? ((error as any).status as number) : undefined;
-			return new AccountAuthServerApiError(message, status, error);
-		},
-	});
-};
+export const unlinkAccountServerService: unlinkAccountPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiUnlinkAccountParamsFor<T>) =>
+	Effect.flatMap(AccountAuthServerServiceTag, ({ authServer }) =>
+		Effect.tryPromise({
+			try: () => authServer.api.unlinkAccount(params),
+			catch: (error) => {
+				// Better Auth server throws APIError instances with status codes
+				if (error instanceof APIError) {
+					// Convert status to number (APIError.status is Status string union)
+					const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
+					return new AccountAuthServerApiError(error.message, status, error);
+				}
+				// Handle non-APIError exceptions
+				const message = error instanceof Error ? error.message : 'Unlink account failed';
+				return new AccountAuthServerApiError(message, undefined, error);
+			},
+		})
+	);

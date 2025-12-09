@@ -305,11 +305,11 @@
 			"import": "./dist/lib/client/core/account/list-accounts/listAccounts.js",
 			"default": "./dist/lib/client/core/account/list-accounts/listAccounts.js"
 		},
-		"./list-accounts/server": {
-			"@emperorrag/source": "./src/lib/server/core/account/list-accounts/listAccounts.ts",
-			"types": "./dist/lib/server/core/account/list-accounts/listAccounts.d.ts",
-			"import": "./dist/lib/server/core/account/list-accounts/listAccounts.js",
-			"default": "./dist/lib/server/core/account/list-accounts/listAccounts.js"
+		"./list-user-accounts/server": {
+			"@emperorrag/source": "./src/lib/server/core/account/list-user-accounts/listUserAccounts.ts",
+			"types": "./dist/lib/server/core/account/list-user-accounts/listUserAccounts.d.ts",
+			"import": "./dist/lib/server/core/account/list-user-accounts/listUserAccounts.js",
+			"default": "./dist/lib/server/core/account/list-user-accounts/listUserAccounts.js"
 		},
 		"./unlink-account/client": {
 			"@emperorrag/source": "./src/lib/client/core/account/unlink-account/unlinkAccount.ts",
