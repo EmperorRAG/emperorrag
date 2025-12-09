@@ -1,29 +1,59 @@
+/**
+ * @file libs/better-auth-utilities/src/lib/core/user/server/update-user/updateUser.service.ts
+ * @description Server-side service for update user operation using Better Auth API.
+ */
+
 import * as Effect from 'effect/Effect';
-import type { UpdateUserServerProps } from './updateUser.types';
+import { APIError } from 'better-auth/api';
+import type { AuthServerApiUpdateUserParamsFor, updateUserPropsFor } from './updateUser.types';
 import { UserAuthServerApiError } from '../shared/user.error';
+import type { AuthServerFor } from '../../../server.types';
+import { UserAuthServerServiceTag } from '../shared/user.service';
 
 /**
- * Updates the user's information (Server-Side).
+ * Update user profile via Better Auth server API.
  *
- * @description Wraps the Better Auth `api.updateUser` method in an Effect.
- * @param deps - The dependencies required for the operation (auth).
- * @returns A function that takes the input and returns an Effect.
+ * @pure
+ * @description Wraps auth.api.updateUser in an Effect, converting Promise-based
+ * errors into typed UserAuthServerApiError failures. Updates user profile information
+ * like name, email, and image.
+ *
+ * @remarks
+ * **Context-Based Dependency Injection:**
+ * - Dependencies accessed via Effect.flatMap(UserAuthServerServiceTag, ...)
+ * - Function accepts only the API parameters directly
+ * - Effect executes lazily when run with provided context
+ *
+ * **Update Process:**
+ * - Validates user identity via session/headers
+ * - Updates specified fields in user record
+ * - Returns updated user data
+ *
+ * **Error Handling:**
+ * - Better Auth throws APIError instances on failure
+ * - Common errors: Unauthorized (401), validation failures (400)
+ * - Status codes extracted and preserved in UserAuthServerApiError
+ * - Error cause chain maintained for debugging
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @param params - The update user parameters containing body and optional headers
+ * @returns Effect that resolves to updated user data or fails with UserAuthServerApiError
  */
-export const updateUserServer: UpdateUserServerProps = (deps) => (input) => {
-	const { authServer } = deps;
-
-	return Effect.tryPromise({
-		try: async () => {
-			const result = await authServer.api.updateUser(input);
-			if (!result) {
-				throw new Error('User not found or update failed');
-			}
-			return result;
-		},
-		catch: (error) => {
-			const message = error instanceof Error ? error.message : 'Failed to update user';
-			const status = error && typeof error === 'object' && 'status' in error ? (error.status as number) : undefined;
-			return new UserAuthServerApiError(message, status, error);
-		},
-	});
-};
+export const updateUserServerService: updateUserPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiUpdateUserParamsFor<T>) =>
+	Effect.flatMap(UserAuthServerServiceTag, ({ authServer }) =>
+		Effect.tryPromise({
+			try: () => authServer.api.updateUser(params),
+			catch: (error) => {
+				// Better Auth server throws APIError instances with status codes
+				if (error instanceof APIError) {
+					// Convert status to number (APIError.status is Status string union)
+					const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
+					return new UserAuthServerApiError(error.message, status, error);
+				}
+				// Handle non-APIError exceptions
+				const message = error instanceof Error ? error.message : 'Update user failed';
+				return new UserAuthServerApiError(message, undefined, error);
+			},
+		})
+	);

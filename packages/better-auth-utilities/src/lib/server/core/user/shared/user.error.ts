@@ -1,12 +1,17 @@
 /**
- * Error thrown when user authentication dependencies validation fails (Server).
+ * @file libs/better-auth-utilities/src/lib/core/user/server/shared/user.error.ts
+ * @description Server-side error types for user authentication operations.
+ */
+
+/**
+ * Error thrown when server dependencies validation fails.
  *
- * @description Indicates that the provided dependencies bundle does not satisfy
- * the `UserAuthServerDeps` contract. This typically occurs when the auth server
- * is missing or required adapters have incorrect shapes.
+ * @pure
+ * @description Indicates that the provided authServer dependency is invalid or missing.
+ * This error occurs during the first stage of validation in the controller layer.
  */
 export class UserAuthServerDependenciesError extends Error {
-	readonly _tag = 'UserAuthServerDependenciesError';
+	readonly _tag = 'UserAuthServerDependenciesError' as const;
 	override readonly cause?: unknown;
 
 	constructor(message: string, cause?: unknown) {
@@ -17,14 +22,14 @@ export class UserAuthServerDependenciesError extends Error {
 }
 
 /**
- * Error thrown when user authentication input validation fails (Server).
+ * Error thrown when server input validation fails.
  *
- * @description Indicates that the provided input payload does not satisfy the
- * expected schema for the user operation.
- * This typically occurs when required fields are missing or have invalid formats.
+ * @pure
+ * @description Indicates that the provided operation parameters (body, headers, etc.)
+ * failed validation. This error occurs during the second stage of validation in the controller layer.
  */
 export class UserAuthServerInputError extends Error {
-	readonly _tag = 'UserAuthServerInputError';
+	readonly _tag = 'UserAuthServerInputError' as const;
 	override readonly cause?: unknown;
 
 	constructor(message: string, cause?: unknown) {
@@ -35,13 +40,14 @@ export class UserAuthServerInputError extends Error {
 }
 
 /**
- * Error thrown when Better Auth API call fails (Server).
+ * Error thrown when Better Auth server API call fails.
  *
- * @description Indicates that a Better Auth API request failed with an error response.
- * The `status` property contains the HTTP status code when available.
+ * @pure
+ * @description Wraps errors from auth.api.* method calls, including Better Auth APIError instances.
+ * Preserves HTTP status codes when available for proper error handling and response mapping.
  */
 export class UserAuthServerApiError extends Error {
-	readonly _tag = 'UserAuthServerApiError';
+	readonly _tag = 'UserAuthServerApiError' as const;
 	override readonly cause?: unknown;
 
 	constructor(
@@ -56,13 +62,14 @@ export class UserAuthServerApiError extends Error {
 }
 
 /**
- * Error thrown when required data is missing from Better Auth response (Server).
+ * Error thrown when required data is missing from server response.
  *
- * @description Indicates that a Better Auth API response succeeded but lacks
- * expected data fields.
+ * @pure
+ * @description Indicates that the Better Auth server API returned a response
+ * but essential data (user, etc.) is missing or malformed.
  */
 export class UserAuthServerDataMissingError extends Error {
-	readonly _tag = 'UserAuthServerDataMissingError';
+	readonly _tag = 'UserAuthServerDataMissingError' as const;
 	override readonly cause?: unknown;
 
 	constructor(message: string, cause?: unknown) {
@@ -73,9 +80,32 @@ export class UserAuthServerDataMissingError extends Error {
 }
 
 /**
- * Union type representing all user authentication errors (Server).
+ * Error thrown when session operations fail on server.
  *
- * @description Discriminated union of all possible error types that can occur
- * during user authentication operations.
+ * @pure
+ * @description Indicates failures in session creation, retrieval, or validation
+ * during server-side user operations.
  */
-export type UserAuthServerError = UserAuthServerDependenciesError | UserAuthServerInputError | UserAuthServerApiError | UserAuthServerDataMissingError;
+export class UserAuthServerSessionError extends Error {
+	readonly _tag = 'UserAuthServerSessionError' as const;
+	override readonly cause?: unknown;
+
+	constructor(message: string, cause?: unknown) {
+		super(message);
+		this.name = 'UserAuthServerSessionError';
+		this.cause = cause;
+	}
+}
+
+/**
+ * Union type of all user auth server errors.
+ *
+ * @pure
+ * @description Represents any possible error from user authentication server operations.
+ */
+export type UserAuthServerError =
+	| UserAuthServerDependenciesError
+	| UserAuthServerInputError
+	| UserAuthServerApiError
+	| UserAuthServerDataMissingError
+	| UserAuthServerSessionError;

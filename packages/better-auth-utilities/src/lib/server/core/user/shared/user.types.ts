@@ -1,15 +1,46 @@
-import type { betterAuth } from 'better-auth';
-import type { AuthServerFor } from '../../../server.types';
+/**
+ * @file libs/better-auth-utilities/src/lib/core/user/server/shared/user.types.ts
+ * @description Server-side dependency types for user authentication operations.
+ */
+
+import type { AuthServer, AuthServerFor } from '../../../server.types';
 
 /**
- * Dependencies required for user authentication operations (Server).
+ * Shared dependency type for server user authentication operations.
  *
- * @description Defines the contract for dependencies that must be injected into
- * user authentication services. This ensures that services have access to
- * the Better Auth server instance.
+ * @pure
+ * @description Defines the dependency bundle containing the Better Auth server instance,
+ * used across all server user operations (updateUser, etc.).
  *
- * @template T - The Better Auth server type with all plugin augmentations
+ * @remarks
+ * - Generic type parameter preserves exact server type including plugin augmentations
+ * - Readonly prevents accidental mutations of the dependency bundle
+ * - Minimal surface area (only authServer) follows dependency injection best practices
+ * - Server instance provides access to auth.api.* methods for all operations
+ *
+ * @template T - The Better Auth server type, defaults to base AuthServerFor type
  */
-export interface UserAuthServerDeps<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> {
+export type UserAuthServerDeps<T extends AuthServerFor = AuthServerFor> = Readonly<{
 	authServer: T;
+}>;
+
+/**
+ * Service interface for user authentication operations.
+ *
+ * @pure
+ * @description Defines the service contract for user operations,
+ * containing the authServer instance used by all user endpoints.
+ *
+ * @template T - The Better Auth server type, defaults to base AuthServerFor type
+ */
+export interface UserAuthServerServiceFor<T extends AuthServerFor = AuthServerFor> {
+	readonly authServer: T;
 }
+
+/**
+ * Concrete service type using the base AuthServer.
+ *
+ * @pure
+ * @description Type alias for UserAuthServerServiceFor with the base AuthServer type.
+ */
+export type UserAuthServerService = UserAuthServerServiceFor<AuthServer>;
