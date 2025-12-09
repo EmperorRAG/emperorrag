@@ -115,3 +115,30 @@ export type AuthServerApiSignUpEmailResultFor<T extends AuthServerFor = AuthServ
 export interface signUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(params: AuthServerApiSignUpEmailParamsFor<T>): Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<T>>, EmailAuthServerError, EmailAuthServerService>;
 }
+
+/**
+ * Type guard for validating AuthServerApiSignUpEmailParamsFor.
+ *
+ * @pure
+ * @description Narrows an unknown value to AuthServerApiSignUpEmailParamsFor<T> by checking
+ * the required structural properties. Use after Zod validation to provide type narrowing
+ * without casting.
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @param value - The value to check
+ * @returns True if value conforms to AuthServerApiSignUpEmailParamsFor<T> structure
+ */
+export const isAuthServerApiSignUpEmailParamsFor = <T extends AuthServerFor = AuthServerFor>(value: unknown): value is AuthServerApiSignUpEmailParamsFor<T> => {
+	if (typeof value !== 'object' || value === null) return false;
+	const obj = value as Record<string, unknown>;
+
+	if (typeof obj.body !== 'object' || obj.body === null) return false;
+	const body = obj.body as Record<string, unknown>;
+
+	if (typeof body.name !== 'string') return false;
+	if (typeof body.email !== 'string') return false;
+	if (typeof body.password !== 'string') return false;
+
+	return true;
+};
