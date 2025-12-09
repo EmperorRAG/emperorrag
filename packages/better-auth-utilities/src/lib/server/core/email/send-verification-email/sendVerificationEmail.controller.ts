@@ -1,0 +1,81 @@
+/**
+ * @file libs/better-auth-utilities/src/lib/core/email/server/send-verification-email/sendVerificationEmail.controller.ts
+ * @description Controller for server-side send verification email operation with validation.
+ */
+
+import * as Effect from 'effect/Effect';
+import { createSendVerificationEmailServerParamsSchema } from './sendVerificationEmail.schema';
+import type { AuthServerFor } from '../../../server.types';
+import {
+	isAuthServerApiSendVerificationEmailParamsFor,
+	type AuthServerApiSendVerificationEmailParamsFor,
+	type sendVerificationEmailPropsFor,
+} from './sendVerificationEmail.types';
+import { EmailAuthServerInputError } from '../shared/email.error';
+import { sendVerificationEmailServerService } from './sendVerificationEmail.service';
+import { EmailAuthServerServiceTag } from '../shared/email.service';
+
+/**
+ * Controller for send verification email operation with input validation.
+ *
+ * @pure
+ * @description Validates input parameters using dynamically generated Zod schema,
+ * then delegates to the service layer. Uses type guard for proper type narrowing.
+ *
+ * @remarks
+ * **Validation Flow:**
+ * 1. Retrieve authServer from Effect context
+ * 2. Generate Zod schema dynamically
+ * 3. Validate input parameters
+ * 4. Use type guard to narrow the type
+ * 5. Call service with validated params
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @param params - The send verification email parameters to validate and process
+ * @returns Effect requiring EmailAuthServerService context
+ *
+ * @example
+ * ```typescript
+ * import * as Effect from 'effect/Effect';
+ * import { sendVerificationEmailServerController } from './sendVerificationEmail.controller';
+ *
+ * const program = sendVerificationEmailServerController({
+ *   body: {
+ *     email: 'user@example.com',
+ *     callbackURL: 'https://example.com/verify'
+ *   }
+ * });
+ *
+ * await Effect.runPromise(
+ *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ * );
+ * ```
+ */
+export const sendVerificationEmailServerController: sendVerificationEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(
+	params: AuthServerApiSendVerificationEmailParamsFor<T>
+) =>
+	Effect.gen(function* (_) {
+		const { authServer } = yield* _(EmailAuthServerServiceTag);
+		const schema = yield* _(createSendVerificationEmailServerParamsSchema(authServer));
+
+		// 1) Validate params input with Zod
+		const parsed = schema.safeParse(params);
+
+		if (!parsed.success) {
+			const message = 'Invalid send verification email parameters';
+			const cause = parsed.error;
+			return yield* _(Effect.fail(new EmailAuthServerInputError(message, cause)));
+		}
+
+		if (!isAuthServerApiSendVerificationEmailParamsFor<T>(parsed.data)) {
+			const message = 'Parsed data does not conform to expected send verification email parameters structure';
+			return yield* _(Effect.fail(new EmailAuthServerInputError(message)));
+		}
+
+		// 2) Call the service with the validated params
+		const result = yield* _(sendVerificationEmailServerService(parsed.data));
+
+		// 3) Return the success value of the whole controller Effect
+		return result;
+	});

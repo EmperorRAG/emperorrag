@@ -5,22 +5,24 @@
 
 import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
-import type { sendVerificationEmailServerProps } from './sendVerificationEmail.types';
+import type { AuthServerApiSendVerificationEmailParamsFor, sendVerificationEmailPropsFor } from './sendVerificationEmail.types';
 import { EmailAuthServerApiError } from '../shared/email.error';
+import type { AuthServerFor } from '../../../server.types';
+import { EmailAuthServerServiceTag } from '../shared/email.service';
 
 /**
  * Send verification email using Better Auth server API.
  *
  * @pure
  * @description Wraps auth.api.sendVerificationEmail in an Effect, converting Promise-based
- * errors into typed EmailAuthServerApiError failures. Triggers email verification workflow.
+ * errors into typed EmailAuthServerApiError failures. Triggers email verification workflow
+ * for existing users.
  *
  * @remarks
- * **Functional Programming Pattern:**
- * - Curried function: `(deps) => (params) => Effect`
- * - Stage 1: Inject dependencies (authServer)
- * - Stage 2: Accept operation parameters (body, headers)
- * - Stage 3: Return lazy Effect (executed when run)
+ * **Context-Based Dependency Injection:**
+ * - Dependencies (authServer) are accessed via Effect's context layer
+ * - Function accepts only the API parameters directly
+ * - Effect executes lazily when run with provided context
  *
  * **Email Verification Process:**
  * - Validates email exists in system
@@ -37,28 +39,26 @@ import { EmailAuthServerApiError } from '../shared/email.error';
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
- * @param deps - Dependencies bundle containing Better Auth server instance
- * @returns Curried function accepting params and returning an Effect
+ * @param params - The send verification email parameters including body and optional headers
+ * @returns Effect requiring EmailAuthServerService context
  *
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
- * import { sendVerificationEmailServer } from './sendVerificationEmail.service';
+ * import { sendVerificationEmailServerService } from './sendVerificationEmail.service';
  *
  * // Create the send verification email program
- * const program = Effect.gen(function* () {
- *   yield* sendVerificationEmailServer({ authServer })({
- *     body: {
- *       email: 'user@example.com',
- *       callbackURL: 'https://example.com/verify-success'
- *     }
- *   });
- *
- *   console.log('Verification email sent successfully');
+ * const program = sendVerificationEmailServerService({
+ *   body: {
+ *     email: 'user@example.com',
+ *     callbackURL: 'https://example.com/verify-success'
+ *   }
  * });
  *
- * // Execute the Effect
- * await Effect.runPromise(program);
+ * // Provide context and execute
+ * await Effect.runPromise(
+ *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ * );
  * ```
  *
  * @example
@@ -66,7 +66,7 @@ import { EmailAuthServerApiError } from '../shared/email.error';
  * // Handle already verified email
  * import * as Effect from 'effect/Effect';
  *
- * const program = sendVerificationEmailServer({ authServer })({
+ * const program = sendVerificationEmailServerService({
  *   body: { email: 'verified@example.com' }
  * });
  *
@@ -78,7 +78,9 @@ import { EmailAuthServerApiError } from '../shared/email.error';
  *   return Effect.fail(error);
  * });
  *
- * await Effect.runPromise(handled);
+ * await Effect.runPromise(
+ *   handled.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ * );
  * ```
  *
  * @example
@@ -86,34 +88,37 @@ import { EmailAuthServerApiError } from '../shared/email.error';
  * // Send verification with retry logic
  * import { Effect, Schedule } from 'effect';
  *
- * const sendVerificationWithRetry = Effect.gen(function* () {
- *   yield* sendVerificationEmailServer({ authServer })({
- *     body: {
- *       email: 'user@example.com',
- *       callbackURL: 'https://example.com/verify'
- *     }
- *   }).pipe(
- *     Effect.retry(Schedule.exponential('100 millis', 2)),
- *     Effect.tap(() => Effect.log('Verification email sent'))
- *   );
- * });
+ * const sendVerificationWithRetry = sendVerificationEmailServerService({
+ *   body: {
+ *     email: 'user@example.com',
+ *     callbackURL: 'https://example.com/verify'
+ *   }
+ * }).pipe(
+ *   Effect.retry(Schedule.exponential('100 millis', 2)),
+ *   Effect.tap(() => Effect.log('Verification email sent'))
+ * );
+ *
+ * await Effect.runPromise(
+ *   sendVerificationWithRetry.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ * );
  * ```
  */
-export const sendVerificationEmailServer: sendVerificationEmailServerProps = (deps) => (params) => {
-	const { authServer } = deps;
-
-	return Effect.tryPromise({
-		try: () => authServer.api.sendVerificationEmail(params),
-		catch: (error) => {
-			// Better Auth server throws APIError instances with status codes
-			if (error instanceof APIError) {
-				// Convert status to number (APIError.status is Status string union)
-				const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
-				return new EmailAuthServerApiError(error.message, status, error);
-			}
-			// Handle non-APIError exceptions
-			const message = error instanceof Error ? error.message : 'Send verification email failed';
-			return new EmailAuthServerApiError(message, undefined, error);
-		},
-	});
-};
+export const sendVerificationEmailServerService: sendVerificationEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(
+	params: AuthServerApiSendVerificationEmailParamsFor<T>
+) =>
+	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
+		Effect.tryPromise({
+			try: () => authServer.api.sendVerificationEmail(params),
+			catch: (error) => {
+				// Better Auth server throws APIError instances with status codes
+				if (error instanceof APIError) {
+					// Convert status to number (APIError.status is Status string union)
+					const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
+					return new EmailAuthServerApiError(error.message, status, error);
+				}
+				// Handle non-APIError exceptions
+				const message = error instanceof Error ? error.message : 'Send verification email failed';
+				return new EmailAuthServerApiError(message, undefined, error);
+			},
+		})
+	);

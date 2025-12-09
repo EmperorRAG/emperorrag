@@ -3,75 +3,45 @@
  * @description Zod validation schemas for server-side send verification email operation.
  */
 
+import * as Effect from 'effect/Effect';
 import { z } from 'zod';
+import type { AuthServerFor } from '../../../server.types';
 
 /**
- * Zod schema for validating sendVerificationEmail server body parameters.
+ * Creates a dynamic Zod schema for sendVerificationEmail parameters based on the AuthServer configuration.
  *
  * @pure
- * @description Validates verification email data including email address and optional callback URL.
+ * @description Generates a Zod schema for validating send verification email parameters.
+ * The schema validates email format and optional callback URL.
  *
- * @remarks
- * **Required Fields:**
- * - email: Valid email format
- *
- * **Optional Fields:**
- * - callbackURL: Valid URL for post-verification redirect
+ * @param authServer - The Better Auth server instance
+ * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
  *
  * @example
  * ```typescript
- * const body = {
- *   email: 'user@example.com',
- *   callbackURL: 'https://example.com/verify-success'
- * };
+ * import * as Effect from 'effect/Effect';
+ * import { createSendVerificationEmailServerParamsSchema } from './sendVerificationEmail.schema';
  *
- * const result = sendVerificationEmailServerBodySchema.safeParse(body);
- * if (!result.success) {
- *   console.error('Validation failed:', result.error);
- * }
- * ```
- */
-export const sendVerificationEmailServerBodySchema = z.object({
-	email: z.string().email('Invalid email format'),
-	callbackURL: z.string().url('Invalid callback URL').optional(),
-});
-
-/**
- * Zod schema for validating complete sendVerificationEmail server parameters.
- *
- * @pure
- * @description Validates the full parameter structure including body, headers, and options.
- *
- * @remarks
- * **Structure:**
- * - body: Required verification email data (validated by sendVerificationEmailServerBodySchema)
- * - headers: Optional Headers instance for request context
- * - asResponse: Optional boolean to return full Response object
- * - returnHeaders: Optional boolean to include response headers in result
- *
- * **Usage Context:**
- * - Controller layer: Validate before calling service
- * - Testing: Ensure test data matches expected structure
- * - Type guards: Runtime verification of parameter shape
- *
- * @example
- * ```typescript
- * const params = {
- *   body: {
- *     email: 'user@example.com',
- *     callbackURL: 'https://example.com/verify'
+ * const program = Effect.gen(function* (_) {
+ *   const schema = yield* _(createSendVerificationEmailServerParamsSchema(authServer));
+ *   const result = schema.safeParse(params);
+ *   if (!result.success) {
+ *     console.error('Validation failed:', result.error);
  *   }
- * };
- *
- * const result = sendVerificationEmailServerParamsSchema.safeParse(params);
- * if (result.success) {
- *   await sendVerificationEmailServer(deps)(result.data);
- * }
+ * });
  * ```
  */
-export const sendVerificationEmailServerParamsSchema = z.object({
-	body: sendVerificationEmailServerBodySchema,
-	headers: z.instanceof(Headers).optional(),
-	asResponse: z.boolean().optional(),
-	returnHeaders: z.boolean().optional(),
-});
+export const createSendVerificationEmailServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(_authServer: T) =>
+	Effect.gen(function* () {
+		const bodySchema = z.object({
+			email: z.string().email('Invalid email format'),
+			callbackURL: z.string().url('Invalid callback URL').optional(),
+		});
+
+		return z.object({
+			body: bodySchema,
+			headers: z.instanceof(Headers).optional(),
+			asResponse: z.boolean().optional(),
+			returnHeaders: z.boolean().optional(),
+		});
+	});
