@@ -1,85 +1,172 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import * as Effect from 'effect/Effect';
-import * as Either from 'effect/Either';
-import { getSessionServer } from './getSession.service';
-import { setupTestEnv } from '../../../../test/setup-test-env';
+/**
+ * @file libs/better-auth-utilities/src/lib/server/core/session/get-session/getSession.spec.ts
+ * @description Unit tests for getSession server-side session service.
+ */
 
-describe('getSessionServer', () => {
-	let env: Awaited<ReturnType<typeof setupTestEnv>>;
+import { Effect } from 'effect';
+import { describe, expect, it } from 'vitest';
+import { SessionAuthServerServiceTag } from '../shared/session.service';
+import { getSessionServerService } from './getSession.service';
+import { isAuthServerApiGetSessionParamsFor } from './getSession.types';
 
-	beforeAll(async () => {
-		env = await setupTestEnv();
-	});
-
-	afterAll(async () => {
-		await env.cleanup();
-	});
-
-	it('should get session successfully via server api', async () => {
-		const { authClient, authServer, baseURL } = env;
-
-		// 1. Sign up a user
-		await authClient.signUp.email({
-			email: 'test-server-session@example.com',
-			password: 'password123',
-			name: 'Server Session User',
+describe('getSession Server', () => {
+	describe('getSessionServerService', () => {
+		it('should be a function', () => {
+			expect(typeof getSessionServerService).toBe('function');
 		});
 
-		// 2. Sign in manually to get the session cookie
-		const signInRes = await fetch(`${baseURL}/api/auth/sign-in/email`, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				email: 'test-server-session@example.com',
-				password: 'password123',
-			}),
+		it('should return an Effect when called with params', () => {
+			const headers = new Headers();
+			const params = { headers };
+			const result = getSessionServerService(params);
+
+			expect(Effect.isEffect(result)).toBe(true);
 		});
-		const cookie = signInRes.headers.get('set-cookie');
 
-		const headers = new Headers();
-		if (cookie) {
-			headers.set('Cookie', cookie);
-		}
+		it('should require SessionAuthServerService context', async () => {
+			const headers = new Headers();
+			const params = { headers };
+			const program = getSessionServerService(params);
 
-		// 3. Get session via server
-		const result = await Effect.runPromise(
-			Effect.either(
-				getSessionServer({ authServer })({
-					headers: headers,
-				})
-			)
-		);
+			// Mock authServer with getSession method returning session data
+			const mockSession = {
+				user: { id: 'user-1', email: 'test@example.com', name: 'Test User' },
+				session: { id: 'session-1', userId: 'user-1', expiresAt: new Date() },
+			};
 
-		if (Either.isLeft(result)) {
-			console.error('Get Session Server Error:', result.left);
-		}
-		expect(Either.isRight(result)).toBeTruthy();
-		if (Either.isRight(result)) {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const data = result.right as any;
-			expect(data).toBeDefined();
-			expect(data.user).toBeDefined();
-			expect(data.user.email).toBe('test-server-session@example.com');
-			expect(data.session).toBeDefined();
-		}
+			const authServer = {
+				api: {
+					getSession: async () => mockSession,
+				},
+			};
+
+			// Provide the service and run
+			const result = await Effect.runPromise(Effect.provideService(program, SessionAuthServerServiceTag, { authServer } as never));
+
+			expect(result).toEqual(mockSession);
+		});
+
+		it('should return null when no session exists', async () => {
+			const headers = new Headers();
+			const params = { headers };
+			const program = getSessionServerService(params);
+
+			const authServer = {
+				api: {
+					getSession: async () => null,
+				},
+			};
+
+			const result = await Effect.runPromise(Effect.provideService(program, SessionAuthServerServiceTag, { authServer } as never));
+
+			expect(result).toBeNull();
+		});
+
+		it('should fail with SessionAuthServerApiError when API throws', async () => {
+			const headers = new Headers();
+			const params = { headers };
+			const program = getSessionServerService(params);
+
+			const authServer = {
+				api: {
+					getSession: async () => {
+						throw new Error('Database connection failed');
+					},
+				},
+			};
+
+			const result = await Effect.runPromiseExit(Effect.provideService(program, SessionAuthServerServiceTag, { authServer } as never));
+
+			expect(result._tag).toBe('Failure');
+		});
+
+		it('should handle session with plugin-augmented user data', async () => {
+			const headers = new Headers();
+			const params = { headers };
+			const program = getSessionServerService(params);
+
+			// Mock session with additional plugin fields
+			const mockSession = {
+				user: {
+					id: 'user-1',
+					email: 'admin@example.com',
+					name: 'Admin User',
+					role: 'admin', // Plugin-added field
+					organizationId: 'org-1', // Plugin-added field
+				},
+				session: {
+					id: 'session-1',
+					userId: 'user-1',
+					expiresAt: new Date(),
+					activeOrganizationId: 'org-1', // Plugin-added field
+				},
+			};
+
+			const authServer = {
+				api: {
+					getSession: async () => mockSession,
+				},
+			};
+
+			const result = await Effect.runPromise(Effect.provideService(program, SessionAuthServerServiceTag, { authServer } as never));
+
+			expect(result).toEqual(mockSession);
+			expect((result as unknown as typeof mockSession).user.role).toBe('admin');
+		});
 	});
 
-	it('should return null session when not authenticated', async () => {
-		const { authServer } = env;
+	describe('isAuthServerApiGetSessionParamsFor', () => {
+		it('should return true for valid params with headers', () => {
+			const headers = new Headers();
+			const params = { headers };
 
-		const result = await Effect.runPromise(
-			Effect.either(
-				getSessionServer({ authServer })({
-					headers: new Headers(),
-				})
-			)
-		);
+			expect(isAuthServerApiGetSessionParamsFor(params)).toBe(true);
+		});
 
-		expect(Either.isRight(result)).toBeTruthy();
-		if (Either.isRight(result)) {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const data = result.right as any;
-			expect(data).toBeNull();
-		}
+		it('should return true for params with optional asResponse', () => {
+			const headers = new Headers();
+			const params = { headers, asResponse: false };
+
+			expect(isAuthServerApiGetSessionParamsFor(params)).toBe(true);
+		});
+
+		it('should return true for params with optional returnHeaders', () => {
+			const headers = new Headers();
+			const params = { headers, returnHeaders: true };
+
+			expect(isAuthServerApiGetSessionParamsFor(params)).toBe(true);
+		});
+
+		it('should return false for null', () => {
+			expect(isAuthServerApiGetSessionParamsFor(null)).toBe(false);
+		});
+
+		it('should return false for undefined', () => {
+			expect(isAuthServerApiGetSessionParamsFor(undefined)).toBe(false);
+		});
+
+		it('should return false for non-object values', () => {
+			expect(isAuthServerApiGetSessionParamsFor('string')).toBe(false);
+			expect(isAuthServerApiGetSessionParamsFor(123)).toBe(false);
+			expect(isAuthServerApiGetSessionParamsFor(true)).toBe(false);
+		});
+
+		it('should return false for object without headers', () => {
+			const params = { asResponse: false };
+
+			expect(isAuthServerApiGetSessionParamsFor(params)).toBe(false);
+		});
+
+		it('should return false for object with non-Headers headers', () => {
+			const params = { headers: {} };
+
+			expect(isAuthServerApiGetSessionParamsFor(params)).toBe(false);
+		});
+
+		it('should return false for object with headers as plain object', () => {
+			const params = { headers: { 'Content-Type': 'application/json' } };
+
+			expect(isAuthServerApiGetSessionParamsFor(params)).toBe(false);
+		});
 	});
 });

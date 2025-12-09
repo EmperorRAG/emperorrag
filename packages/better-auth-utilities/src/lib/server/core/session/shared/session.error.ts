@@ -1,12 +1,25 @@
 /**
- * Error thrown when session authentication dependencies validation fails (Server).
+ * @file libs/better-auth-utilities/src/lib/server/core/session/shared/session.error.ts
+ * @description Server-side error types for session authentication operations.
+ */
+
+/**
+ * Error thrown when server dependencies validation fails.
  *
- * @description Indicates that the provided dependencies bundle does not satisfy
- * the `SessionAuthServerDeps` contract. This typically occurs when the auth server
- * is missing or required adapters have incorrect shapes.
+ * @pure
+ * @description Indicates that the provided authServer dependency is invalid or missing.
+ * This error occurs during the first stage of validation in the controller layer.
+ *
+ * @example
+ * ```typescript
+ * throw new SessionAuthServerDependenciesError(
+ *   'authServer is required',
+ *   { provided: undefined }
+ * );
+ * ```
  */
 export class SessionAuthServerDependenciesError extends Error {
-	readonly _tag = 'SessionAuthServerDependenciesError';
+	readonly _tag = 'SessionAuthServerDependenciesError' as const;
 	override readonly cause?: unknown;
 
 	constructor(message: string, cause?: unknown) {
@@ -17,14 +30,22 @@ export class SessionAuthServerDependenciesError extends Error {
 }
 
 /**
- * Error thrown when session authentication input validation fails (Server).
+ * Error thrown when server input validation fails.
  *
- * @description Indicates that the provided input payload does not satisfy the
- * expected schema for the session operation.
- * This typically occurs when required fields are missing or have invalid formats.
+ * @pure
+ * @description Indicates that the provided operation parameters (headers, etc.)
+ * failed validation. This error occurs during the second stage of validation in the controller layer.
+ *
+ * @example
+ * ```typescript
+ * throw new SessionAuthServerInputError(
+ *   'Headers are required for session retrieval',
+ *   { headers: undefined }
+ * );
+ * ```
  */
 export class SessionAuthServerInputError extends Error {
-	readonly _tag = 'SessionAuthServerInputError';
+	readonly _tag = 'SessionAuthServerInputError' as const;
 	override readonly cause?: unknown;
 
 	constructor(message: string, cause?: unknown) {
@@ -35,13 +56,27 @@ export class SessionAuthServerInputError extends Error {
 }
 
 /**
- * Error thrown when Better Auth API call fails (Server).
+ * Error thrown when Better Auth server API call fails.
  *
- * @description Indicates that a Better Auth API request failed with an error response.
- * The `status` property contains the HTTP status code when available.
+ * @pure
+ * @description Wraps errors from auth.api.* method calls, including Better Auth APIError instances.
+ * Preserves HTTP status codes when available for proper error handling and response mapping.
+ *
+ * @example
+ * ```typescript
+ * import { APIError } from 'better-auth/api';
+ *
+ * try {
+ *   await authServer.api.getSession({ headers });
+ * } catch (error) {
+ *   if (error instanceof APIError) {
+ *     throw new SessionAuthServerApiError(error.message, error.status, error);
+ *   }
+ * }
+ * ```
  */
 export class SessionAuthServerApiError extends Error {
-	readonly _tag = 'SessionAuthServerApiError';
+	readonly _tag = 'SessionAuthServerApiError' as const;
 	override readonly cause?: unknown;
 
 	constructor(
@@ -56,13 +91,25 @@ export class SessionAuthServerApiError extends Error {
 }
 
 /**
- * Error thrown when required data is missing from Better Auth response (Server).
+ * Error thrown when required data is missing from server response.
  *
- * @description Indicates that a Better Auth API response succeeded but lacks
- * expected data fields.
+ * @pure
+ * @description Indicates that the Better Auth server API returned a response
+ * but essential data (session, user, etc.) is missing or malformed.
+ *
+ * @example
+ * ```typescript
+ * const result = await authServer.api.getSession({ headers });
+ * if (!result?.session) {
+ *   throw new SessionAuthServerDataMissingError(
+ *     'Session data missing from response',
+ *     result
+ *   );
+ * }
+ * ```
  */
 export class SessionAuthServerDataMissingError extends Error {
-	readonly _tag = 'SessionAuthServerDataMissingError';
+	readonly _tag = 'SessionAuthServerDataMissingError' as const;
 	override readonly cause?: unknown;
 
 	constructor(message: string, cause?: unknown) {
@@ -73,13 +120,58 @@ export class SessionAuthServerDataMissingError extends Error {
 }
 
 /**
- * Union type representing all session authentication errors (Server).
+ * Error thrown when session is not found or expired.
  *
- * @description Discriminated union of all possible error types that can occur
- * during session authentication operations.
+ * @pure
+ * @description Indicates that no valid session exists for the provided credentials.
+ * This is distinct from API errors - it means the API succeeded but the user is not authenticated.
+ *
+ * @example
+ * ```typescript
+ * const session = await authServer.api.getSession({ headers });
+ * if (session === null) {
+ *   throw new SessionAuthServerSessionError(
+ *     'No active session found',
+ *     { headers }
+ *   );
+ * }
+ * ```
+ */
+export class SessionAuthServerSessionError extends Error {
+	readonly _tag = 'SessionAuthServerSessionError' as const;
+	override readonly cause?: unknown;
+
+	constructor(message: string, cause?: unknown) {
+		super(message);
+		this.name = 'SessionAuthServerSessionError';
+		this.cause = cause;
+	}
+}
+
+/**
+ * Discriminated union of all server-side session authentication errors.
+ *
+ * @pure
+ * @description Enables type-safe error handling using Effect-TS Match.tag() pattern.
+ * The _tag property allows pattern matching on error types without instanceof checks.
+ *
+ * @example
+ * ```typescript
+ * import { Match } from 'effect';
+ *
+ * const handleError = (error: SessionAuthServerError) =>
+ *   Match.tag(error, {
+ *     SessionAuthServerDependenciesError: (e) => console.error('Deps error:', e.message),
+ *     SessionAuthServerInputError: (e) => console.error('Input error:', e.message),
+ *     SessionAuthServerApiError: (e) => console.error('API error:', e.message, e.status),
+ *     SessionAuthServerDataMissingError: (e) => console.error('Data missing:', e.message),
+ *     SessionAuthServerSessionError: (e) => console.error('Session error:', e.message),
+ *   });
+ * ```
  */
 export type SessionAuthServerError =
 	| SessionAuthServerDependenciesError
 	| SessionAuthServerInputError
 	| SessionAuthServerApiError
-	| SessionAuthServerDataMissingError;
+	| SessionAuthServerDataMissingError
+	| SessionAuthServerSessionError;
