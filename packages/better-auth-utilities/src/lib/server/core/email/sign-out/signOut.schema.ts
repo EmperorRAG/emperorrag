@@ -3,44 +3,25 @@
  * @description Zod validation schemas for server-side sign-out operation.
  */
 
+import * as Effect from 'effect/Effect';
 import { z } from 'zod';
+import type { AuthServerFor } from '../../../server.types';
 
 /**
- * Zod schema for validating signOut server parameters.
+ * Creates a dynamic Zod schema for signOut parameters based on the AuthServer configuration.
  *
  * @pure
- * @description Validates the parameter structure for sign-out operation.
- * Unlike sign-in/sign-up, signOut does not require a body parameter.
+ * @description Generates a Zod schema for validating sign-out parameters.
+ * Unlike sign-up, sign-out does not require body parameters, only headers for session access.
  *
- * @remarks
- * **Required Fields:**
- * - headers: Headers instance (required for accessing session cookies)
- *
- * **Optional Fields:**
- * - asResponse: Boolean to return full Response object
- * - returnHeaders: Boolean to include response headers in result
- *
- * **Usage Context:**
- * - Controller layer: Validate before calling service
- * - Testing: Ensure test data matches expected structure
- * - Type guards: Runtime verification of parameter shape
- *
- * @example
- * ```typescript
- * import { headers } from 'next/headers';
- *
- * const params = {
- *   headers: await headers()
- * };
- *
- * const result = signOutServerParamsSchema.safeParse(params);
- * if (result.success) {
- *   await signOutServer(deps)(result.data);
- * }
- * ```
+ * @param authServer - The Better Auth server instance
+ * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
  */
-export const signOutServerParamsSchema = z.object({
-	headers: z.instanceof(Headers, { message: 'Headers instance required for session termination' }),
-	asResponse: z.boolean().optional(),
-	returnHeaders: z.boolean().optional(),
-});
+export const createSignOutServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(_authServer: T) =>
+	Effect.gen(function* () {
+		return z.object({
+			headers: z.instanceof(Headers, { message: 'Headers instance required for session termination' }),
+			asResponse: z.boolean().optional(),
+			returnHeaders: z.boolean().optional(),
+		});
+	});

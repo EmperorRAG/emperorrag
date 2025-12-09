@@ -1,17 +1,14 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
+import { signOutServerService } from './signOut.service';
+import { EmailAuthServerServiceTag } from '../shared/email.service';
+import * as Effect from 'effect/Effect';
 
 describe('Server Sign Out', () => {
 	let env: Awaited<ReturnType<typeof setupTestEnv>>;
 
 	beforeAll(async () => {
 		env = await setupTestEnv();
-		// Create user
-		await env.authClient.signUp.email({
-			email: 'server-signout@example.com',
-			password: 'password123',
-			name: 'Server Sign Out',
-		});
 	});
 
 	afterAll(async () => {
@@ -19,15 +16,20 @@ describe('Server Sign Out', () => {
 	});
 
 	it('should sign out via server api', async () => {
-		const { authServer } = env;
-		const email = 'server-signout@example.com';
-		const password = 'password123';
+		const { authServer, authClient } = env;
+
+		// Create user via client
+		await authClient.signUp.email({
+			email: 'server-signout@example.com',
+			password: 'password123',
+			name: 'Server Sign Out',
+		});
 
 		// Sign in via server to get session cookie
 		const signInRes = await authServer.api.signInEmail({
 			body: {
-				email,
-				password,
+				email: 'server-signout@example.com',
+				password: 'password123',
 			},
 			asResponse: true,
 		});
@@ -35,14 +37,15 @@ describe('Server Sign Out', () => {
 		const cookie = signInRes.headers.get('set-cookie');
 		expect(cookie).toBeDefined();
 
-		// Sign out via server API using the cookie
-		const signOutRes = await authServer.api.signOut({
+		// Sign out via server API using the service
+		const program = signOutServerService({
 			headers: new Headers({
 				cookie: cookie || '',
 			}),
-			asResponse: true,
 		});
 
-		expect(signOutRes.status).toBe(200);
+		const res = await Effect.runPromise(Effect.provideService(program, EmailAuthServerServiceTag, { authServer }));
+
+		expect(res).toBeDefined();
 	});
 });

@@ -5,8 +5,10 @@
 
 import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
-import type { signOutServerProps } from './signOut.types';
+import type { AuthServerApiSignOutParamsFor, signOutPropsFor } from './signOut.types';
 import { EmailAuthServerApiError } from '../shared/email.error';
+import type { AuthServerFor } from '../../../server.types';
+import { EmailAuthServerServiceTag } from '../shared/email.service';
 
 /**
  * Terminate the current user session using Better Auth server API.
@@ -17,11 +19,10 @@ import { EmailAuthServerApiError } from '../shared/email.error';
  * and clears authentication cookies.
  *
  * @remarks
- * **Functional Programming Pattern:**
- * - Curried function: `(deps) => (params) => Effect`
- * - Stage 1: Inject dependencies (authServer)
- * - Stage 2: Accept operation parameters (headers)
- * - Stage 3: Return lazy Effect (executed when run)
+ * **Context-Based Dependency Injection:**
+ * - Dependencies (authServer) are provided via Effect's context layer (EmailAuthServerService)
+ * - Function accepts only the API parameters directly
+ * - Effect executes lazily when run with provided context
  *
  * **Sign-Out Process:**
  * - Reads session cookie from Headers
@@ -38,26 +39,22 @@ import { EmailAuthServerApiError } from '../shared/email.error';
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
- * @param deps - Dependencies bundle containing Better Auth server instance
- * @returns Curried function accepting params and returning an Effect
+ * @param params - Parameters including headers for session cookie access
+ * @returns Effect requiring EmailAuthServerService context
  *
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
- * import { headers } from 'next/headers';
- * import { signOutServer } from './signOut.service';
+ * import { signOutServerService } from './signOut.service';
+ * import { EmailAuthServerServiceTag } from '../shared/email.service';
  *
- * // Create the sign-out program
- * const program = Effect.gen(function* () {
- *   yield* signOutServer({ authServer })({
- *     headers: await headers()
- *   });
- *
- *   console.log('User signed out successfully');
+ * const program = signOutServerService({
+ *   headers: requestHeaders
  * });
  *
- * // Execute the Effect
- * await Effect.runPromise(program);
+ * await Effect.runPromise(
+ *   Effect.provideService(program, EmailAuthServerServiceTag, { authServer })
+ * );
  * ```
  *
  * @example
@@ -65,57 +62,37 @@ import { EmailAuthServerApiError } from '../shared/email.error';
  * // Handle expired session gracefully
  * import * as Effect from 'effect/Effect';
  *
- * const program = signOutServer({ authServer })({
+ * const program = signOutServerService({
  *   headers: requestHeaders
  * });
  *
  * const handled = Effect.catchTag(program, 'EmailAuthServerApiError', (error) => {
  *   if (error.status === 401) {
  *     console.log('Session already expired or invalid');
- *     return Effect.succeed(undefined); // Treat as success
+ *     return Effect.succeed(undefined);
  *   }
  *   return Effect.fail(error);
  * });
  *
- * await Effect.runPromise(handled);
- * ```
- *
- * @example
- * ```typescript
- * // Sign-out with cleanup actions
- * import * as Effect from 'effect/Effect';
- *
- * const signOutWithCleanup = Effect.gen(function* () {
- *   // Sign out user
- *   yield* signOutServer({ authServer })({
- *     headers: requestHeaders
- *   });
- *
- *   // Clear user-specific cache
- *   yield* clearUserCache();
- *
- *   // Log sign-out event
- *   yield* logSignOutEvent(userId);
- *
- *   console.log('Sign-out complete with cleanup');
- * });
+ * await Effect.runPromise(
+ *   Effect.provideService(handled, EmailAuthServerServiceTag, { authServer })
+ * );
  * ```
  */
-export const signOutServer: signOutServerProps = (deps) => (params) => {
-	const { authServer } = deps;
-
-	return Effect.tryPromise({
-		try: () => authServer.api.signOut(params),
-		catch: (error) => {
-			// Better Auth server throws APIError instances with status codes
-			if (error instanceof APIError) {
-				// Convert status to number (APIError.status is Status string union)
-				const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
-				return new EmailAuthServerApiError(error.message, status, error);
-			}
-			// Handle non-APIError exceptions
-			const message = error instanceof Error ? error.message : 'Sign out failed';
-			return new EmailAuthServerApiError(message, undefined, error);
-		},
-	});
-};
+export const signOutServerService: signOutPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiSignOutParamsFor<T>) =>
+	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
+		Effect.tryPromise({
+			try: () => authServer.api.signOut(params),
+			catch: (error) => {
+				// Better Auth server throws APIError instances with status codes
+				if (error instanceof APIError) {
+					// Convert status to number (APIError.status is Status string union)
+					const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
+					return new EmailAuthServerApiError(error.message, status, error);
+				}
+				// Handle non-APIError exceptions
+				const message = error instanceof Error ? error.message : 'Sign out failed';
+				return new EmailAuthServerApiError(message, undefined, error);
+			},
+		})
+	);
