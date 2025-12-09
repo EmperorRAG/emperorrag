@@ -1,6 +1,6 @@
 /**
- * @file libs/better-auth-utilities/src/lib/core/email/server/sign-up-email/signUpEmail.utils.ts
- * @description Utility functions for extracting Better Auth configuration for sign-up email operations.
+ * @file libs/better-auth-utilities/src/lib/server/core/email/shared/email.utils.ts
+ * @description Utility functions for extracting Better Auth configuration for email operations.
  */
 
 import * as Option from 'effect/Option';
