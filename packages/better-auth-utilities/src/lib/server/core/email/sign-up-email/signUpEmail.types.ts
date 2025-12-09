@@ -5,7 +5,7 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { EmailAuthServerError } from '../shared/email.error';
-import type { EmailAuthServerDeps } from '../shared/email.types';
+import type { EmailAuthServerService } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
 /**
@@ -72,16 +72,16 @@ export type AuthServerApiSignUpEmailResultFor<T extends AuthServerFor = AuthServ
  * Function signature for signUpEmail server service.
  *
  * @pure
- * @description Curried function accepting dependencies first, then input, returning an Effect.
- * Follows the same pattern as signInEmail for consistency.
+ * @description Function accepting input parameters, returning an Effect that requires EmailAuthServerServiceFor context.
+ * Dependencies are accessed through Effect's context layer rather than curried function arguments.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @remarks
- * **Currying Stages:**
- * 1. Accept dependencies (authServer) → Return function accepting input
- * 2. Accept input (body, headers, etc.) → Return Effect
- * 3. Effect executes lazily when run
+ * **Context-Based Dependency Injection:**
+ * - Dependencies (authServer) are provided via Effect's context layer (EmailAuthServerServiceFor<T>)
+ * - Function accepts only the API parameters directly
+ * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
  * - EmailAuthServerApiError: API call failures with HTTP status codes
@@ -92,25 +92,26 @@ export type AuthServerApiSignUpEmailResultFor<T extends AuthServerFor = AuthServ
  * import * as Effect from 'effect/Effect';
  * import { signUpEmailServer } from './signUpEmail.service';
  *
- * const program = Effect.gen(function* () {
- *   const result = yield* signUpEmailServer({ authServer })({
- *     body: {
- *       name: 'Jane Smith',
- *       email: 'jane@example.com',
- *       password: 'securePassword123'
- *     },
- *     headers: requestHeaders
- *   });
- *
- *   console.log('User registered:', result.user.email);
- *   return result;
+ * const program = signUpEmailServer({
+ *   body: {
+ *     name: 'Jane Smith',
+ *     email: 'jane@example.com',
+ *     password: 'securePassword123'
+ *   },
+ *   headers: requestHeaders
  * });
  *
- * await Effect.runPromise(program);
+ * // Provide context and run
+ * await Effect.runPromise(
+ *   program.pipe(Effect.provideService(EmailAuthServerService, { authServer }))
+ * );
  * ```
  */
+// export interface signUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
+// 	(
+// 		deps: EmailAuthServerDeps<T>
+// 	): (params: AuthServerApiSignUpEmailParamsFor<T>) => Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<T>>, EmailAuthServerError>;
+// }
 export interface signUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(
-		deps: EmailAuthServerDeps<T>
-	): (params: AuthServerApiSignUpEmailParamsFor<T>) => Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<T>>, EmailAuthServerError>;
+	(params: AuthServerApiSignUpEmailParamsFor<T>): Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<T>>, EmailAuthServerError, EmailAuthServerService>;
 }

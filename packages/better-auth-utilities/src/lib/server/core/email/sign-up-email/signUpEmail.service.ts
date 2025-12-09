@@ -5,8 +5,10 @@
 
 import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
-import type { signUpEmailPropsFor } from './signUpEmail.types';
+import type { AuthServerApiSignUpEmailParamsFor, signUpEmailPropsFor } from './signUpEmail.types';
 import { EmailAuthServerApiError } from '../shared/email.error';
+import type { AuthServerFor } from '../../../server.types';
+import { EmailAuthServerServiceTag } from '../shared/email.service';
 
 /**
  * Register a new user via email and password using Better Auth server API.
@@ -120,21 +122,38 @@ import { EmailAuthServerApiError } from '../shared/email.error';
  * });
  * ```
  */
-export const signUpEmailServer: signUpEmailPropsFor = (deps) => (params) => {
-	const { authServer } = deps;
+// export const signUpEmailServer: signUpEmailPropsFor = (deps) => (params) => {
+// 	const { authServer } = deps;
 
-	return Effect.tryPromise({
-		try: () => authServer.api.signUpEmail(params),
-		catch: (error) => {
-			// Better Auth server throws APIError instances with status codes
-			if (error instanceof APIError) {
-				// Convert status to number (APIError.status is Status string union)
-				const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
-				return new EmailAuthServerApiError(error.message, status, error);
-			}
-			// Handle non-APIError exceptions
-			const message = error instanceof Error ? error.message : 'Sign up failed';
-			return new EmailAuthServerApiError(message, undefined, error);
-		},
-	});
-};
+// 	return Effect.tryPromise({
+// 		try: () => authServer.api.signUpEmail(params),
+// 		catch: (error) => {
+// 			// Better Auth server throws APIError instances with status codes
+// 			if (error instanceof APIError) {
+// 				// Convert status to number (APIError.status is Status string union)
+// 				const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
+// 				return new EmailAuthServerApiError(error.message, status, error);
+// 			}
+// 			// Handle non-APIError exceptions
+// 			const message = error instanceof Error ? error.message : 'Sign up failed';
+// 			return new EmailAuthServerApiError(message, undefined, error);
+// 		},
+// 	});
+// };
+export const signUpEmailServerService: signUpEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiSignUpEmailParamsFor<T>) =>
+	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
+		Effect.tryPromise({
+			try: () => authServer.api.signUpEmail(params),
+			catch: (error) => {
+				// Better Auth server throws APIError instances with status codes
+				if (error instanceof APIError) {
+					// Convert status to number (APIError.status is Status string union)
+					const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
+					return new EmailAuthServerApiError(error.message, status, error);
+				}
+				// Handle non-APIError exceptions
+				const message = error instanceof Error ? error.message : 'Sign up failed';
+				return new EmailAuthServerApiError(message, undefined, error);
+			},
+		})
+	);
