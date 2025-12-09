@@ -24,6 +24,8 @@ import type { BetterAuthOptions } from 'better-auth/types';
  */
 export type AuthServerDatabaseOptions = BetterAuthOptions['database'];
 
+export type AuthOptions = BetterAuthOptions;
+
 // ============================================================================
 // PLUGIN TYPES & REGISTRY
 // ============================================================================
