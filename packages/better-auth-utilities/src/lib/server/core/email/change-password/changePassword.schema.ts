@@ -3,82 +3,65 @@
  * @description Zod validation schemas for server-side change password operation.
  */
 
+import { pipe } from 'effect';
+import * as Effect from 'effect/Effect';
+import * as Option from 'effect/Option';
 import { z } from 'zod';
+import type { AuthServerFor } from '../../../server.types';
+import { getAuthServerConfig, getEmailAndPasswordConfig } from '../shared/email.utils';
 
 /**
- * Zod schema for validating changePassword server body parameters.
+ * Creates a dynamic Zod schema for changePassword parameters based on the AuthServer configuration.
  *
  * @pure
- * @description Validates password change data including current password, new password, and session revocation option.
+ * @description Generates a Zod schema that enforces password policies defined in the
+ * Better Auth configuration. Extracts min/max password length from emailAndPassword config.
  *
- * @remarks
- * **Required Fields:**
- * - currentPassword: Non-empty string (minimum 1 character) for verification
- * - newPassword: Non-empty string (minimum 8 characters recommended by security best practices)
- *
- * **Optional Fields:**
- * - revokeOtherSessions: Boolean flag to invalidate all other active sessions (default: false)
+ * @param authServer - The Better Auth server instance
+ * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
  *
  * @example
  * ```typescript
- * const body = {
- *   currentPassword: 'oldPassword123',
- *   newPassword: 'newSecurePassword456',
- *   revokeOtherSessions: true
- * };
+ * import * as Effect from 'effect/Effect';
+ * import { createChangePasswordServerParamsSchema } from './changePassword.schema';
  *
- * const result = changePasswordServerBodySchema.safeParse(body);
- * if (!result.success) {
- *   console.error('Validation failed:', result.error);
- * }
+ * const program = Effect.gen(function* (_) {
+ *   const schema = yield* _(createChangePasswordServerParamsSchema(authServer));
+ *   const result = schema.safeParse(params);
+ *   if (!result.success) {
+ *     console.error('Validation failed:', result.error);
+ *   }
+ * });
  * ```
  */
-export const changePasswordServerBodySchema = z.object({
-	currentPassword: z.string().min(1, 'Current password is required'),
-	newPassword: z.string().min(8, 'New password must be at least 8 characters'),
-	revokeOtherSessions: z.boolean().optional(),
-});
+export const createChangePasswordServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(authServer: T) =>
+	Effect.gen(function* () {
+		const config = getAuthServerConfig(authServer);
 
-/**
- * Zod schema for validating complete changePassword server parameters.
- *
- * @pure
- * @description Validates the full parameter structure including body, headers, and options.
- *
- * @remarks
- * **Structure:**
- * - body: Required password change data (validated by changePasswordServerBodySchema)
- * - headers: Required Headers instance for session identification
- * - asResponse: Optional boolean to return full Response object
- * - returnHeaders: Optional boolean to include response headers in result
- *
- * **Usage Context:**
- * - Controller layer: Validate before calling service
- * - Testing: Ensure test data matches expected structure
- * - Type guards: Runtime verification of parameter shape
- *
- * @example
- * ```typescript
- * import { headers } from 'next/headers';
- *
- * const params = {
- *   body: {
- *     currentPassword: 'oldPassword123',
- *     newPassword: 'newSecurePassword456',
- *     revokeOtherSessions: false
- *   },
- *   headers: await headers()
- * };
- *
- * const result = changePasswordServerParamsSchema.safeParse(params);
- * if (result.success) {
- *   await changePasswordServer(deps)(result.data);
- * }
- * ```
- */
-export const changePasswordServerParamsSchema = z.object({
-	body: changePasswordServerBodySchema,
-	headers: z.instanceof(Headers, { message: 'Headers instance required for session identification' }),
-	asResponse: z.boolean().optional(),
-	returnHeaders: z.boolean().optional(),
-});
+		const passwordConfig = pipe(config, Option.flatMap(getEmailAndPasswordConfig));
+
+		const minPasswordLength = pipe(
+			passwordConfig,
+			Option.flatMap((c) => Option.fromNullable(c.minPasswordLength)),
+			Option.getOrElse(() => 8)
+		);
+
+		const maxPasswordLength = pipe(
+			passwordConfig,
+			Option.flatMap((c) => Option.fromNullable(c.maxPasswordLength)),
+			Option.getOrElse(() => 32)
+		);
+
+		const bodySchema = z.object({
+			currentPassword: z.string().min(1, 'Current password is required'),
+			newPassword: z.string().min(minPasswordLength).max(maxPasswordLength),
+			revokeOtherSessions: z.boolean().optional(),
+		});
+
+		return z.object({
+			body: bodySchema,
+			headers: z.instanceof(Headers, { message: 'Headers instance required for session identification' }),
+			asResponse: z.boolean().optional(),
+			returnHeaders: z.boolean().optional(),
+		});
+	});
