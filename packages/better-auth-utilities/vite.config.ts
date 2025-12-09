@@ -121,7 +121,7 @@ export default defineConfig(() => ({
 				'lib/client/core/user/update-user/updateUser': './src/lib/client/core/user/update-user/updateUser.ts',
 				'lib/server/core/user/update-user/updateUser': './src/lib/server/core/user/update-user/updateUser.ts',
 				'lib/client/core/oauth/sign-in/signIn': './src/lib/client/core/oauth/sign-in/signIn.ts',
-				'lib/server/core/oauth/sign-in/signIn': './src/lib/server/core/oauth/sign-in/signIn.ts',
+				'lib/server/core/oauth/sign-in-social/signInSocial': './src/lib/server/core/oauth/sign-in-social/signInSocial.ts',
 			},
 			fileName: (_format: string, entryName: string) => `${entryName}.js`,
 			formats: ['es' as const],

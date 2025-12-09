@@ -353,11 +353,11 @@
 			"import": "./dist/lib/client/core/oauth/sign-in/signIn.js",
 			"default": "./dist/lib/client/core/oauth/sign-in/signIn.js"
 		},
-		"./sign-in/server": {
-			"@emperorrag/source": "./src/lib/server/core/oauth/sign-in/signIn.ts",
-			"types": "./dist/lib/server/core/oauth/sign-in/signIn.d.ts",
-			"import": "./dist/lib/server/core/oauth/sign-in/signIn.js",
-			"default": "./dist/lib/server/core/oauth/sign-in/signIn.js"
+		"./sign-in-social/server": {
+			"@emperorrag/source": "./src/lib/server/core/oauth/sign-in-social/signInSocial.ts",
+			"types": "./dist/lib/server/core/oauth/sign-in-social/signInSocial.d.ts",
+			"import": "./dist/lib/server/core/oauth/sign-in-social/signInSocial.js",
+			"default": "./dist/lib/server/core/oauth/sign-in-social/signInSocial.js"
 		}
 	},
 	"files": [
