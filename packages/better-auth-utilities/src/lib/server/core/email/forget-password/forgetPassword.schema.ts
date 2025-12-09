@@ -3,75 +3,45 @@
  * @description Zod validation schemas for server-side forget password operation.
  */
 
+import * as Effect from 'effect/Effect';
 import { z } from 'zod';
+import type { AuthServerFor } from '../../../server.types';
 
 /**
- * Zod schema for validating forgetPassword server body parameters.
+ * Creates a dynamic Zod schema for forgetPassword parameters based on the AuthServer configuration.
  *
  * @pure
- * @description Validates password reset request data including email address and optional redirect URL.
+ * @description Generates a Zod schema for validating forget password parameters.
+ * The schema validates email format and optional redirect URL.
  *
- * @remarks
- * **Required Fields:**
- * - email: Valid email format
- *
- * **Optional Fields:**
- * - redirectTo: Valid URL for post-reset redirect (where user lands after clicking email link)
+ * @param authServer - The Better Auth server instance
+ * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
  *
  * @example
  * ```typescript
- * const body = {
- *   email: 'user@example.com',
- *   redirectTo: 'https://example.com/reset-password'
- * };
+ * import * as Effect from 'effect/Effect';
+ * import { createForgetPasswordServerParamsSchema } from './forgetPassword.schema';
  *
- * const result = forgetPasswordServerBodySchema.safeParse(body);
- * if (!result.success) {
- *   console.error('Validation failed:', result.error);
- * }
- * ```
- */
-export const forgetPasswordServerBodySchema = z.object({
-	email: z.string().email('Invalid email format'),
-	redirectTo: z.string().url('Invalid redirect URL').optional(),
-});
-
-/**
- * Zod schema for validating complete forgetPassword server parameters.
- *
- * @pure
- * @description Validates the full parameter structure including body, headers, and options.
- *
- * @remarks
- * **Structure:**
- * - body: Required password reset request data (validated by forgetPasswordServerBodySchema)
- * - headers: Optional Headers instance for request context
- * - asResponse: Optional boolean to return full Response object
- * - returnHeaders: Optional boolean to include response headers in result
- *
- * **Usage Context:**
- * - Controller layer: Validate before calling service
- * - Testing: Ensure test data matches expected structure
- * - Type guards: Runtime verification of parameter shape
- *
- * @example
- * ```typescript
- * const params = {
- *   body: {
- *     email: 'user@example.com',
- *     redirectTo: 'https://example.com/reset-password'
+ * const program = Effect.gen(function* (_) {
+ *   const schema = yield* _(createForgetPasswordServerParamsSchema(authServer));
+ *   const result = schema.safeParse(params);
+ *   if (!result.success) {
+ *     console.error('Validation failed:', result.error);
  *   }
- * };
- *
- * const result = forgetPasswordServerParamsSchema.safeParse(params);
- * if (result.success) {
- *   await forgetPasswordServer(deps)(result.data);
- * }
+ * });
  * ```
  */
-export const forgetPasswordServerParamsSchema = z.object({
-	body: forgetPasswordServerBodySchema,
-	headers: z.instanceof(Headers).optional(),
-	asResponse: z.boolean().optional(),
-	returnHeaders: z.boolean().optional(),
-});
+export const createForgetPasswordServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(_authServer: T) =>
+	Effect.gen(function* () {
+		const bodySchema = z.object({
+			email: z.string().email('Invalid email format'),
+			redirectTo: z.string().url('Invalid redirect URL').optional(),
+		});
+
+		return z.object({
+			body: bodySchema,
+			headers: z.instanceof(Headers).optional(),
+			asResponse: z.boolean().optional(),
+			returnHeaders: z.boolean().optional(),
+		});
+	});

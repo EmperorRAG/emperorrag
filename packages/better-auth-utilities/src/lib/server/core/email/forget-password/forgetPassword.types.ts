@@ -3,149 +3,136 @@
  * @description Type definitions for server-side forget password (request password reset) operation.
  */
 
-import type { betterAuth } from 'better-auth';
-import type { AuthServerFor } from '../../../server.types';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { EmailAuthServerError } from '../shared/email.error';
-import type { EmailAuthServerDeps } from '../shared/email.types';
+import type { EmailAuthServerService } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
 /**
- * Type helper to extract the forgetPassword method type from auth.api.
+ * Type helper to extract the forgetPassword endpoint type from an AuthServer.
  *
  * @pure
- * @description Extracts the forgetPassword method from Better Auth server API.
- * Forget password initiates the password reset workflow by sending a reset email.
- *
- * @template T - The Better Auth server type with all plugin augmentations
- */
-export type AuthServerForgetPasswordFor<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> =
-	T extends infer S ? (S extends { api: { forgetPassword: infer M } } ? M : never) : never;
-
-/**
- * Type helper to extract the body parameter type for auth.api.forgetPassword.
- *
- * @pure
- * @description Extracts the 'body' property type from the first parameter of forgetPassword.
- * Includes email address and optional callback URL.
+ * @description Returns the type of the `forgetPassword` method from the server API. This method
+ * initiates the password reset workflow by sending a secure reset link via email.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @example
  * ```typescript
- * type Body = ForgetPasswordServerInput<typeof authServer>;
- * // { email: string, redirectTo?: string }
+ * type ForgetPasswordMethod = AuthServerApiForgetPasswordPropsFor<typeof authServer>;
+ * // (args: { body: { email: string, redirectTo?: string }, headers?: Headers, ... }) => Promise<...>
+ *
+ * // Usage in implementation
+ * const forgetPassword: AuthServerApiForgetPasswordPropsFor = authServer.api.forgetPassword;
+ * const result = await forgetPassword({
+ *   body: { email: 'user@example.com', redirectTo: 'https://example.com/reset' },
+ *   headers: request.headers
+ * });
  * ```
  */
-export type ForgetPasswordServerInput<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = Parameters<
-	AuthServerForgetPasswordFor<T>
->[0] extends { body: infer B }
-	? B
-	: never;
+export type AuthServerApiForgetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> =
+	'forgetPassword' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['forgetPassword'] : never;
 
 /**
- * Type helper to extract the headers parameter type for auth.api.forgetPassword.
+ * Type helper to extract the input parameter type for auth.api.forgetPassword.
  *
  * @pure
- * @description Server operations may accept Headers for request context.
- *
- * @example
- * ```typescript
- * import { headers } from 'next/headers';
- *
- * const requestHeaders: ForgetPasswordServerHeaders = await headers();
- * ```
- */
-export type ForgetPasswordServerHeaders = Headers;
-
-/**
- * Type helper for the complete parameter structure accepted by forgetPassword service.
- *
- * @pure
- * @description Combines body, headers, and Better Auth server options into a single type.
- *
- * @template T - The Better Auth server type with all plugin augmentations
- *
- * @remarks
- * - body: Required password reset request data (email, redirectTo)
- * - headers: Optional Headers for request context
- * - asResponse: Optional flag to return full Response object instead of parsed data
- * - returnHeaders: Optional flag to include response headers in result
- *
- * @example
- * ```typescript
- * const params: ForgetPasswordServerParams<typeof authServer> = {
- *   body: {
- *     email: 'user@example.com',
- *     redirectTo: 'https://example.com/reset-password'
- *   },
- *   headers: await headers()
- * };
- * ```
- */
-export type ForgetPasswordServerParams<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = {
-	body: ForgetPasswordServerInput<T>;
-	headers?: ForgetPasswordServerHeaders;
-	asResponse?: boolean;
-	returnHeaders?: boolean;
-};
-
-/**
- * Type helper to extract the result type from auth.api.forgetPassword.
- *
- * @pure
- * @description Extracts the resolved Promise return type from the server API method.
- * Typically returns success confirmation.
+ * @description Extracts the first parameter type from the forgetPassword method.
+ * Includes email address, optional redirect URL, headers, and request options.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @example
  * ```typescript
- * type Result = ForgetPasswordServerResult<typeof authServer>;
- * // { success: true, ... }
+ * type Input = AuthServerApiForgetPasswordParamsFor<typeof authServer>;
+ * // { body: { email: string, redirectTo?: string }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type ForgetPasswordServerResult<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = Awaited<
-	ReturnType<AuthServerForgetPasswordFor<T>>
->;
+export type AuthServerApiForgetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiForgetPasswordPropsFor<T>>[0];
+
+/**
+ * Type helper to extract the return type from auth.api.forgetPassword.
+ *
+ * @pure
+ * @description Extracts the Promise return type from the server API method.
+ * The Promise resolves to success confirmation.
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @example
+ * ```typescript
+ * type Result = AuthServerApiForgetPasswordResultFor<typeof authServer>;
+ * // Promise<{ status: boolean }>
+ * ```
+ */
+export type AuthServerApiForgetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiForgetPasswordPropsFor<T>>;
 
 /**
  * Function signature for forgetPassword server service.
  *
  * @pure
- * @description Curried function accepting dependencies first, then parameters, returning an Effect.
- * Follows the same pattern as other email operations for consistency.
+ * @description Function accepting input parameters, returning an Effect that requires EmailAuthServerServiceFor context.
+ * Dependencies are accessed through Effect's context layer rather than curried function arguments.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @remarks
- * **Currying Stages:**
- * 1. Accept dependencies (authServer) → Return function accepting params
- * 2. Accept params (body, headers) → Return Effect
- * 3. Effect executes lazily when run
+ * **Context-Based Dependency Injection:**
+ * - Dependencies (authServer) are provided via Effect's context layer (EmailAuthServerServiceFor<T>)
+ * - Function accepts only the API parameters directly
+ * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
- * - EmailAuthServerApiError: API call failures (e.g., email not found, rate limit exceeded)
+ * - EmailAuthServerApiError: API call failures with HTTP status codes
  * - Other EmailAuthServerError types from validation layers (if using controller)
  *
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
- * import { forgetPasswordServer } from './forgetPassword.service';
+ * import { forgetPasswordServerService } from './forgetPassword.service';
  *
- * const program = Effect.gen(function* () {
- *   yield* forgetPasswordServer({ authServer })({
- *     body: {
- *       email: 'user@example.com',
- *       redirectTo: 'https://example.com/reset-password'
- *     }
- *   });
- *
- *   console.log('Password reset email sent successfully');
+ * const program = forgetPasswordServerService({
+ *   body: {
+ *     email: 'user@example.com',
+ *     redirectTo: 'https://example.com/reset-password'
+ *   }
  * });
  *
- * await Effect.runPromise(program);
+ * // Provide context and run
+ * await Effect.runPromise(
+ *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ * );
  * ```
  */
-export interface forgetPasswordServerProps<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> {
-	(deps: EmailAuthServerDeps<T>): (params: ForgetPasswordServerParams<T>) => Effect.Effect<ForgetPasswordServerResult<T>, EmailAuthServerError>;
+export interface forgetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
+	(
+		params: AuthServerApiForgetPasswordParamsFor<T>
+	): Effect.Effect<Awaited<AuthServerApiForgetPasswordResultFor<T>>, EmailAuthServerError, EmailAuthServerService>;
 }
+
+/**
+ * Type guard for validating AuthServerApiForgetPasswordParamsFor.
+ *
+ * @pure
+ * @description Narrows an unknown value to AuthServerApiForgetPasswordParamsFor<T> by checking
+ * the required structural properties. Use after Zod validation to provide type narrowing
+ * without casting.
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @param value - The value to check
+ * @returns True if value conforms to AuthServerApiForgetPasswordParamsFor<T> structure
+ */
+export const isAuthServerApiForgetPasswordParamsFor = <T extends AuthServerFor = AuthServerFor>(
+	value: unknown
+): value is AuthServerApiForgetPasswordParamsFor<T> => {
+	if (typeof value !== 'object' || value === null) return false;
+	const obj = value as Record<string, unknown>;
+
+	if (typeof obj.body !== 'object' || obj.body === null) return false;
+	const body = obj.body as Record<string, unknown>;
+
+	if (typeof body.email !== 'string') return false;
+
+	return true;
+};

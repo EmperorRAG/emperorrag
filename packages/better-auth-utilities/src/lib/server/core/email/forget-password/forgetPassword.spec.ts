@@ -1,15 +1,15 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
+import { forgetPasswordServerService } from './forgetPassword.service';
+import { EmailAuthServerServiceTag } from '../shared/email.service';
+import * as Effect from 'effect/Effect';
 
 describe('Server Forget Password', () => {
 	let env: Awaited<ReturnType<typeof setupTestEnv>>;
+	let sendResetPasswordMock: ReturnType<typeof vi.fn>;
 
-	afterEach(async () => {
-		await env?.cleanup();
-	});
-
-	it('should trigger forget password via server api', async () => {
-		const sendResetPasswordMock = vi.fn();
+	beforeAll(async () => {
+		sendResetPasswordMock = vi.fn();
 
 		env = await setupTestEnv({
 			serverConfig: {
@@ -19,7 +19,13 @@ describe('Server Forget Password', () => {
 				},
 			},
 		});
+	});
 
+	afterAll(async () => {
+		await env.cleanup();
+	});
+
+	it('should trigger forget password via server api', async () => {
 		const { authServer, authClient } = env;
 		const email = 'server-forget@example.com';
 
@@ -30,15 +36,18 @@ describe('Server Forget Password', () => {
 			name: 'Server Forget',
 		});
 
-		// Call server API
-		const res = await authServer.api.forgetPassword({
+		// Call server API using Effect service
+		const program = forgetPasswordServerService({
 			body: {
 				email,
 				redirectTo: '/reset',
 			},
 		});
 
+		const res = await Effect.runPromise(Effect.provideService(program, EmailAuthServerServiceTag, { authServer }));
+
 		expect(res).toBeDefined();
+		expect(res.status).toBe(true);
 		expect(sendResetPasswordMock).toHaveBeenCalledTimes(1);
 		const callArgs = sendResetPasswordMock.mock.calls[0][0];
 		expect(callArgs.user.email).toBe(email);

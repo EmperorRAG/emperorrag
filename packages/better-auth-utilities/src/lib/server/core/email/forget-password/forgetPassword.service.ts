@@ -5,8 +5,10 @@
 
 import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
-import type { forgetPasswordServerProps } from './forgetPassword.types';
+import type { AuthServerApiForgetPasswordParamsFor, forgetPasswordPropsFor } from './forgetPassword.types';
 import { EmailAuthServerApiError } from '../shared/email.error';
+import type { AuthServerFor } from '../../../server.types';
+import { EmailAuthServerServiceTag } from '../shared/email.service';
 
 /**
  * Request password reset email using Better Auth server API.
@@ -17,11 +19,10 @@ import { EmailAuthServerApiError } from '../shared/email.error';
  * by sending a secure reset link via email.
  *
  * @remarks
- * **Functional Programming Pattern:**
- * - Curried function: `(deps) => (params) => Effect`
- * - Stage 1: Inject dependencies (authServer)
- * - Stage 2: Accept operation parameters (body, headers)
- * - Stage 3: Return lazy Effect (executed when run)
+ * **Context-Based Dependency Injection:**
+ * - Dependencies (authServer) are accessed via Effect's context layer
+ * - Function accepts only the API parameters directly
+ * - Effect executes lazily when run with provided context
  *
  * **Password Reset Process:**
  * - Validates email exists in system
@@ -39,28 +40,26 @@ import { EmailAuthServerApiError } from '../shared/email.error';
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
- * @param deps - Dependencies bundle containing Better Auth server instance
- * @returns Curried function accepting params and returning an Effect
+ * @param params - The forget password parameters including body and optional headers
+ * @returns Effect requiring EmailAuthServerService context
  *
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
- * import { forgetPasswordServer } from './forgetPassword.service';
+ * import { forgetPasswordServerService } from './forgetPassword.service';
  *
  * // Create the password reset request program
- * const program = Effect.gen(function* () {
- *   yield* forgetPasswordServer({ authServer })({
- *     body: {
- *       email: 'user@example.com',
- *       redirectTo: 'https://example.com/reset-password'
- *     }
- *   });
- *
- *   console.log('Password reset email sent successfully');
+ * const program = forgetPasswordServerService({
+ *   body: {
+ *     email: 'user@example.com',
+ *     redirectTo: 'https://example.com/reset-password'
+ *   }
  * });
  *
- * // Execute the Effect
- * await Effect.runPromise(program);
+ * // Provide context and execute
+ * await Effect.runPromise(
+ *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ * );
  * ```
  *
  * @example
@@ -68,7 +67,7 @@ import { EmailAuthServerApiError } from '../shared/email.error';
  * // Handle rate limiting gracefully
  * import * as Effect from 'effect/Effect';
  *
- * const program = forgetPasswordServer({ authServer })({
+ * const program = forgetPasswordServerService({
  *   body: { email: 'user@example.com' }
  * });
  *
@@ -80,18 +79,20 @@ import { EmailAuthServerApiError } from '../shared/email.error';
  *   return Effect.fail(error);
  * });
  *
- * await Effect.runPromise(handled);
+ * await Effect.runPromise(
+ *   handled.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ * );
  * ```
  *
  * @example
  * ```typescript
- * // Password reset with audit logging
+ * // Password reset request with audit logging
  * import * as Effect from 'effect/Effect';
  *
  * const forgetPasswordWithAudit = Effect.gen(function* () {
  *   const email = 'user@example.com';
  *
- *   yield* forgetPasswordServer({ authServer })({
+ *   yield* forgetPasswordServerService({
  *     body: {
  *       email,
  *       redirectTo: 'https://example.com/reset-password'
@@ -99,32 +100,28 @@ import { EmailAuthServerApiError } from '../shared/email.error';
  *   });
  *
  *   // Log security event
- *   yield* logSecurityEvent({
- *     action: 'PASSWORD_RESET_REQUESTED',
- *     email,
- *     timestamp: new Date(),
- *     ipAddress: requestIp
- *   });
- *
- *   console.log('Password reset email sent and logged');
+ *   console.log('Password reset requested for:', email);
  * });
+ *
+ * await Effect.runPromise(
+ *   forgetPasswordWithAudit.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ * );
  * ```
  */
-export const forgetPasswordServer: forgetPasswordServerProps = (deps) => (params) => {
-	const { authServer } = deps;
-
-	return Effect.tryPromise({
-		try: () => authServer.api.forgetPassword(params),
-		catch: (error) => {
-			// Better Auth server throws APIError instances with status codes
-			if (error instanceof APIError) {
-				// Convert status to number (APIError.status is Status string union)
-				const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
-				return new EmailAuthServerApiError(error.message, status, error);
-			}
-			// Handle non-APIError exceptions
-			const message = error instanceof Error ? error.message : 'Forget password failed';
-			return new EmailAuthServerApiError(message, undefined, error);
-		},
-	});
-};
+export const forgetPasswordServerService: forgetPasswordPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiForgetPasswordParamsFor<T>) =>
+	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
+		Effect.tryPromise({
+			try: () => authServer.api.forgetPassword(params),
+			catch: (error) => {
+				// Better Auth server throws APIError instances with status codes
+				if (error instanceof APIError) {
+					// Convert status to number (APIError.status is Status string union)
+					const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
+					return new EmailAuthServerApiError(error.message, status, error);
+				}
+				// Handle non-APIError exceptions
+				const message = error instanceof Error ? error.message : 'Forget password failed';
+				return new EmailAuthServerApiError(message, undefined, error);
+			},
+		})
+	);
