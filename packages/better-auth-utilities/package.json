@@ -68,6 +68,12 @@
 			"import": "./dist/lib/pipeline/error-handler/errorHandler.js",
 			"default": "./dist/lib/pipeline/error-handler/errorHandler.js"
 		},
+		"./pipeline/zod-schema-builder": {
+			"@emperorrag/source": "./src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+			"types": "./dist/lib/pipeline/zod-schema-builder/zodSchemaBuilder.d.ts",
+			"import": "./dist/lib/pipeline/zod-schema-builder/zodSchemaBuilder.js",
+			"default": "./dist/lib/pipeline/zod-schema-builder/zodSchemaBuilder.js"
+		},
 		"./shared/config/types": {
 			"@emperorrag/source": "./src/lib/shared/config/config.types.ts",
 			"types": "./dist/lib/shared/config/config.types.d.ts",
