@@ -409,6 +409,77 @@ export const authServerApiEndpointBodyZodSchemaBuilder = <K extends AuthServerAp
 					})
 				)
 			),
+			Match.when(AuthServerApiEndpoints.signOut, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.getSession, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.updateUser, () =>
+				Effect.succeed(
+					z.object({
+						name: nameOptionalSchema,
+						image: imageURLOptionalSchema,
+						firstName: z.string().optional(),
+						lastName: z.string().optional(),
+					})
+				)
+			),
+			Match.when(AuthServerApiEndpoints.sendVerificationEmail, () => Effect.succeed(emailWithCallbackBodySchema)),
+			Match.when(AuthServerApiEndpoints.changePassword, () =>
+				Effect.gen(function* () {
+					const config = yield* extractAuthServerConfig('emailAndPassword');
+					const options = config?.emailAndPassword;
+					const minPasswordLength = options?.minPasswordLength ?? 8;
+					const maxPasswordLength = options?.maxPasswordLength ?? 32;
+					return z.object({
+						currentPassword: currentPasswordRequiredSchema,
+						newPassword: createPasswordSchema(minPasswordLength, maxPasswordLength),
+						revokeOtherSessions: revokeOtherSessionsOptionalSchema,
+					});
+				})
+			),
+			Match.when(AuthServerApiEndpoints.forgetPassword, () => Effect.succeed(emailWithRedirectBodySchema)),
+			Match.when(AuthServerApiEndpoints.resetPassword, () =>
+				Effect.gen(function* () {
+					const config = yield* extractAuthServerConfig('emailAndPassword');
+					const options = config?.emailAndPassword;
+					const minPasswordLength = options?.minPasswordLength ?? 8;
+					const maxPasswordLength = options?.maxPasswordLength ?? 32;
+					return z.object({
+						newPassword: createPasswordSchema(minPasswordLength, maxPasswordLength),
+						token: tokenRequiredSchema,
+					});
+				})
+			),
+			Match.when(AuthServerApiEndpoints.listUserAccounts, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.unlinkAccount, () => Effect.succeed(providerIdBodySchema)),
+			Match.when(AuthServerApiEndpoints.callbackOAuth, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.verifyEmail, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.changeEmail, () => Effect.succeed(newEmailBodySchema)),
+			Match.when(AuthServerApiEndpoints.setPassword, () =>
+				Effect.gen(function* () {
+					const config = yield* extractAuthServerConfig('emailAndPassword');
+					const options = config?.emailAndPassword;
+					const minPasswordLength = options?.minPasswordLength ?? 8;
+					const maxPasswordLength = options?.maxPasswordLength ?? 32;
+					return z.object({
+						newPassword: createPasswordSchema(minPasswordLength, maxPasswordLength),
+						token: tokenOptionalSchema,
+					});
+				})
+			),
+			Match.when(AuthServerApiEndpoints.deleteUser, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.deleteUserCallback, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.forgetPasswordCallback, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.requestPasswordReset, () => Effect.succeed(emailWithRedirectBodySchema)),
+			Match.when(AuthServerApiEndpoints.requestPasswordResetCallback, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.listSessions, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.revokeSession, () => Effect.succeed(sessionTokenBodySchema)),
+			Match.when(AuthServerApiEndpoints.revokeSessions, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.revokeOtherSessions, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.linkSocialAccount, () => Effect.succeed(providerWithCallbackBodySchema)),
+			Match.when(AuthServerApiEndpoints.refreshToken, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.getAccessToken, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.accountInfo, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.ok, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.error, () => Effect.succeed(z.object({}))),
 			Match.orElse(() => Effect.succeed(z.object({})))
 		);
 	});
