@@ -77,6 +77,12 @@
 			"import": "./dist/lib/shared/config/config.service.js",
 			"default": "./dist/lib/shared/config/config.service.js"
 		},
+		"./shared/config/utils": {
+			"@emperorrag/source": "./src/lib/shared/config/config.utils.ts",
+			"types": "./dist/lib/shared/config/config.utils.d.ts",
+			"import": "./dist/lib/shared/config/config.utils.js",
+			"default": "./dist/lib/shared/config/config.utils.js"
+		},
 		"./client/account/types": {
 			"@emperorrag/source": "./src/lib/client/core/account/shared/account.types.ts",
 			"types": "./dist/lib/client/core/account/shared/account.types.d.ts",

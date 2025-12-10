@@ -72,6 +72,7 @@ export default defineConfig(() => ({
 				'lib/shared/config/config.types': './src/lib/shared/config/config.types.ts',
 				'lib/shared/config/config.constants': './src/lib/shared/config/config.constants.ts',
 				'lib/shared/config/config.service': './src/lib/shared/config/config.service.ts',
+				'lib/shared/config/config.utils': './src/lib/shared/config/config.utils.ts',
 				'lib/client/core/account/shared/account.types': './src/lib/client/core/account/shared/account.types.ts',
 				'lib/client/core/account/shared/account.error': './src/lib/client/core/account/shared/account.error.ts',
 				'lib/client/core/email/shared/email.types': './src/lib/client/core/email/shared/email.types.ts',

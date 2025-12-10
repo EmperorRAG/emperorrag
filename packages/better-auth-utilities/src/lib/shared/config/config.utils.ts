@@ -1,11 +1,6 @@
-/**
- * @file libs/better-auth-utilities/src/lib/server/core/email/shared/email.utils.ts
- * @description Utility functions for extracting Better Auth configuration for email operations.
- */
-
 import * as Option from 'effect/Option';
-import type { AuthOptions } from '../../../../shared/config/config.types';
-import type { AuthServerFor } from '../../../server.types';
+import type { AuthOptions } from './config.types';
+import type { AuthServerFor } from '../../server/server.types';
 
 /**
  * Extracts the BetterAuth configuration options from an AuthServer instance.

@@ -8,7 +8,7 @@ import * as Effect from 'effect/Effect';
 import * as Option from 'effect/Option';
 import { z } from 'zod';
 import type { AuthServerFor } from '../../../server.types';
-import { getAuthServerConfig, getEmailAndPasswordConfig } from '../shared/email.utils';
+import { getAuthServerConfig, getEmailAndPasswordConfig } from '../../../../shared/config/config.utils';
 
 /**
  * Creates a dynamic Zod schema for signInEmail parameters based on the AuthServer configuration.
