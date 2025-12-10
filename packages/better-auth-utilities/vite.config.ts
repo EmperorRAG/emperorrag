@@ -87,7 +87,6 @@ export default defineConfig(() => ({
 				'lib/server/core/account/shared/account.error': './src/lib/server/core/account/shared/account.error.ts',
 				'lib/server/core/email/shared/email.types': './src/lib/server/core/email/shared/email.types.ts',
 				'lib/server/core/email/shared/email.error': './src/lib/server/core/email/shared/email.error.ts',
-				'lib/server/core/email/shared/email.schema': './src/lib/server/core/email/shared/email.schema.ts',
 				'lib/server/core/oauth/shared/oauth.types': './src/lib/server/core/oauth/shared/oauth.types.ts',
 				'lib/server/core/oauth/shared/oauth.error': './src/lib/server/core/oauth/shared/oauth.error.ts',
 				'lib/server/core/session/shared/session.types': './src/lib/server/core/session/shared/session.types.ts',
@@ -122,6 +121,28 @@ export default defineConfig(() => ({
 				'lib/server/core/user/update-user/updateUser': './src/lib/server/core/user/update-user/updateUser.ts',
 				'lib/client/core/oauth/sign-in/signIn': './src/lib/client/core/oauth/sign-in/signIn.ts',
 				'lib/server/core/oauth/sign-in-social/signInSocial': './src/lib/server/core/oauth/sign-in-social/signInSocial.ts',
+				// Additional server modules
+				'lib/server/core/account/account-info/accountInfo': './src/lib/server/core/account/account-info/accountInfo.ts',
+				'lib/server/core/email/change-email/changeEmail': './src/lib/server/core/email/change-email/changeEmail.ts',
+				'lib/server/core/email/forget-password-callback/forgetPasswordCallback':
+					'./src/lib/server/core/email/forget-password-callback/forgetPasswordCallback.ts',
+				'lib/server/core/email/request-password-reset/requestPasswordReset':
+					'./src/lib/server/core/email/request-password-reset/requestPasswordReset.ts',
+				'lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback':
+					'./src/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.ts',
+				'lib/server/core/email/set-password/setPassword': './src/lib/server/core/email/set-password/setPassword.ts',
+				'lib/server/core/email/verify-email/verifyEmail': './src/lib/server/core/email/verify-email/verifyEmail.ts',
+				'lib/server/core/oauth/callback-oauth/callbackOAuth': './src/lib/server/core/oauth/callback-oauth/callbackOAuth.ts',
+				'lib/server/core/oauth/link-social-account/linkSocialAccount': './src/lib/server/core/oauth/link-social-account/linkSocialAccount.ts',
+				'lib/server/core/session/list-sessions/listSessions': './src/lib/server/core/session/list-sessions/listSessions.ts',
+				'lib/server/core/session/get-access-token/getAccessToken': './src/lib/server/core/session/get-access-token/getAccessToken.ts',
+				'lib/server/core/session/refresh-token/refreshToken': './src/lib/server/core/session/refresh-token/refreshToken.ts',
+				'lib/server/core/session/revoke-session/revokeSession': './src/lib/server/core/session/revoke-session/revokeSession.ts',
+				'lib/server/core/session/revoke-sessions/revokeSessions': './src/lib/server/core/session/revoke-sessions/revokeSessions.ts',
+				'lib/server/core/session/revoke-other-sessions/revokeOtherSessions':
+					'./src/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.ts',
+				'lib/server/core/user/delete-user/deleteUser': './src/lib/server/core/user/delete-user/deleteUser.ts',
+				'lib/server/core/user/delete-user-callback/deleteUserCallback': './src/lib/server/core/user/delete-user-callback/deleteUserCallback.ts',
 			},
 			fileName: (_format: string, entryName: string) => `${entryName}.js`,
 			formats: ['es' as const],

@@ -167,12 +167,6 @@
 			"import": "./dist/lib/server/core/email/shared/email.error.js",
 			"default": "./dist/lib/server/core/email/shared/email.error.js"
 		},
-		"./server/email/schema": {
-			"@emperorrag/source": "./src/lib/server/core/email/shared/email.schema.ts",
-			"types": "./dist/lib/server/core/email/shared/email.schema.d.ts",
-			"import": "./dist/lib/server/core/email/shared/email.schema.js",
-			"default": "./dist/lib/server/core/email/shared/email.schema.js"
-		},
 		"./server/oauth/types": {
 			"@emperorrag/source": "./src/lib/server/core/oauth/shared/oauth.types.ts",
 			"types": "./dist/lib/server/core/oauth/shared/oauth.types.d.ts",
@@ -358,6 +352,114 @@
 			"types": "./dist/lib/server/core/oauth/sign-in-social/signInSocial.d.ts",
 			"import": "./dist/lib/server/core/oauth/sign-in-social/signInSocial.js",
 			"default": "./dist/lib/server/core/oauth/sign-in-social/signInSocial.js"
+		},
+		"./account-info/server": {
+			"@emperorrag/source": "./src/lib/server/core/account/account-info/accountInfo.ts",
+			"types": "./dist/lib/server/core/account/account-info/accountInfo.d.ts",
+			"import": "./dist/lib/server/core/account/account-info/accountInfo.js",
+			"default": "./dist/lib/server/core/account/account-info/accountInfo.js"
+		},
+		"./change-email/server": {
+			"@emperorrag/source": "./src/lib/server/core/email/change-email/changeEmail.ts",
+			"types": "./dist/lib/server/core/email/change-email/changeEmail.d.ts",
+			"import": "./dist/lib/server/core/email/change-email/changeEmail.js",
+			"default": "./dist/lib/server/core/email/change-email/changeEmail.js"
+		},
+		"./forget-password/server": {
+			"@emperorrag/source": "./src/lib/server/core/email/forget-password/forgetPassword.ts",
+			"types": "./dist/lib/server/core/email/forget-password/forgetPassword.d.ts",
+			"import": "./dist/lib/server/core/email/forget-password/forgetPassword.js",
+			"default": "./dist/lib/server/core/email/forget-password/forgetPassword.js"
+		},
+		"./forget-password-callback/server": {
+			"@emperorrag/source": "./src/lib/server/core/email/forget-password-callback/forgetPasswordCallback.ts",
+			"types": "./dist/lib/server/core/email/forget-password-callback/forgetPasswordCallback.d.ts",
+			"import": "./dist/lib/server/core/email/forget-password-callback/forgetPasswordCallback.js",
+			"default": "./dist/lib/server/core/email/forget-password-callback/forgetPasswordCallback.js"
+		},
+		"./request-password-reset-server/server": {
+			"@emperorrag/source": "./src/lib/server/core/email/request-password-reset/requestPasswordReset.ts",
+			"types": "./dist/lib/server/core/email/request-password-reset/requestPasswordReset.d.ts",
+			"import": "./dist/lib/server/core/email/request-password-reset/requestPasswordReset.js",
+			"default": "./dist/lib/server/core/email/request-password-reset/requestPasswordReset.js"
+		},
+		"./request-password-reset-callback/server": {
+			"@emperorrag/source": "./src/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.ts",
+			"types": "./dist/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.d.ts",
+			"import": "./dist/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.js",
+			"default": "./dist/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.js"
+		},
+		"./set-password/server": {
+			"@emperorrag/source": "./src/lib/server/core/email/set-password/setPassword.ts",
+			"types": "./dist/lib/server/core/email/set-password/setPassword.d.ts",
+			"import": "./dist/lib/server/core/email/set-password/setPassword.js",
+			"default": "./dist/lib/server/core/email/set-password/setPassword.js"
+		},
+		"./verify-email/server": {
+			"@emperorrag/source": "./src/lib/server/core/email/verify-email/verifyEmail.ts",
+			"types": "./dist/lib/server/core/email/verify-email/verifyEmail.d.ts",
+			"import": "./dist/lib/server/core/email/verify-email/verifyEmail.js",
+			"default": "./dist/lib/server/core/email/verify-email/verifyEmail.js"
+		},
+		"./callback-oauth/server": {
+			"@emperorrag/source": "./src/lib/server/core/oauth/callback-oauth/callbackOAuth.ts",
+			"types": "./dist/lib/server/core/oauth/callback-oauth/callbackOAuth.d.ts",
+			"import": "./dist/lib/server/core/oauth/callback-oauth/callbackOAuth.js",
+			"default": "./dist/lib/server/core/oauth/callback-oauth/callbackOAuth.js"
+		},
+		"./link-social-account/server": {
+			"@emperorrag/source": "./src/lib/server/core/oauth/link-social-account/linkSocialAccount.ts",
+			"types": "./dist/lib/server/core/oauth/link-social-account/linkSocialAccount.d.ts",
+			"import": "./dist/lib/server/core/oauth/link-social-account/linkSocialAccount.js",
+			"default": "./dist/lib/server/core/oauth/link-social-account/linkSocialAccount.js"
+		},
+		"./list-sessions/server": {
+			"@emperorrag/source": "./src/lib/server/core/session/list-sessions/listSessions.ts",
+			"types": "./dist/lib/server/core/session/list-sessions/listSessions.d.ts",
+			"import": "./dist/lib/server/core/session/list-sessions/listSessions.js",
+			"default": "./dist/lib/server/core/session/list-sessions/listSessions.js"
+		},
+		"./get-access-token/server": {
+			"@emperorrag/source": "./src/lib/server/core/session/get-access-token/getAccessToken.ts",
+			"types": "./dist/lib/server/core/session/get-access-token/getAccessToken.d.ts",
+			"import": "./dist/lib/server/core/session/get-access-token/getAccessToken.js",
+			"default": "./dist/lib/server/core/session/get-access-token/getAccessToken.js"
+		},
+		"./refresh-token/server": {
+			"@emperorrag/source": "./src/lib/server/core/session/refresh-token/refreshToken.ts",
+			"types": "./dist/lib/server/core/session/refresh-token/refreshToken.d.ts",
+			"import": "./dist/lib/server/core/session/refresh-token/refreshToken.js",
+			"default": "./dist/lib/server/core/session/refresh-token/refreshToken.js"
+		},
+		"./revoke-session/server": {
+			"@emperorrag/source": "./src/lib/server/core/session/revoke-session/revokeSession.ts",
+			"types": "./dist/lib/server/core/session/revoke-session/revokeSession.d.ts",
+			"import": "./dist/lib/server/core/session/revoke-session/revokeSession.js",
+			"default": "./dist/lib/server/core/session/revoke-session/revokeSession.js"
+		},
+		"./revoke-sessions/server": {
+			"@emperorrag/source": "./src/lib/server/core/session/revoke-sessions/revokeSessions.ts",
+			"types": "./dist/lib/server/core/session/revoke-sessions/revokeSessions.d.ts",
+			"import": "./dist/lib/server/core/session/revoke-sessions/revokeSessions.js",
+			"default": "./dist/lib/server/core/session/revoke-sessions/revokeSessions.js"
+		},
+		"./revoke-other-sessions/server": {
+			"@emperorrag/source": "./src/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.ts",
+			"types": "./dist/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.d.ts",
+			"import": "./dist/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.js",
+			"default": "./dist/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.js"
+		},
+		"./delete-user/server": {
+			"@emperorrag/source": "./src/lib/server/core/user/delete-user/deleteUser.ts",
+			"types": "./dist/lib/server/core/user/delete-user/deleteUser.d.ts",
+			"import": "./dist/lib/server/core/user/delete-user/deleteUser.js",
+			"default": "./dist/lib/server/core/user/delete-user/deleteUser.js"
+		},
+		"./delete-user-callback/server": {
+			"@emperorrag/source": "./src/lib/server/core/user/delete-user-callback/deleteUserCallback.ts",
+			"types": "./dist/lib/server/core/user/delete-user-callback/deleteUserCallback.d.ts",
+			"import": "./dist/lib/server/core/user/delete-user-callback/deleteUserCallback.js",
+			"default": "./dist/lib/server/core/user/delete-user-callback/deleteUserCallback.js"
 		}
 	},
 	"files": [
