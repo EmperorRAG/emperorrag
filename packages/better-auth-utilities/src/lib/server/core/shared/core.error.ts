@@ -230,7 +230,7 @@ export const createSchemaEffect = <T extends z.ZodType, R = never>(
 	schemaEffect: Effect.Effect<T, unknown, R>,
 	operation: string
 ): Effect.Effect<T, CoreAuthServerInputError, R> =>
-	Effect.catchAll(schemaEffect, (error) => Effect.fail(mapBetterAuthInputErrorToCoreAuthError(error, 'schema_creation', operation)));
+	Effect.mapError(schemaEffect, (error) => mapBetterAuthInputErrorToCoreAuthError(error, 'schema_creation', operation));
 
 /**
  * Parses input against a Zod schema and returns an Effect.
