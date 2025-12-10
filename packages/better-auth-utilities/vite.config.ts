@@ -135,6 +135,12 @@ export default defineConfig(() => ({
 					'./src/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.ts',
 				'lib/server/core/user/delete-user/deleteUser': './src/lib/server/core/user/delete-user/deleteUser.ts',
 				'lib/server/core/user/delete-user-callback/deleteUserCallback': './src/lib/server/core/user/delete-user-callback/deleteUserCallback.ts',
+				// Pipeline modules
+				'lib/pipeline/zod-schema-builder/zodSchemaBuilder': './src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts',
+				'lib/pipeline/error-handler/errorHandler': './src/lib/pipeline/error-handler/errorHandler.ts',
+				'lib/pipeline/extract-auth-server-config/extractAuthServerConfig': './src/lib/pipeline/extract-auth-server-config/extractAuthServerConfig.ts',
+				'lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder':
+					'./src/lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.ts',
 			},
 			fileName: (_format: string, entryName: string) => `${entryName}.js`,
 			formats: ['es' as const],

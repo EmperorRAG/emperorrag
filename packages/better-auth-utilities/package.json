@@ -74,6 +74,18 @@
 			"import": "./dist/lib/pipeline/zod-schema-builder/zodSchemaBuilder.js",
 			"default": "./dist/lib/pipeline/zod-schema-builder/zodSchemaBuilder.js"
 		},
+		"./pipeline/extract-auth-server-config": {
+			"@emperorrag/source": "./src/lib/pipeline/extract-auth-server-config/extractAuthServerConfig.ts",
+			"types": "./dist/lib/pipeline/extract-auth-server-config/extractAuthServerConfig.d.ts",
+			"import": "./dist/lib/pipeline/extract-auth-server-config/extractAuthServerConfig.js",
+			"default": "./dist/lib/pipeline/extract-auth-server-config/extractAuthServerConfig.js"
+		},
+		"./pipeline/auth-server-api-endpoint-body-zod-schema-builder": {
+			"@emperorrag/source": "./src/lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.ts",
+			"types": "./dist/lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.d.ts",
+			"import": "./dist/lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.js",
+			"default": "./dist/lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.js"
+		},
 		"./shared/config/types": {
 			"@emperorrag/source": "./src/lib/shared/config/config.types.ts",
 			"types": "./dist/lib/shared/config/config.types.d.ts",

@@ -7,7 +7,7 @@
 import { z } from 'zod';
 import * as Effect from 'effect/Effect';
 import { pipe } from 'effect/Function';
-import { AuthServerTag } from '../../server/server.service';
+// import { AuthServerTag } from '../../server/server.service';
 
 // =============================================================================
 // REQUEST OPTIONS SCHEMA PROPERTIES
@@ -641,7 +641,7 @@ export type ZodSchemaConfig = {
  */
 export const createAuthSchema = (config: ZodSchemaConfig = {}) =>
 	Effect.gen(function* (_) {
-		const authServer = yield* AuthServerTag;
+		// const authServer = yield* AuthServerTag;
 		// In the future, use authServer to customize schema
 		let schema = createBaseSchema();
 
