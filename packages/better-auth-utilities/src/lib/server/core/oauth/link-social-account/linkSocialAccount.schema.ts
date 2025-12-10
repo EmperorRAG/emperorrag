@@ -4,20 +4,17 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { z } from 'zod';
 import type { AuthServerFor } from '../../../server.types';
+import { providerWithCallbackBodySchema, createBodySchemaWithOptionalHeaders } from '../../shared/core.schema';
 
+/**
+ * Creates a dynamic Zod schema for link social account parameters.
+ *
+ * @pure
+ * @description Generates a Zod schema for validating link social account parameters.
+ *
+ * @param _authServer - The Better Auth server instance
+ * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
+ */
 export const createLinkSocialAccountServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(_authServer: T) =>
-	Effect.gen(function* () {
-		const bodySchema = z.object({
-			provider: z.string().min(1, 'Provider is required'),
-			callbackURL: z.string().url('Invalid callback URL').optional(),
-		});
-
-		return z.object({
-			body: bodySchema,
-			headers: z.instanceof(Headers).optional(),
-			asResponse: z.boolean().optional(),
-			returnHeaders: z.boolean().optional(),
-		});
-	});
+	Effect.succeed(createBodySchemaWithOptionalHeaders(providerWithCallbackBodySchema));

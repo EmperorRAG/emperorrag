@@ -4,14 +4,17 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { z } from 'zod';
 import type { AuthServerFor } from '../../../server.types';
+import { createSchemaWithOptionalHeaders } from '../../shared/core.schema';
 
+/**
+ * Creates a dynamic Zod schema for getAccessToken parameters.
+ *
+ * @pure
+ * @description Generates a Zod schema for validating get access token parameters.
+ *
+ * @param _authServer - The Better Auth server instance
+ * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
+ */
 export const createGetAccessTokenServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(_authServer: T) =>
-	Effect.gen(function* () {
-		return z.object({
-			headers: z.instanceof(Headers).optional(),
-			asResponse: z.boolean().optional(),
-			returnHeaders: z.boolean().optional(),
-		});
-	});
+	Effect.succeed(createSchemaWithOptionalHeaders());

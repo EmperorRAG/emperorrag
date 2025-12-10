@@ -4,17 +4,17 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { z } from 'zod';
 import type { AuthServerFor } from '../../../server.types';
+import { tokenQuerySchema, createQuerySchemaWithOptionalHeaders } from '../../shared/core.schema';
 
+/**
+ * Creates a dynamic Zod schema for forgetPasswordCallback parameters.
+ *
+ * @pure
+ * @description Generates a Zod schema for validating forget password callback parameters.
+ *
+ * @param _authServer - The Better Auth server instance
+ * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
+ */
 export const createForgetPasswordCallbackServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(_authServer: T) =>
-	Effect.gen(function* () {
-		return z.object({
-			query: z.object({
-				token: z.string().min(1, 'Token is required'),
-			}),
-			headers: z.instanceof(Headers).optional(),
-			asResponse: z.boolean().optional(),
-			returnHeaders: z.boolean().optional(),
-		});
-	});
+	Effect.succeed(createQuerySchemaWithOptionalHeaders(tokenQuerySchema));

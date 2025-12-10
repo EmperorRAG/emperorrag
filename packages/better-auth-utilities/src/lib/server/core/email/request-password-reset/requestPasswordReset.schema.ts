@@ -4,18 +4,17 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { z } from 'zod';
 import type { AuthServerFor } from '../../../server.types';
+import { emailRequiredWithRedirectBodySchema, createBodySchemaWithOptionalHeaders } from '../../shared/core.schema';
 
+/**
+ * Creates a dynamic Zod schema for requestPasswordReset parameters.
+ *
+ * @pure
+ * @description Generates a Zod schema for validating request password reset parameters.
+ *
+ * @param _authServer - The Better Auth server instance
+ * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
+ */
 export const createRequestPasswordResetServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(_authServer: T) =>
-	Effect.gen(function* () {
-		return z.object({
-			body: z.object({
-				email: z.string().email('Invalid email format').min(1, 'Email is required'),
-				redirectTo: z.string().url('Invalid redirect URL').optional(),
-			}),
-			headers: z.instanceof(Headers).optional(),
-			asResponse: z.boolean().optional(),
-			returnHeaders: z.boolean().optional(),
-		});
-	});
+	Effect.succeed(createBodySchemaWithOptionalHeaders(emailRequiredWithRedirectBodySchema));

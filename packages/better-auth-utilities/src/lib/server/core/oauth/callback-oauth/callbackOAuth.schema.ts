@@ -6,20 +6,21 @@
 import * as Effect from 'effect/Effect';
 import { z } from 'zod';
 import type { AuthServerFor } from '../../../server.types';
+import { oauthQueryParamsOptionalSchema, requestOptionsOptionalHeadersShape } from '../../shared/core.schema';
 
+/**
+ * Creates a dynamic Zod schema for OAuth callback parameters.
+ *
+ * @pure
+ * @description Generates a Zod schema for validating OAuth callback query parameters.
+ *
+ * @param _authServer - The Better Auth server instance
+ * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
+ */
 export const createCallbackOAuthServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(_authServer: T) =>
-	Effect.gen(function* () {
-		return z.object({
-			query: z
-				.object({
-					code: z.string().optional(),
-					state: z.string().optional(),
-					error: z.string().optional(),
-					error_description: z.string().optional(),
-				})
-				.optional(),
-			headers: z.instanceof(Headers).optional(),
-			asResponse: z.boolean().optional(),
-			returnHeaders: z.boolean().optional(),
-		});
-	});
+	Effect.succeed(
+		z.object({
+			query: oauthQueryParamsOptionalSchema,
+			...requestOptionsOptionalHeadersShape,
+		})
+	);

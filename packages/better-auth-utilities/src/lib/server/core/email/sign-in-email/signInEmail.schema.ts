@@ -7,6 +7,7 @@ import * as Effect from 'effect/Effect';
 import { z } from 'zod';
 import type { AuthServerFor } from '../../../server.types';
 import { getMinPasswordLength } from '../../../../shared/config/config.utils';
+import { emailSchema, callbackURLOptionalSchema, rememberMeOptionalSchema, createBodySchemaWithOptionalHeaders } from '../../shared/core.schema';
 
 /**
  * Creates a dynamic Zod schema for signInEmail parameters based on the AuthServer configuration.
@@ -22,16 +23,11 @@ export const createSignInEmailServerParamsSchema = <T extends AuthServerFor = Au
 		const minPasswordLength = getMinPasswordLength(authServer);
 
 		const bodySchema = z.object({
-			email: z.string().email('Invalid email format'),
+			email: emailSchema,
 			password: z.string().min(minPasswordLength, 'Password is required'),
-			rememberMe: z.boolean().optional(),
-			callbackURL: z.string().url('Invalid callback URL').optional(),
+			rememberMe: rememberMeOptionalSchema,
+			callbackURL: callbackURLOptionalSchema,
 		});
 
-		return z.object({
-			body: bodySchema,
-			headers: z.instanceof(Headers).optional(),
-			asResponse: z.boolean().optional(),
-			returnHeaders: z.boolean().optional(),
-		});
+		return createBodySchemaWithOptionalHeaders(bodySchema);
 	});

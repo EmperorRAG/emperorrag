@@ -6,6 +6,7 @@
 import * as Effect from 'effect/Effect';
 import { z } from 'zod';
 import type { AuthServerFor } from '../../../server.types';
+import { passwordOptionalSchema, callbackURLOptionalSchema, tokenOptionalSchema, requestOptionsOptionalHeadersShape } from '../../shared/core.schema';
 
 /**
  * Creates a dynamic Zod schema for deleteUser parameters.
@@ -17,19 +18,15 @@ import type { AuthServerFor } from '../../../server.types';
  * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
  */
 export const createDeleteUserServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(_authServer: T) =>
-	Effect.gen(function* () {
-		const bodySchema = z
-			.object({
-				password: z.string().optional(),
-				callbackURL: z.string().url('Invalid callback URL').optional(),
-				token: z.string().optional(),
-			})
-			.optional();
-
-		return z.object({
-			body: bodySchema,
-			headers: z.instanceof(Headers).optional(),
-			asResponse: z.boolean().optional(),
-			returnHeaders: z.boolean().optional(),
-		});
-	});
+	Effect.succeed(
+		z.object({
+			body: z
+				.object({
+					password: passwordOptionalSchema,
+					callbackURL: callbackURLOptionalSchema,
+					token: tokenOptionalSchema,
+				})
+				.optional(),
+			...requestOptionsOptionalHeadersShape,
+		})
+	);

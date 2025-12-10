@@ -7,6 +7,12 @@ import * as Effect from 'effect/Effect';
 import { z } from 'zod';
 import type { AuthServerFor } from '../../../server.types';
 import { getPasswordLengthConstraints } from '../../../../shared/config/config.utils';
+import {
+	currentPasswordRequiredSchema,
+	revokeOtherSessionsOptionalSchema,
+	createPasswordSchema,
+	createBodySchemaWithRequiredHeaders,
+} from '../../shared/core.schema';
 
 /**
  * Creates a dynamic Zod schema for changePassword parameters based on the AuthServer configuration.
@@ -23,15 +29,10 @@ export const createChangePasswordServerParamsSchema = <T extends AuthServerFor =
 		const { minPasswordLength, maxPasswordLength } = getPasswordLengthConstraints(authServer);
 
 		const bodySchema = z.object({
-			currentPassword: z.string().min(1, 'Current password is required'),
-			newPassword: z.string().min(minPasswordLength).max(maxPasswordLength),
-			revokeOtherSessions: z.boolean().optional(),
+			currentPassword: currentPasswordRequiredSchema,
+			newPassword: createPasswordSchema(minPasswordLength, maxPasswordLength),
+			revokeOtherSessions: revokeOtherSessionsOptionalSchema,
 		});
 
-		return z.object({
-			body: bodySchema,
-			headers: z.instanceof(Headers, { message: 'Headers instance required for session identification' }),
-			asResponse: z.boolean().optional(),
-			returnHeaders: z.boolean().optional(),
-		});
+		return createBodySchemaWithRequiredHeaders(bodySchema);
 	});

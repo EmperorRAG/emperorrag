@@ -7,6 +7,7 @@ import * as Effect from 'effect/Effect';
 import { z } from 'zod';
 import type { AuthServerFor } from '../../../server.types';
 import { getPasswordLengthConstraints } from '../../../../shared/config/config.utils';
+import { resetTokenRequiredSchema, createPasswordSchema, createBodySchemaWithOptionalHeaders } from '../../shared/core.schema';
 
 /**
  * Creates a dynamic Zod schema for resetPassword parameters based on the AuthServer configuration.
@@ -23,14 +24,9 @@ export const createResetPasswordServerParamsSchema = <T extends AuthServerFor = 
 		const { minPasswordLength, maxPasswordLength } = getPasswordLengthConstraints(authServer);
 
 		const bodySchema = z.object({
-			token: z.string().min(1, 'Reset token is required'),
-			newPassword: z.string().min(minPasswordLength).max(maxPasswordLength),
+			token: resetTokenRequiredSchema,
+			newPassword: createPasswordSchema(minPasswordLength, maxPasswordLength),
 		});
 
-		return z.object({
-			body: bodySchema,
-			headers: z.instanceof(Headers).optional(),
-			asResponse: z.boolean().optional(),
-			returnHeaders: z.boolean().optional(),
-		});
+		return createBodySchemaWithOptionalHeaders(bodySchema);
 	});

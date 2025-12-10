@@ -9,6 +9,14 @@ import * as Option from 'effect/Option';
 import { z } from 'zod';
 import type { AuthServerFor } from '../../../server.types';
 import { getAuthServerConfig, getPasswordLengthConstraints, getUserConfig, getUserAdditionalFields } from '../../../../shared/config/config.utils';
+import {
+	nameRequiredSchema,
+	emailSchema,
+	createPasswordSchema,
+	callbackURLOptionalSchema,
+	imageURLOptionalSchema,
+	createBodySchemaWithOptionalHeaders,
+} from '../../shared/core.schema';
 
 /**
  * Creates a dynamic Zod schema for signUpEmail parameters based on the AuthServer configuration.
@@ -56,18 +64,13 @@ export const createSignUpEmailServerParamsSchema = <T extends AuthServerFor = Au
 
 		const bodySchema = z
 			.object({
-				name: z.string().min(1, 'Name is required'),
-				email: z.string().email('Invalid email format'),
-				password: z.string().min(minPasswordLength).max(maxPasswordLength),
-				callbackURL: z.string().url('Invalid callback URL').optional(),
-				image: z.string().url('Invalid image URL').optional(),
+				name: nameRequiredSchema,
+				email: emailSchema,
+				password: createPasswordSchema(minPasswordLength, maxPasswordLength),
+				callbackURL: callbackURLOptionalSchema,
+				image: imageURLOptionalSchema,
 			})
 			.extend(additionalZodFields);
 
-		return z.object({
-			body: bodySchema,
-			headers: z.instanceof(Headers).optional(),
-			asResponse: z.boolean().optional(),
-			returnHeaders: z.boolean().optional(),
-		});
+		return createBodySchemaWithOptionalHeaders(bodySchema);
 	});

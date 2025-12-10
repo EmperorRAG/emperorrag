@@ -7,6 +7,7 @@ import * as Effect from 'effect/Effect';
 import { z } from 'zod';
 import type { AuthServerFor } from '../../../server.types';
 import { getPasswordLengthConstraints } from '../../../../shared/config/config.utils';
+import { createPasswordSchema, createBodySchemaWithOptionalHeaders } from '../../shared/core.schema';
 
 /**
  * Creates a dynamic Zod schema for setPassword parameters based on the AuthServer configuration.
@@ -22,13 +23,8 @@ export const createSetPasswordServerParamsSchema = <T extends AuthServerFor = Au
 		const { minPasswordLength, maxPasswordLength } = getPasswordLengthConstraints(authServer);
 
 		const bodySchema = z.object({
-			newPassword: z.string().min(minPasswordLength).max(maxPasswordLength),
+			newPassword: createPasswordSchema(minPasswordLength, maxPasswordLength),
 		});
 
-		return z.object({
-			body: bodySchema,
-			headers: z.instanceof(Headers).optional(),
-			asResponse: z.boolean().optional(),
-			returnHeaders: z.boolean().optional(),
-		});
+		return createBodySchemaWithOptionalHeaders(bodySchema);
 	});
