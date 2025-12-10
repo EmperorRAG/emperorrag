@@ -13,7 +13,6 @@ import {
 } from './sendVerificationEmail.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { sendVerificationEmailServerService } from './sendVerificationEmail.service';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
 
 /**
  * Controller for send verification email operation with input validation.
@@ -33,7 +32,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The send verification email parameters to validate and process
- * @returns Effect requiring EmailAuthServerService context
+ * @returns Effect requiring AuthServerTag context
  *
  * @example
  * ```typescript
@@ -48,22 +47,21 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * });
  *
  * await Effect.runPromise(
- *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  */
-export const sendVerificationEmailServerController: sendVerificationEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(
-	params: AuthServerApiSendVerificationEmailParamsFor<T>
+export const sendVerificationEmailServerController: sendVerificationEmailPropsFor = (
+	params: AuthServerApiSendVerificationEmailParamsFor<AuthServerFor>
 ) =>
 	Effect.gen(function* (_) {
-		const { authServer } = yield* _(EmailAuthServerServiceTag);
 
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
 			validateInputEffect(
-				createSendVerificationEmailServerParamsSchema(authServer),
+				createSendVerificationEmailServerParamsSchema(),
 				params,
-				isAuthServerApiSendVerificationEmailParamsFor<T>,
+				isAuthServerApiSendVerificationEmailParamsFor,
 				'sendVerificationEmail'
 			)
 		);

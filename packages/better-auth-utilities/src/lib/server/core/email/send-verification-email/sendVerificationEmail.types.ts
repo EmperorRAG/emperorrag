@@ -5,7 +5,6 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type { EmailAuthServerService } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
 /**
@@ -48,7 +47,7 @@ export type AuthServerApiSendVerificationEmailPropsFor<T extends AuthServerFor =
  * // { body: { email: string, callbackURL?: string }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiSendVerificationEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiSendVerificationEmailPropsFor<T>>[0];
+export type AuthServerApiSendVerificationEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiSendVerificationEmailPropsFor<AuthServerFor>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.sendVerificationEmail.
@@ -65,20 +64,20 @@ export type AuthServerApiSendVerificationEmailParamsFor<T extends AuthServerFor 
  * // Promise<{ status: boolean }>
  * ```
  */
-export type AuthServerApiSendVerificationEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiSendVerificationEmailPropsFor<T>>;
+export type AuthServerApiSendVerificationEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiSendVerificationEmailPropsFor<AuthServerFor>>;
 
 /**
  * Function signature for sendVerificationEmail server service.
  *
  * @pure
- * @description Function accepting input parameters, returning an Effect that requires EmailAuthServerServiceFor context.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerForFor context.
  * Dependencies are accessed through Effect's context layer rather than curried function arguments.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @remarks
  * **Context-Based Dependency Injection:**
- * - Dependencies (authServer) are provided via Effect's context layer (EmailAuthServerServiceFor<T>)
+ * - Dependencies (authServer) are provided via Effect's context layer (AuthServerFor)
  * - Function accepts only the API parameters directly
  * - Effect executes lazily when run with provided context
  *
@@ -100,32 +99,32 @@ export type AuthServerApiSendVerificationEmailResultFor<T extends AuthServerFor 
  *
  * // Provide context and run
  * await Effect.runPromise(
- *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  */
 export interface sendVerificationEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
-		params: AuthServerApiSendVerificationEmailParamsFor<T>
-	): Effect.Effect<Awaited<AuthServerApiSendVerificationEmailResultFor<T>>, CoreAuthServerError, EmailAuthServerService>;
+		params: AuthServerApiSendVerificationEmailParamsFor<AuthServerFor>
+	): Effect.Effect<Awaited<AuthServerApiSendVerificationEmailResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
 }
 
 /**
  * Type guard for validating AuthServerApiSendVerificationEmailParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiSendVerificationEmailParamsFor<T> by checking
+ * @description Narrows an unknown value to AuthServerApiSendVerificationEmailParamsFor<AuthServerFor> by checking
  * the required structural properties. Use after Zod validation to provide type narrowing
  * without casting.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiSendVerificationEmailParamsFor<T> structure
+ * @returns True if value conforms to AuthServerApiSendVerificationEmailParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiSendVerificationEmailParamsFor = <T extends AuthServerFor = AuthServerFor>(
+export const isAuthServerApiSendVerificationEmailParamsFor = (
 	value: unknown
-): value is AuthServerApiSendVerificationEmailParamsFor<T> => {
+): value is AuthServerApiSendVerificationEmailParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

@@ -3,10 +3,11 @@
  * @description Effect Context service tag and layer for session server operations.
  */
 
-import * as Context from 'effect/Context';
 import * as Layer from 'effect/Layer';
+import { AuthServerTag } from '../../../server.service';
 import type { AuthServerFor } from '../../../server.types';
-import type { SessionAuthServerService, SessionAuthServerServiceFor } from './session.types';
+
+export { AuthServerTag };
 
 /**
  * Effect Context tag for session server service.
@@ -23,19 +24,19 @@ import type { SessionAuthServerService, SessionAuthServerServiceFor } from './se
  * // ...
  * ```
  */
-export const SessionAuthServerServiceTag = Context.GenericTag<SessionAuthServerService>('@app/SessionAuthServerService');
+// export const AuthServerTag = Context.GenericTag<AuthServerFor>('@app/AuthServerFor');
 
 /**
  * Creates an Effect Layer for providing the session server service.
  *
  * @pure
  * @deprecated Use AuthServerLayer from '../../../server.service' instead.
- * @description Constructs a Layer that provides the SessionAuthServerService
+ * @description Constructs a Layer that provides the AuthServerFor
  * with the given authServer instance.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  * @param authServer - The Better Auth server instance
- * @returns A Layer that provides SessionAuthServerService
+ * @returns A Layer that provides AuthServerFor
  *
  * @example
  * ```typescript
@@ -44,5 +45,4 @@ export const SessionAuthServerServiceTag = Context.GenericTag<SessionAuthServerS
  * // ...
  * ```
  */
-export const SessionAuthServerLayer = <T extends AuthServerFor>(authServer: T) =>
-	Layer.succeed(SessionAuthServerServiceTag, { authServer } satisfies SessionAuthServerServiceFor<T>);
+export const SessionAuthServerLayer = <T extends AuthServerFor>(authServer: T) => Layer.succeed(AuthServerTag, authServer);

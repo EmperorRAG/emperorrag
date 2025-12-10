@@ -3,7 +3,7 @@
  * @description Server-side dependency types for session authentication operations.
  */
 
-import type { AuthServer, AuthServerFor } from '../../../server.types';
+import type { AuthServerFor as GlobalAuthServerFor } from '../../../server.types';
 
 /**
  * Shared dependency type for server session authentication operations.
@@ -40,28 +40,8 @@ import type { AuthServer, AuthServerFor } from '../../../server.types';
  * await deps.authServer.api.getSession({ headers });
  * ```
  */
-export type SessionAuthServerDeps<T extends AuthServerFor = AuthServerFor> = Readonly<{
+export type SessionAuthServerDeps<T extends GlobalAuthServerFor = GlobalAuthServerFor> = Readonly<{
 	authServer: T;
 }>;
 
-/**
- * Service interface for session authentication operations.
- *
- * @pure
- * @description Defines the structure for the Effect Context service that provides
- * the authServer dependency for session operations.
- *
- * @template T - The Better Auth server type with all plugin augmentations
- */
-export interface SessionAuthServerServiceFor<T extends AuthServerFor = AuthServerFor> {
-	readonly authServer: T;
-}
-
-/**
- * Concrete service type using the base AuthServer.
- *
- * @pure
- * @description Used as the type parameter for Context.GenericTag to create
- * the SessionAuthServerServiceTag for dependency injection.
- */
-export type SessionAuthServerService = SessionAuthServerServiceFor<AuthServer>;
+export type AuthServerFor = GlobalAuthServerFor;

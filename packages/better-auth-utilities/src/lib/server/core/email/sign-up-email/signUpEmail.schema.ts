@@ -7,7 +7,7 @@ import { pipe } from 'effect';
 import * as Effect from 'effect/Effect';
 import * as Option from 'effect/Option';
 import { z } from 'zod';
-import type { AuthServerFor } from '../../../server.types';
+import type { AuthServer } from '../../../server.types';
 import { getAuthServerConfig, getPasswordLengthConstraints, getUserConfig, getUserAdditionalFields } from '../../../../shared/config/config.utils';
 import {
 	nameRequiredSchema,
@@ -28,7 +28,7 @@ import {
  * @param authServer - The Better Auth server instance
  * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
  */
-export const createSignUpEmailServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(authServer: T) =>
+export const createSignUpEmailServerParamsSchema = (authServer: AuthServer) =>
 	Effect.gen(function* () {
 		const { minPasswordLength, maxPasswordLength } = getPasswordLengthConstraints(authServer);
 

@@ -4,15 +4,15 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiSignUpEmailParamsFor, type AuthServerApiSignUpEmailParamsFor, type signUpEmailPropsFor } from './signUpEmail.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { signUpEmailServerService } from './signUpEmail.service';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { AuthServerTag } from '../../../server.service';
 
-export const signUpEmailServerController: signUpEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiSignUpEmailParamsFor<T>) =>
+export const signUpEmailServerController: signUpEmailPropsFor = (params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
-		const { authServer } = yield* _(EmailAuthServerServiceTag);
+		const authServer = yield* _(AuthServerTag);
 
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
-			validateInputEffect(createSignUpEmailServerParamsSchema(authServer), params, isAuthServerApiSignUpEmailParamsFor<T>, 'signUpEmail')
+			validateInputEffect(createSignUpEmailServerParamsSchema(authServer), params, isAuthServerApiSignUpEmailParamsFor, 'signUpEmail')
 		);
 
 		// 2) Call the service with the validated params

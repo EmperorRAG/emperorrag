@@ -5,7 +5,6 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type { EmailAuthServerService } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
 /**
@@ -28,7 +27,7 @@ export type AuthServerApiSetPasswordPropsFor<T extends AuthServerFor = AuthServe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiSetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiSetPasswordPropsFor<T>>[0];
+export type AuthServerApiSetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiSetPasswordPropsFor<AuthServerFor>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.setPassword.
@@ -38,33 +37,33 @@ export type AuthServerApiSetPasswordParamsFor<T extends AuthServerFor = AuthServ
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiSetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiSetPasswordPropsFor<T>>;
+export type AuthServerApiSetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiSetPasswordPropsFor<AuthServerFor>>;
 
 /**
  * Function signature for setPassword server service.
  *
  * @pure
- * @description Function accepting input parameters, returning an Effect that requires EmailAuthServerService context.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerFor context.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export interface setPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiSetPasswordParamsFor<T>): Effect.Effect<Awaited<AuthServerApiSetPasswordResultFor<T>>, CoreAuthServerError, EmailAuthServerService>;
+	(params: AuthServerApiSetPasswordParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiSetPasswordResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
 }
 
 /**
  * Type guard for validating AuthServerApiSetPasswordParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiSetPasswordParamsFor<T> by checking
+ * @description Narrows an unknown value to AuthServerApiSetPasswordParamsFor<AuthServerFor> by checking
  * the required structural properties.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiSetPasswordParamsFor<T> structure
+ * @returns True if value conforms to AuthServerApiSetPasswordParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiSetPasswordParamsFor = <T extends AuthServerFor = AuthServerFor>(value: unknown): value is AuthServerApiSetPasswordParamsFor<T> => {
+export const isAuthServerApiSetPasswordParamsFor = (value: unknown): value is AuthServerApiSetPasswordParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

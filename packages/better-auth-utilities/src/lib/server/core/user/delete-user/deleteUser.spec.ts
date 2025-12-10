@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { deleteUserServerService } from './deleteUser.service';
-import { UserAuthServerServiceTag } from '../shared/user.service';
+import { AuthServerTag } from '../../../server.service';
 import * as Effect from 'effect/Effect';
 
 describe('Server Delete User', () => {
@@ -22,6 +22,6 @@ describe('Server Delete User', () => {
 			body: {},
 		});
 
-		await expect(Effect.runPromise(Effect.provideService(program, UserAuthServerServiceTag, { authServer }))).rejects.toThrow();
+		await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
 	});
 });

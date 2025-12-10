@@ -7,12 +7,12 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiDeleteUserCallbackParamsFor, deleteUserCallbackPropsFor } from './deleteUserCallback.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { UserAuthServerServiceTag } from '../shared/user.service';
+import { AuthServerTag } from '../../../server.service';
 
-export const deleteUserCallbackServerService: deleteUserCallbackPropsFor = <T extends AuthServerFor = AuthServerFor>(
-	params: AuthServerApiDeleteUserCallbackParamsFor<T>
+export const deleteUserCallbackServerService: deleteUserCallbackPropsFor = (
+	params: AuthServerApiDeleteUserCallbackParamsFor<AuthServerFor>
 ) =>
-	Effect.flatMap(UserAuthServerServiceTag, ({ authServer }) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.deleteUserCallback(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import { z } from 'zod';
-import type { AuthServerFor } from '../../../server.types';
+import type { AuthServer } from '../../../server.types';
 import { getPasswordLengthConstraints } from '../../../../shared/config/config.utils';
 import { createPasswordSchema, createBodySchemaWithOptionalHeaders } from '../../shared/core.schema';
 
@@ -18,7 +18,7 @@ import { createPasswordSchema, createBodySchemaWithOptionalHeaders } from '../..
  * @param authServer - The Better Auth server instance
  * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
  */
-export const createSetPasswordServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(authServer: T) =>
+export const createSetPasswordServerParamsSchema = (authServer: AuthServer) =>
 	Effect.gen(function* () {
 		const { minPasswordLength, maxPasswordLength } = getPasswordLengthConstraints(authServer);
 

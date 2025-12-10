@@ -13,7 +13,6 @@ import {
 } from './linkSocialAccount.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { linkSocialAccountServerService } from './linkSocialAccount.service';
-import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
 
 /**
  * Controller for link social account operation with input validation.
@@ -33,17 +32,16 @@ import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The link social account parameters to validate and process
- * @returns Effect requiring OAuthAuthServerService context
+ * @returns Effect requiring AuthServerFor context
  */
-export const linkSocialAccountServerController: linkSocialAccountPropsFor = <T extends AuthServerFor = AuthServerFor>(
-	params: AuthServerApiLinkSocialAccountParamsFor<T>
+export const linkSocialAccountServerController: linkSocialAccountPropsFor = (
+	params: AuthServerApiLinkSocialAccountParamsFor<AuthServerFor>
 ) =>
 	Effect.gen(function* () {
-		const { authServer } = yield* OAuthAuthServerServiceTag;
 		const validatedParams = yield* validateInputEffect(
-			createLinkSocialAccountServerParamsSchema(authServer),
+			createLinkSocialAccountServerParamsSchema(),
 			params,
-			isAuthServerApiLinkSocialAccountParamsFor<T>,
+			isAuthServerApiLinkSocialAccountParamsFor,
 			'linkSocialAccount'
 		);
 		return yield* linkSocialAccountServerService(validatedParams);

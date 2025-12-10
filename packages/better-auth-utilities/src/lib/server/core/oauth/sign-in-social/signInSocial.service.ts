@@ -6,8 +6,9 @@
 
 import { Effect } from 'effect';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
-import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
+import { AuthServerTag } from '../../../server.service';
 import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from './signInSocial.types';
+import type { AuthServerFor } from '../../../server.types';
 
 /**
  * Server-side service for OAuth social sign-in.
@@ -15,17 +16,17 @@ import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from '.
  * @pure
  * @description Creates an Effect that initiates OAuth authentication with a social provider.
  * Uses Effect's Context layer to access the authServer dependency.
- * Returns an Effect requiring OAuthAuthServerService context that, when provided,
+ * Returns an Effect requiring AuthServerFor context that, when provided,
  * calls the signInSocial API and returns the redirect URL or session data.
  *
  * @param params - The signInSocial parameters including provider, callbacks, and headers
- * @returns Effect requiring OAuthAuthServerService context, failing with CoreAuthServerApiError,
+ * @returns Effect requiring AuthServerFor context, failing with CoreAuthServerApiError,
  *          and succeeding with the sign-in result
  *
  * @example
  * ```typescript
  * import { Effect } from 'effect';
- * import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
+ * import { AuthServerTag } from '../../../server.service';
  * import { signInSocialServerService } from './signInSocial.service';
  *
  * // Create the service with provider and callbacks
@@ -40,7 +41,7 @@ import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from '.
  *
  * // Provide the AuthServer dependency via Context
  * const result = await Effect.runPromise(
- *   Effect.provideService(program, OAuthAuthServerServiceTag, { authServer })
+ *   Effect.provideService(program, AuthServerTag, authServer)
  * );
  *
  * // result contains { url: string, redirect: boolean } or session data
@@ -90,8 +91,8 @@ import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from '.
  * });
  * ```
  */
-export const signInSocialServerService: signInSocialPropsFor = (params: AuthServerApiSignInSocialParamsFor) =>
-	Effect.flatMap(OAuthAuthServerServiceTag, ({ authServer }) =>
+export const signInSocialServerService: signInSocialPropsFor = (params: AuthServerApiSignInSocialParamsFor<AuthServerFor>) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.signInSocial(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

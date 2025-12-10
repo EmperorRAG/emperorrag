@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { changePasswordServerService } from './changePassword.service';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { AuthServerTag } from '../../../server.service';
 import * as Effect from 'effect/Effect';
 
 describe('Server Change Password', () => {
@@ -58,7 +58,7 @@ describe('Server Change Password', () => {
 			headers,
 		});
 
-		const res = await Effect.runPromise(Effect.provideService(program, EmailAuthServerServiceTag, { authServer }));
+		const res = await Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer));
 
 		expect(res).toBeDefined();
 

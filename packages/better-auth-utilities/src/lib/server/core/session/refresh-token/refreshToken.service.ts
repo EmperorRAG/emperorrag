@@ -7,10 +7,10 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiRefreshTokenParamsFor, refreshTokenPropsFor } from './refreshToken.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { SessionAuthServerServiceTag } from '../shared/session.service';
+import { AuthServerTag } from '../../../server.service';
 
-export const refreshTokenServerService: refreshTokenPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiRefreshTokenParamsFor<T>) =>
-	Effect.flatMap(SessionAuthServerServiceTag, ({ authServer }) =>
+export const refreshTokenServerService: refreshTokenPropsFor = (params: AuthServerApiRefreshTokenParamsFor<AuthServerFor>) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.refreshToken(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

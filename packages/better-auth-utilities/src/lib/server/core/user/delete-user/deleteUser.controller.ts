@@ -9,7 +9,6 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiDeleteUserParamsFor, type AuthServerApiDeleteUserParamsFor, type deleteUserPropsFor } from './deleteUser.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { deleteUserServerService } from './deleteUser.service';
-import { UserAuthServerServiceTag } from '../shared/user.service';
 
 /**
  * Controller for delete user operation with input validation.
@@ -29,15 +28,14 @@ import { UserAuthServerServiceTag } from '../shared/user.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The delete user parameters to validate and process
- * @returns Effect requiring UserAuthServerService context
+ * @returns Effect requiring AuthServerFor context
  */
-export const deleteUserServerController: deleteUserPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiDeleteUserParamsFor<T>) =>
+export const deleteUserServerController: deleteUserPropsFor = (params: AuthServerApiDeleteUserParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const { authServer } = yield* UserAuthServerServiceTag;
 		const validatedParams = yield* validateInputEffect(
-			createDeleteUserServerParamsSchema(authServer),
+			createDeleteUserServerParamsSchema(),
 			params,
-			isAuthServerApiDeleteUserParamsFor<T>,
+			isAuthServerApiDeleteUserParamsFor,
 			'deleteUser'
 		);
 		return yield* deleteUserServerService(validatedParams);

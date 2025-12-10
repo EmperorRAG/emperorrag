@@ -5,7 +5,6 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type { EmailAuthServerService } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
 /**
@@ -48,7 +47,7 @@ export type AuthServerApiChangePasswordPropsFor<T extends AuthServerFor = AuthSe
  * // { body: { currentPassword: string, newPassword: string, revokeOtherSessions?: boolean }, headers: Headers, ... }
  * ```
  */
-export type AuthServerApiChangePasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiChangePasswordPropsFor<T>>[0];
+export type AuthServerApiChangePasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiChangePasswordPropsFor<AuthServerFor>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.changePassword.
@@ -65,20 +64,20 @@ export type AuthServerApiChangePasswordParamsFor<T extends AuthServerFor = AuthS
  * // Promise<{ status: boolean, session?: { id: string, ... } }>
  * ```
  */
-export type AuthServerApiChangePasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiChangePasswordPropsFor<T>>;
+export type AuthServerApiChangePasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiChangePasswordPropsFor<AuthServerFor>>;
 
 /**
  * Function signature for changePassword server service.
  *
  * @pure
- * @description Function accepting input parameters, returning an Effect that requires EmailAuthServerServiceFor context.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerFor context.
  * Dependencies are accessed through Effect's context layer rather than curried function arguments.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @remarks
  * **Context-Based Dependency Injection:**
- * - Dependencies (authServer) are provided via Effect's context layer (EmailAuthServerServiceFor<T>)
+ * - Dependencies (authServer) are provided via Effect's context layer (AuthServerFor)
  * - Function accepts only the API parameters directly
  * - Effect executes lazily when run with provided context
  *
@@ -90,6 +89,7 @@ export type AuthServerApiChangePasswordResultFor<T extends AuthServerFor = AuthS
  * ```typescript
  * import * as Effect from 'effect/Effect';
  * import { changePasswordServerService } from './changePassword.service';
+ * import { AuthServerTag } from '../../../server.service';
  *
  * const program = changePasswordServerService({
  *   body: {
@@ -102,32 +102,30 @@ export type AuthServerApiChangePasswordResultFor<T extends AuthServerFor = AuthS
  *
  * // Provide context and run
  * await Effect.runPromise(
- *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  */
 export interface changePasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(
-		params: AuthServerApiChangePasswordParamsFor<T>
-	): Effect.Effect<Awaited<AuthServerApiChangePasswordResultFor<T>>, CoreAuthServerError, EmailAuthServerService>;
+	(params: AuthServerApiChangePasswordParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiChangePasswordResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
 }
 
 /**
  * Type guard for validating AuthServerApiChangePasswordParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiChangePasswordParamsFor<T> by checking
+ * @description Narrows an unknown value to AuthServerApiChangePasswordParamsFor<AuthServerFor> by checking
  * the required structural properties. Use after Zod validation to provide type narrowing
  * without casting.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiChangePasswordParamsFor<T> structure
+ * @returns True if value conforms to AuthServerApiChangePasswordParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiChangePasswordParamsFor = <T extends AuthServerFor = AuthServerFor>(
+export const isAuthServerApiChangePasswordParamsFor = (
 	value: unknown
-): value is AuthServerApiChangePasswordParamsFor<T> => {
+): value is AuthServerApiChangePasswordParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

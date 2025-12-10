@@ -5,7 +5,6 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type { EmailAuthServerService } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
 /**
@@ -48,7 +47,7 @@ export type AuthServerApiForgetPasswordPropsFor<T extends AuthServerFor = AuthSe
  * // { body: { email: string, redirectTo?: string }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiForgetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiForgetPasswordPropsFor<T>>[0];
+export type AuthServerApiForgetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiForgetPasswordPropsFor<AuthServerFor>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.forgetPassword.
@@ -65,20 +64,20 @@ export type AuthServerApiForgetPasswordParamsFor<T extends AuthServerFor = AuthS
  * // Promise<{ status: boolean }>
  * ```
  */
-export type AuthServerApiForgetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiForgetPasswordPropsFor<T>>;
+export type AuthServerApiForgetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiForgetPasswordPropsFor<AuthServerFor>>;
 
 /**
  * Function signature for forgetPassword server service.
  *
  * @pure
- * @description Function accepting input parameters, returning an Effect that requires EmailAuthServerServiceFor context.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerFor context.
  * Dependencies are accessed through Effect's context layer rather than curried function arguments.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @remarks
  * **Context-Based Dependency Injection:**
- * - Dependencies (authServer) are provided via Effect's context layer (EmailAuthServerServiceFor<T>)
+ * - Dependencies (authServer) are provided via Effect's context layer (AuthServerFor)
  * - Function accepts only the API parameters directly
  * - Effect executes lazily when run with provided context
  *
@@ -90,6 +89,7 @@ export type AuthServerApiForgetPasswordResultFor<T extends AuthServerFor = AuthS
  * ```typescript
  * import * as Effect from 'effect/Effect';
  * import { forgetPasswordServerService } from './forgetPassword.service';
+ * import { AuthServerTag } from '../../../server.service';
  *
  * const program = forgetPasswordServerService({
  *   body: {
@@ -100,32 +100,30 @@ export type AuthServerApiForgetPasswordResultFor<T extends AuthServerFor = AuthS
  *
  * // Provide context and run
  * await Effect.runPromise(
- *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  */
 export interface forgetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(
-		params: AuthServerApiForgetPasswordParamsFor<T>
-	): Effect.Effect<Awaited<AuthServerApiForgetPasswordResultFor<T>>, CoreAuthServerError, EmailAuthServerService>;
+	(params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiForgetPasswordResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
 }
 
 /**
  * Type guard for validating AuthServerApiForgetPasswordParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiForgetPasswordParamsFor<T> by checking
+ * @description Narrows an unknown value to AuthServerApiForgetPasswordParamsFor<AuthServerFor> by checking
  * the required structural properties. Use after Zod validation to provide type narrowing
  * without casting.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiForgetPasswordParamsFor<T> structure
+ * @returns True if value conforms to AuthServerApiForgetPasswordParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiForgetPasswordParamsFor = <T extends AuthServerFor = AuthServerFor>(
+export const isAuthServerApiForgetPasswordParamsFor = (
 	value: unknown
-): value is AuthServerApiForgetPasswordParamsFor<T> => {
+): value is AuthServerApiForgetPasswordParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

@@ -3,7 +3,7 @@
  * @description Server-side dependency types for user authentication operations.
  */
 
-import type { AuthServer, AuthServerFor } from '../../../server.types';
+import type { AuthServerFor as GlobalAuthServerFor } from '../../../server.types';
 
 /**
  * Shared dependency type for server user authentication operations.
@@ -20,27 +20,8 @@ import type { AuthServer, AuthServerFor } from '../../../server.types';
  *
  * @template T - The Better Auth server type, defaults to base AuthServerFor type
  */
-export type UserAuthServerDeps<T extends AuthServerFor = AuthServerFor> = Readonly<{
+export type UserAuthServerDeps<T extends GlobalAuthServerFor = GlobalAuthServerFor> = Readonly<{
 	authServer: T;
 }>;
 
-/**
- * Service interface for user authentication operations.
- *
- * @pure
- * @description Defines the service contract for user operations,
- * containing the authServer instance used by all user endpoints.
- *
- * @template T - The Better Auth server type, defaults to base AuthServerFor type
- */
-export interface UserAuthServerServiceFor<T extends AuthServerFor = AuthServerFor> {
-	readonly authServer: T;
-}
-
-/**
- * Concrete service type using the base AuthServer.
- *
- * @pure
- * @description Type alias for UserAuthServerServiceFor with the base AuthServer type.
- */
-export type UserAuthServerService = UserAuthServerServiceFor<AuthServer>;
+export type AuthServerFor = GlobalAuthServerFor;

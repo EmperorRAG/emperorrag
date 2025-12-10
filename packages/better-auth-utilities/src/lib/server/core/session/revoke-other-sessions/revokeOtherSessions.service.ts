@@ -7,12 +7,12 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiRevokeOtherSessionsParamsFor, revokeOtherSessionsPropsFor } from './revokeOtherSessions.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { SessionAuthServerServiceTag } from '../shared/session.service';
+import { AuthServerTag } from '../../../server.service';
 
-export const revokeOtherSessionsServerService: revokeOtherSessionsPropsFor = <T extends AuthServerFor = AuthServerFor>(
-	params: AuthServerApiRevokeOtherSessionsParamsFor<T>
+export const revokeOtherSessionsServerService: revokeOtherSessionsPropsFor = (
+	params: AuthServerApiRevokeOtherSessionsParamsFor<AuthServerFor>
 ) =>
-	Effect.flatMap(SessionAuthServerServiceTag, ({ authServer }) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.revokeOtherSessions(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

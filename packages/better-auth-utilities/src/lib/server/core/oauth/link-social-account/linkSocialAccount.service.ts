@@ -7,12 +7,12 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiLinkSocialAccountParamsFor, linkSocialAccountPropsFor } from './linkSocialAccount.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
+import { AuthServerTag } from '../../../server.service';
 
-export const linkSocialAccountServerService: linkSocialAccountPropsFor = <T extends AuthServerFor = AuthServerFor>(
-	params: AuthServerApiLinkSocialAccountParamsFor<T>
+export const linkSocialAccountServerService: linkSocialAccountPropsFor = (
+	params: AuthServerApiLinkSocialAccountParamsFor<AuthServerFor>
 ) =>
-	Effect.flatMap(OAuthAuthServerServiceTag, ({ authServer }) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.linkSocialAccount(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

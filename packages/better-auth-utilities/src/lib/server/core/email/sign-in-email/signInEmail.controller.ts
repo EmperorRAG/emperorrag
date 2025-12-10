@@ -6,13 +6,13 @@ import { validateInputEffect } from '../../shared/core.error';
 import { signInEmailServerService } from './signInEmail.service';
 import { AuthServerTag } from '../../../server.service';
 
-export const signInEmailServerController: signInEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiSignInEmailParamsFor<T>) =>
+export const signInEmailServerController: signInEmailPropsFor = (params: AuthServerApiSignInEmailParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
 		const authServer = yield* _(AuthServerTag);
 
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
-			validateInputEffect(createSignInEmailServerParamsSchema(authServer), params, isAuthServerApiSignInEmailParamsFor<T>, 'signInEmail')
+			validateInputEffect(createSignInEmailServerParamsSchema(authServer), params, isAuthServerApiSignInEmailParamsFor, 'signInEmail')
 		);
 
 		// 2) Call the service with the validated params

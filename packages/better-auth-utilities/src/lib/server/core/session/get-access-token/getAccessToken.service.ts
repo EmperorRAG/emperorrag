@@ -7,10 +7,10 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiGetAccessTokenParamsFor, getAccessTokenPropsFor } from './getAccessToken.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { SessionAuthServerServiceTag } from '../shared/session.service';
+import { AuthServerTag } from '../../../server.service';
 
-export const getAccessTokenServerService: getAccessTokenPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiGetAccessTokenParamsFor<T>) =>
-	Effect.flatMap(SessionAuthServerServiceTag, ({ authServer }) =>
+export const getAccessTokenServerService: getAccessTokenPropsFor = (params: AuthServerApiGetAccessTokenParamsFor<AuthServerFor>) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.getAccessToken(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

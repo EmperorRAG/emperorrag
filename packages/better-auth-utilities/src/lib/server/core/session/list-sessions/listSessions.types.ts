@@ -5,7 +5,6 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type { SessionAuthServerService } from '../shared/session.types';
 import type * as Effect from 'effect/Effect';
 
 /**
@@ -28,7 +27,7 @@ export type AuthServerApiListSessionsPropsFor<T extends AuthServerFor = AuthServ
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiListSessionsParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiListSessionsPropsFor<T>>[0];
+export type AuthServerApiListSessionsParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiListSessionsPropsFor<AuthServerFor>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.listSessions.
@@ -38,37 +37,37 @@ export type AuthServerApiListSessionsParamsFor<T extends AuthServerFor = AuthSer
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiListSessionsResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiListSessionsPropsFor<T>>;
+export type AuthServerApiListSessionsResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiListSessionsPropsFor<AuthServerFor>>;
 
 /**
  * Function signature for listSessions server service.
  *
  * @pure
- * @description Function accepting input parameters, returning an Effect that requires SessionAuthServerService context.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerFor context.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export interface listSessionsPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
-		params: AuthServerApiListSessionsParamsFor<T>
-	): Effect.Effect<Awaited<AuthServerApiListSessionsResultFor<T>>, CoreAuthServerError, SessionAuthServerService>;
+		params: AuthServerApiListSessionsParamsFor<AuthServerFor>
+	): Effect.Effect<Awaited<AuthServerApiListSessionsResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
 }
 
 /**
  * Type guard for validating AuthServerApiListSessionsParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiListSessionsParamsFor<T> by checking
+ * @description Narrows an unknown value to AuthServerApiListSessionsParamsFor<AuthServerFor> by checking
  * the required structural properties.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiListSessionsParamsFor<T> structure
+ * @returns True if value conforms to AuthServerApiListSessionsParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiListSessionsParamsFor = <T extends AuthServerFor = AuthServerFor>(
+export const isAuthServerApiListSessionsParamsFor = (
 	value: unknown
-): value is AuthServerApiListSessionsParamsFor<T> => {
+): value is AuthServerApiListSessionsParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	return true;
 };

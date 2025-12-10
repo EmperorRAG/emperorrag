@@ -5,7 +5,6 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type { EmailAuthServerService } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
 /**
@@ -48,7 +47,7 @@ export type AuthServerApiResetPasswordPropsFor<T extends AuthServerFor = AuthSer
  * // { body: { token: string, newPassword: string }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiResetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiResetPasswordPropsFor<T>>[0];
+export type AuthServerApiResetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiResetPasswordPropsFor<AuthServerFor>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.resetPassword.
@@ -65,20 +64,20 @@ export type AuthServerApiResetPasswordParamsFor<T extends AuthServerFor = AuthSe
  * // Promise<{ status: boolean, session?: { id: string, ... }, user?: { id: string, ... } }>
  * ```
  */
-export type AuthServerApiResetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiResetPasswordPropsFor<T>>;
+export type AuthServerApiResetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiResetPasswordPropsFor<AuthServerFor>>;
 
 /**
  * Function signature for resetPassword server service.
  *
  * @pure
- * @description Function accepting input parameters, returning an Effect that requires EmailAuthServerServiceFor context.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerForFor context.
  * Dependencies are accessed through Effect's context layer rather than curried function arguments.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @remarks
  * **Context-Based Dependency Injection:**
- * - Dependencies (authServer) are provided via Effect's context layer (EmailAuthServerServiceFor<T>)
+ * - Dependencies (authServer) are provided via Effect's context layer (AuthServerFor)
  * - Function accepts only the API parameters directly
  * - Effect executes lazily when run with provided context
  *
@@ -101,32 +100,30 @@ export type AuthServerApiResetPasswordResultFor<T extends AuthServerFor = AuthSe
  *
  * // Provide context and run
  * await Effect.runPromise(
- *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  */
 export interface resetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(
-		params: AuthServerApiResetPasswordParamsFor<T>
-	): Effect.Effect<Awaited<AuthServerApiResetPasswordResultFor<T>>, CoreAuthServerError, EmailAuthServerService>;
+	(params: AuthServerApiResetPasswordParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiResetPasswordResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
 }
 
 /**
  * Type guard for validating AuthServerApiResetPasswordParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiResetPasswordParamsFor<T> by checking
+ * @description Narrows an unknown value to AuthServerApiResetPasswordParamsFor<AuthServerFor> by checking
  * the required structural properties. Use after Zod validation to provide type narrowing
  * without casting.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiResetPasswordParamsFor<T> structure
+ * @returns True if value conforms to AuthServerApiResetPasswordParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiResetPasswordParamsFor = <T extends AuthServerFor = AuthServerFor>(
+export const isAuthServerApiResetPasswordParamsFor = (
 	value: unknown
-): value is AuthServerApiResetPasswordParamsFor<T> => {
+): value is AuthServerApiResetPasswordParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

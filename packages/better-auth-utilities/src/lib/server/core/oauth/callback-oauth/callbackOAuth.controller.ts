@@ -9,15 +9,13 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiCallbackOAuthParamsFor, type AuthServerApiCallbackOAuthParamsFor, type callbackOAuthPropsFor } from './callbackOAuth.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { callbackOAuthServerService } from './callbackOAuth.service';
-import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
 
-export const callbackOAuthServerController: callbackOAuthPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiCallbackOAuthParamsFor<T>) =>
+export const callbackOAuthServerController: callbackOAuthPropsFor = (params: AuthServerApiCallbackOAuthParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const { authServer } = yield* OAuthAuthServerServiceTag;
 		const validatedParams = yield* validateInputEffect(
-			createCallbackOAuthServerParamsSchema(authServer),
+			createCallbackOAuthServerParamsSchema(),
 			params,
-			isAuthServerApiCallbackOAuthParamsFor<T>,
+			isAuthServerApiCallbackOAuthParamsFor,
 			'callbackOAuth'
 		);
 		return yield* callbackOAuthServerService(validatedParams);

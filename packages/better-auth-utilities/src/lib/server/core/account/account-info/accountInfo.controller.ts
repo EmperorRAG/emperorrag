@@ -9,16 +9,16 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiAccountInfoParamsFor, type AuthServerApiAccountInfoParamsFor, type accountInfoPropsFor } from './accountInfo.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { accountInfoServerService } from './accountInfo.service';
-import { AccountAuthServerServiceTag } from '../shared/account.service';
+import { AuthServerTag } from '../../../server.service';
 
-export const accountInfoServerController: accountInfoPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiAccountInfoParamsFor<T>) =>
+export const accountInfoServerController: accountInfoPropsFor = (params: AuthServerApiAccountInfoParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const { authServer } = yield* AccountAuthServerServiceTag;
+		const authServer = yield* AuthServerTag;
 		const validatedParams = yield* validateInputEffect(
-			createAccountInfoServerParamsSchema(authServer),
+			createAccountInfoServerParamsSchema(),
 			params,
-			isAuthServerApiAccountInfoParamsFor<T>,
+			isAuthServerApiAccountInfoParamsFor,
 			'accountInfo'
 		);
-		return yield* accountInfoServerService(validatedParams);
+		return yield* accountInfoServerService(validatedParams).pipe(Effect.provideService(AuthServerTag, authServer));
 	});

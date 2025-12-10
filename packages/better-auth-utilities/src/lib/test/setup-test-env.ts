@@ -2,7 +2,7 @@ import { createServer } from 'http';
 import { DatabaseSync } from 'node:sqlite';
 import { toNodeHandler } from 'better-auth/node';
 import { getMigrations } from 'better-auth/db';
-import { createAuthServer } from '../server/server.service';
+import { createAuthServerInstance } from '../server/server.service';
 import { createAuthClient } from '../client/client.service';
 import type { ServerConfig } from '../shared/config/config.types';
 
@@ -11,7 +11,7 @@ export async function setupTestEnv(options?: { serverConfig?: Partial<ServerConf
 	const db = new DatabaseSync(':memory:');
 
 	// 2. Create Auth Server
-	const authServer = createAuthServer(
+	const authServer = createAuthServerInstance(
 		{
 			server: {
 				secret: 'test-secret-123',

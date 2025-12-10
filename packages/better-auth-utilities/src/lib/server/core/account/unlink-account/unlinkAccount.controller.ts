@@ -9,7 +9,6 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiUnlinkAccountParamsFor, type AuthServerApiUnlinkAccountParamsFor, type unlinkAccountPropsFor } from './unlinkAccount.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { unlinkAccountServerService } from './unlinkAccount.service';
-import { AccountAuthServerServiceTag } from '../shared/account.service';
 
 /**
  * Controller for unlink account operation with input validation.
@@ -29,7 +28,7 @@ import { AccountAuthServerServiceTag } from '../shared/account.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The unlink account parameters to validate and process
- * @returns Effect requiring AccountAuthServerService context
+ * @returns Effect requiring AuthServerFor context
  *
  * @example
  * ```typescript
@@ -42,17 +41,16 @@ import { AccountAuthServerServiceTag } from '../shared/account.service';
  * });
  *
  * await Effect.runPromise(
- *   program.pipe(Effect.provideService(AccountAuthServerServiceTag, { authServer }))
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  */
-export const unlinkAccountServerController: unlinkAccountPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiUnlinkAccountParamsFor<T>) =>
+export const unlinkAccountServerController: unlinkAccountPropsFor = (params: AuthServerApiUnlinkAccountParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const { authServer } = yield* AccountAuthServerServiceTag;
 		const validatedParams = yield* validateInputEffect(
-			createUnlinkAccountServerParamsSchema(authServer),
+			createUnlinkAccountServerParamsSchema(),
 			params,
-			isAuthServerApiUnlinkAccountParamsFor<T>,
+			isAuthServerApiUnlinkAccountParamsFor,
 			'unlinkAccount'
 		);
 		return yield* unlinkAccountServerService(validatedParams);

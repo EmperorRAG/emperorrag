@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
-import { AccountAuthServerServiceTag } from '../shared/account.service';
+import { AuthServerTag } from '../../../server.service';
 import * as Effect from 'effect/Effect';
 
 describe('Server Unlink Account', () => {
@@ -19,16 +19,16 @@ describe('Server Unlink Account', () => {
 		expect(authServer.api.unlinkAccount).toBeDefined();
 	});
 
-	it('should have AccountAuthServerServiceTag defined', () => {
-		expect(AccountAuthServerServiceTag).toBeDefined();
+	it('should have AuthServerTag defined', () => {
+		expect(AuthServerTag).toBeDefined();
 	});
 
-	it('should create AccountAuthServerService context', async () => {
+	it('should create AuthServerTag context', async () => {
 		const { authServer } = env;
 
-		const program = Effect.flatMap(AccountAuthServerServiceTag, ({ authServer: server }) => Effect.succeed(server));
+		const program = Effect.flatMap(AuthServerTag, (server) => Effect.succeed(server));
 
-		const result = await Effect.runPromise(Effect.provideService(program, AccountAuthServerServiceTag, { authServer }));
+		const result = await Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer));
 
 		expect(result).toBe(authServer);
 	});

@@ -5,11 +5,9 @@
 
 import * as Effect from 'effect/Effect';
 import { createListSessionsServerParamsSchema } from './listSessions.schema';
-import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiListSessionsParamsFor, type AuthServerApiListSessionsParamsFor, type listSessionsPropsFor } from './listSessions.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { listSessionsServerService } from './listSessions.service';
-import { SessionAuthServerServiceTag } from '../shared/session.service';
 
 /**
  * Controller for list sessions operation with input validation.
@@ -29,15 +27,14 @@ import { SessionAuthServerServiceTag } from '../shared/session.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The list sessions parameters to validate and process
- * @returns Effect requiring SessionAuthServerService context
+ * @returns Effect requiring AuthServerFor context
  */
-export const listSessionsServerController: listSessionsPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiListSessionsParamsFor<T>) =>
+export const listSessionsServerController: listSessionsPropsFor = (params: AuthServerApiListSessionsParamsFor) =>
 	Effect.gen(function* () {
-		const { authServer } = yield* SessionAuthServerServiceTag;
 		const validatedParams = yield* validateInputEffect(
-			createListSessionsServerParamsSchema(authServer),
+			createListSessionsServerParamsSchema(),
 			params,
-			isAuthServerApiListSessionsParamsFor<T>,
+			isAuthServerApiListSessionsParamsFor,
 			'listSessions'
 		);
 		return yield* listSessionsServerService(validatedParams);

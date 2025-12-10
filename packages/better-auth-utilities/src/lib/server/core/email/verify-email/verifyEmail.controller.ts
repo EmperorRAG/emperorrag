@@ -9,7 +9,6 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiVerifyEmailParamsFor, type AuthServerApiVerifyEmailParamsFor, type verifyEmailPropsFor } from './verifyEmail.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { verifyEmailServerService } from './verifyEmail.service';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
 
 /**
  * Controller for verify email operation with Zod validation and type narrowing.
@@ -23,13 +22,12 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * @param params - The verify email parameters to validate and process
  * @returns Effect that resolves to verification result or fails with validation/API error
  */
-export const verifyEmailServerController: verifyEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiVerifyEmailParamsFor<T>) =>
+export const verifyEmailServerController: verifyEmailPropsFor = (params: AuthServerApiVerifyEmailParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
-		const { authServer } = yield* _(EmailAuthServerServiceTag);
 
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
-			validateInputEffect(createVerifyEmailServerParamsSchema(authServer), params, isAuthServerApiVerifyEmailParamsFor<T>, 'verifyEmail')
+			validateInputEffect(createVerifyEmailServerParamsSchema(), params, isAuthServerApiVerifyEmailParamsFor, 'verifyEmail')
 		);
 
 		// 2) Call the service with the validated params

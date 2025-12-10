@@ -9,7 +9,7 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiChangePasswordParamsFor, type AuthServerApiChangePasswordParamsFor, type changePasswordPropsFor } from './changePassword.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { changePasswordServerService } from './changePassword.service';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { AuthServerTag } from '../../../server.service';
 
 /**
  * Controller for change password operation with input validation.
@@ -29,12 +29,13 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The change password parameters to validate and process
- * @returns Effect requiring EmailAuthServerService context
+ * @returns Effect requiring AuthServerTag context
  *
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
  * import { changePasswordServerController } from './changePassword.controller';
+ * import { AuthServerTag } from '../../../server.service';
  *
  * const program = changePasswordServerController({
  *   body: {
@@ -46,19 +47,19 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * });
  *
  * await Effect.runPromise(
- *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  */
-export const changePasswordServerController: changePasswordPropsFor = <T extends AuthServerFor = AuthServerFor>(
-	params: AuthServerApiChangePasswordParamsFor<T>
+export const changePasswordServerController: changePasswordPropsFor = (
+	params: AuthServerApiChangePasswordParamsFor<AuthServerFor>
 ) =>
 	Effect.gen(function* (_) {
-		const { authServer } = yield* _(EmailAuthServerServiceTag);
+		const authServer = yield* _(AuthServerTag);
 
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
-			validateInputEffect(createChangePasswordServerParamsSchema(authServer), params, isAuthServerApiChangePasswordParamsFor<T>, 'changePassword')
+			validateInputEffect(createChangePasswordServerParamsSchema(authServer), params, isAuthServerApiChangePasswordParamsFor, 'changePassword')
 		);
 
 		// 2) Call the service with the validated params

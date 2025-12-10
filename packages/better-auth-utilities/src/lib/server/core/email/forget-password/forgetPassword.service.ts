@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiForgetPasswordParamsFor, forgetPasswordPropsFor } from './forgetPassword.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { AuthServerTag } from '../../../server.service';
 
 /**
  * Request password reset email using Better Auth server API.
@@ -40,12 +40,13 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The forget password parameters including body and optional headers
- * @returns Effect requiring EmailAuthServerService context
+ * @returns Effect requiring AuthServerTag context
  *
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
  * import { forgetPasswordServerService } from './forgetPassword.service';
+ * import { AuthServerTag } from '../../../server.service';
  *
  * // Create the password reset request program
  * const program = forgetPasswordServerService({
@@ -57,7 +58,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  *
  * // Provide context and execute
  * await Effect.runPromise(
- *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  *
@@ -79,7 +80,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * });
  *
  * await Effect.runPromise(
- *   handled.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   handled.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  *
@@ -103,12 +104,12 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * });
  *
  * await Effect.runPromise(
- *   forgetPasswordWithAudit.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   forgetPasswordWithAudit.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  */
-export const forgetPasswordServerService: forgetPasswordPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiForgetPasswordParamsFor<T>) =>
-	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
+export const forgetPasswordServerService: forgetPasswordPropsFor = (params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.forgetPassword(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

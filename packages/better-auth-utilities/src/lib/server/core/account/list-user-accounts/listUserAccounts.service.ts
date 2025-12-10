@@ -6,7 +6,8 @@
 
 import { Effect } from 'effect';
 import { CoreAuthServerDataMissingError, mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
-import { AccountAuthServerServiceTag } from '../shared/account.service';
+import { AuthServerTag } from '../../../server.service';
+import type { AuthServerFor } from '../../../server.types';
 import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor } from './listUserAccounts.types';
 
 /**
@@ -15,16 +16,16 @@ import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor }
  * @pure
  * @description Creates an Effect that lists all linked accounts (OAuth providers, credentials)
  * for the authenticated user. Uses Effect's Context layer to access the authServer dependency.
- * Returns an Effect requiring AccountAuthServerService context that, when provided, fetches the accounts list.
+ * Returns an Effect requiring AuthServerFor context that, when provided, fetches the accounts list.
  *
  * @param params - The listUserAccounts parameters including headers for session
- * @returns Effect requiring AccountAuthServerService context, failing with CoreAuthServerApiError
+ * @returns Effect requiring AuthServerFor context, failing with CoreAuthServerApiError
  *          or CoreAuthServerDataMissingError, and succeeding with the accounts list
  *
  * @example
  * ```typescript
  * import { Effect } from 'effect';
- * import { AccountAuthServerServiceTag } from '../shared/account.service';
+ * import { AuthServerTag } from '../../../server.service';
  * import { listUserAccountsServerService } from './listUserAccounts.service';
  *
  * // Create the service with request headers
@@ -34,7 +35,7 @@ import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor }
  *
  * // Provide the AuthServer dependency via Context
  * const result = await Effect.runPromise(
- *   Effect.provideService(program, AccountAuthServerServiceTag, { authServer })
+ *   Effect.provideService(program, AuthServerTag, authServer)
  * );
  *
  * // result is Account[]
@@ -48,6 +49,7 @@ import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor }
  *   const accounts = yield* _(listUserAccountsServerService({
  *     headers: request.headers
  *   }));
+```
  *
  *   // Filter by provider
  *   const googleAccounts = accounts.filter(a => a.providerId === 'google');
@@ -70,8 +72,8 @@ import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor }
  * });
  * ```
  */
-export const listUserAccountsServerService: listUserAccountsPropsFor = (params: AuthServerApiListUserAccountsParamsFor) =>
-	Effect.flatMap(AccountAuthServerServiceTag, ({ authServer }) =>
+export const listUserAccountsServerService: listUserAccountsPropsFor = (params: AuthServerApiListUserAccountsParamsFor<AuthServerFor>) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.gen(function* (_) {
 			const result = yield* _(
 				Effect.tryPromise({

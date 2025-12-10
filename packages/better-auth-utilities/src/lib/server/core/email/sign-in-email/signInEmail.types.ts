@@ -5,7 +5,6 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type { EmailAuthServerService } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
 /**
@@ -48,7 +47,7 @@ export type AuthServerApiSignInEmailPropsFor<T extends AuthServerFor = AuthServe
  * // { body: { email: string, password: string, rememberMe?: boolean, ... }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiSignInEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiSignInEmailPropsFor<T>>[0];
+export type AuthServerApiSignInEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiSignInEmailPropsFor<AuthServerFor>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.signInEmail.
@@ -65,20 +64,20 @@ export type AuthServerApiSignInEmailParamsFor<T extends AuthServerFor = AuthServ
  * // Promise<{ user: { id: string, email: string, ... }, session: { id: string, ... }, ... }>
  * ```
  */
-export type AuthServerApiSignInEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiSignInEmailPropsFor<T>>;
+export type AuthServerApiSignInEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiSignInEmailPropsFor<AuthServerFor>>;
 
 /**
  * Function signature for signInEmail server service.
  *
  * @pure
- * @description Function accepting input parameters, returning an Effect that requires EmailAuthServerService context.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerFor context.
  * Dependencies are accessed through Effect's context layer rather than curried function arguments.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @remarks
  * **Context-Based Dependency Injection:**
- * - Dependencies (authServer) are provided via Effect's context layer (EmailAuthServerService)
+ * - Dependencies (authServer) are provided via Effect's context layer (AuthServerFor)
  * - Function accepts only the API parameters directly
  * - Effect executes lazily when run with provided context
  *
@@ -101,28 +100,28 @@ export type AuthServerApiSignInEmailResultFor<T extends AuthServerFor = AuthServ
  *
  * // Provide context and run
  * await Effect.runPromise(
- *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  */
 export interface signInEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiSignInEmailParamsFor<T>): Effect.Effect<Awaited<AuthServerApiSignInEmailResultFor<T>>, CoreAuthServerError, AuthServerFor>;
+	(params: AuthServerApiSignInEmailParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiSignInEmailResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
 }
 
 /**
  * Type guard for validating AuthServerApiSignInEmailParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiSignInEmailParamsFor<T> by checking
+ * @description Narrows an unknown value to AuthServerApiSignInEmailParamsFor<AuthServerFor> by checking
  * the required structural properties. Use after Zod validation to provide type narrowing
  * without casting.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiSignInEmailParamsFor<T> structure
+ * @returns True if value conforms to AuthServerApiSignInEmailParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiSignInEmailParamsFor = <T extends AuthServerFor = AuthServerFor>(value: unknown): value is AuthServerApiSignInEmailParamsFor<T> => {
+export const isAuthServerApiSignInEmailParamsFor = (value: unknown): value is AuthServerApiSignInEmailParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

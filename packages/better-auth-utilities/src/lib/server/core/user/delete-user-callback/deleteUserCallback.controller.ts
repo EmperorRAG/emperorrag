@@ -13,7 +13,6 @@ import {
 } from './deleteUserCallback.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { deleteUserCallbackServerService } from './deleteUserCallback.service';
-import { UserAuthServerServiceTag } from '../shared/user.service';
 
 /**
  * Controller for delete user callback operation with input validation.
@@ -33,17 +32,16 @@ import { UserAuthServerServiceTag } from '../shared/user.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The delete user callback parameters to validate and process
- * @returns Effect requiring UserAuthServerService context
+ * @returns Effect requiring AuthServerFor context
  */
-export const deleteUserCallbackServerController: deleteUserCallbackPropsFor = <T extends AuthServerFor = AuthServerFor>(
-	params: AuthServerApiDeleteUserCallbackParamsFor<T>
+export const deleteUserCallbackServerController: deleteUserCallbackPropsFor = (
+	params: AuthServerApiDeleteUserCallbackParamsFor<AuthServerFor>
 ) =>
 	Effect.gen(function* () {
-		const { authServer } = yield* UserAuthServerServiceTag;
 		const validatedParams = yield* validateInputEffect(
-			createDeleteUserCallbackServerParamsSchema(authServer),
+			createDeleteUserCallbackServerParamsSchema(),
 			params,
-			isAuthServerApiDeleteUserCallbackParamsFor<T>,
+			isAuthServerApiDeleteUserCallbackParamsFor,
 			'deleteUserCallback'
 		);
 		return yield* deleteUserCallbackServerService(validatedParams);

@@ -4,7 +4,6 @@
  */
 
 import * as Effect from 'effect/Effect';
-import type { AuthServerFor } from '../../../server.types';
 import { providerWithCallbackBodySchema, createBodySchemaWithOptionalHeaders } from '../../shared/core.schema';
 
 /**
@@ -16,5 +15,5 @@ import { providerWithCallbackBodySchema, createBodySchemaWithOptionalHeaders } f
  * @param _authServer - The Better Auth server instance
  * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
  */
-export const createLinkSocialAccountServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(_authServer: T) =>
+export const createLinkSocialAccountServerParamsSchema = () =>
 	Effect.succeed(createBodySchemaWithOptionalHeaders(providerWithCallbackBodySchema));

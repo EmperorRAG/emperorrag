@@ -7,12 +7,12 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiRequestPasswordResetParamsFor, requestPasswordResetPropsFor } from './requestPasswordReset.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { AuthServerTag } from '../../../server.service';
 
-export const requestPasswordResetServerService: requestPasswordResetPropsFor = <T extends AuthServerFor = AuthServerFor>(
-	params: AuthServerApiRequestPasswordResetParamsFor<T>
+export const requestPasswordResetServerService: requestPasswordResetPropsFor = (
+	params: AuthServerApiRequestPasswordResetParamsFor<AuthServerFor>
 ) =>
-	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.requestPasswordReset(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

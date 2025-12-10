@@ -9,7 +9,6 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiGetSessionParamsFor, type AuthServerApiGetSessionParamsFor, type getSessionPropsFor } from './getSession.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { getSessionServerService } from './getSession.service';
-import { AuthServerTag } from '../../../server.service';
 
 /**
  * Controller for get session operation with input validation.
@@ -31,13 +30,12 @@ import { AuthServerTag } from '../../../server.service';
  * @param params - The get session parameters to validate and process
  * @returns Effect requiring AuthServerTag context
  */
-export const getSessionServerController: getSessionPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiGetSessionParamsFor<T>) =>
+export const getSessionServerController: getSessionPropsFor = (params: AuthServerApiGetSessionParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const authServer = yield* AuthServerTag;
 		const validatedParams = yield* validateInputEffect(
-			createGetSessionServerParamsSchema(authServer),
+			createGetSessionServerParamsSchema(),
 			params,
-			isAuthServerApiGetSessionParamsFor<T>,
+			isAuthServerApiGetSessionParamsFor,
 			'getSession'
 		);
 		return yield* getSessionServerService(validatedParams);

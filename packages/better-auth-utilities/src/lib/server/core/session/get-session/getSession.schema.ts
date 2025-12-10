@@ -1,3 +1,4 @@
+import type { AuthServerFor } from '../../../server.types';
 /**
  * @file libs/better-auth-utilities/src/lib/server/core/session/get-session/getSession.schema.ts
  * @description Zod schema generation for getSession server validation.
@@ -5,9 +6,7 @@
  */
 
 import { Effect } from 'effect';
-import type { AuthServerFor } from '../../../server.types';
-import { SessionAuthServerServiceTag } from '../shared/session.service';
-import type { SessionAuthServerService } from '../shared/session.types';
+import { AuthServerTag } from '../../../server.service';
 import { createSchemaWithRequiredHeaders } from '../../shared/core.schema';
 
 /**
@@ -21,7 +20,7 @@ import { createSchemaWithRequiredHeaders } from '../../shared/core.schema';
  * @param _authServer - The Better Auth server instance (used for potential config extraction)
  * @returns Effect succeeding with a Zod schema for validating getSession input parameters
  */
-export const createGetSessionServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(_authServer: T) =>
+export const createGetSessionServerParamsSchema = () =>
 	Effect.succeed(createSchemaWithRequiredHeaders(undefined, 'headers must be an instance of Headers for session lookup'));
 
 /**
@@ -31,10 +30,10 @@ export const createGetSessionServerParamsSchema = <T extends AuthServerFor = Aut
  * @description Alternative version that retrieves authServer from context rather than parameter.
  * Useful when working within Effect pipelines where the service is already in context.
  *
- * @returns Effect requiring SessionAuthServerService context, succeeding with a Zod schema
+ * @returns Effect requiring AuthServerFor context, succeeding with a Zod schema
  */
 export const createGetSessionServerParamsSchemaFromContext = (): Effect.Effect<
 	ReturnType<typeof createGetSessionServerParamsSchema> extends Effect.Effect<infer A, infer _E, infer _R> ? A : never,
 	never,
-	SessionAuthServerService
-> => Effect.flatMap(SessionAuthServerServiceTag, ({ authServer }) => createGetSessionServerParamsSchema(authServer));
+	AuthServerFor
+> => Effect.flatMap(AuthServerTag, (authServer) => createGetSessionServerParamsSchema());

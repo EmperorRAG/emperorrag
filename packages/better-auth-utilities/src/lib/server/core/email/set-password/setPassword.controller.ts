@@ -9,7 +9,7 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiSetPasswordParamsFor, type AuthServerApiSetPasswordParamsFor, type setPasswordPropsFor } from './setPassword.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { setPasswordServerService } from './setPassword.service';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { AuthServerTag } from '../../../server.service';
 
 /**
  * Controller for set password operation with Zod validation and type narrowing.
@@ -23,13 +23,13 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * @param params - The set password parameters to validate and process
  * @returns Effect that resolves to set password result or fails with validation/API error
  */
-export const setPasswordServerController: setPasswordPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiSetPasswordParamsFor<T>) =>
+export const setPasswordServerController: setPasswordPropsFor = (params: AuthServerApiSetPasswordParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
-		const { authServer } = yield* _(EmailAuthServerServiceTag);
+		const authServer = yield* _(AuthServerTag);
 
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
-			validateInputEffect(createSetPasswordServerParamsSchema(authServer), params, isAuthServerApiSetPasswordParamsFor<T>, 'setPassword')
+			validateInputEffect(createSetPasswordServerParamsSchema(authServer), params, isAuthServerApiSetPasswordParamsFor, 'setPassword')
 		);
 
 		// 2) Call the service with the validated params

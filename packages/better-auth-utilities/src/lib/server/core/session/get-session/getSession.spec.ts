@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { getSessionServerService } from './getSession.service';
-import { SessionAuthServerServiceTag } from '../shared/session.service';
+import { AuthServerTag } from '../../../server.service';
 import * as Effect from 'effect/Effect';
 
 describe('Server Get Session', () => {
@@ -41,7 +41,7 @@ describe('Server Get Session', () => {
 			}),
 		});
 
-		const res = await Effect.runPromise(Effect.provideService(program, SessionAuthServerServiceTag, { authServer }));
+		const res = await Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer));
 
 		expect(res).toBeDefined();
 		expect(res?.user).toBeDefined();
@@ -53,7 +53,7 @@ describe('Server Get Session', () => {
 
 		const program = getSessionServerService({ headers: new Headers() });
 
-		const res = await Effect.runPromise(Effect.provideService(program, SessionAuthServerServiceTag, { authServer }));
+		const res = await Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer));
 
 		expect(res).toBeNull();
 	});

@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiUnlinkAccountParamsFor, unlinkAccountPropsFor } from './unlinkAccount.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { AccountAuthServerServiceTag } from '../shared/account.service';
+import { AuthServerTag } from '../../../server.service';
 
 /**
  * Unlink an OAuth/social account from the authenticated user using Better Auth server API.
@@ -39,7 +39,7 @@ import { AccountAuthServerServiceTag } from '../shared/account.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The unlink account parameters including body and headers (required)
- * @returns Effect requiring AccountAuthServerService context
+ * @returns Effect requiring AuthServerFor context
  *
  * @example
  * ```typescript
@@ -54,7 +54,7 @@ import { AccountAuthServerServiceTag } from '../shared/account.service';
  *
  * // Provide context and execute
  * await Effect.runPromise(
- *   program.pipe(Effect.provideService(AccountAuthServerServiceTag, { authServer }))
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  *
@@ -77,7 +77,7 @@ import { AccountAuthServerServiceTag } from '../shared/account.service';
  * });
  *
  * await Effect.runPromise(
- *   handled.pipe(Effect.provideService(AccountAuthServerServiceTag, { authServer }))
+ *   handled.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  *
@@ -100,12 +100,12 @@ import { AccountAuthServerServiceTag } from '../shared/account.service';
  * });
  *
  * await Effect.runPromise(
- *   handled.pipe(Effect.provideService(AccountAuthServerServiceTag, { authServer }))
+ *   handled.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  */
-export const unlinkAccountServerService: unlinkAccountPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiUnlinkAccountParamsFor<T>) =>
-	Effect.flatMap(AccountAuthServerServiceTag, ({ authServer }) =>
+export const unlinkAccountServerService: unlinkAccountPropsFor = (params: AuthServerApiUnlinkAccountParamsFor<AuthServerFor>) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.unlinkAccount(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

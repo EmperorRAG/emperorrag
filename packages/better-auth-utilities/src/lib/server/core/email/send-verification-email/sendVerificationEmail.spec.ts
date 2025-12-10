@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { sendVerificationEmailServerService } from './sendVerificationEmail.service';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { AuthServerTag } from '../../../server.service';
 import * as Effect from 'effect/Effect';
 
 describe('Server Send Verification Email', () => {
@@ -41,7 +41,7 @@ describe('Server Send Verification Email', () => {
 			},
 		});
 
-		const res = await Effect.runPromise(Effect.provideService(program, EmailAuthServerServiceTag, { authServer }));
+		const res = await Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer));
 
 		expect(res).toBeDefined();
 		expect(res.status).toBe(true);

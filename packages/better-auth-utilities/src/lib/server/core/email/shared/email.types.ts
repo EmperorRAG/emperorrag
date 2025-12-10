@@ -3,7 +3,7 @@
  * @description Server-side dependency types for email authentication operations.
  */
 
-import type { AuthServer, AuthServerFor } from '../../../server.types';
+import type { AuthServerFor as GlobalAuthServerFor } from '../../../server.types';
 
 /**
  * Shared dependency type for server email authentication operations.
@@ -41,12 +41,8 @@ import type { AuthServer, AuthServerFor } from '../../../server.types';
  * await deps.authServer.api.createApiKey({ ... });
  * ```
  */
-export type EmailAuthServerDeps<T extends AuthServerFor = AuthServerFor> = Readonly<{
+export type EmailAuthServerDeps<T extends GlobalAuthServerFor = GlobalAuthServerFor> = Readonly<{
 	authServer: T;
 }>;
 
-export interface EmailAuthServerServiceFor<T extends AuthServerFor = AuthServerFor> {
-	readonly authServer: T;
-}
-
-export type EmailAuthServerService = EmailAuthServerServiceFor<AuthServer>;
+export type AuthServerFor = GlobalAuthServerFor;

@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { accountInfoServerService } from './accountInfo.service';
-import { AccountAuthServerServiceTag } from '../shared/account.service';
+import { AuthServerTag } from '../../../server.service';
 import * as Effect from 'effect/Effect';
 
 describe('Server Account Info', () => {
@@ -18,8 +18,8 @@ describe('Server Account Info', () => {
 	it('should fail without authentication', async () => {
 		const { authServer } = env;
 
-		const program = accountInfoServerService({});
+		const program = accountInfoServerService({ body: { accountId: 'test' } });
 
-		await expect(Effect.runPromise(Effect.provideService(program, AccountAuthServerServiceTag, { authServer }))).rejects.toThrow();
+		await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
 	});
 });

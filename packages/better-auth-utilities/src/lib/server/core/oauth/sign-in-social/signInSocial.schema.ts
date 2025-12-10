@@ -6,7 +6,6 @@
 
 import { Effect } from 'effect';
 import { z } from 'zod';
-import type { AuthServerFor } from '../../../server.types';
 import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
 import type { OAuthAuthServerService } from '../shared/oauth.types';
 import {
@@ -30,7 +29,7 @@ import {
  * @param _authServer - The Better Auth server instance (used for potential config extraction)
  * @returns Effect succeeding with a Zod schema for validating signInSocial input parameters
  */
-export const createSignInSocialServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(_authServer: T) =>
+export const createSignInSocialServerParamsSchema = () =>
 	Effect.succeed(
 		z.object({
 			body: z.object({
@@ -58,4 +57,4 @@ export const createSignInSocialServerParamsSchemaFromContext = (): Effect.Effect
 	ReturnType<typeof createSignInSocialServerParamsSchema> extends Effect.Effect<infer A, infer _E, infer _R> ? A : never,
 	never,
 	OAuthAuthServerService
-> => Effect.flatMap(OAuthAuthServerServiceTag, ({ authServer }) => createSignInSocialServerParamsSchema(authServer));
+> => Effect.flatMap(OAuthAuthServerServiceTag, ({ authServer }) => createSignInSocialServerParamsSchema());

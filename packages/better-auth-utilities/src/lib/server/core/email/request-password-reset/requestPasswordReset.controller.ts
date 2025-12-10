@@ -13,20 +13,18 @@ import {
 } from './requestPasswordReset.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { requestPasswordResetServerService } from './requestPasswordReset.service';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
 
-export const requestPasswordResetServerController: requestPasswordResetPropsFor = <T extends AuthServerFor = AuthServerFor>(
-	params: AuthServerApiRequestPasswordResetParamsFor<T>
+export const requestPasswordResetServerController: requestPasswordResetPropsFor = (
+	params: AuthServerApiRequestPasswordResetParamsFor<AuthServerFor>
 ) =>
 	Effect.gen(function* (_) {
-		const { authServer } = yield* _(EmailAuthServerServiceTag);
 
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
 			validateInputEffect(
-				createRequestPasswordResetServerParamsSchema(authServer),
+				createRequestPasswordResetServerParamsSchema(),
 				params,
-				isAuthServerApiRequestPasswordResetParamsFor<T>,
+				isAuthServerApiRequestPasswordResetParamsFor,
 				'requestPasswordReset'
 			)
 		);

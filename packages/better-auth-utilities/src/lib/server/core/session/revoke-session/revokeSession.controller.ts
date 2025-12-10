@@ -9,7 +9,6 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiRevokeSessionParamsFor, type AuthServerApiRevokeSessionParamsFor, type revokeSessionPropsFor } from './revokeSession.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { revokeSessionServerService } from './revokeSession.service';
-import { SessionAuthServerServiceTag } from '../shared/session.service';
 
 /**
  * Controller for revoke session operation with input validation.
@@ -29,15 +28,14 @@ import { SessionAuthServerServiceTag } from '../shared/session.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The revoke session parameters to validate and process
- * @returns Effect requiring SessionAuthServerService context
+ * @returns Effect requiring AuthServerFor context
  */
-export const revokeSessionServerController: revokeSessionPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiRevokeSessionParamsFor<T>) =>
+export const revokeSessionServerController: revokeSessionPropsFor = (params: AuthServerApiRevokeSessionParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const { authServer } = yield* SessionAuthServerServiceTag;
 		const validatedParams = yield* validateInputEffect(
-			createRevokeSessionServerParamsSchema(authServer),
+			createRevokeSessionServerParamsSchema(),
 			params,
-			isAuthServerApiRevokeSessionParamsFor<T>,
+			isAuthServerApiRevokeSessionParamsFor,
 			'revokeSession'
 		);
 		return yield* revokeSessionServerService(validatedParams);

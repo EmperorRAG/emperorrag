@@ -4,7 +4,6 @@
  */
 
 import * as Effect from 'effect/Effect';
-import type { AuthServerFor } from '../../../server.types';
 import { providerIdBodySchema, createBodySchemaWithRequiredHeaders } from '../../shared/core.schema';
 
 /**
@@ -17,5 +16,5 @@ import { providerIdBodySchema, createBodySchemaWithRequiredHeaders } from '../..
  * @param _authServer - The Better Auth server instance
  * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
  */
-export const createUnlinkAccountServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(_authServer: T) =>
+export const createUnlinkAccountServerParamsSchema = () =>
 	Effect.succeed(createBodySchemaWithRequiredHeaders(providerIdBodySchema));

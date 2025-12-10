@@ -5,25 +5,24 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type { SessionAuthServerService } from '../shared/session.types';
 import type * as Effect from 'effect/Effect';
 
 export type AuthServerApiRefreshTokenPropsFor<T extends AuthServerFor = AuthServerFor> =
 	'refreshToken' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['refreshToken'] : never;
 
-export type AuthServerApiRefreshTokenParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiRefreshTokenPropsFor<T>>[0];
+export type AuthServerApiRefreshTokenParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiRefreshTokenPropsFor<AuthServerFor>>[0];
 
-export type AuthServerApiRefreshTokenResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiRefreshTokenPropsFor<T>>;
+export type AuthServerApiRefreshTokenResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiRefreshTokenPropsFor<AuthServerFor>>;
 
 export interface refreshTokenPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
-		params: AuthServerApiRefreshTokenParamsFor<T>
-	): Effect.Effect<Awaited<AuthServerApiRefreshTokenResultFor<T>>, CoreAuthServerError, SessionAuthServerService>;
+		params: AuthServerApiRefreshTokenParamsFor<AuthServerFor>
+	): Effect.Effect<Awaited<AuthServerApiRefreshTokenResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
 }
 
-export const isAuthServerApiRefreshTokenParamsFor = <T extends AuthServerFor = AuthServerFor>(
+export const isAuthServerApiRefreshTokenParamsFor = (
 	value: unknown
-): value is AuthServerApiRefreshTokenParamsFor<T> => {
+): value is AuthServerApiRefreshTokenParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	return true;
 };

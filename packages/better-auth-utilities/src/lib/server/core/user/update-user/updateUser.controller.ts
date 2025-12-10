@@ -9,7 +9,6 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiUpdateUserParamsFor, type AuthServerApiUpdateUserParamsFor, type updateUserPropsFor } from './updateUser.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { updateUserServerService } from './updateUser.service';
-import { UserAuthServerServiceTag } from '../shared/user.service';
 
 /**
  * Controller for update user operation with input validation.
@@ -29,15 +28,14 @@ import { UserAuthServerServiceTag } from '../shared/user.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The update user parameters to validate and process
- * @returns Effect requiring UserAuthServerService context
+ * @returns Effect requiring AuthServerFor context
  */
-export const updateUserServerController: updateUserPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiUpdateUserParamsFor<T>) =>
+export const updateUserServerController: updateUserPropsFor = (params: AuthServerApiUpdateUserParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const { authServer } = yield* UserAuthServerServiceTag;
 		const validatedParams = yield* validateInputEffect(
-			createUpdateUserServerParamsSchema(authServer),
+			createUpdateUserServerParamsSchema(),
 			params,
-			isAuthServerApiUpdateUserParamsFor<T>,
+			isAuthServerApiUpdateUserParamsFor,
 			'updateUser'
 		);
 		return yield* updateUserServerService(validatedParams);

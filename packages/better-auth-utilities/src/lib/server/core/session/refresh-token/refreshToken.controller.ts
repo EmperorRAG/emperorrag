@@ -9,7 +9,6 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiRefreshTokenParamsFor, type AuthServerApiRefreshTokenParamsFor, type refreshTokenPropsFor } from './refreshToken.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { refreshTokenServerService } from './refreshToken.service';
-import { SessionAuthServerServiceTag } from '../shared/session.service';
 
 /**
  * Controller for refresh token operation with input validation.
@@ -29,15 +28,14 @@ import { SessionAuthServerServiceTag } from '../shared/session.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The refresh token parameters to validate and process
- * @returns Effect requiring SessionAuthServerService context
+ * @returns Effect requiring AuthServerFor context
  */
-export const refreshTokenServerController: refreshTokenPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiRefreshTokenParamsFor<T>) =>
+export const refreshTokenServerController: refreshTokenPropsFor = (params: AuthServerApiRefreshTokenParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const { authServer } = yield* SessionAuthServerServiceTag;
 		const validatedParams = yield* validateInputEffect(
-			createRefreshTokenServerParamsSchema(authServer),
+			createRefreshTokenServerParamsSchema(),
 			params,
-			isAuthServerApiRefreshTokenParamsFor<T>,
+			isAuthServerApiRefreshTokenParamsFor,
 			'refreshToken'
 		);
 		return yield* refreshTokenServerService(validatedParams);

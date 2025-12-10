@@ -5,7 +5,6 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type { UserAuthServerService } from '../shared/user.types';
 import type * as Effect from 'effect/Effect';
 
 /**
@@ -29,7 +28,7 @@ export type AuthServerApiUpdateUserPropsFor<T extends AuthServerFor = AuthServer
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiUpdateUserParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiUpdateUserPropsFor<T>>[0];
+export type AuthServerApiUpdateUserParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiUpdateUserPropsFor<AuthServerFor>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.updateUser.
@@ -40,20 +39,20 @@ export type AuthServerApiUpdateUserParamsFor<T extends AuthServerFor = AuthServe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiUpdateUserResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiUpdateUserPropsFor<T>>;
+export type AuthServerApiUpdateUserResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiUpdateUserPropsFor<AuthServerFor>>;
 
 /**
  * Function signature for updateUser server service.
  *
  * @pure
- * @description Function accepting input parameters, returning an Effect that requires UserAuthServerService context.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerFor context.
  * Dependencies are accessed through Effect's context layer rather than curried function arguments.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @remarks
  * **Context-Based Dependency Injection:**
- * - Dependencies (authServer) are provided via Effect's context layer (UserAuthServerService)
+ * - Dependencies (authServer) are provided via Effect's context layer (AuthServerFor)
  * - Function accepts only the API parameters directly
  * - Effect executes lazily when run with provided context
  *
@@ -62,23 +61,23 @@ export type AuthServerApiUpdateUserResultFor<T extends AuthServerFor = AuthServe
  * - Other CoreAuthServerError types from validation layers (if using controller)
  */
 export interface updateUserPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiUpdateUserParamsFor<T>): Effect.Effect<Awaited<AuthServerApiUpdateUserResultFor<T>>, CoreAuthServerError, UserAuthServerService>;
+	(params: AuthServerApiUpdateUserParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiUpdateUserResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
 }
 
 /**
  * Type guard for validating AuthServerApiUpdateUserParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiUpdateUserParamsFor<T> by checking
+ * @description Narrows an unknown value to AuthServerApiUpdateUserParamsFor<AuthServerFor> by checking
  * the required structural properties. Use after Zod validation to provide type narrowing
  * without casting.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiUpdateUserParamsFor<T> structure
+ * @returns True if value conforms to AuthServerApiUpdateUserParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiUpdateUserParamsFor = <T extends AuthServerFor = AuthServerFor>(value: unknown): value is AuthServerApiUpdateUserParamsFor<T> => {
+export const isAuthServerApiUpdateUserParamsFor = (value: unknown): value is AuthServerApiUpdateUserParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

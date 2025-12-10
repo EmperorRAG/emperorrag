@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiRevokeSessionParamsFor, revokeSessionPropsFor } from './revokeSession.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { SessionAuthServerServiceTag } from '../shared/session.service';
+import { AuthServerTag } from '../../../server.service';
 
 /**
  * Revoke a specific session via Better Auth server API.
@@ -21,8 +21,8 @@ import { SessionAuthServerServiceTag } from '../shared/session.service';
  * @param params - The revoke session parameters
  * @returns Effect that resolves to revoke result or fails with CoreAuthServerApiError
  */
-export const revokeSessionServerService: revokeSessionPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiRevokeSessionParamsFor<T>) =>
-	Effect.flatMap(SessionAuthServerServiceTag, ({ authServer }) =>
+export const revokeSessionServerService: revokeSessionPropsFor = (params: AuthServerApiRevokeSessionParamsFor<AuthServerFor>) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.revokeSession(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

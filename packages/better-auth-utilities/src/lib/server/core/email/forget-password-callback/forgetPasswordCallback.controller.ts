@@ -13,20 +13,18 @@ import {
 } from './forgetPasswordCallback.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { forgetPasswordCallbackServerService } from './forgetPasswordCallback.service';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
 
-export const forgetPasswordCallbackServerController: forgetPasswordCallbackPropsFor = <T extends AuthServerFor = AuthServerFor>(
-	params: AuthServerApiForgetPasswordCallbackParamsFor<T>
+export const forgetPasswordCallbackServerController: forgetPasswordCallbackPropsFor = (
+	params: AuthServerApiForgetPasswordCallbackParamsFor<AuthServerFor>
 ) =>
 	Effect.gen(function* (_) {
-		const { authServer } = yield* _(EmailAuthServerServiceTag);
 
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
 			validateInputEffect(
-				createForgetPasswordCallbackServerParamsSchema(authServer),
+				createForgetPasswordCallbackServerParamsSchema(),
 				params,
-				isAuthServerApiForgetPasswordCallbackParamsFor<T>,
+				isAuthServerApiForgetPasswordCallbackParamsFor,
 				'forgetPasswordCallback'
 			)
 		);

@@ -6,8 +6,8 @@
 
 import { Effect } from 'effect';
 import { CoreAuthServerApiError, CoreAuthServerDataMissingError, CoreAuthServerInputError, validateInputEffect } from '../../shared/core.error';
-import { AccountAuthServerServiceTag } from '../shared/account.service';
-import type { AccountAuthServerService } from '../shared/account.types';
+import { AuthServerTag } from '../../../server.service';
+import type { AuthServerFor } from '../../../server.types';
 import { createListUserAccountsServerParamsSchema } from './listUserAccounts.schema';
 import { listUserAccountsServerService } from './listUserAccounts.service';
 import {
@@ -25,13 +25,13 @@ import {
  * Each validation step produces a traceable error if it fails.
  *
  * @param input - Raw input parameters to validate and process
- * @returns Effect requiring AccountAuthServerService context, failing with validation or API errors,
+ * @returns Effect requiring AuthServerFor context, failing with validation or API errors,
  *          and succeeding with the accounts list result
  *
  * @example
  * ```typescript
  * import { Effect } from 'effect';
- * import { AccountAuthServerServiceTag } from '../shared/account.service';
+ * import { AuthServerTag } from '../../../server.service';
  * import { listUserAccountsServerController } from './listUserAccounts.controller';
  *
  * // Handle incoming request
@@ -41,7 +41,7 @@ import {
  *
  * // Provide the AuthServer dependency
  * const result = await Effect.runPromise(
- *   Effect.provideService(program, AccountAuthServerServiceTag, { authServer })
+ *   Effect.provideService(program, AuthServerTag, authServer)
  * );
  *
  * // result is Account[]
@@ -71,7 +71,7 @@ import {
  *
  *   try {
  *     const accounts = await Effect.runPromise(
- *       Effect.provideService(program, AccountAuthServerServiceTag, { authServer })
+ *       Effect.provideService(program, AuthServerTag, authServer)
  *     );
  *     return Response.json({ accounts });
  *   } catch (error) {
@@ -83,16 +83,17 @@ import {
 export const listUserAccountsServerController = (
 	input: AuthServerApiListUserAccountsParamsFor
 ): Effect.Effect<
-	Awaited<AuthServerApiListUserAccountsResultFor>,
+	Awaited<AuthServerApiListUserAccountsResultFor<AuthServerFor>>,
 	CoreAuthServerInputError | CoreAuthServerApiError | CoreAuthServerDataMissingError,
-	AccountAuthServerService
+	AuthServerFor
 > =>
 	Effect.gen(function* () {
+		const authServer = yield* AuthServerTag;
 		const validatedParams = yield* validateInputEffect(
 			createListUserAccountsServerParamsSchema(),
 			input,
 			isAuthServerApiListUserAccountsParamsFor,
 			'listUserAccounts'
 		);
-		return yield* listUserAccountsServerService(validatedParams);
-	}).pipe(Effect.provideServiceEffect(AccountAuthServerServiceTag, AccountAuthServerServiceTag));
+		return yield* listUserAccountsServerService(validatedParams).pipe(Effect.provideService(AuthServerTag, authServer));
+	});

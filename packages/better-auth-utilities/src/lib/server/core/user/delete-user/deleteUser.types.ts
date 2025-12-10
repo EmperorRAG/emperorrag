@@ -5,7 +5,6 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type { UserAuthServerService } from '../shared/user.types';
 import type * as Effect from 'effect/Effect';
 
 /**
@@ -28,7 +27,7 @@ export type AuthServerApiDeleteUserPropsFor<T extends AuthServerFor = AuthServer
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiDeleteUserParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiDeleteUserPropsFor<T>>[0];
+export type AuthServerApiDeleteUserParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiDeleteUserPropsFor<AuthServerFor>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.deleteUser.
@@ -38,33 +37,33 @@ export type AuthServerApiDeleteUserParamsFor<T extends AuthServerFor = AuthServe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiDeleteUserResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiDeleteUserPropsFor<T>>;
+export type AuthServerApiDeleteUserResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiDeleteUserPropsFor<AuthServerFor>>;
 
 /**
  * Function signature for deleteUser server service.
  *
  * @pure
- * @description Function accepting input parameters, returning an Effect that requires UserAuthServerService context.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerFor context.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export interface deleteUserPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiDeleteUserParamsFor<T>): Effect.Effect<Awaited<AuthServerApiDeleteUserResultFor<T>>, CoreAuthServerError, UserAuthServerService>;
+	(params: AuthServerApiDeleteUserParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiDeleteUserResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
 }
 
 /**
  * Type guard for validating AuthServerApiDeleteUserParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiDeleteUserParamsFor<T> by checking
+ * @description Narrows an unknown value to AuthServerApiDeleteUserParamsFor<AuthServerFor> by checking
  * the required structural properties.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiDeleteUserParamsFor<T> structure
+ * @returns True if value conforms to AuthServerApiDeleteUserParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiDeleteUserParamsFor = <T extends AuthServerFor = AuthServerFor>(value: unknown): value is AuthServerApiDeleteUserParamsFor<T> => {
+export const isAuthServerApiDeleteUserParamsFor = (value: unknown): value is AuthServerApiDeleteUserParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

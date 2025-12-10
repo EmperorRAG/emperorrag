@@ -7,7 +7,6 @@
 import type { Effect } from 'effect';
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerApiError, CoreAuthServerDataMissingError, CoreAuthServerInputError } from '../../shared/core.error';
-import type { AccountAuthServerService } from '../shared/account.types';
 
 /**
  * Type helper to extract the listUserAccounts endpoint type from an AuthServer.
@@ -47,7 +46,7 @@ export type AuthServerApiListUserAccountsPropsFor<T extends AuthServerFor = Auth
  * // { headers: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiListUserAccountsParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiListUserAccountsPropsFor<T>>[0];
+export type AuthServerApiListUserAccountsParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiListUserAccountsPropsFor<AuthServerFor>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.listUserAccounts.
@@ -64,13 +63,13 @@ export type AuthServerApiListUserAccountsParamsFor<T extends AuthServerFor = Aut
  * // Promise<Account[]>
  * ```
  */
-export type AuthServerApiListUserAccountsResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiListUserAccountsPropsFor<T>>;
+export type AuthServerApiListUserAccountsResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiListUserAccountsPropsFor<AuthServerFor>>;
 
 /**
  * Function signature for listUserAccounts server service.
  *
  * @pure
- * @description Function accepting input parameters, returning an Effect that requires AccountAuthServerService context.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerFor context.
  * Dependencies are accessed through Effect's context layer rather than curried function arguments.
  *
  * @template T - The Better Auth server type with all plugin augmentations
@@ -78,7 +77,7 @@ export type AuthServerApiListUserAccountsResultFor<T extends AuthServerFor = Aut
  * @example
  * ```typescript
  * const service: listUserAccountsPropsFor = (params) =>
- *   Effect.flatMap(AccountAuthServerServiceTag, ({ authServer }) =>
+ *   Effect.flatMap(AuthServerTag, (authServer) =>
  *     Effect.tryPromise({
  *       try: () => authServer.api.listUserAccounts(params),
  *       catch: (error) => {
@@ -90,11 +89,11 @@ export type AuthServerApiListUserAccountsResultFor<T extends AuthServerFor = Aut
  * ```
  */
 export type listUserAccountsPropsFor<T extends AuthServerFor = AuthServerFor> = (
-	params: AuthServerApiListUserAccountsParamsFor<T>
+	params: AuthServerApiListUserAccountsParamsFor<AuthServerFor>
 ) => Effect.Effect<
-	Awaited<AuthServerApiListUserAccountsResultFor<T>>,
+	Awaited<AuthServerApiListUserAccountsResultFor<AuthServerFor>>,
 	CoreAuthServerApiError | CoreAuthServerInputError | CoreAuthServerDataMissingError,
-	AccountAuthServerService
+	AuthServerFor
 >;
 
 /**
@@ -119,9 +118,9 @@ export type listUserAccountsPropsFor<T extends AuthServerFor = AuthServerFor> = 
  * }
  * ```
  */
-export const isAuthServerApiListUserAccountsParamsFor = <T extends AuthServerFor = AuthServerFor>(
+export const isAuthServerApiListUserAccountsParamsFor = (
 	value: unknown
-): value is AuthServerApiListUserAccountsParamsFor<T> => {
+): value is AuthServerApiListUserAccountsParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) {
 		return false;
 	}

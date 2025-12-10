@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiUpdateUserParamsFor, updateUserPropsFor } from './updateUser.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { UserAuthServerServiceTag } from '../shared/user.service';
+import { AuthServerTag } from '../../../server.service';
 
 /**
  * Update user profile via Better Auth server API.
@@ -19,7 +19,7 @@ import { UserAuthServerServiceTag } from '../shared/user.service';
  *
  * @remarks
  * **Context-Based Dependency Injection:**
- * - Dependencies accessed via Effect.flatMap(UserAuthServerServiceTag, ...)
+ * - Dependencies accessed via Effect.flatMap(AuthServerTag, ...)
  * - Function accepts only the API parameters directly
  * - Effect executes lazily when run with provided context
  *
@@ -39,8 +39,8 @@ import { UserAuthServerServiceTag } from '../shared/user.service';
  * @param params - The update user parameters containing body and optional headers
  * @returns Effect that resolves to updated user data or fails with CoreAuthServerApiError
  */
-export const updateUserServerService: updateUserPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiUpdateUserParamsFor<T>) =>
-	Effect.flatMap(UserAuthServerServiceTag, ({ authServer }) =>
+export const updateUserServerService: updateUserPropsFor = (params: AuthServerApiUpdateUserParamsFor<AuthServerFor>) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.updateUser(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

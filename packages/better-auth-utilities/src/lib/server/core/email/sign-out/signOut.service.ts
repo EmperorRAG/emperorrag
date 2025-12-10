@@ -78,7 +78,7 @@ import { AuthServerTag } from '../../../server.service';
  * );
  * ```
  */
-export const signOutServerService: signOutPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiSignOutParamsFor<T>) =>
+export const signOutServerService: signOutPropsFor = (params: AuthServerApiSignOutParamsFor<AuthServerFor>) =>
 	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.signOut(params),

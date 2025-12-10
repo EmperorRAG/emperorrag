@@ -4,7 +4,6 @@
  */
 
 import * as Effect from 'effect/Effect';
-import type { AuthServerFor } from '../../../server.types';
 import { tokenQuerySchema, createQuerySchemaWithOptionalHeaders } from '../../shared/core.schema';
 
 /**
@@ -16,5 +15,5 @@ import { tokenQuerySchema, createQuerySchemaWithOptionalHeaders } from '../../sh
  * @param _authServer - The Better Auth server instance
  * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
  */
-export const createRequestPasswordResetCallbackServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(_authServer: T) =>
+export const createRequestPasswordResetCallbackServerParamsSchema = () =>
 	Effect.succeed(createQuerySchemaWithOptionalHeaders(tokenQuerySchema));

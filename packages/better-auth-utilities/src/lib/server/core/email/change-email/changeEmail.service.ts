@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiChangeEmailParamsFor, changeEmailPropsFor } from './changeEmail.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { AuthServerTag } from '../../../server.service';
 
 /**
  * Change user email via Better Auth server API.
@@ -21,8 +21,8 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * @param params - The change email parameters containing body with newEmail
  * @returns Effect that resolves to change email result or fails with CoreAuthServerApiError
  */
-export const changeEmailServerService: changeEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiChangeEmailParamsFor<T>) =>
-	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
+export const changeEmailServerService: changeEmailPropsFor = (params: AuthServerApiChangeEmailParamsFor<AuthServerFor>) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.changeEmail(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

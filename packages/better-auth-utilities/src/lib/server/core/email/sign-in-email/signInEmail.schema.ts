@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import { z } from 'zod';
-import type { AuthServerFor } from '../../../server.types';
+import type { AuthServer } from '../../../server.types';
 import { getMinPasswordLength } from '../../../../shared/config/config.utils';
 import { emailSchema, callbackURLOptionalSchema, rememberMeOptionalSchema, createBodySchemaWithOptionalHeaders } from '../../shared/core.schema';
 
@@ -18,7 +18,7 @@ import { emailSchema, callbackURLOptionalSchema, rememberMeOptionalSchema, creat
  * @param authServer - The Better Auth server instance
  * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
  */
-export const createSignInEmailServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(authServer: T) =>
+export const createSignInEmailServerParamsSchema = (authServer: AuthServer) =>
 	Effect.gen(function* () {
 		const minPasswordLength = getMinPasswordLength(authServer);
 

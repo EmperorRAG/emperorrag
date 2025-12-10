@@ -5,7 +5,6 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type { SessionAuthServerService } from '../shared/session.types';
 import type * as Effect from 'effect/Effect';
 
 /**
@@ -27,7 +26,7 @@ export type AuthServerApiRevokeSessionPropsFor<T extends AuthServerFor = AuthSer
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiRevokeSessionParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiRevokeSessionPropsFor<T>>[0];
+export type AuthServerApiRevokeSessionParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiRevokeSessionPropsFor<AuthServerFor>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.revokeSession.
@@ -37,36 +36,36 @@ export type AuthServerApiRevokeSessionParamsFor<T extends AuthServerFor = AuthSe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiRevokeSessionResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiRevokeSessionPropsFor<T>>;
+export type AuthServerApiRevokeSessionResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiRevokeSessionPropsFor<AuthServerFor>>;
 
 /**
  * Function signature for revokeSession server service.
  *
  * @pure
- * @description Function accepting input parameters, returning an Effect that requires SessionAuthServerService context.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerFor context.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export interface revokeSessionPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
-		params: AuthServerApiRevokeSessionParamsFor<T>
-	): Effect.Effect<Awaited<AuthServerApiRevokeSessionResultFor<T>>, CoreAuthServerError, SessionAuthServerService>;
+		params: AuthServerApiRevokeSessionParamsFor<AuthServerFor>
+	): Effect.Effect<Awaited<AuthServerApiRevokeSessionResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
 }
 
 /**
  * Type guard for validating AuthServerApiRevokeSessionParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiRevokeSessionParamsFor<T>.
+ * @description Narrows an unknown value to AuthServerApiRevokeSessionParamsFor<AuthServerFor>.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiRevokeSessionParamsFor<T> structure
+ * @returns True if value conforms to AuthServerApiRevokeSessionParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiRevokeSessionParamsFor = <T extends AuthServerFor = AuthServerFor>(
+export const isAuthServerApiRevokeSessionParamsFor = (
 	value: unknown
-): value is AuthServerApiRevokeSessionParamsFor<T> => {
+): value is AuthServerApiRevokeSessionParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

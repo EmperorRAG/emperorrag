@@ -5,27 +5,26 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type { EmailAuthServerService } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
 export type AuthServerApiForgetPasswordCallbackPropsFor<T extends AuthServerFor = AuthServerFor> =
 	'forgetPasswordCallback' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['forgetPasswordCallback'] : never;
 
 export type AuthServerApiForgetPasswordCallbackParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-	AuthServerApiForgetPasswordCallbackPropsFor<T>
+	AuthServerApiForgetPasswordCallbackPropsFor<AuthServerFor>
 >[0];
 
-export type AuthServerApiForgetPasswordCallbackResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiForgetPasswordCallbackPropsFor<T>>;
+export type AuthServerApiForgetPasswordCallbackResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiForgetPasswordCallbackPropsFor<AuthServerFor>>;
 
 export interface forgetPasswordCallbackPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
-		params: AuthServerApiForgetPasswordCallbackParamsFor<T>
-	): Effect.Effect<Awaited<AuthServerApiForgetPasswordCallbackResultFor<T>>, CoreAuthServerError, EmailAuthServerService>;
+		params: AuthServerApiForgetPasswordCallbackParamsFor<AuthServerFor>
+	): Effect.Effect<Awaited<AuthServerApiForgetPasswordCallbackResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
 }
 
-export const isAuthServerApiForgetPasswordCallbackParamsFor = <T extends AuthServerFor = AuthServerFor>(
+export const isAuthServerApiForgetPasswordCallbackParamsFor = (
 	value: unknown
-): value is AuthServerApiForgetPasswordCallbackParamsFor<T> => {
+): value is AuthServerApiForgetPasswordCallbackParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 	if (typeof obj['query'] !== 'object' || obj['query'] === null) return false;

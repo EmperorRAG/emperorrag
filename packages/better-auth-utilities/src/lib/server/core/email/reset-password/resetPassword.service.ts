@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiResetPasswordParamsFor, resetPasswordPropsFor } from './resetPassword.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { AuthServerTag } from '../../../server.service';
 
 /**
  * Reset user password using Better Auth server API.
@@ -41,7 +41,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The reset password parameters including body and optional headers
- * @returns Effect requiring EmailAuthServerService context
+ * @returns Effect requiring AuthServerFor context
  *
  * @example
  * ```typescript
@@ -60,7 +60,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  *
  * // Provide context and execute
  * await Effect.runPromise(
- *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  *
@@ -86,7 +86,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * });
  *
  * await Effect.runPromise(
- *   handled.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   handled.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  *
@@ -96,29 +96,14 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * import * as Effect from 'effect/Effect';
  *
  * const resetPasswordWithActions = Effect.gen(function* () {
- *   const { authServer } = yield* EmailAuthServerServiceTag;
+ *   const authServer = yield* AuthServerTag;
  *
- *   const result = yield* resetPasswordServerService({
- *     body: {
- *       token: resetToken,
- *       newPassword: 'newSecurePassword123'
- *     },
- *     headers: requestHeaders
- *   });
- *
- *   // Log security event
- *   console.log('Password reset completed for user');
- *
- *   return result;
+ *   // ...
  * });
- *
- * await Effect.runPromise(
- *   resetPasswordWithActions.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
- * );
  * ```
  */
-export const resetPasswordServerService: resetPasswordPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiResetPasswordParamsFor<T>) =>
-	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
+export const resetPasswordServerService: resetPasswordPropsFor = (params: AuthServerApiResetPasswordParamsFor<AuthServerFor>) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.resetPassword(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiSendVerificationEmailParamsFor, sendVerificationEmailPropsFor } from './sendVerificationEmail.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { AuthServerTag } from '../../../server.service';
 
 /**
  * Send verification email using Better Auth server API.
@@ -39,12 +39,13 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The send verification email parameters including body and optional headers
- * @returns Effect requiring EmailAuthServerService context
+ * @returns Effect requiring AuthServerTag context
  *
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
  * import { sendVerificationEmailServerService } from './sendVerificationEmail.service';
+ * import { AuthServerTag } from '../../../server.service';
  *
  * // Create the send verification email program
  * const program = sendVerificationEmailServerService({
@@ -56,7 +57,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  *
  * // Provide context and execute
  * await Effect.runPromise(
- *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  *
@@ -78,7 +79,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * });
  *
  * await Effect.runPromise(
- *   handled.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   handled.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  *
@@ -98,14 +99,14 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * );
  *
  * await Effect.runPromise(
- *   sendVerificationWithRetry.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   sendVerificationWithRetry.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  */
-export const sendVerificationEmailServerService: sendVerificationEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(
-	params: AuthServerApiSendVerificationEmailParamsFor<T>
+export const sendVerificationEmailServerService: sendVerificationEmailPropsFor = (
+	params: AuthServerApiSendVerificationEmailParamsFor<AuthServerFor>
 ) =>
-	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.sendVerificationEmail(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

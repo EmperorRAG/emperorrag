@@ -7,12 +7,12 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiForgetPasswordCallbackParamsFor, forgetPasswordCallbackPropsFor } from './forgetPasswordCallback.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { AuthServerTag } from '../../../server.service';
 
-export const forgetPasswordCallbackServerService: forgetPasswordCallbackPropsFor = <T extends AuthServerFor = AuthServerFor>(
-	params: AuthServerApiForgetPasswordCallbackParamsFor<T>
+export const forgetPasswordCallbackServerService: forgetPasswordCallbackPropsFor = (
+	params: AuthServerApiForgetPasswordCallbackParamsFor<AuthServerFor>
 ) =>
-	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.forgetPasswordCallback(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

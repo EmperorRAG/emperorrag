@@ -5,29 +5,28 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type { EmailAuthServerService } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
 export type AuthServerApiRequestPasswordResetCallbackPropsFor<T extends AuthServerFor = AuthServerFor> =
 	'requestPasswordResetCallback' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['requestPasswordResetCallback'] : never;
 
 export type AuthServerApiRequestPasswordResetCallbackParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-	AuthServerApiRequestPasswordResetCallbackPropsFor<T>
+	AuthServerApiRequestPasswordResetCallbackPropsFor<AuthServerFor>
 >[0];
 
 export type AuthServerApiRequestPasswordResetCallbackResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-	AuthServerApiRequestPasswordResetCallbackPropsFor<T>
+	AuthServerApiRequestPasswordResetCallbackPropsFor<AuthServerFor>
 >;
 
 export interface requestPasswordResetCallbackPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
-		params: AuthServerApiRequestPasswordResetCallbackParamsFor<T>
-	): Effect.Effect<Awaited<AuthServerApiRequestPasswordResetCallbackResultFor<T>>, CoreAuthServerError, EmailAuthServerService>;
+		params: AuthServerApiRequestPasswordResetCallbackParamsFor<AuthServerFor>
+	): Effect.Effect<Awaited<AuthServerApiRequestPasswordResetCallbackResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
 }
 
-export const isAuthServerApiRequestPasswordResetCallbackParamsFor = <T extends AuthServerFor = AuthServerFor>(
+export const isAuthServerApiRequestPasswordResetCallbackParamsFor = (
 	value: unknown
-): value is AuthServerApiRequestPasswordResetCallbackParamsFor<T> => {
+): value is AuthServerApiRequestPasswordResetCallbackParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 	if (typeof obj['query'] !== 'object' || obj['query'] === null) return false;

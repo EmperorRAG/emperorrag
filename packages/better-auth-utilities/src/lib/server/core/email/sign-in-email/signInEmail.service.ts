@@ -83,7 +83,7 @@ import { AuthServerTag } from '../../../server.service';
  * );
  * ```
  */
-export const signInEmailServerService: signInEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiSignInEmailParamsFor<T>) =>
+export const signInEmailServerService: signInEmailPropsFor = (params: AuthServerApiSignInEmailParamsFor<AuthServerFor>) =>
 	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.signInEmail(params),

@@ -9,7 +9,6 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiGetAccessTokenParamsFor, type AuthServerApiGetAccessTokenParamsFor, type getAccessTokenPropsFor } from './getAccessToken.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { getAccessTokenServerService } from './getAccessToken.service';
-import { SessionAuthServerServiceTag } from '../shared/session.service';
 
 /**
  * Controller for get access token operation with input validation.
@@ -29,17 +28,16 @@ import { SessionAuthServerServiceTag } from '../shared/session.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The get access token parameters to validate and process
- * @returns Effect requiring SessionAuthServerService context
+ * @returns Effect requiring AuthServerFor context
  */
-export const getAccessTokenServerController: getAccessTokenPropsFor = <T extends AuthServerFor = AuthServerFor>(
-	params: AuthServerApiGetAccessTokenParamsFor<T>
+export const getAccessTokenServerController: getAccessTokenPropsFor = (
+	params: AuthServerApiGetAccessTokenParamsFor<AuthServerFor>
 ) =>
 	Effect.gen(function* () {
-		const { authServer } = yield* SessionAuthServerServiceTag;
 		const validatedParams = yield* validateInputEffect(
-			createGetAccessTokenServerParamsSchema(authServer),
+			createGetAccessTokenServerParamsSchema(),
 			params,
-			isAuthServerApiGetAccessTokenParamsFor<T>,
+			isAuthServerApiGetAccessTokenParamsFor,
 			'getAccessToken'
 		);
 		return yield* getAccessTokenServerService(validatedParams);

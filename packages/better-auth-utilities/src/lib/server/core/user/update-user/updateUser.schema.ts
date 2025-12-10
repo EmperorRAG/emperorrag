@@ -5,7 +5,6 @@
 
 import * as Effect from 'effect/Effect';
 import { z } from 'zod';
-import type { AuthServerFor } from '../../../server.types';
 import { nameOptionalSchema, emailOptionalSchema, imageURLNullableOptionalSchema, createBodySchemaWithOptionalHeaders } from '../../shared/core.schema';
 
 /**
@@ -18,7 +17,7 @@ import { nameOptionalSchema, emailOptionalSchema, imageURLNullableOptionalSchema
  * @param _authServer - The Better Auth server instance
  * @returns Effect.Effect<z.ZodSchema> - The generated Zod schema
  */
-export const createUpdateUserServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(_authServer: T) =>
+export const createUpdateUserServerParamsSchema = () =>
 	Effect.succeed(
 		createBodySchemaWithOptionalHeaders(
 			z.object({

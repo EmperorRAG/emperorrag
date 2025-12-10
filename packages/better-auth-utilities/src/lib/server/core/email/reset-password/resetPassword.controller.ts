@@ -9,7 +9,7 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiResetPasswordParamsFor, type AuthServerApiResetPasswordParamsFor, type resetPasswordPropsFor } from './resetPassword.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { resetPasswordServerService } from './resetPassword.service';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { AuthServerTag } from '../../../server.service';
 
 /**
  * Controller for reset password operation with input validation.
@@ -29,7 +29,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The reset password parameters to validate and process
- * @returns Effect requiring EmailAuthServerService context
+ * @returns Effect requiring AuthServerFor context
  *
  * @example
  * ```typescript
@@ -45,17 +45,17 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * });
  *
  * await Effect.runPromise(
- *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  */
-export const resetPasswordServerController: resetPasswordPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiResetPasswordParamsFor<T>) =>
+export const resetPasswordServerController: resetPasswordPropsFor = (params: AuthServerApiResetPasswordParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
-		const { authServer } = yield* _(EmailAuthServerServiceTag);
+		const authServer = yield* _(AuthServerTag);
 
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
-			validateInputEffect(createResetPasswordServerParamsSchema(authServer), params, isAuthServerApiResetPasswordParamsFor<T>, 'resetPassword')
+			validateInputEffect(createResetPasswordServerParamsSchema(authServer), params, isAuthServerApiResetPasswordParamsFor, 'resetPassword')
 		);
 
 		// 2) Call the service with the validated params

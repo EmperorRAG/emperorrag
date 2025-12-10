@@ -5,7 +5,6 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type { EmailAuthServerService } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
 /**
@@ -28,7 +27,7 @@ export type AuthServerApiChangeEmailPropsFor<T extends AuthServerFor = AuthServe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiChangeEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiChangeEmailPropsFor<T>>[0];
+export type AuthServerApiChangeEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiChangeEmailPropsFor<AuthServerFor>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.changeEmail.
@@ -38,33 +37,33 @@ export type AuthServerApiChangeEmailParamsFor<T extends AuthServerFor = AuthServ
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiChangeEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiChangeEmailPropsFor<T>>;
+export type AuthServerApiChangeEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiChangeEmailPropsFor<AuthServerFor>>;
 
 /**
  * Function signature for changeEmail server service.
  *
  * @pure
- * @description Function accepting input parameters, returning an Effect that requires EmailAuthServerService context.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerFor context.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export interface changeEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiChangeEmailParamsFor<T>): Effect.Effect<Awaited<AuthServerApiChangeEmailResultFor<T>>, CoreAuthServerError, EmailAuthServerService>;
+	(params: AuthServerApiChangeEmailParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiChangeEmailResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
 }
 
 /**
  * Type guard for validating AuthServerApiChangeEmailParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiChangeEmailParamsFor<T> by checking
+ * @description Narrows an unknown value to AuthServerApiChangeEmailParamsFor<AuthServerFor> by checking
  * the required structural properties.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiChangeEmailParamsFor<T> structure
+ * @returns True if value conforms to AuthServerApiChangeEmailParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiChangeEmailParamsFor = <T extends AuthServerFor = AuthServerFor>(value: unknown): value is AuthServerApiChangeEmailParamsFor<T> => {
+export const isAuthServerApiChangeEmailParamsFor = (value: unknown): value is AuthServerApiChangeEmailParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

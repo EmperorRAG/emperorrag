@@ -1,44 +1,57 @@
-/**
- * @file libs/better-auth-utilities/src/lib/server/core/oauth/sign-in-social/signInSocial.controller.ts
- * @description Controller for server-side OAuth social sign-in operation with validation.
- */
-
-import * as Effect from 'effect/Effect';
-import { createSignInSocialServerParamsSchema } from './signInSocial.schema';
-import type { AuthServerFor } from '../../../server.types';
-import { isAuthServerApiSignInSocialParamsFor, type AuthServerApiSignInSocialParamsFor, type signInSocialPropsFor } from './signInSocial.types';
-import { validateInputEffect } from '../../shared/core.error';
+import { Effect } from 'effect';
+import { AuthServerTag } from '../../../server.service';
 import { signInSocialServerService } from './signInSocial.service';
-import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
+import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from './signInSocial.types';
+import type { AuthServerFor } from '../../../server.types';
 
 /**
- * Controller for server-side OAuth social sign-in operation with validation.
+ * Server-side controller for OAuth social sign-in.
  *
  * @pure
- * @description Validates input parameters using dynamically generated Zod schema,
- * then delegates to the service layer. Uses validateInputEffect for composable
- * error tracing through schema creation, parsing, and type guard validation.
+ * @description Orchestrates the OAuth sign-in flow by combining the service with the AuthServer dependency.
+ * This controller is responsible for wiring up the dependency injection and executing the service logic.
+ * It serves as the entry point for the sign-in social operation in the application layer.
  *
- * @remarks
- * **Validation Flow:**
- * 1. Retrieve authServer from Effect context
- * 2. Create schema via Effect pipeline
- * 3. Parse and validate with type guard
- * 4. Call service with validated params
+ * @param params - The signInSocial parameters including provider, callbacks, and headers
+ * @returns Effect requiring AuthServerFor context, failing with CoreAuthServerApiError,
+ *          and succeeding with the sign-in result
  *
- * @template T - The Better Auth server type with all plugin augmentations
+ * @example
+ * ```typescript
+ * import { Effect } from 'effect';
+ * import { AuthServerTag } from '../../../server.service';
+ * import { signInSocialServerController } from './signInSocial.controller';
  *
- * @param params - The OAuth sign-in parameters to validate and process
- * @returns Effect requiring OAuthAuthServerService context
+ * // Execute the controller with parameters
+ * const program = signInSocialServerController({
+ *   body: {
+ *     provider: 'google',
+ *     callbackURL: '/dashboard'
+ *   },
+ *   headers: request.headers
+ * });
+ *
+ * // Provide the AuthServer dependency and run
+ * const result = await Effect.runPromise(
+ *   Effect.provideService(program, AuthServerTag, authServer)
+ * );
+ * ```
+ *
+ * @example
+ * ```typescript
+ * // Integration in a larger flow
+ * const handleSocialLogin = (provider: string) =>
+ *   signInSocialServerController({
+ *     body: { provider },
+ *     headers: getHeaders()
+ *   }).pipe(
+ *     Effect.tap((result) => Effect.log(`Social login initiated: ${JSON.stringify(result)}`)),
+ *     Effect.provideService(AuthServerTag, authServer)
+ *   );
+ * ```
  */
-export const signInSocialServerController: signInSocialPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiSignInSocialParamsFor<T>) =>
-	Effect.gen(function* () {
-		const { authServer } = yield* OAuthAuthServerServiceTag;
-		const validatedParams = yield* validateInputEffect(
-			createSignInSocialServerParamsSchema(authServer),
-			params,
-			isAuthServerApiSignInSocialParamsFor<T>,
-			'signInSocial'
-		);
-		return yield* signInSocialServerService(validatedParams);
+export const signInSocialServerController: signInSocialPropsFor = (params: AuthServerApiSignInSocialParamsFor<AuthServerFor>) =>
+	Effect.gen(function* (_) {
+		const authServer = yield* _(AuthServerTag);
+		return yield* _(signInSocialServerService(params).pipe(Effect.provideService(AuthServerTag, authServer)));
 	});

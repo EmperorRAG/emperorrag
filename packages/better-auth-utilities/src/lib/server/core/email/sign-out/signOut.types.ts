@@ -5,7 +5,6 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type { EmailAuthServerService } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
 /**
@@ -45,7 +44,7 @@ export type AuthServerApiSignOutPropsFor<T extends AuthServerFor = AuthServerFor
  * // { headers: Headers, asResponse?: boolean, returnHeaders?: boolean }
  * ```
  */
-export type AuthServerApiSignOutParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiSignOutPropsFor<T>>[0];
+export type AuthServerApiSignOutParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiSignOutPropsFor<AuthServerFor>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.signOut.
@@ -62,20 +61,20 @@ export type AuthServerApiSignOutParamsFor<T extends AuthServerFor = AuthServerFo
  * // Promise<{ success: boolean } | void>
  * ```
  */
-export type AuthServerApiSignOutResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiSignOutPropsFor<T>>;
+export type AuthServerApiSignOutResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiSignOutPropsFor<AuthServerFor>>;
 
 /**
  * Function signature for signOut server service.
  *
  * @pure
- * @description Function accepting input parameters, returning an Effect that requires EmailAuthServerService context.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerFor context.
  * Dependencies are accessed through Effect's context layer rather than curried function arguments.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @remarks
  * **Context-Based Dependency Injection:**
- * - Dependencies (authServer) are provided via Effect's context layer (EmailAuthServerService)
+ * - Dependencies (authServer) are provided via Effect's context layer (AuthServerFor)
  * - Function accepts only the API parameters directly
  * - Effect executes lazily when run with provided context
  *
@@ -94,28 +93,28 @@ export type AuthServerApiSignOutResultFor<T extends AuthServerFor = AuthServerFo
  *
  * // Provide context and run
  * await Effect.runPromise(
- *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  */
 export interface signOutPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiSignOutParamsFor<T>): Effect.Effect<Awaited<AuthServerApiSignOutResultFor<T>>, CoreAuthServerError, AuthServerFor>;
+	(params: AuthServerApiSignOutParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiSignOutResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
 }
 
 /**
  * Type guard for validating AuthServerApiSignOutParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiSignOutParamsFor<T> by checking
+ * @description Narrows an unknown value to AuthServerApiSignOutParamsFor<AuthServerFor> by checking
  * the required structural properties. Use after Zod validation to provide type narrowing
  * without casting.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiSignOutParamsFor<T> structure
+ * @returns True if value conforms to AuthServerApiSignOutParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiSignOutParamsFor = <T extends AuthServerFor = AuthServerFor>(value: unknown): value is AuthServerApiSignOutParamsFor<T> => {
+export const isAuthServerApiSignOutParamsFor = (value: unknown): value is AuthServerApiSignOutParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

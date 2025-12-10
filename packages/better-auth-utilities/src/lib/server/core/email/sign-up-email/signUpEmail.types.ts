@@ -5,7 +5,6 @@
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type { EmailAuthServerService } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
 /**
@@ -49,7 +48,7 @@ export type AuthServerApiSignUpEmailPropsFor<T extends AuthServerFor = AuthServe
  * // { body: { name: string, email: string, password: string, ... }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiSignUpEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiSignUpEmailPropsFor<T>>[0];
+export type AuthServerApiSignUpEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiSignUpEmailPropsFor<AuthServerFor>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.signUpEmail.
@@ -66,20 +65,20 @@ export type AuthServerApiSignUpEmailParamsFor<T extends AuthServerFor = AuthServ
  * // Promise<{ user: { id: string, name: string, email: string, ... }, session: { id: string, ... }, ... }>
  * ```
  */
-export type AuthServerApiSignUpEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiSignUpEmailPropsFor<T>>;
+export type AuthServerApiSignUpEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiSignUpEmailPropsFor<AuthServerFor>>;
 
 /**
  * Function signature for signUpEmail server service.
  *
  * @pure
- * @description Function accepting input parameters, returning an Effect that requires EmailAuthServerServiceFor context.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerForFor context.
  * Dependencies are accessed through Effect's context layer rather than curried function arguments.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @remarks
  * **Context-Based Dependency Injection:**
- * - Dependencies (authServer) are provided via Effect's context layer (EmailAuthServerServiceFor<T>)
+ * - Dependencies (authServer) are provided via Effect's context layer (AuthServerFor)
  * - Function accepts only the API parameters directly
  * - Effect executes lazily when run with provided context
  *
@@ -103,33 +102,33 @@ export type AuthServerApiSignUpEmailResultFor<T extends AuthServerFor = AuthServ
  *
  * // Provide context and run
  * await Effect.runPromise(
- *   program.pipe(Effect.provideService(EmailAuthServerService, { authServer }))
+ *   program.pipe(Effect.provideService(AuthServerFor, { authServer }))
  * );
  * ```
  */
 // export interface signUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
 // 	(
 // 		deps: EmailAuthServerDeps<T>
-// 	): (params: AuthServerApiSignUpEmailParamsFor<T>) => Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<T>>, CoreAuthServerError>;
+// 	): (params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>) => Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<AuthServerFor>>, CoreAuthServerError>;
 // }
 export interface signUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiSignUpEmailParamsFor<T>): Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<T>>, CoreAuthServerError, AuthServerFor>;
+	(params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
 }
 
 /**
  * Type guard for validating AuthServerApiSignUpEmailParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiSignUpEmailParamsFor<T> by checking
+ * @description Narrows an unknown value to AuthServerApiSignUpEmailParamsFor<AuthServerFor> by checking
  * the required structural properties. Use after Zod validation to provide type narrowing
  * without casting.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiSignUpEmailParamsFor<T> structure
+ * @returns True if value conforms to AuthServerApiSignUpEmailParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiSignUpEmailParamsFor = <T extends AuthServerFor = AuthServerFor>(value: unknown): value is AuthServerApiSignUpEmailParamsFor<T> => {
+export const isAuthServerApiSignUpEmailParamsFor = (value: unknown): value is AuthServerApiSignUpEmailParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

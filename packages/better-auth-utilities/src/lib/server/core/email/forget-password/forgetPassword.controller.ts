@@ -9,7 +9,6 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiForgetPasswordParamsFor, type AuthServerApiForgetPasswordParamsFor, type forgetPasswordPropsFor } from './forgetPassword.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { forgetPasswordServerService } from './forgetPassword.service';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
 
 /**
  * Controller for forget password operation with input validation.
@@ -29,7 +28,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The forget password parameters to validate and process
- * @returns Effect requiring EmailAuthServerService context
+ * @returns Effect requiring AuthServerTag context
  *
  * @example
  * ```typescript
@@ -44,19 +43,18 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * });
  *
  * await Effect.runPromise(
- *   program.pipe(Effect.provideService(EmailAuthServerServiceTag, { authServer }))
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
  * );
  * ```
  */
-export const forgetPasswordServerController: forgetPasswordPropsFor = <T extends AuthServerFor = AuthServerFor>(
-	params: AuthServerApiForgetPasswordParamsFor<T>
+export const forgetPasswordServerController: forgetPasswordPropsFor = (
+	params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>
 ) =>
 	Effect.gen(function* (_) {
-		const { authServer } = yield* _(EmailAuthServerServiceTag);
 
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
-			validateInputEffect(createForgetPasswordServerParamsSchema(authServer), params, isAuthServerApiForgetPasswordParamsFor<T>, 'forgetPassword')
+			validateInputEffect(createForgetPasswordServerParamsSchema(), params, isAuthServerApiForgetPasswordParamsFor, 'forgetPassword')
 		);
 
 		// 2) Call the service with the validated params

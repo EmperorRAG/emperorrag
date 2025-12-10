@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { listUserAccountsServerService } from './listUserAccounts.service';
-import { AccountAuthServerServiceTag } from '../shared/account.service';
+import { AuthServerTag } from '../../../server.service';
 import * as Effect from 'effect/Effect';
 
 describe('Server List User Accounts', () => {
@@ -41,7 +41,7 @@ describe('Server List User Accounts', () => {
 			}),
 		});
 
-		const res = await Effect.runPromise(Effect.provideService(program, AccountAuthServerServiceTag, { authServer }));
+		const res = await Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer));
 
 		expect(res).toBeDefined();
 		expect(Array.isArray(res)).toBe(true);
@@ -52,6 +52,6 @@ describe('Server List User Accounts', () => {
 
 		const program = listUserAccountsServerService({});
 
-		await expect(Effect.runPromise(Effect.provideService(program, AccountAuthServerServiceTag, { authServer }))).rejects.toThrow();
+		await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
 	});
 });

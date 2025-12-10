@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { forgetPasswordCallbackServerService } from './forgetPasswordCallback.service';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { AuthServerTag } from '../../../server.service';
 import * as Effect from 'effect/Effect';
 
 describe('Server Forget Password Callback', () => {
@@ -19,11 +19,14 @@ describe('Server Forget Password Callback', () => {
 		const { authServer } = env;
 
 		const program = forgetPasswordCallbackServerService({
-			query: {
+			params: {
 				token: 'invalid-token',
+			},
+			query: {
+				callbackURL: 'http://localhost',
 			},
 		});
 
-		await expect(Effect.runPromise(Effect.provideService(program, EmailAuthServerServiceTag, { authServer }))).rejects.toThrow();
+		await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
 	});
 });

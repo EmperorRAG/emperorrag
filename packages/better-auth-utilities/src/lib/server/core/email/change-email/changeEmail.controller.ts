@@ -9,7 +9,6 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiChangeEmailParamsFor, type AuthServerApiChangeEmailParamsFor, type changeEmailPropsFor } from './changeEmail.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { changeEmailServerService } from './changeEmail.service';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
 
 /**
  * Controller for change email operation with Zod validation and type narrowing.
@@ -23,13 +22,12 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * @param params - The change email parameters to validate and process
  * @returns Effect that resolves to change email result or fails with validation/API error
  */
-export const changeEmailServerController: changeEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiChangeEmailParamsFor<T>) =>
+export const changeEmailServerController: changeEmailPropsFor = (params: AuthServerApiChangeEmailParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
-		const { authServer } = yield* _(EmailAuthServerServiceTag);
 
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
-			validateInputEffect(createChangeEmailServerParamsSchema(authServer), params, isAuthServerApiChangeEmailParamsFor<T>, 'changeEmail')
+			validateInputEffect(createChangeEmailServerParamsSchema(), params, isAuthServerApiChangeEmailParamsFor, 'changeEmail')
 		);
 
 		// 2) Call the service with the validated params
