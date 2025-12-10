@@ -141,6 +141,8 @@ export default defineConfig(() => ({
 				'lib/pipeline/extract-auth-server-config/extractAuthServerConfig': './src/lib/pipeline/extract-auth-server-config/extractAuthServerConfig.ts',
 				'lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder':
 					'./src/lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.ts',
+				// Enums
+				'lib/enums/authServerApiEndpoints.enum': './src/lib/enums/authServerApiEndpoints.enum.ts',
 			},
 			fileName: (_format: string, entryName: string) => `${entryName}.js`,
 			formats: ['es' as const],

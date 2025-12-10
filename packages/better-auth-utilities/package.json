@@ -86,6 +86,12 @@
 			"import": "./dist/lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.js",
 			"default": "./dist/lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.js"
 		},
+		"./enums/auth-server-api-endpoints": {
+			"@emperorrag/source": "./src/lib/enums/authServerApiEndpoints.enum.ts",
+			"types": "./dist/lib/enums/authServerApiEndpoints.enum.d.ts",
+			"import": "./dist/lib/enums/authServerApiEndpoints.enum.js",
+			"default": "./dist/lib/enums/authServerApiEndpoints.enum.js"
+		},
 		"./shared/config/types": {
 			"@emperorrag/source": "./src/lib/shared/config/config.types.ts",
 			"types": "./dist/lib/shared/config/config.types.d.ts",
