@@ -62,6 +62,12 @@
 			"import": "./dist/lib/server/config/config.service.js",
 			"default": "./dist/lib/server/config/config.service.js"
 		},
+		"./pipeline/error-handler": {
+			"@emperorrag/source": "./src/lib/pipeline/error-handler/errorHandler.ts",
+			"types": "./dist/lib/pipeline/error-handler/errorHandler.d.ts",
+			"import": "./dist/lib/pipeline/error-handler/errorHandler.js",
+			"default": "./dist/lib/pipeline/error-handler/errorHandler.js"
+		},
 		"./shared/config/types": {
 			"@emperorrag/source": "./src/lib/shared/config/config.types.ts",
 			"types": "./dist/lib/shared/config/config.types.d.ts",
