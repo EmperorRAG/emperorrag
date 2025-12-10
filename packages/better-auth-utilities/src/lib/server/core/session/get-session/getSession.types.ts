@@ -108,7 +108,7 @@ export type AuthServerApiGetSessionResultFor<T extends AuthServerFor = AuthServe
  */
 export type getSessionPropsFor<T extends AuthServerFor = AuthServerFor> = (
 	params: AuthServerApiGetSessionParamsFor<T>
-) => Effect.Effect<Awaited<AuthServerApiGetSessionResultFor<T>>, CoreAuthServerApiError | CoreAuthServerInputError, SessionAuthServerService>;
+) => Effect.Effect<Awaited<AuthServerApiGetSessionResultFor<T>>, CoreAuthServerApiError | CoreAuthServerInputError, AuthServerFor>;
 
 /**
  * Type guard for validating AuthServerApiGetSessionParamsFor.

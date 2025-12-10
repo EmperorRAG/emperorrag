@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiSignUpEmailParamsFor, signUpEmailPropsFor } from './signUpEmail.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { AuthServerTag } from '../../../server.service';
 
 /**
  * Register a new user via email and password using Better Auth server API.
@@ -122,7 +122,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * ```
  */
 export const signUpEmailServerService: signUpEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiSignUpEmailParamsFor<T>) =>
-	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.signUpEmail(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

@@ -106,7 +106,7 @@ export type AuthServerApiSignInEmailResultFor<T extends AuthServerFor = AuthServ
  * ```
  */
 export interface signInEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiSignInEmailParamsFor<T>): Effect.Effect<Awaited<AuthServerApiSignInEmailResultFor<T>>, CoreAuthServerError, EmailAuthServerService>;
+	(params: AuthServerApiSignInEmailParamsFor<T>): Effect.Effect<Awaited<AuthServerApiSignInEmailResultFor<T>>, CoreAuthServerError, AuthServerFor>;
 }
 
 /**

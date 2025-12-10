@@ -99,7 +99,7 @@ export type AuthServerApiSignOutResultFor<T extends AuthServerFor = AuthServerFo
  * ```
  */
 export interface signOutPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiSignOutParamsFor<T>): Effect.Effect<Awaited<AuthServerApiSignOutResultFor<T>>, CoreAuthServerError, EmailAuthServerService>;
+	(params: AuthServerApiSignOutParamsFor<T>): Effect.Effect<Awaited<AuthServerApiSignOutResultFor<T>>, CoreAuthServerError, AuthServerFor>;
 }
 
 /**

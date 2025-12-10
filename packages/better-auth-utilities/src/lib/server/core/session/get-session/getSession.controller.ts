@@ -9,7 +9,7 @@ import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiGetSessionParamsFor, type AuthServerApiGetSessionParamsFor, type getSessionPropsFor } from './getSession.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { getSessionServerService } from './getSession.service';
-import { SessionAuthServerServiceTag } from '../shared/session.service';
+import { AuthServerTag } from '../../../server.service';
 
 /**
  * Controller for get session operation with input validation.
@@ -29,11 +29,11 @@ import { SessionAuthServerServiceTag } from '../shared/session.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The get session parameters to validate and process
- * @returns Effect requiring SessionAuthServerService context
+ * @returns Effect requiring AuthServerTag context
  */
 export const getSessionServerController: getSessionPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiGetSessionParamsFor<T>) =>
 	Effect.gen(function* () {
-		const { authServer } = yield* SessionAuthServerServiceTag;
+		const authServer = yield* AuthServerTag;
 		const validatedParams = yield* validateInputEffect(
 			createGetSessionServerParamsSchema(authServer),
 			params,

@@ -13,6 +13,11 @@
 // Subpath Imports (Optimized for TS Server Performance)
 // =============================================================================
 
+import * as Effect from 'effect/Effect';
+import * as Layer from 'effect/Layer';
+import * as Context from 'effect/Context';
+import type { AuthServer } from './server.types';
+
 // Runtime import - betterAuth function is only available from root
 import { betterAuth } from 'better-auth';
 // Type import - using dedicated types subpath to avoid loading runtime code
@@ -28,6 +33,11 @@ import { SERVER_PLUGIN_FACTORIES } from './server.constants';
 // ============================================================================
 // SERVER INSTANCE CREATION
 // ============================================================================
+
+/**
+ * Tag for the AuthServer service.
+ */
+export const AuthServerTag = Context.GenericTag<AuthServer>('@better-auth/AuthServer');
 
 /**
  * Creates a fully configured better-auth server instance from a BetterAuthConfig.
@@ -49,19 +59,22 @@ import { SERVER_PLUGIN_FACTORIES } from './server.constants';
  * @example
  * ```typescript
  * import { PrismaClient } from '@prisma/client';
- * import { createAuthServer } from '@/lib/better-auth-utilities';
+ * import { createAuthServerInstance } from '@/lib/better-auth-utilities';
  * import { authConfig } from '@/config/auth.config';
  *
  * const prisma = new PrismaClient();
  *
- * export const auth = createAuthServer(authConfig, prisma);
+ * export const auth = createAuthServerInstance(authConfig, prisma);
  *
  * // Type-safe API usage
  * const session = await auth.api.getSession({ headers });
  * const apiKeyResult = await auth.api.createApiKey({ body: { name: 'My Key' } });
  * ```
  */
-export function createAuthServer<ServerPlugins extends readonly AvailablePlugins[] = [], ClientPlugins extends readonly AvailablePlugins[] = ServerPlugins>(
+export function createAuthServerInstance<
+	ServerPlugins extends readonly AvailablePlugins[] = [],
+	ClientPlugins extends readonly AvailablePlugins[] = ServerPlugins,
+>(
 	config: BetterAuthConfig<ServerPlugins, ClientPlugins>,
 	prismaClient: unknown // Type as unknown to avoid Prisma dependency in this file
 ): ReturnType<typeof betterAuth> {
@@ -100,7 +113,7 @@ export function createAuthServer<ServerPlugins extends readonly AvailablePlugins
 	// Build better-auth options
 	const authOptions: BetterAuthOptions = {
 		appName: config.server.appName || 'My Application',
-		baseURL: config.server.baseURL || process.env.BETTER_AUTH_URL || 'http://localhost:3000',
+		baseURL: config.server.baseURL || 'http://localhost:3000',
 		secret: config.server.secret,
 
 		// Database configuration with Prisma adapter
@@ -154,3 +167,19 @@ export function createAuthServer<ServerPlugins extends readonly AvailablePlugins
 
 	return betterAuth(authOptions);
 }
+
+/**
+ * Creates a Layer that provides the AuthServer service.
+ *
+ * @param config - Complete better-auth configuration
+ * @param prismaClient - Prisma client instance for database operations
+ * @returns Layer providing AuthServer
+ */
+export const AuthServerLayer = <ServerPlugins extends readonly AvailablePlugins[] = [], ClientPlugins extends readonly AvailablePlugins[] = ServerPlugins>(
+	config: BetterAuthConfig<ServerPlugins, ClientPlugins>,
+	prismaClient: unknown
+) =>
+	Layer.effect(
+		AuthServerTag,
+		Effect.sync(() => createAuthServerInstance(config, prismaClient))
+	);

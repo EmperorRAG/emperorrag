@@ -12,25 +12,15 @@ import type { SessionAuthServerService, SessionAuthServerServiceFor } from './se
  * Effect Context tag for session server service.
  *
  * @pure
+ * @deprecated Use AuthServerTag from '../../../server.service' instead.
  * @description Provides the authServer dependency through Effect's Context layer.
  * Use with Effect.provideService or Effect.flatMap to access the service.
  *
  * @example
  * ```typescript
  * import { Effect } from 'effect';
- * import { SessionAuthServerServiceTag } from './session.service';
- *
- * const program = Effect.flatMap(SessionAuthServerServiceTag, ({ authServer }) =>
- *   Effect.tryPromise({
- *     try: () => authServer.api.getSession(params),
- *     catch: (error) => new CoreAuthServerApiError(error.message)
- *   })
- * );
- *
- * // Provide the service and run
- * await Effect.runPromise(
- *   Effect.provideService(program, SessionAuthServerServiceTag, { authServer })
- * );
+ * import { AuthServerTag } from '../../../server.service';
+ * // ...
  * ```
  */
 export const SessionAuthServerServiceTag = Context.GenericTag<SessionAuthServerService>('@app/SessionAuthServerService');
@@ -39,6 +29,7 @@ export const SessionAuthServerServiceTag = Context.GenericTag<SessionAuthServerS
  * Creates an Effect Layer for providing the session server service.
  *
  * @pure
+ * @deprecated Use AuthServerLayer from '../../../server.service' instead.
  * @description Constructs a Layer that provides the SessionAuthServerService
  * with the given authServer instance.
  *
@@ -49,17 +40,8 @@ export const SessionAuthServerServiceTag = Context.GenericTag<SessionAuthServerS
  * @example
  * ```typescript
  * import { Effect, Layer } from 'effect';
- * import { SessionAuthServerLayer } from './session.service';
- *
- * const layer = SessionAuthServerLayer(authServer);
- *
- * const program = getSessionServerService({
- *   headers: request.headers
- * });
- *
- * await Effect.runPromise(
- *   Effect.provide(program, layer)
- * );
+ * import { AuthServerLayer } from '../../../server.service';
+ * // ...
  * ```
  */
 export const SessionAuthServerLayer = <T extends AuthServerFor>(authServer: T) =>

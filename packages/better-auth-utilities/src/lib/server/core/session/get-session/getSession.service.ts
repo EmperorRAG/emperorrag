@@ -6,7 +6,7 @@
 
 import { Effect } from 'effect';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
-import { SessionAuthServerServiceTag } from '../shared/session.service';
+import { AuthServerTag } from '../../../server.service';
 import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from './getSession.types';
 
 /**
@@ -15,17 +15,17 @@ import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from './get
  * @pure
  * @description Creates an Effect that retrieves the current user's session based on
  * the provided headers/cookies. Uses Effect's Context layer to access the authServer dependency.
- * Returns an Effect requiring SessionAuthServerService context that, when provided,
+ * Returns an Effect requiring AuthServerTag context that, when provided,
  * fetches the session data or returns null if no valid session exists.
  *
  * @param params - The getSession parameters including headers for cookie-based lookup
- * @returns Effect requiring SessionAuthServerService context, failing with CoreAuthServerApiError,
+ * @returns Effect requiring AuthServerTag context, failing with CoreAuthServerApiError,
  *          and succeeding with session/user data or null
  *
  * @example
  * ```typescript
  * import { Effect } from 'effect';
- * import { SessionAuthServerServiceTag } from '../shared/session.service';
+ * import { AuthServerTag } from '../../../server.service';
  * import { getSessionServerService } from './getSession.service';
  *
  * // Create the service with request headers
@@ -35,7 +35,7 @@ import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from './get
  *
  * // Provide the AuthServer dependency via Context
  * const result = await Effect.runPromise(
- *   Effect.provideService(program, SessionAuthServerServiceTag, { authServer })
+ *   Effect.provideService(program, AuthServerTag, authServer)
  * );
  *
  * // result is { user, session } | null
@@ -83,7 +83,7 @@ import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from './get
  * ```
  */
 export const getSessionServerService: getSessionPropsFor = (params: AuthServerApiGetSessionParamsFor) =>
-	Effect.flatMap(SessionAuthServerServiceTag, ({ authServer }) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.getSession(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

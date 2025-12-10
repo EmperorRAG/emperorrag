@@ -113,7 +113,7 @@ export type AuthServerApiSignUpEmailResultFor<T extends AuthServerFor = AuthServ
 // 	): (params: AuthServerApiSignUpEmailParamsFor<T>) => Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<T>>, CoreAuthServerError>;
 // }
 export interface signUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiSignUpEmailParamsFor<T>): Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<T>>, CoreAuthServerError, EmailAuthServerService>;
+	(params: AuthServerApiSignUpEmailParamsFor<T>): Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<T>>, CoreAuthServerError, AuthServerFor>;
 }
 
 /**

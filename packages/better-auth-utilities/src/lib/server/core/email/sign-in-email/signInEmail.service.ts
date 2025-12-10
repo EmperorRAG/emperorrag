@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiSignInEmailParamsFor, signInEmailPropsFor } from './signInEmail.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { AuthServerTag } from '../../../server.service';
 
 /**
  * Sign in a user via email and password using Better Auth server API.
@@ -19,7 +19,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  *
  * @remarks
  * **Context-Based Dependency Injection:**
- * - Dependencies (authServer) are provided via Effect's context layer (EmailAuthServerService)
+ * - Dependencies (authServer) are provided via Effect's context layer (AuthServerTag)
  * - Function accepts only the API parameters directly
  * - Effect executes lazily when run with provided context
  *
@@ -39,13 +39,13 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - Parameters including body with credentials and optional headers
- * @returns Effect requiring EmailAuthServerService context
+ * @returns Effect requiring AuthServerTag context
  *
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
  * import { signInEmailServerService } from './signInEmail.service';
- * import { EmailAuthServerServiceTag } from '../shared/email.service';
+ * import { AuthServerTag } from '../../../server.service';
  *
  * const program = signInEmailServerService({
  *   body: {
@@ -57,7 +57,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * });
  *
  * const result = await Effect.runPromise(
- *   Effect.provideService(program, EmailAuthServerServiceTag, { authServer })
+ *   Effect.provideService(program, AuthServerTag, authServer)
  * );
  * ```
  *
@@ -79,12 +79,12 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * });
  *
  * await Effect.runPromise(
- *   Effect.provideService(handled, EmailAuthServerServiceTag, { authServer })
+ *   Effect.provideService(handled, AuthServerTag, authServer)
  * );
  * ```
  */
 export const signInEmailServerService: signInEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiSignInEmailParamsFor<T>) =>
-	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.signInEmail(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,

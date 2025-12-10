@@ -7,6 +7,7 @@ import type { AuthServerErrorDescriptor } from '../../server.types';
 import { APIError } from 'better-auth';
 import { z } from 'zod';
 import * as Effect from 'effect/Effect';
+import { Match, pipe } from 'effect';
 
 /**
  * Error thrown when server dependencies validation fails.
@@ -115,17 +116,16 @@ export type CoreAuthServerError =
 	| CoreAuthServerDataMissingError
 	| CoreAuthServerSessionError;
 
-export const mapBetterAuthApiErrorToCoreAuthError = (error: unknown): CoreAuthServerApiError => {
-	if (error instanceof APIError) {
-		const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
-
-		return new CoreAuthServerApiError(error.message, status, error);
-	}
-
-	const message = error instanceof Error ? error.message : 'Unknown auth server error';
-
-	return new CoreAuthServerApiError(message, undefined, error);
-};
+export const mapBetterAuthApiErrorToCoreAuthError = (error: unknown): CoreAuthServerApiError =>
+	pipe(
+		Match.value(error),
+		Match.when(Match.instanceOf(APIError), (err) => {
+			const status = typeof err.status === 'number' ? err.status : parseInt(err.status as string, 10) || undefined;
+			return new CoreAuthServerApiError(err.message, status, err);
+		}),
+		Match.when(Match.instanceOf(Error), (err) => new CoreAuthServerApiError(err.message, undefined, err)),
+		Match.orElse((err) => new CoreAuthServerApiError('Unknown auth server error', undefined, err))
+	);
 
 /**
  * Input validation error source types for traceability.
@@ -162,27 +162,28 @@ export const mapBetterAuthInputErrorToCoreAuthError = (error: unknown, source: C
 		operation,
 	};
 
-	if (isZodError(error)) {
-		const fieldErrors = error.issues.map((issue) => ({
-			path: issue.path.join('.'),
-			message: issue.message,
-		}));
+	return pipe(
+		Match.value(error),
+		Match.when(isZodError, (err) => {
+			const fieldErrors = err.issues.map((issue) => ({
+				path: issue.path.join('.'),
+				message: issue.message,
+			}));
 
-		const detailsWithFields: CoreInputValidationDetails = {
-			...details,
-			fieldErrors,
-		};
+			const detailsWithFields: CoreInputValidationDetails = {
+				...details,
+				fieldErrors,
+			};
 
-		const message = formatZodErrorMessage(error, operation);
-		return new CoreAuthServerInputError(message, { zodError: error, details: detailsWithFields });
-	}
-
-	if (error instanceof Error) {
-		return new CoreAuthServerInputError(error.message, { originalError: error, details });
-	}
-
-	const message = `Invalid ${operation} parameters: ${source} failed`;
-	return new CoreAuthServerInputError(message, { originalError: error, details });
+			const message = formatZodErrorMessage(err, operation);
+			return new CoreAuthServerInputError(message, { zodError: err, details: detailsWithFields });
+		}),
+		Match.when(Match.instanceOf(Error), (err) => new CoreAuthServerInputError(err.message, { originalError: err, details })),
+		Match.orElse((err) => {
+			const message = `Invalid ${operation} parameters: ${source} failed`;
+			return new CoreAuthServerInputError(message, { originalError: err, details });
+		})
+	);
 };
 
 /**
@@ -296,77 +297,70 @@ export const validateInputEffect = <T, R>(
 		return validated;
 	});
 
-export const describeCoreAuthError = (error: CoreAuthServerError): AuthServerErrorDescriptor => {
-	switch (error._tag) {
-		case 'CoreAuthServerInputError':
-			return {
-				_tag: 'AuthErrorDescriptor',
-				category: 'input',
-				code: 'invalid_input',
-				message: error.message,
-				cause: error.cause,
-				status: 400,
-			};
-
-		case 'CoreAuthServerApiError': {
-			if (error.status === 401) {
+export const describeCoreAuthError = (error: CoreAuthServerError): AuthServerErrorDescriptor =>
+	pipe(
+		Match.value(error),
+		Match.tag('CoreAuthServerInputError', (err) => ({
+			_tag: 'AuthErrorDescriptor' as const,
+			category: 'input' as const,
+			code: 'invalid_input' as const,
+			message: err.message,
+			cause: err.cause,
+			status: 400,
+		})),
+		Match.tag('CoreAuthServerApiError', (err) => {
+			if (err.status === 401) {
 				return {
-					_tag: 'AuthErrorDescriptor',
-					category: 'unauthorized',
-					code: 'invalid_credentials',
-					message: error.message,
+					_tag: 'AuthErrorDescriptor' as const,
+					category: 'unauthorized' as const,
+					code: 'invalid_credentials' as const,
+					message: err.message,
 					status: 401,
-					cause: error.cause,
+					cause: err.cause,
 				};
 			}
-			if (error.status === 409) {
+			if (err.status === 409) {
 				return {
-					_tag: 'AuthErrorDescriptor',
-					category: 'conflict',
-					code: 'user_already_exists',
-					message: error.message,
+					_tag: 'AuthErrorDescriptor' as const,
+					category: 'conflict' as const,
+					code: 'user_already_exists' as const,
+					message: err.message,
 					status: 409,
-					cause: error.cause,
+					cause: err.cause,
 				};
 			}
 			return {
-				_tag: 'AuthErrorDescriptor',
-				category: 'server',
-				code: 'auth_server_error',
-				message: error.message,
-				status: error.status ?? 500,
-				cause: error.cause,
+				_tag: 'AuthErrorDescriptor' as const,
+				category: 'server' as const,
+				code: 'auth_server_error' as const,
+				message: err.message,
+				status: err.status ?? 500,
+				cause: err.cause,
 			};
-		}
-
-		case 'CoreAuthServerSessionError':
-			return {
-				_tag: 'AuthErrorDescriptor',
-				category: 'unauthorized',
-				code: 'session_error',
-				message: error.message,
-				status: 401,
-				cause: error.cause,
-			};
-
-		case 'CoreAuthServerDependenciesError':
-			return {
-				_tag: 'AuthErrorDescriptor',
-				category: 'dependency',
-				code: 'dependency_error',
-				message: error.message,
-				status: 500,
-				cause: error.cause,
-			};
-
-		case 'CoreAuthServerDataMissingError':
-			return {
-				_tag: 'AuthErrorDescriptor',
-				category: 'server',
-				code: 'data_missing',
-				message: error.message,
-				status: 500,
-				cause: error.cause,
-			};
-	}
-};
+		}),
+		Match.tag('CoreAuthServerSessionError', (err) => ({
+			_tag: 'AuthErrorDescriptor' as const,
+			category: 'unauthorized' as const,
+			code: 'session_error' as const,
+			message: err.message,
+			status: 401,
+			cause: err.cause,
+		})),
+		Match.tag('CoreAuthServerDependenciesError', (err) => ({
+			_tag: 'AuthErrorDescriptor' as const,
+			category: 'dependency' as const,
+			code: 'dependency_error' as const,
+			message: err.message,
+			status: 500,
+			cause: err.cause,
+		})),
+		Match.tag('CoreAuthServerDataMissingError', (err) => ({
+			_tag: 'AuthErrorDescriptor' as const,
+			category: 'server' as const,
+			code: 'data_missing' as const,
+			message: err.message,
+			status: 500,
+			cause: err.cause,
+		})),
+		Match.exhaustive
+	);

@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import type { AuthServerApiSignOutParamsFor, signOutPropsFor } from './signOut.types';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { AuthServerTag } from '../../../server.service';
 
 /**
  * Terminate the current user session using Better Auth server API.
@@ -19,7 +19,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  *
  * @remarks
  * **Context-Based Dependency Injection:**
- * - Dependencies (authServer) are provided via Effect's context layer (EmailAuthServerService)
+ * - Dependencies (authServer) are provided via Effect's context layer (AuthServerTag)
  * - Function accepts only the API parameters directly
  * - Effect executes lazily when run with provided context
  *
@@ -39,20 +39,20 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - Parameters including headers for session cookie access
- * @returns Effect requiring EmailAuthServerService context
+ * @returns Effect requiring AuthServerTag context
  *
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
  * import { signOutServerService } from './signOut.service';
- * import { EmailAuthServerServiceTag } from '../shared/email.service';
+ * import { AuthServerTag } from '../../../server.service';
  *
  * const program = signOutServerService({
  *   headers: requestHeaders
  * });
  *
  * await Effect.runPromise(
- *   Effect.provideService(program, EmailAuthServerServiceTag, { authServer })
+ *   Effect.provideService(program, AuthServerTag, authServer)
  * );
  * ```
  *
@@ -74,12 +74,12 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * });
  *
  * await Effect.runPromise(
- *   Effect.provideService(handled, EmailAuthServerServiceTag, { authServer })
+ *   Effect.provideService(handled, AuthServerTag, authServer)
  * );
  * ```
  */
 export const signOutServerService: signOutPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiSignOutParamsFor<T>) =>
-	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
+	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.signOut(params),
 			catch: mapBetterAuthApiErrorToCoreAuthError,
