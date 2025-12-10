@@ -4,9 +4,8 @@
  * Uses Context-based dependency injection to access the Better Auth server.
  */
 
-import { APIError } from 'better-auth/api';
 import { Effect } from 'effect';
-import { AccountAuthServerApiError, AccountAuthServerDataMissingError } from '../shared/account.error';
+import { AccountAuthServerDataMissingError, mapBetterAuthApiErrorToAccountAuthError } from '../shared/account.error';
 import { AccountAuthServerServiceTag } from '../shared/account.service';
 import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor } from './listUserAccounts.types';
 
@@ -77,16 +76,7 @@ export const listUserAccountsServerService: listUserAccountsPropsFor = (params: 
 			const result = yield* _(
 				Effect.tryPromise({
 					try: () => authServer.api.listUserAccounts(params),
-					catch: (error) => {
-						// Better Auth server throws APIError instances with status codes
-						if (error instanceof APIError) {
-							const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
-							return new AccountAuthServerApiError(error.message, status, error);
-						}
-						// Handle non-APIError exceptions
-						const message = error instanceof Error ? error.message : 'Failed to list user accounts';
-						return new AccountAuthServerApiError(message, undefined, error);
-					},
+					catch: mapBetterAuthApiErrorToAccountAuthError,
 				})
 			);
 

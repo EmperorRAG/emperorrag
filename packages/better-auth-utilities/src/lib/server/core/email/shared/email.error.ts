@@ -181,7 +181,7 @@ export type EmailAuthServerError =
 	| EmailAuthServerDataMissingError
 	| EmailAuthServerSessionError;
 
-export const mapBetterAuthApiErrorToEmailAuthError = (error: unknown): EmailAuthServerError => {
+export const mapBetterAuthApiErrorToEmailAuthError = (error: unknown): EmailAuthServerApiError => {
 	if (error instanceof APIError) {
 		const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
 

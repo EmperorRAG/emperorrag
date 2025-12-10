@@ -189,9 +189,9 @@ export type SessionAuthServerError =
  * the standardized SessionAuthServerApiError format, preserving HTTP status codes.
  *
  * @param error - The original error from Better Auth API
- * @returns SessionAuthServerError with appropriate error type
+ * @returns SessionAuthServerApiError with preserved HTTP status code
  */
-export const mapBetterAuthApiErrorToSessionAuthError = (error: unknown): SessionAuthServerError => {
+export const mapBetterAuthApiErrorToSessionAuthError = (error: unknown): SessionAuthServerApiError => {
 	if (error instanceof APIError) {
 		const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
 

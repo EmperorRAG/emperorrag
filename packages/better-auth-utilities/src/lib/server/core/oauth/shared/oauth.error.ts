@@ -189,9 +189,9 @@ export type OAuthAuthServerError =
  * the standardized OAuthAuthServerApiError format, preserving HTTP status codes.
  *
  * @param error - The original error from Better Auth API
- * @returns OAuthAuthServerError with appropriate error type
+ * @returns OAuthAuthServerApiError with preserved HTTP status code
  */
-export const mapBetterAuthApiErrorToOAuthAuthError = (error: unknown): OAuthAuthServerError => {
+export const mapBetterAuthApiErrorToOAuthAuthError = (error: unknown): OAuthAuthServerApiError => {
 	if (error instanceof APIError) {
 		const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
 

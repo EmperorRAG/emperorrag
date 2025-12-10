@@ -123,9 +123,9 @@ export type UserAuthServerError =
  * the standardized UserAuthServerApiError format, preserving HTTP status codes.
  *
  * @param error - The original error from Better Auth API
- * @returns UserAuthServerError with appropriate error type
+ * @returns UserAuthServerApiError with preserved HTTP status code
  */
-export const mapBetterAuthApiErrorToUserAuthError = (error: unknown): UserAuthServerError => {
+export const mapBetterAuthApiErrorToUserAuthError = (error: unknown): UserAuthServerApiError => {
 	if (error instanceof APIError) {
 		const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
 

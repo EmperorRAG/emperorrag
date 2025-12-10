@@ -4,9 +4,8 @@
  * Uses Context-based dependency injection to access the Better Auth server.
  */
 
-import { APIError } from 'better-auth/api';
 import { Effect } from 'effect';
-import { SessionAuthServerApiError } from '../shared/session.error';
+import { mapBetterAuthApiErrorToSessionAuthError } from '../shared/session.error';
 import { SessionAuthServerServiceTag } from '../shared/session.service';
 import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from './getSession.types';
 
@@ -87,15 +86,6 @@ export const getSessionServerService: getSessionPropsFor = (params: AuthServerAp
 	Effect.flatMap(SessionAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.getSession(params),
-			catch: (error) => {
-				// Better Auth server throws APIError instances with status codes
-				if (error instanceof APIError) {
-					const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
-					return new SessionAuthServerApiError(error.message, status, error);
-				}
-				// Handle non-APIError exceptions
-				const message = error instanceof Error ? error.message : 'Get session failed';
-				return new SessionAuthServerApiError(message, undefined, error);
-			},
+			catch: mapBetterAuthApiErrorToSessionAuthError,
 		})
 	);

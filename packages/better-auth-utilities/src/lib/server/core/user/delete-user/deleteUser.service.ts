@@ -4,9 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { APIError } from 'better-auth/api';
 import type { AuthServerApiDeleteUserParamsFor, deleteUserPropsFor } from './deleteUser.types';
-import { UserAuthServerApiError } from '../shared/user.error';
+import { mapBetterAuthApiErrorToUserAuthError } from '../shared/user.error';
 import type { AuthServerFor } from '../../../server.types';
 import { UserAuthServerServiceTag } from '../shared/user.service';
 
@@ -26,13 +25,6 @@ export const deleteUserServerService: deleteUserPropsFor = <T extends AuthServer
 	Effect.flatMap(UserAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.deleteUser(params),
-			catch: (error) => {
-				if (error instanceof APIError) {
-					const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
-					return new UserAuthServerApiError(error.message, status, error);
-				}
-				const message = error instanceof Error ? error.message : 'Delete user failed';
-				return new UserAuthServerApiError(message, undefined, error);
-			},
+			catch: mapBetterAuthApiErrorToUserAuthError,
 		})
 	);

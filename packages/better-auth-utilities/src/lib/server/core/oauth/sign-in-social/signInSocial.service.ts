@@ -4,9 +4,8 @@
  * Uses Context-based dependency injection to access the Better Auth server.
  */
 
-import { APIError } from 'better-auth/api';
 import { Effect } from 'effect';
-import { OAuthAuthServerApiError } from '../shared/oauth.error';
+import { mapBetterAuthApiErrorToOAuthAuthError } from '../shared/oauth.error';
 import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
 import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from './signInSocial.types';
 
@@ -95,15 +94,6 @@ export const signInSocialServerService: signInSocialPropsFor = (params: AuthServ
 	Effect.flatMap(OAuthAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.signInSocial(params),
-			catch: (error) => {
-				// Better Auth server throws APIError instances with status codes
-				if (error instanceof APIError) {
-					const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
-					return new OAuthAuthServerApiError(error.message, status, error);
-				}
-				// Handle non-APIError exceptions
-				const message = error instanceof Error ? error.message : 'OAuth sign-in failed';
-				return new OAuthAuthServerApiError(message, undefined, error);
-			},
+			catch: mapBetterAuthApiErrorToOAuthAuthError,
 		})
 	);

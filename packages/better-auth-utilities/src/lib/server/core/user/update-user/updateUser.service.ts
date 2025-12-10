@@ -4,9 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { APIError } from 'better-auth/api';
 import type { AuthServerApiUpdateUserParamsFor, updateUserPropsFor } from './updateUser.types';
-import { UserAuthServerApiError } from '../shared/user.error';
+import { mapBetterAuthApiErrorToUserAuthError } from '../shared/user.error';
 import type { AuthServerFor } from '../../../server.types';
 import { UserAuthServerServiceTag } from '../shared/user.service';
 
@@ -44,16 +43,6 @@ export const updateUserServerService: updateUserPropsFor = <T extends AuthServer
 	Effect.flatMap(UserAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.updateUser(params),
-			catch: (error) => {
-				// Better Auth server throws APIError instances with status codes
-				if (error instanceof APIError) {
-					// Convert status to number (APIError.status is Status string union)
-					const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
-					return new UserAuthServerApiError(error.message, status, error);
-				}
-				// Handle non-APIError exceptions
-				const message = error instanceof Error ? error.message : 'Update user failed';
-				return new UserAuthServerApiError(message, undefined, error);
-			},
+			catch: mapBetterAuthApiErrorToUserAuthError,
 		})
 	);
