@@ -6,8 +6,6 @@
 
 import { Effect } from 'effect';
 import { z } from 'zod';
-import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
-import type { OAuthAuthServerService } from '../shared/oauth.types';
 import {
 	providerRequiredSchema,
 	callbackURLOptionalSchema,
@@ -43,18 +41,3 @@ export const createSignInSocialServerParamsSchema = () =>
 			...requestOptionsOptionalHeadersShape,
 		})
 	);
-
-/**
- * Creates a Zod schema for validating signInSocial server parameters using Effect Context.
- *
- * @pure
- * @description Alternative version that retrieves authServer from context rather than parameter.
- * Useful when working within Effect pipelines where the service is already in context.
- *
- * @returns Effect requiring OAuthAuthServerService context, succeeding with a Zod schema
- */
-export const createSignInSocialServerParamsSchemaFromContext = (): Effect.Effect<
-	ReturnType<typeof createSignInSocialServerParamsSchema> extends Effect.Effect<infer A, infer _E, infer _R> ? A : never,
-	never,
-	OAuthAuthServerService
-> => Effect.flatMap(OAuthAuthServerServiceTag, ({ authServer }) => createSignInSocialServerParamsSchema());
