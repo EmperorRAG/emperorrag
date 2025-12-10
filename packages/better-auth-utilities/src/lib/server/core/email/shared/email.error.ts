@@ -213,7 +213,6 @@ export interface EmailInputValidationDetails {
 	readonly source: EmailInputErrorSource;
 	readonly operation: string;
 	readonly fieldErrors?: ReadonlyArray<{ path: string; message: string }>;
-	readonly rawInput?: unknown;
 }
 
 /**
@@ -227,19 +226,12 @@ export interface EmailInputValidationDetails {
  * @param error - The original error from validation
  * @param source - Where in the workflow the error occurred
  * @param operation - The operation being performed (e.g., 'signUpEmail', 'signInEmail')
- * @param rawInput - Optional raw input for debugging (will be sanitized)
  * @returns EmailAuthServerInputError with structured cause for tracing
  */
-export const mapBetterAuthInputErrorToEmailAuthError = (
-	error: unknown,
-	source: EmailInputErrorSource,
-	operation: string,
-	rawInput?: unknown
-): EmailAuthServerInputError => {
+export const mapBetterAuthInputErrorToEmailAuthError = (error: unknown, source: EmailInputErrorSource, operation: string): EmailAuthServerInputError => {
 	const details: EmailInputValidationDetails = {
 		source,
 		operation,
-		rawInput: sanitizeInputForLogging(rawInput),
 	};
 
 	if (isZodError(error)) {
@@ -300,32 +292,6 @@ const formatZodErrorMessage = (error: z.ZodError, operation: string): string => 
 };
 
 /**
- * Sanitizes input for logging by removing sensitive fields.
- *
- * @pure
- * @description Removes password and other sensitive fields from input before logging.
- */
-const sanitizeInputForLogging = (input: unknown): unknown => {
-	if (input === null || input === undefined) return input;
-	if (typeof input !== 'object') return input;
-
-	const sensitiveFields = ['password', 'token', 'secret', 'apiKey', 'accessToken', 'refreshToken'];
-	const sanitized = { ...input } as Record<string, unknown>;
-
-	for (const field of sensitiveFields) {
-		if (field in sanitized) {
-			sanitized[field] = '[REDACTED]';
-		}
-	}
-
-	if ('body' in sanitized && typeof sanitized['body'] === 'object' && sanitized['body'] !== null) {
-		sanitized['body'] = sanitizeInputForLogging(sanitized['body']);
-	}
-
-	return sanitized;
-};
-
-/**
  * Creates a schema creation Effect with proper error mapping.
  *
  * @pure
@@ -362,7 +328,7 @@ export const parseWithSchemaEffect = <T>(schema: z.ZodType<T>, input: unknown, o
 			return Effect.succeed(result.data);
 		}
 
-		return Effect.fail(mapBetterAuthInputErrorToEmailAuthError(result.error, 'schema_parsing', operation, input));
+		return Effect.fail(mapBetterAuthInputErrorToEmailAuthError(result.error, 'schema_parsing', operation));
 	});
 
 /**
@@ -388,7 +354,7 @@ export const validateWithTypeGuardEffect = <T>(
 		}
 
 		const error = new Error('Data does not conform to expected structure');
-		return Effect.fail(mapBetterAuthInputErrorToEmailAuthError(error, 'type_guard_validation', operation, data));
+		return Effect.fail(mapBetterAuthInputErrorToEmailAuthError(error, 'type_guard_validation', operation));
 	});
 
 /**
