@@ -1,8 +1,10 @@
 import * as Effect from 'effect/Effect';
-import { AuthServerTag } from '../../../server.service';
-import { signInSocialServerService } from './signInSocial.service';
-import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from './signInSocial.types';
+import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { z } from 'zod';
 import type { AuthServerFor } from '../../../server.types';
+import { isAuthServerApiSignInSocialParamsFor, type AuthServerApiSignInSocialParamsFor, type signInSocialPropsFor } from './signInSocial.types';
+import { validateInputEffect } from '../../shared/core.error';
+import { signInSocialServerService } from './signInSocial.service';
 
 /**
  * Server-side controller for OAuth social sign-in.
@@ -52,6 +54,23 @@ import type { AuthServerFor } from '../../../server.types';
  */
 export const signInSocialServerController: signInSocialPropsFor = (params: AuthServerApiSignInSocialParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
-		const authServer = yield* _(AuthServerTag);
-		return yield* _(signInSocialServerService(params).pipe(Effect.provideService(AuthServerTag, authServer)));
+		const validatedParams = yield* _(
+			validateInputEffect(
+				createAuthSchema({
+					body: z.object({
+						provider: z.string(),
+						callbackURL: z.string().optional(),
+						errorCallbackURL: z.string().optional(),
+						newUserCallbackURL: z.string().optional(),
+						disableRedirect: z.boolean().optional(),
+					}),
+					headers: 'optional',
+				}),
+				params,
+				isAuthServerApiSignInSocialParamsFor,
+				'signInSocial'
+			)
+		);
+
+		return yield* _(signInSocialServerService(validatedParams));
 	});

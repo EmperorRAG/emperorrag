@@ -4,8 +4,7 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createBaseSchema, withQuery, tokenQuerySchema, withOptionalHeaders } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import { pipe } from 'effect/Function';
+import { createAuthSchema, tokenQuerySchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
 import {
 	isAuthServerApiRequestPasswordResetCallbackParamsFor,
@@ -22,7 +21,7 @@ export const requestPasswordResetCallbackServerController: requestPasswordResetC
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
 			validateInputEffect(
-				Effect.succeed(pipe(createBaseSchema(), withQuery(tokenQuerySchema), withOptionalHeaders())),
+				createAuthSchema({ query: tokenQuerySchema, headers: 'optional' }),
 				params,
 				isAuthServerApiRequestPasswordResetCallbackParamsFor,
 				'requestPasswordResetCallback'

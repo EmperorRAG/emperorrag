@@ -5,7 +5,6 @@
 
 export { signInEmailServerService } from './signInEmail.service';
 export { signInEmailServerController } from './signInEmail.controller';
-export { createSignInEmailServerParamsSchema } from './signInEmail.schema';
 export type {
 	AuthServerApiSignInEmailPropsFor,
 	AuthServerApiSignInEmailParamsFor,

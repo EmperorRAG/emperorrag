@@ -5,6 +5,5 @@
 
 export { signOutServerService } from './signOut.service';
 export { signOutServerController } from './signOut.controller';
-export { createSignOutServerParamsSchema } from './signOut.schema';
 export type { AuthServerApiSignOutPropsFor, AuthServerApiSignOutParamsFor, AuthServerApiSignOutResultFor, signOutPropsFor } from './signOut.types';
 export { isAuthServerApiSignOutParamsFor } from './signOut.types';

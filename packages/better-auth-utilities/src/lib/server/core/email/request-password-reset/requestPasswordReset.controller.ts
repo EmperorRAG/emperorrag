@@ -4,8 +4,7 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createBaseSchema, withBody, emailWithRedirectBodySchema, withOptionalHeaders } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import { pipe } from 'effect/Function';
+import { createAuthSchema, emailWithRedirectBodySchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
 import {
 	isAuthServerApiRequestPasswordResetParamsFor,
@@ -20,7 +19,7 @@ export const requestPasswordResetServerController: requestPasswordResetPropsFor 
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
 			validateInputEffect(
-				Effect.succeed(pipe(createBaseSchema(), withBody(emailWithRedirectBodySchema), withOptionalHeaders())),
+				createAuthSchema({ body: emailWithRedirectBodySchema, headers: 'optional' }),
 				params,
 				isAuthServerApiRequestPasswordResetParamsFor,
 				'requestPasswordReset'

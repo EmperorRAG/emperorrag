@@ -5,7 +5,6 @@
 
 export { callbackOAuthServerService } from './callbackOAuth.service';
 export { callbackOAuthServerController } from './callbackOAuth.controller';
-export { createCallbackOAuthServerParamsSchema } from './callbackOAuth.schema';
 export {
 	isAuthServerApiCallbackOAuthParamsFor,
 	type AuthServerApiCallbackOAuthPropsFor,

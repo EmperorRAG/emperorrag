@@ -5,7 +5,6 @@
 
 export { deleteUserServerService } from './deleteUser.service';
 export { deleteUserServerController } from './deleteUser.controller';
-export { createDeleteUserServerParamsSchema } from './deleteUser.schema';
 export {
 	isAuthServerApiDeleteUserParamsFor,
 	type AuthServerApiDeleteUserPropsFor,

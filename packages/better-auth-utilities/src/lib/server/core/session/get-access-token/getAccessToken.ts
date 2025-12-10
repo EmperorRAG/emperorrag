@@ -5,7 +5,6 @@
 
 export { getAccessTokenServerService } from './getAccessToken.service';
 export { getAccessTokenServerController } from './getAccessToken.controller';
-export { createGetAccessTokenServerParamsSchema } from './getAccessToken.schema';
 export {
 	isAuthServerApiGetAccessTokenParamsFor,
 	type AuthServerApiGetAccessTokenPropsFor,

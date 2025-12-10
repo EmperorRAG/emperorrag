@@ -5,7 +5,6 @@
 
 export { setPasswordServerService } from './setPassword.service';
 export { setPasswordServerController } from './setPassword.controller';
-export { createSetPasswordServerParamsSchema } from './setPassword.schema';
 export {
 	isAuthServerApiSetPasswordParamsFor,
 	type AuthServerApiSetPasswordPropsFor,

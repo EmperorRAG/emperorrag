@@ -5,7 +5,6 @@
 
 export { sendVerificationEmailServerService } from './sendVerificationEmail.service';
 export { sendVerificationEmailServerController } from './sendVerificationEmail.controller';
-export { createSendVerificationEmailServerParamsSchema } from './sendVerificationEmail.schema';
 export type {
 	AuthServerApiSendVerificationEmailPropsFor,
 	AuthServerApiSendVerificationEmailParamsFor,

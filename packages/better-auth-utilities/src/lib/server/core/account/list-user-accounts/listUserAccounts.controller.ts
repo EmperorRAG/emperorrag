@@ -6,10 +6,8 @@
 
 import * as Effect from 'effect/Effect';
 import { CoreAuthServerApiError, CoreAuthServerDataMissingError, CoreAuthServerInputError, validateInputEffect } from '../../shared/core.error';
-import { AuthServerTag } from '../../../server.service';
 import type { AuthServerFor } from '../../../server.types';
-import { createBaseSchema, withOptionalHeaders } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import { pipe } from 'effect/Function';
+import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import { listUserAccountsServerService } from './listUserAccounts.service';
 import {
 	isAuthServerApiListUserAccountsParamsFor,
@@ -48,38 +46,6 @@ import {
  * // result is Account[]
  * console.log(`Found ${result.length} linked accounts`);
  * ```
- *
- * @example
- * ```typescript
- * // Error handling in controller
- * const program = listUserAccountsServerController(rawInput).pipe(
- *   Effect.catchTag('CoreAuthServerInputError', (e) =>
- *     Effect.succeed({ error: 'validation_failed', issues: e.issues })
- *   ),
- *   Effect.catchTag('CoreAuthServerApiError', (e) =>
- *     Effect.succeed({ error: 'api_error', status: e.status })
- *   )
- * );
- * ```
- *
- * @example
- * ```typescript
- * // Using with Express/Next.js route handler
- * export async function GET(request: Request) {
- *   const program = listUserAccountsServerController({
- *     headers: request.headers
- *   });
- *
- *   try {
- *     const accounts = await Effect.runPromise(
- *       Effect.provideService(program, AuthServerTag, authServer)
- *     );
- *     return Response.json({ accounts });
- *   } catch (error) {
- *     return Response.json({ error: 'Failed to fetch accounts' }, { status: 500 });
- *   }
- * }
- * ```
  */
 export const listUserAccountsServerController = (
 	input: AuthServerApiListUserAccountsParamsFor
@@ -89,12 +55,11 @@ export const listUserAccountsServerController = (
 	AuthServerFor
 > =>
 	Effect.gen(function* () {
-		const authServer = yield* AuthServerTag;
 		const validatedParams = yield* validateInputEffect(
-			Effect.succeed(pipe(createBaseSchema(), withOptionalHeaders())),
+			createAuthSchema({ headers: 'optional' }),
 			input,
 			isAuthServerApiListUserAccountsParamsFor,
 			'listUserAccounts'
 		);
-		return yield* listUserAccountsServerService(validatedParams).pipe(Effect.provideService(AuthServerTag, authServer));
+		return yield* listUserAccountsServerService(validatedParams);
 	});

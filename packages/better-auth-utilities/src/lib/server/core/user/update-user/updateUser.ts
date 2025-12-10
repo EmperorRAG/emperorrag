@@ -5,7 +5,6 @@
 
 export { updateUserServerService } from './updateUser.service';
 export { updateUserServerController } from './updateUser.controller';
-export { createUpdateUserServerParamsSchema } from './updateUser.schema';
 export {
 	isAuthServerApiUpdateUserParamsFor,
 	type AuthServerApiUpdateUserPropsFor,

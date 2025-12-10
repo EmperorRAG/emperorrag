@@ -5,7 +5,6 @@
 
 export { resetPasswordServerService } from './resetPassword.service';
 export { resetPasswordServerController } from './resetPassword.controller';
-export { createResetPasswordServerParamsSchema } from './resetPassword.schema';
 export type {
 	AuthServerApiResetPasswordPropsFor,
 	AuthServerApiResetPasswordParamsFor,

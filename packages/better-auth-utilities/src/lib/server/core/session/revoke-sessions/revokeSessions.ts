@@ -5,7 +5,6 @@
 
 export { revokeSessionsServerService } from './revokeSessions.service';
 export { revokeSessionsServerController } from './revokeSessions.controller';
-export { createRevokeSessionsServerParamsSchema } from './revokeSessions.schema';
 export {
 	isAuthServerApiRevokeSessionsParamsFor,
 	type AuthServerApiRevokeSessionsPropsFor,

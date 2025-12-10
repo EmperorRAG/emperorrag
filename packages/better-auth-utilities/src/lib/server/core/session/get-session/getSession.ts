@@ -5,7 +5,6 @@
  */
 
 export { getSessionServerController } from './getSession.controller';
-export { createGetSessionServerParamsSchema, createGetSessionServerParamsSchemaFromContext } from './getSession.schema';
 export { getSessionServerService } from './getSession.service';
 export {
 	isAuthServerApiGetSessionParamsFor,

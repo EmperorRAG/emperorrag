@@ -4,8 +4,7 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createBaseSchema, withQuery, tokenQuerySchema, withOptionalHeaders } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import { pipe } from 'effect/Function';
+import { createAuthSchema, tokenQuerySchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiVerifyEmailParamsFor, type AuthServerApiVerifyEmailParamsFor, type verifyEmailPropsFor } from './verifyEmail.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -27,12 +26,7 @@ export const verifyEmailServerController: verifyEmailPropsFor = (params: AuthSer
 	Effect.gen(function* (_) {
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
-			validateInputEffect(
-				Effect.succeed(pipe(createBaseSchema(), withQuery(tokenQuerySchema), withOptionalHeaders())),
-				params,
-				isAuthServerApiVerifyEmailParamsFor,
-				'verifyEmail'
-			)
+			validateInputEffect(createAuthSchema({ query: tokenQuerySchema, headers: 'optional' }), params, isAuthServerApiVerifyEmailParamsFor, 'verifyEmail')
 		);
 
 		// 2) Call the service with the validated params

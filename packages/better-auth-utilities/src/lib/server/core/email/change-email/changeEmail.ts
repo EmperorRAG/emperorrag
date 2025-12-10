@@ -5,7 +5,6 @@
 
 export { changeEmailServerService } from './changeEmail.service';
 export { changeEmailServerController } from './changeEmail.controller';
-export { createChangeEmailServerParamsSchema } from './changeEmail.schema';
 export {
 	isAuthServerApiChangeEmailParamsFor,
 	type AuthServerApiChangeEmailPropsFor,

@@ -5,20 +5,16 @@
 
 import * as Effect from 'effect/Effect';
 import {
-	createBaseSchema,
-	withBody,
+	createAuthSchema,
 	currentPasswordRequiredSchema,
 	createPasswordSchema,
 	revokeOtherSessionsOptionalSchema,
-	withOptionalHeaders,
 } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import { z } from 'zod';
-import { pipe } from 'effect/Function';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiChangePasswordParamsFor, type AuthServerApiChangePasswordParamsFor, type changePasswordPropsFor } from './changePassword.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { changePasswordServerService } from './changePassword.service';
-import { AuthServerTag } from '../../../server.service';
 
 /**
  * Controller for change password operation with input validation.
@@ -48,6 +44,7 @@ import { AuthServerTag } from '../../../server.service';
  *
  * const program = changePasswordServerController({
  *   body: {
+```
  *     currentPassword: 'oldPassword123',
  *     newPassword: 'newSecurePassword456',
  *     revokeOtherSessions: true
@@ -62,27 +59,20 @@ import { AuthServerTag } from '../../../server.service';
  */
 export const changePasswordServerController: changePasswordPropsFor = (params: AuthServerApiChangePasswordParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
-		const authServer = yield* _(AuthServerTag);
-
 		const changePasswordBodySchema = z.object({
 			currentPassword: currentPasswordRequiredSchema,
 			newPassword: createPasswordSchema(8, 128),
 			revokeOtherSessions: revokeOtherSessionsOptionalSchema,
 		});
 
-		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
 			validateInputEffect(
-				Effect.succeed(pipe(createBaseSchema(), withBody(changePasswordBodySchema), withOptionalHeaders())),
+				createAuthSchema({ body: changePasswordBodySchema, headers: 'optional' }),
 				params,
 				isAuthServerApiChangePasswordParamsFor,
 				'changePassword'
 			)
 		);
 
-		// 2) Call the service with the validated params
-		const result = yield* _(changePasswordServerService(validatedParams));
-
-		// 3) Return the success value of the whole controller Effect
-		return result;
+		return yield* _(changePasswordServerService(validatedParams));
 	});

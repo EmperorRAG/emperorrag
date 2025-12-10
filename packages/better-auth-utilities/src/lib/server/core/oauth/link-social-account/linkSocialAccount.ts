@@ -5,7 +5,6 @@
 
 export { linkSocialAccountServerService } from './linkSocialAccount.service';
 export { linkSocialAccountServerController } from './linkSocialAccount.controller';
-export { createLinkSocialAccountServerParamsSchema } from './linkSocialAccount.schema';
 export {
 	isAuthServerApiLinkSocialAccountParamsFor,
 	type AuthServerApiLinkSocialAccountPropsFor,

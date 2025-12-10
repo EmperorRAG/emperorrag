@@ -5,7 +5,6 @@
 
 export { unlinkAccountServerService } from './unlinkAccount.service';
 export { unlinkAccountServerController } from './unlinkAccount.controller';
-export { createUnlinkAccountServerParamsSchema } from './unlinkAccount.schema';
 export type {
 	AuthServerApiUnlinkAccountPropsFor,
 	AuthServerApiUnlinkAccountParamsFor,

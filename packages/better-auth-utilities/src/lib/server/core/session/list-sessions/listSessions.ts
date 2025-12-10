@@ -5,7 +5,6 @@
 
 export { listSessionsServerService } from './listSessions.service';
 export { listSessionsServerController } from './listSessions.controller';
-export { createListSessionsServerParamsSchema } from './listSessions.schema';
 export {
 	isAuthServerApiListSessionsParamsFor,
 	type AuthServerApiListSessionsPropsFor,

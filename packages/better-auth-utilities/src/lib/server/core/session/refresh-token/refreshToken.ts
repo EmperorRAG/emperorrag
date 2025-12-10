@@ -5,7 +5,6 @@
 
 export { refreshTokenServerService } from './refreshToken.service';
 export { refreshTokenServerController } from './refreshToken.controller';
-export { createRefreshTokenServerParamsSchema } from './refreshToken.schema';
 export {
 	isAuthServerApiRefreshTokenParamsFor,
 	type AuthServerApiRefreshTokenPropsFor,

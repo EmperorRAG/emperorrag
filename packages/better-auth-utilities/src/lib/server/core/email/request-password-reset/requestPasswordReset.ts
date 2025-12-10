@@ -5,7 +5,6 @@
 
 export { requestPasswordResetServerService } from './requestPasswordReset.service';
 export { requestPasswordResetServerController } from './requestPasswordReset.controller';
-export { createRequestPasswordResetServerParamsSchema } from './requestPasswordReset.schema';
 export {
 	isAuthServerApiRequestPasswordResetParamsFor,
 	type AuthServerApiRequestPasswordResetPropsFor,

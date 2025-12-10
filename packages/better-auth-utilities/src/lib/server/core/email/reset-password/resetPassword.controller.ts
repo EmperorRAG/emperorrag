@@ -4,20 +4,12 @@
  */
 
 import * as Effect from 'effect/Effect';
-import {
-	createBaseSchema,
-	withBody,
-	tokenRequiredSchema,
-	createPasswordSchema,
-	withOptionalHeaders,
-} from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { createAuthSchema, tokenRequiredSchema, createPasswordSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import { z } from 'zod';
-import { pipe } from 'effect/Function';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiResetPasswordParamsFor, type AuthServerApiResetPasswordParamsFor, type resetPasswordPropsFor } from './resetPassword.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { resetPasswordServerService } from './resetPassword.service';
-import { AuthServerTag } from '../../../server.service';
 
 /**
  * Controller for reset password operation with input validation.
@@ -38,29 +30,9 @@ import { AuthServerTag } from '../../../server.service';
  *
  * @param params - The reset password parameters to validate and process
  * @returns Effect requiring AuthServerFor context
- *
- * @example
- * ```typescript
- * import * as Effect from 'effect/Effect';
- * import { resetPasswordServerController } from './resetPassword.controller';
- *
- * const program = resetPasswordServerController({
- *   body: {
- *     token: 'secure-reset-token',
- *     newPassword: 'newSecurePassword123'
- *   },
- *   headers: requestHeaders
- * });
- *
- * await Effect.runPromise(
- *   program.pipe(Effect.provideService(AuthServerTag, authServer))
- * );
- * ```
  */
 export const resetPasswordServerController: resetPasswordPropsFor = (params: AuthServerApiResetPasswordParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
-		const authServer = yield* _(AuthServerTag);
-
 		const resetPasswordBodySchema = z.object({
 			token: tokenRequiredSchema,
 			newPassword: createPasswordSchema(8, 128),
@@ -69,7 +41,10 @@ export const resetPasswordServerController: resetPasswordPropsFor = (params: Aut
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
 			validateInputEffect(
-				Effect.succeed(pipe(createBaseSchema(), withBody(resetPasswordBodySchema), withOptionalHeaders())),
+				createAuthSchema({
+					body: resetPasswordBodySchema,
+					headers: 'optional',
+				}),
 				params,
 				isAuthServerApiResetPasswordParamsFor,
 				'resetPassword'

@@ -5,7 +5,6 @@
  */
 
 export { listUserAccountsServerController } from './listUserAccounts.controller';
-export { createListUserAccountsServerParamsSchema } from './listUserAccounts.schema';
 export { listUserAccountsServerService } from './listUserAccounts.service';
 export {
 	isAuthServerApiListUserAccountsParamsFor,

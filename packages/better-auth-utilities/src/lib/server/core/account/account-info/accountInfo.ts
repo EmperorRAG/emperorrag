@@ -5,7 +5,6 @@
 
 export { accountInfoServerService } from './accountInfo.service';
 export { accountInfoServerController } from './accountInfo.controller';
-export { createAccountInfoServerParamsSchema } from './accountInfo.schema';
 export {
 	isAuthServerApiAccountInfoParamsFor,
 	type AuthServerApiAccountInfoPropsFor,

@@ -5,7 +5,6 @@
 
 export { changePasswordServerService } from './changePassword.service';
 export { changePasswordServerController } from './changePassword.controller';
-export { createChangePasswordServerParamsSchema } from './changePassword.schema';
 export type {
 	AuthServerApiChangePasswordPropsFor,
 	AuthServerApiChangePasswordParamsFor,

@@ -5,7 +5,6 @@
 
 export { deleteUserCallbackServerService } from './deleteUserCallback.service';
 export { deleteUserCallbackServerController } from './deleteUserCallback.controller';
-export { createDeleteUserCallbackServerParamsSchema } from './deleteUserCallback.schema';
 export {
 	isAuthServerApiDeleteUserCallbackParamsFor,
 	type AuthServerApiDeleteUserCallbackPropsFor,

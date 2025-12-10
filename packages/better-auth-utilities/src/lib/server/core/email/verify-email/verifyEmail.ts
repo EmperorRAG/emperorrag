@@ -5,7 +5,6 @@
 
 export { verifyEmailServerService } from './verifyEmail.service';
 export { verifyEmailServerController } from './verifyEmail.controller';
-export { createVerifyEmailServerParamsSchema } from './verifyEmail.schema';
 export {
 	isAuthServerApiVerifyEmailParamsFor,
 	type AuthServerApiVerifyEmailPropsFor,

@@ -4,37 +4,19 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createBaseSchema, withOptionalHeaders } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import { pipe } from 'effect/Function';
+import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiListSessionsParamsFor, type AuthServerApiListSessionsParamsFor, type listSessionsPropsFor } from './listSessions.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { listSessionsServerService } from './listSessions.service';
 
-/**
- * Controller for list sessions operation with input validation.
- *
- * @pure
- * @description Validates input parameters using dynamically generated Zod schema,
- * then delegates to the service layer. Uses validateInputEffect for composable
- * error tracing through schema creation, parsing, and type guard validation.
- *
- * @remarks
- * **Validation Flow:**
- * 1. Retrieve authServer from Effect context
- * 2. Create schema via Effect pipeline
- * 3. Parse and validate with type guard
- * 4. Call service with validated params
- *
- * @template T - The Better Auth server type with all plugin augmentations
- *
- * @param params - The list sessions parameters to validate and process
- * @returns Effect requiring AuthServerFor context
- */
-export const listSessionsServerController =
-	<T extends AuthServerFor>(props: listSessionsPropsFor<T>) =>
-	(params: unknown): Effect.Effect<AuthServerApiListSessionsParamsFor<T>, Error> => {
-		return validateInputEffect(Effect.succeed(pipe(createBaseSchema(), withOptionalHeaders())), params, isAuthServerApiListSessionsParamsFor(props)).pipe(
-			Effect.flatMap((validParams) => listSessionsServerService(props)(validParams))
+export const listSessionsServerController: listSessionsPropsFor = (params: AuthServerApiListSessionsParamsFor<AuthServerFor>) =>
+	Effect.gen(function* () {
+		const validatedParams = yield* validateInputEffect(
+			createAuthSchema({ headers: 'optional' }),
+			params,
+			isAuthServerApiListSessionsParamsFor,
+			'listSessions'
 		);
-	};
+		return yield* listSessionsServerService(validatedParams);
+	});

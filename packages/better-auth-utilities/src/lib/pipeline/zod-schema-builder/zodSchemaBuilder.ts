@@ -5,6 +5,9 @@
  */
 
 import { z } from 'zod';
+import * as Effect from 'effect/Effect';
+import { pipe } from 'effect/Function';
+import { AuthServerTag } from '../../server/server.service';
 
 // =============================================================================
 // REQUEST OPTIONS SCHEMA PROPERTIES
@@ -615,3 +618,46 @@ export const withAdditionalFields =
 	<T extends z.ZodRawShape>(shape: T) =>
 	<Base extends z.ZodObject<any>>(base: Base) =>
 		base.extend(shape);
+
+// =============================================================================
+// WORKFLOW PIPELINE FACTORY
+// =============================================================================
+
+/**
+ * Configuration for the Zod schema builder factory.
+ */
+export type ZodSchemaConfig = {
+	body?: z.ZodTypeAny;
+	query?: z.ZodTypeAny;
+	headers?: 'optional' | 'required';
+	headerMessage?: string;
+};
+
+/**
+ * Creates a Zod schema using the AuthServer context.
+ *
+ * @param config - The schema configuration.
+ * @returns An Effect that resolves to the Zod schema.
+ */
+export const createAuthSchema = (config: ZodSchemaConfig = {}) =>
+	Effect.gen(function* (_) {
+		const authServer = yield* AuthServerTag;
+		// In the future, use authServer to customize schema
+		let schema = createBaseSchema();
+
+		if (config.body) {
+			schema = pipe(schema, withBody(config.body));
+		}
+
+		if (config.query) {
+			schema = pipe(schema, withQuery(config.query));
+		}
+
+		if (config.headers === 'required') {
+			schema = pipe(schema, withRequiredHeaders(config.headerMessage));
+		} else {
+			schema = pipe(schema, withOptionalHeaders());
+		}
+
+		return schema;
+	});

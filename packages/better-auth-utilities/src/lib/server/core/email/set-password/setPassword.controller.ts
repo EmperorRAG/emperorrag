@@ -4,20 +4,12 @@
  */
 
 import * as Effect from 'effect/Effect';
-import {
-	createBaseSchema,
-	withBody,
-	createPasswordSchema,
-	tokenOptionalSchema,
-	withOptionalHeaders,
-} from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { createAuthSchema, createPasswordSchema, tokenOptionalSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import { z } from 'zod';
-import { pipe } from 'effect/Function';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiSetPasswordParamsFor, type AuthServerApiSetPasswordParamsFor, type setPasswordPropsFor } from './setPassword.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { setPasswordServerService } from './setPassword.service';
-import { AuthServerTag } from '../../../server.service';
 
 /**
  * Controller for set password operation with Zod validation and type narrowing.
@@ -33,8 +25,6 @@ import { AuthServerTag } from '../../../server.service';
  */
 export const setPasswordServerController: setPasswordPropsFor = (params: AuthServerApiSetPasswordParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
-		const authServer = yield* _(AuthServerTag);
-
 		const setPasswordBodySchema = z.object({
 			newPassword: createPasswordSchema(8, 128),
 			token: tokenOptionalSchema,
@@ -43,7 +33,10 @@ export const setPasswordServerController: setPasswordPropsFor = (params: AuthSer
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
 			validateInputEffect(
-				Effect.succeed(pipe(createBaseSchema(), withBody(setPasswordBodySchema), withOptionalHeaders())),
+				createAuthSchema({
+					body: setPasswordBodySchema,
+					headers: 'optional',
+				}),
 				params,
 				isAuthServerApiSetPasswordParamsFor,
 				'setPassword'

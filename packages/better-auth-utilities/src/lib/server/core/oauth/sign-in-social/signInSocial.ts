@@ -5,7 +5,6 @@
  */
 
 export { signInSocialServerController } from './signInSocial.controller';
-export { createSignInSocialServerParamsSchema } from './signInSocial.schema';
 export { signInSocialServerService } from './signInSocial.service';
 export {
 	isAuthServerApiSignInSocialParamsFor,

@@ -5,7 +5,6 @@
 
 export { revokeOtherSessionsServerService } from './revokeOtherSessions.service';
 export { revokeOtherSessionsServerController } from './revokeOtherSessions.controller';
-export { createRevokeOtherSessionsServerParamsSchema } from './revokeOtherSessions.schema';
 export {
 	isAuthServerApiRevokeOtherSessionsParamsFor,
 	type AuthServerApiRevokeOtherSessionsPropsFor,

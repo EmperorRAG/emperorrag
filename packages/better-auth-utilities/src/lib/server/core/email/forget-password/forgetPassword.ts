@@ -5,7 +5,6 @@
 
 export { forgetPasswordServerService } from './forgetPassword.service';
 export { forgetPasswordServerController } from './forgetPassword.controller';
-export { createForgetPasswordServerParamsSchema } from './forgetPassword.schema';
 export type {
 	AuthServerApiForgetPasswordPropsFor,
 	AuthServerApiForgetPasswordParamsFor,
