@@ -5,7 +5,7 @@
  */
 
 import { Effect } from 'effect';
-import { AccountAuthServerApiError, AccountAuthServerDataMissingError, AccountAuthServerInputError, validateInputEffect } from '../shared/account.error';
+import { CoreAuthServerApiError, CoreAuthServerDataMissingError, CoreAuthServerInputError, validateInputEffect } from '../../shared/core.error';
 import { AccountAuthServerServiceTag } from '../shared/account.service';
 import type { AccountAuthServerService } from '../shared/account.types';
 import { createListUserAccountsServerParamsSchema } from './listUserAccounts.schema';
@@ -52,10 +52,10 @@ import {
  * ```typescript
  * // Error handling in controller
  * const program = listUserAccountsServerController(rawInput).pipe(
- *   Effect.catchTag('AccountAuthServerInputError', (e) =>
+ *   Effect.catchTag('CoreAuthServerInputError', (e) =>
  *     Effect.succeed({ error: 'validation_failed', issues: e.issues })
  *   ),
- *   Effect.catchTag('AccountAuthServerApiError', (e) =>
+ *   Effect.catchTag('CoreAuthServerApiError', (e) =>
  *     Effect.succeed({ error: 'api_error', status: e.status })
  *   )
  * );
@@ -84,7 +84,7 @@ export const listUserAccountsServerController = (
 	input: AuthServerApiListUserAccountsParamsFor
 ): Effect.Effect<
 	Awaited<AuthServerApiListUserAccountsResultFor>,
-	AccountAuthServerInputError | AccountAuthServerApiError | AccountAuthServerDataMissingError,
+	CoreAuthServerInputError | CoreAuthServerApiError | CoreAuthServerDataMissingError,
 	AccountAuthServerService
 > =>
 	Effect.gen(function* () {

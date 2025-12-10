@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import type { AuthServerApiSignUpEmailParamsFor, signUpEmailPropsFor } from './signUpEmail.types';
-import { mapBetterAuthApiErrorToEmailAuthError } from '../shared/email.error';
+import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 
@@ -14,7 +14,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  *
  * @pure
  * @description Wraps auth.api.signUpEmail in an Effect, converting Promise-based
- * errors into typed EmailAuthServerApiError failures. Creates both user account
+ * errors into typed CoreAuthServerApiError failures. Creates both user account
  * and initial session in a single operation.
  *
  * @remarks
@@ -34,7 +34,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * **Error Handling:**
  * - Better Auth throws APIError instances on failure
  * - Common errors: Email already exists (409), validation failures (400)
- * - Status codes extracted and preserved in EmailAuthServerApiError
+ * - Status codes extracted and preserved in CoreAuthServerApiError
  * - Error cause chain maintained for debugging
  *
  * @template T - The Better Auth server type with all plugin augmentations
@@ -84,7 +84,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  *   headers: requestHeaders
  * });
  *
- * const handled = Effect.catchTag(program, 'EmailAuthServerApiError', (error) => {
+ * const handled = Effect.catchTag(program, 'CoreAuthServerApiError', (error) => {
  *   if (error.status === 409) {
  *     console.error('Email already registered');
  *     return Effect.fail(new Error('Please use a different email'));
@@ -125,6 +125,6 @@ export const signUpEmailServerService: signUpEmailPropsFor = <T extends AuthServ
 	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.signUpEmail(params),
-			catch: mapBetterAuthApiErrorToEmailAuthError,
+			catch: mapBetterAuthApiErrorToCoreAuthError,
 		})
 	);

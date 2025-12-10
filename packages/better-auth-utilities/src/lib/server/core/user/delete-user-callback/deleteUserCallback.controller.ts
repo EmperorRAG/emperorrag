@@ -11,7 +11,7 @@ import {
 	type AuthServerApiDeleteUserCallbackParamsFor,
 	type deleteUserCallbackPropsFor,
 } from './deleteUserCallback.types';
-import { validateInputEffect } from '../shared/user.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { deleteUserCallbackServerService } from './deleteUserCallback.service';
 import { UserAuthServerServiceTag } from '../shared/user.service';
 

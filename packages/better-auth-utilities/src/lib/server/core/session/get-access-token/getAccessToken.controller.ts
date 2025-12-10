@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createGetAccessTokenServerParamsSchema } from './getAccessToken.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiGetAccessTokenParamsFor, type AuthServerApiGetAccessTokenParamsFor, type getAccessTokenPropsFor } from './getAccessToken.types';
-import { validateInputEffect } from '../shared/session.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { getAccessTokenServerService } from './getAccessToken.service';
 import { SessionAuthServerServiceTag } from '../shared/session.service';
 

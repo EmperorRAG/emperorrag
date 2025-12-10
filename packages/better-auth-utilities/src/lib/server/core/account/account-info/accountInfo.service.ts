@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import type { AuthServerApiAccountInfoParamsFor, accountInfoPropsFor } from './accountInfo.types';
-import { mapBetterAuthApiErrorToAccountAuthError } from '../shared/account.error';
+import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
 import { AccountAuthServerServiceTag } from '../shared/account.service';
 
@@ -13,6 +13,6 @@ export const accountInfoServerService: accountInfoPropsFor = <T extends AuthServ
 	Effect.flatMap(AccountAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.accountInfo(params),
-			catch: mapBetterAuthApiErrorToAccountAuthError,
+			catch: mapBetterAuthApiErrorToCoreAuthError,
 		})
 	);

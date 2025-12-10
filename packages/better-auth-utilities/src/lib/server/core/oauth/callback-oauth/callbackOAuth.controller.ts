@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createCallbackOAuthServerParamsSchema } from './callbackOAuth.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiCallbackOAuthParamsFor, type AuthServerApiCallbackOAuthParamsFor, type callbackOAuthPropsFor } from './callbackOAuth.types';
-import { validateInputEffect } from '../shared/oauth.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { callbackOAuthServerService } from './callbackOAuth.service';
 import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
 

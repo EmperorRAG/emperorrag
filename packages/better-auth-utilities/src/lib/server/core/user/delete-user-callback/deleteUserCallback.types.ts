@@ -4,7 +4,7 @@
  */
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { UserAuthServerError } from '../shared/user.error';
+import type { CoreAuthServerError } from '../../shared/core.error';
 import type { UserAuthServerService } from '../shared/user.types';
 import type * as Effect from 'effect/Effect';
 
@@ -18,7 +18,7 @@ export type AuthServerApiDeleteUserCallbackResultFor<T extends AuthServerFor = A
 export interface deleteUserCallbackPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
 		params: AuthServerApiDeleteUserCallbackParamsFor<T>
-	): Effect.Effect<Awaited<AuthServerApiDeleteUserCallbackResultFor<T>>, UserAuthServerError, UserAuthServerService>;
+	): Effect.Effect<Awaited<AuthServerApiDeleteUserCallbackResultFor<T>>, CoreAuthServerError, UserAuthServerService>;
 }
 
 export const isAuthServerApiDeleteUserCallbackParamsFor = <T extends AuthServerFor = AuthServerFor>(

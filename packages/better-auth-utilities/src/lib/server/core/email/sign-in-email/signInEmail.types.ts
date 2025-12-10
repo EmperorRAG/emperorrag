@@ -4,7 +4,7 @@
  */
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { EmailAuthServerError } from '../shared/email.error';
+import type { CoreAuthServerError } from '../../shared/core.error';
 import type { EmailAuthServerService } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
@@ -83,8 +83,8 @@ export type AuthServerApiSignInEmailResultFor<T extends AuthServerFor = AuthServ
  * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
- * - EmailAuthServerApiError: API call failures with HTTP status codes
- * - Other EmailAuthServerError types from validation layers (if using controller)
+ * - CoreAuthServerApiError: API call failures with HTTP status codes
+ * - Other CoreAuthServerError types from validation layers (if using controller)
  *
  * @example
  * ```typescript
@@ -106,7 +106,7 @@ export type AuthServerApiSignInEmailResultFor<T extends AuthServerFor = AuthServ
  * ```
  */
 export interface signInEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiSignInEmailParamsFor<T>): Effect.Effect<Awaited<AuthServerApiSignInEmailResultFor<T>>, EmailAuthServerError, EmailAuthServerService>;
+	(params: AuthServerApiSignInEmailParamsFor<T>): Effect.Effect<Awaited<AuthServerApiSignInEmailResultFor<T>>, CoreAuthServerError, EmailAuthServerService>;
 }
 
 /**

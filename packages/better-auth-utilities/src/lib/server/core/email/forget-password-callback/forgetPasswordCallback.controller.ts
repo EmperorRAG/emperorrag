@@ -11,7 +11,7 @@ import {
 	type AuthServerApiForgetPasswordCallbackParamsFor,
 	type forgetPasswordCallbackPropsFor,
 } from './forgetPasswordCallback.types';
-import { validateInputEffect } from '../shared/email.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { forgetPasswordCallbackServerService } from './forgetPasswordCallback.service';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 

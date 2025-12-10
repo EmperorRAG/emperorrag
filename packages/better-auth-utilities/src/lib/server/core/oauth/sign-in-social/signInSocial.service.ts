@@ -5,7 +5,7 @@
  */
 
 import { Effect } from 'effect';
-import { mapBetterAuthApiErrorToOAuthAuthError } from '../shared/oauth.error';
+import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
 import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from './signInSocial.types';
 
@@ -19,7 +19,7 @@ import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from '.
  * calls the signInSocial API and returns the redirect URL or session data.
  *
  * @param params - The signInSocial parameters including provider, callbacks, and headers
- * @returns Effect requiring OAuthAuthServerService context, failing with OAuthAuthServerApiError,
+ * @returns Effect requiring OAuthAuthServerService context, failing with CoreAuthServerApiError,
  *          and succeeding with the sign-in result
  *
  * @example
@@ -78,7 +78,7 @@ import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from '.
  *       body: { provider: 'google' },
  *       headers: request.headers
  *     }).pipe(
- *       Effect.catchTag('OAuthAuthServerApiError', (e) => {
+ *       Effect.catchTag('CoreAuthServerApiError', (e) => {
  *         if (e.status === 400) {
  *           return Effect.fail(new Error('Invalid OAuth provider'));
  *         }
@@ -94,6 +94,6 @@ export const signInSocialServerService: signInSocialPropsFor = (params: AuthServ
 	Effect.flatMap(OAuthAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.signInSocial(params),
-			catch: mapBetterAuthApiErrorToOAuthAuthError,
+			catch: mapBetterAuthApiErrorToCoreAuthError,
 		})
 	);

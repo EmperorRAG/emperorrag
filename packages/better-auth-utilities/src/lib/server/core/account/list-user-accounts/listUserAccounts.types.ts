@@ -6,7 +6,7 @@
 
 import type { Effect } from 'effect';
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { AccountAuthServerApiError, AccountAuthServerDataMissingError, AccountAuthServerInputError } from '../shared/account.error';
+import type { CoreAuthServerApiError, CoreAuthServerDataMissingError, CoreAuthServerInputError } from '../../shared/core.error';
 import type { AccountAuthServerService } from '../shared/account.types';
 
 /**
@@ -83,7 +83,7 @@ export type AuthServerApiListUserAccountsResultFor<T extends AuthServerFor = Aut
  *       try: () => authServer.api.listUserAccounts(params),
  *       catch: (error) => {
  *         const message = error instanceof Error ? error.message : 'Failed to list accounts';
- *         return new AccountAuthServerApiError(message, undefined, error);
+ *         return new CoreAuthServerApiError(message, undefined, error);
  *       }
  *     })
  *   );
@@ -93,7 +93,7 @@ export type listUserAccountsPropsFor<T extends AuthServerFor = AuthServerFor> = 
 	params: AuthServerApiListUserAccountsParamsFor<T>
 ) => Effect.Effect<
 	Awaited<AuthServerApiListUserAccountsResultFor<T>>,
-	AccountAuthServerApiError | AccountAuthServerInputError | AccountAuthServerDataMissingError,
+	CoreAuthServerApiError | CoreAuthServerInputError | CoreAuthServerDataMissingError,
 	AccountAuthServerService
 >;
 

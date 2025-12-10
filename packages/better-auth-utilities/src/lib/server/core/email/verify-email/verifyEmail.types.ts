@@ -4,7 +4,7 @@
  */
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { EmailAuthServerError } from '../shared/email.error';
+import type { CoreAuthServerError } from '../../shared/core.error';
 import type { EmailAuthServerService } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
@@ -49,7 +49,7 @@ export type AuthServerApiVerifyEmailResultFor<T extends AuthServerFor = AuthServ
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export interface verifyEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiVerifyEmailParamsFor<T>): Effect.Effect<Awaited<AuthServerApiVerifyEmailResultFor<T>>, EmailAuthServerError, EmailAuthServerService>;
+	(params: AuthServerApiVerifyEmailParamsFor<T>): Effect.Effect<Awaited<AuthServerApiVerifyEmailResultFor<T>>, CoreAuthServerError, EmailAuthServerService>;
 }
 
 /**

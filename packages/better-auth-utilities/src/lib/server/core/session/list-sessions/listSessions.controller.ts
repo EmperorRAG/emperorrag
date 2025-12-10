@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createListSessionsServerParamsSchema } from './listSessions.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiListSessionsParamsFor, type AuthServerApiListSessionsParamsFor, type listSessionsPropsFor } from './listSessions.types';
-import { validateInputEffect } from '../shared/session.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { listSessionsServerService } from './listSessions.service';
 import { SessionAuthServerServiceTag } from '../shared/session.service';
 

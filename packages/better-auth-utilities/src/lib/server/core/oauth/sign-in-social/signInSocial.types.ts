@@ -5,7 +5,7 @@
 
 import type { Effect } from 'effect';
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { OAuthAuthServerApiError, OAuthAuthServerInputError } from '../shared/oauth.error';
+import type { CoreAuthServerApiError, CoreAuthServerInputError } from '../../shared/core.error';
 import type { OAuthAuthServerService } from '../shared/oauth.types';
 
 /**
@@ -82,8 +82,8 @@ export type AuthServerApiSignInSocialResultFor<T extends AuthServerFor = AuthSer
  * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
- * - OAuthAuthServerApiError: API call failures with HTTP status codes
- * - OAuthAuthServerInputError: Validation failures from controller layer
+ * - CoreAuthServerApiError: API call failures with HTTP status codes
+ * - CoreAuthServerInputError: Validation failures from controller layer
  *
  * @example
  * ```typescript
@@ -107,7 +107,7 @@ export type AuthServerApiSignInSocialResultFor<T extends AuthServerFor = AuthSer
  */
 export type signInSocialPropsFor<T extends AuthServerFor = AuthServerFor> = (
 	params: AuthServerApiSignInSocialParamsFor<T>
-) => Effect.Effect<Awaited<AuthServerApiSignInSocialResultFor<T>>, OAuthAuthServerApiError | OAuthAuthServerInputError, OAuthAuthServerService>;
+) => Effect.Effect<Awaited<AuthServerApiSignInSocialResultFor<T>>, CoreAuthServerApiError | CoreAuthServerInputError, OAuthAuthServerService>;
 
 /**
  * Type guard for validating AuthServerApiSignInSocialParamsFor.

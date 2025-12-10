@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createSignInSocialServerParamsSchema } from './signInSocial.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiSignInSocialParamsFor, type AuthServerApiSignInSocialParamsFor, type signInSocialPropsFor } from './signInSocial.types';
-import { validateInputEffect } from '../shared/oauth.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { signInSocialServerService } from './signInSocial.service';
 import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
 

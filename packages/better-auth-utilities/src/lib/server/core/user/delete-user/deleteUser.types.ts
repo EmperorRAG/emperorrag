@@ -4,7 +4,7 @@
  */
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { UserAuthServerError } from '../shared/user.error';
+import type { CoreAuthServerError } from '../../shared/core.error';
 import type { UserAuthServerService } from '../shared/user.types';
 import type * as Effect from 'effect/Effect';
 
@@ -49,7 +49,7 @@ export type AuthServerApiDeleteUserResultFor<T extends AuthServerFor = AuthServe
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export interface deleteUserPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiDeleteUserParamsFor<T>): Effect.Effect<Awaited<AuthServerApiDeleteUserResultFor<T>>, UserAuthServerError, UserAuthServerService>;
+	(params: AuthServerApiDeleteUserParamsFor<T>): Effect.Effect<Awaited<AuthServerApiDeleteUserResultFor<T>>, CoreAuthServerError, UserAuthServerService>;
 }
 
 /**

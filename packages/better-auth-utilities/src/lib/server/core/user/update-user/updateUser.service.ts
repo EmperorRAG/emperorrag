@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import type { AuthServerApiUpdateUserParamsFor, updateUserPropsFor } from './updateUser.types';
-import { mapBetterAuthApiErrorToUserAuthError } from '../shared/user.error';
+import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
 import { UserAuthServerServiceTag } from '../shared/user.service';
 
@@ -14,7 +14,7 @@ import { UserAuthServerServiceTag } from '../shared/user.service';
  *
  * @pure
  * @description Wraps auth.api.updateUser in an Effect, converting Promise-based
- * errors into typed UserAuthServerApiError failures. Updates user profile information
+ * errors into typed CoreAuthServerApiError failures. Updates user profile information
  * like name, email, and image.
  *
  * @remarks
@@ -31,18 +31,18 @@ import { UserAuthServerServiceTag } from '../shared/user.service';
  * **Error Handling:**
  * - Better Auth throws APIError instances on failure
  * - Common errors: Unauthorized (401), validation failures (400)
- * - Status codes extracted and preserved in UserAuthServerApiError
+ * - Status codes extracted and preserved in CoreAuthServerApiError
  * - Error cause chain maintained for debugging
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The update user parameters containing body and optional headers
- * @returns Effect that resolves to updated user data or fails with UserAuthServerApiError
+ * @returns Effect that resolves to updated user data or fails with CoreAuthServerApiError
  */
 export const updateUserServerService: updateUserPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiUpdateUserParamsFor<T>) =>
 	Effect.flatMap(UserAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.updateUser(params),
-			catch: mapBetterAuthApiErrorToUserAuthError,
+			catch: mapBetterAuthApiErrorToCoreAuthError,
 		})
 	);

@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createDeleteUserServerParamsSchema } from './deleteUser.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiDeleteUserParamsFor, type AuthServerApiDeleteUserParamsFor, type deleteUserPropsFor } from './deleteUser.types';
-import { validateInputEffect } from '../shared/user.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { deleteUserServerService } from './deleteUser.service';
 import { UserAuthServerServiceTag } from '../shared/user.service';
 

@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createChangePasswordServerParamsSchema } from './changePassword.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiChangePasswordParamsFor, type AuthServerApiChangePasswordParamsFor, type changePasswordPropsFor } from './changePassword.types';
-import { validateInputEffect } from '../shared/email.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { changePasswordServerService } from './changePassword.service';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 

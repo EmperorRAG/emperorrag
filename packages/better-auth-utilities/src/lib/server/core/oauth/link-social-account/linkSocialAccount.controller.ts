@@ -11,7 +11,7 @@ import {
 	type AuthServerApiLinkSocialAccountParamsFor,
 	type linkSocialAccountPropsFor,
 } from './linkSocialAccount.types';
-import { validateInputEffect } from '../shared/oauth.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { linkSocialAccountServerService } from './linkSocialAccount.service';
 import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
 

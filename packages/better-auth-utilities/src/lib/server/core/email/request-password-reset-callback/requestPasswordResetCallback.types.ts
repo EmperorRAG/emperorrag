@@ -4,7 +4,7 @@
  */
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { EmailAuthServerError } from '../shared/email.error';
+import type { CoreAuthServerError } from '../../shared/core.error';
 import type { EmailAuthServerService } from '../shared/email.types';
 import type * as Effect from 'effect/Effect';
 
@@ -22,7 +22,7 @@ export type AuthServerApiRequestPasswordResetCallbackResultFor<T extends AuthSer
 export interface requestPasswordResetCallbackPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
 		params: AuthServerApiRequestPasswordResetCallbackParamsFor<T>
-	): Effect.Effect<Awaited<AuthServerApiRequestPasswordResetCallbackResultFor<T>>, EmailAuthServerError, EmailAuthServerService>;
+	): Effect.Effect<Awaited<AuthServerApiRequestPasswordResetCallbackResultFor<T>>, CoreAuthServerError, EmailAuthServerService>;
 }
 
 export const isAuthServerApiRequestPasswordResetCallbackParamsFor = <T extends AuthServerFor = AuthServerFor>(

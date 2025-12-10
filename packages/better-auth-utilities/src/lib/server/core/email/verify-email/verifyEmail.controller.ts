@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createVerifyEmailServerParamsSchema } from './verifyEmail.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiVerifyEmailParamsFor, type AuthServerApiVerifyEmailParamsFor, type verifyEmailPropsFor } from './verifyEmail.types';
-import { validateInputEffect } from '../shared/email.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { verifyEmailServerService } from './verifyEmail.service';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 

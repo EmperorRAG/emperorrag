@@ -4,7 +4,7 @@
  */
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { OAuthAuthServerError } from '../shared/oauth.error';
+import type { CoreAuthServerError } from '../../shared/core.error';
 import type { OAuthAuthServerService } from '../shared/oauth.types';
 import type * as Effect from 'effect/Effect';
 
@@ -18,7 +18,7 @@ export type AuthServerApiCallbackOAuthResultFor<T extends AuthServerFor = AuthSe
 export interface callbackOAuthPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
 		params: AuthServerApiCallbackOAuthParamsFor<T>
-	): Effect.Effect<Awaited<AuthServerApiCallbackOAuthResultFor<T>>, OAuthAuthServerError, OAuthAuthServerService>;
+	): Effect.Effect<Awaited<AuthServerApiCallbackOAuthResultFor<T>>, CoreAuthServerError, OAuthAuthServerService>;
 }
 
 export const isAuthServerApiCallbackOAuthParamsFor = <T extends AuthServerFor = AuthServerFor>(

@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import type { AuthServerApiSendVerificationEmailParamsFor, sendVerificationEmailPropsFor } from './sendVerificationEmail.types';
-import { mapBetterAuthApiErrorToEmailAuthError } from '../shared/email.error';
+import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 
@@ -14,7 +14,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  *
  * @pure
  * @description Wraps auth.api.sendVerificationEmail in an Effect, converting Promise-based
- * errors into typed EmailAuthServerApiError failures. Triggers email verification workflow
+ * errors into typed CoreAuthServerApiError failures. Triggers email verification workflow
  * for existing users.
  *
  * @remarks
@@ -33,7 +33,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * **Error Handling:**
  * - Better Auth throws APIError instances on failure
  * - Common errors: Email not found (404), already verified (400), rate limit (429)
- * - Status codes extracted and preserved in EmailAuthServerApiError
+ * - Status codes extracted and preserved in CoreAuthServerApiError
  * - Error cause chain maintained for debugging
  *
  * @template T - The Better Auth server type with all plugin augmentations
@@ -69,7 +69,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  *   body: { email: 'verified@example.com' }
  * });
  *
- * const handled = Effect.catchTag(program, 'EmailAuthServerApiError', (error) => {
+ * const handled = Effect.catchTag(program, 'CoreAuthServerApiError', (error) => {
  *   if (error.status === 400) {
  *     console.log('Email already verified');
  *     return Effect.succeed(undefined);
@@ -108,6 +108,6 @@ export const sendVerificationEmailServerService: sendVerificationEmailPropsFor =
 	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.sendVerificationEmail(params),
-			catch: mapBetterAuthApiErrorToEmailAuthError,
+			catch: mapBetterAuthApiErrorToCoreAuthError,
 		})
 	);

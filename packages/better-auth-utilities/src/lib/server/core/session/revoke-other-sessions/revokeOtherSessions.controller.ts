@@ -11,7 +11,7 @@ import {
 	type AuthServerApiRevokeOtherSessionsParamsFor,
 	type revokeOtherSessionsPropsFor,
 } from './revokeOtherSessions.types';
-import { validateInputEffect } from '../shared/session.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { revokeOtherSessionsServerService } from './revokeOtherSessions.service';
 import { SessionAuthServerServiceTag } from '../shared/session.service';
 

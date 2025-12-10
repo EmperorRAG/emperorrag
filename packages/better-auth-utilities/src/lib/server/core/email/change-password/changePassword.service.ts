@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import type { AuthServerApiChangePasswordParamsFor, changePasswordPropsFor } from './changePassword.types';
-import { mapBetterAuthApiErrorToEmailAuthError } from '../shared/email.error';
+import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 
@@ -14,7 +14,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  *
  * @pure
  * @description Wraps auth.api.changePassword in an Effect, converting Promise-based
- * errors into typed EmailAuthServerApiError failures. Verifies current password
+ * errors into typed CoreAuthServerApiError failures. Verifies current password
  * before updating to new password.
  *
  * @remarks
@@ -34,7 +34,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * **Error Handling:**
  * - Better Auth throws APIError instances on failure
  * - Common errors: Incorrect current password (401), weak new password (400)
- * - Status codes extracted and preserved in EmailAuthServerApiError
+ * - Status codes extracted and preserved in CoreAuthServerApiError
  * - Error cause chain maintained for debugging
  *
  * @template T - The Better Auth server type with all plugin augmentations
@@ -77,7 +77,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  *   headers: requestHeaders
  * });
  *
- * const handled = Effect.catchTag(program, 'EmailAuthServerApiError', (error) => {
+ * const handled = Effect.catchTag(program, 'CoreAuthServerApiError', (error) => {
  *   if (error.status === 401) {
  *     console.error('Current password is incorrect');
  *     return Effect.fail(new Error('Please verify your current password'));
@@ -120,6 +120,6 @@ export const changePasswordServerService: changePasswordPropsFor = <T extends Au
 	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.changePassword(params),
-			catch: mapBetterAuthApiErrorToEmailAuthError,
+			catch: mapBetterAuthApiErrorToCoreAuthError,
 		})
 	);

@@ -4,7 +4,7 @@
  */
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { SessionAuthServerError } from '../shared/session.error';
+import type { CoreAuthServerError } from '../../shared/core.error';
 import type { SessionAuthServerService } from '../shared/session.types';
 import type * as Effect from 'effect/Effect';
 
@@ -18,7 +18,7 @@ export type AuthServerApiRevokeSessionsResultFor<T extends AuthServerFor = AuthS
 export interface revokeSessionsPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
 		params: AuthServerApiRevokeSessionsParamsFor<T>
-	): Effect.Effect<Awaited<AuthServerApiRevokeSessionsResultFor<T>>, SessionAuthServerError, SessionAuthServerService>;
+	): Effect.Effect<Awaited<AuthServerApiRevokeSessionsResultFor<T>>, CoreAuthServerError, SessionAuthServerService>;
 }
 
 export const isAuthServerApiRevokeSessionsParamsFor = <T extends AuthServerFor = AuthServerFor>(

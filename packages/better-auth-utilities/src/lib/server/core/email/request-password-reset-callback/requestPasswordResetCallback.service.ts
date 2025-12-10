@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import type { AuthServerApiRequestPasswordResetCallbackParamsFor, requestPasswordResetCallbackPropsFor } from './requestPasswordResetCallback.types';
-import { mapBetterAuthApiErrorToEmailAuthError } from '../shared/email.error';
+import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 
@@ -15,6 +15,6 @@ export const requestPasswordResetCallbackServerService: requestPasswordResetCall
 	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.requestPasswordResetCallback(params),
-			catch: mapBetterAuthApiErrorToEmailAuthError,
+			catch: mapBetterAuthApiErrorToCoreAuthError,
 		})
 	);

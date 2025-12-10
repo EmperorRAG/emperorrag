@@ -23,7 +23,7 @@ import type { OAuthAuthServerService, OAuthAuthServerServiceFor } from './oauth.
  * const program = Effect.flatMap(OAuthAuthServerServiceTag, ({ authServer }) =>
  *   Effect.tryPromise({
  *     try: () => authServer.api.signInSocial(params),
- *     catch: (error) => new OAuthAuthServerApiError(error.message)
+ *     catch: (error) => new CoreAuthServerApiError(error.message)
  *   })
  * );
  *

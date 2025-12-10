@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createRevokeSessionServerParamsSchema } from './revokeSession.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiRevokeSessionParamsFor, type AuthServerApiRevokeSessionParamsFor, type revokeSessionPropsFor } from './revokeSession.types';
-import { validateInputEffect } from '../shared/session.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { revokeSessionServerService } from './revokeSession.service';
 import { SessionAuthServerServiceTag } from '../shared/session.service';
 

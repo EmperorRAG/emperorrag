@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import type { AuthServerApiVerifyEmailParamsFor, verifyEmailPropsFor } from './verifyEmail.types';
-import { mapBetterAuthApiErrorToEmailAuthError } from '../shared/email.error';
+import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 
@@ -14,17 +14,17 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  *
  * @pure
  * @description Wraps auth.api.verifyEmail in an Effect, converting Promise-based
- * errors into typed EmailAuthServerApiError failures.
+ * errors into typed CoreAuthServerApiError failures.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The verify email parameters containing query token
- * @returns Effect that resolves to verification result or fails with EmailAuthServerApiError
+ * @returns Effect that resolves to verification result or fails with CoreAuthServerApiError
  */
 export const verifyEmailServerService: verifyEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiVerifyEmailParamsFor<T>) =>
 	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.verifyEmail(params),
-			catch: mapBetterAuthApiErrorToEmailAuthError,
+			catch: mapBetterAuthApiErrorToCoreAuthError,
 		})
 	);

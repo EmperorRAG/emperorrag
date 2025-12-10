@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import type { AuthServerApiSetPasswordParamsFor, setPasswordPropsFor } from './setPassword.types';
-import { mapBetterAuthApiErrorToEmailAuthError } from '../shared/email.error';
+import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 
@@ -14,17 +14,17 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  *
  * @pure
  * @description Wraps auth.api.setPassword in an Effect, converting Promise-based
- * errors into typed EmailAuthServerApiError failures. Typically used for OAuth-only accounts.
+ * errors into typed CoreAuthServerApiError failures. Typically used for OAuth-only accounts.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The set password parameters containing body with newPassword
- * @returns Effect that resolves to set password result or fails with EmailAuthServerApiError
+ * @returns Effect that resolves to set password result or fails with CoreAuthServerApiError
  */
 export const setPasswordServerService: setPasswordPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiSetPasswordParamsFor<T>) =>
 	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.setPassword(params),
-			catch: mapBetterAuthApiErrorToEmailAuthError,
+			catch: mapBetterAuthApiErrorToCoreAuthError,
 		})
 	);

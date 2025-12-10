@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import type { AuthServerApiListSessionsParamsFor, listSessionsPropsFor } from './listSessions.types';
-import { mapBetterAuthApiErrorToSessionAuthError } from '../shared/session.error';
+import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
 import { SessionAuthServerServiceTag } from '../shared/session.service';
 
@@ -14,17 +14,17 @@ import { SessionAuthServerServiceTag } from '../shared/session.service';
  *
  * @pure
  * @description Wraps auth.api.listSessions in an Effect, converting Promise-based
- * errors into typed SessionAuthServerApiError failures.
+ * errors into typed CoreAuthServerApiError failures.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The list sessions parameters
- * @returns Effect that resolves to list of sessions or fails with SessionAuthServerApiError
+ * @returns Effect that resolves to list of sessions or fails with CoreAuthServerApiError
  */
 export const listSessionsServerService: listSessionsPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiListSessionsParamsFor<T>) =>
 	Effect.flatMap(SessionAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.listSessions(params),
-			catch: mapBetterAuthApiErrorToSessionAuthError,
+			catch: mapBetterAuthApiErrorToCoreAuthError,
 		})
 	);

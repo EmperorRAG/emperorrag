@@ -23,7 +23,7 @@ import type { SessionAuthServerService, SessionAuthServerServiceFor } from './se
  * const program = Effect.flatMap(SessionAuthServerServiceTag, ({ authServer }) =>
  *   Effect.tryPromise({
  *     try: () => authServer.api.getSession(params),
- *     catch: (error) => new SessionAuthServerApiError(error.message)
+ *     catch: (error) => new CoreAuthServerApiError(error.message)
  *   })
  * );
  *

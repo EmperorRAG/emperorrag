@@ -5,7 +5,7 @@
 
 import type { Effect } from 'effect';
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { SessionAuthServerApiError, SessionAuthServerInputError } from '../shared/session.error';
+import type { CoreAuthServerApiError, CoreAuthServerInputError } from '../../shared/core.error';
 import type { SessionAuthServerService } from '../shared/session.types';
 
 /**
@@ -81,8 +81,8 @@ export type AuthServerApiGetSessionResultFor<T extends AuthServerFor = AuthServe
  * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
- * - SessionAuthServerApiError: API call failures with HTTP status codes
- * - SessionAuthServerInputError: Validation failures from controller layer
+ * - CoreAuthServerApiError: API call failures with HTTP status codes
+ * - CoreAuthServerInputError: Validation failures from controller layer
  *
  * @example
  * ```typescript
@@ -108,7 +108,7 @@ export type AuthServerApiGetSessionResultFor<T extends AuthServerFor = AuthServe
  */
 export type getSessionPropsFor<T extends AuthServerFor = AuthServerFor> = (
 	params: AuthServerApiGetSessionParamsFor<T>
-) => Effect.Effect<Awaited<AuthServerApiGetSessionResultFor<T>>, SessionAuthServerApiError | SessionAuthServerInputError, SessionAuthServerService>;
+) => Effect.Effect<Awaited<AuthServerApiGetSessionResultFor<T>>, CoreAuthServerApiError | CoreAuthServerInputError, SessionAuthServerService>;
 
 /**
  * Type guard for validating AuthServerApiGetSessionParamsFor.

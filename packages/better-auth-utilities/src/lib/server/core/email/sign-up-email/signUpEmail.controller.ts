@@ -2,7 +2,7 @@ import * as Effect from 'effect/Effect';
 import { createSignUpEmailServerParamsSchema } from './signUpEmail.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiSignUpEmailParamsFor, type AuthServerApiSignUpEmailParamsFor, type signUpEmailPropsFor } from './signUpEmail.types';
-import { validateInputEffect } from '../shared/email.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { signUpEmailServerService } from './signUpEmail.service';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 

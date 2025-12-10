@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import type { AuthServerApiForgetPasswordParamsFor, forgetPasswordPropsFor } from './forgetPassword.types';
-import { mapBetterAuthApiErrorToEmailAuthError } from '../shared/email.error';
+import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 
@@ -14,7 +14,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  *
  * @pure
  * @description Wraps auth.api.forgetPassword in an Effect, converting Promise-based
- * errors into typed EmailAuthServerApiError failures. Initiates password reset workflow
+ * errors into typed CoreAuthServerApiError failures. Initiates password reset workflow
  * by sending a secure reset link via email.
  *
  * @remarks
@@ -33,7 +33,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  * **Error Handling:**
  * - Better Auth throws APIError instances on failure
  * - Common errors: Rate limit exceeded (429), email service failure (500)
- * - Status codes extracted and preserved in EmailAuthServerApiError
+ * - Status codes extracted and preserved in CoreAuthServerApiError
  * - Error cause chain maintained for debugging
  * - For security, should not reveal whether email exists in system
  *
@@ -70,7 +70,7 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
  *   body: { email: 'user@example.com' }
  * });
  *
- * const handled = Effect.catchTag(program, 'EmailAuthServerApiError', (error) => {
+ * const handled = Effect.catchTag(program, 'CoreAuthServerApiError', (error) => {
  *   if (error.status === 429) {
  *     console.error('Too many requests. Please try again later.');
  *     return Effect.fail(new Error('Rate limit exceeded'));
@@ -111,6 +111,6 @@ export const forgetPasswordServerService: forgetPasswordPropsFor = <T extends Au
 	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.forgetPassword(params),
-			catch: mapBetterAuthApiErrorToEmailAuthError,
+			catch: mapBetterAuthApiErrorToCoreAuthError,
 		})
 	);

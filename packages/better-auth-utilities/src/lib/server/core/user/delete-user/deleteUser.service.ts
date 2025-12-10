@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import type { AuthServerApiDeleteUserParamsFor, deleteUserPropsFor } from './deleteUser.types';
-import { mapBetterAuthApiErrorToUserAuthError } from '../shared/user.error';
+import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
 import { UserAuthServerServiceTag } from '../shared/user.service';
 
@@ -14,17 +14,17 @@ import { UserAuthServerServiceTag } from '../shared/user.service';
  *
  * @pure
  * @description Wraps auth.api.deleteUser in an Effect, converting Promise-based
- * errors into typed UserAuthServerApiError failures.
+ * errors into typed CoreAuthServerApiError failures.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The delete user parameters
- * @returns Effect that resolves to delete user result or fails with UserAuthServerApiError
+ * @returns Effect that resolves to delete user result or fails with CoreAuthServerApiError
  */
 export const deleteUserServerService: deleteUserPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiDeleteUserParamsFor<T>) =>
 	Effect.flatMap(UserAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.deleteUser(params),
-			catch: mapBetterAuthApiErrorToUserAuthError,
+			catch: mapBetterAuthApiErrorToCoreAuthError,
 		})
 	);

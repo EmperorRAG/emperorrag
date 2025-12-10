@@ -4,7 +4,7 @@
  */
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { AccountAuthServerError } from '../shared/account.error';
+import type { CoreAuthServerError } from '../../shared/core.error';
 import type { AccountAuthServerService } from '../shared/account.types';
 import type * as Effect from 'effect/Effect';
 
@@ -18,7 +18,7 @@ export type AuthServerApiAccountInfoResultFor<T extends AuthServerFor = AuthServ
 export interface accountInfoPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
 		params: AuthServerApiAccountInfoParamsFor<T>
-	): Effect.Effect<Awaited<AuthServerApiAccountInfoResultFor<T>>, AccountAuthServerError, AccountAuthServerService>;
+	): Effect.Effect<Awaited<AuthServerApiAccountInfoResultFor<T>>, CoreAuthServerError, AccountAuthServerService>;
 }
 
 export const isAuthServerApiAccountInfoParamsFor = <T extends AuthServerFor = AuthServerFor>(value: unknown): value is AuthServerApiAccountInfoParamsFor<T> => {

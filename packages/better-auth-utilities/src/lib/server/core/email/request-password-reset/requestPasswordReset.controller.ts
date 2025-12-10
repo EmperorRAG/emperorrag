@@ -11,7 +11,7 @@ import {
 	type AuthServerApiRequestPasswordResetParamsFor,
 	type requestPasswordResetPropsFor,
 } from './requestPasswordReset.types';
-import { validateInputEffect } from '../shared/email.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { requestPasswordResetServerService } from './requestPasswordReset.service';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 

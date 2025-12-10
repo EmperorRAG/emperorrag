@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import type { AuthServerApiCallbackOAuthParamsFor, callbackOAuthPropsFor } from './callbackOAuth.types';
-import { mapBetterAuthApiErrorToOAuthAuthError } from '../shared/oauth.error';
+import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import type { AuthServerFor } from '../../../server.types';
 import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
 
@@ -13,6 +13,6 @@ export const callbackOAuthServerService: callbackOAuthPropsFor = <T extends Auth
 	Effect.flatMap(OAuthAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.callbackOAuth(params),
-			catch: mapBetterAuthApiErrorToOAuthAuthError,
+			catch: mapBetterAuthApiErrorToCoreAuthError,
 		})
 	);

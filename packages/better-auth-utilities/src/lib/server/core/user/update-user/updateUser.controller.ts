@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createUpdateUserServerParamsSchema } from './updateUser.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiUpdateUserParamsFor, type AuthServerApiUpdateUserParamsFor, type updateUserPropsFor } from './updateUser.types';
-import { validateInputEffect } from '../shared/user.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { updateUserServerService } from './updateUser.service';
 import { UserAuthServerServiceTag } from '../shared/user.service';
 

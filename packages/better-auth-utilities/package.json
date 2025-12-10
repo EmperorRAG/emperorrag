@@ -158,11 +158,11 @@
 			"import": "./dist/lib/server/core/account/shared/account.types.js",
 			"default": "./dist/lib/server/core/account/shared/account.types.js"
 		},
-		"./server/account/error": {
-			"@emperorrag/source": "./src/lib/server/core/account/shared/account.error.ts",
-			"types": "./dist/lib/server/core/account/shared/account.error.d.ts",
-			"import": "./dist/lib/server/core/account/shared/account.error.js",
-			"default": "./dist/lib/server/core/account/shared/account.error.js"
+		"./server/core/error": {
+			"@emperorrag/source": "./src/lib/server/core/shared/core.error.ts",
+			"types": "./dist/lib/server/core/shared/core.error.d.ts",
+			"import": "./dist/lib/server/core/shared/core.error.js",
+			"default": "./dist/lib/server/core/shared/core.error.js"
 		},
 		"./server/email/types": {
 			"@emperorrag/source": "./src/lib/server/core/email/shared/email.types.ts",
@@ -170,23 +170,11 @@
 			"import": "./dist/lib/server/core/email/shared/email.types.js",
 			"default": "./dist/lib/server/core/email/shared/email.types.js"
 		},
-		"./server/email/error": {
-			"@emperorrag/source": "./src/lib/server/core/email/shared/email.error.ts",
-			"types": "./dist/lib/server/core/email/shared/email.error.d.ts",
-			"import": "./dist/lib/server/core/email/shared/email.error.js",
-			"default": "./dist/lib/server/core/email/shared/email.error.js"
-		},
 		"./server/oauth/types": {
 			"@emperorrag/source": "./src/lib/server/core/oauth/shared/oauth.types.ts",
 			"types": "./dist/lib/server/core/oauth/shared/oauth.types.d.ts",
 			"import": "./dist/lib/server/core/oauth/shared/oauth.types.js",
 			"default": "./dist/lib/server/core/oauth/shared/oauth.types.js"
-		},
-		"./server/oauth/error": {
-			"@emperorrag/source": "./src/lib/server/core/oauth/shared/oauth.error.ts",
-			"types": "./dist/lib/server/core/oauth/shared/oauth.error.d.ts",
-			"import": "./dist/lib/server/core/oauth/shared/oauth.error.js",
-			"default": "./dist/lib/server/core/oauth/shared/oauth.error.js"
 		},
 		"./server/session/types": {
 			"@emperorrag/source": "./src/lib/server/core/session/shared/session.types.ts",
@@ -194,23 +182,11 @@
 			"import": "./dist/lib/server/core/session/shared/session.types.js",
 			"default": "./dist/lib/server/core/session/shared/session.types.js"
 		},
-		"./server/session/error": {
-			"@emperorrag/source": "./src/lib/server/core/session/shared/session.error.ts",
-			"types": "./dist/lib/server/core/session/shared/session.error.d.ts",
-			"import": "./dist/lib/server/core/session/shared/session.error.js",
-			"default": "./dist/lib/server/core/session/shared/session.error.js"
-		},
 		"./server/user/types": {
 			"@emperorrag/source": "./src/lib/server/core/user/shared/user.types.ts",
 			"types": "./dist/lib/server/core/user/shared/user.types.d.ts",
 			"import": "./dist/lib/server/core/user/shared/user.types.js",
 			"default": "./dist/lib/server/core/user/shared/user.types.js"
-		},
-		"./server/user/error": {
-			"@emperorrag/source": "./src/lib/server/core/user/shared/user.error.ts",
-			"types": "./dist/lib/server/core/user/shared/user.error.d.ts",
-			"import": "./dist/lib/server/core/user/shared/user.error.js",
-			"default": "./dist/lib/server/core/user/shared/user.error.js"
 		},
 		"./change-password/client": {
 			"@emperorrag/source": "./src/lib/client/core/email/change-password/changePassword.ts",

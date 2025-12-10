@@ -4,7 +4,7 @@
  */
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { UserAuthServerError } from '../shared/user.error';
+import type { CoreAuthServerError } from '../../shared/core.error';
 import type { UserAuthServerService } from '../shared/user.types';
 import type * as Effect from 'effect/Effect';
 
@@ -58,11 +58,11 @@ export type AuthServerApiUpdateUserResultFor<T extends AuthServerFor = AuthServe
  * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
- * - UserAuthServerApiError: API call failures with HTTP status codes
- * - Other UserAuthServerError types from validation layers (if using controller)
+ * - CoreAuthServerApiError: API call failures with HTTP status codes
+ * - Other CoreAuthServerError types from validation layers (if using controller)
  */
 export interface updateUserPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiUpdateUserParamsFor<T>): Effect.Effect<Awaited<AuthServerApiUpdateUserResultFor<T>>, UserAuthServerError, UserAuthServerService>;
+	(params: AuthServerApiUpdateUserParamsFor<T>): Effect.Effect<Awaited<AuthServerApiUpdateUserResultFor<T>>, CoreAuthServerError, UserAuthServerService>;
 }
 
 /**

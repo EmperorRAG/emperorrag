@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createForgetPasswordServerParamsSchema } from './forgetPassword.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiForgetPasswordParamsFor, type AuthServerApiForgetPasswordParamsFor, type forgetPasswordPropsFor } from './forgetPassword.types';
-import { validateInputEffect } from '../shared/email.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { forgetPasswordServerService } from './forgetPassword.service';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 

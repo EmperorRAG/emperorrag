@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createUnlinkAccountServerParamsSchema } from './unlinkAccount.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiUnlinkAccountParamsFor, type AuthServerApiUnlinkAccountParamsFor, type unlinkAccountPropsFor } from './unlinkAccount.types';
-import { validateInputEffect } from '../shared/account.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { unlinkAccountServerService } from './unlinkAccount.service';
 import { AccountAuthServerServiceTag } from '../shared/account.service';
 

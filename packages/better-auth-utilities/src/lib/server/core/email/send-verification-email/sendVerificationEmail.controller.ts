@@ -11,7 +11,7 @@ import {
 	type AuthServerApiSendVerificationEmailParamsFor,
 	type sendVerificationEmailPropsFor,
 } from './sendVerificationEmail.types';
-import { validateInputEffect } from '../shared/email.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { sendVerificationEmailServerService } from './sendVerificationEmail.service';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 

@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createChangeEmailServerParamsSchema } from './changeEmail.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiChangeEmailParamsFor, type AuthServerApiChangeEmailParamsFor, type changeEmailPropsFor } from './changeEmail.types';
-import { validateInputEffect } from '../shared/email.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { changeEmailServerService } from './changeEmail.service';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 

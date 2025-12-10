@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createRefreshTokenServerParamsSchema } from './refreshToken.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiRefreshTokenParamsFor, type AuthServerApiRefreshTokenParamsFor, type refreshTokenPropsFor } from './refreshToken.types';
-import { validateInputEffect } from '../shared/session.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { refreshTokenServerService } from './refreshToken.service';
 import { SessionAuthServerServiceTag } from '../shared/session.service';
 

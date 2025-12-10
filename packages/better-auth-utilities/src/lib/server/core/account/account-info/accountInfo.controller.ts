@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createAccountInfoServerParamsSchema } from './accountInfo.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiAccountInfoParamsFor, type AuthServerApiAccountInfoParamsFor, type accountInfoPropsFor } from './accountInfo.types';
-import { validateInputEffect } from '../shared/account.error';
+import { validateInputEffect } from '../../shared/core.error';
 import { accountInfoServerService } from './accountInfo.service';
 import { AccountAuthServerServiceTag } from '../shared/account.service';
 
