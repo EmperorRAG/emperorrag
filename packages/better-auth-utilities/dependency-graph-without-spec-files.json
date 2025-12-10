@@ -343,8 +343,8 @@
     "lib/server/core/account/account-info/accountInfo.schema.ts",
     "lib/server/core/account/account-info/accountInfo.service.ts",
     "lib/server/core/account/account-info/accountInfo.types.ts",
-    "lib/server/core/account/shared/account.error.ts",
     "lib/server/core/account/shared/account.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/account-info/accountInfo.schema.ts": [
@@ -355,8 +355,8 @@
   "lib/server/core/account/account-info/accountInfo.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/account/account-info/accountInfo.types.ts",
-    "lib/server/core/account/shared/account.error.ts",
     "lib/server/core/account/shared/account.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/account-info/accountInfo.spec.ts": [
@@ -374,8 +374,8 @@
   ],
   "lib/server/core/account/account-info/accountInfo.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/account/shared/account.error.ts",
     "lib/server/core/account/shared/account.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/list-user-accounts/listUserAccounts.controller.ts": [
@@ -383,9 +383,9 @@
     "lib/server/core/account/list-user-accounts/listUserAccounts.schema.ts",
     "lib/server/core/account/list-user-accounts/listUserAccounts.service.ts",
     "lib/server/core/account/list-user-accounts/listUserAccounts.types.ts",
-    "lib/server/core/account/shared/account.error.ts",
     "lib/server/core/account/shared/account.service.ts",
-    "lib/server/core/account/shared/account.types.ts"
+    "lib/server/core/account/shared/account.types.ts",
+    "lib/server/core/shared/core.error.ts"
   ],
   "lib/server/core/account/list-user-accounts/listUserAccounts.schema.ts": [
     "../../../node_modules/effect/dist/dts/index.d.ts",
@@ -396,8 +396,8 @@
   "lib/server/core/account/list-user-accounts/listUserAccounts.service.ts": [
     "../../../node_modules/effect/dist/dts/index.d.ts",
     "lib/server/core/account/list-user-accounts/listUserAccounts.types.ts",
-    "lib/server/core/account/shared/account.error.ts",
-    "lib/server/core/account/shared/account.service.ts"
+    "lib/server/core/account/shared/account.service.ts",
+    "lib/server/core/shared/core.error.ts"
   ],
   "lib/server/core/account/list-user-accounts/listUserAccounts.spec.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
@@ -414,14 +414,8 @@
   ],
   "lib/server/core/account/list-user-accounts/listUserAccounts.types.ts": [
     "../../../node_modules/effect/dist/dts/index.d.ts",
-    "lib/server/core/account/shared/account.error.ts",
     "lib/server/core/account/shared/account.types.ts",
-    "lib/server/server.types.ts"
-  ],
-  "lib/server/core/account/shared/account.error.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/zod/index.d.cts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/shared/account.service.ts": [
@@ -435,11 +429,11 @@
   ],
   "lib/server/core/account/unlink-account/unlinkAccount.controller.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/account/shared/account.error.ts",
     "lib/server/core/account/shared/account.service.ts",
     "lib/server/core/account/unlink-account/unlinkAccount.schema.ts",
     "lib/server/core/account/unlink-account/unlinkAccount.service.ts",
     "lib/server/core/account/unlink-account/unlinkAccount.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/unlink-account/unlinkAccount.schema.ts": [
@@ -449,9 +443,9 @@
   ],
   "lib/server/core/account/unlink-account/unlinkAccount.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/account/shared/account.error.ts",
     "lib/server/core/account/shared/account.service.ts",
     "lib/server/core/account/unlink-account/unlinkAccount.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/unlink-account/unlinkAccount.spec.ts": [
@@ -468,8 +462,8 @@
   ],
   "lib/server/core/account/unlink-account/unlinkAccount.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/account/shared/account.error.ts",
     "lib/server/core/account/shared/account.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/change-email/changeEmail.controller.ts": [
@@ -477,8 +471,8 @@
     "lib/server/core/email/change-email/changeEmail.schema.ts",
     "lib/server/core/email/change-email/changeEmail.service.ts",
     "lib/server/core/email/change-email/changeEmail.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/change-email/changeEmail.schema.ts": [
@@ -489,8 +483,8 @@
   "lib/server/core/email/change-email/changeEmail.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/change-email/changeEmail.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/change-email/changeEmail.spec.ts": [
@@ -508,8 +502,8 @@
   ],
   "lib/server/core/email/change-email/changeEmail.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/change-password/changePassword.controller.ts": [
@@ -517,8 +511,8 @@
     "lib/server/core/email/change-password/changePassword.schema.ts",
     "lib/server/core/email/change-password/changePassword.service.ts",
     "lib/server/core/email/change-password/changePassword.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/change-password/changePassword.schema.ts": [
@@ -531,8 +525,8 @@
   "lib/server/core/email/change-password/changePassword.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/change-password/changePassword.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/change-password/changePassword.spec.ts": [
@@ -550,8 +544,8 @@
   ],
   "lib/server/core/email/change-password/changePassword.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/forget-password-callback/forgetPasswordCallback.controller.ts": [
@@ -559,8 +553,8 @@
     "lib/server/core/email/forget-password-callback/forgetPasswordCallback.schema.ts",
     "lib/server/core/email/forget-password-callback/forgetPasswordCallback.service.ts",
     "lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/forget-password-callback/forgetPasswordCallback.schema.ts": [
@@ -571,8 +565,8 @@
   "lib/server/core/email/forget-password-callback/forgetPasswordCallback.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/forget-password-callback/forgetPasswordCallback.spec.ts": [
@@ -590,8 +584,8 @@
   ],
   "lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/forget-password/forgetPassword.controller.ts": [
@@ -599,8 +593,8 @@
     "lib/server/core/email/forget-password/forgetPassword.schema.ts",
     "lib/server/core/email/forget-password/forgetPassword.service.ts",
     "lib/server/core/email/forget-password/forgetPassword.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/forget-password/forgetPassword.schema.ts": [
@@ -611,8 +605,8 @@
   "lib/server/core/email/forget-password/forgetPassword.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/forget-password/forgetPassword.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/forget-password/forgetPassword.spec.ts": [
@@ -630,8 +624,8 @@
   ],
   "lib/server/core/email/forget-password/forgetPassword.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.controller.ts": [
@@ -639,8 +633,8 @@
     "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.schema.ts",
     "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.service.ts",
     "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.schema.ts": [
@@ -651,8 +645,8 @@
   "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.spec.ts": [
@@ -670,8 +664,8 @@
   ],
   "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/request-password-reset/requestPasswordReset.controller.ts": [
@@ -679,8 +673,8 @@
     "lib/server/core/email/request-password-reset/requestPasswordReset.schema.ts",
     "lib/server/core/email/request-password-reset/requestPasswordReset.service.ts",
     "lib/server/core/email/request-password-reset/requestPasswordReset.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/request-password-reset/requestPasswordReset.schema.ts": [
@@ -691,8 +685,8 @@
   "lib/server/core/email/request-password-reset/requestPasswordReset.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/request-password-reset/requestPasswordReset.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/request-password-reset/requestPasswordReset.spec.ts": [
@@ -710,8 +704,8 @@
   ],
   "lib/server/core/email/request-password-reset/requestPasswordReset.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/reset-password/resetPassword.controller.ts": [
@@ -719,8 +713,8 @@
     "lib/server/core/email/reset-password/resetPassword.schema.ts",
     "lib/server/core/email/reset-password/resetPassword.service.ts",
     "lib/server/core/email/reset-password/resetPassword.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/reset-password/resetPassword.schema.ts": [
@@ -733,8 +727,8 @@
   "lib/server/core/email/reset-password/resetPassword.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/reset-password/resetPassword.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/reset-password/resetPassword.spec.ts": [
@@ -752,8 +746,8 @@
   ],
   "lib/server/core/email/reset-password/resetPassword.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.controller.ts": [
@@ -761,8 +755,8 @@
     "lib/server/core/email/send-verification-email/sendVerificationEmail.schema.ts",
     "lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts",
     "lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.schema.ts": [
@@ -773,8 +767,8 @@
   "lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.spec.ts": [
@@ -792,8 +786,8 @@
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/set-password/setPassword.controller.ts": [
@@ -801,8 +795,8 @@
     "lib/server/core/email/set-password/setPassword.schema.ts",
     "lib/server/core/email/set-password/setPassword.service.ts",
     "lib/server/core/email/set-password/setPassword.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/set-password/setPassword.schema.ts": [
@@ -815,8 +809,8 @@
   "lib/server/core/email/set-password/setPassword.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/set-password/setPassword.types.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/set-password/setPassword.spec.ts": [
@@ -834,14 +828,8 @@
   ],
   "lib/server/core/email/set-password/setPassword.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
-    "lib/server/server.types.ts"
-  ],
-  "lib/server/core/email/shared/email.error.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/zod/index.d.cts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/shared/email.service.ts": [
@@ -855,11 +843,11 @@
   ],
   "lib/server/core/email/sign-in-email/signInEmail.controller.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
     "lib/server/core/email/sign-in-email/signInEmail.schema.ts",
     "lib/server/core/email/sign-in-email/signInEmail.service.ts",
     "lib/server/core/email/sign-in-email/signInEmail.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-in-email/signInEmail.schema.ts": [
@@ -871,9 +859,9 @@
   ],
   "lib/server/core/email/sign-in-email/signInEmail.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
     "lib/server/core/email/sign-in-email/signInEmail.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-in-email/signInEmail.spec.ts": [
@@ -891,17 +879,17 @@
   ],
   "lib/server/core/email/sign-in-email/signInEmail.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-out/signOut.controller.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
     "lib/server/core/email/sign-out/signOut.schema.ts",
     "lib/server/core/email/sign-out/signOut.service.ts",
     "lib/server/core/email/sign-out/signOut.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-out/signOut.schema.ts": [
@@ -911,9 +899,9 @@
   ],
   "lib/server/core/email/sign-out/signOut.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
     "lib/server/core/email/sign-out/signOut.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-out/signOut.spec.ts": [
@@ -931,17 +919,17 @@
   ],
   "lib/server/core/email/sign-out/signOut.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-up-email/signUpEmail.controller.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
     "lib/server/core/email/sign-up-email/signUpEmail.schema.ts",
     "lib/server/core/email/sign-up-email/signUpEmail.service.ts",
     "lib/server/core/email/sign-up-email/signUpEmail.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-up-email/signUpEmail.schema.ts": [
@@ -955,9 +943,9 @@
   ],
   "lib/server/core/email/sign-up-email/signUpEmail.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
     "lib/server/core/email/sign-up-email/signUpEmail.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-up-email/signUpEmail.spec.ts": [
@@ -973,17 +961,17 @@
   ],
   "lib/server/core/email/sign-up-email/signUpEmail.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/verify-email/verifyEmail.controller.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
     "lib/server/core/email/verify-email/verifyEmail.schema.ts",
     "lib/server/core/email/verify-email/verifyEmail.service.ts",
     "lib/server/core/email/verify-email/verifyEmail.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/verify-email/verifyEmail.schema.ts": [
@@ -993,9 +981,9 @@
   ],
   "lib/server/core/email/verify-email/verifyEmail.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.service.ts",
     "lib/server/core/email/verify-email/verifyEmail.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/verify-email/verifyEmail.spec.ts": [
@@ -1013,8 +1001,8 @@
   ],
   "lib/server/core/email/verify-email/verifyEmail.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
     "lib/server/core/email/shared/email.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/callback-oauth/callbackOAuth.controller.ts": [
@@ -1022,8 +1010,8 @@
     "lib/server/core/oauth/callback-oauth/callbackOAuth.schema.ts",
     "lib/server/core/oauth/callback-oauth/callbackOAuth.service.ts",
     "lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts",
-    "lib/server/core/oauth/shared/oauth.error.ts",
     "lib/server/core/oauth/shared/oauth.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/callback-oauth/callbackOAuth.schema.ts": [
@@ -1035,8 +1023,8 @@
   "lib/server/core/oauth/callback-oauth/callbackOAuth.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts",
-    "lib/server/core/oauth/shared/oauth.error.ts",
     "lib/server/core/oauth/shared/oauth.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/callback-oauth/callbackOAuth.spec.ts": [
@@ -1054,8 +1042,8 @@
   ],
   "lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/oauth/shared/oauth.error.ts",
     "lib/server/core/oauth/shared/oauth.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/link-social-account/linkSocialAccount.controller.ts": [
@@ -1063,8 +1051,8 @@
     "lib/server/core/oauth/link-social-account/linkSocialAccount.schema.ts",
     "lib/server/core/oauth/link-social-account/linkSocialAccount.service.ts",
     "lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts",
-    "lib/server/core/oauth/shared/oauth.error.ts",
     "lib/server/core/oauth/shared/oauth.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/link-social-account/linkSocialAccount.schema.ts": [
@@ -1075,8 +1063,8 @@
   "lib/server/core/oauth/link-social-account/linkSocialAccount.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts",
-    "lib/server/core/oauth/shared/oauth.error.ts",
     "lib/server/core/oauth/shared/oauth.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/link-social-account/linkSocialAccount.spec.ts": [
@@ -1094,14 +1082,8 @@
   ],
   "lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/oauth/shared/oauth.error.ts",
     "lib/server/core/oauth/shared/oauth.types.ts",
-    "lib/server/server.types.ts"
-  ],
-  "lib/server/core/oauth/shared/oauth.error.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/zod/index.d.cts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/shared/oauth.service.ts": [
@@ -1115,11 +1097,11 @@
   ],
   "lib/server/core/oauth/sign-in-social/signInSocial.controller.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/oauth/shared/oauth.error.ts",
     "lib/server/core/oauth/shared/oauth.service.ts",
     "lib/server/core/oauth/sign-in-social/signInSocial.schema.ts",
     "lib/server/core/oauth/sign-in-social/signInSocial.service.ts",
     "lib/server/core/oauth/sign-in-social/signInSocial.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/sign-in-social/signInSocial.schema.ts": [
@@ -1132,9 +1114,9 @@
   ],
   "lib/server/core/oauth/sign-in-social/signInSocial.service.ts": [
     "../../../node_modules/effect/dist/dts/index.d.ts",
-    "lib/server/core/oauth/shared/oauth.error.ts",
     "lib/server/core/oauth/shared/oauth.service.ts",
-    "lib/server/core/oauth/sign-in-social/signInSocial.types.ts"
+    "lib/server/core/oauth/sign-in-social/signInSocial.types.ts",
+    "lib/server/core/shared/core.error.ts"
   ],
   "lib/server/core/oauth/sign-in-social/signInSocial.spec.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
@@ -1151,8 +1133,8 @@
   ],
   "lib/server/core/oauth/sign-in-social/signInSocial.types.ts": [
     "../../../node_modules/effect/dist/dts/index.d.ts",
-    "lib/server/core/oauth/shared/oauth.error.ts",
     "lib/server/core/oauth/shared/oauth.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/get-access-token/getAccessToken.controller.ts": [
@@ -1160,8 +1142,8 @@
     "lib/server/core/session/get-access-token/getAccessToken.schema.ts",
     "lib/server/core/session/get-access-token/getAccessToken.service.ts",
     "lib/server/core/session/get-access-token/getAccessToken.types.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/get-access-token/getAccessToken.schema.ts": [
@@ -1172,8 +1154,8 @@
   "lib/server/core/session/get-access-token/getAccessToken.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/get-access-token/getAccessToken.types.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/get-access-token/getAccessToken.spec.ts": [
@@ -1191,8 +1173,8 @@
   ],
   "lib/server/core/session/get-access-token/getAccessToken.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/get-session/getSession.controller.ts": [
@@ -1200,8 +1182,8 @@
     "lib/server/core/session/get-session/getSession.schema.ts",
     "lib/server/core/session/get-session/getSession.service.ts",
     "lib/server/core/session/get-session/getSession.types.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/get-session/getSession.schema.ts": [
@@ -1214,8 +1196,8 @@
   "lib/server/core/session/get-session/getSession.service.ts": [
     "../../../node_modules/effect/dist/dts/index.d.ts",
     "lib/server/core/session/get-session/getSession.types.ts",
-    "lib/server/core/session/shared/session.error.ts",
-    "lib/server/core/session/shared/session.service.ts"
+    "lib/server/core/session/shared/session.service.ts",
+    "lib/server/core/shared/core.error.ts"
   ],
   "lib/server/core/session/get-session/getSession.spec.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
@@ -1232,8 +1214,8 @@
   ],
   "lib/server/core/session/get-session/getSession.types.ts": [
     "../../../node_modules/effect/dist/dts/index.d.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/list-sessions/listSessions.controller.ts": [
@@ -1241,8 +1223,8 @@
     "lib/server/core/session/list-sessions/listSessions.schema.ts",
     "lib/server/core/session/list-sessions/listSessions.service.ts",
     "lib/server/core/session/list-sessions/listSessions.types.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/list-sessions/listSessions.schema.ts": [
@@ -1253,8 +1235,8 @@
   "lib/server/core/session/list-sessions/listSessions.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/list-sessions/listSessions.types.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/list-sessions/listSessions.spec.ts": [
@@ -1272,8 +1254,8 @@
   ],
   "lib/server/core/session/list-sessions/listSessions.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/refresh-token/refreshToken.controller.ts": [
@@ -1281,8 +1263,8 @@
     "lib/server/core/session/refresh-token/refreshToken.schema.ts",
     "lib/server/core/session/refresh-token/refreshToken.service.ts",
     "lib/server/core/session/refresh-token/refreshToken.types.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/refresh-token/refreshToken.schema.ts": [
@@ -1293,8 +1275,8 @@
   "lib/server/core/session/refresh-token/refreshToken.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/refresh-token/refreshToken.types.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/refresh-token/refreshToken.spec.ts": [
@@ -1312,8 +1294,8 @@
   ],
   "lib/server/core/session/refresh-token/refreshToken.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.controller.ts": [
@@ -1321,8 +1303,8 @@
     "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.schema.ts",
     "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.service.ts",
     "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.schema.ts": [
@@ -1333,8 +1315,8 @@
   "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.spec.ts": [
@@ -1352,8 +1334,8 @@
   ],
   "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-session/revokeSession.controller.ts": [
@@ -1361,8 +1343,8 @@
     "lib/server/core/session/revoke-session/revokeSession.schema.ts",
     "lib/server/core/session/revoke-session/revokeSession.service.ts",
     "lib/server/core/session/revoke-session/revokeSession.types.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-session/revokeSession.schema.ts": [
@@ -1373,8 +1355,8 @@
   "lib/server/core/session/revoke-session/revokeSession.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/revoke-session/revokeSession.types.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-session/revokeSession.spec.ts": [
@@ -1392,8 +1374,8 @@
   ],
   "lib/server/core/session/revoke-session/revokeSession.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.types.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-sessions/revokeSessions.controller.ts": [
@@ -1401,8 +1383,8 @@
     "lib/server/core/session/revoke-sessions/revokeSessions.schema.ts",
     "lib/server/core/session/revoke-sessions/revokeSessions.service.ts",
     "lib/server/core/session/revoke-sessions/revokeSessions.types.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-sessions/revokeSessions.schema.ts": [
@@ -1413,8 +1395,8 @@
   "lib/server/core/session/revoke-sessions/revokeSessions.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/revoke-sessions/revokeSessions.types.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-sessions/revokeSessions.spec.ts": [
@@ -1432,14 +1414,8 @@
   ],
   "lib/server/core/session/revoke-sessions/revokeSessions.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/session/shared/session.error.ts",
     "lib/server/core/session/shared/session.types.ts",
-    "lib/server/server.types.ts"
-  ],
-  "lib/server/core/session/shared/session.error.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/zod/index.d.cts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/shared/session.service.ts": [
@@ -1451,15 +1427,21 @@
   "lib/server/core/session/shared/session.types.ts": [
     "lib/server/server.types.ts"
   ],
+  "lib/server/core/shared/core.error.ts": [
+    "../../../node_modules/better-auth/dist/index.d.ts",
+    "../../../node_modules/effect/dist/dts/Effect.d.ts",
+    "../../../node_modules/zod/index.d.cts",
+    "lib/server/server.types.ts"
+  ],
   "lib/server/core/shared/core.schema.ts": [
     "../../../node_modules/zod/index.d.cts"
   ],
   "lib/server/core/user/delete-user-callback/deleteUserCallback.controller.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/core/user/delete-user-callback/deleteUserCallback.schema.ts",
     "lib/server/core/user/delete-user-callback/deleteUserCallback.service.ts",
     "lib/server/core/user/delete-user-callback/deleteUserCallback.types.ts",
-    "lib/server/core/user/shared/user.error.ts",
     "lib/server/core/user/shared/user.service.ts",
     "lib/server/server.types.ts"
   ],
@@ -1470,8 +1452,8 @@
   ],
   "lib/server/core/user/delete-user-callback/deleteUserCallback.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/core/user/delete-user-callback/deleteUserCallback.types.ts",
-    "lib/server/core/user/shared/user.error.ts",
     "lib/server/core/user/shared/user.service.ts",
     "lib/server/server.types.ts"
   ],
@@ -1490,16 +1472,16 @@
   ],
   "lib/server/core/user/delete-user-callback/deleteUserCallback.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/user/shared/user.error.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/core/user/shared/user.types.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/user/delete-user/deleteUser.controller.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/core/user/delete-user/deleteUser.schema.ts",
     "lib/server/core/user/delete-user/deleteUser.service.ts",
     "lib/server/core/user/delete-user/deleteUser.types.ts",
-    "lib/server/core/user/shared/user.error.ts",
     "lib/server/core/user/shared/user.service.ts",
     "lib/server/server.types.ts"
   ],
@@ -1511,8 +1493,8 @@
   ],
   "lib/server/core/user/delete-user/deleteUser.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/core/user/delete-user/deleteUser.types.ts",
-    "lib/server/core/user/shared/user.error.ts",
     "lib/server/core/user/shared/user.service.ts",
     "lib/server/server.types.ts"
   ],
@@ -1531,14 +1513,8 @@
   ],
   "lib/server/core/user/delete-user/deleteUser.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/user/shared/user.error.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/core/user/shared/user.types.ts",
-    "lib/server/server.types.ts"
-  ],
-  "lib/server/core/user/shared/user.error.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/zod/index.d.cts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/user/shared/user.service.ts": [
@@ -1552,7 +1528,7 @@
   ],
   "lib/server/core/user/update-user/updateUser.controller.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/user/shared/user.error.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/core/user/shared/user.service.ts",
     "lib/server/core/user/update-user/updateUser.schema.ts",
     "lib/server/core/user/update-user/updateUser.service.ts",
@@ -1567,7 +1543,7 @@
   ],
   "lib/server/core/user/update-user/updateUser.service.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/user/shared/user.error.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/core/user/shared/user.service.ts",
     "lib/server/core/user/update-user/updateUser.types.ts",
     "lib/server/server.types.ts"
@@ -1587,7 +1563,7 @@
   ],
   "lib/server/core/user/update-user/updateUser.types.ts": [
     "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/user/shared/user.error.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/core/user/shared/user.types.ts",
     "lib/server/server.types.ts"
   ],
