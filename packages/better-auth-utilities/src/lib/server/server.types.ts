@@ -721,3 +721,14 @@ export type AuthServerOkFor<T extends AuthServerFor = AuthServerFor> = 'ok' exte
  * ```
  */
 export type AuthServerErrorFor<T extends AuthServerFor = AuthServerFor> = 'error' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['error'] : never;
+
+export type AuthServerErrorCategory = 'input' | 'unauthorized' | 'conflict' | 'server' | 'dependency';
+
+export interface AuthServerErrorDescriptor {
+	_tag: 'AuthErrorDescriptor';
+	category: AuthServerErrorCategory;
+	code: string; // e.g. 'invalid_email', 'password_too_weak'
+	message: string; // human-ish, but not necessarily final UI text
+	status?: number; // optional HTTP-ish status if you want
+	cause?: unknown; // original error for logging
+}

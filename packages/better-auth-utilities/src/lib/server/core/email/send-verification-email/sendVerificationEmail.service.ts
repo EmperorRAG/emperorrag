@@ -4,9 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { APIError } from 'better-auth/api';
 import type { AuthServerApiSendVerificationEmailParamsFor, sendVerificationEmailPropsFor } from './sendVerificationEmail.types';
-import { EmailAuthServerApiError } from '../shared/email.error';
+import { mapBetterAuthApiErrorToEmailAuthError } from '../shared/email.error';
 import type { AuthServerFor } from '../../../server.types';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 
@@ -109,16 +108,6 @@ export const sendVerificationEmailServerService: sendVerificationEmailPropsFor =
 	Effect.flatMap(EmailAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.sendVerificationEmail(params),
-			catch: (error) => {
-				// Better Auth server throws APIError instances with status codes
-				if (error instanceof APIError) {
-					// Convert status to number (APIError.status is Status string union)
-					const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
-					return new EmailAuthServerApiError(error.message, status, error);
-				}
-				// Handle non-APIError exceptions
-				const message = error instanceof Error ? error.message : 'Send verification email failed';
-				return new EmailAuthServerApiError(message, undefined, error);
-			},
+			catch: mapBetterAuthApiErrorToEmailAuthError,
 		})
 	);

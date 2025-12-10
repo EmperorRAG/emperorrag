@@ -3,6 +3,9 @@
  * @description Server-side error types for email authentication operations.
  */
 
+import type { AuthServerErrorDescriptor } from '../../../server.types';
+import { APIError } from 'better-auth';
+
 /**
  * Error thrown when server dependencies validation fails.
  *
@@ -175,3 +178,93 @@ export type EmailAuthServerError =
 	| EmailAuthServerApiError
 	| EmailAuthServerDataMissingError
 	| EmailAuthServerSessionError;
+
+export const mapBetterAuthApiErrorToEmailAuthError = (error: unknown): EmailAuthServerError => {
+	if (error instanceof APIError) {
+		const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
+
+		return new EmailAuthServerApiError(error.message, status, error);
+	}
+
+	const message = error instanceof Error ? error.message : 'Unknown auth server error';
+
+	// you *could* also route this to a more generic deps error, etc.
+	return new EmailAuthServerApiError(message, undefined, error);
+};
+
+export const describeEmailAuthError = (error: EmailAuthServerError): AuthServerErrorDescriptor => {
+	// Tagged classes make this easy
+	switch (error._tag) {
+		case 'EmailAuthServerInputError':
+			return {
+				_tag: 'AuthErrorDescriptor',
+				category: 'input',
+				code: 'invalid_input',
+				message: error.message,
+				cause: error.cause,
+				status: 400,
+			};
+
+		case 'EmailAuthServerApiError': {
+			// You can specialize based on status
+			if (error.status === 401) {
+				return {
+					_tag: 'AuthErrorDescriptor',
+					category: 'unauthorized',
+					code: 'invalid_credentials',
+					message: error.message,
+					status: 401,
+					cause: error.cause,
+				};
+			}
+			if (error.status === 409) {
+				return {
+					_tag: 'AuthErrorDescriptor',
+					category: 'conflict',
+					code: 'user_already_exists',
+					message: error.message,
+					status: 409,
+					cause: error.cause,
+				};
+			}
+			return {
+				_tag: 'AuthErrorDescriptor',
+				category: 'server',
+				code: 'auth_server_error',
+				message: error.message,
+				status: error.status ?? 500,
+				cause: error.cause,
+			};
+		}
+
+		case 'EmailAuthServerSessionError':
+			return {
+				_tag: 'AuthErrorDescriptor',
+				category: 'unauthorized',
+				code: 'session_error',
+				message: error.message,
+				status: 401,
+				cause: error.cause,
+			};
+
+		case 'EmailAuthServerDependenciesError':
+			return {
+				_tag: 'AuthErrorDescriptor',
+				category: 'dependency',
+				code: 'dependency_error',
+				message: error.message,
+				status: 500,
+				cause: error.cause,
+			};
+
+		case 'EmailAuthServerDataMissingError':
+			return {
+				_tag: 'AuthErrorDescriptor',
+				category: 'server',
+				code: 'data_missing',
+				message: error.message,
+				status: 500,
+				cause: error.cause,
+			};
+	}
+};
