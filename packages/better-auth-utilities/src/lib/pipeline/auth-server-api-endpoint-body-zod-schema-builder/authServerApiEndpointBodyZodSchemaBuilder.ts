@@ -374,7 +374,9 @@ export const sessionTokenBodySchema = z.object({
  */
 export const authServerApiEndpointBodyZodSchemaBuilder = <K extends AuthServerApiEndpoints>(endpoint: K): Effect.Effect<z.ZodSchema, Error, AuthServerFor> =>
 	Effect.gen(function* () {
-		return yield* Match.value(endpoint as AuthServerApiEndpoints).pipe(
+		const matcher = Match.value(endpoint as AuthServerApiEndpoints);
+
+		const group1 = matcher.pipe(
 			Match.when(AuthServerApiEndpoints.signInEmail, () =>
 				Effect.gen(function* () {
 					const config = yield* extractAuthServerConfig('emailAndPassword');
@@ -447,7 +449,10 @@ export const authServerApiEndpointBodyZodSchemaBuilder = <K extends AuthServerAp
 						token: tokenRequiredSchema,
 					});
 				})
-			),
+			)
+		);
+
+		const group2 = group1.pipe(
 			Match.when(AuthServerApiEndpoints.listUserAccounts, () => Effect.succeed(z.object({}))),
 			Match.when(AuthServerApiEndpoints.unlinkAccount, () => Effect.succeed(providerIdBodySchema)),
 			Match.when(AuthServerApiEndpoints.callbackOAuth, () => Effect.succeed(z.object({}))),
@@ -469,7 +474,10 @@ export const authServerApiEndpointBodyZodSchemaBuilder = <K extends AuthServerAp
 			Match.when(AuthServerApiEndpoints.deleteUserCallback, () => Effect.succeed(z.object({}))),
 			Match.when(AuthServerApiEndpoints.forgetPasswordCallback, () => Effect.succeed(z.object({}))),
 			Match.when(AuthServerApiEndpoints.requestPasswordReset, () => Effect.succeed(emailWithRedirectBodySchema)),
-			Match.when(AuthServerApiEndpoints.requestPasswordResetCallback, () => Effect.succeed(z.object({}))),
+			Match.when(AuthServerApiEndpoints.requestPasswordResetCallback, () => Effect.succeed(z.object({})))
+		);
+
+		return yield* group2.pipe(
 			Match.when(AuthServerApiEndpoints.listSessions, () => Effect.succeed(z.object({}))),
 			Match.when(AuthServerApiEndpoints.revokeSession, () => Effect.succeed(sessionTokenBodySchema)),
 			Match.when(AuthServerApiEndpoints.revokeSessions, () => Effect.succeed(z.object({}))),
