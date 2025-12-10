@@ -9,6 +9,7 @@
  */
 export enum AuthServerApiEndpoints {
 	signInEmail = 'signInEmail',
+	signUpEmail = 'signUpEmail',
 	signOut = 'signOut',
 	getSession = 'getSession',
 	updateUser = 'updateUser',
