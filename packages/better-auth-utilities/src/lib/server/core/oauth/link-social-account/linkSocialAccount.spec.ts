@@ -6,7 +6,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { linkSocialAccountServerService } from './linkSocialAccount.service';
-import { OAuthServerServiceTag } from '../shared/oauth.service';
+import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
 import * as Effect from 'effect/Effect';
 
 describe('Server Link Social Account', () => {
@@ -29,6 +29,6 @@ describe('Server Link Social Account', () => {
 			},
 		});
 
-		await expect(Effect.runPromise(Effect.provideService(program, OAuthServerServiceTag, { authServer }))).rejects.toThrow();
+		await expect(Effect.runPromise(Effect.provideService(program, OAuthAuthServerServiceTag, { authServer }))).rejects.toThrow();
 	});
 });

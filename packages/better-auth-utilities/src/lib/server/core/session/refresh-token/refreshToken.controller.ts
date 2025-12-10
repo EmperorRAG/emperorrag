@@ -1,35 +1,44 @@
 /**
  * @file libs/better-auth-utilities/src/lib/server/core/session/refresh-token/refreshToken.controller.ts
- * @description Server-side controller for refresh token operation with validation.
+ * @description Controller for server-side refresh token operation with validation.
  */
 
 import * as Effect from 'effect/Effect';
 import { createRefreshTokenServerParamsSchema } from './refreshToken.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiRefreshTokenParamsFor, type AuthServerApiRefreshTokenParamsFor, type refreshTokenPropsFor } from './refreshToken.types';
-import { SessionAuthServerInputError } from '../shared/session.error';
+import { validateInputEffect } from '../shared/session.error';
 import { refreshTokenServerService } from './refreshToken.service';
 import { SessionAuthServerServiceTag } from '../shared/session.service';
 
+/**
+ * Controller for refresh token operation with input validation.
+ *
+ * @pure
+ * @description Validates input parameters using dynamically generated Zod schema,
+ * then delegates to the service layer. Uses validateInputEffect for composable
+ * error tracing through schema creation, parsing, and type guard validation.
+ *
+ * @remarks
+ * **Validation Flow:**
+ * 1. Retrieve authServer from Effect context
+ * 2. Create schema via Effect pipeline
+ * 3. Parse and validate with type guard
+ * 4. Call service with validated params
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @param params - The refresh token parameters to validate and process
+ * @returns Effect requiring SessionAuthServerService context
+ */
 export const refreshTokenServerController: refreshTokenPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiRefreshTokenParamsFor<T>) =>
-	Effect.gen(function* (_) {
-		const { authServer } = yield* _(SessionAuthServerServiceTag);
-		const schema = yield* _(createRefreshTokenServerParamsSchema(authServer));
-
-		const parsed = schema.safeParse(params);
-
-		if (!parsed.success) {
-			const message = 'Invalid refresh token parameters';
-			const cause = parsed.error;
-			return yield* _(Effect.fail(new SessionAuthServerInputError(message, cause)));
-		}
-
-		if (!isAuthServerApiRefreshTokenParamsFor<T>(parsed.data)) {
-			const message = 'Parsed data does not conform to expected refresh token parameters structure';
-			return yield* _(Effect.fail(new SessionAuthServerInputError(message)));
-		}
-
-		const result = yield* _(refreshTokenServerService(parsed.data));
-
-		return result;
+	Effect.gen(function* () {
+		const { authServer } = yield* SessionAuthServerServiceTag;
+		const validatedParams = yield* validateInputEffect(
+			createRefreshTokenServerParamsSchema(authServer),
+			params,
+			isAuthServerApiRefreshTokenParamsFor<T>,
+			'refreshToken'
+		);
+		return yield* refreshTokenServerService(validatedParams);
 	});

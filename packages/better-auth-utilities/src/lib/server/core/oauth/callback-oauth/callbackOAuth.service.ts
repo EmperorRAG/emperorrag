@@ -6,21 +6,21 @@
 import * as Effect from 'effect/Effect';
 import { APIError } from 'better-auth/api';
 import type { AuthServerApiCallbackOAuthParamsFor, callbackOAuthPropsFor } from './callbackOAuth.types';
-import { OAuthServerApiError } from '../shared/oauth.error';
+import { OAuthAuthServerApiError } from '../shared/oauth.error';
 import type { AuthServerFor } from '../../../server.types';
-import { OAuthServerServiceTag } from '../shared/oauth.service';
+import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
 
 export const callbackOAuthServerService: callbackOAuthPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiCallbackOAuthParamsFor<T>) =>
-	Effect.flatMap(OAuthServerServiceTag, ({ authServer }) =>
+	Effect.flatMap(OAuthAuthServerServiceTag, ({ authServer }) =>
 		Effect.tryPromise({
 			try: () => authServer.api.callbackOAuth(params),
 			catch: (error) => {
 				if (error instanceof APIError) {
 					const status = typeof error.status === 'number' ? error.status : parseInt(error.status as string, 10) || undefined;
-					return new OAuthServerApiError(error.message, status, error);
+					return new OAuthAuthServerApiError(error.message, status, error);
 				}
 				const message = error instanceof Error ? error.message : 'OAuth callback failed';
-				return new OAuthServerApiError(message, undefined, error);
+				return new OAuthAuthServerApiError(message, undefined, error);
 			},
 		})
 	);

@@ -1,6 +1,6 @@
 /**
  * @file libs/better-auth-utilities/src/lib/server/core/user/delete-user-callback/deleteUserCallback.controller.ts
- * @description Server-side controller for delete user callback operation with validation.
+ * @description Controller for server-side delete user callback operation with validation.
  */
 
 import * as Effect from 'effect/Effect';
@@ -11,31 +11,40 @@ import {
 	type AuthServerApiDeleteUserCallbackParamsFor,
 	type deleteUserCallbackPropsFor,
 } from './deleteUserCallback.types';
-import { UserAuthServerInputError } from '../shared/user.error';
+import { validateInputEffect } from '../shared/user.error';
 import { deleteUserCallbackServerService } from './deleteUserCallback.service';
 import { UserAuthServerServiceTag } from '../shared/user.service';
 
+/**
+ * Controller for delete user callback operation with input validation.
+ *
+ * @pure
+ * @description Validates input parameters using dynamically generated Zod schema,
+ * then delegates to the service layer. Uses validateInputEffect for composable
+ * error tracing through schema creation, parsing, and type guard validation.
+ *
+ * @remarks
+ * **Validation Flow:**
+ * 1. Retrieve authServer from Effect context
+ * 2. Create schema via Effect pipeline
+ * 3. Parse and validate with type guard
+ * 4. Call service with validated params
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @param params - The delete user callback parameters to validate and process
+ * @returns Effect requiring UserAuthServerService context
+ */
 export const deleteUserCallbackServerController: deleteUserCallbackPropsFor = <T extends AuthServerFor = AuthServerFor>(
 	params: AuthServerApiDeleteUserCallbackParamsFor<T>
 ) =>
-	Effect.gen(function* (_) {
-		const { authServer } = yield* _(UserAuthServerServiceTag);
-		const schema = yield* _(createDeleteUserCallbackServerParamsSchema(authServer));
-
-		const parsed = schema.safeParse(params);
-
-		if (!parsed.success) {
-			const message = 'Invalid delete user callback parameters';
-			const cause = parsed.error;
-			return yield* _(Effect.fail(new UserAuthServerInputError(message, cause)));
-		}
-
-		if (!isAuthServerApiDeleteUserCallbackParamsFor<T>(parsed.data)) {
-			const message = 'Parsed data does not conform to expected delete user callback parameters structure';
-			return yield* _(Effect.fail(new UserAuthServerInputError(message)));
-		}
-
-		const result = yield* _(deleteUserCallbackServerService(parsed.data));
-
-		return result;
+	Effect.gen(function* () {
+		const { authServer } = yield* UserAuthServerServiceTag;
+		const validatedParams = yield* validateInputEffect(
+			createDeleteUserCallbackServerParamsSchema(authServer),
+			params,
+			isAuthServerApiDeleteUserCallbackParamsFor<T>,
+			'deleteUserCallback'
+		);
+		return yield* deleteUserCallbackServerService(validatedParams);
 	});

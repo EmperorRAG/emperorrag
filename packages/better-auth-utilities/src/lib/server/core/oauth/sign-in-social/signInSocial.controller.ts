@@ -1,116 +1,44 @@
 /**
  * @file libs/better-auth-utilities/src/lib/server/core/oauth/sign-in-social/signInSocial.controller.ts
- * @description Controller for signInSocial server operations with input validation.
- * Combines schema validation with service execution in a type-safe manner.
+ * @description Controller for server-side OAuth social sign-in operation with validation.
  */
 
-import { Effect } from 'effect';
-import type { AuthServerFor } from '../../../server.types';
-import { OAuthAuthServerInputError } from '../shared/oauth.error';
-import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
+import * as Effect from 'effect/Effect';
 import { createSignInSocialServerParamsSchema } from './signInSocial.schema';
-import { signInSocialServerService } from './signInSocial.service';
+import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiSignInSocialParamsFor, type AuthServerApiSignInSocialParamsFor, type signInSocialPropsFor } from './signInSocial.types';
+import { validateInputEffect } from '../shared/oauth.error';
+import { signInSocialServerService } from './signInSocial.service';
+import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
 
 /**
- * Controller for server-side OAuth social sign-in operations with validation.
+ * Controller for server-side OAuth social sign-in operation with validation.
  *
  * @pure
- * @description Validates input using a dynamically generated Zod schema, then executes
- * the signInSocial service with the validated parameters. Uses Effect's Context layer
- * to access the authServer dependency and type guards for runtime type narrowing.
+ * @description Validates input parameters using dynamically generated Zod schema,
+ * then delegates to the service layer. Uses validateInputEffect for composable
+ * error tracing through schema creation, parsing, and type guard validation.
  *
- * @param params - Raw input parameters to validate and process
- * @returns Effect requiring OAuthAuthServerService context, failing with validation or API errors,
- *          and succeeding with the sign-in result
+ * @remarks
+ * **Validation Flow:**
+ * 1. Retrieve authServer from Effect context
+ * 2. Create schema via Effect pipeline
+ * 3. Parse and validate with type guard
+ * 4. Call service with validated params
  *
- * @example
- * ```typescript
- * import { Effect } from 'effect';
- * import { OAuthAuthServerServiceTag } from '../shared/oauth.service';
- * import { signInSocialServerController } from './signInSocial.controller';
+ * @template T - The Better Auth server type with all plugin augmentations
  *
- * // Handle incoming request
- * const program = signInSocialServerController({
- *   body: {
- *     provider: 'google',
- *     callbackURL: '/dashboard'
- *   },
- *   headers: request.headers
- * });
- *
- * // Provide the AuthServer dependency
- * const result = await Effect.runPromise(
- *   Effect.provideService(program, OAuthAuthServerServiceTag, { authServer })
- * );
- *
- * // Handle redirect
- * if ('url' in result) {
- *   return Response.redirect(result.url);
- * }
- * ```
- *
- * @example
- * ```typescript
- * // Error handling in controller
- * const program = signInSocialServerController(rawInput).pipe(
- *   Effect.catchTag('OAuthAuthServerInputError', (e) =>
- *     Effect.succeed({ error: 'validation_failed', message: e.message })
- *   ),
- *   Effect.catchTag('OAuthAuthServerApiError', (e) =>
- *     Effect.succeed({ error: 'api_error', status: e.status })
- *   )
- * );
- * ```
- *
- * @example
- * ```typescript
- * // Using with Express/Next.js route handler
- * export async function POST(request: Request) {
- *   const body = await request.json();
- *
- *   const program = signInSocialServerController({
- *     body,
- *     headers: request.headers
- *   });
- *
- *   try {
- *     const result = await Effect.runPromise(
- *       Effect.provideService(program, OAuthAuthServerServiceTag, { authServer })
- *     );
- *
- *     if ('url' in result) {
- *       return Response.json({ url: result.url });
- *     }
- *     return Response.json({ user: result.user });
- *   } catch (error) {
- *     return Response.json({ error: 'OAuth sign-in failed' }, { status: 500 });
- *   }
- * }
- * ```
+ * @param params - The OAuth sign-in parameters to validate and process
+ * @returns Effect requiring OAuthAuthServerService context
  */
 export const signInSocialServerController: signInSocialPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiSignInSocialParamsFor<T>) =>
-	Effect.gen(function* (_) {
-		const { authServer } = yield* _(OAuthAuthServerServiceTag);
-		const schema = yield* _(createSignInSocialServerParamsSchema(authServer));
-
-		// 1) Validate params input with Zod
-		const parsed = schema.safeParse(params);
-
-		if (!parsed.success) {
-			const message = 'Invalid OAuth sign-in parameters';
-			const cause = parsed.error;
-			return yield* _(Effect.fail(new OAuthAuthServerInputError(message, cause)));
-		}
-
-		if (!isAuthServerApiSignInSocialParamsFor<T>(parsed.data)) {
-			const message = 'Parsed data does not conform to expected OAuth sign-in parameters structure';
-			return yield* _(Effect.fail(new OAuthAuthServerInputError(message)));
-		}
-
-		// 2) Call the service with the validated params
-		const result = yield* _(signInSocialServerService(parsed.data));
-
-		// 3) Return the success value of the whole controller Effect
-		return result;
+	Effect.gen(function* () {
+		const { authServer } = yield* OAuthAuthServerServiceTag;
+		const validatedParams = yield* validateInputEffect(
+			createSignInSocialServerParamsSchema(authServer),
+			params,
+			isAuthServerApiSignInSocialParamsFor<T>,
+			'signInSocial'
+		);
+		return yield* signInSocialServerService(validatedParams);
 	});

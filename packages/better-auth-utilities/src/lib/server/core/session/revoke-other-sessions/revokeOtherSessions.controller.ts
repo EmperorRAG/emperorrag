@@ -1,6 +1,6 @@
 /**
  * @file libs/better-auth-utilities/src/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.controller.ts
- * @description Server-side controller for revoke other sessions operation with validation.
+ * @description Controller for server-side revoke other sessions operation with validation.
  */
 
 import * as Effect from 'effect/Effect';
@@ -11,31 +11,40 @@ import {
 	type AuthServerApiRevokeOtherSessionsParamsFor,
 	type revokeOtherSessionsPropsFor,
 } from './revokeOtherSessions.types';
-import { SessionAuthServerInputError } from '../shared/session.error';
+import { validateInputEffect } from '../shared/session.error';
 import { revokeOtherSessionsServerService } from './revokeOtherSessions.service';
 import { SessionAuthServerServiceTag } from '../shared/session.service';
 
+/**
+ * Controller for revoke other sessions operation with input validation.
+ *
+ * @pure
+ * @description Validates input parameters using dynamically generated Zod schema,
+ * then delegates to the service layer. Uses validateInputEffect for composable
+ * error tracing through schema creation, parsing, and type guard validation.
+ *
+ * @remarks
+ * **Validation Flow:**
+ * 1. Retrieve authServer from Effect context
+ * 2. Create schema via Effect pipeline
+ * 3. Parse and validate with type guard
+ * 4. Call service with validated params
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @param params - The revoke other sessions parameters to validate and process
+ * @returns Effect requiring SessionAuthServerService context
+ */
 export const revokeOtherSessionsServerController: revokeOtherSessionsPropsFor = <T extends AuthServerFor = AuthServerFor>(
 	params: AuthServerApiRevokeOtherSessionsParamsFor<T>
 ) =>
-	Effect.gen(function* (_) {
-		const { authServer } = yield* _(SessionAuthServerServiceTag);
-		const schema = yield* _(createRevokeOtherSessionsServerParamsSchema(authServer));
-
-		const parsed = schema.safeParse(params);
-
-		if (!parsed.success) {
-			const message = 'Invalid revoke other sessions parameters';
-			const cause = parsed.error;
-			return yield* _(Effect.fail(new SessionAuthServerInputError(message, cause)));
-		}
-
-		if (!isAuthServerApiRevokeOtherSessionsParamsFor<T>(parsed.data)) {
-			const message = 'Parsed data does not conform to expected revoke other sessions parameters structure';
-			return yield* _(Effect.fail(new SessionAuthServerInputError(message)));
-		}
-
-		const result = yield* _(revokeOtherSessionsServerService(parsed.data));
-
-		return result;
+	Effect.gen(function* () {
+		const { authServer } = yield* SessionAuthServerServiceTag;
+		const validatedParams = yield* validateInputEffect(
+			createRevokeOtherSessionsServerParamsSchema(authServer),
+			params,
+			isAuthServerApiRevokeOtherSessionsParamsFor<T>,
+			'revokeOtherSessions'
+		);
+		return yield* revokeOtherSessionsServerService(validatedParams);
 	});

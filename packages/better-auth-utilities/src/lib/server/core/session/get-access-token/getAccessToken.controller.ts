@@ -1,35 +1,46 @@
 /**
  * @file libs/better-auth-utilities/src/lib/server/core/session/get-access-token/getAccessToken.controller.ts
- * @description Server-side controller for get access token operation with validation.
+ * @description Controller for server-side get access token operation with validation.
  */
 
 import * as Effect from 'effect/Effect';
 import { createGetAccessTokenServerParamsSchema } from './getAccessToken.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiGetAccessTokenParamsFor, type AuthServerApiGetAccessTokenParamsFor, type getAccessTokenPropsFor } from './getAccessToken.types';
-import { SessionAuthServerInputError } from '../shared/session.error';
+import { validateInputEffect } from '../shared/session.error';
 import { getAccessTokenServerService } from './getAccessToken.service';
 import { SessionAuthServerServiceTag } from '../shared/session.service';
 
-export const getAccessTokenServerController: getAccessTokenPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiGetAccessTokenParamsFor<T>) =>
-	Effect.gen(function* (_) {
-		const { authServer } = yield* _(SessionAuthServerServiceTag);
-		const schema = yield* _(createGetAccessTokenServerParamsSchema(authServer));
-
-		const parsed = schema.safeParse(params);
-
-		if (!parsed.success) {
-			const message = 'Invalid get access token parameters';
-			const cause = parsed.error;
-			return yield* _(Effect.fail(new SessionAuthServerInputError(message, cause)));
-		}
-
-		if (!isAuthServerApiGetAccessTokenParamsFor<T>(parsed.data)) {
-			const message = 'Parsed data does not conform to expected get access token parameters structure';
-			return yield* _(Effect.fail(new SessionAuthServerInputError(message)));
-		}
-
-		const result = yield* _(getAccessTokenServerService(parsed.data));
-
-		return result;
+/**
+ * Controller for get access token operation with input validation.
+ *
+ * @pure
+ * @description Validates input parameters using dynamically generated Zod schema,
+ * then delegates to the service layer. Uses validateInputEffect for composable
+ * error tracing through schema creation, parsing, and type guard validation.
+ *
+ * @remarks
+ * **Validation Flow:**
+ * 1. Retrieve authServer from Effect context
+ * 2. Create schema via Effect pipeline
+ * 3. Parse and validate with type guard
+ * 4. Call service with validated params
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @param params - The get access token parameters to validate and process
+ * @returns Effect requiring SessionAuthServerService context
+ */
+export const getAccessTokenServerController: getAccessTokenPropsFor = <T extends AuthServerFor = AuthServerFor>(
+	params: AuthServerApiGetAccessTokenParamsFor<T>
+) =>
+	Effect.gen(function* () {
+		const { authServer } = yield* SessionAuthServerServiceTag;
+		const validatedParams = yield* validateInputEffect(
+			createGetAccessTokenServerParamsSchema(authServer),
+			params,
+			isAuthServerApiGetAccessTokenParamsFor<T>,
+			'getAccessToken'
+		);
+		return yield* getAccessTokenServerService(validatedParams);
 	});

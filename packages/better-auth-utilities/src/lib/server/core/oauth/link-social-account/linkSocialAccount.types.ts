@@ -4,8 +4,8 @@
  */
 
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { OAuthServerError } from '../shared/oauth.error';
-import type { OAuthServerService } from '../shared/oauth.types';
+import type { OAuthAuthServerError } from '../shared/oauth.error';
+import type { OAuthAuthServerService } from '../shared/oauth.types';
 import type * as Effect from 'effect/Effect';
 
 export type AuthServerApiLinkSocialAccountPropsFor<T extends AuthServerFor = AuthServerFor> =
@@ -18,7 +18,7 @@ export type AuthServerApiLinkSocialAccountResultFor<T extends AuthServerFor = Au
 export interface linkSocialAccountPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
 		params: AuthServerApiLinkSocialAccountParamsFor<T>
-	): Effect.Effect<Awaited<AuthServerApiLinkSocialAccountResultFor<T>>, OAuthServerError, OAuthServerService>;
+	): Effect.Effect<Awaited<AuthServerApiLinkSocialAccountResultFor<T>>, OAuthAuthServerError, OAuthAuthServerService>;
 }
 
 export const isAuthServerApiLinkSocialAccountParamsFor = <T extends AuthServerFor = AuthServerFor>(

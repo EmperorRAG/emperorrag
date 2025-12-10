@@ -5,7 +5,7 @@
  */
 
 import { Effect } from 'effect';
-import { AccountAuthServerApiError, AccountAuthServerDataMissingError, AccountAuthServerInputError } from '../shared/account.error';
+import { AccountAuthServerApiError, AccountAuthServerDataMissingError, AccountAuthServerInputError, validateInputEffect } from '../shared/account.error';
 import { AccountAuthServerServiceTag } from '../shared/account.service';
 import type { AccountAuthServerService } from '../shared/account.types';
 import { createListUserAccountsServerParamsSchema } from './listUserAccounts.schema';
@@ -20,9 +20,9 @@ import {
  * Controller for server-side listUserAccounts operations with validation.
  *
  * @pure
- * @description Validates input using a dynamically generated Zod schema, then executes
- * the listUserAccounts service with the validated parameters. Uses Effect's Context layer
- * to access the authServer dependency and type guards for runtime type narrowing.
+ * @description Validates input using validateInputEffect which composes schema creation,
+ * parsing, and type guard validation into a single traceable Effect pipeline.
+ * Each validation step produces a traceable error if it fails.
  *
  * @param input - Raw input parameters to validate and process
  * @returns Effect requiring AccountAuthServerService context, failing with validation or API errors,
@@ -87,24 +87,12 @@ export const listUserAccountsServerController = (
 	AccountAuthServerInputError | AccountAuthServerApiError | AccountAuthServerDataMissingError,
 	AccountAuthServerService
 > =>
-	Effect.gen(function* (_) {
-		// Get the schema from context
-		const schema = yield* _(createListUserAccountsServerParamsSchema());
-
-		// Validate input
-		const parsed = schema.safeParse(input);
-
-		if (!parsed.success) {
-			yield* _(Effect.fail(new AccountAuthServerInputError('Invalid listUserAccounts input', parsed.error.issues)));
-		}
-
-		// Type guard validation
-		if (!isAuthServerApiListUserAccountsParamsFor(parsed.data)) {
-			yield* _(Effect.fail(new AccountAuthServerInputError('Input does not match expected listUserAccounts parameter structure')));
-		}
-
-		// Execute service with validated params
-		const result = yield* _(listUserAccountsServerService(parsed.data));
-
-		return result;
+	Effect.gen(function* () {
+		const validatedParams = yield* validateInputEffect(
+			createListUserAccountsServerParamsSchema(),
+			input,
+			isAuthServerApiListUserAccountsParamsFor,
+			'listUserAccounts'
+		);
+		return yield* listUserAccountsServerService(validatedParams);
 	}).pipe(Effect.provideServiceEffect(AccountAuthServerServiceTag, AccountAuthServerServiceTag));
