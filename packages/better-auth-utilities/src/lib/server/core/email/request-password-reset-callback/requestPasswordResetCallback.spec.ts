@@ -1,8 +1,3 @@
-/**
- * @file libs/better-auth-utilities/src/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.spec.ts
- * @description Tests for server-side request password reset callback operation.
- */
-
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { requestPasswordResetCallbackServerService } from './requestPasswordResetCallback.service';

@@ -1,8 +1,3 @@
-/**
- * @file libs/better-auth-utilities/src/lib/server/core/session/refresh-token/refreshToken.spec.ts
- * @description Tests for server-side refresh token operation.
- */
-
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { refreshTokenServerService } from './refreshToken.service';

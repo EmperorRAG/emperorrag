@@ -1,8 +1,3 @@
-/**
- * @file libs/better-auth-utilities/src/lib/server/core/oauth/link-social-account/linkSocialAccount.spec.ts
- * @description Tests for server-side link social account operation.
- */
-
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { linkSocialAccountServerService } from './linkSocialAccount.service';

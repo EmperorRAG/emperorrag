@@ -1,8 +1,3 @@
-/**
- * @file libs/better-auth-utilities/src/lib/core/user/server/update-user/updateUser.spec.ts
- * @description Tests for server-side update user operation.
- */
-
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { updateUserServerService } from './updateUser.service';
@@ -36,25 +31,25 @@ describe('Server Update User', () => {
 			},
 		});
 
-		// Get session headers for the user
-		const signInResult = await authServer.api.signInEmail({
+		// Sign in to get session cookie
+		const signInRes = await authServer.api.signInEmail({
 			body: {
 				email,
 				password,
 			},
+			asResponse: true,
 		});
 
-		// Create mock headers with session token
-		const headers = new Headers();
-		if (signInResult.token) {
-			headers.set('Authorization', `Bearer ${signInResult.token}`);
-		}
+		const cookie = signInRes.headers.get('set-cookie');
+		expect(cookie).toBeDefined();
 
 		const program = updateUserServerService({
 			body: {
 				name: updatedName,
 			},
-			headers,
+			headers: new Headers({
+				cookie: cookie || '',
+			}),
 		});
 
 		const res = await Effect.runPromise(Effect.provideService(program, UserAuthServerServiceTag, { authServer }));
@@ -79,25 +74,25 @@ describe('Server Update User', () => {
 			},
 		});
 
-		// Get session headers for the user
-		const signInResult = await authServer.api.signInEmail({
+		// Sign in to get session cookie
+		const signInRes = await authServer.api.signInEmail({
 			body: {
 				email,
 				password,
 			},
+			asResponse: true,
 		});
 
-		// Create mock headers with session token
-		const headers = new Headers();
-		if (signInResult.token) {
-			headers.set('Authorization', `Bearer ${signInResult.token}`);
-		}
+		const cookie = signInRes.headers.get('set-cookie');
+		expect(cookie).toBeDefined();
 
 		const program = updateUserServerService({
 			body: {
 				image: imageUrl,
 			},
-			headers,
+			headers: new Headers({
+				cookie: cookie || '',
+			}),
 		});
 
 		const res = await Effect.runPromise(Effect.provideService(program, UserAuthServerServiceTag, { authServer }));

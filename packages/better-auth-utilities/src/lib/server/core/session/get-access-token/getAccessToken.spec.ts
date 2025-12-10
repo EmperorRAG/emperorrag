@@ -1,8 +1,3 @@
-/**
- * @file libs/better-auth-utilities/src/lib/server/core/session/get-access-token/getAccessToken.spec.ts
- * @description Tests for server-side get access token operation.
- */
-
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { getAccessTokenServerService } from './getAccessToken.service';

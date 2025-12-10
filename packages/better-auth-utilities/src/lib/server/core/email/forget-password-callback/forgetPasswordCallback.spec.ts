@@ -1,8 +1,3 @@
-/**
- * @file libs/better-auth-utilities/src/lib/server/core/email/forget-password-callback/forgetPasswordCallback.spec.ts
- * @description Tests for server-side forget password callback operation.
- */
-
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { forgetPasswordCallbackServerService } from './forgetPasswordCallback.service';

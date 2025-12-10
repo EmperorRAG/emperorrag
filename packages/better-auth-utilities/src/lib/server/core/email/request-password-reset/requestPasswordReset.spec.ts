@@ -1,8 +1,3 @@
-/**
- * @file libs/better-auth-utilities/src/lib/server/core/email/request-password-reset/requestPasswordReset.spec.ts
- * @description Tests for server-side request password reset operation.
- */
-
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { requestPasswordResetServerService } from './requestPasswordReset.service';

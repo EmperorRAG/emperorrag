@@ -1,8 +1,3 @@
-/**
- * @file libs/better-auth-utilities/src/lib/server/core/session/list-sessions/listSessions.spec.ts
- * @description Tests for server-side list sessions operation.
- */
-
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { listSessionsServerService } from './listSessions.service';
@@ -26,21 +21,25 @@ describe('Server List Sessions', () => {
 		const password = 'password123';
 		const name = 'List Sessions Test';
 
-		// Create a user and sign in
+		// Create a user
 		await authServer.api.signUpEmail({
 			body: { email, password, name },
 		});
 
-		const signInResult = await authServer.api.signInEmail({
+		// Sign in to get session cookie
+		const signInRes = await authServer.api.signInEmail({
 			body: { email, password },
+			asResponse: true,
 		});
 
-		const headers = new Headers();
-		if (signInResult.token) {
-			headers.set('Authorization', `Bearer ${signInResult.token}`);
-		}
+		const cookie = signInRes.headers.get('set-cookie');
+		expect(cookie).toBeDefined();
 
-		const program = listSessionsServerService({ headers });
+		const program = listSessionsServerService({
+			headers: new Headers({
+				cookie: cookie || '',
+			}),
+		});
 
 		const res = await Effect.runPromise(Effect.provideService(program, SessionAuthServerServiceTag, { authServer }));
 

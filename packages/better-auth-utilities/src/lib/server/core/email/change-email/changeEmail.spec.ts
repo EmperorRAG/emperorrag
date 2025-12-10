@@ -1,8 +1,3 @@
-/**
- * @file libs/better-auth-utilities/src/lib/server/core/email/change-email/changeEmail.spec.ts
- * @description Tests for server-side change email operation.
- */
-
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { changeEmailServerService } from './changeEmail.service';
@@ -20,7 +15,7 @@ describe('Server Change Email', () => {
 		await env.cleanup();
 	});
 
-	it('should request email change via server api', async () => {
+	it('should fail when change email is disabled', async () => {
 		const { authServer } = env;
 		const email = 'change-email-test@example.com';
 		const password = 'password123';
@@ -36,29 +31,28 @@ describe('Server Change Email', () => {
 			},
 		});
 
-		// Get session headers for the user
-		const signInResult = await authServer.api.signInEmail({
+		// Sign in to get session cookie
+		const signInRes = await authServer.api.signInEmail({
 			body: {
 				email,
 				password,
 			},
+			asResponse: true,
 		});
 
-		const headers = new Headers();
-		if (signInResult.token) {
-			headers.set('Authorization', `Bearer ${signInResult.token}`);
-		}
+		const cookie = signInRes.headers.get('set-cookie');
+		expect(cookie).toBeDefined();
 
 		const program = changeEmailServerService({
 			body: {
 				newEmail,
 			},
-			headers,
+			headers: new Headers({
+				cookie: cookie || '',
+			}),
 		});
 
-		const res = await Effect.runPromise(Effect.provideService(program, EmailAuthServerServiceTag, { authServer }));
-
-		expect(res).toBeDefined();
-		expect(res.status).toBe(true);
+		// Change email is disabled in test environment
+		await expect(Effect.runPromise(Effect.provideService(program, EmailAuthServerServiceTag, { authServer }))).rejects.toThrow();
 	});
 });

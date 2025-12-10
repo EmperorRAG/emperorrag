@@ -1,8 +1,3 @@
-/**
- * @file libs/better-auth-utilities/src/lib/server/core/account/account-info/accountInfo.spec.ts
- * @description Tests for server-side account info operation.
- */
-
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupTestEnv } from '../../../../test/setup-test-env';
 import { accountInfoServerService } from './accountInfo.service';
