@@ -4,7 +4,9 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createDeleteUserCallbackServerParamsSchema } from './deleteUserCallback.schema';
+import { createBaseSchema, withQuery, withOptionalHeaders } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { pipe } from 'effect/Function';
+import { z } from 'zod';
 import type { AuthServerFor } from '../../../server.types';
 import {
 	isAuthServerApiDeleteUserCallbackParamsFor,
@@ -34,15 +36,12 @@ import { deleteUserCallbackServerService } from './deleteUserCallback.service';
  * @param params - The delete user callback parameters to validate and process
  * @returns Effect requiring AuthServerFor context
  */
-export const deleteUserCallbackServerController: deleteUserCallbackPropsFor = (
-	params: AuthServerApiDeleteUserCallbackParamsFor<AuthServerFor>
-) =>
-	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(
-			createDeleteUserCallbackServerParamsSchema(),
+export const deleteUserCallbackServerController =
+	<T extends AuthServerFor>(props: deleteUserCallbackPropsFor<T>) =>
+	(params: unknown): Effect.Effect<AuthServerApiDeleteUserCallbackParamsFor<T>, Error> => {
+		return validateInputEffect(
+			Effect.succeed(pipe(createBaseSchema(), withQuery(z.object({ token: z.string() })), withOptionalHeaders())),
 			params,
-			isAuthServerApiDeleteUserCallbackParamsFor,
-			'deleteUserCallback'
-		);
-		return yield* deleteUserCallbackServerService(validatedParams);
-	});
+			isAuthServerApiDeleteUserCallbackParamsFor(props)
+		).pipe(Effect.flatMap((validParams) => deleteUserCallbackServerService(props)(validParams)));
+	};

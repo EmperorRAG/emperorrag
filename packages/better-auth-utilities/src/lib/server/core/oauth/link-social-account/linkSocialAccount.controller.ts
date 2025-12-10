@@ -4,7 +4,15 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createLinkSocialAccountServerParamsSchema } from './linkSocialAccount.schema';
+import {
+	createBaseSchema,
+	withBody,
+	providerIdRequiredSchema,
+	callbackURLOptionalSchema,
+	withOptionalHeaders,
+} from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { z } from 'zod';
+import { pipe } from 'effect/Function';
 import type { AuthServerFor } from '../../../server.types';
 import {
 	isAuthServerApiLinkSocialAccountParamsFor,
@@ -34,12 +42,15 @@ import { linkSocialAccountServerService } from './linkSocialAccount.service';
  * @param params - The link social account parameters to validate and process
  * @returns Effect requiring AuthServerFor context
  */
-export const linkSocialAccountServerController: linkSocialAccountPropsFor = (
-	params: AuthServerApiLinkSocialAccountParamsFor<AuthServerFor>
-) =>
+export const linkSocialAccountServerController: linkSocialAccountPropsFor = (params: AuthServerApiLinkSocialAccountParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
+		const linkSocialAccountBodySchema = z.object({
+			providerId: providerIdRequiredSchema,
+			callbackURL: callbackURLOptionalSchema,
+		});
+
 		const validatedParams = yield* validateInputEffect(
-			createLinkSocialAccountServerParamsSchema(),
+			Effect.succeed(pipe(createBaseSchema(), withBody(linkSocialAccountBodySchema), withOptionalHeaders())),
 			params,
 			isAuthServerApiLinkSocialAccountParamsFor,
 			'linkSocialAccount'

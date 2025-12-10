@@ -4,7 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createUnlinkAccountServerParamsSchema } from './unlinkAccount.schema';
+import { createBaseSchema, withBody, providerIdBodySchema, withOptionalHeaders } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { pipe } from 'effect/Function';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiUnlinkAccountParamsFor, type AuthServerApiUnlinkAccountParamsFor, type unlinkAccountPropsFor } from './unlinkAccount.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -48,7 +49,7 @@ import { unlinkAccountServerService } from './unlinkAccount.service';
 export const unlinkAccountServerController: unlinkAccountPropsFor = (params: AuthServerApiUnlinkAccountParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		const validatedParams = yield* validateInputEffect(
-			createUnlinkAccountServerParamsSchema(),
+			Effect.succeed(pipe(createBaseSchema(), withBody(providerIdBodySchema), withOptionalHeaders())),
 			params,
 			isAuthServerApiUnlinkAccountParamsFor,
 			'unlinkAccount'

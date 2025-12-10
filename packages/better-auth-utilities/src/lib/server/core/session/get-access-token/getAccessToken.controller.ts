@@ -4,7 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createGetAccessTokenServerParamsSchema } from './getAccessToken.schema';
+import { createBaseSchema, withOptionalHeaders } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { pipe } from 'effect/Function';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiGetAccessTokenParamsFor, type AuthServerApiGetAccessTokenParamsFor, type getAccessTokenPropsFor } from './getAccessToken.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -30,15 +31,10 @@ import { getAccessTokenServerService } from './getAccessToken.service';
  * @param params - The get access token parameters to validate and process
  * @returns Effect requiring AuthServerFor context
  */
-export const getAccessTokenServerController: getAccessTokenPropsFor = (
-	params: AuthServerApiGetAccessTokenParamsFor<AuthServerFor>
-) =>
-	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(
-			createGetAccessTokenServerParamsSchema(),
-			params,
-			isAuthServerApiGetAccessTokenParamsFor,
-			'getAccessToken'
+export const getAccessTokenServerController =
+	<T extends AuthServerFor>(props: getAccessTokenPropsFor<T>) =>
+	(params: unknown): Effect.Effect<AuthServerApiGetAccessTokenParamsFor<T>, Error> => {
+		return validateInputEffect(Effect.succeed(pipe(createBaseSchema(), withOptionalHeaders())), params, isAuthServerApiGetAccessTokenParamsFor(props)).pipe(
+			Effect.flatMap((validParams) => getAccessTokenServerService(props)(validParams))
 		);
-		return yield* getAccessTokenServerService(validatedParams);
-	});
+	};

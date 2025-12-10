@@ -4,7 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createGetSessionServerParamsSchema } from './getSession.schema';
+import { createBaseSchema, withOptionalHeaders } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { pipe } from 'effect/Function';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiGetSessionParamsFor, type AuthServerApiGetSessionParamsFor, type getSessionPropsFor } from './getSession.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -30,13 +31,10 @@ import { getSessionServerService } from './getSession.service';
  * @param params - The get session parameters to validate and process
  * @returns Effect requiring AuthServerTag context
  */
-export const getSessionServerController: getSessionPropsFor = (params: AuthServerApiGetSessionParamsFor<AuthServerFor>) =>
-	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(
-			createGetSessionServerParamsSchema(),
-			params,
-			isAuthServerApiGetSessionParamsFor,
-			'getSession'
+export const getSessionServerController =
+	<T extends AuthServerFor>(props: getSessionPropsFor<T>) =>
+	(params: unknown): Effect.Effect<AuthServerApiGetSessionParamsFor<T>, Error> => {
+		return validateInputEffect(Effect.succeed(pipe(createBaseSchema(), withOptionalHeaders())), params, isAuthServerApiGetSessionParamsFor(props)).pipe(
+			Effect.flatMap((validParams) => getSessionServerService(props)(validParams))
 		);
-		return yield* getSessionServerService(validatedParams);
-	});
+	};

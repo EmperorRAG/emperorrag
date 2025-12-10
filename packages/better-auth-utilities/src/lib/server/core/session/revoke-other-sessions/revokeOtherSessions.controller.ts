@@ -4,7 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createRevokeOtherSessionsServerParamsSchema } from './revokeOtherSessions.schema';
+import { createBaseSchema, withOptionalHeaders } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { pipe } from 'effect/Function';
 import type { AuthServerFor } from '../../../server.types';
 import {
 	isAuthServerApiRevokeOtherSessionsParamsFor,
@@ -34,15 +35,12 @@ import { revokeOtherSessionsServerService } from './revokeOtherSessions.service'
  * @param params - The revoke other sessions parameters to validate and process
  * @returns Effect requiring AuthServerFor context
  */
-export const revokeOtherSessionsServerController: revokeOtherSessionsPropsFor = (
-	params: AuthServerApiRevokeOtherSessionsParamsFor<AuthServerFor>
-) =>
-	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(
-			createRevokeOtherSessionsServerParamsSchema(),
+export const revokeOtherSessionsServerController =
+	<T extends AuthServerFor>(props: revokeOtherSessionsPropsFor<T>) =>
+	(params: unknown): Effect.Effect<AuthServerApiRevokeOtherSessionsParamsFor<T>, Error> => {
+		return validateInputEffect(
+			Effect.succeed(pipe(createBaseSchema(), withOptionalHeaders())),
 			params,
-			isAuthServerApiRevokeOtherSessionsParamsFor,
-			'revokeOtherSessions'
-		);
-		return yield* revokeOtherSessionsServerService(validatedParams);
-	});
+			isAuthServerApiRevokeOtherSessionsParamsFor(props)
+		).pipe(Effect.flatMap((validParams) => revokeOtherSessionsServerService(props)(validParams)));
+	};

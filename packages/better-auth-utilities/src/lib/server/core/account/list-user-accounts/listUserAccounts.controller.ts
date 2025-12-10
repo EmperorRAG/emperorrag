@@ -8,7 +8,8 @@ import * as Effect from 'effect/Effect';
 import { CoreAuthServerApiError, CoreAuthServerDataMissingError, CoreAuthServerInputError, validateInputEffect } from '../../shared/core.error';
 import { AuthServerTag } from '../../../server.service';
 import type { AuthServerFor } from '../../../server.types';
-import { createListUserAccountsServerParamsSchema } from './listUserAccounts.schema';
+import { createBaseSchema, withOptionalHeaders } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { pipe } from 'effect/Function';
 import { listUserAccountsServerService } from './listUserAccounts.service';
 import {
 	isAuthServerApiListUserAccountsParamsFor,
@@ -90,7 +91,7 @@ export const listUserAccountsServerController = (
 	Effect.gen(function* () {
 		const authServer = yield* AuthServerTag;
 		const validatedParams = yield* validateInputEffect(
-			createListUserAccountsServerParamsSchema(),
+			Effect.succeed(pipe(createBaseSchema(), withOptionalHeaders())),
 			input,
 			isAuthServerApiListUserAccountsParamsFor,
 			'listUserAccounts'

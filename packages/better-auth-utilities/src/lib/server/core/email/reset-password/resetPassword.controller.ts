@@ -4,7 +4,15 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createResetPasswordServerParamsSchema } from './resetPassword.schema';
+import {
+	createBaseSchema,
+	withBody,
+	tokenRequiredSchema,
+	createPasswordSchema,
+	withOptionalHeaders,
+} from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { z } from 'zod';
+import { pipe } from 'effect/Function';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiResetPasswordParamsFor, type AuthServerApiResetPasswordParamsFor, type resetPasswordPropsFor } from './resetPassword.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -53,9 +61,19 @@ export const resetPasswordServerController: resetPasswordPropsFor = (params: Aut
 	Effect.gen(function* (_) {
 		const authServer = yield* _(AuthServerTag);
 
+		const resetPasswordBodySchema = z.object({
+			token: tokenRequiredSchema,
+			newPassword: createPasswordSchema(8, 128),
+		});
+
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
-			validateInputEffect(createResetPasswordServerParamsSchema(authServer), params, isAuthServerApiResetPasswordParamsFor, 'resetPassword')
+			validateInputEffect(
+				Effect.succeed(pipe(createBaseSchema(), withBody(resetPasswordBodySchema), withOptionalHeaders())),
+				params,
+				isAuthServerApiResetPasswordParamsFor,
+				'resetPassword'
+			)
 		);
 
 		// 2) Call the service with the validated params

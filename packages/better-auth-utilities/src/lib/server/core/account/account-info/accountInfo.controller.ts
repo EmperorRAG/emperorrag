@@ -4,7 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createAccountInfoServerParamsSchema } from './accountInfo.schema';
+import { createBaseSchema, withOptionalHeaders } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { pipe } from 'effect/Function';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiAccountInfoParamsFor, type AuthServerApiAccountInfoParamsFor, type accountInfoPropsFor } from './accountInfo.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -15,7 +16,7 @@ export const accountInfoServerController: accountInfoPropsFor = (params: AuthSer
 	Effect.gen(function* () {
 		const authServer = yield* AuthServerTag;
 		const validatedParams = yield* validateInputEffect(
-			createAccountInfoServerParamsSchema(),
+			Effect.succeed(pipe(createBaseSchema(), withOptionalHeaders())),
 			params,
 			isAuthServerApiAccountInfoParamsFor,
 			'accountInfo'

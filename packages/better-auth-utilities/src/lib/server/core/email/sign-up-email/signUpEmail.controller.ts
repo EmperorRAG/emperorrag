@@ -1,5 +1,15 @@
 import * as Effect from 'effect/Effect';
-import { createSignUpEmailServerParamsSchema } from './signUpEmail.schema';
+import {
+	createBaseSchema,
+	withBody,
+	emailRequiredSchema,
+	createPasswordSchema,
+	nameRequiredSchema,
+	imageURLOptionalSchema,
+	withOptionalHeaders,
+} from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { z } from 'zod';
+import { pipe } from 'effect/Function';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiSignUpEmailParamsFor, type AuthServerApiSignUpEmailParamsFor, type signUpEmailPropsFor } from './signUpEmail.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -10,9 +20,21 @@ export const signUpEmailServerController: signUpEmailPropsFor = (params: AuthSer
 	Effect.gen(function* (_) {
 		const authServer = yield* _(AuthServerTag);
 
+		const signUpEmailBodySchema = z.object({
+			email: emailRequiredSchema,
+			password: createPasswordSchema(8, 128),
+			name: nameRequiredSchema,
+			image: imageURLOptionalSchema,
+		});
+
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
-			validateInputEffect(createSignUpEmailServerParamsSchema(authServer), params, isAuthServerApiSignUpEmailParamsFor, 'signUpEmail')
+			validateInputEffect(
+				Effect.succeed(pipe(createBaseSchema(), withBody(signUpEmailBodySchema), withOptionalHeaders())),
+				params,
+				isAuthServerApiSignUpEmailParamsFor,
+				'signUpEmail'
+			)
 		);
 
 		// 2) Call the service with the validated params

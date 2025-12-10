@@ -4,7 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createSendVerificationEmailServerParamsSchema } from './sendVerificationEmail.schema';
+import { createBaseSchema, withBody, emailWithCallbackBodySchema, withOptionalHeaders } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { pipe } from 'effect/Function';
 import type { AuthServerFor } from '../../../server.types';
 import {
 	isAuthServerApiSendVerificationEmailParamsFor,
@@ -51,15 +52,12 @@ import { sendVerificationEmailServerService } from './sendVerificationEmail.serv
  * );
  * ```
  */
-export const sendVerificationEmailServerController: sendVerificationEmailPropsFor = (
-	params: AuthServerApiSendVerificationEmailParamsFor<AuthServerFor>
-) =>
+export const sendVerificationEmailServerController: sendVerificationEmailPropsFor = (params: AuthServerApiSendVerificationEmailParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
-
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
 			validateInputEffect(
-				createSendVerificationEmailServerParamsSchema(),
+				Effect.succeed(pipe(createBaseSchema(), withBody(emailWithCallbackBodySchema), withOptionalHeaders())),
 				params,
 				isAuthServerApiSendVerificationEmailParamsFor,
 				'sendVerificationEmail'

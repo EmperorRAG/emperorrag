@@ -4,7 +4,9 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createUpdateUserServerParamsSchema } from './updateUser.schema';
+import { createBaseSchema, withBody, withOptionalHeaders } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { pipe } from 'effect/Function';
+import { z } from 'zod';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiUpdateUserParamsFor, type AuthServerApiUpdateUserParamsFor, type updateUserPropsFor } from './updateUser.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -30,13 +32,25 @@ import { updateUserServerService } from './updateUser.service';
  * @param params - The update user parameters to validate and process
  * @returns Effect requiring AuthServerFor context
  */
-export const updateUserServerController: updateUserPropsFor = (params: AuthServerApiUpdateUserParamsFor<AuthServerFor>) =>
-	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(
-			createUpdateUserServerParamsSchema(),
+export const updateUserServerController =
+	<T extends AuthServerFor>(props: updateUserPropsFor<T>) =>
+	(params: unknown): Effect.Effect<AuthServerApiUpdateUserParamsFor<T>, Error> => {
+		return validateInputEffect(
+			Effect.succeed(
+				pipe(
+					createBaseSchema(),
+					withBody(
+						z.object({
+							name: z.string().optional(),
+							image: z.string().optional(),
+							firstName: z.string().optional(),
+							lastName: z.string().optional(),
+						})
+					),
+					withOptionalHeaders()
+				)
+			),
 			params,
-			isAuthServerApiUpdateUserParamsFor,
-			'updateUser'
-		);
-		return yield* updateUserServerService(validatedParams);
-	});
+			isAuthServerApiUpdateUserParamsFor(props)
+		).pipe(Effect.flatMap((validParams) => updateUserServerService(props)(validParams)));
+	};

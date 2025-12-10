@@ -4,7 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createForgetPasswordServerParamsSchema } from './forgetPassword.schema';
+import { createBaseSchema, withBody, emailWithRedirectBodySchema, withOptionalHeaders } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { pipe } from 'effect/Function';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiForgetPasswordParamsFor, type AuthServerApiForgetPasswordParamsFor, type forgetPasswordPropsFor } from './forgetPassword.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -47,14 +48,16 @@ import { forgetPasswordServerService } from './forgetPassword.service';
  * );
  * ```
  */
-export const forgetPasswordServerController: forgetPasswordPropsFor = (
-	params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>
-) =>
+export const forgetPasswordServerController: forgetPasswordPropsFor = (params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
-
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
-			validateInputEffect(createForgetPasswordServerParamsSchema(), params, isAuthServerApiForgetPasswordParamsFor, 'forgetPassword')
+			validateInputEffect(
+				Effect.succeed(pipe(createBaseSchema(), withBody(emailWithRedirectBodySchema), withOptionalHeaders())),
+				params,
+				isAuthServerApiForgetPasswordParamsFor,
+				'forgetPassword'
+			)
 		);
 
 		// 2) Call the service with the validated params

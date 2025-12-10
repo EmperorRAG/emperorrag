@@ -4,7 +4,9 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createListSessionsServerParamsSchema } from './listSessions.schema';
+import { createBaseSchema, withOptionalHeaders } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { pipe } from 'effect/Function';
+import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiListSessionsParamsFor, type AuthServerApiListSessionsParamsFor, type listSessionsPropsFor } from './listSessions.types';
 import { validateInputEffect } from '../../shared/core.error';
 import { listSessionsServerService } from './listSessions.service';
@@ -29,13 +31,10 @@ import { listSessionsServerService } from './listSessions.service';
  * @param params - The list sessions parameters to validate and process
  * @returns Effect requiring AuthServerFor context
  */
-export const listSessionsServerController: listSessionsPropsFor = (params: AuthServerApiListSessionsParamsFor) =>
-	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(
-			createListSessionsServerParamsSchema(),
-			params,
-			isAuthServerApiListSessionsParamsFor,
-			'listSessions'
+export const listSessionsServerController =
+	<T extends AuthServerFor>(props: listSessionsPropsFor<T>) =>
+	(params: unknown): Effect.Effect<AuthServerApiListSessionsParamsFor<T>, Error> => {
+		return validateInputEffect(Effect.succeed(pipe(createBaseSchema(), withOptionalHeaders())), params, isAuthServerApiListSessionsParamsFor(props)).pipe(
+			Effect.flatMap((validParams) => listSessionsServerService(props)(validParams))
 		);
-		return yield* listSessionsServerService(validatedParams);
-	});
+	};
