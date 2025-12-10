@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createResetPasswordServerParamsSchema } from './resetPassword.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiResetPasswordParamsFor, type AuthServerApiResetPasswordParamsFor, type resetPasswordPropsFor } from './resetPassword.types';
-import { EmailAuthServerInputError } from '../shared/email.error';
+import { validateInputEffect } from '../shared/email.error';
 import { resetPasswordServerService } from './resetPassword.service';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 
@@ -52,24 +52,14 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
 export const resetPasswordServerController: resetPasswordPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiResetPasswordParamsFor<T>) =>
 	Effect.gen(function* (_) {
 		const { authServer } = yield* _(EmailAuthServerServiceTag);
-		const schema = yield* _(createResetPasswordServerParamsSchema(authServer));
 
-		// 1) Validate params input with Zod
-		const parsed = schema.safeParse(params);
-
-		if (!parsed.success) {
-			const message = 'Invalid reset password parameters';
-			const cause = parsed.error;
-			return yield* _(Effect.fail(new EmailAuthServerInputError(message, cause)));
-		}
-
-		if (!isAuthServerApiResetPasswordParamsFor<T>(parsed.data)) {
-			const message = 'Parsed data does not conform to expected reset password parameters structure';
-			return yield* _(Effect.fail(new EmailAuthServerInputError(message)));
-		}
+		// 1) Validate params input with Effect-based validation pipeline
+		const validatedParams = yield* _(
+			validateInputEffect(createResetPasswordServerParamsSchema(authServer), params, isAuthServerApiResetPasswordParamsFor<T>, 'resetPassword')
+		);
 
 		// 2) Call the service with the validated params
-		const result = yield* _(resetPasswordServerService(parsed.data));
+		const result = yield* _(resetPasswordServerService(validatedParams));
 
 		// 3) Return the success value of the whole controller Effect
 		return result;

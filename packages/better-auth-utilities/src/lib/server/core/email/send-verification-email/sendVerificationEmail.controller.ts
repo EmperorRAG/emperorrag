@@ -11,7 +11,7 @@ import {
 	type AuthServerApiSendVerificationEmailParamsFor,
 	type sendVerificationEmailPropsFor,
 } from './sendVerificationEmail.types';
-import { EmailAuthServerInputError } from '../shared/email.error';
+import { validateInputEffect } from '../shared/email.error';
 import { sendVerificationEmailServerService } from './sendVerificationEmail.service';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 
@@ -57,24 +57,19 @@ export const sendVerificationEmailServerController: sendVerificationEmailPropsFo
 ) =>
 	Effect.gen(function* (_) {
 		const { authServer } = yield* _(EmailAuthServerServiceTag);
-		const schema = yield* _(createSendVerificationEmailServerParamsSchema(authServer));
 
-		// 1) Validate params input with Zod
-		const parsed = schema.safeParse(params);
-
-		if (!parsed.success) {
-			const message = 'Invalid send verification email parameters';
-			const cause = parsed.error;
-			return yield* _(Effect.fail(new EmailAuthServerInputError(message, cause)));
-		}
-
-		if (!isAuthServerApiSendVerificationEmailParamsFor<T>(parsed.data)) {
-			const message = 'Parsed data does not conform to expected send verification email parameters structure';
-			return yield* _(Effect.fail(new EmailAuthServerInputError(message)));
-		}
+		// 1) Validate params input with Effect-based validation pipeline
+		const validatedParams = yield* _(
+			validateInputEffect(
+				createSendVerificationEmailServerParamsSchema(authServer),
+				params,
+				isAuthServerApiSendVerificationEmailParamsFor<T>,
+				'sendVerificationEmail'
+			)
+		);
 
 		// 2) Call the service with the validated params
-		const result = yield* _(sendVerificationEmailServerService(parsed.data));
+		const result = yield* _(sendVerificationEmailServerService(validatedParams));
 
 		// 3) Return the success value of the whole controller Effect
 		return result;

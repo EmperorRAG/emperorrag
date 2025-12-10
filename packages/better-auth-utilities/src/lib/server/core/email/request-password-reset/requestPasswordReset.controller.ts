@@ -6,8 +6,12 @@
 import * as Effect from 'effect/Effect';
 import { createRequestPasswordResetServerParamsSchema } from './requestPasswordReset.schema';
 import type { AuthServerFor } from '../../../server.types';
-import { isAuthServerApiRequestPasswordResetParamsFor, type AuthServerApiRequestPasswordResetParamsFor, type requestPasswordResetPropsFor } from './requestPasswordReset.types';
-import { EmailAuthServerInputError } from '../shared/email.error';
+import {
+	isAuthServerApiRequestPasswordResetParamsFor,
+	type AuthServerApiRequestPasswordResetParamsFor,
+	type requestPasswordResetPropsFor,
+} from './requestPasswordReset.types';
+import { validateInputEffect } from '../shared/email.error';
 import { requestPasswordResetServerService } from './requestPasswordReset.service';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 
@@ -16,22 +20,20 @@ export const requestPasswordResetServerController: requestPasswordResetPropsFor 
 ) =>
 	Effect.gen(function* (_) {
 		const { authServer } = yield* _(EmailAuthServerServiceTag);
-		const schema = yield* _(createRequestPasswordResetServerParamsSchema(authServer));
 
-		const parsed = schema.safeParse(params);
+		// 1) Validate params input with Effect-based validation pipeline
+		const validatedParams = yield* _(
+			validateInputEffect(
+				createRequestPasswordResetServerParamsSchema(authServer),
+				params,
+				isAuthServerApiRequestPasswordResetParamsFor<T>,
+				'requestPasswordReset'
+			)
+		);
 
-		if (!parsed.success) {
-			const message = 'Invalid request password reset parameters';
-			const cause = parsed.error;
-			return yield* _(Effect.fail(new EmailAuthServerInputError(message, cause)));
-		}
+		// 2) Call the service with the validated params
+		const result = yield* _(requestPasswordResetServerService(validatedParams));
 
-		if (!isAuthServerApiRequestPasswordResetParamsFor<T>(parsed.data)) {
-			const message = 'Parsed data does not conform to expected request password reset parameters structure';
-			return yield* _(Effect.fail(new EmailAuthServerInputError(message)));
-		}
-
-		const result = yield* _(requestPasswordResetServerService(parsed.data));
-
+		// 3) Return the success value of the whole controller Effect
 		return result;
 	});

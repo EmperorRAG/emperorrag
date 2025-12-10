@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createSetPasswordServerParamsSchema } from './setPassword.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiSetPasswordParamsFor, type AuthServerApiSetPasswordParamsFor, type setPasswordPropsFor } from './setPassword.types';
-import { EmailAuthServerInputError } from '../shared/email.error';
+import { validateInputEffect } from '../shared/email.error';
 import { setPasswordServerService } from './setPassword.service';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 
@@ -26,22 +26,15 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
 export const setPasswordServerController: setPasswordPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiSetPasswordParamsFor<T>) =>
 	Effect.gen(function* (_) {
 		const { authServer } = yield* _(EmailAuthServerServiceTag);
-		const schema = yield* _(createSetPasswordServerParamsSchema(authServer));
 
-		const parsed = schema.safeParse(params);
+		// 1) Validate params input with Effect-based validation pipeline
+		const validatedParams = yield* _(
+			validateInputEffect(createSetPasswordServerParamsSchema(authServer), params, isAuthServerApiSetPasswordParamsFor<T>, 'setPassword')
+		);
 
-		if (!parsed.success) {
-			const message = 'Invalid set password parameters';
-			const cause = parsed.error;
-			return yield* _(Effect.fail(new EmailAuthServerInputError(message, cause)));
-		}
+		// 2) Call the service with the validated params
+		const result = yield* _(setPasswordServerService(validatedParams));
 
-		if (!isAuthServerApiSetPasswordParamsFor<T>(parsed.data)) {
-			const message = 'Parsed data does not conform to expected set password parameters structure';
-			return yield* _(Effect.fail(new EmailAuthServerInputError(message)));
-		}
-
-		const result = yield* _(setPasswordServerService(parsed.data));
-
+		// 3) Return the success value of the whole controller Effect
 		return result;
 	});

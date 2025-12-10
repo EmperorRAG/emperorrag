@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createVerifyEmailServerParamsSchema } from './verifyEmail.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiVerifyEmailParamsFor, type AuthServerApiVerifyEmailParamsFor, type verifyEmailPropsFor } from './verifyEmail.types';
-import { EmailAuthServerInputError } from '../shared/email.error';
+import { validateInputEffect } from '../shared/email.error';
 import { verifyEmailServerService } from './verifyEmail.service';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 
@@ -26,22 +26,15 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
 export const verifyEmailServerController: verifyEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiVerifyEmailParamsFor<T>) =>
 	Effect.gen(function* (_) {
 		const { authServer } = yield* _(EmailAuthServerServiceTag);
-		const schema = yield* _(createVerifyEmailServerParamsSchema(authServer));
 
-		const parsed = schema.safeParse(params);
+		// 1) Validate params input with Effect-based validation pipeline
+		const validatedParams = yield* _(
+			validateInputEffect(createVerifyEmailServerParamsSchema(authServer), params, isAuthServerApiVerifyEmailParamsFor<T>, 'verifyEmail')
+		);
 
-		if (!parsed.success) {
-			const message = 'Invalid verify email parameters';
-			const cause = parsed.error;
-			return yield* _(Effect.fail(new EmailAuthServerInputError(message, cause)));
-		}
+		// 2) Call the service with the validated params
+		const result = yield* _(verifyEmailServerService(validatedParams));
 
-		if (!isAuthServerApiVerifyEmailParamsFor<T>(parsed.data)) {
-			const message = 'Parsed data does not conform to expected verify email parameters structure';
-			return yield* _(Effect.fail(new EmailAuthServerInputError(message)));
-		}
-
-		const result = yield* _(verifyEmailServerService(parsed.data));
-
+		// 3) Return the success value of the whole controller Effect
 		return result;
 	});

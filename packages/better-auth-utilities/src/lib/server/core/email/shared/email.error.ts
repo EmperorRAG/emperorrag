@@ -5,6 +5,8 @@
 
 import type { AuthServerErrorDescriptor } from '../../../server.types';
 import { APIError } from 'better-auth';
+import { z } from 'zod';
+import * as Effect from 'effect/Effect';
 
 /**
  * Error thrown when server dependencies validation fails.
@@ -191,6 +193,234 @@ export const mapBetterAuthApiErrorToEmailAuthError = (error: unknown): EmailAuth
 	// you *could* also route this to a more generic deps error, etc.
 	return new EmailAuthServerApiError(message, undefined, error);
 };
+
+/**
+ * Input validation error source types for traceability.
+ *
+ * @pure
+ * @description Enables tracing of where the input validation error originated in the workflow.
+ */
+export type EmailInputErrorSource = 'schema_creation' | 'schema_parsing' | 'type_guard_validation' | 'field_validation';
+
+/**
+ * Detailed input validation error with source tracing.
+ *
+ * @pure
+ * @description Contains structured information about input validation failures,
+ * including the source of the error, field-level details, and the original cause.
+ */
+export interface EmailInputValidationDetails {
+	readonly source: EmailInputErrorSource;
+	readonly operation: string;
+	readonly fieldErrors?: ReadonlyArray<{ path: string; message: string }>;
+	readonly rawInput?: unknown;
+}
+
+/**
+ * Maps input validation errors to EmailAuthServerInputError with full traceability.
+ *
+ * @pure
+ * @description Converts various input validation error types (ZodError, type guard failures,
+ * schema creation errors) into a standardized EmailAuthServerInputError with detailed
+ * traceability information about where in the workflow the error occurred.
+ *
+ * @param error - The original error from validation
+ * @param source - Where in the workflow the error occurred
+ * @param operation - The operation being performed (e.g., 'signUpEmail', 'signInEmail')
+ * @param rawInput - Optional raw input for debugging (will be sanitized)
+ * @returns EmailAuthServerInputError with structured cause for tracing
+ */
+export const mapBetterAuthInputErrorToEmailAuthError = (
+	error: unknown,
+	source: EmailInputErrorSource,
+	operation: string,
+	rawInput?: unknown
+): EmailAuthServerInputError => {
+	const details: EmailInputValidationDetails = {
+		source,
+		operation,
+		rawInput: sanitizeInputForLogging(rawInput),
+	};
+
+	if (isZodError(error)) {
+		const fieldErrors = error.issues.map((issue) => ({
+			path: issue.path.join('.'),
+			message: issue.message,
+		}));
+
+		const detailsWithFields: EmailInputValidationDetails = {
+			...details,
+			fieldErrors,
+		};
+
+		const message = formatZodErrorMessage(error, operation);
+		return new EmailAuthServerInputError(message, { zodError: error, details: detailsWithFields });
+	}
+
+	if (error instanceof Error) {
+		return new EmailAuthServerInputError(error.message, { originalError: error, details });
+	}
+
+	const message = `Invalid ${operation} parameters: ${source} failed`;
+	return new EmailAuthServerInputError(message, { originalError: error, details });
+};
+
+/**
+ * Type guard for ZodError detection.
+ *
+ * @pure
+ * @description Checks if an error is a ZodError by examining its structure.
+ */
+const isZodError = (error: unknown): error is z.ZodError => {
+	return (
+		error !== null &&
+		typeof error === 'object' &&
+		'issues' in error &&
+		Array.isArray((error as z.ZodError).issues) &&
+		'name' in error &&
+		(error as z.ZodError).name === 'ZodError'
+	);
+};
+
+/**
+ * Formats ZodError into a human-readable message.
+ *
+ * @pure
+ * @description Creates a structured error message from ZodError field-level issues.
+ */
+const formatZodErrorMessage = (error: z.ZodError, operation: string): string => {
+	const fieldMessages = error.issues
+		.map((issue) => {
+			const path = issue.path.length > 0 ? issue.path.join('.') : 'input';
+			return `${path}: ${issue.message}`;
+		})
+		.join('; ');
+
+	return `Invalid ${operation} parameters: ${fieldMessages}`;
+};
+
+/**
+ * Sanitizes input for logging by removing sensitive fields.
+ *
+ * @pure
+ * @description Removes password and other sensitive fields from input before logging.
+ */
+const sanitizeInputForLogging = (input: unknown): unknown => {
+	if (input === null || input === undefined) return input;
+	if (typeof input !== 'object') return input;
+
+	const sensitiveFields = ['password', 'token', 'secret', 'apiKey', 'accessToken', 'refreshToken'];
+	const sanitized = { ...input } as Record<string, unknown>;
+
+	for (const field of sensitiveFields) {
+		if (field in sanitized) {
+			sanitized[field] = '[REDACTED]';
+		}
+	}
+
+	if ('body' in sanitized && typeof sanitized['body'] === 'object' && sanitized['body'] !== null) {
+		sanitized['body'] = sanitizeInputForLogging(sanitized['body']);
+	}
+
+	return sanitized;
+};
+
+/**
+ * Creates a schema creation Effect with proper error mapping.
+ *
+ * @pure
+ * @description Wraps schema creation in an Effect that maps any errors to
+ * EmailAuthServerInputError with 'schema_creation' source for traceability.
+ *
+ * @param schemaEffect - The Effect that creates the Zod schema
+ * @param operation - The operation name for error context
+ * @returns Effect.Effect<ZodSchema, EmailAuthServerInputError>
+ */
+export const createSchemaEffect = <T extends z.ZodType, R = never>(
+	schemaEffect: Effect.Effect<T, unknown, R>,
+	operation: string
+): Effect.Effect<T, EmailAuthServerInputError, R> =>
+	Effect.catchAll(schemaEffect, (error) => Effect.fail(mapBetterAuthInputErrorToEmailAuthError(error, 'schema_creation', operation)));
+
+/**
+ * Parses input against a Zod schema and returns an Effect.
+ *
+ * @pure
+ * @description Validates input against the provided schema and wraps the result
+ * in an Effect. Failed validation returns a properly traced EmailAuthServerInputError.
+ *
+ * @param schema - The Zod schema to validate against
+ * @param input - The input to validate
+ * @param operation - The operation name for error context
+ * @returns Effect.Effect<T, EmailAuthServerInputError> - Validated data or error
+ */
+export const parseWithSchemaEffect = <T>(schema: z.ZodType<T>, input: unknown, operation: string): Effect.Effect<T, EmailAuthServerInputError> =>
+	Effect.suspend(() => {
+		const result = schema.safeParse(input);
+
+		if (result.success) {
+			return Effect.succeed(result.data);
+		}
+
+		return Effect.fail(mapBetterAuthInputErrorToEmailAuthError(result.error, 'schema_parsing', operation, input));
+	});
+
+/**
+ * Validates input with a type guard and returns an Effect.
+ *
+ * @pure
+ * @description Applies a type guard to validated data and returns an Effect.
+ * If the type guard fails, returns a traced EmailAuthServerInputError.
+ *
+ * @param data - The data to validate
+ * @param typeGuard - The type guard function
+ * @param operation - The operation name for error context
+ * @returns Effect.Effect<T, EmailAuthServerInputError> - Type-narrowed data or error
+ */
+export const validateWithTypeGuardEffect = <T>(
+	data: unknown,
+	typeGuard: (value: unknown) => value is T,
+	operation: string
+): Effect.Effect<T, EmailAuthServerInputError> =>
+	Effect.suspend(() => {
+		if (typeGuard(data)) {
+			return Effect.succeed(data);
+		}
+
+		const error = new Error('Data does not conform to expected structure');
+		return Effect.fail(mapBetterAuthInputErrorToEmailAuthError(error, 'type_guard_validation', operation, data));
+	});
+
+/**
+ * Composes schema creation, parsing, and type guard validation into a single Effect.
+ *
+ * @pure
+ * @description Creates a complete validation pipeline that:
+ * 1. Creates the schema (with error tracing)
+ * 2. Parses input against the schema (with error tracing)
+ * 3. Validates with type guard (with error tracing)
+ *
+ * Each step in the pipeline produces a traceable error if it fails,
+ * enabling precise identification of where validation failed.
+ *
+ * @param schemaEffect - Effect that creates the Zod schema
+ * @param input - The input to validate
+ * @param typeGuard - Type guard to apply after schema validation
+ * @param operation - Operation name for error context
+ * @returns Effect.Effect<T, EmailAuthServerInputError, R> - Fully validated data or traced error
+ */
+export const validateInputEffect = <T, R>(
+	schemaEffect: Effect.Effect<z.ZodType, unknown, R>,
+	input: unknown,
+	typeGuard: (value: unknown) => value is T,
+	operation: string
+): Effect.Effect<T, EmailAuthServerInputError, R> =>
+	Effect.gen(function* () {
+		const schema = yield* createSchemaEffect(schemaEffect, operation);
+		const parsed = yield* parseWithSchemaEffect(schema, input, operation);
+		const validated = yield* validateWithTypeGuardEffect(parsed, typeGuard, operation);
+		return validated;
+	});
 
 export const describeEmailAuthError = (error: EmailAuthServerError): AuthServerErrorDescriptor => {
 	// Tagged classes make this easy

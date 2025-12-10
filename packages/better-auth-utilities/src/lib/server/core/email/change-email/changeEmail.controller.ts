@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createChangeEmailServerParamsSchema } from './changeEmail.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiChangeEmailParamsFor, type AuthServerApiChangeEmailParamsFor, type changeEmailPropsFor } from './changeEmail.types';
-import { EmailAuthServerInputError } from '../shared/email.error';
+import { validateInputEffect } from '../shared/email.error';
 import { changeEmailServerService } from './changeEmail.service';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 
@@ -26,22 +26,15 @@ import { EmailAuthServerServiceTag } from '../shared/email.service';
 export const changeEmailServerController: changeEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiChangeEmailParamsFor<T>) =>
 	Effect.gen(function* (_) {
 		const { authServer } = yield* _(EmailAuthServerServiceTag);
-		const schema = yield* _(createChangeEmailServerParamsSchema(authServer));
 
-		const parsed = schema.safeParse(params);
+		// 1) Validate params input with Effect-based validation pipeline
+		const validatedParams = yield* _(
+			validateInputEffect(createChangeEmailServerParamsSchema(authServer), params, isAuthServerApiChangeEmailParamsFor<T>, 'changeEmail')
+		);
 
-		if (!parsed.success) {
-			const message = 'Invalid change email parameters';
-			const cause = parsed.error;
-			return yield* _(Effect.fail(new EmailAuthServerInputError(message, cause)));
-		}
+		// 2) Call the service with the validated params
+		const result = yield* _(changeEmailServerService(validatedParams));
 
-		if (!isAuthServerApiChangeEmailParamsFor<T>(parsed.data)) {
-			const message = 'Parsed data does not conform to expected change email parameters structure';
-			return yield* _(Effect.fail(new EmailAuthServerInputError(message)));
-		}
-
-		const result = yield* _(changeEmailServerService(parsed.data));
-
+		// 3) Return the success value of the whole controller Effect
 		return result;
 	});

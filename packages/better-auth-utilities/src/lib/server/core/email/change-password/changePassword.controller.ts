@@ -7,7 +7,7 @@ import * as Effect from 'effect/Effect';
 import { createChangePasswordServerParamsSchema } from './changePassword.schema';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiChangePasswordParamsFor, type AuthServerApiChangePasswordParamsFor, type changePasswordPropsFor } from './changePassword.types';
-import { EmailAuthServerInputError } from '../shared/email.error';
+import { validateInputEffect } from '../shared/email.error';
 import { changePasswordServerService } from './changePassword.service';
 import { EmailAuthServerServiceTag } from '../shared/email.service';
 
@@ -55,24 +55,14 @@ export const changePasswordServerController: changePasswordPropsFor = <T extends
 ) =>
 	Effect.gen(function* (_) {
 		const { authServer } = yield* _(EmailAuthServerServiceTag);
-		const schema = yield* _(createChangePasswordServerParamsSchema(authServer));
 
-		// 1) Validate params input with Zod
-		const parsed = schema.safeParse(params);
-
-		if (!parsed.success) {
-			const message = 'Invalid change password parameters';
-			const cause = parsed.error;
-			return yield* _(Effect.fail(new EmailAuthServerInputError(message, cause)));
-		}
-
-		if (!isAuthServerApiChangePasswordParamsFor<T>(parsed.data)) {
-			const message = 'Parsed data does not conform to expected change password parameters structure';
-			return yield* _(Effect.fail(new EmailAuthServerInputError(message)));
-		}
+		// 1) Validate params input with Effect-based validation pipeline
+		const validatedParams = yield* _(
+			validateInputEffect(createChangePasswordServerParamsSchema(authServer), params, isAuthServerApiChangePasswordParamsFor<T>, 'changePassword')
+		);
 
 		// 2) Call the service with the validated params
-		const result = yield* _(changePasswordServerService(parsed.data));
+		const result = yield* _(changePasswordServerService(validatedParams));
 
 		// 3) Return the success value of the whole controller Effect
 		return result;
