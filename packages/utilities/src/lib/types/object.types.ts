@@ -1,4 +1,5 @@
-import { pipe, Match } from 'effect';
+import { pipe } from 'effect/Function';
+import * as Match from 'effect/Match';
 import { isValueObject } from './object/object.types.js';
 
 /**
@@ -128,9 +129,7 @@ export const throwsOnToString = (obj: unknown): boolean => {
 		Match.value(obj),
 		Match.when(
 			(v: unknown): v is { toString: () => string } =>
-				isValueObject(v) &&
-				Object.prototype.hasOwnProperty.call(v, 'toString') &&
-				typeof (v as { toString: () => string }).toString === 'function',
+				isValueObject(v) && Object.prototype.hasOwnProperty.call(v, 'toString') && typeof (v as { toString: () => string }).toString === 'function',
 			check
 		),
 		Match.orElse(() => false)
@@ -159,13 +158,7 @@ export const isPlainObject = (obj: unknown): obj is object =>
 	pipe(
 		Match.value(obj),
 		Match.when(
-			(v: unknown): v is object =>
-				isValueObject(v) &&
-				!isArray(v) &&
-				!isDate(v) &&
-				!isRegExp(v) &&
-				!hasCustomToStringTag(v) &&
-				!throwsOnToString(v),
+			(v: unknown): v is object => isValueObject(v) && !isArray(v) && !isDate(v) && !isRegExp(v) && !hasCustomToStringTag(v) && !throwsOnToString(v),
 			() => true
 		),
 		Match.orElse(() => false)

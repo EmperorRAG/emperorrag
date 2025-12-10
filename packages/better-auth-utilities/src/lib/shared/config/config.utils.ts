@@ -1,4 +1,4 @@
-import { pipe } from 'effect';
+import { pipe } from 'effect/Function';
 import * as Option from 'effect/Option';
 import type { AuthOptions } from './config.types';
 import type { AuthServerFor } from '../../server/server.types';

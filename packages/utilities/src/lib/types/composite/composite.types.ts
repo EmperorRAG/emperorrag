@@ -1,4 +1,5 @@
-import { pipe, Match } from 'effect';
+import { pipe } from 'effect/Function';
+import * as Match from 'effect/Match';
 import { isValueNumber } from '../number/number.types.js';
 import { isValueString } from '../string/string.types.js';
 

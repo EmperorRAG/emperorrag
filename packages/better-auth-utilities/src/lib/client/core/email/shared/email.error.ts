@@ -101,7 +101,7 @@ export class EmailAuthSessionError extends Error {
  *
  * @example
  * ```typescript
- * import { Match } from 'effect';
+ * import * as Match from 'effect/Match';
  *
  * const handleError = (error: EmailAuthError): string =>
  *   Match.value(error).pipe(
@@ -114,9 +114,4 @@ export class EmailAuthSessionError extends Error {
  *   );
  * ```
  */
-export type EmailAuthError =
-	| EmailAuthDependenciesError
-	| EmailAuthInputError
-	| EmailAuthApiError
-	| EmailAuthDataMissingError
-	| EmailAuthSessionError;
+export type EmailAuthError = EmailAuthDependenciesError | EmailAuthInputError | EmailAuthApiError | EmailAuthDataMissingError | EmailAuthSessionError;

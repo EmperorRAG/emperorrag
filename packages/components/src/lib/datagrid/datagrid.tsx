@@ -1,4 +1,5 @@
-import { Match, pipe } from 'effect';
+import * as Match from 'effect/Match';
+import { pipe } from 'effect/Function';
 import { isValidElement, ReactNode, useMemo } from 'react';
 
 import styles from './datagrid.module.css';

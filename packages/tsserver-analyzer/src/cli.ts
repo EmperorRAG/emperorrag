@@ -1,4 +1,6 @@
-import { Effect, Console, Layer } from 'effect';
+import * as Effect from 'effect/Effect';
+import * as Console from 'effect/Console';
+import * as Layer from 'effect/Layer';
 import { TraceAnalyzer, make } from './lib/tsserver-analyzer.js';
 import { TSServerAnalyzerService } from './lib/tsserver-analyzer.module.js';
 

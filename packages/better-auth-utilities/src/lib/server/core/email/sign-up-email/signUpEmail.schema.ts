@@ -3,7 +3,7 @@
  * @description Zod validation schemas for server-side sign-up email operation.
  */
 
-import { pipe } from 'effect';
+import { pipe } from 'effect/Function';
 import * as Effect from 'effect/Effect';
 import * as Option from 'effect/Option';
 import { z } from 'zod';

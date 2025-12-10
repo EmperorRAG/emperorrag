@@ -72,8 +72,8 @@ export function functionName(param: Type): ReturnType {
 Use `pipe` to create clear, sequential data pipelines.
 
 ```typescript
-import { pipe } from 'effect';
-import { map } from 'effect/Array';
+import { pipe } from 'effect/Function';
+import * as Array from 'effect/Array';
 import { getAllFunctionValues, getFunctionLabelValue } from './function.utils';
 
 /**
@@ -81,7 +81,7 @@ import { getAllFunctionValues, getFunctionLabelValue } from './function.utils';
  * @description Maps all function values to their string labels.
  * @composition Composes `getAllFunctionValues` with `map(getFunctionLabelValue)`.
  */
-export const getAllFunctionLabelValues = (): string[] => pipe(getAllFunctionValues(), map(getFunctionLabelValue));
+export const getAllFunctionLabelValues = (): string[] => pipe(getAllFunctionValues(), Array.map(getFunctionLabelValue));
 ```
 
 ### `Match` for Pattern Matching
@@ -89,7 +89,7 @@ export const getAllFunctionLabelValues = (): string[] => pipe(getAllFunctionValu
 Use `Match` to replace imperative conditional blocks.
 
 ```typescript
-import { Match } from 'effect';
+import * as Match from 'effect/Match';
 import { isNull, isBigInt, isSymbol, isString, isNumber, isBoolean, isUndefined } from './primitive.utils';
 import { getTypeOf } from './primitive.utils';
 
@@ -138,7 +138,7 @@ const program = pipe(
 Use `Option` to safely handle potentially missing values.
 
 ```typescript
-import { Option } from 'effect';
+import * as Option from 'effect/Option';
 
 const findUser = (id: number): Option.Option<{ id: number; name: string }> => {
 	if (id === 1) {
@@ -160,7 +160,7 @@ const userName = pipe(
 Use `Either` for synchronous functions that can fail.
 
 ```typescript
-import { Either } from 'effect';
+import * as Either from 'effect/Either';
 
 const parseNumber = (s: string): Either.Either<Error, number> => {
 	const n = parseFloat(s);
@@ -306,7 +306,7 @@ const findUser = (id: number): User | null => {
 };
 
 // GOOD: Returning an Option.
-import { Option } from 'effect';
+import * as Option from 'effect/Option';
 const findUser = (id: number): Option.Option<User> => {
 	// ...
 };
@@ -324,7 +324,7 @@ const parse = (json: string): MyType => {
 };
 
 // GOOD: Returning an Either or Effect.
-import { Either } from 'effect';
+import * as Either from 'effect/Either';
 const parse = (json: string): Either.Either<Error, MyType> => {
 	// ...
 };

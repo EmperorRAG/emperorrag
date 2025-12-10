@@ -86,7 +86,8 @@ import { AuthServerTag } from '../../../server.service';
  * @example
  * ```typescript
  * // Send verification with retry logic
- * import { Effect, Schedule } from 'effect';
+ * import * as Effect from 'effect/Effect';
+ * import * as Schedule from 'effect/Schedule';
  *
  * const sendVerificationWithRetry = sendVerificationEmailServerService({
  *   body: {
@@ -103,9 +104,7 @@ import { AuthServerTag } from '../../../server.service';
  * );
  * ```
  */
-export const sendVerificationEmailServerService: sendVerificationEmailPropsFor = (
-	params: AuthServerApiSendVerificationEmailParamsFor<AuthServerFor>
-) =>
+export const sendVerificationEmailServerService: sendVerificationEmailPropsFor = (params: AuthServerApiSendVerificationEmailParamsFor<AuthServerFor>) =>
 	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.sendVerificationEmail(params),

@@ -17,7 +17,8 @@
  *
  * @example
  * ```typescript
- * import { Effect, pipe } from 'effect';
+ * import * as Effect from 'effect/Effect';
+ * import { pipe } from 'effect/Function';
  * import { resetPasswordInputSchema } from './resetPassword.schema';
  * import { resetPassword } from './resetPassword.service';
  *

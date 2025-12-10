@@ -4,7 +4,7 @@
  * Uses Context-based dependency injection to access the Better Auth server.
  */
 
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import { AuthServerTag } from '../../../server.service';
 import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from './getSession.types';
@@ -24,7 +24,7 @@ import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from './get
  *
  * @example
  * ```typescript
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  * import { AuthServerTag } from '../../../server.service';
  * import { getSessionServerService } from './getSession.service';
  *

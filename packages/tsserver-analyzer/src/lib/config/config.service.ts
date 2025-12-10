@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { Effect, Console } from 'effect';
+import * as Effect from 'effect/Effect';
+import * as Console from 'effect/Console';
 
 export const loadTsConfigPaths = Effect.gen(function* (_) {
 	const tsConfigPath = path.join(process.cwd(), 'tsconfig.base.json');

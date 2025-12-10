@@ -1,4 +1,4 @@
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import { AuthServerTag } from '../../../server.service';
 import { signInSocialServerService } from './signInSocial.service';
 import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from './signInSocial.types';
@@ -18,7 +18,7 @@ import type { AuthServerFor } from '../../../server.types';
  *
  * @example
  * ```typescript
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  * import { AuthServerTag } from '../../../server.service';
  * import { signInSocialServerController } from './signInSocial.controller';
  *

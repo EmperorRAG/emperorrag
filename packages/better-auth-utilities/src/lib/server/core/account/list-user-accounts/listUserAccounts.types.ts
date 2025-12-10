@@ -4,7 +4,7 @@
  * Provides comprehensive type safety for listing user's linked accounts (OAuth providers, credentials).
  */
 
-import type { Effect } from 'effect';
+import type * as Effect from 'effect/Effect';
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerApiError, CoreAuthServerDataMissingError, CoreAuthServerInputError } from '../../shared/core.error';
 
@@ -46,7 +46,9 @@ export type AuthServerApiListUserAccountsPropsFor<T extends AuthServerFor = Auth
  * // { headers: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiListUserAccountsParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiListUserAccountsPropsFor<AuthServerFor>>[0];
+export type AuthServerApiListUserAccountsParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+	AuthServerApiListUserAccountsPropsFor<AuthServerFor>
+>[0];
 
 /**
  * Type helper to extract the return type from auth.api.listUserAccounts.
@@ -118,9 +120,7 @@ export type listUserAccountsPropsFor<T extends AuthServerFor = AuthServerFor> = 
  * }
  * ```
  */
-export const isAuthServerApiListUserAccountsParamsFor = (
-	value: unknown
-): value is AuthServerApiListUserAccountsParamsFor<AuthServerFor> => {
+export const isAuthServerApiListUserAccountsParamsFor = (value: unknown): value is AuthServerApiListUserAccountsParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) {
 		return false;
 	}

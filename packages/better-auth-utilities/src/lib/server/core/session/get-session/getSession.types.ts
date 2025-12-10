@@ -3,7 +3,7 @@
  * @description Type definitions for server-side get session operation.
  */
 
-import type { Effect } from 'effect';
+import type * as Effect from 'effect/Effect';
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerApiError, CoreAuthServerInputError } from '../../shared/core.error';
 
@@ -85,7 +85,7 @@ export type AuthServerApiGetSessionResultFor<T extends AuthServerFor = AuthServe
  *
  * @example
  * ```typescript
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  * import { getSessionServerService } from './getSession.service';
  * import { AuthServerTag } from '../../../server.service';
  *

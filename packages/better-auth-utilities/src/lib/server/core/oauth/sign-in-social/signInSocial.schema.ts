@@ -4,7 +4,7 @@
  * Provides dynamic schema creation based on Better Auth server configuration.
  */
 
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import { z } from 'zod';
 import {
 	providerRequiredSchema,

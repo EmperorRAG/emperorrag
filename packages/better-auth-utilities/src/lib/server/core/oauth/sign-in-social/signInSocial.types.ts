@@ -1,4 +1,4 @@
-import type { Effect } from 'effect';
+import type * as Effect from 'effect/Effect';
 import type { CoreAuthServerApiError, CoreAuthServerInputError } from '../../shared/core.error';
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 
@@ -47,7 +47,9 @@ export type AuthServerApiSignInSocialResultFor<T extends AuthServerFor = AuthSer
  * @param u - The unknown value to check
  * @returns True if u is a valid AuthServerApiSignInSocialParamsFor, false otherwise
  */
-export function isAuthServerApiSignInSocialParamsFor<T extends AuthServerFor = AuthServerFor>(u: unknown): u is AuthServerApiSignInSocialParamsFor<AuthServerFor> {
+export function isAuthServerApiSignInSocialParamsFor<T extends AuthServerFor = AuthServerFor>(
+	u: unknown
+): u is AuthServerApiSignInSocialParamsFor<AuthServerFor> {
 	return typeof u === 'object' && u !== null && 'body' in u;
 }
 

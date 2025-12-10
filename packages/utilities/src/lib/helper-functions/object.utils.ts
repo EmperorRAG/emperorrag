@@ -1,4 +1,5 @@
-import { pipe, Match } from 'effect';
+import { pipe } from 'effect/Function';
+import * as Match from 'effect/Match';
 import { map } from 'effect/Array';
 import { hasCustomToStringTag, isArray, isDate, isPlainObject, isRegExp, throwsOnToString } from '../types/object.types.js';
 

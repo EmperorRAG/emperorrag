@@ -1,4 +1,5 @@
-import { pipe, Match } from 'effect';
+import { pipe } from 'effect/Function';
+import * as Match from 'effect/Match';
 import { map } from 'effect/Array';
 import { isBigInt, isBoolean, isNull, isNumber, isString, isSymbol, isUndefined } from '../types/primitive.types.js';
 

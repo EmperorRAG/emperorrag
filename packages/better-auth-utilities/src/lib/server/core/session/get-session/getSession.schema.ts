@@ -5,7 +5,7 @@ import type { AuthServerFor } from '../../../server.types';
  * Provides dynamic schema creation based on Better Auth server configuration.
  */
 
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import { AuthServerTag } from '../../../server.service';
 import { createSchemaWithRequiredHeaders } from '../../shared/core.schema';
 

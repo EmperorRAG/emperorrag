@@ -4,7 +4,7 @@
  * Combines schema validation with service execution in a type-safe manner.
  */
 
-import { Effect } from 'effect';
+import * as Effect from 'effect/Effect';
 import { CoreAuthServerApiError, CoreAuthServerDataMissingError, CoreAuthServerInputError, validateInputEffect } from '../../shared/core.error';
 import { AuthServerTag } from '../../../server.service';
 import type { AuthServerFor } from '../../../server.types';
@@ -30,7 +30,7 @@ import {
  *
  * @example
  * ```typescript
- * import { Effect } from 'effect';
+ * import * as Effect from 'effect/Effect';
  * import { AuthServerTag } from '../../../server.service';
  * import { listUserAccountsServerController } from './listUserAccounts.controller';
  *

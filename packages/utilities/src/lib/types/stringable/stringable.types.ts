@@ -1,4 +1,5 @@
-import { pipe, Match } from 'effect';
+import { pipe } from 'effect/Function';
+import * as Match from 'effect/Match';
 import { isFunction } from '../function.types';
 import { isValueObject } from '../object/object.types';
 import { isPrimitive } from '../primitive.types';
