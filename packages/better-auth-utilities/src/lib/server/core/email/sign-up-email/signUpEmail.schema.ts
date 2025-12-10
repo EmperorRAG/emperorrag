@@ -8,7 +8,7 @@ import * as Effect from 'effect/Effect';
 import * as Option from 'effect/Option';
 import { z } from 'zod';
 import type { AuthServerFor } from '../../../server.types';
-import { getAuthServerConfig, getEmailAndPasswordConfig, getUserAdditionalFields, getUserConfig } from '../../../../shared/config/config.utils';
+import { getAuthServerConfig, getPasswordLengthConstraints, getUserConfig, getUserAdditionalFields } from '../../../../shared/config/config.utils';
 
 /**
  * Creates a dynamic Zod schema for signUpEmail parameters based on the AuthServer configuration.
@@ -22,21 +22,9 @@ import { getAuthServerConfig, getEmailAndPasswordConfig, getUserAdditionalFields
  */
 export const createSignUpEmailServerParamsSchema = <T extends AuthServerFor = AuthServerFor>(authServer: T) =>
 	Effect.gen(function* () {
+		const { minPasswordLength, maxPasswordLength } = getPasswordLengthConstraints(authServer);
+
 		const config = getAuthServerConfig(authServer);
-
-		const passwordConfig = pipe(config, Option.flatMap(getEmailAndPasswordConfig));
-
-		const minPasswordLength = pipe(
-			passwordConfig,
-			Option.flatMap((c) => Option.fromNullable(c.minPasswordLength)),
-			Option.getOrElse(() => 8)
-		);
-
-		const maxPasswordLength = pipe(
-			passwordConfig,
-			Option.flatMap((c) => Option.fromNullable(c.maxPasswordLength)),
-			Option.getOrElse(() => 32)
-		);
 
 		const additionalZodFields = pipe(
 			config,
@@ -56,7 +44,7 @@ export const createSignUpEmailServerParamsSchema = <T extends AuthServerFor = Au
 						if (type === 'string') zodField = z.string();
 						else if (type === 'number') zodField = z.number();
 						else if (type === 'boolean') zodField = z.boolean();
-						else zodField = z.any();
+						else zodField = z.unknown();
 
 						if (!required) zodField = zodField.optional();
 						return [key, zodField] as const;
