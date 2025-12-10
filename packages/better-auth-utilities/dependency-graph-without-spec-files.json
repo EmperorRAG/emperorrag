@@ -3,25 +3,18 @@
     "lib/shared/config/config.types.ts"
   ],
   "lib/client/client.service.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
     "lib/client/client.constants.ts",
     "lib/shared/config/config.types.ts"
   ],
   "lib/client/client.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
-  "lib/client/client.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts"
-  ],
+  "lib/client/client.types.ts": [],
   "lib/client/config/config.service.ts": [
     "lib/shared/config/config.types.ts"
   ],
-  "lib/client/core/account/link-social/linkSocial.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/account/link-social/linkSocial.schema.ts": [],
   "lib/client/core/account/link-social/linkSocial.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/account/link-social/linkSocial.types.ts",
     "lib/client/core/account/shared/account.error.ts"
   ],
@@ -29,17 +22,12 @@
     "lib/client/core/account/link-social/linkSocial.service.ts"
   ],
   "lib/client/core/account/link-social/linkSocial.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/account/shared/account.error.ts",
     "lib/client/core/account/shared/account.types.ts"
   ],
-  "lib/client/core/account/list-accounts/listAccounts.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/account/list-accounts/listAccounts.schema.ts": [],
   "lib/client/core/account/list-accounts/listAccounts.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/account/list-accounts/listAccounts.types.ts",
     "lib/client/core/account/shared/account.error.ts"
   ],
@@ -47,22 +35,16 @@
     "lib/client/core/account/list-accounts/listAccounts.service.ts"
   ],
   "lib/client/core/account/list-accounts/listAccounts.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/account/shared/account.error.ts",
     "lib/client/core/account/shared/account.types.ts"
   ],
   "lib/client/core/account/shared/account.error.ts": [],
   "lib/client/core/account/shared/account.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
     "lib/client/client.types.ts"
   ],
-  "lib/client/core/account/unlink-account/unlinkAccount.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/account/unlink-account/unlinkAccount.schema.ts": [],
   "lib/client/core/account/unlink-account/unlinkAccount.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/account/shared/account.error.ts",
     "lib/client/core/account/unlink-account/unlinkAccount.types.ts"
   ],
@@ -70,183 +52,136 @@
     "lib/client/core/account/unlink-account/unlinkAccount.service.ts"
   ],
   "lib/client/core/account/unlink-account/unlinkAccount.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/account/shared/account.error.ts",
     "lib/client/core/account/shared/account.types.ts"
   ],
   "lib/client/core/email/change-password/changePassword.controller.ts": [],
-  "lib/client/core/email/change-password/changePassword.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/email/change-password/changePassword.schema.ts": [],
   "lib/client/core/email/change-password/changePassword.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/email/change-password/changePassword.types.ts",
     "lib/client/core/email/shared/email.error.ts"
   ],
   "lib/client/core/email/change-password/changePassword.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/client/core/email/change-password/changePassword.ts": [
     "lib/client/core/email/change-password/changePassword.service.ts"
   ],
   "lib/client/core/email/change-password/changePassword.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
   ],
   "lib/client/core/email/change-password/changePassword.utils.ts": [],
   "lib/client/core/email/request-password-reset/requestPasswordReset.controller.ts": [],
-  "lib/client/core/email/request-password-reset/requestPasswordReset.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/email/request-password-reset/requestPasswordReset.schema.ts": [],
   "lib/client/core/email/request-password-reset/requestPasswordReset.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/email/request-password-reset/requestPasswordReset.types.ts",
     "lib/client/core/email/shared/email.error.ts"
   ],
   "lib/client/core/email/request-password-reset/requestPasswordReset.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/client/core/email/request-password-reset/requestPasswordReset.ts": [
     "lib/client/core/email/request-password-reset/requestPasswordReset.service.ts"
   ],
   "lib/client/core/email/request-password-reset/requestPasswordReset.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
   ],
   "lib/client/core/email/request-password-reset/requestPasswordReset.utils.ts": [],
   "lib/client/core/email/reset-password/resetPassword.controller.ts": [],
-  "lib/client/core/email/reset-password/resetPassword.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/email/reset-password/resetPassword.schema.ts": [],
   "lib/client/core/email/reset-password/resetPassword.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/email/reset-password/resetPassword.types.ts",
     "lib/client/core/email/shared/email.error.ts"
   ],
   "lib/client/core/email/reset-password/resetPassword.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/client/core/email/reset-password/resetPassword.ts": [
     "lib/client/core/email/reset-password/resetPassword.service.ts"
   ],
   "lib/client/core/email/reset-password/resetPassword.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
   ],
   "lib/client/core/email/reset-password/resetPassword.utils.ts": [],
   "lib/client/core/email/send-verification-email/sendVerificationEmail.controller.ts": [],
-  "lib/client/core/email/send-verification-email/sendVerificationEmail.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/email/send-verification-email/sendVerificationEmail.schema.ts": [],
   "lib/client/core/email/send-verification-email/sendVerificationEmail.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/email/send-verification-email/sendVerificationEmail.types.ts",
     "lib/client/core/email/shared/email.error.ts"
   ],
   "lib/client/core/email/send-verification-email/sendVerificationEmail.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/client/core/email/send-verification-email/sendVerificationEmail.ts": [
     "lib/client/core/email/send-verification-email/sendVerificationEmail.service.ts"
   ],
   "lib/client/core/email/send-verification-email/sendVerificationEmail.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
   ],
   "lib/client/core/email/send-verification-email/sendVerificationEmail.utils.ts": [],
   "lib/client/core/email/shared/email.error.ts": [],
-  "lib/client/core/email/shared/email.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/email/shared/email.schema.ts": [],
   "lib/client/core/email/shared/email.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
     "lib/client/client.types.ts"
   ],
   "lib/client/core/email/sign-in-email/signInEmail.controller.ts": [],
-  "lib/client/core/email/sign-in-email/signInEmail.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/email/sign-in-email/signInEmail.schema.ts": [],
   "lib/client/core/email/sign-in-email/signInEmail.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/sign-in-email/signInEmail.types.ts"
   ],
   "lib/client/core/email/sign-in-email/signInEmail.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/client/core/email/sign-in-email/signInEmail.ts": [
     "lib/client/core/email/sign-in-email/signInEmail.service.ts"
   ],
   "lib/client/core/email/sign-in-email/signInEmail.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
   ],
   "lib/client/core/email/sign-in-email/signInEmail.utils.ts": [],
   "lib/client/core/email/sign-out/signOut.controller.ts": [],
-  "lib/client/core/email/sign-out/signOut.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/email/sign-out/signOut.schema.ts": [],
   "lib/client/core/email/sign-out/signOut.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/sign-out/signOut.types.ts"
   ],
   "lib/client/core/email/sign-out/signOut.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/client/core/email/sign-out/signOut.ts": [
     "lib/client/core/email/sign-out/signOut.service.ts"
   ],
   "lib/client/core/email/sign-out/signOut.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
   ],
   "lib/client/core/email/sign-out/signOut.utils.ts": [],
   "lib/client/core/email/sign-up-email/signUpEmail.controller.ts": [],
-  "lib/client/core/email/sign-up-email/signUpEmail.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/email/sign-up-email/signUpEmail.schema.ts": [],
   "lib/client/core/email/sign-up-email/signUpEmail.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/sign-up-email/signUpEmail.types.ts"
   ],
   "lib/client/core/email/sign-up-email/signUpEmail.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/client/core/email/sign-up-email/signUpEmail.ts": [
     "lib/client/core/email/sign-up-email/signUpEmail.service.ts"
   ],
   "lib/client/core/email/sign-up-email/signUpEmail.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
@@ -254,14 +189,10 @@
   "lib/client/core/email/sign-up-email/signUpEmail.utils.ts": [],
   "lib/client/core/oauth/shared/oauth.error.ts": [],
   "lib/client/core/oauth/shared/oauth.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
     "lib/client/client.types.ts"
   ],
-  "lib/client/core/oauth/sign-in/signIn.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/oauth/sign-in/signIn.schema.ts": [],
   "lib/client/core/oauth/sign-in/signIn.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/oauth/shared/oauth.error.ts",
     "lib/client/core/oauth/sign-in/signIn.types.ts"
   ],
@@ -269,24 +200,16 @@
     "lib/client/core/oauth/sign-in/signIn.service.ts"
   ],
   "lib/client/core/oauth/sign-in/signIn.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/oauth/shared/oauth.error.ts",
     "lib/client/core/oauth/shared/oauth.types.ts"
   ],
-  "lib/client/core/session/get-session/getSession.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/session/get-session/getSession.schema.ts": [],
   "lib/client/core/session/get-session/getSession.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/session/get-session/getSession.types.ts",
     "lib/client/core/session/shared/session.error.ts"
   ],
   "lib/client/core/session/get-session/getSession.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/effect/dist/dts/Either.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/client/core/session/get-session/getSession.service.ts",
     "lib/test/setup-test-env.ts"
   ],
@@ -294,34 +217,24 @@
     "lib/client/core/session/get-session/getSession.service.ts"
   ],
   "lib/client/core/session/get-session/getSession.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/session/shared/session.error.ts",
     "lib/client/core/session/shared/session.types.ts"
   ],
   "lib/client/core/session/shared/session.error.ts": [],
   "lib/client/core/session/shared/session.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
     "lib/client/client.types.ts"
   ],
   "lib/client/core/user/shared/user.error.ts": [],
   "lib/client/core/user/shared/user.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
     "lib/client/client.types.ts"
   ],
-  "lib/client/core/user/update-user/updateUser.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/user/update-user/updateUser.schema.ts": [],
   "lib/client/core/user/update-user/updateUser.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/user/shared/user.error.ts",
     "lib/client/core/user/update-user/updateUser.types.ts"
   ],
   "lib/client/core/user/update-user/updateUser.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/effect/dist/dts/Either.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/client/core/user/update-user/updateUser.service.ts",
     "lib/test/setup-test-env.ts"
   ],
@@ -329,18 +242,14 @@
     "lib/client/core/user/update-user/updateUser.service.ts"
   ],
   "lib/client/core/user/update-user/updateUser.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/user/shared/user.error.ts",
     "lib/client/core/user/shared/user.types.ts"
   ],
   "lib/server/config/config.service.ts": [
-    "../../../node_modules/effect/dist/dts/Config.d.ts",
     "lib/shared/config/config.types.ts"
   ],
   "lib/server/core/account/account-info/accountInfo.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/account/account-info/accountInfo.schema.ts",
     "lib/server/core/account/account-info/accountInfo.service.ts",
     "lib/server/core/account/account-info/accountInfo.types.ts",
@@ -349,19 +258,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/account-info/accountInfo.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/account/account-info/accountInfo.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/account/account-info/accountInfo.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/account-info/accountInfo.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/account/account-info/accountInfo.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -373,12 +278,10 @@
     "lib/server/core/account/account-info/accountInfo.types.ts"
   ],
   "lib/server/core/account/account-info/accountInfo.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/list-user-accounts/listUserAccounts.controller.ts": [
-    "../../../node_modules/effect/dist/dts/index.d.ts",
     "lib/server/core/account/list-user-accounts/listUserAccounts.schema.ts",
     "lib/server/core/account/list-user-accounts/listUserAccounts.service.ts",
     "lib/server/core/account/list-user-accounts/listUserAccounts.types.ts",
@@ -387,21 +290,17 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/list-user-accounts/listUserAccounts.schema.ts": [
-    "../../../node_modules/effect/dist/dts/index.d.ts",
     "lib/server/core/shared/core.schema.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/list-user-accounts/listUserAccounts.service.ts": [
-    "../../../node_modules/effect/dist/dts/index.d.ts",
     "lib/server/core/account/list-user-accounts/listUserAccounts.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/list-user-accounts/listUserAccounts.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/account/list-user-accounts/listUserAccounts.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -413,12 +312,10 @@
     "lib/server/core/account/list-user-accounts/listUserAccounts.types.ts"
   ],
   "lib/server/core/account/list-user-accounts/listUserAccounts.types.ts": [
-    "../../../node_modules/effect/dist/dts/index.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/unlink-account/unlinkAccount.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/account/unlink-account/unlinkAccount.schema.ts",
     "lib/server/core/account/unlink-account/unlinkAccount.service.ts",
     "lib/server/core/account/unlink-account/unlinkAccount.types.ts",
@@ -426,19 +323,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/unlink-account/unlinkAccount.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/account/unlink-account/unlinkAccount.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/account/unlink-account/unlinkAccount.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/unlink-account/unlinkAccount.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
   ],
@@ -449,12 +342,10 @@
     "lib/server/core/account/unlink-account/unlinkAccount.types.ts"
   ],
   "lib/server/core/account/unlink-account/unlinkAccount.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/change-email/changeEmail.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/change-email/changeEmail.schema.ts",
     "lib/server/core/email/change-email/changeEmail.service.ts",
     "lib/server/core/email/change-email/changeEmail.types.ts",
@@ -462,19 +353,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/change-email/changeEmail.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/email/change-email/changeEmail.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/change-email/changeEmail.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/change-email/changeEmail.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/email/change-email/changeEmail.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -486,12 +373,10 @@
     "lib/server/core/email/change-email/changeEmail.types.ts"
   ],
   "lib/server/core/email/change-email/changeEmail.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/change-password/changePassword.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/change-password/changePassword.schema.ts",
     "lib/server/core/email/change-password/changePassword.service.ts",
     "lib/server/core/email/change-password/changePassword.types.ts",
@@ -500,22 +385,17 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/change-password/changePassword.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/zod/index.d.cts",
     "lib/server/core/shared/core.schema.ts",
     "lib/server/server.types.ts",
     "lib/shared/config/config.utils.ts"
   ],
   "lib/server/core/email/change-password/changePassword.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/change-password/changePassword.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/change-password/changePassword.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/email/change-password/changePassword.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -527,12 +407,10 @@
     "lib/server/core/email/change-password/changePassword.types.ts"
   ],
   "lib/server/core/email/change-password/changePassword.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/forget-password-callback/forgetPasswordCallback.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/forget-password-callback/forgetPasswordCallback.schema.ts",
     "lib/server/core/email/forget-password-callback/forgetPasswordCallback.service.ts",
     "lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts",
@@ -540,19 +418,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/forget-password-callback/forgetPasswordCallback.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/email/forget-password-callback/forgetPasswordCallback.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/forget-password-callback/forgetPasswordCallback.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/email/forget-password-callback/forgetPasswordCallback.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -564,12 +438,10 @@
     "lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts"
   ],
   "lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/forget-password/forgetPassword.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/forget-password/forgetPassword.schema.ts",
     "lib/server/core/email/forget-password/forgetPassword.service.ts",
     "lib/server/core/email/forget-password/forgetPassword.types.ts",
@@ -577,19 +449,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/forget-password/forgetPassword.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/email/forget-password/forgetPassword.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/forget-password/forgetPassword.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/forget-password/forgetPassword.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/email/forget-password/forgetPassword.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -601,12 +469,10 @@
     "lib/server/core/email/forget-password/forgetPassword.types.ts"
   ],
   "lib/server/core/email/forget-password/forgetPassword.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.schema.ts",
     "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.service.ts",
     "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts",
@@ -614,19 +480,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -638,12 +500,10 @@
     "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts"
   ],
   "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/request-password-reset/requestPasswordReset.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/request-password-reset/requestPasswordReset.schema.ts",
     "lib/server/core/email/request-password-reset/requestPasswordReset.service.ts",
     "lib/server/core/email/request-password-reset/requestPasswordReset.types.ts",
@@ -651,19 +511,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/request-password-reset/requestPasswordReset.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/email/request-password-reset/requestPasswordReset.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/request-password-reset/requestPasswordReset.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/request-password-reset/requestPasswordReset.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/email/request-password-reset/requestPasswordReset.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -675,12 +531,10 @@
     "lib/server/core/email/request-password-reset/requestPasswordReset.types.ts"
   ],
   "lib/server/core/email/request-password-reset/requestPasswordReset.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/reset-password/resetPassword.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/reset-password/resetPassword.schema.ts",
     "lib/server/core/email/reset-password/resetPassword.service.ts",
     "lib/server/core/email/reset-password/resetPassword.types.ts",
@@ -689,22 +543,17 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/reset-password/resetPassword.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/zod/index.d.cts",
     "lib/server/core/shared/core.schema.ts",
     "lib/server/server.types.ts",
     "lib/shared/config/config.utils.ts"
   ],
   "lib/server/core/email/reset-password/resetPassword.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/reset-password/resetPassword.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/reset-password/resetPassword.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/email/reset-password/resetPassword.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -716,12 +565,10 @@
     "lib/server/core/email/reset-password/resetPassword.types.ts"
   ],
   "lib/server/core/email/reset-password/resetPassword.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/send-verification-email/sendVerificationEmail.schema.ts",
     "lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts",
     "lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts",
@@ -729,19 +576,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -753,12 +596,10 @@
     "lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts"
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/set-password/setPassword.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/set-password/setPassword.schema.ts",
     "lib/server/core/email/set-password/setPassword.service.ts",
     "lib/server/core/email/set-password/setPassword.types.ts",
@@ -767,22 +608,17 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/set-password/setPassword.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/zod/index.d.cts",
     "lib/server/core/shared/core.schema.ts",
     "lib/server/server.types.ts",
     "lib/shared/config/config.utils.ts"
   ],
   "lib/server/core/email/set-password/setPassword.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/set-password/setPassword.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/set-password/setPassword.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/email/set-password/setPassword.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -794,12 +630,10 @@
     "lib/server/core/email/set-password/setPassword.types.ts"
   ],
   "lib/server/core/email/set-password/setPassword.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-in-email/signInEmail.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/sign-in-email/signInEmail.schema.ts",
     "lib/server/core/email/sign-in-email/signInEmail.service.ts",
     "lib/server/core/email/sign-in-email/signInEmail.types.ts",
@@ -808,22 +642,17 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-in-email/signInEmail.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/zod/index.d.cts",
     "lib/server/core/shared/core.schema.ts",
     "lib/server/server.types.ts",
     "lib/shared/config/config.utils.ts"
   ],
   "lib/server/core/email/sign-in-email/signInEmail.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/sign-in-email/signInEmail.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-in-email/signInEmail.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/email/sign-in-email/signInEmail.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -835,12 +664,10 @@
     "lib/server/core/email/sign-in-email/signInEmail.types.ts"
   ],
   "lib/server/core/email/sign-in-email/signInEmail.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-out/signOut.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/sign-out/signOut.schema.ts",
     "lib/server/core/email/sign-out/signOut.service.ts",
     "lib/server/core/email/sign-out/signOut.types.ts",
@@ -848,19 +675,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-out/signOut.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/email/sign-out/signOut.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/sign-out/signOut.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-out/signOut.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/email/sign-out/signOut.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -872,12 +695,10 @@
     "lib/server/core/email/sign-out/signOut.types.ts"
   ],
   "lib/server/core/email/sign-out/signOut.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-up-email/signUpEmail.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/sign-up-email/signUpEmail.schema.ts",
     "lib/server/core/email/sign-up-email/signUpEmail.service.ts",
     "lib/server/core/email/sign-up-email/signUpEmail.types.ts",
@@ -886,24 +707,17 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-up-email/signUpEmail.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/effect/dist/dts/Option.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
-    "../../../node_modules/zod/index.d.cts",
     "lib/server/core/shared/core.schema.ts",
     "lib/server/server.types.ts",
     "lib/shared/config/config.utils.ts"
   ],
   "lib/server/core/email/sign-up-email/signUpEmail.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/sign-up-email/signUpEmail.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-up-email/signUpEmail.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/email/sign-up-email/signUpEmail.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -913,12 +727,10 @@
     "lib/server/core/email/sign-up-email/signUpEmail.service.ts"
   ],
   "lib/server/core/email/sign-up-email/signUpEmail.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/verify-email/verifyEmail.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/verify-email/verifyEmail.schema.ts",
     "lib/server/core/email/verify-email/verifyEmail.service.ts",
     "lib/server/core/email/verify-email/verifyEmail.types.ts",
@@ -926,19 +738,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/verify-email/verifyEmail.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/email/verify-email/verifyEmail.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/email/verify-email/verifyEmail.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/verify-email/verifyEmail.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/email/verify-email/verifyEmail.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -950,12 +758,10 @@
     "lib/server/core/email/verify-email/verifyEmail.types.ts"
   ],
   "lib/server/core/email/verify-email/verifyEmail.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/callback-oauth/callbackOAuth.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/oauth/callback-oauth/callbackOAuth.schema.ts",
     "lib/server/core/oauth/callback-oauth/callbackOAuth.service.ts",
     "lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts",
@@ -963,20 +769,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/callback-oauth/callbackOAuth.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/zod/index.d.cts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/oauth/callback-oauth/callbackOAuth.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/callback-oauth/callbackOAuth.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/oauth/callback-oauth/callbackOAuth.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -988,12 +789,10 @@
     "lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts"
   ],
   "lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/link-social-account/linkSocialAccount.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/oauth/link-social-account/linkSocialAccount.schema.ts",
     "lib/server/core/oauth/link-social-account/linkSocialAccount.service.ts",
     "lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts",
@@ -1001,19 +800,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/link-social-account/linkSocialAccount.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/oauth/link-social-account/linkSocialAccount.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/link-social-account/linkSocialAccount.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/oauth/link-social-account/linkSocialAccount.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -1025,32 +820,25 @@
     "lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts"
   ],
   "lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/sign-in-social/signInSocial.controller.ts": [
-    "../../../node_modules/effect/dist/dts/index.d.ts",
     "lib/server/core/oauth/sign-in-social/signInSocial.service.ts",
     "lib/server/core/oauth/sign-in-social/signInSocial.types.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/sign-in-social/signInSocial.schema.ts": [
-    "../../../node_modules/effect/dist/dts/index.d.ts",
-    "../../../node_modules/zod/index.d.cts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/oauth/sign-in-social/signInSocial.service.ts": [
-    "../../../node_modules/effect/dist/dts/index.d.ts",
     "lib/server/core/oauth/sign-in-social/signInSocial.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/sign-in-social/signInSocial.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/oauth/sign-in-social/signInSocial.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -1062,12 +850,10 @@
     "lib/server/core/oauth/sign-in-social/signInSocial.types.ts"
   ],
   "lib/server/core/oauth/sign-in-social/signInSocial.types.ts": [
-    "../../../node_modules/effect/dist/dts/index.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/get-access-token/getAccessToken.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/get-access-token/getAccessToken.schema.ts",
     "lib/server/core/session/get-access-token/getAccessToken.service.ts",
     "lib/server/core/session/get-access-token/getAccessToken.types.ts",
@@ -1075,19 +861,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/get-access-token/getAccessToken.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/session/get-access-token/getAccessToken.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/get-access-token/getAccessToken.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/get-access-token/getAccessToken.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/session/get-access-token/getAccessToken.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -1099,12 +881,10 @@
     "lib/server/core/session/get-access-token/getAccessToken.types.ts"
   ],
   "lib/server/core/session/get-access-token/getAccessToken.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/get-session/getSession.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/get-session/getSession.schema.ts",
     "lib/server/core/session/get-session/getSession.service.ts",
     "lib/server/core/session/get-session/getSession.types.ts",
@@ -1112,20 +892,16 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/get-session/getSession.schema.ts": [
-    "../../../node_modules/effect/dist/dts/index.d.ts",
     "lib/server/core/shared/core.schema.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/get-session/getSession.service.ts": [
-    "../../../node_modules/effect/dist/dts/index.d.ts",
     "lib/server/core/session/get-session/getSession.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts"
   ],
   "lib/server/core/session/get-session/getSession.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/session/get-session/getSession.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -1137,31 +913,25 @@
     "lib/server/core/session/get-session/getSession.types.ts"
   ],
   "lib/server/core/session/get-session/getSession.types.ts": [
-    "../../../node_modules/effect/dist/dts/index.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/list-sessions/listSessions.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/list-sessions/listSessions.schema.ts",
     "lib/server/core/session/list-sessions/listSessions.service.ts",
     "lib/server/core/session/list-sessions/listSessions.types.ts",
     "lib/server/core/shared/core.error.ts"
   ],
   "lib/server/core/session/list-sessions/listSessions.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/session/list-sessions/listSessions.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/list-sessions/listSessions.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/list-sessions/listSessions.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/session/list-sessions/listSessions.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -1173,12 +943,10 @@
     "lib/server/core/session/list-sessions/listSessions.types.ts"
   ],
   "lib/server/core/session/list-sessions/listSessions.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/refresh-token/refreshToken.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/refresh-token/refreshToken.schema.ts",
     "lib/server/core/session/refresh-token/refreshToken.service.ts",
     "lib/server/core/session/refresh-token/refreshToken.types.ts",
@@ -1186,19 +954,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/refresh-token/refreshToken.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/session/refresh-token/refreshToken.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/refresh-token/refreshToken.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/refresh-token/refreshToken.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/session/refresh-token/refreshToken.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -1210,12 +974,10 @@
     "lib/server/core/session/refresh-token/refreshToken.types.ts"
   ],
   "lib/server/core/session/refresh-token/refreshToken.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.schema.ts",
     "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.service.ts",
     "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts",
@@ -1223,19 +985,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -1247,12 +1005,10 @@
     "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts"
   ],
   "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-session/revokeSession.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/revoke-session/revokeSession.schema.ts",
     "lib/server/core/session/revoke-session/revokeSession.service.ts",
     "lib/server/core/session/revoke-session/revokeSession.types.ts",
@@ -1260,19 +1016,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-session/revokeSession.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/session/revoke-session/revokeSession.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/revoke-session/revokeSession.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-session/revokeSession.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/session/revoke-session/revokeSession.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -1284,12 +1036,10 @@
     "lib/server/core/session/revoke-session/revokeSession.types.ts"
   ],
   "lib/server/core/session/revoke-session/revokeSession.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-sessions/revokeSessions.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/revoke-sessions/revokeSessions.schema.ts",
     "lib/server/core/session/revoke-sessions/revokeSessions.service.ts",
     "lib/server/core/session/revoke-sessions/revokeSessions.types.ts",
@@ -1297,19 +1047,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-sessions/revokeSessions.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/session/revoke-sessions/revokeSessions.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/session/revoke-sessions/revokeSessions.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-sessions/revokeSessions.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/session/revoke-sessions/revokeSessions.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -1321,22 +1067,14 @@
     "lib/server/core/session/revoke-sessions/revokeSessions.types.ts"
   ],
   "lib/server/core/session/revoke-sessions/revokeSessions.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/shared/core.error.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
-    "../../../node_modules/zod/index.d.cts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/shared/core.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/server/core/shared/core.schema.ts": [],
   "lib/server/core/user/delete-user-callback/deleteUserCallback.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/core/user/delete-user-callback/deleteUserCallback.schema.ts",
     "lib/server/core/user/delete-user-callback/deleteUserCallback.service.ts",
@@ -1344,19 +1082,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/user/delete-user-callback/deleteUserCallback.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/user/delete-user-callback/deleteUserCallback.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/core/user/delete-user-callback/deleteUserCallback.types.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/user/delete-user-callback/deleteUserCallback.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/user/delete-user-callback/deleteUserCallback.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -1368,12 +1102,10 @@
     "lib/server/core/user/delete-user-callback/deleteUserCallback.types.ts"
   ],
   "lib/server/core/user/delete-user-callback/deleteUserCallback.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/user/delete-user/deleteUser.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/core/user/delete-user/deleteUser.schema.ts",
     "lib/server/core/user/delete-user/deleteUser.service.ts",
@@ -1381,20 +1113,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/user/delete-user/deleteUser.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/zod/index.d.cts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/user/delete-user/deleteUser.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/core/user/delete-user/deleteUser.types.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/user/delete-user/deleteUser.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/user/delete-user/deleteUser.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -1406,12 +1133,10 @@
     "lib/server/core/user/delete-user/deleteUser.types.ts"
   ],
   "lib/server/core/user/delete-user/deleteUser.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/user/update-user/updateUser.controller.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/core/user/update-user/updateUser.schema.ts",
     "lib/server/core/user/update-user/updateUser.service.ts",
@@ -1419,20 +1144,15 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/user/update-user/updateUser.schema.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/zod/index.d.cts",
     "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/user/update-user/updateUser.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/core/user/update-user/updateUser.types.ts",
     "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/user/update-user/updateUser.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/user/update-user/updateUser.service.ts",
     "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
@@ -1444,7 +1164,6 @@
     "lib/server/core/user/update-user/updateUser.types.ts"
   ],
   "lib/server/core/user/update-user/updateUser.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
@@ -1452,22 +1171,14 @@
     "lib/shared/config/config.types.ts"
   ],
   "lib/server/server.service.ts": [
-    "../../../node_modules/better-auth/dist/adapters/prisma-adapter/index.d.ts",
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/better-auth/dist/types/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Context.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/effect/dist/dts/Layer.d.ts",
     "lib/server/server.constants.ts",
     "lib/server/server.types.ts",
     "lib/shared/config/config.types.ts"
   ],
   "lib/server/server.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/server/server.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
     "lib/shared/config/config.types.ts"
   ],
   "lib/shared/config/config.constants.ts": [
@@ -1483,23 +1194,16 @@
     "lib/shared/config/config.service.ts",
     "lib/shared/config/config.types.ts"
   ],
-  "lib/shared/config/config.types.ts": [
-    "../../../node_modules/better-auth/dist/types/index.d.ts"
-  ],
+  "lib/shared/config/config.types.ts": [],
   "lib/shared/config/config.utils.ts": [
-    "../../../node_modules/effect/dist/dts/Option.d.ts",
-    "../../../node_modules/effect/dist/dts/index.d.ts",
     "lib/server/server.types.ts",
     "lib/shared/config/config.constants.ts",
     "lib/shared/config/config.types.ts"
   ],
   "lib/test/integration.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/test/setup-test-env.ts": [
-    "../../../node_modules/better-auth/dist/db/index.d.ts",
-    "../../../node_modules/better-auth/dist/integrations/node.d.ts",
     "lib/client/client.service.ts",
     "lib/server/server.service.ts",
     "lib/shared/config/config.types.ts"
