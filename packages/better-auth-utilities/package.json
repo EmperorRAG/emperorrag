@@ -4,7 +4,10 @@
 	"type": "module",
 	"sideEffects": false,
 	"scripts": {
-		"generate-graph": "madge --extensions ts --include-npm --json src > dependency-graph.json && madge --extensions ts --include-npm --image dependency-graph.svg src"
+		"generate-graph": "madge --extensions ts --include-npm --json src > dependency-graph.json && madge --extensions ts --include-npm --image dependency-graph.svg src",
+		"generate-graph-without-spec-files": "madge --extensions ts --include-npm --exclude '\\.spec\\.ts$' --json src > dependency-graph-without-spec-files.json && madge --extensions ts --include-npm --exclude '\\.spec\\.ts$' --image dependency-graph-without-spec-files.svg src",
+		"generate-graph-with-only-spec-files": "madge --extensions ts --include-npm --json src/**/*.spec.ts > dependency-graph-with-only-spec-files.json && madge --extensions ts --include-npm --image dependency-graph-with-only-spec-files.svg src/**/*.spec.ts",
+		"generate-graphs": "npm run generate-graph && npm run generate-graph-without-spec-files && npm run generate-graph-with-only-spec-files"
 	},
 	"main": "./dist/better-auth-utilities.barrel.js",
 	"module": "./dist/better-auth-utilities.barrel.js",
