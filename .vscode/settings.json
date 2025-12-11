@@ -152,8 +152,8 @@
 		"**/.git": true,
 		"**/.hg": true,
 		"**/.next": false,
-		"**/.nx": false,
-		"**/.pnpm-store": false,
+		"**/.nx": true,
+		"**/.pnpm-store": true,
 		"**/.svn": true,
 		"**/.verdaccio": false,
 		"**/Thumbs.db": true,
@@ -180,7 +180,9 @@
 		"**/dist/**": true,
 		"**/node_modules/**": true,
 		"**/out-tsc/**": true,
-		"**/prisma/generated/**": true
+		"**/prisma/generated/**": true,
+		"**/.nx": true,
+		"**/.pnpm-store": true
 	},
 	"git.terminalGitEditor": true,
 	"github.copilot.chat.codeGeneration.useInstructionFiles": true,

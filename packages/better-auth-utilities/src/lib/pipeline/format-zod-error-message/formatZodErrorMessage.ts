@@ -1,4 +1,6 @@
+import * as Array from 'effect/Array';
 import * as Effect from 'effect/Effect';
+import { pipe } from 'effect/Function';
 import type { z } from 'zod';
 
 /**
@@ -11,12 +13,14 @@ import type { z } from 'zod';
 export const formatZodErrorMessage = (error: z.ZodError) =>
 	Effect.succeed(error.issues).pipe(
 		Effect.map((issues) =>
-			issues
-				.map((issue) => {
-					const path = issue.path.length > 0 ? issue.path.join('.') : 'input';
+			pipe(
+				issues,
+				Array.map((issue) => {
+					const path = Array.isNonEmptyArray(issue.path) ? pipe(issue.path, Array.map(String), Array.join('.')) : 'input';
 					return `${path}: ${issue.message}`;
-				})
-				.join('; ')
+				}),
+				Array.join('; ')
+			)
 		),
 		Effect.map((fieldMessages) => `Invalid parameters: ${fieldMessages}`)
 	);

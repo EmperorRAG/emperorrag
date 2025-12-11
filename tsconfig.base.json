@@ -18,6 +18,7 @@
 		"strict": true,
 		"target": "es2022",
 		"customConditions": ["@emperorrag/source"],
+		"plugins": [{ "name": "@effect/language-service" }],
 		"paths": {
 			"@prisma/client": ["packages/prisma/better-auth-db/prisma/generated/client"],
 			"@emperorrag/better-auth-utilities/client/service": ["packages/better-auth-utilities/src/lib/client/client.service.ts"],
