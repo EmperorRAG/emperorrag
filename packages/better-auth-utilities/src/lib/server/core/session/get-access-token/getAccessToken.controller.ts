@@ -4,17 +4,17 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { validateInputEffect } from 'packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
+import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
-import { isAuthServerApiGetAccessTokenParamsFor, type AuthServerApiGetAccessTokenParamsFor, type getAccessTokenPropsFor } from './getAccessToken.types';
-import { validateInputEffect } from '../../shared/core.error';
 import { getAccessTokenServerService } from './getAccessToken.service';
+import { isAuthServerApiGetAccessTokenParamsFor, type AuthServerApiGetAccessTokenParamsFor, type getAccessTokenPropsFor } from './getAccessToken.types';
 
 export const getAccessTokenServerController: getAccessTokenPropsFor = (params: AuthServerApiGetAccessTokenParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		const validatedParams = yield* validateInputEffect(
-			createAuthSchema(AuthServerApiEndpoints.getAccessToken),
+			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.getAccessToken),
 			params,
 			isAuthServerApiGetAccessTokenParamsFor,
 			'getAccessToken'

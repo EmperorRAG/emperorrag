@@ -4,14 +4,14 @@
  * Enables tree-shakeable, composable schema construction using the Effect pipe pattern.
  */
 
-import { z } from 'zod';
 import * as Effect from 'effect/Effect';
 import { pipe } from 'effect/Function';
 import * as Match from 'effect/Match';
+import { z } from 'zod';
 import { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import {
-	tokenRequiredSchema,
 	authServerApiEndpointBodyZodSchemaBuilder,
+	tokenRequiredSchema,
 } from '../auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder';
 export * from '../auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder';
 // import { AuthServerTag } from '../../server/server.service';
@@ -279,7 +279,7 @@ export const withAdditionalFields =
  * @param endpoint - The API endpoint to generate the schema for.
  * @returns An Effect that resolves to the Zod schema.
  */
-export const createAuthSchema = <K extends AuthServerApiEndpoints>(endpoint: K) =>
+export const createAuthServerApiEndpointParamsSchema = <K extends AuthServerApiEndpoints>(endpoint: K) =>
 	Effect.gen(function* () {
 		const bodySchema = yield* authServerApiEndpointBodyZodSchemaBuilder(endpoint);
 

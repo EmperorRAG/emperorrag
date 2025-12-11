@@ -4,17 +4,17 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { validateInputEffect } from 'packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
+import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
-import { isAuthServerApiAccountInfoParamsFor, type AuthServerApiAccountInfoParamsFor, type accountInfoPropsFor } from './accountInfo.types';
-import { validateInputEffect } from '../../shared/core.error';
 import { accountInfoServerService } from './accountInfo.service';
+import { isAuthServerApiAccountInfoParamsFor, type AuthServerApiAccountInfoParamsFor, type accountInfoPropsFor } from './accountInfo.types';
 
 export const accountInfoServerController: accountInfoPropsFor = (params: AuthServerApiAccountInfoParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		const validatedParams = yield* validateInputEffect(
-			createAuthSchema(AuthServerApiEndpoints.accountInfo),
+			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.accountInfo),
 			params,
 			isAuthServerApiAccountInfoParamsFor,
 			'accountInfo'

@@ -4,17 +4,17 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { validateInputEffect } from 'packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
+import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
-import { isAuthServerApiCallbackOAuthParamsFor, type AuthServerApiCallbackOAuthParamsFor, type callbackOAuthPropsFor } from './callbackOAuth.types';
-import { validateInputEffect } from '../../shared/core.error';
 import { callbackOAuthServerService } from './callbackOAuth.service';
+import { isAuthServerApiCallbackOAuthParamsFor, type AuthServerApiCallbackOAuthParamsFor, type callbackOAuthPropsFor } from './callbackOAuth.types';
 
 export const callbackOAuthServerController: callbackOAuthPropsFor = (params: AuthServerApiCallbackOAuthParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		const validatedParams = yield* validateInputEffect(
-			createAuthSchema(AuthServerApiEndpoints.callbackOAuth),
+			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.callbackOAuth),
 			params,
 			isAuthServerApiCallbackOAuthParamsFor,
 			'callbackOAuth'

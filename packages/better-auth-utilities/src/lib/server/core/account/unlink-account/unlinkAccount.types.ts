@@ -3,9 +3,9 @@
  * @description Type definitions for server-side unlink account operation.
  */
 
+import type * as Effect from 'effect/Effect';
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
 import type { CoreAuthServerError } from '../../shared/core.error';
-import type * as Effect from 'effect/Effect';
 
 /**
  * Type helper to extract the unlinkAccount endpoint type from an AuthServer.
@@ -47,8 +47,7 @@ export type AuthServerApiUnlinkAccountPropsFor<T extends AuthServerFor = AuthSer
  * // { body: { providerId: string }, headers: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiUnlinkAccountParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiUnlinkAccountPropsFor<AuthServerFor>>[0];
-
+export type AuthServerApiUnlinkAccountParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiUnlinkAccountPropsFor<T>>[0];
 /**
  * Type helper to extract the return type from auth.api.unlinkAccount.
  *
@@ -64,7 +63,7 @@ export type AuthServerApiUnlinkAccountParamsFor<T extends AuthServerFor = AuthSe
  * // Promise<{ status: boolean }>
  * ```
  */
-export type AuthServerApiUnlinkAccountResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiUnlinkAccountPropsFor<AuthServerFor>>;
+export type AuthServerApiUnlinkAccountResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiUnlinkAccountPropsFor<T>>;
 
 /**
  * Function signature for unlinkAccount server service.
@@ -102,7 +101,7 @@ export type AuthServerApiUnlinkAccountResultFor<T extends AuthServerFor = AuthSe
  * ```
  */
 export interface unlinkAccountPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiUnlinkAccountParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiUnlinkAccountResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	(params: AuthServerApiUnlinkAccountParamsFor<T>): Effect.Effect<Awaited<AuthServerApiUnlinkAccountResultFor<T>>, CoreAuthServerError, T>;
 }
 
 /**
@@ -118,9 +117,7 @@ export interface unlinkAccountPropsFor<T extends AuthServerFor = AuthServerFor> 
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiUnlinkAccountParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiUnlinkAccountParamsFor = (
-	value: unknown
-): value is AuthServerApiUnlinkAccountParamsFor<AuthServerFor> => {
+export const isAuthServerApiUnlinkAccountParamsFor = (value: unknown): value is AuthServerApiUnlinkAccountParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

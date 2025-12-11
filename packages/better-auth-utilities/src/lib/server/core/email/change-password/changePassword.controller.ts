@@ -4,12 +4,12 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { validateInputEffect } from 'packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
+import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
-import { isAuthServerApiChangePasswordParamsFor, type AuthServerApiChangePasswordParamsFor, type changePasswordPropsFor } from './changePassword.types';
-import { validateInputEffect } from '../../shared/core.error';
 import { changePasswordServerService } from './changePassword.service';
+import { isAuthServerApiChangePasswordParamsFor, type AuthServerApiChangePasswordParamsFor, type changePasswordPropsFor } from './changePassword.types';
 
 /**
  * Controller for change password operation with input validation.
@@ -55,7 +55,12 @@ import { changePasswordServerService } from './changePassword.service';
 export const changePasswordServerController: changePasswordPropsFor = (params: AuthServerApiChangePasswordParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
 		const validatedParams = yield* _(
-			validateInputEffect(createAuthSchema(AuthServerApiEndpoints.changePassword), params, isAuthServerApiChangePasswordParamsFor, 'changePassword')
+			validateInputEffect(
+				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.changePassword),
+				params,
+				isAuthServerApiChangePasswordParamsFor,
+				'changePassword'
+			)
 		);
 
 		return yield* _(changePasswordServerService(validatedParams));

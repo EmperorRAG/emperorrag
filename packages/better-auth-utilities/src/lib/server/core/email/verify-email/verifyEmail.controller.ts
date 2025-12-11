@@ -4,12 +4,12 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { validateInputEffect } from 'packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
+import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
-import { isAuthServerApiVerifyEmailParamsFor, type AuthServerApiVerifyEmailParamsFor, type verifyEmailPropsFor } from './verifyEmail.types';
-import { validateInputEffect } from '../../shared/core.error';
 import { verifyEmailServerService } from './verifyEmail.service';
+import { isAuthServerApiVerifyEmailParamsFor, type AuthServerApiVerifyEmailParamsFor, type verifyEmailPropsFor } from './verifyEmail.types';
 
 /**
  * Controller for verify email operation with Zod validation and type narrowing.
@@ -27,7 +27,12 @@ export const verifyEmailServerController: verifyEmailPropsFor = (params: AuthSer
 	Effect.gen(function* (_) {
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
-			validateInputEffect(createAuthSchema(AuthServerApiEndpoints.verifyEmail), params, isAuthServerApiVerifyEmailParamsFor, 'verifyEmail')
+			validateInputEffect(
+				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.verifyEmail),
+				params,
+				isAuthServerApiVerifyEmailParamsFor,
+				'verifyEmail'
+			)
 		);
 
 		// 2) Call the service with the validated params

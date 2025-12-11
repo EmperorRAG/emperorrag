@@ -4,16 +4,16 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { validateInputEffect } from 'packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
+import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
+import { requestPasswordResetCallbackServerService } from './requestPasswordResetCallback.service';
 import {
 	isAuthServerApiRequestPasswordResetCallbackParamsFor,
 	type AuthServerApiRequestPasswordResetCallbackParamsFor,
 	type requestPasswordResetCallbackPropsFor,
 } from './requestPasswordResetCallback.types';
-import { validateInputEffect } from '../../shared/core.error';
-import { requestPasswordResetCallbackServerService } from './requestPasswordResetCallback.service';
 
 export const requestPasswordResetCallbackServerController: requestPasswordResetCallbackPropsFor = (
 	params: AuthServerApiRequestPasswordResetCallbackParamsFor<AuthServerFor>
@@ -22,7 +22,7 @@ export const requestPasswordResetCallbackServerController: requestPasswordResetC
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
 			validateInputEffect(
-				createAuthSchema(AuthServerApiEndpoints.requestPasswordResetCallback),
+				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.requestPasswordResetCallback),
 				params,
 				isAuthServerApiRequestPasswordResetCallbackParamsFor,
 				'requestPasswordResetCallback'

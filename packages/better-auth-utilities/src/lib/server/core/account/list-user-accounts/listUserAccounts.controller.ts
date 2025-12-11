@@ -5,10 +5,11 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { CoreAuthServerApiError, CoreAuthServerDataMissingError, CoreAuthServerInputError, validateInputEffect } from '../../shared/core.error';
-import type { AuthServerFor } from '../../../server.types';
-import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { validateInputEffect } from 'packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
+import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import type { AuthServerFor } from '../../../server.types';
+import { CoreAuthServerApiError, CoreAuthServerDataMissingError, CoreAuthServerInputError } from '../../shared/core.error';
 import { listUserAccountsServerService } from './listUserAccounts.service';
 import {
 	isAuthServerApiListUserAccountsParamsFor,
@@ -57,7 +58,7 @@ export const listUserAccountsServerController = (
 > =>
 	Effect.gen(function* () {
 		const validatedParams = yield* validateInputEffect(
-			createAuthSchema(AuthServerApiEndpoints.listUserAccounts),
+			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.listUserAccounts),
 			input,
 			isAuthServerApiListUserAccountsParamsFor,
 			'listUserAccounts'

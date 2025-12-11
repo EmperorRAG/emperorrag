@@ -4,16 +4,16 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { validateInputEffect } from 'packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
+import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
+import { linkSocialAccountServerService } from './linkSocialAccount.service';
 import {
 	isAuthServerApiLinkSocialAccountParamsFor,
 	type AuthServerApiLinkSocialAccountParamsFor,
 	type linkSocialAccountPropsFor,
 } from './linkSocialAccount.types';
-import { validateInputEffect } from '../../shared/core.error';
-import { linkSocialAccountServerService } from './linkSocialAccount.service';
 
 /**
  * Controller for link social account operation with input validation.
@@ -38,7 +38,7 @@ import { linkSocialAccountServerService } from './linkSocialAccount.service';
 export const linkSocialAccountServerController: linkSocialAccountPropsFor = (params: AuthServerApiLinkSocialAccountParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		const validatedParams = yield* validateInputEffect(
-			createAuthSchema(AuthServerApiEndpoints.linkSocialAccount),
+			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.linkSocialAccount),
 			params,
 			isAuthServerApiLinkSocialAccountParamsFor,
 			'linkSocialAccount'

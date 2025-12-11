@@ -1,10 +1,10 @@
 import * as Effect from 'effect/Effect';
-import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { validateInputEffect } from 'packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
+import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
-import { isAuthServerApiSignInSocialParamsFor, type AuthServerApiSignInSocialParamsFor, type signInSocialPropsFor } from './signInSocial.types';
-import { validateInputEffect } from '../../shared/core.error';
 import { signInSocialServerService } from './signInSocial.service';
+import { isAuthServerApiSignInSocialParamsFor, type AuthServerApiSignInSocialParamsFor, type signInSocialPropsFor } from './signInSocial.types';
 
 /**
  * Server-side controller for OAuth social sign-in.
@@ -55,7 +55,12 @@ import { signInSocialServerService } from './signInSocial.service';
 export const signInSocialServerController: signInSocialPropsFor = (params: AuthServerApiSignInSocialParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
 		const validatedParams = yield* _(
-			validateInputEffect(createAuthSchema(AuthServerApiEndpoints.signInSocial), params, isAuthServerApiSignInSocialParamsFor, 'signInSocial')
+			validateInputEffect(
+				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.signInSocial),
+				params,
+				isAuthServerApiSignInSocialParamsFor,
+				'signInSocial'
+			)
 		);
 
 		return yield* _(signInSocialServerService(validatedParams));

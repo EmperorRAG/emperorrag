@@ -4,12 +4,12 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { validateInputEffect } from 'packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
+import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
-import { isAuthServerApiResetPasswordParamsFor, type AuthServerApiResetPasswordParamsFor, type resetPasswordPropsFor } from './resetPassword.types';
-import { validateInputEffect } from '../../shared/core.error';
 import { resetPasswordServerService } from './resetPassword.service';
+import { isAuthServerApiResetPasswordParamsFor, type AuthServerApiResetPasswordParamsFor, type resetPasswordPropsFor } from './resetPassword.types';
 
 /**
  * Controller for reset password operation with input validation.
@@ -35,7 +35,12 @@ export const resetPasswordServerController: resetPasswordPropsFor = (params: Aut
 	Effect.gen(function* (_) {
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
-			validateInputEffect(createAuthSchema(AuthServerApiEndpoints.resetPassword), params, isAuthServerApiResetPasswordParamsFor, 'resetPassword')
+			validateInputEffect(
+				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.resetPassword),
+				params,
+				isAuthServerApiResetPasswordParamsFor,
+				'resetPassword'
+			)
 		);
 
 		// 2) Call the service with the validated params
