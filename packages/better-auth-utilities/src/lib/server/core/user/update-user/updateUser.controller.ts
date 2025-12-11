@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import { z } from 'zod';
+import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiUpdateUserParamsFor, type AuthServerApiUpdateUserParamsFor, type updateUserPropsFor } from './updateUser.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -14,15 +14,7 @@ import { updateUserServerService } from './updateUser.service';
 export const updateUserServerController: updateUserPropsFor = (params: AuthServerApiUpdateUserParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		const validatedParams = yield* validateInputEffect(
-			createAuthSchema({
-				body: z.object({
-					name: z.string().optional(),
-					image: z.string().optional(),
-					firstName: z.string().optional(),
-					lastName: z.string().optional(),
-				}),
-				headers: 'optional',
-			}),
+			createAuthSchema(AuthServerApiEndpoints.updateUser),
 			params,
 			isAuthServerApiUpdateUserParamsFor,
 			'updateUser'

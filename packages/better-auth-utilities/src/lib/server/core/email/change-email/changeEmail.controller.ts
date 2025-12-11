@@ -4,7 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createAuthSchema, newEmailBodySchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiChangeEmailParamsFor, type AuthServerApiChangeEmailParamsFor, type changeEmailPropsFor } from './changeEmail.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -26,7 +27,7 @@ export const changeEmailServerController: changeEmailPropsFor = (params: AuthSer
 	Effect.gen(function* (_) {
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
-			validateInputEffect(createAuthSchema({ body: newEmailBodySchema, headers: 'optional' }), params, isAuthServerApiChangeEmailParamsFor, 'changeEmail')
+			validateInputEffect(createAuthSchema(AuthServerApiEndpoints.changeEmail), params, isAuthServerApiChangeEmailParamsFor, 'changeEmail')
 		);
 
 		// 2) Call the service with the validated params

@@ -37,23 +37,6 @@
 	"[yaml]": {
 		"editor.defaultFormatter": "redhat.vscode-yaml"
 	},
-	"chat.agent.thinkingStyle": "collapsedPreview",
-	"chat.agentSessionsViewLocation": "view",
-	"chat.editor.fontFamily": "Fira Code, monospace",
-	"chat.edits2.enabled": true,
-	"chat.fontFamily": "Fira Code, monospace",
-	"chat.instructionsFilesLocations": {
-		".github/instructions/continuous-improvement": true
-	},
-	"chat.mcp.gallery.enabled": true,
-	"chat.modeFilesLocations": {
-		".github/chatmodes/personal": true
-	},
-	"chat.promptFilesLocations": {
-		".github/prompts/personal": true
-	},
-	"chat.useCloudButtonV2": true,
-	"chat.useNestedAgentsMdFiles": true,
 	"cSpell.words": [
 		"behaviour",
 		"behaviours",
@@ -103,6 +86,24 @@
 		"vite",
 		"vitest"
 	],
+	"chat.agent.thinkingStyle": "collapsedPreview",
+	"chat.agentSessionsViewLocation": "view",
+	"chat.editor.fontFamily": "Fira Code, monospace",
+	"chat.edits2.enabled": true,
+	"chat.fontFamily": "Fira Code, monospace",
+	"chat.instructionsFilesLocations": {
+		".github/instructions/continuous-improvement": true
+	},
+	"chat.mcp.gallery.enabled": true,
+	"chat.modeFilesLocations": {
+		".github/chatmodes/personal": true
+	},
+	"chat.promptFilesLocations": {
+		".github/prompts/personal": true
+	},
+	"chat.sendElementsToChat.enabled": false,
+	"chat.useCloudButtonV2": true,
+	"chat.useNestedAgentsMdFiles": true,
 	"diffEditor.codeLens": true,
 	"editor.aiStats.enabled": true,
 	"editor.allowVariableFonts": true,
@@ -113,6 +114,11 @@
 	"editor.autoIndentOnPasteWithinString": true,
 	"editor.bracketPairColorization.enabled": true,
 	"editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.sortJSON": "always",
+		"source.organizeImports": "explicit",
+		"source.sortImports": "always"
+	},
 	"editor.codeLensFontFamily": "Fira Code, monospace",
 	"editor.colorDecorators": true,
 	"editor.comments.insertSpace": true,
@@ -130,6 +136,7 @@
 	"editor.indentSize": "tabSize",
 	"editor.inlayHints.enabled": "on",
 	"editor.inlayHints.fontFamily": "Fira Code, monospace",
+	"editor.inlineSuggest.edits.renderSideBySide": "auto",
 	"editor.insertSpaces": true,
 	"editor.largeFileOptimizations": false,
 	"editor.lineNumbers": "on",
@@ -139,6 +146,7 @@
 	"editor.renderFinalNewline": "dimmed",
 	"editor.tabSize": 2,
 	"editor.unfoldOnClickAfterEndOfLine": true,
+	"editor.wordBasedSuggestions": "off",
 	"editor.wordWrap": "on",
 	"editor.wrapOnEscapedLineFeeds": true,
 	"files.exclude": {
@@ -150,6 +158,7 @@
 		"**/.pnpm-store": false,
 		"**/.svn": true,
 		"**/.verdaccio": false,
+		"**/Thumbs.db": true,
 		"**/dist": false,
 		"**/node_modules": false,
 		"**/out-tsc": false,
@@ -158,8 +167,7 @@
 		"**/prisma/generated/client/edge*": true,
 		"**/prisma/generated/client/query*": true,
 		"**/prisma/generated/client/runtime": true,
-		"**/prisma/generated/client/wasm*": true,
-		"**/Thumbs.db": true
+		"**/prisma/generated/client/wasm*": true
 	},
 	"files.readonlyFromPermissions": true,
 	"files.readonlyInclude": {
@@ -171,10 +179,10 @@
 		"**/.git/subtree-cache/**": true,
 		"**/.hg/store/**": true,
 		"**/.vscode/**": true,
-		"**/node_modules/**": true,
 		"**/dist/**": true,
-		"**/prisma/generated/**": true,
-		"**/out-tsc/**": true
+		"**/node_modules/**": true,
+		"**/out-tsc/**": true,
+		"**/prisma/generated/**": true
 	},
 	"git.terminalGitEditor": true,
 	"github.copilot.chat.codeGeneration.useInstructionFiles": true,
@@ -217,16 +225,17 @@
 	"npm.enableRunFromFolder": true,
 	"npm.packageManager": "npm",
 	"npm.scriptRunner": "npm",
+	"path-intellisense.autoTriggerNextSuggestion": true,
 	"postman.settings.dotenv-detection-notification-visibility": false,
 	"powershell.buttons.showPanelMovementButtons": true,
 	"powershell.powerShellDefaultVersion": "PowerShell (x64)",
 	"prisma.scriptRunner": "pnpm",
 	"search.exclude": {
+		"**/*.code-search": true,
 		"**/.next": true,
 		"**/.nx": true,
 		"**/.pnpm-store": true,
 		"**/.verdaccio": true,
-		"**/*.code-search": true,
 		"**/bower_components": true,
 		"**/dist": false,
 		"**/node_modules": false,
@@ -291,6 +300,27 @@
 	"todo-tree.tree.showBadges": true,
 	"todo-tree.tree.showCountsInTree": true,
 	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.tsserver.watchOptions": {
+		"excludeDirectories": [
+			"**/node_modules",
+			"**/.nx",
+			"**/.git",
+			"**/.next",
+			"**/.pnpm-store",
+			"**/coverage",
+			"**/prisma/generated",
+			"**/backups",
+			"**/init-scripts",
+			"**/scripts"
+		],
+		"fallbackPolling": "dynamicPriorityPolling",
+		"watchDirectory": "useFsEvents"
+	},
+	"vitest.configSearchPatternExclude": "{**/node_modules/**,**/.*/**,**/*.d.ts}",
+	"vitest.configSearchPatternInclude": "**/*{vite,vitest}*.config*.{ts,js,mjs,cjs,cts,mts}",
+	"vitest.filesWatcherInclude": "apps/**/*.{ts,tsx,js,jsx,vue,svelte,css,html}\npackages/**/*.{ts,tsx,js,jsx,vue,svelte,css,html}\n*.{json,ts}",
+	"vitest.vitestPackagePath": "node_modules/vitest/package.json",
+	"vitest.workspaceConfig": "vitest.workspace.ts",
 	"wallaby.codeLensFeature.runTest": true,
 	"wallaby.compactStatus": false,
 	"wallaby.reportFailuresAsProblems": false,
@@ -304,30 +334,5 @@
 	"workbench.editor.pinnedTabsOnSeparateRow": true,
 	"workbench.editor.showTabIndex": true,
 	"workbench.editor.wrapTabs": true,
-	"yaml.format.printWidth": 300,
-	"editor.wordBasedSuggestions": "off",
-	"vitest.filesWatcherInclude": "apps/**/*.{ts,tsx,js,jsx,vue,svelte,css,html}\npackages/**/*.{ts,tsx,js,jsx,vue,svelte,css,html}\n*.{json,ts}",
-	"vitest.configSearchPatternExclude": "{**/node_modules/**,**/.*/**,**/*.d.ts}",
-	"vitest.configSearchPatternInclude": "**/*{vite,vitest}*.config*.{ts,js,mjs,cjs,cts,mts}",
-	"vitest.vitestPackagePath": "node_modules/vitest/package.json",
-	"vitest.workspaceConfig": "vitest.workspace.ts",
-	"typescript.tsserver.watchOptions": {
-		"watchDirectory": "useFsEvents",
-		"fallbackPolling": "dynamicPriorityPolling",
-		"excludeDirectories": [
-			"**/node_modules",
-			"**/.nx",
-			"**/.git",
-			"**/.next",
-			"**/.pnpm-store",
-			"**/coverage",
-			"**/prisma/generated",
-			"**/backups",
-			"**/init-scripts",
-			"**/scripts"
-		]
-	},
-	"path-intellisense.autoTriggerNextSuggestion": true,
-	"editor.inlineSuggest.edits.renderSideBySide": "auto",
-	"chat.sendElementsToChat.enabled": false
+	"yaml.format.printWidth": 300
 }

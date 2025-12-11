@@ -1,6 +1,6 @@
 import * as Effect from 'effect/Effect';
 import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import { z } from 'zod';
+import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiSignInSocialParamsFor, type AuthServerApiSignInSocialParamsFor, type signInSocialPropsFor } from './signInSocial.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -55,21 +55,7 @@ import { signInSocialServerService } from './signInSocial.service';
 export const signInSocialServerController: signInSocialPropsFor = (params: AuthServerApiSignInSocialParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
 		const validatedParams = yield* _(
-			validateInputEffect(
-				createAuthSchema({
-					body: z.object({
-						provider: z.string(),
-						callbackURL: z.string().optional(),
-						errorCallbackURL: z.string().optional(),
-						newUserCallbackURL: z.string().optional(),
-						disableRedirect: z.boolean().optional(),
-					}),
-					headers: 'optional',
-				}),
-				params,
-				isAuthServerApiSignInSocialParamsFor,
-				'signInSocial'
-			)
+			validateInputEffect(createAuthSchema(AuthServerApiEndpoints.signInSocial), params, isAuthServerApiSignInSocialParamsFor, 'signInSocial')
 		);
 
 		return yield* _(signInSocialServerService(validatedParams));

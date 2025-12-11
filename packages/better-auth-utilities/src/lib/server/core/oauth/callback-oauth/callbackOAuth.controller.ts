@@ -4,7 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createAuthSchema, oauthQueryParamsOptionalSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiCallbackOAuthParamsFor, type AuthServerApiCallbackOAuthParamsFor, type callbackOAuthPropsFor } from './callbackOAuth.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -13,10 +14,7 @@ import { callbackOAuthServerService } from './callbackOAuth.service';
 export const callbackOAuthServerController: callbackOAuthPropsFor = (params: AuthServerApiCallbackOAuthParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		const validatedParams = yield* validateInputEffect(
-			createAuthSchema({
-				query: oauthQueryParamsOptionalSchema,
-				headers: 'optional',
-			}),
+			createAuthSchema(AuthServerApiEndpoints.callbackOAuth),
 			params,
 			isAuthServerApiCallbackOAuthParamsFor,
 			'callbackOAuth'

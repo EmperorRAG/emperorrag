@@ -5,7 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import { z } from 'zod';
+import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import type { AuthServerFor } from '../../../server.types';
 import {
 	isAuthServerApiDeleteUserCallbackParamsFor,
@@ -18,10 +18,7 @@ import { deleteUserCallbackServerService } from './deleteUserCallback.service';
 export const deleteUserCallbackServerController: deleteUserCallbackPropsFor = (params: AuthServerApiDeleteUserCallbackParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		const validatedParams = yield* validateInputEffect(
-			createAuthSchema({
-				query: z.object({ token: z.string() }),
-				headers: 'optional',
-			}),
+			createAuthSchema(AuthServerApiEndpoints.deleteUserCallback),
 			params,
 			isAuthServerApiDeleteUserCallbackParamsFor,
 			'deleteUserCallback'

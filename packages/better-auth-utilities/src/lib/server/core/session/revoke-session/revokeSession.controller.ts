@@ -4,7 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createAuthSchema, sessionTokenBodySchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiRevokeSessionParamsFor, type AuthServerApiRevokeSessionParamsFor, type revokeSessionPropsFor } from './revokeSession.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -13,7 +14,7 @@ import { revokeSessionServerService } from './revokeSession.service';
 export const revokeSessionServerController: revokeSessionPropsFor = (params: AuthServerApiRevokeSessionParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		const validatedParams = yield* validateInputEffect(
-			createAuthSchema({ body: sessionTokenBodySchema, headers: 'optional' }),
+			createAuthSchema(AuthServerApiEndpoints.revokeSession),
 			params,
 			isAuthServerApiRevokeSessionParamsFor,
 			'revokeSession'

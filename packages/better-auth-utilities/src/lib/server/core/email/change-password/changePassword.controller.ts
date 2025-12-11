@@ -4,13 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import {
-	createAuthSchema,
-	currentPasswordRequiredSchema,
-	createPasswordSchema,
-	revokeOtherSessionsOptionalSchema,
-} from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import { z } from 'zod';
+import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiChangePasswordParamsFor, type AuthServerApiChangePasswordParamsFor, type changePasswordPropsFor } from './changePassword.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -59,19 +54,8 @@ import { changePasswordServerService } from './changePassword.service';
  */
 export const changePasswordServerController: changePasswordPropsFor = (params: AuthServerApiChangePasswordParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
-		const changePasswordBodySchema = z.object({
-			currentPassword: currentPasswordRequiredSchema,
-			newPassword: createPasswordSchema(8, 128),
-			revokeOtherSessions: revokeOtherSessionsOptionalSchema,
-		});
-
 		const validatedParams = yield* _(
-			validateInputEffect(
-				createAuthSchema({ body: changePasswordBodySchema, headers: 'optional' }),
-				params,
-				isAuthServerApiChangePasswordParamsFor,
-				'changePassword'
-			)
+			validateInputEffect(createAuthSchema(AuthServerApiEndpoints.changePassword), params, isAuthServerApiChangePasswordParamsFor, 'changePassword')
 		);
 
 		return yield* _(changePasswordServerService(validatedParams));

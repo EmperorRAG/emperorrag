@@ -7,7 +7,12 @@
 import { z } from 'zod';
 import * as Effect from 'effect/Effect';
 import { pipe } from 'effect/Function';
-import { tokenRequiredSchema } from '../auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder';
+import * as Match from 'effect/Match';
+import { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
+import {
+	tokenRequiredSchema,
+	authServerApiEndpointBodyZodSchemaBuilder,
+} from '../auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder';
 export * from '../auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder';
 // import { AuthServerTag } from '../../server/server.service';
 
@@ -269,37 +274,37 @@ export const withAdditionalFields =
 // =============================================================================
 
 /**
- * Configuration for the Zod schema builder factory.
- */
-export type ZodSchemaConfig = {
-	body?: z.ZodTypeAny;
-	query?: z.ZodTypeAny;
-	headers?: 'optional' | 'required';
-	headerMessage?: string;
-};
-
-/**
  * Creates a Zod schema using the AuthServer context.
  *
- * @param config - The schema configuration.
+ * @param endpoint - The API endpoint to generate the schema for.
  * @returns An Effect that resolves to the Zod schema.
  */
-export const createAuthSchema = (config: ZodSchemaConfig = {}) =>
-	Effect.gen(function* (_) {
-		// const authServer = yield* AuthServerTag;
-		// In the future, use authServer to customize schema
+export const createAuthSchema = <K extends AuthServerApiEndpoints>(endpoint: K) =>
+	Effect.gen(function* () {
+		const bodySchema = yield* authServerApiEndpointBodyZodSchemaBuilder(endpoint);
+
+		const config = Match.value(endpoint as AuthServerApiEndpoints).pipe(
+			Match.when(AuthServerApiEndpoints.verifyEmail, () => ({ headers: 'optional' as const, query: tokenQuerySchema })),
+			Match.when(AuthServerApiEndpoints.signInEmail, () => ({ headers: 'optional' as const })),
+			Match.when(AuthServerApiEndpoints.signUpEmail, () => ({ headers: 'optional' as const })),
+			Match.when(AuthServerApiEndpoints.signInSocial, () => ({ headers: 'optional' as const })),
+			Match.when(AuthServerApiEndpoints.forgetPassword, () => ({ headers: 'optional' as const })),
+			Match.when(AuthServerApiEndpoints.resetPassword, () => ({ headers: 'optional' as const })),
+			Match.when(AuthServerApiEndpoints.callbackOAuth, () => ({ headers: 'optional' as const })),
+			Match.when(AuthServerApiEndpoints.requestPasswordReset, () => ({ headers: 'optional' as const })),
+			Match.orElse(() => ({ headers: 'required' as const }))
+		);
+
 		let schema = createBaseSchema();
 
-		if (config.body) {
-			schema = pipe(schema, withBody(config.body));
-		}
+		schema = pipe(schema, withBody(bodySchema));
 
-		if (config.query) {
+		if ('query' in config && config.query) {
 			schema = pipe(schema, withQuery(config.query));
 		}
 
 		if (config.headers === 'required') {
-			schema = pipe(schema, withRequiredHeaders(config.headerMessage));
+			schema = pipe(schema, withRequiredHeaders());
 		} else {
 			schema = pipe(schema, withOptionalHeaders());
 		}

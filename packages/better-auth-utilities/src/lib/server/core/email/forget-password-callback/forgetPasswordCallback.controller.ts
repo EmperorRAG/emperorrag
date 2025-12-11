@@ -4,7 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createAuthSchema, tokenQuerySchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import type { AuthServerFor } from '../../../server.types';
 import {
 	isAuthServerApiForgetPasswordCallbackParamsFor,
@@ -19,7 +20,7 @@ export const forgetPasswordCallbackServerController: forgetPasswordCallbackProps
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* _(
 			validateInputEffect(
-				createAuthSchema({ query: tokenQuerySchema, headers: 'optional' }),
+				createAuthSchema(AuthServerApiEndpoints.forgetPasswordCallback),
 				params,
 				isAuthServerApiForgetPasswordCallbackParamsFor,
 				'forgetPasswordCallback'

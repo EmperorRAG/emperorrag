@@ -5,6 +5,7 @@
 
 import * as Effect from 'effect/Effect';
 import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiGetAccessTokenParamsFor, type AuthServerApiGetAccessTokenParamsFor, type getAccessTokenPropsFor } from './getAccessToken.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -13,7 +14,7 @@ import { getAccessTokenServerService } from './getAccessToken.service';
 export const getAccessTokenServerController: getAccessTokenPropsFor = (params: AuthServerApiGetAccessTokenParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		const validatedParams = yield* validateInputEffect(
-			createAuthSchema({ headers: 'optional' }),
+			createAuthSchema(AuthServerApiEndpoints.getAccessToken),
 			params,
 			isAuthServerApiGetAccessTokenParamsFor,
 			'getAccessToken'

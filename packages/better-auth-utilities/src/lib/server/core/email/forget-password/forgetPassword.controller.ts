@@ -4,7 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { createAuthSchema, emailWithRedirectBodySchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { createAuthSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
+import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import type { AuthServerFor } from '../../../server.types';
 import { isAuthServerApiForgetPasswordParamsFor, type AuthServerApiForgetPasswordParamsFor, type forgetPasswordPropsFor } from './forgetPassword.types';
 import { validateInputEffect } from '../../shared/core.error';
@@ -50,12 +51,7 @@ import { forgetPasswordServerService } from './forgetPassword.service';
 export const forgetPasswordServerController: forgetPasswordPropsFor = (params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>) =>
 	Effect.gen(function* (_) {
 		const validatedParams = yield* _(
-			validateInputEffect(
-				createAuthSchema({ body: emailWithRedirectBodySchema, headers: 'optional' }),
-				params,
-				isAuthServerApiForgetPasswordParamsFor,
-				'forgetPassword'
-			)
+			validateInputEffect(createAuthSchema(AuthServerApiEndpoints.forgetPassword), params, isAuthServerApiForgetPasswordParamsFor, 'forgetPassword')
 		);
 		return yield* _(forgetPasswordServerService(validatedParams));
 	});
