@@ -59,7 +59,7 @@ export const signInSocialServerController: signInSocialPropsFor = (params: AuthS
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.signInSocial),
 				params,
 				isAuthServerApiSignInSocialParamsFor,
-				'signInSocial'
+				AuthServerApiEndpoints.signInSocial
 			)
 		);
 

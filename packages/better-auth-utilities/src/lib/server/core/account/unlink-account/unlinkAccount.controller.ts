@@ -17,7 +17,7 @@ export const unlinkAccountServerController: unlinkAccountPropsFor = (params: Aut
 			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.unlinkAccount),
 			params,
 			isAuthServerApiUnlinkAccountParamsFor,
-			'unlinkAccount'
+			AuthServerApiEndpoints.unlinkAccount
 		);
 		return yield* unlinkAccountServerService(validatedParams);
 	});

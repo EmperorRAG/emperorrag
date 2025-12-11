@@ -23,7 +23,7 @@ export const forgetPasswordCallbackServerController: forgetPasswordCallbackProps
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.forgetPasswordCallback),
 				params,
 				isAuthServerApiForgetPasswordCallbackParamsFor,
-				'forgetPasswordCallback'
+				AuthServerApiEndpoints.forgetPasswordCallback
 			)
 		);
 

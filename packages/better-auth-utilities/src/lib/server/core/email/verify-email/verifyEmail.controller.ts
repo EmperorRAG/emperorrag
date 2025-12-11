@@ -4,8 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
+import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
 import { verifyEmailServerService } from './verifyEmail.service';
@@ -31,7 +31,7 @@ export const verifyEmailServerController: verifyEmailPropsFor = (params: AuthSer
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.verifyEmail),
 				params,
 				isAuthServerApiVerifyEmailParamsFor,
-				'verifyEmail'
+				AuthServerApiEndpoints.verifyEmail
 			)
 		);
 

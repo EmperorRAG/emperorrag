@@ -39,7 +39,7 @@ export const resetPasswordServerController: resetPasswordPropsFor = (params: Aut
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.resetPassword),
 				params,
 				isAuthServerApiResetPasswordParamsFor,
-				'resetPassword'
+				AuthServerApiEndpoints.resetPassword
 			)
 		);
 

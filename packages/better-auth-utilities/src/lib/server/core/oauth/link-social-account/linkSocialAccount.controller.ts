@@ -41,7 +41,7 @@ export const linkSocialAccountServerController: linkSocialAccountPropsFor = (par
 			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.linkSocialAccount),
 			params,
 			isAuthServerApiLinkSocialAccountParamsFor,
-			'linkSocialAccount'
+			AuthServerApiEndpoints.linkSocialAccount
 		);
 		return yield* linkSocialAccountServerService(validatedParams);
 	});

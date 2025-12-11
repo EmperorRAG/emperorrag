@@ -4,8 +4,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
+import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
 import { deleteUserServerService } from './deleteUser.service';
@@ -17,7 +17,7 @@ export const deleteUserServerController: deleteUserPropsFor = (params: AuthServe
 			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.deleteUser),
 			params,
 			isAuthServerApiDeleteUserParamsFor,
-			'deleteUser'
+			AuthServerApiEndpoints.deleteUser
 		);
 		return yield* deleteUserServerService(validatedParams);
 	});

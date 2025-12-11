@@ -23,7 +23,7 @@ export const requestPasswordResetServerController: requestPasswordResetPropsFor 
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.requestPasswordReset),
 				params,
 				isAuthServerApiRequestPasswordResetParamsFor,
-				'requestPasswordReset'
+				AuthServerApiEndpoints.requestPasswordReset
 			)
 		);
 

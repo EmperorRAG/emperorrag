@@ -17,7 +17,7 @@ export const callbackOAuthServerController: callbackOAuthPropsFor = (params: Aut
 			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.callbackOAuth),
 			params,
 			isAuthServerApiCallbackOAuthParamsFor,
-			'callbackOAuth'
+			AuthServerApiEndpoints.callbackOAuth
 		);
 		return yield* callbackOAuthServerService(validatedParams);
 	});

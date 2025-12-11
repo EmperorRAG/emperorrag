@@ -14,7 +14,7 @@ export const signUpEmailServerController: signUpEmailPropsFor = (params: AuthSer
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.signUpEmail),
 				params,
 				isAuthServerApiSignUpEmailParamsFor,
-				'signUpEmail'
+				AuthServerApiEndpoints.signUpEmail
 			)
 		);
 

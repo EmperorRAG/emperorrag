@@ -17,7 +17,7 @@ export const refreshTokenServerController: refreshTokenPropsFor = (params: AuthS
 			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.refreshToken),
 			params,
 			isAuthServerApiRefreshTokenParamsFor,
-			'refreshToken'
+			AuthServerApiEndpoints.refreshToken
 		);
 		return yield* refreshTokenServerService(validatedParams);
 	});

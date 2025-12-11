@@ -31,7 +31,7 @@ export const changeEmailServerController: changeEmailPropsFor = (params: AuthSer
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.changeEmail),
 				params,
 				isAuthServerApiChangeEmailParamsFor,
-				'changeEmail'
+				AuthServerApiEndpoints.changeEmail
 			)
 		);
 

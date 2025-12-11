@@ -1,3 +1,4 @@
+import * as Effect from 'effect/Effect';
 import { pipe } from 'effect/Function';
 import * as Match from 'effect/Match';
 import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
@@ -22,7 +23,7 @@ export const mapBetterAuthInputErrorToCoreAuthError = (
 ): CoreAuthServerInputError => {
 	const details: CoreInputValidationDetails = {
 		source: operationCode,
-		operation: endpoint,
+		endpoint: endpoint,
 	};
 
 	return pipe(
@@ -38,7 +39,7 @@ export const mapBetterAuthInputErrorToCoreAuthError = (
 				fieldErrors,
 			};
 
-			const message = formatZodErrorMessage(err, endpoint);
+			const message = Effect.runSync(formatZodErrorMessage(err));
 			return new CoreAuthServerInputError(message, { zodError: err, details: detailsWithFields });
 		}),
 		Match.when(Match.instanceOf(Error), (err) => new CoreAuthServerInputError(err.message, { originalError: err, details })),

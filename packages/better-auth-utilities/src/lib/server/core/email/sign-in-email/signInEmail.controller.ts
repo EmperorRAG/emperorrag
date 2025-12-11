@@ -14,7 +14,7 @@ export const signInEmailServerController: signInEmailPropsFor = (params: AuthSer
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.signInEmail),
 				params,
 				isAuthServerApiSignInEmailParamsFor,
-				'signInEmail'
+				AuthServerApiEndpoints.signInEmail
 			)
 		);
 

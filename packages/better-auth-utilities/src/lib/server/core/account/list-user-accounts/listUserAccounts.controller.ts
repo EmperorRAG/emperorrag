@@ -61,7 +61,7 @@ export const listUserAccountsServerController = (
 			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.listUserAccounts),
 			input,
 			isAuthServerApiListUserAccountsParamsFor,
-			'listUserAccounts'
+			AuthServerApiEndpoints.listUserAccounts
 		);
 		return yield* listUserAccountsServerService(validatedParams);
 	});

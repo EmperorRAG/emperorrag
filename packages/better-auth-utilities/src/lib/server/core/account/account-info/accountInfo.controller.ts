@@ -17,7 +17,7 @@ export const accountInfoServerController: accountInfoPropsFor = (params: AuthSer
 			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.accountInfo),
 			params,
 			isAuthServerApiAccountInfoParamsFor,
-			'accountInfo'
+			AuthServerApiEndpoints.accountInfo
 		);
 		return yield* accountInfoServerService(validatedParams);
 	});

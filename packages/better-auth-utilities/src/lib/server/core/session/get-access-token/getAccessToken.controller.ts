@@ -17,7 +17,7 @@ export const getAccessTokenServerController: getAccessTokenPropsFor = (params: A
 			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.getAccessToken),
 			params,
 			isAuthServerApiGetAccessTokenParamsFor,
-			'getAccessToken'
+			AuthServerApiEndpoints.getAccessToken
 		);
 		return yield* getAccessTokenServerService(validatedParams);
 	});

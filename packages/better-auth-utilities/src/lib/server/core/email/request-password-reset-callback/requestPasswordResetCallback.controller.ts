@@ -25,7 +25,7 @@ export const requestPasswordResetCallbackServerController: requestPasswordResetC
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.requestPasswordResetCallback),
 				params,
 				isAuthServerApiRequestPasswordResetCallbackParamsFor,
-				'requestPasswordResetCallback'
+				AuthServerApiEndpoints.requestPasswordResetCallback
 			)
 		);
 

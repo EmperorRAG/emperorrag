@@ -31,7 +31,7 @@ export const setPasswordServerController: setPasswordPropsFor = (params: AuthSer
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.setPassword),
 				params,
 				isAuthServerApiSetPasswordParamsFor,
-				'setPassword'
+				AuthServerApiEndpoints.setPassword
 			)
 		);
 

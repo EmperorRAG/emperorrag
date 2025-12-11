@@ -1,3 +1,4 @@
+import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import type { OperationCodes } from '../../enums/operationCodes.enum';
 
 /**
@@ -10,6 +11,6 @@ import type { OperationCodes } from '../../enums/operationCodes.enum';
 
 export interface CoreInputValidationDetails {
 	readonly source: OperationCodes;
-	readonly operation: string;
+	readonly endpoint: AuthServerApiEndpoints;
 	readonly fieldErrors?: ReadonlyArray<{ path: string; message: string }>;
 }

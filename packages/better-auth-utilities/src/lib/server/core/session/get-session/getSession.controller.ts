@@ -17,7 +17,7 @@ export const getSessionServerController: getSessionPropsFor = (params: AuthServe
 			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.getSession),
 			params,
 			isAuthServerApiGetSessionParamsFor,
-			'getSession'
+			AuthServerApiEndpoints.getSession
 		);
 		return yield* getSessionServerService(validatedParams);
 	});

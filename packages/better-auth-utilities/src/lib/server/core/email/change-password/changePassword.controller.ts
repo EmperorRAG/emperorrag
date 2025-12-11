@@ -59,7 +59,7 @@ export const changePasswordServerController: changePasswordPropsFor = (params: A
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.changePassword),
 				params,
 				isAuthServerApiChangePasswordParamsFor,
-				'changePassword'
+				AuthServerApiEndpoints.changePassword
 			)
 		);
 

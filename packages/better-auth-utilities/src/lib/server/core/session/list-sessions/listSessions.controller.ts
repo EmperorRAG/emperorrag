@@ -17,7 +17,7 @@ export const listSessionsServerController: listSessionsPropsFor = (params: AuthS
 			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.listSessions),
 			params,
 			isAuthServerApiListSessionsParamsFor,
-			'listSessions'
+			AuthServerApiEndpoints.listSessions
 		);
 		return yield* listSessionsServerService(validatedParams);
 	});

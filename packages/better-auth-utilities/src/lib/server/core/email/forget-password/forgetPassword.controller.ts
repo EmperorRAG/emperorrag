@@ -55,7 +55,7 @@ export const forgetPasswordServerController: forgetPasswordPropsFor = (params: A
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.forgetPassword),
 				params,
 				isAuthServerApiForgetPasswordParamsFor,
-				'forgetPassword'
+				AuthServerApiEndpoints.forgetPassword
 			)
 		);
 		return yield* _(forgetPasswordServerService(validatedParams));

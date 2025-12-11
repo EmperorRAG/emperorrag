@@ -17,7 +17,7 @@ export const revokeSessionServerController: revokeSessionPropsFor = (params: Aut
 			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.revokeSession),
 			params,
 			isAuthServerApiRevokeSessionParamsFor,
-			'revokeSession'
+			AuthServerApiEndpoints.revokeSession
 		);
 		return yield* revokeSessionServerService(validatedParams);
 	});

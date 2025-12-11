@@ -61,7 +61,7 @@ export const sendVerificationEmailServerController: sendVerificationEmailPropsFo
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.sendVerificationEmail),
 				params,
 				isAuthServerApiSendVerificationEmailParamsFor,
-				'sendVerificationEmail'
+				AuthServerApiEndpoints.sendVerificationEmail
 			)
 		);
 
