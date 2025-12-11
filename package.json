@@ -2,9 +2,6 @@
 	"name": "@emperorrag/source",
 	"version": "0.0.0",
 	"license": "MIT",
-	"scripts": {
-		"prepare": "effect-language-service patch"
-	},
 	"private": true,
 	"workspaces": [
 		"apps/*",
@@ -116,6 +113,12 @@
 				"options": {
 					"command": "nx run-many -t test --all --verbose",
 					"parallel": false
+				}
+			},
+			"patch-tslib-for-effect": {
+				"executor": "nx:run-commands",
+				"options": {
+					"command": "npx effect-language-service patch"
 				}
 			}
 		}
