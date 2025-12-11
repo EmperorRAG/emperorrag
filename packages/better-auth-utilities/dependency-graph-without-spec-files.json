@@ -246,19 +246,39 @@
     "lib/client/core/user/shared/user.error.ts",
     "lib/client/core/user/shared/user.types.ts"
   ],
+  "lib/enums/authServerApiEndpoints.enum.ts": [],
+  "lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.ts": [
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/extract-auth-server-config/extractAuthServerConfig.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/pipeline/error-handler/errorHandler.ts": [
+    "lib/server/core/shared/core.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/pipeline/extract-auth-server-config/extractAuthServerConfig.ts": [
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/extract-auth-server-config/extractAuthServerConfig.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/pipeline/extract-auth-server-config/extractAuthServerConfig.types.ts": [
+    "lib/enums/authServerApiEndpoints.enum.ts"
+  ],
+  "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts": [
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.ts"
+  ],
   "lib/server/config/config.service.ts": [
     "lib/shared/config/config.types.ts"
   ],
   "lib/server/core/account/account-info/accountInfo.controller.ts": [
-    "lib/server/core/account/account-info/accountInfo.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/account/account-info/accountInfo.service.ts",
     "lib/server/core/account/account-info/accountInfo.types.ts",
     "lib/server/core/shared/core.error.ts",
-    "lib/server/server.service.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/account/account-info/accountInfo.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/account/account-info/accountInfo.service.ts": [
     "lib/server/core/account/account-info/accountInfo.types.ts",
@@ -273,7 +293,6 @@
   ],
   "lib/server/core/account/account-info/accountInfo.ts": [
     "lib/server/core/account/account-info/accountInfo.controller.ts",
-    "lib/server/core/account/account-info/accountInfo.schema.ts",
     "lib/server/core/account/account-info/accountInfo.service.ts",
     "lib/server/core/account/account-info/accountInfo.types.ts"
   ],
@@ -282,16 +301,11 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/list-user-accounts/listUserAccounts.controller.ts": [
-    "lib/server/core/account/list-user-accounts/listUserAccounts.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/account/list-user-accounts/listUserAccounts.service.ts",
     "lib/server/core/account/list-user-accounts/listUserAccounts.types.ts",
     "lib/server/core/shared/core.error.ts",
-    "lib/server/server.service.ts",
-    "lib/server/server.types.ts"
-  ],
-  "lib/server/core/account/list-user-accounts/listUserAccounts.schema.ts": [
-    "lib/server/core/shared/core.schema.ts",
-    "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/list-user-accounts/listUserAccounts.service.ts": [
@@ -307,7 +321,6 @@
   ],
   "lib/server/core/account/list-user-accounts/listUserAccounts.ts": [
     "lib/server/core/account/list-user-accounts/listUserAccounts.controller.ts",
-    "lib/server/core/account/list-user-accounts/listUserAccounts.schema.ts",
     "lib/server/core/account/list-user-accounts/listUserAccounts.service.ts",
     "lib/server/core/account/list-user-accounts/listUserAccounts.types.ts"
   ],
@@ -316,14 +329,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/account/unlink-account/unlinkAccount.controller.ts": [
-    "lib/server/core/account/unlink-account/unlinkAccount.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/account/unlink-account/unlinkAccount.service.ts",
     "lib/server/core/account/unlink-account/unlinkAccount.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/account/unlink-account/unlinkAccount.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/account/unlink-account/unlinkAccount.service.ts": [
     "lib/server/core/account/unlink-account/unlinkAccount.types.ts",
@@ -337,7 +348,6 @@
   ],
   "lib/server/core/account/unlink-account/unlinkAccount.ts": [
     "lib/server/core/account/unlink-account/unlinkAccount.controller.ts",
-    "lib/server/core/account/unlink-account/unlinkAccount.schema.ts",
     "lib/server/core/account/unlink-account/unlinkAccount.service.ts",
     "lib/server/core/account/unlink-account/unlinkAccount.types.ts"
   ],
@@ -346,14 +356,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/change-email/changeEmail.controller.ts": [
-    "lib/server/core/email/change-email/changeEmail.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/email/change-email/changeEmail.service.ts",
     "lib/server/core/email/change-email/changeEmail.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/email/change-email/changeEmail.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/email/change-email/changeEmail.service.ts": [
     "lib/server/core/email/change-email/changeEmail.types.ts",
@@ -368,7 +376,6 @@
   ],
   "lib/server/core/email/change-email/changeEmail.ts": [
     "lib/server/core/email/change-email/changeEmail.controller.ts",
-    "lib/server/core/email/change-email/changeEmail.schema.ts",
     "lib/server/core/email/change-email/changeEmail.service.ts",
     "lib/server/core/email/change-email/changeEmail.types.ts"
   ],
@@ -377,17 +384,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/change-password/changePassword.controller.ts": [
-    "lib/server/core/email/change-password/changePassword.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/email/change-password/changePassword.service.ts",
     "lib/server/core/email/change-password/changePassword.types.ts",
     "lib/server/core/shared/core.error.ts",
-    "lib/server/server.service.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/email/change-password/changePassword.schema.ts": [
-    "lib/server/core/shared/core.schema.ts",
-    "lib/server/server.types.ts",
-    "lib/shared/config/config.utils.ts"
   ],
   "lib/server/core/email/change-password/changePassword.service.ts": [
     "lib/server/core/email/change-password/changePassword.types.ts",
@@ -402,7 +404,6 @@
   ],
   "lib/server/core/email/change-password/changePassword.ts": [
     "lib/server/core/email/change-password/changePassword.controller.ts",
-    "lib/server/core/email/change-password/changePassword.schema.ts",
     "lib/server/core/email/change-password/changePassword.service.ts",
     "lib/server/core/email/change-password/changePassword.types.ts"
   ],
@@ -411,14 +412,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/forget-password-callback/forgetPasswordCallback.controller.ts": [
-    "lib/server/core/email/forget-password-callback/forgetPasswordCallback.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/email/forget-password-callback/forgetPasswordCallback.service.ts",
     "lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/email/forget-password-callback/forgetPasswordCallback.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/email/forget-password-callback/forgetPasswordCallback.service.ts": [
     "lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts",
@@ -433,7 +432,6 @@
   ],
   "lib/server/core/email/forget-password-callback/forgetPasswordCallback.ts": [
     "lib/server/core/email/forget-password-callback/forgetPasswordCallback.controller.ts",
-    "lib/server/core/email/forget-password-callback/forgetPasswordCallback.schema.ts",
     "lib/server/core/email/forget-password-callback/forgetPasswordCallback.service.ts",
     "lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts"
   ],
@@ -442,14 +440,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/forget-password/forgetPassword.controller.ts": [
-    "lib/server/core/email/forget-password/forgetPassword.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/email/forget-password/forgetPassword.service.ts",
     "lib/server/core/email/forget-password/forgetPassword.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/email/forget-password/forgetPassword.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/email/forget-password/forgetPassword.service.ts": [
     "lib/server/core/email/forget-password/forgetPassword.types.ts",
@@ -464,7 +460,6 @@
   ],
   "lib/server/core/email/forget-password/forgetPassword.ts": [
     "lib/server/core/email/forget-password/forgetPassword.controller.ts",
-    "lib/server/core/email/forget-password/forgetPassword.schema.ts",
     "lib/server/core/email/forget-password/forgetPassword.service.ts",
     "lib/server/core/email/forget-password/forgetPassword.types.ts"
   ],
@@ -473,14 +468,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.controller.ts": [
-    "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.service.ts",
     "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.service.ts": [
     "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts",
@@ -495,7 +488,6 @@
   ],
   "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.ts": [
     "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.controller.ts",
-    "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.schema.ts",
     "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.service.ts",
     "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts"
   ],
@@ -504,14 +496,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/request-password-reset/requestPasswordReset.controller.ts": [
-    "lib/server/core/email/request-password-reset/requestPasswordReset.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/email/request-password-reset/requestPasswordReset.service.ts",
     "lib/server/core/email/request-password-reset/requestPasswordReset.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/email/request-password-reset/requestPasswordReset.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/email/request-password-reset/requestPasswordReset.service.ts": [
     "lib/server/core/email/request-password-reset/requestPasswordReset.types.ts",
@@ -526,7 +516,6 @@
   ],
   "lib/server/core/email/request-password-reset/requestPasswordReset.ts": [
     "lib/server/core/email/request-password-reset/requestPasswordReset.controller.ts",
-    "lib/server/core/email/request-password-reset/requestPasswordReset.schema.ts",
     "lib/server/core/email/request-password-reset/requestPasswordReset.service.ts",
     "lib/server/core/email/request-password-reset/requestPasswordReset.types.ts"
   ],
@@ -535,17 +524,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/reset-password/resetPassword.controller.ts": [
-    "lib/server/core/email/reset-password/resetPassword.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/email/reset-password/resetPassword.service.ts",
     "lib/server/core/email/reset-password/resetPassword.types.ts",
     "lib/server/core/shared/core.error.ts",
-    "lib/server/server.service.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/email/reset-password/resetPassword.schema.ts": [
-    "lib/server/core/shared/core.schema.ts",
-    "lib/server/server.types.ts",
-    "lib/shared/config/config.utils.ts"
   ],
   "lib/server/core/email/reset-password/resetPassword.service.ts": [
     "lib/server/core/email/reset-password/resetPassword.types.ts",
@@ -560,7 +544,6 @@
   ],
   "lib/server/core/email/reset-password/resetPassword.ts": [
     "lib/server/core/email/reset-password/resetPassword.controller.ts",
-    "lib/server/core/email/reset-password/resetPassword.schema.ts",
     "lib/server/core/email/reset-password/resetPassword.service.ts",
     "lib/server/core/email/reset-password/resetPassword.types.ts"
   ],
@@ -569,14 +552,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.controller.ts": [
-    "lib/server/core/email/send-verification-email/sendVerificationEmail.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts",
     "lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/email/send-verification-email/sendVerificationEmail.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts": [
     "lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts",
@@ -591,7 +572,6 @@
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.ts": [
     "lib/server/core/email/send-verification-email/sendVerificationEmail.controller.ts",
-    "lib/server/core/email/send-verification-email/sendVerificationEmail.schema.ts",
     "lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts",
     "lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts"
   ],
@@ -600,17 +580,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/set-password/setPassword.controller.ts": [
-    "lib/server/core/email/set-password/setPassword.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/email/set-password/setPassword.service.ts",
     "lib/server/core/email/set-password/setPassword.types.ts",
     "lib/server/core/shared/core.error.ts",
-    "lib/server/server.service.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/email/set-password/setPassword.schema.ts": [
-    "lib/server/core/shared/core.schema.ts",
-    "lib/server/server.types.ts",
-    "lib/shared/config/config.utils.ts"
   ],
   "lib/server/core/email/set-password/setPassword.service.ts": [
     "lib/server/core/email/set-password/setPassword.types.ts",
@@ -625,7 +600,6 @@
   ],
   "lib/server/core/email/set-password/setPassword.ts": [
     "lib/server/core/email/set-password/setPassword.controller.ts",
-    "lib/server/core/email/set-password/setPassword.schema.ts",
     "lib/server/core/email/set-password/setPassword.service.ts",
     "lib/server/core/email/set-password/setPassword.types.ts"
   ],
@@ -634,17 +608,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-in-email/signInEmail.controller.ts": [
-    "lib/server/core/email/sign-in-email/signInEmail.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/email/sign-in-email/signInEmail.service.ts",
     "lib/server/core/email/sign-in-email/signInEmail.types.ts",
     "lib/server/core/shared/core.error.ts",
-    "lib/server/server.service.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/email/sign-in-email/signInEmail.schema.ts": [
-    "lib/server/core/shared/core.schema.ts",
-    "lib/server/server.types.ts",
-    "lib/shared/config/config.utils.ts"
   ],
   "lib/server/core/email/sign-in-email/signInEmail.service.ts": [
     "lib/server/core/email/sign-in-email/signInEmail.types.ts",
@@ -659,7 +628,6 @@
   ],
   "lib/server/core/email/sign-in-email/signInEmail.ts": [
     "lib/server/core/email/sign-in-email/signInEmail.controller.ts",
-    "lib/server/core/email/sign-in-email/signInEmail.schema.ts",
     "lib/server/core/email/sign-in-email/signInEmail.service.ts",
     "lib/server/core/email/sign-in-email/signInEmail.types.ts"
   ],
@@ -668,14 +636,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-out/signOut.controller.ts": [
-    "lib/server/core/email/sign-out/signOut.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/email/sign-out/signOut.service.ts",
     "lib/server/core/email/sign-out/signOut.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/email/sign-out/signOut.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/email/sign-out/signOut.service.ts": [
     "lib/server/core/email/sign-out/signOut.types.ts",
@@ -690,7 +656,6 @@
   ],
   "lib/server/core/email/sign-out/signOut.ts": [
     "lib/server/core/email/sign-out/signOut.controller.ts",
-    "lib/server/core/email/sign-out/signOut.schema.ts",
     "lib/server/core/email/sign-out/signOut.service.ts",
     "lib/server/core/email/sign-out/signOut.types.ts"
   ],
@@ -699,17 +664,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-up-email/signUpEmail.controller.ts": [
-    "lib/server/core/email/sign-up-email/signUpEmail.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/email/sign-up-email/signUpEmail.service.ts",
     "lib/server/core/email/sign-up-email/signUpEmail.types.ts",
     "lib/server/core/shared/core.error.ts",
-    "lib/server/server.service.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/email/sign-up-email/signUpEmail.schema.ts": [
-    "lib/server/core/shared/core.schema.ts",
-    "lib/server/server.types.ts",
-    "lib/shared/config/config.utils.ts"
   ],
   "lib/server/core/email/sign-up-email/signUpEmail.service.ts": [
     "lib/server/core/email/sign-up-email/signUpEmail.types.ts",
@@ -731,14 +691,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/email/verify-email/verifyEmail.controller.ts": [
-    "lib/server/core/email/verify-email/verifyEmail.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/email/verify-email/verifyEmail.service.ts",
     "lib/server/core/email/verify-email/verifyEmail.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/email/verify-email/verifyEmail.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/email/verify-email/verifyEmail.service.ts": [
     "lib/server/core/email/verify-email/verifyEmail.types.ts",
@@ -753,7 +711,6 @@
   ],
   "lib/server/core/email/verify-email/verifyEmail.ts": [
     "lib/server/core/email/verify-email/verifyEmail.controller.ts",
-    "lib/server/core/email/verify-email/verifyEmail.schema.ts",
     "lib/server/core/email/verify-email/verifyEmail.service.ts",
     "lib/server/core/email/verify-email/verifyEmail.types.ts"
   ],
@@ -762,14 +719,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/callback-oauth/callbackOAuth.controller.ts": [
-    "lib/server/core/oauth/callback-oauth/callbackOAuth.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/oauth/callback-oauth/callbackOAuth.service.ts",
     "lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/oauth/callback-oauth/callbackOAuth.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/oauth/callback-oauth/callbackOAuth.service.ts": [
     "lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts",
@@ -784,7 +739,6 @@
   ],
   "lib/server/core/oauth/callback-oauth/callbackOAuth.ts": [
     "lib/server/core/oauth/callback-oauth/callbackOAuth.controller.ts",
-    "lib/server/core/oauth/callback-oauth/callbackOAuth.schema.ts",
     "lib/server/core/oauth/callback-oauth/callbackOAuth.service.ts",
     "lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts"
   ],
@@ -793,14 +747,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/link-social-account/linkSocialAccount.controller.ts": [
-    "lib/server/core/oauth/link-social-account/linkSocialAccount.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/oauth/link-social-account/linkSocialAccount.service.ts",
     "lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/oauth/link-social-account/linkSocialAccount.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/oauth/link-social-account/linkSocialAccount.service.ts": [
     "lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts",
@@ -815,7 +767,6 @@
   ],
   "lib/server/core/oauth/link-social-account/linkSocialAccount.ts": [
     "lib/server/core/oauth/link-social-account/linkSocialAccount.controller.ts",
-    "lib/server/core/oauth/link-social-account/linkSocialAccount.schema.ts",
     "lib/server/core/oauth/link-social-account/linkSocialAccount.service.ts",
     "lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts"
   ],
@@ -824,13 +775,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/oauth/sign-in-social/signInSocial.controller.ts": [
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/oauth/sign-in-social/signInSocial.service.ts",
     "lib/server/core/oauth/sign-in-social/signInSocial.types.ts",
-    "lib/server/server.service.ts",
+    "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/oauth/sign-in-social/signInSocial.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/oauth/sign-in-social/signInSocial.service.ts": [
     "lib/server/core/oauth/sign-in-social/signInSocial.types.ts",
@@ -845,7 +795,6 @@
   ],
   "lib/server/core/oauth/sign-in-social/signInSocial.ts": [
     "lib/server/core/oauth/sign-in-social/signInSocial.controller.ts",
-    "lib/server/core/oauth/sign-in-social/signInSocial.schema.ts",
     "lib/server/core/oauth/sign-in-social/signInSocial.service.ts",
     "lib/server/core/oauth/sign-in-social/signInSocial.types.ts"
   ],
@@ -854,14 +803,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/get-access-token/getAccessToken.controller.ts": [
-    "lib/server/core/session/get-access-token/getAccessToken.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/session/get-access-token/getAccessToken.service.ts",
     "lib/server/core/session/get-access-token/getAccessToken.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/session/get-access-token/getAccessToken.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/session/get-access-token/getAccessToken.service.ts": [
     "lib/server/core/session/get-access-token/getAccessToken.types.ts",
@@ -876,7 +823,6 @@
   ],
   "lib/server/core/session/get-access-token/getAccessToken.ts": [
     "lib/server/core/session/get-access-token/getAccessToken.controller.ts",
-    "lib/server/core/session/get-access-token/getAccessToken.schema.ts",
     "lib/server/core/session/get-access-token/getAccessToken.service.ts",
     "lib/server/core/session/get-access-token/getAccessToken.types.ts"
   ],
@@ -885,15 +831,11 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/get-session/getSession.controller.ts": [
-    "lib/server/core/session/get-session/getSession.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/session/get-session/getSession.service.ts",
     "lib/server/core/session/get-session/getSession.types.ts",
     "lib/server/core/shared/core.error.ts",
-    "lib/server/server.types.ts"
-  ],
-  "lib/server/core/session/get-session/getSession.schema.ts": [
-    "lib/server/core/shared/core.schema.ts",
-    "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/get-session/getSession.service.ts": [
@@ -908,7 +850,6 @@
   ],
   "lib/server/core/session/get-session/getSession.ts": [
     "lib/server/core/session/get-session/getSession.controller.ts",
-    "lib/server/core/session/get-session/getSession.schema.ts",
     "lib/server/core/session/get-session/getSession.service.ts",
     "lib/server/core/session/get-session/getSession.types.ts"
   ],
@@ -917,13 +858,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/list-sessions/listSessions.controller.ts": [
-    "lib/server/core/session/list-sessions/listSessions.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/session/list-sessions/listSessions.service.ts",
     "lib/server/core/session/list-sessions/listSessions.types.ts",
-    "lib/server/core/shared/core.error.ts"
-  ],
-  "lib/server/core/session/list-sessions/listSessions.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
+    "lib/server/core/shared/core.error.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/session/list-sessions/listSessions.service.ts": [
     "lib/server/core/session/list-sessions/listSessions.types.ts",
@@ -938,7 +878,6 @@
   ],
   "lib/server/core/session/list-sessions/listSessions.ts": [
     "lib/server/core/session/list-sessions/listSessions.controller.ts",
-    "lib/server/core/session/list-sessions/listSessions.schema.ts",
     "lib/server/core/session/list-sessions/listSessions.service.ts",
     "lib/server/core/session/list-sessions/listSessions.types.ts"
   ],
@@ -947,14 +886,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/refresh-token/refreshToken.controller.ts": [
-    "lib/server/core/session/refresh-token/refreshToken.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/session/refresh-token/refreshToken.service.ts",
     "lib/server/core/session/refresh-token/refreshToken.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/session/refresh-token/refreshToken.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/session/refresh-token/refreshToken.service.ts": [
     "lib/server/core/session/refresh-token/refreshToken.types.ts",
@@ -969,7 +906,6 @@
   ],
   "lib/server/core/session/refresh-token/refreshToken.ts": [
     "lib/server/core/session/refresh-token/refreshToken.controller.ts",
-    "lib/server/core/session/refresh-token/refreshToken.schema.ts",
     "lib/server/core/session/refresh-token/refreshToken.service.ts",
     "lib/server/core/session/refresh-token/refreshToken.types.ts"
   ],
@@ -978,14 +914,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.controller.ts": [
-    "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.service.ts",
     "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.service.ts": [
     "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts",
@@ -1000,7 +934,6 @@
   ],
   "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.ts": [
     "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.controller.ts",
-    "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.schema.ts",
     "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.service.ts",
     "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts"
   ],
@@ -1009,14 +942,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-session/revokeSession.controller.ts": [
-    "lib/server/core/session/revoke-session/revokeSession.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/session/revoke-session/revokeSession.service.ts",
     "lib/server/core/session/revoke-session/revokeSession.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/session/revoke-session/revokeSession.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/session/revoke-session/revokeSession.service.ts": [
     "lib/server/core/session/revoke-session/revokeSession.types.ts",
@@ -1031,7 +962,6 @@
   ],
   "lib/server/core/session/revoke-session/revokeSession.ts": [
     "lib/server/core/session/revoke-session/revokeSession.controller.ts",
-    "lib/server/core/session/revoke-session/revokeSession.schema.ts",
     "lib/server/core/session/revoke-session/revokeSession.service.ts",
     "lib/server/core/session/revoke-session/revokeSession.types.ts"
   ],
@@ -1040,14 +970,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/session/revoke-sessions/revokeSessions.controller.ts": [
-    "lib/server/core/session/revoke-sessions/revokeSessions.schema.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/session/revoke-sessions/revokeSessions.service.ts",
     "lib/server/core/session/revoke-sessions/revokeSessions.types.ts",
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/session/revoke-sessions/revokeSessions.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/session/revoke-sessions/revokeSessions.service.ts": [
     "lib/server/core/session/revoke-sessions/revokeSessions.types.ts",
@@ -1062,7 +990,6 @@
   ],
   "lib/server/core/session/revoke-sessions/revokeSessions.ts": [
     "lib/server/core/session/revoke-sessions/revokeSessions.controller.ts",
-    "lib/server/core/session/revoke-sessions/revokeSessions.schema.ts",
     "lib/server/core/session/revoke-sessions/revokeSessions.service.ts",
     "lib/server/core/session/revoke-sessions/revokeSessions.types.ts"
   ],
@@ -1073,16 +1000,13 @@
   "lib/server/core/shared/core.error.ts": [
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/shared/core.schema.ts": [],
   "lib/server/core/user/delete-user-callback/deleteUserCallback.controller.ts": [
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/shared/core.error.ts",
-    "lib/server/core/user/delete-user-callback/deleteUserCallback.schema.ts",
     "lib/server/core/user/delete-user-callback/deleteUserCallback.service.ts",
     "lib/server/core/user/delete-user-callback/deleteUserCallback.types.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/user/delete-user-callback/deleteUserCallback.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/user/delete-user-callback/deleteUserCallback.service.ts": [
     "lib/server/core/shared/core.error.ts",
@@ -1097,7 +1021,6 @@
   ],
   "lib/server/core/user/delete-user-callback/deleteUserCallback.ts": [
     "lib/server/core/user/delete-user-callback/deleteUserCallback.controller.ts",
-    "lib/server/core/user/delete-user-callback/deleteUserCallback.schema.ts",
     "lib/server/core/user/delete-user-callback/deleteUserCallback.service.ts",
     "lib/server/core/user/delete-user-callback/deleteUserCallback.types.ts"
   ],
@@ -1106,14 +1029,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/user/delete-user/deleteUser.controller.ts": [
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/shared/core.error.ts",
-    "lib/server/core/user/delete-user/deleteUser.schema.ts",
     "lib/server/core/user/delete-user/deleteUser.service.ts",
     "lib/server/core/user/delete-user/deleteUser.types.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/user/delete-user/deleteUser.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/user/delete-user/deleteUser.service.ts": [
     "lib/server/core/shared/core.error.ts",
@@ -1128,7 +1049,6 @@
   ],
   "lib/server/core/user/delete-user/deleteUser.ts": [
     "lib/server/core/user/delete-user/deleteUser.controller.ts",
-    "lib/server/core/user/delete-user/deleteUser.schema.ts",
     "lib/server/core/user/delete-user/deleteUser.service.ts",
     "lib/server/core/user/delete-user/deleteUser.types.ts"
   ],
@@ -1137,14 +1057,12 @@
     "lib/server/server.types.ts"
   ],
   "lib/server/core/user/update-user/updateUser.controller.ts": [
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
     "lib/server/core/shared/core.error.ts",
-    "lib/server/core/user/update-user/updateUser.schema.ts",
     "lib/server/core/user/update-user/updateUser.service.ts",
     "lib/server/core/user/update-user/updateUser.types.ts",
     "lib/server/server.types.ts"
-  ],
-  "lib/server/core/user/update-user/updateUser.schema.ts": [
-    "lib/server/core/shared/core.schema.ts"
   ],
   "lib/server/core/user/update-user/updateUser.service.ts": [
     "lib/server/core/shared/core.error.ts",
@@ -1159,7 +1077,6 @@
   ],
   "lib/server/core/user/update-user/updateUser.ts": [
     "lib/server/core/user/update-user/updateUser.controller.ts",
-    "lib/server/core/user/update-user/updateUser.schema.ts",
     "lib/server/core/user/update-user/updateUser.service.ts",
     "lib/server/core/user/update-user/updateUser.types.ts"
   ],

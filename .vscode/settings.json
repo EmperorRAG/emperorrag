@@ -117,6 +117,7 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.sortJSON": "always",
 		"source.organizeImports": "explicit",
+		"source.addMissingImports.ts": "explicit",
 		"source.sortImports": "always"
 	},
 	"editor.codeLensFontFamily": "Fira Code, monospace",
