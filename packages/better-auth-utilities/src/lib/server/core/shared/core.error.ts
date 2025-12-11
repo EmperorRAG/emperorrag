@@ -128,71 +128,12 @@ export const mapBetterAuthApiErrorToCoreAuthError = (error: unknown): CoreAuthSe
 	);
 
 /**
- * Input validation error source types for traceability.
- *
- * @pure
- * @description Enables tracing of where the input validation error originated in the workflow.
- */
-export type CoreInputErrorSource = 'schema_creation' | 'schema_parsing' | 'type_guard_validation' | 'field_validation';
-
-/**
- * Detailed input validation error with source tracing.
- *
- * @pure
- * @description Contains structured information about input validation failures,
- * including the source of the error, field-level details, and the original cause.
- */
-export interface CoreInputValidationDetails {
-	readonly source: CoreInputErrorSource;
-	readonly operation: string;
-	readonly fieldErrors?: ReadonlyArray<{ path: string; message: string }>;
-}
-
-/**
- * Maps input validation errors to CoreAuthServerInputError with full traceability.
- *
- * @pure
- * @description Converts various input validation error types (ZodError, type guard failures,
- * schema creation errors) into a standardized CoreAuthServerInputError with detailed
- * traceability information about where in the workflow the error occurred.
- */
-export const mapBetterAuthInputErrorToCoreAuthError = (error: unknown, source: CoreInputErrorSource, operation: string): CoreAuthServerInputError => {
-	const details: CoreInputValidationDetails = {
-		source,
-		operation,
-	};
-
-	return pipe(
-		Match.value(error),
-		Match.when(isZodError, (err) => {
-			const fieldErrors = err.issues.map((issue) => ({
-				path: issue.path.join('.'),
-				message: issue.message,
-			}));
-
-			const detailsWithFields: CoreInputValidationDetails = {
-				...details,
-				fieldErrors,
-			};
-
-			const message = formatZodErrorMessage(err, operation);
-			return new CoreAuthServerInputError(message, { zodError: err, details: detailsWithFields });
-		}),
-		Match.when(Match.instanceOf(Error), (err) => new CoreAuthServerInputError(err.message, { originalError: err, details })),
-		Match.orElse((err) => {
-			const message = `Invalid ${operation} parameters: ${source} failed`;
-			return new CoreAuthServerInputError(message, { originalError: err, details });
-		})
-	);
-};
-
-/**
  * Type guard for ZodError detection.
  *
  * @pure
  * @description Checks if an error is a ZodError by examining its structure.
  */
-const isZodError = (error: unknown): error is z.ZodError => {
+export const isZodError = (error: unknown): error is z.ZodError => {
 	return (
 		error !== null &&
 		typeof error === 'object' &&
@@ -201,23 +142,6 @@ const isZodError = (error: unknown): error is z.ZodError => {
 		'name' in error &&
 		(error as z.ZodError).name === 'ZodError'
 	);
-};
-
-/**
- * Formats ZodError into a human-readable message.
- *
- * @pure
- * @description Creates a structured error message from ZodError field-level issues.
- */
-const formatZodErrorMessage = (error: z.ZodError, operation: string): string => {
-	const fieldMessages = error.issues
-		.map((issue) => {
-			const path = issue.path.length > 0 ? issue.path.join('.') : 'input';
-			return `${path}: ${issue.message}`;
-		})
-		.join('; ');
-
-	return `Invalid ${operation} parameters: ${fieldMessages}`;
 };
 
 export const describeCoreAuthError = (error: CoreAuthServerError): AuthServerErrorDescriptor =>

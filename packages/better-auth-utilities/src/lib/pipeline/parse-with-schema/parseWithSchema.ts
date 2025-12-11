@@ -1,6 +1,9 @@
 import * as Effect from 'effect/Effect';
 import type { z } from 'zod';
-import { type CoreAuthServerInputError, mapBetterAuthInputErrorToCoreAuthError } from '../../server/core/shared/core.error';
+import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
+import { OperationCodes } from '../../enums/operationCodes.enum';
+import { type CoreAuthServerInputError } from '../../server/core/shared/core.error';
+import { mapBetterAuthInputErrorToCoreAuthError } from '../map-input-error/mapInputError';
 
 /**
  * Parses input against a Zod schema and returns an Effect.
@@ -10,7 +13,7 @@ import { type CoreAuthServerInputError, mapBetterAuthInputErrorToCoreAuthError }
  * in an Effect. Failed validation returns a properly traced CoreAuthServerInputError.
  */
 
-export const parseWithSchemaEffect = <T>(schema: z.ZodType<T>, input: unknown, operation: string): Effect.Effect<T, CoreAuthServerInputError> =>
+export const parseWithSchemaEffect = <T>(schema: z.ZodType<T>, input: unknown, endpoint: AuthServerApiEndpoints): Effect.Effect<T, CoreAuthServerInputError> =>
 	Effect.suspend(() => {
 		const result = schema.safeParse(input);
 
@@ -18,5 +21,5 @@ export const parseWithSchemaEffect = <T>(schema: z.ZodType<T>, input: unknown, o
 			return Effect.succeed(result.data);
 		}
 
-		return Effect.fail(mapBetterAuthInputErrorToCoreAuthError(result.error, 'schema_parsing', operation));
+		return Effect.fail(mapBetterAuthInputErrorToCoreAuthError(result.error, OperationCodes.schemaParsing, endpoint));
 	});

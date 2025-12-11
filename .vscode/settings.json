@@ -86,8 +86,6 @@
 		"vite",
 		"vitest"
 	],
-	"chat.agent.thinkingStyle": "collapsedPreview",
-	"chat.agentSessionsViewLocation": "view",
 	"chat.editor.fontFamily": "Fira Code, monospace",
 	"chat.edits2.enabled": true,
 	"chat.fontFamily": "Fira Code, monospace",
@@ -117,7 +115,6 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.sortJSON": "always",
 		"source.organizeImports": "explicit",
-		"source.addMissingImports.ts": "explicit",
 		"source.sortImports": "always"
 	},
 	"editor.codeLensFontFamily": "Fira Code, monospace",

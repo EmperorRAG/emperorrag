@@ -1,6 +1,6 @@
 import * as Effect from 'effect/Effect';
-import { validateInputEffect } from 'packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
+import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
 import { signInEmailServerService } from './signInEmail.service';

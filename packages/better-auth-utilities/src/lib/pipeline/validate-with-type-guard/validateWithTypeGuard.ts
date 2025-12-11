@@ -1,5 +1,8 @@
 import * as Effect from 'effect/Effect';
-import { type CoreAuthServerInputError, mapBetterAuthInputErrorToCoreAuthError } from '../../server/core/shared/core.error';
+import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
+import { OperationCodes } from '../../enums/operationCodes.enum';
+import { type CoreAuthServerInputError } from '../../server/core/shared/core.error';
+import { mapBetterAuthInputErrorToCoreAuthError } from '../map-input-error/mapInputError';
 
 /**
  * Validates input with a type guard and returns an Effect.
@@ -9,10 +12,10 @@ import { type CoreAuthServerInputError, mapBetterAuthInputErrorToCoreAuthError }
  * If the type guard fails, returns a traced CoreAuthServerInputError.
  */
 
-export const validateWithTypeGuardEffect = <T>(
+export const validateWithTypeGuardEffect = <T, AuthServerApiEndpoint extends AuthServerApiEndpoints = AuthServerApiEndpoints>(
 	data: unknown,
 	typeGuard: (value: unknown) => value is T,
-	operation: string
+	endpoint: AuthServerApiEndpoint
 ): Effect.Effect<T, CoreAuthServerInputError> =>
 	Effect.suspend(() => {
 		if (typeGuard(data)) {
@@ -20,5 +23,5 @@ export const validateWithTypeGuardEffect = <T>(
 		}
 
 		const error = new Error('Data does not conform to expected structure');
-		return Effect.fail(mapBetterAuthInputErrorToCoreAuthError(error, 'type_guard_validation', operation));
+		return Effect.fail(mapBetterAuthInputErrorToCoreAuthError(error, OperationCodes.typeGuardValidation, endpoint));
 	});
