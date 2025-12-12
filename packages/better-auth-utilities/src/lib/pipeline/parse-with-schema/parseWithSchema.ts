@@ -14,7 +14,7 @@ import { mapInputError } from '../map-input-error/mapInputError';
  * in an Effect. Failed validation returns a properly traced AuthServerInputError.
  */
 
-export const parseWithSchemaEffect = <T>(schema: z.ZodType<T>, input: unknown, endpoint: AuthServerApiEndpoints): Effect.Effect<T, AuthServerInputError> =>
+export const parseWithSchema = <T>(schema: z.ZodType<T>, input: unknown, endpoint: AuthServerApiEndpoints): Effect.Effect<T, AuthServerInputError> =>
 	Effect.suspend(() => {
 		const result = schema.safeParse(input);
 

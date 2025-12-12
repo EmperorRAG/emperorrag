@@ -13,7 +13,7 @@ import { mapInputError } from '../map-input-error/mapInputError';
  * If the type guard fails, returns a traced AuthServerInputError.
  */
 
-export const validateWithTypeGuardEffect = <T, AuthServerApiEndpoint extends AuthServerApiEndpoints = AuthServerApiEndpoints>(
+export const validateWithTypeGuard = <T, AuthServerApiEndpoint extends AuthServerApiEndpoints = AuthServerApiEndpoints>(
 	data: unknown,
 	typeGuard: (value: unknown) => value is T,
 	endpoint: AuthServerApiEndpoint
