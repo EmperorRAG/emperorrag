@@ -12,10 +12,10 @@ export const mapApiError: MapApiErrorProps = (error) =>
 		Match.tag('APIError', (err) => {
 			const apiError = err as unknown as APIError;
 			const status = typeof apiError.status === 'number' ? apiError.status : parseInt(apiError.status as string, 10) || undefined;
-			return createAuthServerApiError(apiError.message, status, apiError);
+			return createAuthServerApiError(status)(apiError)(apiError.message);
 		}),
-		Match.when(Match.instanceOf(Error), (err) => createAuthServerApiError(err.message, undefined, err)),
-		Match.orElse((err) => createAuthServerApiError('Unknown auth server error', undefined, err)),
+		Match.when(Match.instanceOf(Error), (err) => createAuthServerApiError(undefined)(err)(err.message)),
+		Match.orElse((err) => createAuthServerApiError(undefined)(err)('Unknown auth server error')),
 		(effect) => effect as Effect.Effect<AuthServerApiError>,
 		Effect.flatMap(Effect.fail)
 	);
