@@ -15,6 +15,7 @@
 		"noImplicitReturns": true,
 		"noUnusedLocals": true,
 		"skipLibCheck": true,
+		"exactOptionalPropertyTypes": true,
 		"strict": true,
 		"target": "es2022",
 		"customConditions": ["@emperorrag/source"],
