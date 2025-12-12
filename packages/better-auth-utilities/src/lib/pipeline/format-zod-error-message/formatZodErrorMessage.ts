@@ -22,5 +22,6 @@ export const formatZodErrorMessage = (error: z.ZodError) =>
 				Array.join('; ')
 			)
 		),
-		Effect.map((fieldMessages) => `Invalid parameters: ${fieldMessages}`)
+		Effect.map((fieldMessages) => `Invalid parameters: ${fieldMessages}`),
+		Effect.withSpan('formatZodErrorMessage')
 	);

@@ -13,6 +13,7 @@
 	],
 	"dependencies": {
 		"@effect/experimental": "^0.57.11",
+		"@effect/platform-node": "^0.103.0",
 		"@nestjs/axios": "^4.0.1",
 		"@nestjs/common": "^11.1.6",
 		"@nestjs/config": "^4.0.2",
