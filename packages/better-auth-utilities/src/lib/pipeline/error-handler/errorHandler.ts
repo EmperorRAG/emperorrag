@@ -6,7 +6,8 @@
 import * as Cause from 'effect/Cause';
 import * as Effect from 'effect/Effect';
 import type { AuthServerErrorDescriptor } from '../../errors/authServer.error';
-import { AuthServerApiError, describeError, type AuthServerError } from '../../errors/authServer.error';
+import { AuthServerApiError, type AuthServerError } from '../../errors/authServer.error';
+import { describeError } from '../describe-error/describeError';
 
 /**
  * Standardized server error handler pipeline.

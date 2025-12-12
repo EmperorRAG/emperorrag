@@ -3,10 +3,6 @@
  * @description Centralized server-side error types and validation utilities for core authentication operations.
  */
 
-import { APIError } from 'better-auth';
-import { pipe } from 'effect/Function';
-import * as Match from 'effect/Match';
-import { z } from 'zod';
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../server/server.types';
 
 /**
@@ -110,102 +106,6 @@ export class AuthServerSessionError extends Error {
  * @description Enables type-safe error handling using Effect-TS Match.tag() pattern.
  */
 export type AuthServerError = AuthServerDependenciesError | AuthServerInputError | AuthServerApiError | AuthServerDataMissingError | AuthServerSessionError;
-
-export const mapApiError = (error: unknown): AuthServerApiError =>
-	pipe(
-		Match.value(error),
-		Match.when(Match.instanceOf(APIError), (err) => {
-			const status = typeof err.status === 'number' ? err.status : parseInt(err.status as string, 10) || undefined;
-			return new AuthServerApiError(err.message, status, err);
-		}),
-		Match.when(Match.instanceOf(Error), (err) => new AuthServerApiError(err.message, undefined, err)),
-		Match.orElse((err) => new AuthServerApiError('Unknown auth server error', undefined, err))
-	);
-
-/**
- * Type guard for ZodError detection.
- *
- * @pure
- * @description Checks if an error is a ZodError by examining its structure.
- */
-export const isZodError = (error: unknown): error is z.ZodError => {
-	return (
-		error !== null &&
-		typeof error === 'object' &&
-		'issues' in error &&
-		Array.isArray((error as z.ZodError).issues) &&
-		'name' in error &&
-		(error as z.ZodError).name === 'ZodError'
-	);
-};
-
-export const describeError = (error: AuthServerError): AuthServerErrorDescriptor =>
-	pipe(
-		Match.value(error),
-		Match.tag('AuthServerInputError', (err) => ({
-			_tag: 'AuthServerErrorDescriptor' as const,
-			authServerErrorType: err,
-			code: 'invalid_input' as const,
-			message: err.message,
-			cause: err.cause,
-			status: 400,
-		})),
-		Match.tag('AuthServerApiError', (err) => {
-			if (err.status === 401) {
-				return {
-					_tag: 'AuthServerErrorDescriptor' as const,
-					authServerErrorType: err,
-					code: 'invalid_credentials' as const,
-					message: err.message,
-					status: 401,
-					cause: err.cause,
-				};
-			}
-			if (err.status === 409) {
-				return {
-					_tag: 'AuthServerErrorDescriptor' as const,
-					authServerErrorType: err,
-					code: 'user_already_exists' as const,
-					message: err.message,
-					status: 409,
-					cause: err.cause,
-				};
-			}
-			return {
-				_tag: 'AuthServerErrorDescriptor' as const,
-				authServerErrorType: err,
-				code: 'auth_server_error' as const,
-				message: err.message,
-				status: err.status ?? 500,
-				cause: err.cause,
-			};
-		}),
-		Match.tag('AuthServerSessionError', (err) => ({
-			_tag: 'AuthServerErrorDescriptor' as const,
-			authServerErrorType: err,
-			code: 'session_error' as const,
-			message: err.message,
-			status: 401,
-			cause: err.cause,
-		})),
-		Match.tag('AuthServerDependenciesError', (err) => ({
-			_tag: 'AuthServerErrorDescriptor' as const,
-			authServerErrorType: err,
-			code: 'dependency_error' as const,
-			message: err.message,
-			status: 500,
-			cause: err.cause,
-		})),
-		Match.tag('AuthServerDataMissingError', (err) => ({
-			_tag: 'AuthServerErrorDescriptor' as const,
-			authServerErrorType: err,
-			code: 'data_missing' as const,
-			message: err.message,
-			status: 500,
-			cause: err.cause,
-		})),
-		Match.exhaustive
-	);
 
 /**
  * Type helper to extract the error endpoint type from an AuthServer.
