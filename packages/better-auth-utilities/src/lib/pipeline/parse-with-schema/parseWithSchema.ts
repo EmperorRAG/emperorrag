@@ -14,13 +14,12 @@ import type { ParseWithSchemaProps } from './parseWithSchema.types';
  */
 
 export const parseWithSchema: ParseWithSchemaProps = <T>(schema: z.ZodType<T>, input: unknown) =>
-	Effect.gen(function* () {
-		const context = yield* PipelineContext;
+	Effect.flatMap(PipelineContext, (pipelineContext) => {
 		const result = schema.safeParse(input);
 
 		if (result.success) {
-			return yield* Effect.succeed(result.data);
+			return Effect.succeed(result.data);
 		}
 
-		return yield* mapInputError(result.error).pipe(Effect.provideService(PipelineContext, { ...context, operationCode: OperationCodes.schemaParsing }));
+		return mapInputError(result.error).pipe(Effect.provideService(PipelineContext, { ...pipelineContext, operationCode: OperationCodes.schemaParsing }));
 	});
