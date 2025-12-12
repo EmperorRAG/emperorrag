@@ -12,6 +12,6 @@ import type { CreateAuthServerInputErrorProps } from './createAuthServerInputErr
 export const createAuthServerInputError: CreateAuthServerInputErrorProps = (message, cause) =>
 	pipe(
 		Effect.succeed(message),
-		Effect.map((msg) => new AuthServerInputError(msg, cause)),
+		Effect.map((msg) => new AuthServerInputError({ message: msg, cause })),
 		Effect.withSpan('createAuthServerInputError')
 	);

@@ -33,7 +33,7 @@ export const describeError = (error: AuthServerError): AuthServerErrorDescriptor
  * Helper to create a generic 500 error descriptor for unknown errors.
  */
 export const createUnknownErrorDescriptor = (cause: unknown): AuthServerErrorDescriptor => {
-	const error = new AuthServerApiError('An unexpected error occurred', 500, cause);
+	const error = new AuthServerApiError({ message: 'An unexpected error occurred', status: 500, cause });
 	return {
 		_tag: 'AuthServerErrorDescriptor',
 		authServerErrorType: error,

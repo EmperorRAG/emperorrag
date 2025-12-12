@@ -79,7 +79,7 @@ export const listUserAccountsServerService: listUserAccountsPropsFor = (params: 
 			const result = yield* Effect.tryPromise(() => authServer.api.listUserAccounts(params)).pipe(Effect.catchAll(mapApiError));
 
 			if (result === null || result === undefined) {
-				return yield* Effect.fail(new AuthServerDataMissingError('No accounts data returned from listUserAccounts API'));
+				return yield* Effect.fail(new AuthServerDataMissingError({ message: 'No accounts data returned from listUserAccounts API' }));
 			}
 
 			return result;

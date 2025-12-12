@@ -12,6 +12,6 @@ import type { CreateAuthServerApiErrorProps } from './createAuthServerApiError.t
 export const createAuthServerApiError: CreateAuthServerApiErrorProps = (message, status, cause) =>
 	pipe(
 		Effect.succeed(message),
-		Effect.map((msg) => new AuthServerApiError(msg, status, cause)),
+		Effect.map((msg) => new AuthServerApiError({ message: msg, status, cause })),
 		Effect.withSpan('createAuthServerApiError')
 	);

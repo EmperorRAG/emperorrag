@@ -84,7 +84,7 @@ export type AuthServerApiListUserAccountsResultFor<T extends AuthServerFor = Aut
  *       try: () => authServer.api.listUserAccounts(params),
  *       catch: (error) => {
  *         const message = error instanceof Error ? error.message : 'Failed to list accounts';
- *         return new AuthServerApiError(message, undefined, error);
+ *         return new AuthServerApiError({ message, cause: error });
  *       }
  *     })
  *   );
