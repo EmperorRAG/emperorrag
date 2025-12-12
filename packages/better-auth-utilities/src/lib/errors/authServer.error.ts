@@ -1,5 +1,5 @@
 /**
- * @file libs/better-auth-utilities/src/lib/server/core/shared/core.error.ts
+ * @file libs/better-auth-utilities/src/lib/errors/authServer.error.ts
  * @description Centralized server-side error types and validation utilities for core authentication operations.
  */
 

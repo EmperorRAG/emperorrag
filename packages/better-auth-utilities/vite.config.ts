@@ -83,7 +83,7 @@ export default defineConfig(() => ({
 				'lib/client/core/session/shared/session.error': './src/lib/client/core/session/shared/session.error.ts',
 				'lib/client/core/user/shared/user.types': './src/lib/client/core/user/shared/user.types.ts',
 				'lib/client/core/user/shared/user.error': './src/lib/client/core/user/shared/user.error.ts',
-				'lib/server/core/shared/core.error': './src/lib/server/core/shared/core.error.ts',
+				'lib/errors/authServer.error': './src/lib/errors/authServer.error.ts',
 				'lib/client/core/email/change-password/changePassword': './src/lib/client/core/email/change-password/changePassword.ts',
 				'lib/server/core/email/change-password/changePassword': './src/lib/server/core/email/change-password/changePassword.ts',
 				'lib/client/core/email/request-password-reset/requestPasswordReset':

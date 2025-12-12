@@ -329,11 +329,11 @@
 			"types": "./dist/lib/server/server.constants.d.ts",
 			"default": "./dist/lib/server/server.constants.js"
 		},
-		"./server/core/error": {
-			"@emperorrag/source": "./src/lib/server/core/shared/core.error.ts",
-			"import": "./dist/lib/server/core/shared/core.error.js",
-			"types": "./dist/lib/server/core/shared/core.error.d.ts",
-			"default": "./dist/lib/server/core/shared/core.error.js"
+		"./errors/auth-server": {
+			"@emperorrag/source": "./src/lib/errors/authServer.error.ts",
+			"import": "./dist/lib/errors/authServer.error.js",
+			"types": "./dist/lib/errors/authServer.error.d.ts",
+			"default": "./dist/lib/errors/authServer.error.js"
 		},
 		"./server/email/types": {
 			"@emperorrag/source": "./src/lib/server/core/email/shared/email.types.ts",
