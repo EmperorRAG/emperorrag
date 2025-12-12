@@ -3,7 +3,7 @@ import { NodeRuntime } from '@effect/platform-node';
 import * as Effect from 'effect/Effect';
 import { pipe } from 'effect/Function';
 import { z } from 'zod';
-import { formatZodErrorMessage } from './formatZodErrorMessage';
+import { formatZodErrorMessage } from '../pipeline/format-zod-error-message/formatZodErrorMessage';
 
 // 1. Create a fake ZodError
 const schema = z.object({
