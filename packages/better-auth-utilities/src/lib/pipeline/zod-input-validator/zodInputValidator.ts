@@ -1,5 +1,6 @@
 import * as Effect from 'effect/Effect';
-import { pipe } from 'effect/Function';
+import * as Either from 'effect/Either';
+import { flow, pipe } from 'effect/Function';
 import { handleInputError } from '../handle-input-error/handleInputError';
 import { parseWithSchema } from '../parse-with-schema/parseWithSchema';
 import { validateWithTypeGuard } from '../validate-with-type-guard/validateWithTypeGuard';
@@ -20,10 +21,26 @@ import type { ZodInputValidatorProps } from './zodInputValidator.types';
 
 export const validateInputEffect: ZodInputValidatorProps = (schemaEffect, input, typeGuard) =>
 	handleInputError(
-		Effect.gen(function* () {
-			const schema = yield* schemaEffect;
-			const parsed = yield* parseWithSchema(schema, input);
-			const validated = yield* pipe(parsed, validateWithTypeGuard(typeGuard));
-			return validated;
-		})
+		pipe(
+			schemaEffect,
+			Effect.flatMap((schema) =>
+				pipe(
+					input,
+					parseWithSchema(schema),
+					Either.match({
+						onLeft: Effect.fail,
+						onRight: Effect.succeed,
+					})
+				)
+			),
+			Effect.flatMap(
+				flow(
+					validateWithTypeGuard(typeGuard),
+					Either.match({
+						onLeft: Effect.fail,
+						onRight: Effect.succeed,
+					})
+				)
+			)
+		)
 	);

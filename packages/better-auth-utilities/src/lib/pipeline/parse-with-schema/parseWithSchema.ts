@@ -10,5 +10,5 @@ import type { ParseWithSchemaProps } from './parseWithSchema.types';
  * Failed validation returns a ZodError.
  */
 
-export const parseWithSchema: ParseWithSchemaProps = (schema, input) =>
+export const parseWithSchema: ParseWithSchemaProps = (schema) => (input) =>
 	pipe(schema.safeParse(input), (result) => (result.success ? Either.right(result.data) : Either.left(result.error)));
