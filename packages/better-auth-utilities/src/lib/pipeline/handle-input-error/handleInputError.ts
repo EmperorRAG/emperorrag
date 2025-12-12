@@ -14,7 +14,7 @@ import { mapInputError } from '../map-input-error/mapInputError';
  * AuthServerInputError with 'schema_creation' source for traceability.
  */
 
-export const createSchemaEffect = <T extends z.ZodType, R = never>(
+export const handleInputError = <T extends z.ZodType, R = never>(
 	schemaEffect: Effect.Effect<T, unknown, R>,
 	endpoint: AuthServerApiEndpoints
 ): Effect.Effect<T, AuthServerInputError, R> =>

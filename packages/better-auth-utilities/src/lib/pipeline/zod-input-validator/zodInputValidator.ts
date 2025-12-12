@@ -2,7 +2,7 @@ import * as Effect from 'effect/Effect';
 import type { z } from 'zod';
 import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import { type AuthServerInputError } from '../../errors/authServer.error';
-import { createSchemaEffect } from '../handle-input-error/handleInputError';
+import { handleInputError } from '../handle-input-error/handleInputError';
 import { parseWithSchemaEffect } from '../parse-with-schema/parseWithSchema';
 import { validateWithTypeGuardEffect } from '../validate-with-type-guard/validateWithTypeGuard';
 
@@ -26,7 +26,7 @@ export const validateInputEffect = <T, R>(
 	endpoint: AuthServerApiEndpoints
 ): Effect.Effect<T, AuthServerInputError, R> =>
 	Effect.gen(function* () {
-		const schema = yield* createSchemaEffect(schemaEffect, endpoint);
+		const schema = yield* handleInputError(schemaEffect, endpoint);
 		const parsed = yield* parseWithSchemaEffect(schema, input, endpoint);
 		const validated = yield* validateWithTypeGuardEffect(parsed, typeGuard, endpoint);
 		return validated;
