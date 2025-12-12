@@ -121,6 +121,38 @@
 				"options": {
 					"command": "npx effect-language-service patch"
 				}
+			},
+			"generate-graph": {
+				"executor": "nx:run-commands",
+				"options": {
+					"command": "npx madge --extensions ts --json apps packages > dependency-graph.json && npx madge --extensions ts --image dependency-graph.svg apps packages",
+					"parallel": false
+				}
+			},
+			"generate-graph-with-only-spec-files": {
+				"executor": "nx:run-commands",
+				"options": {
+					"command": "npx madge --extensions ts --include-filter '\\.spec\\.ts$' --json apps packages > dependency-graph-with-only-spec-files.json && npx madge --extensions ts --include-filter '\\.spec\\.ts$' --image dependency-graph-with-only-spec-files.svg apps packages",
+					"parallel": false
+				}
+			},
+			"generate-graph-without-spec-files": {
+				"executor": "nx:run-commands",
+				"options": {
+					"command": "npx madge --extensions ts --exclude '\\.spec\\.ts$' --json apps packages > dependency-graph-without-spec-files.json && npx madge --extensions ts --exclude '\\.spec\\.ts$' --image dependency-graph-without-spec-files.svg apps packages",
+					"parallel": false
+				}
+			},
+			"generate-graphs": {
+				"executor": "nx:run-commands",
+				"options": {
+					"commands": [
+						"nx run @emperorrag/source:generate-graph",
+						"nx run @emperorrag/source:generate-graph-without-spec-files",
+						"nx run @emperorrag/source:generate-graph-with-only-spec-files"
+					],
+					"parallel": false
+				}
 			}
 		}
 	}
