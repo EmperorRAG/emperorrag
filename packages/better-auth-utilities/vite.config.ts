@@ -136,7 +136,7 @@ export default defineConfig(() => ({
 				'lib/server/core/user/delete-user-callback/deleteUserCallback': './src/lib/server/core/user/delete-user-callback/deleteUserCallback.ts',
 				// Pipeline modules
 				'lib/pipeline/zod-schema-builder/zodSchemaBuilder': './src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts',
-				'lib/pipeline/error-handler/errorHandler': './src/lib/pipeline/error-handler/errorHandler.ts',
+				'lib/pipeline/handle-error/handleError': './src/lib/pipeline/handle-error/handleError.ts',
 				'lib/pipeline/extract-auth-server-config/extractAuthServerConfig': './src/lib/pipeline/extract-auth-server-config/extractAuthServerConfig.ts',
 				'lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder':
 					'./src/lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.ts',
