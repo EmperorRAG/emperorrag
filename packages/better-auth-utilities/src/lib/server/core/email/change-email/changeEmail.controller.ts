@@ -27,7 +27,7 @@ import { isAuthServerApiChangeEmailParamsFor, type AuthServerApiChangeEmailParam
 export const changeEmailServerController: changeEmailPropsFor = (params: AuthServerApiChangeEmailParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		// 1) Validate params input with Effect-based validation pipeline
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiChangeEmailParamsFor);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiChangeEmailParamsFor)(params);
 
 		// 2) Call the service with the validated params
 		const result = yield* changeEmailServerService(validatedParams);

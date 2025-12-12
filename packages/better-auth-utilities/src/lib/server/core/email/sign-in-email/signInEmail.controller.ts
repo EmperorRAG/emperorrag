@@ -10,7 +10,7 @@ import { isAuthServerApiSignInEmailParamsFor, type AuthServerApiSignInEmailParam
 export const signInEmailServerController: signInEmailPropsFor = (params: AuthServerApiSignInEmailParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		// 1) Validate params input with Effect-based validation pipeline
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiSignInEmailParamsFor);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiSignInEmailParamsFor)(params);
 
 		// 2) Call the service with the validated params
 		const result = yield* signInEmailServerService(validatedParams);

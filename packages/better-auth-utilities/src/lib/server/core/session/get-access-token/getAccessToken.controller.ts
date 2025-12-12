@@ -14,7 +14,7 @@ import { isAuthServerApiGetAccessTokenParamsFor, type AuthServerApiGetAccessToke
 
 export const getAccessTokenServerController: getAccessTokenPropsFor = (params: AuthServerApiGetAccessTokenParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiGetAccessTokenParamsFor);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiGetAccessTokenParamsFor)(params);
 		return yield* getAccessTokenServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {

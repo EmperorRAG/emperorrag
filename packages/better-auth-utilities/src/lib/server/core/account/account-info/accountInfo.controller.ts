@@ -14,7 +14,7 @@ import { isAuthServerApiAccountInfoParamsFor, type AuthServerApiAccountInfoParam
 
 export const accountInfoServerController: accountInfoPropsFor = (params: AuthServerApiAccountInfoParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiAccountInfoParamsFor);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiAccountInfoParamsFor)(params);
 		return yield* accountInfoServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {

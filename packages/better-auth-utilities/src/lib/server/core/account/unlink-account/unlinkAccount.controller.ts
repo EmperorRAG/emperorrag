@@ -14,7 +14,7 @@ import { isAuthServerApiUnlinkAccountParamsFor, type AuthServerApiUnlinkAccountP
 
 export const unlinkAccountServerController: unlinkAccountPropsFor = (params: AuthServerApiUnlinkAccountParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiUnlinkAccountParamsFor);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiUnlinkAccountParamsFor)(params);
 		return yield* unlinkAccountServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {

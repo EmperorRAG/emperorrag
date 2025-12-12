@@ -58,7 +58,7 @@ export const listUserAccountsServerController = (
 	AuthServerFor
 > =>
 	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), input, isAuthServerApiListUserAccountsParamsFor);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiListUserAccountsParamsFor)(input);
 		return yield* listUserAccountsServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {

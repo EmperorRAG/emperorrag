@@ -19,7 +19,7 @@ import type { ZodInputValidatorProps } from './zodInputValidator.types';
  * enabling precise identification of where validation failed.
  */
 
-export const validateInputEffect: ZodInputValidatorProps = (schemaEffect, input, typeGuard) =>
+export const validateInputEffect: ZodInputValidatorProps = (schemaEffect) => (typeGuard) => (input) =>
 	handleInputError(
 		pipe(
 			schemaEffect,

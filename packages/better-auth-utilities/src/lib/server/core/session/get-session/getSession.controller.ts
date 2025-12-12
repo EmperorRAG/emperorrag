@@ -14,7 +14,7 @@ import { isAuthServerApiGetSessionParamsFor, type AuthServerApiGetSessionParamsF
 
 export const getSessionServerController: getSessionPropsFor = (params: AuthServerApiGetSessionParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiGetSessionParamsFor);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiGetSessionParamsFor)(params);
 		return yield* getSessionServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {

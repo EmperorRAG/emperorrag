@@ -18,7 +18,7 @@ import {
 
 export const deleteUserCallbackServerController: deleteUserCallbackPropsFor = (params: AuthServerApiDeleteUserCallbackParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiDeleteUserCallbackParamsFor);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiDeleteUserCallbackParamsFor)(params);
 		return yield* deleteUserCallbackServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {

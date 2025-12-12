@@ -27,7 +27,7 @@ import { isAuthServerApiVerifyEmailParamsFor, type AuthServerApiVerifyEmailParam
 export const verifyEmailServerController: verifyEmailPropsFor = (params: AuthServerApiVerifyEmailParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		// 1) Validate params input with Effect-based validation pipeline
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiVerifyEmailParamsFor);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiVerifyEmailParamsFor)(params);
 
 		// 2) Call the service with the validated params
 		const result = yield* verifyEmailServerService(validatedParams);

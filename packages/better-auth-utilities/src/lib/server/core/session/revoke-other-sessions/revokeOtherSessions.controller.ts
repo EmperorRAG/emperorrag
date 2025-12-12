@@ -18,7 +18,7 @@ import {
 
 export const revokeOtherSessionsServerController: revokeOtherSessionsPropsFor = (params: AuthServerApiRevokeOtherSessionsParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiRevokeOtherSessionsParamsFor);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiRevokeOtherSessionsParamsFor)(params);
 		return yield* revokeOtherSessionsServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {

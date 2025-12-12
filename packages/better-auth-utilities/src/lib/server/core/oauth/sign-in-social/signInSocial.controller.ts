@@ -55,7 +55,7 @@ import { isAuthServerApiSignInSocialParamsFor, type AuthServerApiSignInSocialPar
  */
 export const signInSocialServerController: signInSocialPropsFor = (params: AuthServerApiSignInSocialParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiSignInSocialParamsFor);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiSignInSocialParamsFor)(params);
 
 		return yield* signInSocialServerService(validatedParams);
 	}).pipe(

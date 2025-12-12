@@ -38,7 +38,7 @@ import {
  */
 export const linkSocialAccountServerController: linkSocialAccountPropsFor = (params: AuthServerApiLinkSocialAccountParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiLinkSocialAccountParamsFor);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiLinkSocialAccountParamsFor)(params);
 		return yield* linkSocialAccountServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {

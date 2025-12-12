@@ -27,7 +27,7 @@ import { isAuthServerApiSetPasswordParamsFor, type AuthServerApiSetPasswordParam
 export const setPasswordServerController: setPasswordPropsFor = (params: AuthServerApiSetPasswordParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		// 1) Validate params input with Effect-based validation pipeline
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiSetPasswordParamsFor);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiSetPasswordParamsFor)(params);
 
 		// 2) Call the service with the validated params
 		const result = yield* setPasswordServerService(validatedParams);
