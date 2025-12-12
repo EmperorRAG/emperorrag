@@ -2,10 +2,11 @@ import * as Array from 'effect/Array';
 import * as Effect from 'effect/Effect';
 import { pipe } from 'effect/Function';
 import * as Match from 'effect/Match';
+import type { z } from 'zod';
 import { PipelineContext } from '../../context/pipeline.context';
+import { AuthServerInputError } from '../../errors/authServer.error';
 import { createAuthServerInputError } from '../create-auth-server-input-error/createAuthServerInputError';
 import { formatZodErrorMessage } from '../format-zod-error-message/formatZodErrorMessage';
-import { isZodError } from '../is-zod-error/isZodError';
 import type { MapInputErrorProps } from './mapInputError.types';
 
 /**
@@ -24,18 +25,19 @@ export const mapInputError: MapInputErrorProps = (error) =>
 			return yield* Effect.dieMessage('Operation code is required in PipelineContext for mapInputError');
 		}
 
-		return yield* Match.value(error).pipe(
-			Match.when(isZodError, (err) =>
-				pipe(
-					formatZodErrorMessage(err),
+		return yield* Match.value(error as any).pipe(
+			Match.tag('ZodError', (err) => {
+				const zodError = err as unknown as z.ZodError;
+				return pipe(
+					formatZodErrorMessage(zodError),
 					Effect.flatMap((message) =>
 						createAuthServerInputError(message, {
-							zodError: err,
+							zodError: zodError,
 							details: {
 								operationCode,
 								endpoint,
 								fieldErrors: pipe(
-									err.issues,
+									zodError.issues,
 									Array.map((issue) => ({
 										path: pipe(issue.path, Array.map(String), Array.join('.')),
 										message: issue.message,
@@ -44,8 +46,8 @@ export const mapInputError: MapInputErrorProps = (error) =>
 							},
 						})
 					)
-				)
-			),
+				);
+			}),
 			Match.when(Match.instanceOf(Error), (err) =>
 				createAuthServerInputError(err.message, {
 					originalError: err,
@@ -58,6 +60,7 @@ export const mapInputError: MapInputErrorProps = (error) =>
 					details: { operationCode, endpoint },
 				})
 			),
+			(effect) => effect as Effect.Effect<AuthServerInputError>,
 			Effect.flatMap(Effect.fail)
 		);
 	});

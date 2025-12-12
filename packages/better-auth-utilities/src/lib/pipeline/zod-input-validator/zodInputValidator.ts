@@ -1,9 +1,6 @@
 import * as Effect from 'effect/Effect';
 import type { z } from 'zod';
-import { PipelineContext } from '../../context/pipeline.context';
-import { OperationCodes } from '../../enums/operationCodes.enum';
 import { handleInputError } from '../handle-input-error/handleInputError';
-import { mapInputError } from '../map-input-error/mapInputError';
 import { parseWithSchema } from '../parse-with-schema/parseWithSchema';
 import { validateWithTypeGuard } from '../validate-with-type-guard/validateWithTypeGuard';
 import type { ZodInputValidatorProps } from './zodInputValidator.types';
@@ -26,15 +23,11 @@ export const validateInputEffect: ZodInputValidatorProps = <T, R>(
 	input: unknown,
 	typeGuard: (value: unknown) => value is T
 ) =>
-	Effect.gen(function* () {
-		const schema = yield* handleInputError(schemaEffect);
-		const parsed = yield* parseWithSchema(schema, input).pipe(
-			Effect.catchAll((zodError) =>
-				Effect.flatMap(PipelineContext, (ctx) =>
-					mapInputError(zodError).pipe(Effect.provideService(PipelineContext, { ...ctx, operationCode: OperationCodes.SchemaParsing() }))
-				)
-			)
-		);
-		const validated = yield* validateWithTypeGuard(parsed, typeGuard);
-		return validated;
-	});
+	handleInputError(
+		Effect.gen(function* () {
+			const schema = yield* schemaEffect;
+			const parsed = yield* parseWithSchema(schema, input);
+			const validated = yield* validateWithTypeGuard(parsed, typeGuard);
+			return validated;
+		})
+	);
