@@ -24,9 +24,9 @@ import { isAuthServerApiChangeEmailParamsFor, type AuthServerApiChangeEmailParam
  * @returns Effect that resolves to change email result or fails with validation/API error
  */
 export const changeEmailServerController: changeEmailPropsFor = (params: AuthServerApiChangeEmailParamsFor<AuthServerFor>) =>
-	Effect.gen(function* (_) {
+	Effect.gen(function* () {
 		// 1) Validate params input with Effect-based validation pipeline
-		const validatedParams = yield* _(
+		const validatedParams = yield* (
 			validateInputEffect(
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.changeEmail),
 				params,
@@ -36,7 +36,7 @@ export const changeEmailServerController: changeEmailPropsFor = (params: AuthSer
 		);
 
 		// 2) Call the service with the validated params
-		const result = yield* _(changeEmailServerService(validatedParams));
+		const result = yield* (changeEmailServerService(validatedParams));
 
 		// 3) Return the success value of the whole controller Effect
 		return result;

@@ -49,8 +49,8 @@ import { isAuthServerApiForgetPasswordParamsFor, type AuthServerApiForgetPasswor
  * ```
  */
 export const forgetPasswordServerController: forgetPasswordPropsFor = (params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>) =>
-	Effect.gen(function* (_) {
-		const validatedParams = yield* _(
+	Effect.gen(function* () {
+		const validatedParams = yield* (
 			validateInputEffect(
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.forgetPassword),
 				params,
@@ -58,5 +58,5 @@ export const forgetPasswordServerController: forgetPasswordPropsFor = (params: A
 				AuthServerApiEndpoints.forgetPassword
 			)
 		);
-		return yield* _(forgetPasswordServerService(validatedParams));
+		return yield* (forgetPasswordServerService(validatedParams));
 	});

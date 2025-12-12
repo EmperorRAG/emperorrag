@@ -32,9 +32,9 @@ import { isAuthServerApiResetPasswordParamsFor, type AuthServerApiResetPasswordP
  * @returns Effect requiring AuthServerFor context
  */
 export const resetPasswordServerController: resetPasswordPropsFor = (params: AuthServerApiResetPasswordParamsFor<AuthServerFor>) =>
-	Effect.gen(function* (_) {
+	Effect.gen(function* () {
 		// 1) Validate params input with Effect-based validation pipeline
-		const validatedParams = yield* _(
+		const validatedParams = yield* (
 			validateInputEffect(
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.resetPassword),
 				params,
@@ -44,7 +44,7 @@ export const resetPasswordServerController: resetPasswordPropsFor = (params: Aut
 		);
 
 		// 2) Call the service with the validated params
-		const result = yield* _(resetPasswordServerService(validatedParams));
+		const result = yield* (resetPasswordServerService(validatedParams));
 
 		// 3) Return the success value of the whole controller Effect
 		return result;

@@ -53,8 +53,8 @@ import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from '.
  * @example
  * ```typescript
  * // Using with Effect.gen for composition
- * const program = Effect.gen(function* (_) {
- *   const result = yield* _(signInSocialServerService({
+ * const program = Effect.gen(function* () {
+ *   const result = yield* (signInSocialServerService({
  *     body: {
  *       provider: 'github',
  *       callbackURL: '/dashboard'
@@ -73,8 +73,8 @@ import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from '.
  * @example
  * ```typescript
  * // Error handling
- * const program = Effect.gen(function* (_) {
- *   const result = yield* _(
+ * const program = Effect.gen(function* () {
+ *   const result = yield* (
  *     signInSocialServerService({
  *       body: { provider: 'google' },
  *       headers: request.headers

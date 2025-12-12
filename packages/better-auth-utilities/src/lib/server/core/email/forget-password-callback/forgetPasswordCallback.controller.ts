@@ -16,20 +16,15 @@ import {
 } from './forgetPasswordCallback.types';
 
 export const forgetPasswordCallbackServerController: forgetPasswordCallbackPropsFor = (params: AuthServerApiForgetPasswordCallbackParamsFor<AuthServerFor>) =>
-	Effect.gen(function* (_) {
+	Effect.gen(function* () {
 		// 1) Validate params input with Effect-based validation pipeline
-		const validatedParams = yield* _(
-			validateInputEffect(
-				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.forgetPasswordCallback),
-				params,
-				isAuthServerApiForgetPasswordCallbackParamsFor,
-				AuthServerApiEndpoints.forgetPasswordCallback
-			)
+		const validatedParams = yield* validateInputEffect(
+			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.forgetPasswordCallback),
+			params,
+			isAuthServerApiForgetPasswordCallbackParamsFor,
+			AuthServerApiEndpoints.forgetPasswordCallback
 		);
 
 		// 2) Call the service with the validated params
-		const result = yield* _(forgetPasswordCallbackServerService(validatedParams));
-
-		// 3) Return the success value of the whole controller Effect
-		return result;
+		return yield* forgetPasswordCallbackServerService(validatedParams);
 	});

@@ -45,8 +45,8 @@ import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor }
  * @example
  * ```typescript
  * // Using with Effect.gen for composition
- * const program = Effect.gen(function* (_) {
- *   const accounts = yield* _(listUserAccountsServerService({
+ * const program = Effect.gen(function* () {
+ *   const accounts = yield* (listUserAccountsServerService({
  *     headers: request.headers
  *   }));
 ```
@@ -60,8 +60,8 @@ import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor }
  * @example
  * ```typescript
  * // Error handling
- * const program = Effect.gen(function* (_) {
- *   const accounts = yield* _(
+ * const program = Effect.gen(function* () {
+ *   const accounts = yield* (
  *     listUserAccountsServerService({ headers: request.headers }).pipe(
  *       Effect.catchTag('AuthServerApiError', (e) =>
  *         Effect.fail(new Error('Failed to fetch accounts'))
@@ -74,16 +74,14 @@ import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor }
  */
 export const listUserAccountsServerService: listUserAccountsPropsFor = (params: AuthServerApiListUserAccountsParamsFor<AuthServerFor>) =>
 	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.gen(function* (_) {
-			const result = yield* _(
-				Effect.tryPromise({
-					try: () => authServer.api.listUserAccounts(params),
-					catch: mapApiError,
-				})
-			);
+		Effect.gen(function* () {
+			const result = yield* Effect.tryPromise({
+				try: () => authServer.api.listUserAccounts(params),
+				catch: mapApiError,
+			});
 
 			if (result === null || result === undefined) {
-				yield* _(Effect.fail(new AuthServerDataMissingError('No accounts data returned from listUserAccounts API')));
+				return yield* Effect.fail(new AuthServerDataMissingError('No accounts data returned from listUserAccounts API'));
 			}
 
 			return result;

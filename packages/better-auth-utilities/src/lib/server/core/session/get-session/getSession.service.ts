@@ -49,8 +49,8 @@ import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from './get
  * @example
  * ```typescript
  * // Using with Effect.gen for composition
- * const program = Effect.gen(function* (_) {
- *   const session = yield* _(getSessionServerService({
+ * const program = Effect.gen(function* () {
+ *   const session = yield* (getSessionServerService({
  *     headers: request.headers
  *   }));
  *
@@ -69,8 +69,8 @@ import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from './get
  * @example
  * ```typescript
  * // Error handling
- * const program = Effect.gen(function* (_) {
- *   const session = yield* _(
+ * const program = Effect.gen(function* () {
+ *   const session = yield* (
  *     getSessionServerService({ headers: request.headers }).pipe(
  *       Effect.catchTag('AuthServerApiError', (e) => {
  *         console.error('Session API error:', e.message);

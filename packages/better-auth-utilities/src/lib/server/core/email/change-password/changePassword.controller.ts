@@ -53,8 +53,8 @@ import { isAuthServerApiChangePasswordParamsFor, type AuthServerApiChangePasswor
  * ```
  */
 export const changePasswordServerController: changePasswordPropsFor = (params: AuthServerApiChangePasswordParamsFor<AuthServerFor>) =>
-	Effect.gen(function* (_) {
-		const validatedParams = yield* _(
+	Effect.gen(function* () {
+		const validatedParams = yield* (
 			validateInputEffect(
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.changePassword),
 				params,
@@ -63,5 +63,5 @@ export const changePasswordServerController: changePasswordPropsFor = (params: A
 			)
 		);
 
-		return yield* _(changePasswordServerService(validatedParams));
+		return yield* (changePasswordServerService(validatedParams));
 	});

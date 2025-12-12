@@ -7,9 +7,9 @@ import { signOutServerService } from './signOut.service';
 import { isAuthServerApiSignOutParamsFor, type AuthServerApiSignOutParamsFor, type signOutPropsFor } from './signOut.types';
 
 export const signOutServerController: signOutPropsFor = (params: AuthServerApiSignOutParamsFor<AuthServerFor>) =>
-	Effect.gen(function* (_) {
+	Effect.gen(function* () {
 		// 1) Validate params input with Effect-based validation pipeline
-		const validatedParams = yield* _(
+		const validatedParams = yield* (
 			validateInputEffect(
 				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.signOut),
 				params,
@@ -19,7 +19,7 @@ export const signOutServerController: signOutPropsFor = (params: AuthServerApiSi
 		);
 
 		// 2) Call the service with the validated params
-		const result = yield* _(signOutServerService(validatedParams));
+		const result = yield* (signOutServerService(validatedParams));
 
 		// 3) Return the success value of the whole controller Effect
 		return result;

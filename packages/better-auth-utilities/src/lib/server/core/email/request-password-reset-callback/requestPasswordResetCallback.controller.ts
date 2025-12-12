@@ -18,20 +18,15 @@ import {
 export const requestPasswordResetCallbackServerController: requestPasswordResetCallbackPropsFor = (
 	params: AuthServerApiRequestPasswordResetCallbackParamsFor<AuthServerFor>
 ) =>
-	Effect.gen(function* (_) {
+	Effect.gen(function* () {
 		// 1) Validate params input with Effect-based validation pipeline
-		const validatedParams = yield* _(
-			validateInputEffect(
-				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.requestPasswordResetCallback),
-				params,
-				isAuthServerApiRequestPasswordResetCallbackParamsFor,
-				AuthServerApiEndpoints.requestPasswordResetCallback
-			)
+		const validatedParams = yield* validateInputEffect(
+			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.requestPasswordResetCallback),
+			params,
+			isAuthServerApiRequestPasswordResetCallbackParamsFor,
+			AuthServerApiEndpoints.requestPasswordResetCallback
 		);
 
 		// 2) Call the service with the validated params
-		const result = yield* _(requestPasswordResetCallbackServerService(validatedParams));
-
-		// 3) Return the success value of the whole controller Effect
-		return result;
+		return yield* requestPasswordResetCallbackServerService(validatedParams);
 	});
