@@ -24,7 +24,7 @@ import type { WithServerErrorHandlerProps as HandleErrorProps } from './handleEr
  * @param effect - The effect to wrap with error handling.
  * @returns An effect that fails with a standardized AuthServerErrorDescriptor.
  */
-export const handleError: HandleErrorProps = <A, E, R>(effect: Effect.Effect<A, E, R>) => {
+export const handleError: HandleErrorProps = (effect) => {
 	return effect.pipe(
 		Effect.catchAllCause((cause) => {
 			// If it's a failure (expected error E)
