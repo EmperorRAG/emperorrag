@@ -280,35 +280,39 @@ export const withAdditionalFields =
  * @returns An Effect that resolves to the Zod schema.
  */
 export const createAuthServerApiEndpointParamsSchema: CreateAuthServerApiEndpointParamsSchemaProps = () =>
-	Effect.gen(function* () {
-		const { endpoint } = yield* PipelineContext;
-		const bodySchema = yield* authServerApiEndpointBodyZodSchemaBuilder();
-
-		const config = Match.value(endpoint).pipe(
-			Match.tag('VerifyEmail', () => ({ headers: 'optional' as const, query: tokenQuerySchema })),
-			Match.tag('SignInEmail', () => ({ headers: 'optional' as const })),
-			Match.tag('SignUpEmail', () => ({ headers: 'optional' as const })),
-			Match.tag('SignInSocial', () => ({ headers: 'optional' as const })),
-			Match.tag('ForgetPassword', () => ({ headers: 'optional' as const })),
-			Match.tag('ResetPassword', () => ({ headers: 'optional' as const })),
-			Match.tag('CallbackOAuth', () => ({ headers: 'optional' as const })),
-			Match.tag('RequestPasswordReset', () => ({ headers: 'optional' as const })),
-			Match.orElse(() => ({ headers: 'required' as const }))
-		);
-
-		let schema = createBaseSchema();
-
-		schema = pipe(schema, withBody(bodySchema));
-
-		if ('query' in config && config.query) {
-			schema = pipe(schema, withQuery(config.query));
-		}
-
-		if (config.headers === 'required') {
-			schema = pipe(schema, withRequiredHeaders());
-		} else {
-			schema = pipe(schema, withOptionalHeaders());
-		}
-
-		return schema;
-	});
+	pipe(
+		Effect.all([PipelineContext, authServerApiEndpointBodyZodSchemaBuilder()]),
+		Effect.map(([{ endpoint }, bodySchema]) =>
+			pipe(
+				Match.value(endpoint).pipe(
+					Match.tag('VerifyEmail', () => ({ headers: 'optional' as const, query: tokenQuerySchema })),
+					Match.tag('SignInEmail', () => ({ headers: 'optional' as const })),
+					Match.tag('SignUpEmail', () => ({ headers: 'optional' as const })),
+					Match.tag('SignInSocial', () => ({ headers: 'optional' as const })),
+					Match.tag('ForgetPassword', () => ({ headers: 'optional' as const })),
+					Match.tag('ResetPassword', () => ({ headers: 'optional' as const })),
+					Match.tag('CallbackOAuth', () => ({ headers: 'optional' as const })),
+					Match.tag('RequestPasswordReset', () => ({ headers: 'optional' as const })),
+					Match.orElse(() => ({ headers: 'required' as const }))
+				),
+				(config) =>
+					pipe(
+						createBaseSchema(),
+						withBody(bodySchema),
+						(schema) =>
+							Match.value(config).pipe(
+								Match.when(
+									(c): c is { query: z.ZodTypeAny } & typeof c => 'query' in c && c.query !== undefined,
+									(c) => pipe(schema, withQuery(c.query))
+								),
+								Match.orElse(() => schema)
+							),
+						(schema) =>
+							Match.value(config.headers).pipe(
+								Match.when('required', () => pipe(schema, withRequiredHeaders())),
+								Match.orElse(() => pipe(schema, withOptionalHeaders()))
+							)
+					)
+			)
+		)
+	);
