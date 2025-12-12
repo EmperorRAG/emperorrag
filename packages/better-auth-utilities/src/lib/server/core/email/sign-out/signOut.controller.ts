@@ -19,6 +19,6 @@ export const signOutServerController: signOutPropsFor = (params: AuthServerApiSi
 		return result;
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.signOut,
+			endpoint: AuthServerApiEndpoints.SignOut(),
 		})
 	);

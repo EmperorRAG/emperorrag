@@ -44,6 +44,6 @@ export const resetPasswordServerController: resetPasswordPropsFor = (params: Aut
 		return result;
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.resetPassword,
+			endpoint: AuthServerApiEndpoints.ResetPassword(),
 		})
 	);

@@ -18,6 +18,6 @@ export const getAccessTokenServerController: getAccessTokenPropsFor = (params: A
 		return yield* getAccessTokenServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.getAccessToken,
+			endpoint: AuthServerApiEndpoints.GetAccessToken(),
 		})
 	);

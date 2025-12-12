@@ -62,6 +62,6 @@ export const listUserAccountsServerController = (
 		return yield* listUserAccountsServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.listUserAccounts,
+			endpoint: AuthServerApiEndpoints.ListUserAccounts(),
 		})
 	);

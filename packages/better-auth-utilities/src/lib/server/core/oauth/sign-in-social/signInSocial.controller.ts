@@ -60,6 +60,6 @@ export const signInSocialServerController: signInSocialPropsFor = (params: AuthS
 		return yield* signInSocialServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.signInSocial,
+			endpoint: AuthServerApiEndpoints.SignInSocial(),
 		})
 	);

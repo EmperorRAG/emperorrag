@@ -17,6 +17,6 @@ export const handleInputError: HandleInputErrorProps = <T extends z.ZodType, R =
 	Effect.gen(function* () {
 		const context = yield* PipelineContext;
 		return yield* Effect.catchAll(schemaEffect, (error) =>
-			mapInputError(error).pipe(Effect.provideService(PipelineContext, { ...context, operationCode: OperationCodes.schemaCreation }))
+			mapInputError(error).pipe(Effect.provideService(PipelineContext, { ...context, operationCode: OperationCodes.SchemaCreation() }))
 		);
 	});

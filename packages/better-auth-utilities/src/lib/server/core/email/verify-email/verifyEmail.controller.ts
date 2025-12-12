@@ -36,6 +36,6 @@ export const verifyEmailServerController: verifyEmailPropsFor = (params: AuthSer
 		return result;
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.verifyEmail,
+			endpoint: AuthServerApiEndpoints.VerifyEmail(),
 		})
 	);

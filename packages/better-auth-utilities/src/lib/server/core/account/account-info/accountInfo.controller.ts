@@ -18,6 +18,6 @@ export const accountInfoServerController: accountInfoPropsFor = (params: AuthSer
 		return yield* accountInfoServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.accountInfo,
+			endpoint: AuthServerApiEndpoints.AccountInfo(),
 		})
 	);

@@ -18,6 +18,6 @@ export const getSessionServerController: getSessionPropsFor = (params: AuthServe
 		return yield* getSessionServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.getSession,
+			endpoint: AuthServerApiEndpoints.GetSession(),
 		})
 	);

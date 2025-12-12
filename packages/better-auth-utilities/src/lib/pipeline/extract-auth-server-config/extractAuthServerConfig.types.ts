@@ -20,15 +20,15 @@ export type AuthServerConfigScope = AuthServerConfigKey | 'all' | AuthServerApiE
 /**
  * Mapping from AuthServerApiEndpoints to AuthServerConfigKey.
  */
-export type EndpointToConfigKey<K> = K extends AuthServerApiEndpoints.signInEmail
+export type EndpointToConfigKey<K> = K extends { _tag: 'SignInEmail' }
 	? 'emailAndPassword'
-	: K extends AuthServerApiEndpoints.signUpEmail
+	: K extends { _tag: 'SignUpEmail' }
 		? 'emailAndPassword'
-		: K extends AuthServerApiEndpoints.changePassword
+		: K extends { _tag: 'ChangePassword' }
 			? 'emailAndPassword'
-			: K extends AuthServerApiEndpoints.resetPassword
+			: K extends { _tag: 'ResetPassword' }
 				? 'emailAndPassword'
-				: K extends AuthServerApiEndpoints.setPassword
+				: K extends { _tag: 'SetPassword' }
 					? 'emailAndPassword'
 					: never;
 

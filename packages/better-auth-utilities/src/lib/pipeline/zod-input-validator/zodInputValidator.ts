@@ -31,7 +31,7 @@ export const validateInputEffect: ZodInputValidatorProps = <T, R>(
 		const parsed = yield* parseWithSchema(schema, input).pipe(
 			Effect.catchAll((zodError) =>
 				Effect.flatMap(PipelineContext, (ctx) =>
-					mapInputError(zodError).pipe(Effect.provideService(PipelineContext, { ...ctx, operationCode: OperationCodes.schemaParsing }))
+					mapInputError(zodError).pipe(Effect.provideService(PipelineContext, { ...ctx, operationCode: OperationCodes.SchemaParsing() }))
 				)
 			)
 		);

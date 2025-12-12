@@ -60,6 +60,6 @@ export const changePasswordServerController: changePasswordPropsFor = (params: A
 		return yield* changePasswordServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.changePassword,
+			endpoint: AuthServerApiEndpoints.ChangePassword(),
 		})
 	);

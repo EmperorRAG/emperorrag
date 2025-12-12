@@ -28,6 +28,6 @@ export const requestPasswordResetServerController: requestPasswordResetPropsFor 
 		return result;
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.requestPasswordReset,
+			endpoint: AuthServerApiEndpoints.RequestPasswordReset(),
 		})
 	);

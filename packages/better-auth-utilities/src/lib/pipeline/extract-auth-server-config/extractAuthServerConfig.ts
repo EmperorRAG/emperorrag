@@ -1,8 +1,7 @@
 import * as Effect from 'effect/Effect';
 import { AuthServerTag } from '../../server/server.service';
 import type { AuthServerFor } from '../../server/server.types';
-import type { AuthServerConfigScope, ExtractedAuthServerConfig, AuthServerConfig } from './extractAuthServerConfig.types';
-import { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
+import type { AuthServerConfig, AuthServerConfigScope, ExtractedAuthServerConfig } from './extractAuthServerConfig.types';
 
 /**
  * Extracts configuration from the AuthServer instance based on the provided scope.
@@ -32,17 +31,25 @@ export const extractAuthServerConfig = <K extends AuthServerConfigScope>(scope: 
 			return options as unknown as ExtractedAuthServerConfig<K>;
 		}
 
-		const endpointToConfigKey: Partial<Record<AuthServerApiEndpoints, keyof AuthServerConfig>> = {
-			[AuthServerApiEndpoints.signInEmail]: 'emailAndPassword',
-			[AuthServerApiEndpoints.signUpEmail]: 'emailAndPassword',
-			[AuthServerApiEndpoints.changePassword]: 'emailAndPassword',
-			[AuthServerApiEndpoints.resetPassword]: 'emailAndPassword',
-			[AuthServerApiEndpoints.setPassword]: 'emailAndPassword',
+		const getMappedKey = (s: unknown): keyof AuthServerConfig | undefined => {
+			if (typeof s !== 'object' || s === null || !('_tag' in s)) {
+				return undefined;
+			}
+			const tag = (s as any)._tag;
+			switch (tag) {
+				case 'SignInEmail':
+				case 'SignUpEmail':
+				case 'ChangePassword':
+				case 'ResetPassword':
+				case 'SetPassword':
+					return 'emailAndPassword';
+				default:
+					return undefined;
+			}
 		};
 
 		// Check if the scope is an endpoint that maps to a config key
-		// We need to cast scope to check if it's a key in the map
-		const mappedKey = endpointToConfigKey[scope as AuthServerApiEndpoints];
+		const mappedKey = getMappedKey(scope);
 
 		if (mappedKey) {
 			const extracted = { [mappedKey]: options[mappedKey] };

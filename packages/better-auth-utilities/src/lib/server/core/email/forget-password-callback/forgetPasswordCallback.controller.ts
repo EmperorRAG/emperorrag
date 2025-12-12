@@ -25,6 +25,6 @@ export const forgetPasswordCallbackServerController: forgetPasswordCallbackProps
 		return yield* forgetPasswordCallbackServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.forgetPasswordCallback,
+			endpoint: AuthServerApiEndpoints.ForgetPasswordCallback(),
 		})
 	);

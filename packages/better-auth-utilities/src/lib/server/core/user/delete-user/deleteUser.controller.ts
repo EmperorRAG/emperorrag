@@ -18,6 +18,6 @@ export const deleteUserServerController: deleteUserPropsFor = (params: AuthServe
 		return yield* deleteUserServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.deleteUser,
+			endpoint: AuthServerApiEndpoints.DeleteUser(),
 		})
 	);

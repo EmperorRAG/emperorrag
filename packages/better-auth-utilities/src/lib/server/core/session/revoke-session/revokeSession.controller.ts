@@ -18,6 +18,6 @@ export const revokeSessionServerController: revokeSessionPropsFor = (params: Aut
 		return yield* revokeSessionServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.revokeSession,
+			endpoint: AuthServerApiEndpoints.RevokeSession(),
 		})
 	);

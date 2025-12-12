@@ -66,6 +66,6 @@ export const sendVerificationEmailServerController: sendVerificationEmailPropsFo
 		return result;
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.sendVerificationEmail,
+			endpoint: AuthServerApiEndpoints.SendVerificationEmail(),
 		})
 	);

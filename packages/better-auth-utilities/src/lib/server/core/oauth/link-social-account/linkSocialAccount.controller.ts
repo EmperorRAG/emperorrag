@@ -42,6 +42,6 @@ export const linkSocialAccountServerController: linkSocialAccountPropsFor = (par
 		return yield* linkSocialAccountServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.linkSocialAccount,
+			endpoint: AuthServerApiEndpoints.LinkSocialAccount(),
 		})
 	);

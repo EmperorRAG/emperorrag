@@ -53,7 +53,7 @@ export const mapInputError: MapInputErrorProps = (error) =>
 				})
 			),
 			Match.orElse((err) =>
-				createAuthServerInputError(`Invalid ${endpoint} parameters: ${operationCode} failed`, {
+				createAuthServerInputError(`Invalid ${endpoint} parameters: ${operationCode._tag} failed`, {
 					originalError: err,
 					details: { operationCode, endpoint },
 				})

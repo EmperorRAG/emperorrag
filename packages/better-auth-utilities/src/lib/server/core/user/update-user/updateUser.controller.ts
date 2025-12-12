@@ -18,6 +18,6 @@ export const updateUserServerController: updateUserPropsFor = (params: AuthServe
 		return yield* updateUserServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.updateUser,
+			endpoint: AuthServerApiEndpoints.UpdateUser(),
 		})
 	);

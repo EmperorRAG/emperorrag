@@ -2,7 +2,6 @@ import * as Effect from 'effect/Effect';
 import * as Match from 'effect/Match';
 import { z } from 'zod';
 import { PipelineContext } from '../../context/pipeline.context';
-import { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import { extractAuthServerConfig } from '../extract-auth-server-config/extractAuthServerConfig';
 import type { AuthServerApiEndpointBodyZodSchemaBuilderProps } from './authServerApiEndpointBodyZodSchemaBuilder.types';
 
@@ -375,10 +374,10 @@ export const sessionTokenBodySchema = z.object({
 export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBodyZodSchemaBuilderProps = () =>
 	Effect.gen(function* () {
 		const { endpoint } = yield* PipelineContext;
-		const matcher = Match.value(endpoint as AuthServerApiEndpoints);
+		const matcher = Match.value(endpoint);
 
 		const group1 = matcher.pipe(
-			Match.when(AuthServerApiEndpoints.signInEmail, () =>
+			Match.tag('SignInEmail', () =>
 				Effect.gen(function* () {
 					const config = yield* extractAuthServerConfig('emailAndPassword');
 					const options = config?.emailAndPassword;
@@ -390,7 +389,7 @@ export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBod
 					});
 				})
 			),
-			Match.when(AuthServerApiEndpoints.signUpEmail, () =>
+			Match.tag('SignUpEmail', () =>
 				Effect.gen(function* () {
 					const config = yield* extractAuthServerConfig('emailAndPassword');
 					const options = config?.emailAndPassword;
@@ -404,7 +403,7 @@ export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBod
 					});
 				})
 			),
-			Match.when(AuthServerApiEndpoints.signInSocial, () =>
+			Match.tag('SignInSocial', () =>
 				Effect.succeed(
 					z.object({
 						provider: providerRequiredSchema,
@@ -412,9 +411,9 @@ export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBod
 					})
 				)
 			),
-			Match.when(AuthServerApiEndpoints.signOut, () => Effect.succeed(z.object({}))),
-			Match.when(AuthServerApiEndpoints.getSession, () => Effect.succeed(z.object({}))),
-			Match.when(AuthServerApiEndpoints.updateUser, () =>
+			Match.tag('SignOut', () => Effect.succeed(z.object({}))),
+			Match.tag('GetSession', () => Effect.succeed(z.object({}))),
+			Match.tag('UpdateUser', () =>
 				Effect.succeed(
 					z.object({
 						name: nameOptionalSchema,
@@ -424,8 +423,8 @@ export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBod
 					})
 				)
 			),
-			Match.when(AuthServerApiEndpoints.sendVerificationEmail, () => Effect.succeed(emailWithCallbackBodySchema)),
-			Match.when(AuthServerApiEndpoints.changePassword, () =>
+			Match.tag('SendVerificationEmail', () => Effect.succeed(emailWithCallbackBodySchema)),
+			Match.tag('ChangePassword', () =>
 				Effect.gen(function* () {
 					const config = yield* extractAuthServerConfig('emailAndPassword');
 					const options = config?.emailAndPassword;
@@ -438,8 +437,8 @@ export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBod
 					});
 				})
 			),
-			Match.when(AuthServerApiEndpoints.forgetPassword, () => Effect.succeed(emailWithRedirectBodySchema)),
-			Match.when(AuthServerApiEndpoints.resetPassword, () =>
+			Match.tag('ForgetPassword', () => Effect.succeed(emailWithRedirectBodySchema)),
+			Match.tag('ResetPassword', () =>
 				Effect.gen(function* () {
 					const config = yield* extractAuthServerConfig('emailAndPassword');
 					const options = config?.emailAndPassword;
@@ -454,12 +453,12 @@ export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBod
 		);
 
 		const group2 = group1.pipe(
-			Match.when(AuthServerApiEndpoints.listUserAccounts, () => Effect.succeed(z.object({}))),
-			Match.when(AuthServerApiEndpoints.unlinkAccount, () => Effect.succeed(providerIdBodySchema)),
-			Match.when(AuthServerApiEndpoints.callbackOAuth, () => Effect.succeed(z.object({}))),
-			Match.when(AuthServerApiEndpoints.verifyEmail, () => Effect.succeed(z.object({}))),
-			Match.when(AuthServerApiEndpoints.changeEmail, () => Effect.succeed(newEmailBodySchema)),
-			Match.when(AuthServerApiEndpoints.setPassword, () =>
+			Match.tag('ListUserAccounts', () => Effect.succeed(z.object({}))),
+			Match.tag('UnlinkAccount', () => Effect.succeed(providerIdBodySchema)),
+			Match.tag('CallbackOAuth', () => Effect.succeed(z.object({}))),
+			Match.tag('VerifyEmail', () => Effect.succeed(z.object({}))),
+			Match.tag('ChangeEmail', () => Effect.succeed(newEmailBodySchema)),
+			Match.tag('SetPassword', () =>
 				Effect.gen(function* () {
 					const config = yield* extractAuthServerConfig('emailAndPassword');
 					const options = config?.emailAndPassword;
@@ -471,24 +470,24 @@ export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBod
 					});
 				})
 			),
-			Match.when(AuthServerApiEndpoints.deleteUser, () => Effect.succeed(z.object({}))),
-			Match.when(AuthServerApiEndpoints.deleteUserCallback, () => Effect.succeed(z.object({}))),
-			Match.when(AuthServerApiEndpoints.forgetPasswordCallback, () => Effect.succeed(z.object({}))),
-			Match.when(AuthServerApiEndpoints.requestPasswordReset, () => Effect.succeed(emailWithRedirectBodySchema)),
-			Match.when(AuthServerApiEndpoints.requestPasswordResetCallback, () => Effect.succeed(z.object({})))
+			Match.tag('DeleteUser', () => Effect.succeed(z.object({}))),
+			Match.tag('DeleteUserCallback', () => Effect.succeed(z.object({}))),
+			Match.tag('ForgetPasswordCallback', () => Effect.succeed(z.object({}))),
+			Match.tag('RequestPasswordReset', () => Effect.succeed(emailWithRedirectBodySchema)),
+			Match.tag('RequestPasswordResetCallback', () => Effect.succeed(z.object({})))
 		);
 
 		return yield* group2.pipe(
-			Match.when(AuthServerApiEndpoints.listSessions, () => Effect.succeed(z.object({}))),
-			Match.when(AuthServerApiEndpoints.revokeSession, () => Effect.succeed(sessionTokenBodySchema)),
-			Match.when(AuthServerApiEndpoints.revokeSessions, () => Effect.succeed(z.object({}))),
-			Match.when(AuthServerApiEndpoints.revokeOtherSessions, () => Effect.succeed(z.object({}))),
-			Match.when(AuthServerApiEndpoints.linkSocialAccount, () => Effect.succeed(providerWithCallbackBodySchema)),
-			Match.when(AuthServerApiEndpoints.refreshToken, () => Effect.succeed(z.object({}))),
-			Match.when(AuthServerApiEndpoints.getAccessToken, () => Effect.succeed(z.object({}))),
-			Match.when(AuthServerApiEndpoints.accountInfo, () => Effect.succeed(z.object({}))),
-			Match.when(AuthServerApiEndpoints.ok, () => Effect.succeed(z.object({}))),
-			Match.when(AuthServerApiEndpoints.error, () => Effect.succeed(z.object({}))),
+			Match.tag('ListSessions', () => Effect.succeed(z.object({}))),
+			Match.tag('RevokeSession', () => Effect.succeed(sessionTokenBodySchema)),
+			Match.tag('RevokeSessions', () => Effect.succeed(z.object({}))),
+			Match.tag('RevokeOtherSessions', () => Effect.succeed(z.object({}))),
+			Match.tag('LinkSocialAccount', () => Effect.succeed(providerWithCallbackBodySchema)),
+			Match.tag('RefreshToken', () => Effect.succeed(z.object({}))),
+			Match.tag('GetAccessToken', () => Effect.succeed(z.object({}))),
+			Match.tag('AccountInfo', () => Effect.succeed(z.object({}))),
+			Match.tag('Ok', () => Effect.succeed(z.object({}))),
+			Match.tag('Error', () => Effect.succeed(z.object({}))),
 			Match.orElse(() => Effect.succeed(z.object({})))
 		);
 	});

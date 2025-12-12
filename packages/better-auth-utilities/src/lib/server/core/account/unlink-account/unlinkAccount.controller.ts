@@ -18,6 +18,6 @@ export const unlinkAccountServerController: unlinkAccountPropsFor = (params: Aut
 		return yield* unlinkAccountServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.unlinkAccount,
+			endpoint: AuthServerApiEndpoints.UnlinkAccount(),
 		})
 	);

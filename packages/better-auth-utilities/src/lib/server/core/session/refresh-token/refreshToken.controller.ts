@@ -18,6 +18,6 @@ export const refreshTokenServerController: refreshTokenPropsFor = (params: AuthS
 		return yield* refreshTokenServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.refreshToken,
+			endpoint: AuthServerApiEndpoints.RefreshToken(),
 		})
 	);

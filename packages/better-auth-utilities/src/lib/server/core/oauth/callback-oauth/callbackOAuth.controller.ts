@@ -18,6 +18,6 @@ export const callbackOAuthServerController: callbackOAuthPropsFor = (params: Aut
 		return yield* callbackOAuthServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.callbackOAuth,
+			endpoint: AuthServerApiEndpoints.CallbackOAuth(),
 		})
 	);

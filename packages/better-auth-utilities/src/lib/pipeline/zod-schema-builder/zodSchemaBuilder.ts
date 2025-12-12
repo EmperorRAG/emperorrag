@@ -9,7 +9,6 @@ import { pipe } from 'effect/Function';
 import * as Match from 'effect/Match';
 import { z } from 'zod';
 import { PipelineContext } from '../../context/pipeline.context';
-import { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import {
 	authServerApiEndpointBodyZodSchemaBuilder,
 	tokenRequiredSchema,
@@ -285,15 +284,15 @@ export const createAuthServerApiEndpointParamsSchema: CreateAuthServerApiEndpoin
 		const { endpoint } = yield* PipelineContext;
 		const bodySchema = yield* authServerApiEndpointBodyZodSchemaBuilder();
 
-		const config = Match.value(endpoint as AuthServerApiEndpoints).pipe(
-			Match.when(AuthServerApiEndpoints.verifyEmail, () => ({ headers: 'optional' as const, query: tokenQuerySchema })),
-			Match.when(AuthServerApiEndpoints.signInEmail, () => ({ headers: 'optional' as const })),
-			Match.when(AuthServerApiEndpoints.signUpEmail, () => ({ headers: 'optional' as const })),
-			Match.when(AuthServerApiEndpoints.signInSocial, () => ({ headers: 'optional' as const })),
-			Match.when(AuthServerApiEndpoints.forgetPassword, () => ({ headers: 'optional' as const })),
-			Match.when(AuthServerApiEndpoints.resetPassword, () => ({ headers: 'optional' as const })),
-			Match.when(AuthServerApiEndpoints.callbackOAuth, () => ({ headers: 'optional' as const })),
-			Match.when(AuthServerApiEndpoints.requestPasswordReset, () => ({ headers: 'optional' as const })),
+		const config = Match.value(endpoint).pipe(
+			Match.tag('VerifyEmail', () => ({ headers: 'optional' as const, query: tokenQuerySchema })),
+			Match.tag('SignInEmail', () => ({ headers: 'optional' as const })),
+			Match.tag('SignUpEmail', () => ({ headers: 'optional' as const })),
+			Match.tag('SignInSocial', () => ({ headers: 'optional' as const })),
+			Match.tag('ForgetPassword', () => ({ headers: 'optional' as const })),
+			Match.tag('ResetPassword', () => ({ headers: 'optional' as const })),
+			Match.tag('CallbackOAuth', () => ({ headers: 'optional' as const })),
+			Match.tag('RequestPasswordReset', () => ({ headers: 'optional' as const })),
 			Match.orElse(() => ({ headers: 'required' as const }))
 		);
 

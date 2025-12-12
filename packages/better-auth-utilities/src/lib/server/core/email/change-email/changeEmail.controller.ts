@@ -36,6 +36,6 @@ export const changeEmailServerController: changeEmailPropsFor = (params: AuthSer
 		return result;
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.changeEmail,
+			endpoint: AuthServerApiEndpoints.ChangeEmail(),
 		})
 	);

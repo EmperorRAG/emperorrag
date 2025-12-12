@@ -18,6 +18,6 @@ export const listSessionsServerController: listSessionsPropsFor = (params: AuthS
 		return yield* listSessionsServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.listSessions,
+			endpoint: AuthServerApiEndpoints.ListSessions(),
 		})
 	);

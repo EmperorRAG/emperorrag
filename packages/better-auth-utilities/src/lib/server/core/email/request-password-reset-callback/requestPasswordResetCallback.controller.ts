@@ -31,6 +31,6 @@ export const requestPasswordResetCallbackServerController: requestPasswordResetC
 		return yield* requestPasswordResetCallbackServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.requestPasswordResetCallback,
+			endpoint: AuthServerApiEndpoints.RequestPasswordResetCallback(),
 		})
 	);

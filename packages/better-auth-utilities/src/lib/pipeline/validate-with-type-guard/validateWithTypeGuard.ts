@@ -20,7 +20,5 @@ export const validateWithTypeGuard: ValidateWithTypeGuardProps = <T>(data: unkno
 		}
 
 		const error = new Error('Data does not conform to expected structure');
-		return yield* mapInputError(error).pipe(
-			Effect.provideService(PipelineContext, { ...context, operationCode: OperationCodes.typeGuardValidation })
-		);
+		return yield* mapInputError(error).pipe(Effect.provideService(PipelineContext, { ...context, operationCode: OperationCodes.TypeGuardValidation() }));
 	});

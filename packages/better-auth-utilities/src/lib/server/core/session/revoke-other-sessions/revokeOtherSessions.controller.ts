@@ -22,6 +22,6 @@ export const revokeOtherSessionsServerController: revokeOtherSessionsPropsFor = 
 		return yield* revokeOtherSessionsServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.revokeOtherSessions,
+			endpoint: AuthServerApiEndpoints.RevokeOtherSessions(),
 		})
 	);

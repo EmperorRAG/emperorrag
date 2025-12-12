@@ -19,6 +19,6 @@ export const signUpEmailServerController: signUpEmailPropsFor = (params: AuthSer
 		return result;
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.signUpEmail,
+			endpoint: AuthServerApiEndpoints.SignUpEmail(),
 		})
 	);

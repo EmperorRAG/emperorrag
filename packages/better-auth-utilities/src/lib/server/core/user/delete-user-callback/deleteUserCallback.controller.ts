@@ -22,6 +22,6 @@ export const deleteUserCallbackServerController: deleteUserCallbackPropsFor = (p
 		return yield* deleteUserCallbackServerService(validatedParams);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.deleteUserCallback,
+			endpoint: AuthServerApiEndpoints.DeleteUserCallback(),
 		})
 	);

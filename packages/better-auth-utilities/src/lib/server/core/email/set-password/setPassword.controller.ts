@@ -36,6 +36,6 @@ export const setPasswordServerController: setPasswordPropsFor = (params: AuthSer
 		return result;
 	}).pipe(
 		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.setPassword,
+			endpoint: AuthServerApiEndpoints.SetPassword(),
 		})
 	);
