@@ -1,4 +1,5 @@
 import * as Effect from 'effect/Effect';
+import { pipe } from 'effect/Function';
 import type { z } from 'zod';
 import { handleInputError } from '../handle-input-error/handleInputError';
 import { parseWithSchema } from '../parse-with-schema/parseWithSchema';
@@ -27,7 +28,7 @@ export const validateInputEffect: ZodInputValidatorProps = <T, R>(
 		Effect.gen(function* () {
 			const schema = yield* schemaEffect;
 			const parsed = yield* parseWithSchema(schema, input);
-			const validated = yield* validateWithTypeGuard(parsed, typeGuard);
+			const validated = yield* pipe(parsed, validateWithTypeGuard(typeGuard));
 			return validated;
 		})
-	);
+	) as Effect.Effect<T, AuthServerInputError, R | PipelineContext>;
