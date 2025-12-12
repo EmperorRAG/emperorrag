@@ -1,9 +1,8 @@
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
-import dts from 'vite-plugin-dts';
-import * as path from 'path';
 import * as fs from 'fs';
-import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
+import * as path from 'path';
+import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 
 function getEntries(dir: string, baseDir: string = dir): Record<string, string> {
 	const entries: Record<string, string> = {};
@@ -42,7 +41,7 @@ export default defineConfig(() => ({
 	cacheDir: '../../node_modules/.vite/packages/components',
 	plugins: [
 		react(),
-		nxCopyAssetsPlugin(['*.md', 'package.json']),
+		// nxCopyAssetsPlugin(['*.md', 'package.json']),
 		dts({
 			entryRoot: './src',
 			tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
