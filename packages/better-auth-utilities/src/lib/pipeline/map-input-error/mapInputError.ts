@@ -3,7 +3,8 @@ import { pipe } from 'effect/Function';
 import * as Match from 'effect/Match';
 import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import { type OperationCodes } from '../../enums/operationCodes.enum';
-import { CoreAuthServerInputError, isZodError } from '../../server/core/shared/core.error';
+import { type CoreAuthServerInputError, isZodError } from '../../server/core/shared/core.error';
+import { createAuthServerInputError } from '../create-auth-server-input-error/createAuthServerInputError';
 import { formatZodErrorMessage } from '../format-zod-error-message/formatZodErrorMessage';
 import { type CoreInputValidationDetails } from './mapInputError.types';
 
@@ -16,18 +17,13 @@ import { type CoreInputValidationDetails } from './mapInputError.types';
  * traceability information about where in the workflow the error occurred.
  */
 
-export const mapBetterAuthInputErrorToCoreAuthError = (
-	error: unknown,
-	operationCode: OperationCodes,
-	endpoint: AuthServerApiEndpoints
-): CoreAuthServerInputError => {
+export const mapInputError = (error: unknown, operationCode: OperationCodes, endpoint: AuthServerApiEndpoints): Effect.Effect<CoreAuthServerInputError> => {
 	const details: CoreInputValidationDetails = {
-		source: operationCode,
+		operationCode: operationCode,
 		endpoint: endpoint,
 	};
 
-	return pipe(
-		Match.value(error),
+	return Match.value(error).pipe(
 		Match.when(isZodError, (err) => {
 			const fieldErrors = err.issues.map((issue) => ({
 				path: issue.path.join('.'),
@@ -39,13 +35,15 @@ export const mapBetterAuthInputErrorToCoreAuthError = (
 				fieldErrors,
 			};
 
-			const message = Effect.runSync(formatZodErrorMessage(err));
-			return new CoreAuthServerInputError(message, { zodError: err, details: detailsWithFields });
+			return pipe(
+				formatZodErrorMessage(err),
+				Effect.flatMap((message) => createAuthServerInputError(message, { zodError: err, details: detailsWithFields }))
+			);
 		}),
-		Match.when(Match.instanceOf(Error), (err) => new CoreAuthServerInputError(err.message, { originalError: err, details })),
+		Match.when(Match.instanceOf(Error), (err) => createAuthServerInputError(err.message, { originalError: err, details })),
 		Match.orElse((err) => {
 			const message = `Invalid ${endpoint} parameters: ${operationCode} failed`;
-			return new CoreAuthServerInputError(message, { originalError: err, details });
+			return createAuthServerInputError(message, { originalError: err, details });
 		})
 	);
 };

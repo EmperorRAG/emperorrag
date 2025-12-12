@@ -1,9 +1,10 @@
 import * as Effect from 'effect/Effect';
+import { pipe } from 'effect/Function';
 import type { z } from 'zod';
 import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import { OperationCodes } from '../../enums/operationCodes.enum';
 import { type CoreAuthServerInputError } from '../../server/core/shared/core.error';
-import { mapBetterAuthInputErrorToCoreAuthError } from '../map-input-error/mapInputError';
+import { mapInputError } from '../map-input-error/mapInputError';
 
 /**
  * Parses input against a Zod schema and returns an Effect.
@@ -21,5 +22,5 @@ export const parseWithSchemaEffect = <T>(schema: z.ZodType<T>, input: unknown, e
 			return Effect.succeed(result.data);
 		}
 
-		return Effect.fail(mapBetterAuthInputErrorToCoreAuthError(result.error, OperationCodes.schemaParsing, endpoint));
+		return pipe(mapInputError(result.error, OperationCodes.schemaParsing, endpoint), Effect.flatMap(Effect.fail));
 	});

@@ -10,7 +10,7 @@ import type { OperationCodes } from '../../enums/operationCodes.enum';
  */
 
 export interface CoreInputValidationDetails {
-	readonly source: OperationCodes;
+	readonly operationCode: OperationCodes;
 	readonly endpoint: AuthServerApiEndpoints;
 	readonly fieldErrors?: ReadonlyArray<{ path: string; message: string }>;
 }
