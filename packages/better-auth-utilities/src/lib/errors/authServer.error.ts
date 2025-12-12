@@ -119,12 +119,3 @@ export type AuthServerError = AuthServerDependenciesError | AuthServerInputError
  * ```
  */
 export type AuthServerErrorFor<T extends AuthServerFor = AuthServerFor> = 'error' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['error'] : never;
-
-export interface AuthServerErrorDescriptor {
-	_tag: 'AuthServerErrorDescriptor';
-	authServerErrorType: AuthServerError;
-	code: string; // e.g. 'invalid_email', 'password_too_weak'
-	message: string; // human-ish, but not necessarily final UI text
-	status?: number; // optional HTTP-ish status if you want
-	cause?: unknown; // original error for logging
-}

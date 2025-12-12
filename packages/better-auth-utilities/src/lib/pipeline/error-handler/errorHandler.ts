@@ -5,9 +5,9 @@
 
 import * as Cause from 'effect/Cause';
 import * as Effect from 'effect/Effect';
-import type { AuthServerErrorDescriptor } from '../../errors/authServer.error';
-import { AuthServerApiError, type AuthServerError } from '../../errors/authServer.error';
-import { describeError } from '../describe-error/describeError';
+import { type AuthServerError } from '../../errors/authServer.error';
+import { createUnknownErrorDescriptor, describeError } from '../describe-error/describeError';
+import { isAuthServerErrorDescriptor, type AuthServerErrorDescriptor } from '../describe-error/describeError.types';
 
 /**
  * Standardized server error handler pipeline.
@@ -57,26 +57,4 @@ export const withServerErrorHandler = <A, E, R>(effect: Effect.Effect<A, E, R>):
 			return Effect.fail(createUnknownErrorDescriptor(defect));
 		})
 	);
-};
-
-/**
- * Type guard to check if an error is already a descriptor.
- */
-const isAuthServerErrorDescriptor = (error: unknown): error is AuthServerErrorDescriptor => {
-	return typeof error === 'object' && error !== null && '_tag' in error && (error as AuthServerErrorDescriptor)._tag === 'AuthServerErrorDescriptor';
-};
-
-/**
- * Helper to create a generic 500 error descriptor for unknown errors.
- */
-const createUnknownErrorDescriptor = (cause: unknown): AuthServerErrorDescriptor => {
-	const error = new AuthServerApiError('An unexpected error occurred', 500, cause);
-	return {
-		_tag: 'AuthServerErrorDescriptor',
-		authServerErrorType: error,
-		code: 'auth_server_error',
-		message: error.message,
-		status: 500,
-		cause,
-	};
 };
