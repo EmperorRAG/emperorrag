@@ -22,9 +22,4 @@ import type { AuthServerApiListSessionsParamsFor, listSessionsPropsFor } from '.
  * @returns Effect that resolves to list of sessions or fails with AuthServerApiError
  */
 export const listSessionsServerService: listSessionsPropsFor = (params: AuthServerApiListSessionsParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.tryPromise({
-			try: () => authServer.api.listSessions(params),
-			catch: mapApiError,
-		})
-	);
+	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.listSessions(params)).pipe(Effect.catchAll(mapApiError)));

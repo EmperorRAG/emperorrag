@@ -10,9 +10,4 @@ import type { AuthServerFor } from '../../../server.types';
 import type { AuthServerApiDeleteUserCallbackParamsFor, deleteUserCallbackPropsFor } from './deleteUserCallback.types';
 
 export const deleteUserCallbackServerService: deleteUserCallbackPropsFor = (params: AuthServerApiDeleteUserCallbackParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.tryPromise({
-			try: () => authServer.api.deleteUserCallback(params),
-			catch: mapApiError,
-		})
-	);
+	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.deleteUserCallback(params)).pipe(Effect.catchAll(mapApiError)));

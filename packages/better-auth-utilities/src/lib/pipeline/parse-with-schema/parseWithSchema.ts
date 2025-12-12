@@ -1,5 +1,4 @@
 import * as Effect from 'effect/Effect';
-import { pipe } from 'effect/Function';
 import type { z } from 'zod';
 import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import { OperationCodes } from '../../enums/operationCodes.enum';
@@ -22,5 +21,5 @@ export const parseWithSchema = <T>(schema: z.ZodType<T>, input: unknown, endpoin
 			return Effect.succeed(result.data);
 		}
 
-		return pipe(mapInputError(result.error, OperationCodes.schemaParsing, endpoint), Effect.flatMap(Effect.fail));
+		return mapInputError(result.error, OperationCodes.schemaParsing, endpoint);
 	});

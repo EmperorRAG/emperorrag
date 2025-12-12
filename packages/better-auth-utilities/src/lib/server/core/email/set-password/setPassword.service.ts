@@ -22,9 +22,4 @@ import type { AuthServerApiSetPasswordParamsFor, setPasswordPropsFor } from './s
  * @returns Effect that resolves to set password result or fails with AuthServerApiError
  */
 export const setPasswordServerService: setPasswordPropsFor = (params: AuthServerApiSetPasswordParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.tryPromise({
-			try: () => authServer.api.setPassword(params),
-			catch: mapApiError,
-		})
-	);
+	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.setPassword(params)).pipe(Effect.catchAll(mapApiError)));

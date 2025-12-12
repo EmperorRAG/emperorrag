@@ -10,9 +10,4 @@ import type { AuthServerFor } from '../../../server.types';
 import type { AuthServerApiRevokeOtherSessionsParamsFor, revokeOtherSessionsPropsFor } from './revokeOtherSessions.types';
 
 export const revokeOtherSessionsServerService: revokeOtherSessionsPropsFor = (params: AuthServerApiRevokeOtherSessionsParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.tryPromise({
-			try: () => authServer.api.revokeOtherSessions(params),
-			catch: mapApiError,
-		})
-	);
+	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.revokeOtherSessions(params)).pipe(Effect.catchAll(mapApiError)));

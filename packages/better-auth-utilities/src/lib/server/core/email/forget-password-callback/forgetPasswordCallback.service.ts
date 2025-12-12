@@ -10,9 +10,4 @@ import type { AuthServerFor } from '../../../server.types';
 import type { AuthServerApiForgetPasswordCallbackParamsFor, forgetPasswordCallbackPropsFor } from './forgetPasswordCallback.types';
 
 export const forgetPasswordCallbackServerService: forgetPasswordCallbackPropsFor = (params: AuthServerApiForgetPasswordCallbackParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.tryPromise({
-			try: () => authServer.api.forgetPasswordCallback(params),
-			catch: mapApiError,
-		})
-	);
+	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.forgetPasswordCallback(params)).pipe(Effect.catchAll(mapApiError)));

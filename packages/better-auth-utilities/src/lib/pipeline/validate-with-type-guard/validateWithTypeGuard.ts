@@ -1,5 +1,4 @@
 import * as Effect from 'effect/Effect';
-import { pipe } from 'effect/Function';
 import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import { OperationCodes } from '../../enums/operationCodes.enum';
 import { type AuthServerInputError } from '../../errors/authServer.error';
@@ -24,5 +23,5 @@ export const validateWithTypeGuard = <T, AuthServerApiEndpoint extends AuthServe
 		}
 
 		const error = new Error('Data does not conform to expected structure');
-		return pipe(mapInputError(error, OperationCodes.typeGuardValidation, endpoint), Effect.flatMap(Effect.fail));
+		return mapInputError(error, OperationCodes.typeGuardValidation, endpoint);
 	});

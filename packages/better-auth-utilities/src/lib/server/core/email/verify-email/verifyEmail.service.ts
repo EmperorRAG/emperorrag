@@ -22,9 +22,4 @@ import type { AuthServerApiVerifyEmailParamsFor, verifyEmailPropsFor } from './v
  * @returns Effect that resolves to verification result or fails with AuthServerApiError
  */
 export const verifyEmailServerService: verifyEmailPropsFor = (params: AuthServerApiVerifyEmailParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.tryPromise({
-			try: () => authServer.api.verifyEmail(params),
-			catch: mapApiError,
-		})
-	);
+	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.verifyEmail(params)).pipe(Effect.catchAll(mapApiError)));

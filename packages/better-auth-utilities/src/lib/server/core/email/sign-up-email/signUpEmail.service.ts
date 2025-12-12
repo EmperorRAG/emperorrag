@@ -122,9 +122,4 @@ import type { AuthServerApiSignUpEmailParamsFor, signUpEmailPropsFor } from './s
  * ```
  */
 export const signUpEmailServerService: signUpEmailPropsFor = (params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.tryPromise({
-			try: () => authServer.api.signUpEmail(params),
-			catch: mapApiError,
-		})
-	);
+	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.signUpEmail(params)).pipe(Effect.catchAll(mapApiError)));

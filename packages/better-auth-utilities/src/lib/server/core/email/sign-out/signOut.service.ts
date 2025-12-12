@@ -79,9 +79,4 @@ import type { AuthServerApiSignOutParamsFor, signOutPropsFor } from './signOut.t
  * ```
  */
 export const signOutServerService: signOutPropsFor = (params: AuthServerApiSignOutParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.tryPromise({
-			try: () => authServer.api.signOut(params),
-			catch: mapApiError,
-		})
-	);
+	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.signOut(params)).pipe(Effect.catchAll(mapApiError)));

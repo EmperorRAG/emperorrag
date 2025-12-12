@@ -76,10 +76,7 @@ import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor }
 export const listUserAccountsServerService: listUserAccountsPropsFor = (params: AuthServerApiListUserAccountsParamsFor<AuthServerFor>) =>
 	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.gen(function* () {
-			const result = yield* Effect.tryPromise({
-				try: () => authServer.api.listUserAccounts(params),
-				catch: mapApiError,
-			});
+			const result = yield* Effect.tryPromise(() => authServer.api.listUserAccounts(params)).pipe(Effect.catchAll(mapApiError));
 
 			if (result === null || result === undefined) {
 				return yield* Effect.fail(new AuthServerDataMissingError('No accounts data returned from listUserAccounts API'));

@@ -22,9 +22,4 @@ import type { AuthServerApiChangeEmailParamsFor, changeEmailPropsFor } from './c
  * @returns Effect that resolves to change email result or fails with AuthServerApiError
  */
 export const changeEmailServerService: changeEmailPropsFor = (params: AuthServerApiChangeEmailParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.tryPromise({
-			try: () => authServer.api.changeEmail(params),
-			catch: mapApiError,
-		})
-	);
+	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.changeEmail(params)).pipe(Effect.catchAll(mapApiError)));

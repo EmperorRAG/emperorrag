@@ -105,9 +105,4 @@ import type { AuthServerApiSendVerificationEmailParamsFor, sendVerificationEmail
  * ```
  */
 export const sendVerificationEmailServerService: sendVerificationEmailPropsFor = (params: AuthServerApiSendVerificationEmailParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.tryPromise({
-			try: () => authServer.api.sendVerificationEmail(params),
-			catch: mapApiError,
-		})
-	);
+	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.sendVerificationEmail(params)).pipe(Effect.catchAll(mapApiError)));

@@ -10,9 +10,4 @@ import type { AuthServerFor } from '../../../server.types';
 import type { AuthServerApiRequestPasswordResetParamsFor, requestPasswordResetPropsFor } from './requestPasswordReset.types';
 
 export const requestPasswordResetServerService: requestPasswordResetPropsFor = (params: AuthServerApiRequestPasswordResetParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.tryPromise({
-			try: () => authServer.api.requestPasswordReset(params),
-			catch: mapApiError,
-		})
-	);
+	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.requestPasswordReset(params)).pipe(Effect.catchAll(mapApiError)));

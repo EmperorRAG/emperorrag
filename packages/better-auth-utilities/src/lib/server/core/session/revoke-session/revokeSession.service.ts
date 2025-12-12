@@ -22,9 +22,4 @@ import type { AuthServerApiRevokeSessionParamsFor, revokeSessionPropsFor } from 
  * @returns Effect that resolves to revoke result or fails with AuthServerApiError
  */
 export const revokeSessionServerService: revokeSessionPropsFor = (params: AuthServerApiRevokeSessionParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.tryPromise({
-			try: () => authServer.api.revokeSession(params),
-			catch: mapApiError,
-		})
-	);
+	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.revokeSession(params)).pipe(Effect.catchAll(mapApiError)));

@@ -105,9 +105,4 @@ import type { AuthServerApiUnlinkAccountParamsFor, unlinkAccountPropsFor } from 
  * ```
  */
 export const unlinkAccountServerService: unlinkAccountPropsFor = (params: AuthServerApiUnlinkAccountParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.tryPromise({
-			try: () => authServer.api.unlinkAccount(params),
-			catch: mapApiError,
-		})
-	);
+	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.unlinkAccount(params)).pipe(Effect.catchAll(mapApiError)));

@@ -1,5 +1,4 @@
 import * as Effect from 'effect/Effect';
-import { pipe } from 'effect/Function';
 import type { z } from 'zod';
 import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import { OperationCodes } from '../../enums/operationCodes.enum';
@@ -17,5 +16,4 @@ import { mapInputError } from '../map-input-error/mapInputError';
 export const handleInputError = <T extends z.ZodType, R = never>(
 	schemaEffect: Effect.Effect<T, unknown, R>,
 	endpoint: AuthServerApiEndpoints
-): Effect.Effect<T, AuthServerInputError, R> =>
-	Effect.catchAll(schemaEffect, (error) => pipe(mapInputError(error, OperationCodes.schemaCreation, endpoint), Effect.flatMap(Effect.fail)));
+): Effect.Effect<T, AuthServerInputError, R> => Effect.catchAll(schemaEffect, (error) => mapInputError(error, OperationCodes.schemaCreation, endpoint));

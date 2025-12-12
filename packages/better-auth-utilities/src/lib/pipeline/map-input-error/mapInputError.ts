@@ -18,7 +18,7 @@ import { isZodError } from '../is-zod-error/isZodError';
  * traceability information about where in the workflow the error occurred.
  */
 
-export const mapInputError = (error: unknown, operationCode: OperationCodes, endpoint: AuthServerApiEndpoints): Effect.Effect<AuthServerInputError> =>
+export const mapInputError = (error: unknown, operationCode: OperationCodes, endpoint: AuthServerApiEndpoints): Effect.Effect<never, AuthServerInputError> =>
 	Match.value(error).pipe(
 		Match.when(isZodError, (err) =>
 			pipe(
@@ -52,5 +52,6 @@ export const mapInputError = (error: unknown, operationCode: OperationCodes, end
 				originalError: err,
 				details: { operationCode, endpoint },
 			})
-		)
+		),
+		Effect.flatMap(Effect.fail)
 	);

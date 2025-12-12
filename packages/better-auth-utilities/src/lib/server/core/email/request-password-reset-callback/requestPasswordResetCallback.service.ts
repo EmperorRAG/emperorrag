@@ -13,8 +13,5 @@ export const requestPasswordResetCallbackServerService: requestPasswordResetCall
 	params: AuthServerApiRequestPasswordResetCallbackParamsFor<AuthServerFor>
 ) =>
 	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.tryPromise({
-			try: () => authServer.api.requestPasswordResetCallback(params),
-			catch: mapApiError,
-		})
+		Effect.tryPromise(() => authServer.api.requestPasswordResetCallback(params)).pipe(Effect.catchAll(mapApiError))
 	);

@@ -40,9 +40,4 @@ import type { AuthServerApiUpdateUserParamsFor, updateUserPropsFor } from './upd
  * @returns Effect that resolves to updated user data or fails with AuthServerApiError
  */
 export const updateUserServerService: updateUserPropsFor = (params: AuthServerApiUpdateUserParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.tryPromise({
-			try: () => authServer.api.updateUser(params),
-			catch: mapApiError,
-		})
-	);
+	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.updateUser(params)).pipe(Effect.catchAll(mapApiError)));
