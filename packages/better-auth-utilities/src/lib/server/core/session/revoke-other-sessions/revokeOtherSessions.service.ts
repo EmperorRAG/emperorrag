@@ -4,9 +4,9 @@
  */
 
 import * as Effect from 'effect/Effect';
+import { mapApiError } from '../../../../errors/authServer.error';
 import { AuthServerTag } from '../../../server.service';
 import type { AuthServerFor } from '../../../server.types';
-import { mapApiError } from '../../shared/core.error';
 import type { AuthServerApiRevokeOtherSessionsParamsFor, revokeOtherSessionsPropsFor } from './revokeOtherSessions.types';
 
 export const revokeOtherSessionsServerService: revokeOtherSessionsPropsFor = (params: AuthServerApiRevokeOtherSessionsParamsFor<AuthServerFor>) =>

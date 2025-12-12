@@ -1,6 +1,6 @@
 import * as Effect from 'effect/Effect';
 import { pipe } from 'effect/Function';
-import { AuthServerInputError } from '../../server/core/shared/core.error';
+import { AuthServerInputError } from '../../errors/authServer.error';
 
 /**
  * Creates a AuthServerInputError.

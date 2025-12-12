@@ -4,7 +4,7 @@ import { pipe } from 'effect/Function';
 import * as Match from 'effect/Match';
 import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import { type OperationCodes } from '../../enums/operationCodes.enum';
-import { type AuthServerInputError, isZodError } from '../../server/core/shared/core.error';
+import { type AuthServerInputError, isZodError } from '../../errors/authServer.error';
 import { createAuthServerInputError } from '../create-auth-server-input-error/createAuthServerInputError';
 import { formatZodErrorMessage } from '../format-zod-error-message/formatZodErrorMessage';
 

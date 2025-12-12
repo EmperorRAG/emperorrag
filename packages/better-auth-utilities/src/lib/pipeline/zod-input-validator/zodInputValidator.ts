@@ -1,7 +1,7 @@
 import * as Effect from 'effect/Effect';
 import type { z } from 'zod';
 import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
-import { type AuthServerInputError } from '../../server/core/shared/core.error';
+import { type AuthServerInputError } from '../../errors/authServer.error';
 import { createSchemaEffect } from '../handle-input-error/handleInputError';
 import { parseWithSchemaEffect } from '../parse-with-schema/parseWithSchema';
 import { validateWithTypeGuardEffect } from '../validate-with-type-guard/validateWithTypeGuard';

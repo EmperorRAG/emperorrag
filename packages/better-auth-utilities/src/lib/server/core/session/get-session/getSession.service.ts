@@ -5,8 +5,8 @@
  */
 
 import * as Effect from 'effect/Effect';
+import { mapApiError } from '../../../../errors/authServer.error';
 import { AuthServerTag } from '../../../server.service';
-import { mapApiError } from '../../shared/core.error';
 import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from './getSession.types';
 
 /**

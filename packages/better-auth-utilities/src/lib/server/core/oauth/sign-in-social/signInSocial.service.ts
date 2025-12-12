@@ -5,9 +5,9 @@
  */
 
 import * as Effect from 'effect/Effect';
+import { mapApiError } from '../../../../errors/authServer.error';
 import { AuthServerTag } from '../../../server.service';
 import type { AuthServerFor } from '../../../server.types';
-import { mapApiError } from '../../shared/core.error';
 import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from './signInSocial.types';
 
 /**

@@ -4,8 +4,8 @@
  */
 
 import type * as Effect from 'effect/Effect';
+import type { AuthServerError } from '../../../../errors/authServer.error';
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { AuthServerError } from '../../shared/core.error';
 
 export type AuthServerApiRequestPasswordResetPropsFor<T extends AuthServerFor = AuthServerFor> =
 	'requestPasswordReset' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['requestPasswordReset'] : never;

@@ -6,10 +6,10 @@
 
 import * as Effect from 'effect/Effect';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
+import { AuthServerApiError, AuthServerDataMissingError, AuthServerInputError } from '../../../../errors/authServer.error';
 import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
-import { AuthServerApiError, AuthServerDataMissingError, AuthServerInputError } from '../../shared/core.error';
 import { listUserAccountsServerService } from './listUserAccounts.service';
 import {
 	isAuthServerApiListUserAccountsParamsFor,

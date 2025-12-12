@@ -7,7 +7,7 @@ import { APIError } from 'better-auth';
 import { pipe } from 'effect/Function';
 import * as Match from 'effect/Match';
 import { z } from 'zod';
-import type { AuthServerErrorDescriptor } from '../../server.types';
+import type { AuthServerErrorDescriptor } from '../server/server.types';
 
 /**
  * Error thrown when server dependencies validation fails.

@@ -1,6 +1,6 @@
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiError, AuthServerInputError } from '../../../../errors/authServer.error';
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { AuthServerApiError, AuthServerInputError } from '../../shared/core.error';
 
 /**
  * Type helper to extract the signInSocial endpoint type from an AuthServer.

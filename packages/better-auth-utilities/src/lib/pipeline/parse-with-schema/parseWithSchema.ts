@@ -3,7 +3,7 @@ import { pipe } from 'effect/Function';
 import type { z } from 'zod';
 import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import { OperationCodes } from '../../enums/operationCodes.enum';
-import { type AuthServerInputError } from '../../server/core/shared/core.error';
+import { type AuthServerInputError } from '../../errors/authServer.error';
 import { mapInputError } from '../map-input-error/mapInputError';
 
 /**

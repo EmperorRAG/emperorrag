@@ -5,9 +5,9 @@
  */
 
 import * as Effect from 'effect/Effect';
+import { AuthServerDataMissingError, mapApiError } from '../../../../errors/authServer.error';
 import { AuthServerTag } from '../../../server.service';
 import type { AuthServerFor } from '../../../server.types';
-import { AuthServerDataMissingError, mapApiError } from '../../shared/core.error';
 import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor } from './listUserAccounts.types';
 
 /**

@@ -5,7 +5,7 @@
 
 import * as Cause from 'effect/Cause';
 import * as Effect from 'effect/Effect';
-import { describeError, type AuthServerError } from '../../server/core/shared/core.error';
+import { describeError, type AuthServerError } from '../../errors/authServer.error';
 import type { AuthServerErrorDescriptor } from '../../server/server.types';
 
 /**
