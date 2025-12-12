@@ -7,7 +7,7 @@ import { APIError } from 'better-auth';
 import { pipe } from 'effect/Function';
 import * as Match from 'effect/Match';
 import { z } from 'zod';
-import type { AuthServerErrorDescriptor } from '../server/server.types';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../server/server.types';
 
 /**
  * Error thrown when server dependencies validation fails.
@@ -143,8 +143,8 @@ export const describeError = (error: AuthServerError): AuthServerErrorDescriptor
 	pipe(
 		Match.value(error),
 		Match.tag('AuthServerInputError', (err) => ({
-			_tag: 'AuthErrorDescriptor' as const,
-			category: 'input' as const,
+			_tag: 'AuthServerErrorDescriptor' as const,
+			authServerErrorType: err,
 			code: 'invalid_input' as const,
 			message: err.message,
 			cause: err.cause,
@@ -153,8 +153,8 @@ export const describeError = (error: AuthServerError): AuthServerErrorDescriptor
 		Match.tag('AuthServerApiError', (err) => {
 			if (err.status === 401) {
 				return {
-					_tag: 'AuthErrorDescriptor' as const,
-					category: 'unauthorized' as const,
+					_tag: 'AuthServerErrorDescriptor' as const,
+					authServerErrorType: err,
 					code: 'invalid_credentials' as const,
 					message: err.message,
 					status: 401,
@@ -163,8 +163,8 @@ export const describeError = (error: AuthServerError): AuthServerErrorDescriptor
 			}
 			if (err.status === 409) {
 				return {
-					_tag: 'AuthErrorDescriptor' as const,
-					category: 'conflict' as const,
+					_tag: 'AuthServerErrorDescriptor' as const,
+					authServerErrorType: err,
 					code: 'user_already_exists' as const,
 					message: err.message,
 					status: 409,
@@ -172,8 +172,8 @@ export const describeError = (error: AuthServerError): AuthServerErrorDescriptor
 				};
 			}
 			return {
-				_tag: 'AuthErrorDescriptor' as const,
-				category: 'server' as const,
+				_tag: 'AuthServerErrorDescriptor' as const,
+				authServerErrorType: err,
 				code: 'auth_server_error' as const,
 				message: err.message,
 				status: err.status ?? 500,
@@ -181,24 +181,24 @@ export const describeError = (error: AuthServerError): AuthServerErrorDescriptor
 			};
 		}),
 		Match.tag('AuthServerSessionError', (err) => ({
-			_tag: 'AuthErrorDescriptor' as const,
-			category: 'unauthorized' as const,
+			_tag: 'AuthServerErrorDescriptor' as const,
+			authServerErrorType: err,
 			code: 'session_error' as const,
 			message: err.message,
 			status: 401,
 			cause: err.cause,
 		})),
 		Match.tag('AuthServerDependenciesError', (err) => ({
-			_tag: 'AuthErrorDescriptor' as const,
-			category: 'dependency' as const,
+			_tag: 'AuthServerErrorDescriptor' as const,
+			authServerErrorType: err,
 			code: 'dependency_error' as const,
 			message: err.message,
 			status: 500,
 			cause: err.cause,
 		})),
 		Match.tag('AuthServerDataMissingError', (err) => ({
-			_tag: 'AuthErrorDescriptor' as const,
-			category: 'server' as const,
+			_tag: 'AuthServerErrorDescriptor' as const,
+			authServerErrorType: err,
 			code: 'data_missing' as const,
 			message: err.message,
 			status: 500,
@@ -206,3 +206,25 @@ export const describeError = (error: AuthServerError): AuthServerErrorDescriptor
 		})),
 		Match.exhaustive
 	);
+
+/**
+ * Type helper to extract the error endpoint type from an AuthServer.
+ *
+ * @pure
+ * @description Returns the type of the `error` utility method from the server API.
+ *
+ * @example
+ * ```typescript
+ * type ErrorMethod = AuthServerErrorFor<typeof authServer>;
+ * ```
+ */
+export type AuthServerErrorFor<T extends AuthServerFor = AuthServerFor> = 'error' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['error'] : never;
+
+export interface AuthServerErrorDescriptor {
+	_tag: 'AuthServerErrorDescriptor';
+	authServerErrorType: AuthServerError;
+	code: string; // e.g. 'invalid_email', 'password_too_weak'
+	message: string; // human-ish, but not necessarily final UI text
+	status?: number; // optional HTTP-ish status if you want
+	cause?: unknown; // original error for logging
+}
