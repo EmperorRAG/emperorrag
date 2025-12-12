@@ -8,6 +8,7 @@ import * as Effect from 'effect/Effect';
 import { pipe } from 'effect/Function';
 import * as Match from 'effect/Match';
 import { z } from 'zod';
+import { PipelineContext } from '../../context/pipeline.context';
 import { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import {
 	authServerApiEndpointBodyZodSchemaBuilder,
@@ -277,12 +278,12 @@ export const withAdditionalFields =
 /**
  * Creates a Zod schema using the AuthServer context.
  *
- * @param endpoint - The API endpoint to generate the schema for.
  * @returns An Effect that resolves to the Zod schema.
  */
-export const createAuthServerApiEndpointParamsSchema: CreateAuthServerApiEndpointParamsSchemaProps = <K extends AuthServerApiEndpoints>(endpoint: K) =>
+export const createAuthServerApiEndpointParamsSchema: CreateAuthServerApiEndpointParamsSchemaProps = () =>
 	Effect.gen(function* () {
-		const bodySchema = yield* authServerApiEndpointBodyZodSchemaBuilder(endpoint);
+		const { endpoint } = yield* PipelineContext;
+		const bodySchema = yield* authServerApiEndpointBodyZodSchemaBuilder();
 
 		const config = Match.value(endpoint as AuthServerApiEndpoints).pipe(
 			Match.when(AuthServerApiEndpoints.verifyEmail, () => ({ headers: 'optional' as const, query: tokenQuerySchema })),

@@ -1,5 +1,5 @@
 import * as Effect from 'effect/Effect';
-import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
+import { PipelineContext } from '../../context/pipeline.context';
 import { OperationCodes } from '../../enums/operationCodes.enum';
 import { mapInputError } from '../map-input-error/mapInputError';
 import type { ValidateWithTypeGuardProps } from './validateWithTypeGuard.types';
@@ -12,16 +12,15 @@ import type { ValidateWithTypeGuardProps } from './validateWithTypeGuard.types';
  * If the type guard fails, returns a traced AuthServerInputError.
  */
 
-export const validateWithTypeGuard: ValidateWithTypeGuardProps = <T, AuthServerApiEndpoint extends AuthServerApiEndpoints = AuthServerApiEndpoints>(
-	data: unknown,
-	typeGuard: (value: unknown) => value is T,
-	endpoint: AuthServerApiEndpoint
-) =>
-	Effect.suspend(() => {
+export const validateWithTypeGuard: ValidateWithTypeGuardProps = <T>(data: unknown, typeGuard: (value: unknown) => value is T) =>
+	Effect.gen(function* () {
+		const context = yield* PipelineContext;
 		if (typeGuard(data)) {
-			return Effect.succeed(data);
+			return yield* Effect.succeed(data);
 		}
 
 		const error = new Error('Data does not conform to expected structure');
-		return mapInputError(error, OperationCodes.typeGuardValidation, endpoint);
+		return yield* mapInputError(error).pipe(
+			Effect.provideService(PipelineContext, { ...context, operationCode: OperationCodes.typeGuardValidation })
+		);
 	});

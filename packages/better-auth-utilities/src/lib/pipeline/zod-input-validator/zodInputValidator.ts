@@ -1,6 +1,5 @@
 import * as Effect from 'effect/Effect';
 import type { z } from 'zod';
-import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import { handleInputError } from '../handle-input-error/handleInputError';
 import { parseWithSchema } from '../parse-with-schema/parseWithSchema';
 import { validateWithTypeGuard } from '../validate-with-type-guard/validateWithTypeGuard';
@@ -22,12 +21,11 @@ import type { ZodInputValidatorProps } from './zodInputValidator.types';
 export const validateInputEffect: ZodInputValidatorProps = <T, R>(
 	schemaEffect: Effect.Effect<z.ZodType, unknown, R>,
 	input: unknown,
-	typeGuard: (value: unknown) => value is T,
-	endpoint: AuthServerApiEndpoints
+	typeGuard: (value: unknown) => value is T
 ) =>
 	Effect.gen(function* () {
-		const schema = yield* handleInputError(schemaEffect, endpoint);
-		const parsed = yield* parseWithSchema(schema, input, endpoint);
-		const validated = yield* validateWithTypeGuard(parsed, typeGuard, endpoint);
+		const schema = yield* handleInputError(schemaEffect);
+		const parsed = yield* parseWithSchema(schema, input);
+		const validated = yield* validateWithTypeGuard(parsed, typeGuard);
 		return validated;
 	});

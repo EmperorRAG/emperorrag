@@ -4,6 +4,7 @@
  */
 
 import * as Effect from 'effect/Effect';
+import { PipelineContext } from '../../../../context/pipeline.context';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
@@ -13,11 +14,10 @@ import { isAuthServerApiRevokeSessionsParamsFor, type AuthServerApiRevokeSession
 
 export const revokeSessionsServerController: revokeSessionsPropsFor = (params: AuthServerApiRevokeSessionsParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(
-			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.revokeSessions),
-			params,
-			isAuthServerApiRevokeSessionsParamsFor,
-			AuthServerApiEndpoints.revokeSessions
-		);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiRevokeSessionsParamsFor);
 		return yield* revokeSessionsServerService(validatedParams);
-	});
+	}).pipe(
+		Effect.provideService(PipelineContext, {
+			endpoint: AuthServerApiEndpoints.revokeSessions,
+		})
+	);

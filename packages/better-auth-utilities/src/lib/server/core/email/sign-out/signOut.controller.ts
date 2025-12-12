@@ -1,4 +1,5 @@
 import * as Effect from 'effect/Effect';
+import { PipelineContext } from '../../../../context/pipeline.context';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
@@ -9,18 +10,15 @@ import { isAuthServerApiSignOutParamsFor, type AuthServerApiSignOutParamsFor, ty
 export const signOutServerController: signOutPropsFor = (params: AuthServerApiSignOutParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		// 1) Validate params input with Effect-based validation pipeline
-		const validatedParams = yield* (
-			validateInputEffect(
-				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.signOut),
-				params,
-				isAuthServerApiSignOutParamsFor,
-				AuthServerApiEndpoints.signOut
-			)
-		);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiSignOutParamsFor);
 
 		// 2) Call the service with the validated params
-		const result = yield* (signOutServerService(validatedParams));
+		const result = yield* signOutServerService(validatedParams);
 
 		// 3) Return the success value of the whole controller Effect
 		return result;
-	});
+	}).pipe(
+		Effect.provideService(PipelineContext, {
+			endpoint: AuthServerApiEndpoints.signOut,
+		})
+	);

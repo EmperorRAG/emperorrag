@@ -4,6 +4,7 @@
  */
 
 import * as Effect from 'effect/Effect';
+import { PipelineContext } from '../../../../context/pipeline.context';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
@@ -13,11 +14,10 @@ import { isAuthServerApiRefreshTokenParamsFor, type AuthServerApiRefreshTokenPar
 
 export const refreshTokenServerController: refreshTokenPropsFor = (params: AuthServerApiRefreshTokenParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(
-			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.refreshToken),
-			params,
-			isAuthServerApiRefreshTokenParamsFor,
-			AuthServerApiEndpoints.refreshToken
-		);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiRefreshTokenParamsFor);
 		return yield* refreshTokenServerService(validatedParams);
-	});
+	}).pipe(
+		Effect.provideService(PipelineContext, {
+			endpoint: AuthServerApiEndpoints.refreshToken,
+		})
+	);

@@ -4,6 +4,7 @@
  */
 
 import * as Effect from 'effect/Effect';
+import { PipelineContext } from '../../../../context/pipeline.context';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
@@ -37,11 +38,10 @@ import {
  */
 export const linkSocialAccountServerController: linkSocialAccountPropsFor = (params: AuthServerApiLinkSocialAccountParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(
-			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.linkSocialAccount),
-			params,
-			isAuthServerApiLinkSocialAccountParamsFor,
-			AuthServerApiEndpoints.linkSocialAccount
-		);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiLinkSocialAccountParamsFor);
 		return yield* linkSocialAccountServerService(validatedParams);
-	});
+	}).pipe(
+		Effect.provideService(PipelineContext, {
+			endpoint: AuthServerApiEndpoints.linkSocialAccount,
+		})
+	);

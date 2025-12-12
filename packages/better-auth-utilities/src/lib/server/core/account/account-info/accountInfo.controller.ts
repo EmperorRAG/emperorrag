@@ -4,6 +4,7 @@
  */
 
 import * as Effect from 'effect/Effect';
+import { PipelineContext } from '../../../../context/pipeline.context';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
@@ -13,11 +14,10 @@ import { isAuthServerApiAccountInfoParamsFor, type AuthServerApiAccountInfoParam
 
 export const accountInfoServerController: accountInfoPropsFor = (params: AuthServerApiAccountInfoParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(
-			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.accountInfo),
-			params,
-			isAuthServerApiAccountInfoParamsFor,
-			AuthServerApiEndpoints.accountInfo
-		);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiAccountInfoParamsFor);
 		return yield* accountInfoServerService(validatedParams);
-	});
+	}).pipe(
+		Effect.provideService(PipelineContext, {
+			endpoint: AuthServerApiEndpoints.accountInfo,
+		})
+	);

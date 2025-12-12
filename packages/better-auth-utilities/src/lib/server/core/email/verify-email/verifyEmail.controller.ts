@@ -4,6 +4,7 @@
  */
 
 import * as Effect from 'effect/Effect';
+import { PipelineContext } from '../../../../context/pipeline.context';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
@@ -26,18 +27,15 @@ import { isAuthServerApiVerifyEmailParamsFor, type AuthServerApiVerifyEmailParam
 export const verifyEmailServerController: verifyEmailPropsFor = (params: AuthServerApiVerifyEmailParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		// 1) Validate params input with Effect-based validation pipeline
-		const validatedParams = yield* (
-			validateInputEffect(
-				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.verifyEmail),
-				params,
-				isAuthServerApiVerifyEmailParamsFor,
-				AuthServerApiEndpoints.verifyEmail
-			)
-		);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiVerifyEmailParamsFor);
 
 		// 2) Call the service with the validated params
-		const result = yield* (verifyEmailServerService(validatedParams));
+		const result = yield* verifyEmailServerService(validatedParams);
 
 		// 3) Return the success value of the whole controller Effect
 		return result;
-	});
+	}).pipe(
+		Effect.provideService(PipelineContext, {
+			endpoint: AuthServerApiEndpoints.verifyEmail,
+		})
+	);

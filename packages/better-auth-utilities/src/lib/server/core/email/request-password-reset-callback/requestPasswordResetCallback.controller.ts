@@ -4,6 +4,7 @@
  */
 
 import * as Effect from 'effect/Effect';
+import { PipelineContext } from '../../../../context/pipeline.context';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
@@ -21,12 +22,15 @@ export const requestPasswordResetCallbackServerController: requestPasswordResetC
 	Effect.gen(function* () {
 		// 1) Validate params input with Effect-based validation pipeline
 		const validatedParams = yield* validateInputEffect(
-			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.requestPasswordResetCallback),
+			createAuthServerApiEndpointParamsSchema(),
 			params,
-			isAuthServerApiRequestPasswordResetCallbackParamsFor,
-			AuthServerApiEndpoints.requestPasswordResetCallback
+			isAuthServerApiRequestPasswordResetCallbackParamsFor
 		);
 
 		// 2) Call the service with the validated params
 		return yield* requestPasswordResetCallbackServerService(validatedParams);
-	});
+	}).pipe(
+		Effect.provideService(PipelineContext, {
+			endpoint: AuthServerApiEndpoints.requestPasswordResetCallback,
+		})
+	);

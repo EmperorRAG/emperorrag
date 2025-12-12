@@ -4,6 +4,7 @@
  */
 
 import * as Effect from 'effect/Effect';
+import { PipelineContext } from '../../../../context/pipeline.context';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
@@ -26,18 +27,15 @@ import { isAuthServerApiSetPasswordParamsFor, type AuthServerApiSetPasswordParam
 export const setPasswordServerController: setPasswordPropsFor = (params: AuthServerApiSetPasswordParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
 		// 1) Validate params input with Effect-based validation pipeline
-		const validatedParams = yield* (
-			validateInputEffect(
-				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.setPassword),
-				params,
-				isAuthServerApiSetPasswordParamsFor,
-				AuthServerApiEndpoints.setPassword
-			)
-		);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiSetPasswordParamsFor);
 
 		// 2) Call the service with the validated params
-		const result = yield* (setPasswordServerService(validatedParams));
+		const result = yield* setPasswordServerService(validatedParams);
 
 		// 3) Return the success value of the whole controller Effect
 		return result;
-	});
+	}).pipe(
+		Effect.provideService(PipelineContext, {
+			endpoint: AuthServerApiEndpoints.setPassword,
+		})
+	);

@@ -1,6 +1,6 @@
 import * as Effect from 'effect/Effect';
 import type { z } from 'zod';
-import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
+import { PipelineContext } from '../../context/pipeline.context';
 import { OperationCodes } from '../../enums/operationCodes.enum';
 import { mapInputError } from '../map-input-error/mapInputError';
 import type { HandleInputErrorProps } from './handleInputError.types';
@@ -13,7 +13,10 @@ import type { HandleInputErrorProps } from './handleInputError.types';
  * AuthServerInputError with 'schema_creation' source for traceability.
  */
 
-export const handleInputError: HandleInputErrorProps = <T extends z.ZodType, R = never>(
-	schemaEffect: Effect.Effect<T, unknown, R>,
-	endpoint: AuthServerApiEndpoints
-) => Effect.catchAll(schemaEffect, (error) => mapInputError(error, OperationCodes.schemaCreation, endpoint));
+export const handleInputError: HandleInputErrorProps = <T extends z.ZodType, R = never>(schemaEffect: Effect.Effect<T, unknown, R>) =>
+	Effect.gen(function* () {
+		const context = yield* PipelineContext;
+		return yield* Effect.catchAll(schemaEffect, (error) =>
+			mapInputError(error).pipe(Effect.provideService(PipelineContext, { ...context, operationCode: OperationCodes.schemaCreation }))
+		);
+	});

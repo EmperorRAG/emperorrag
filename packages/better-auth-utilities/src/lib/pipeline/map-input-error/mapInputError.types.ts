@@ -1,10 +1,11 @@
 import type * as Effect from 'effect/Effect';
+import type { PipelineContext } from '../../context/pipeline.context';
 import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import type { OperationCodes } from '../../enums/operationCodes.enum';
 import type { AuthServerInputError } from '../../errors/authServer.error';
 
 export interface MapInputErrorProps {
-	(error: unknown, operationCode: OperationCodes, endpoint: AuthServerApiEndpoints): Effect.Effect<never, AuthServerInputError>;
+	(error: unknown): Effect.Effect<never, AuthServerInputError, PipelineContext>;
 }
 
 /**

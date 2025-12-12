@@ -4,6 +4,7 @@
  */
 
 import * as Effect from 'effect/Effect';
+import { PipelineContext } from '../../../../context/pipeline.context';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
@@ -54,14 +55,11 @@ import { isAuthServerApiChangePasswordParamsFor, type AuthServerApiChangePasswor
  */
 export const changePasswordServerController: changePasswordPropsFor = (params: AuthServerApiChangePasswordParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const validatedParams = yield* (
-			validateInputEffect(
-				createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.changePassword),
-				params,
-				isAuthServerApiChangePasswordParamsFor,
-				AuthServerApiEndpoints.changePassword
-			)
-		);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiChangePasswordParamsFor);
 
-		return yield* (changePasswordServerService(validatedParams));
-	});
+		return yield* changePasswordServerService(validatedParams);
+	}).pipe(
+		Effect.provideService(PipelineContext, {
+			endpoint: AuthServerApiEndpoints.changePassword,
+		})
+	);

@@ -5,6 +5,7 @@
  */
 
 import * as Effect from 'effect/Effect';
+import { PipelineContext } from '../../../../context/pipeline.context';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import { AuthServerApiError, AuthServerDataMissingError, AuthServerInputError } from '../../../../errors/authServer.error';
 import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
@@ -57,11 +58,10 @@ export const listUserAccountsServerController = (
 	AuthServerFor
 > =>
 	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(
-			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.listUserAccounts),
-			input,
-			isAuthServerApiListUserAccountsParamsFor,
-			AuthServerApiEndpoints.listUserAccounts
-		);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), input, isAuthServerApiListUserAccountsParamsFor);
 		return yield* listUserAccountsServerService(validatedParams);
-	});
+	}).pipe(
+		Effect.provideService(PipelineContext, {
+			endpoint: AuthServerApiEndpoints.listUserAccounts,
+		})
+	);

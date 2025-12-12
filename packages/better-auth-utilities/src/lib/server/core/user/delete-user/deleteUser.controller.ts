@@ -4,6 +4,7 @@
  */
 
 import * as Effect from 'effect/Effect';
+import { PipelineContext } from '../../../../context/pipeline.context';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
@@ -13,11 +14,10 @@ import { isAuthServerApiDeleteUserParamsFor, type AuthServerApiDeleteUserParamsF
 
 export const deleteUserServerController: deleteUserPropsFor = (params: AuthServerApiDeleteUserParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(
-			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.deleteUser),
-			params,
-			isAuthServerApiDeleteUserParamsFor,
-			AuthServerApiEndpoints.deleteUser
-		);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiDeleteUserParamsFor);
 		return yield* deleteUserServerService(validatedParams);
-	});
+	}).pipe(
+		Effect.provideService(PipelineContext, {
+			endpoint: AuthServerApiEndpoints.deleteUser,
+		})
+	);

@@ -1,6 +1,7 @@
 import * as Effect from 'effect/Effect';
 import * as Match from 'effect/Match';
 import { z } from 'zod';
+import { PipelineContext } from '../../context/pipeline.context';
 import { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import { extractAuthServerConfig } from '../extract-auth-server-config/extractAuthServerConfig';
 import type { AuthServerApiEndpointBodyZodSchemaBuilderProps } from './authServerApiEndpointBodyZodSchemaBuilder.types';
@@ -369,11 +370,11 @@ export const sessionTokenBodySchema = z.object({
  * @description Retrieves the AuthServer configuration using `extractAuthServerConfig` and
  * generates a Zod schema tailored to the specific endpoint requirements.
  *
- * @param endpoint - The API endpoint to generate the schema for.
  * @returns Effect that resolves to the generated Zod schema.
  */
-export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBodyZodSchemaBuilderProps = <K extends AuthServerApiEndpoints>(endpoint: K) =>
+export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBodyZodSchemaBuilderProps = () =>
 	Effect.gen(function* () {
+		const { endpoint } = yield* PipelineContext;
 		const matcher = Match.value(endpoint as AuthServerApiEndpoints);
 
 		const group1 = matcher.pipe(

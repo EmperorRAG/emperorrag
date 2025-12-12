@@ -4,6 +4,7 @@
  */
 
 import * as Effect from 'effect/Effect';
+import { PipelineContext } from '../../../../context/pipeline.context';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
 import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
@@ -13,11 +14,10 @@ import { isAuthServerApiUnlinkAccountParamsFor, type AuthServerApiUnlinkAccountP
 
 export const unlinkAccountServerController: unlinkAccountPropsFor = (params: AuthServerApiUnlinkAccountParamsFor<AuthServerFor>) =>
 	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(
-			createAuthServerApiEndpointParamsSchema(AuthServerApiEndpoints.unlinkAccount),
-			params,
-			isAuthServerApiUnlinkAccountParamsFor,
-			AuthServerApiEndpoints.unlinkAccount
-		);
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema(), params, isAuthServerApiUnlinkAccountParamsFor);
 		return yield* unlinkAccountServerService(validatedParams);
-	});
+	}).pipe(
+		Effect.provideService(PipelineContext, {
+			endpoint: AuthServerApiEndpoints.unlinkAccount,
+		})
+	);
