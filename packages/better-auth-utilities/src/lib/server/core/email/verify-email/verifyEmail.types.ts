@@ -3,9 +3,9 @@
  * @description Type definitions for server-side verify email operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 /**
  * Type helper to extract the verifyEmail endpoint type from an AuthServer.
@@ -48,7 +48,9 @@ export type AuthServerApiVerifyEmailResultFor<T extends AuthServerFor = AuthServ
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export interface verifyEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiVerifyEmailParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiVerifyEmailResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	(
+		params: AuthServerApiVerifyEmailParamsFor<AuthServerFor>
+	): Effect.Effect<Awaited<AuthServerApiVerifyEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**

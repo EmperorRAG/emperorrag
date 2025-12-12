@@ -3,9 +3,9 @@
  * @description Type definitions for server-side forget password (request password reset) operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 /**
  * Type helper to extract the forgetPassword endpoint type from an AuthServer.
@@ -82,8 +82,8 @@ export type AuthServerApiForgetPasswordResultFor<T extends AuthServerFor = AuthS
  * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
- * - CoreAuthServerApiError: API call failures with HTTP status codes
- * - Other CoreAuthServerError types from validation layers (if using controller)
+ * - AuthServerApiError: API call failures with HTTP status codes
+ * - Other AuthServerError types from validation layers (if using controller)
  *
  * @example
  * ```typescript
@@ -105,7 +105,9 @@ export type AuthServerApiForgetPasswordResultFor<T extends AuthServerFor = AuthS
  * ```
  */
 export interface forgetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiForgetPasswordResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	(
+		params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>
+	): Effect.Effect<Awaited<AuthServerApiForgetPasswordResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**
@@ -121,9 +123,7 @@ export interface forgetPasswordPropsFor<T extends AuthServerFor = AuthServerFor>
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiForgetPasswordParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiForgetPasswordParamsFor = (
-	value: unknown
-): value is AuthServerApiForgetPasswordParamsFor<AuthServerFor> => {
+export const isAuthServerApiForgetPasswordParamsFor = (value: unknown): value is AuthServerApiForgetPasswordParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

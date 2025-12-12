@@ -4,17 +4,17 @@
  */
 
 import * as Effect from 'effect/Effect';
-import type { AuthServerApiSignOutParamsFor, signOutPropsFor } from './signOut.types';
-import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
-import type { AuthServerFor } from '../../../server.types';
 import { AuthServerTag } from '../../../server.service';
+import type { AuthServerFor } from '../../../server.types';
+import { mapApiError } from '../../shared/core.error';
+import type { AuthServerApiSignOutParamsFor, signOutPropsFor } from './signOut.types';
 
 /**
  * Terminate the current user session using Better Auth server API.
  *
  * @pure
  * @description Wraps auth.api.signOut in an Effect, converting Promise-based
- * errors into typed CoreAuthServerApiError failures. Invalidates the session
+ * errors into typed AuthServerApiError failures. Invalidates the session
  * and clears authentication cookies.
  *
  * @remarks
@@ -33,7 +33,7 @@ import { AuthServerTag } from '../../../server.service';
  * **Error Handling:**
  * - Better Auth throws APIError instances on failure
  * - Common errors: Invalid session (401), expired session (401)
- * - Status codes extracted and preserved in CoreAuthServerApiError
+ * - Status codes extracted and preserved in AuthServerApiError
  * - Error cause chain maintained for debugging
  *
  * @template T - The Better Auth server type with all plugin augmentations
@@ -65,7 +65,7 @@ import { AuthServerTag } from '../../../server.service';
  *   headers: requestHeaders
  * });
  *
- * const handled = Effect.catchTag(program, 'CoreAuthServerApiError', (error) => {
+ * const handled = Effect.catchTag(program, 'AuthServerApiError', (error) => {
  *   if (error.status === 401) {
  *     console.log('Session already expired or invalid');
  *     return Effect.succeed(undefined);
@@ -82,6 +82,6 @@ export const signOutServerService: signOutPropsFor = (params: AuthServerApiSignO
 	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.signOut(params),
-			catch: mapBetterAuthApiErrorToCoreAuthError,
+			catch: mapApiError,
 		})
 	);

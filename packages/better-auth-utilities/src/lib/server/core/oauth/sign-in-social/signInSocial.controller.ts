@@ -15,7 +15,7 @@ import { isAuthServerApiSignInSocialParamsFor, type AuthServerApiSignInSocialPar
  * It serves as the entry point for the sign-in social operation in the application layer.
  *
  * @param params - The signInSocial parameters including provider, callbacks, and headers
- * @returns Effect requiring AuthServerFor context, failing with CoreAuthServerApiError,
+ * @returns Effect requiring AuthServerFor context, failing with AuthServerApiError,
  *          and succeeding with the sign-in result
  *
  * @example

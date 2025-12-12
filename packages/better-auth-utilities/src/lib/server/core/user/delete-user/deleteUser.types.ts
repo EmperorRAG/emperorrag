@@ -3,9 +3,9 @@
  * @description Type definitions for server-side delete user operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 /**
  * Type helper to extract the deleteUser endpoint type from an AuthServer.
@@ -48,7 +48,9 @@ export type AuthServerApiDeleteUserResultFor<T extends AuthServerFor = AuthServe
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export interface deleteUserPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiDeleteUserParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiDeleteUserResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	(
+		params: AuthServerApiDeleteUserParamsFor<AuthServerFor>
+	): Effect.Effect<Awaited<AuthServerApiDeleteUserResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**

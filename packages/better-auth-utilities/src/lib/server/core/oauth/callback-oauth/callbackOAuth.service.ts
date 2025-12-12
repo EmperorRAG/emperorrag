@@ -4,15 +4,15 @@
  */
 
 import * as Effect from 'effect/Effect';
-import type { AuthServerApiCallbackOAuthParamsFor, callbackOAuthPropsFor } from './callbackOAuth.types';
-import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
-import type { AuthServerFor } from '../../../server.types';
 import { AuthServerTag } from '../../../server.service';
+import type { AuthServerFor } from '../../../server.types';
+import { mapApiError } from '../../shared/core.error';
+import type { AuthServerApiCallbackOAuthParamsFor, callbackOAuthPropsFor } from './callbackOAuth.types';
 
 export const callbackOAuthServerService: callbackOAuthPropsFor = (params: AuthServerApiCallbackOAuthParamsFor<AuthServerFor>) =>
 	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.callbackOAuth(params),
-			catch: mapBetterAuthApiErrorToCoreAuthError,
+			catch: mapApiError,
 		})
 	);

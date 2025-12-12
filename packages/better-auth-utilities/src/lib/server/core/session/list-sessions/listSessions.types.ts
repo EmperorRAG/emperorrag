@@ -3,9 +3,9 @@
  * @description Type definitions for server-side list sessions operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 /**
  * Type helper to extract the listSessions endpoint type from an AuthServer.
@@ -50,7 +50,7 @@ export type AuthServerApiListSessionsResultFor<T extends AuthServerFor = AuthSer
 export interface listSessionsPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
 		params: AuthServerApiListSessionsParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiListSessionsResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	): Effect.Effect<Awaited<AuthServerApiListSessionsResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**
@@ -65,9 +65,7 @@ export interface listSessionsPropsFor<T extends AuthServerFor = AuthServerFor> {
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiListSessionsParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiListSessionsParamsFor = (
-	value: unknown
-): value is AuthServerApiListSessionsParamsFor<AuthServerFor> => {
+export const isAuthServerApiListSessionsParamsFor = (value: unknown): value is AuthServerApiListSessionsParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	return true;
 };

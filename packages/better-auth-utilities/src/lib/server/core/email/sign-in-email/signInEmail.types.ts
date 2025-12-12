@@ -3,9 +3,9 @@
  * @description Type definitions for server-side sign-in email operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 /**
  * Type helper to extract the signInEmail endpoint type from an AuthServer.
@@ -82,8 +82,8 @@ export type AuthServerApiSignInEmailResultFor<T extends AuthServerFor = AuthServ
  * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
- * - CoreAuthServerApiError: API call failures with HTTP status codes
- * - Other CoreAuthServerError types from validation layers (if using controller)
+ * - AuthServerApiError: API call failures with HTTP status codes
+ * - Other AuthServerError types from validation layers (if using controller)
  *
  * @example
  * ```typescript
@@ -105,7 +105,9 @@ export type AuthServerApiSignInEmailResultFor<T extends AuthServerFor = AuthServ
  * ```
  */
 export interface signInEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiSignInEmailParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiSignInEmailResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	(
+		params: AuthServerApiSignInEmailParamsFor<AuthServerFor>
+	): Effect.Effect<Awaited<AuthServerApiSignInEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**

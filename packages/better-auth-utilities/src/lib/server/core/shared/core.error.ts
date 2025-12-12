@@ -16,13 +16,13 @@ import type { AuthServerErrorDescriptor } from '../../server.types';
  * @description Indicates that the provided authServer dependency is invalid or missing.
  * This error occurs during the first stage of validation in the controller layer.
  */
-export class CoreAuthServerDependenciesError extends Error {
-	readonly _tag = 'CoreAuthServerDependenciesError' as const;
+export class AuthServerDependenciesError extends Error {
+	readonly _tag = 'AuthServerDependenciesError' as const;
 	override readonly cause?: unknown;
 
 	constructor(message: string, cause?: unknown) {
 		super(message);
-		this.name = 'CoreAuthServerDependenciesError';
+		this.name = 'AuthServerDependenciesError';
 		this.cause = cause;
 	}
 }
@@ -34,13 +34,13 @@ export class CoreAuthServerDependenciesError extends Error {
  * @description Indicates that the provided operation parameters (body, headers, etc.)
  * failed validation. This error occurs during the second stage of validation in the controller layer.
  */
-export class CoreAuthServerInputError extends Error {
-	readonly _tag = 'CoreAuthServerInputError' as const;
+export class AuthServerInputError extends Error {
+	readonly _tag = 'AuthServerInputError' as const;
 	override readonly cause?: unknown;
 
 	constructor(message: string, cause?: unknown) {
 		super(message);
-		this.name = 'CoreAuthServerInputError';
+		this.name = 'AuthServerInputError';
 		this.cause = cause;
 	}
 }
@@ -52,8 +52,8 @@ export class CoreAuthServerInputError extends Error {
  * @description Wraps errors from auth.api.* method calls, including Better Auth APIError instances.
  * Preserves HTTP status codes when available for proper error handling and response mapping.
  */
-export class CoreAuthServerApiError extends Error {
-	readonly _tag = 'CoreAuthServerApiError' as const;
+export class AuthServerApiError extends Error {
+	readonly _tag = 'AuthServerApiError' as const;
 	override readonly cause?: unknown;
 
 	constructor(
@@ -62,7 +62,7 @@ export class CoreAuthServerApiError extends Error {
 		cause?: unknown
 	) {
 		super(message);
-		this.name = 'CoreAuthServerApiError';
+		this.name = 'AuthServerApiError';
 		this.cause = cause;
 	}
 }
@@ -74,13 +74,13 @@ export class CoreAuthServerApiError extends Error {
  * @description Indicates that the Better Auth server API returned a response
  * but essential data (user, session, etc.) is missing or malformed.
  */
-export class CoreAuthServerDataMissingError extends Error {
-	readonly _tag = 'CoreAuthServerDataMissingError' as const;
+export class AuthServerDataMissingError extends Error {
+	readonly _tag = 'AuthServerDataMissingError' as const;
 	override readonly cause?: unknown;
 
 	constructor(message: string, cause?: unknown) {
 		super(message);
-		this.name = 'CoreAuthServerDataMissingError';
+		this.name = 'AuthServerDataMissingError';
 		this.cause = cause;
 	}
 }
@@ -92,13 +92,13 @@ export class CoreAuthServerDataMissingError extends Error {
  * @description Indicates failures in session creation, retrieval, or validation
  * during server-side authentication operations.
  */
-export class CoreAuthServerSessionError extends Error {
-	readonly _tag = 'CoreAuthServerSessionError' as const;
+export class AuthServerSessionError extends Error {
+	readonly _tag = 'AuthServerSessionError' as const;
 	override readonly cause?: unknown;
 
 	constructor(message: string, cause?: unknown) {
 		super(message);
-		this.name = 'CoreAuthServerSessionError';
+		this.name = 'AuthServerSessionError';
 		this.cause = cause;
 	}
 }
@@ -109,22 +109,17 @@ export class CoreAuthServerSessionError extends Error {
  * @pure
  * @description Enables type-safe error handling using Effect-TS Match.tag() pattern.
  */
-export type CoreAuthServerError =
-	| CoreAuthServerDependenciesError
-	| CoreAuthServerInputError
-	| CoreAuthServerApiError
-	| CoreAuthServerDataMissingError
-	| CoreAuthServerSessionError;
+export type AuthServerError = AuthServerDependenciesError | AuthServerInputError | AuthServerApiError | AuthServerDataMissingError | AuthServerSessionError;
 
-export const mapBetterAuthApiErrorToCoreAuthError = (error: unknown): CoreAuthServerApiError =>
+export const mapApiError = (error: unknown): AuthServerApiError =>
 	pipe(
 		Match.value(error),
 		Match.when(Match.instanceOf(APIError), (err) => {
 			const status = typeof err.status === 'number' ? err.status : parseInt(err.status as string, 10) || undefined;
-			return new CoreAuthServerApiError(err.message, status, err);
+			return new AuthServerApiError(err.message, status, err);
 		}),
-		Match.when(Match.instanceOf(Error), (err) => new CoreAuthServerApiError(err.message, undefined, err)),
-		Match.orElse((err) => new CoreAuthServerApiError('Unknown auth server error', undefined, err))
+		Match.when(Match.instanceOf(Error), (err) => new AuthServerApiError(err.message, undefined, err)),
+		Match.orElse((err) => new AuthServerApiError('Unknown auth server error', undefined, err))
 	);
 
 /**
@@ -144,10 +139,10 @@ export const isZodError = (error: unknown): error is z.ZodError => {
 	);
 };
 
-export const describeCoreAuthError = (error: CoreAuthServerError): AuthServerErrorDescriptor =>
+export const describeError = (error: AuthServerError): AuthServerErrorDescriptor =>
 	pipe(
 		Match.value(error),
-		Match.tag('CoreAuthServerInputError', (err) => ({
+		Match.tag('AuthServerInputError', (err) => ({
 			_tag: 'AuthErrorDescriptor' as const,
 			category: 'input' as const,
 			code: 'invalid_input' as const,
@@ -155,7 +150,7 @@ export const describeCoreAuthError = (error: CoreAuthServerError): AuthServerErr
 			cause: err.cause,
 			status: 400,
 		})),
-		Match.tag('CoreAuthServerApiError', (err) => {
+		Match.tag('AuthServerApiError', (err) => {
 			if (err.status === 401) {
 				return {
 					_tag: 'AuthErrorDescriptor' as const,
@@ -185,7 +180,7 @@ export const describeCoreAuthError = (error: CoreAuthServerError): AuthServerErr
 				cause: err.cause,
 			};
 		}),
-		Match.tag('CoreAuthServerSessionError', (err) => ({
+		Match.tag('AuthServerSessionError', (err) => ({
 			_tag: 'AuthErrorDescriptor' as const,
 			category: 'unauthorized' as const,
 			code: 'session_error' as const,
@@ -193,7 +188,7 @@ export const describeCoreAuthError = (error: CoreAuthServerError): AuthServerErr
 			status: 401,
 			cause: err.cause,
 		})),
-		Match.tag('CoreAuthServerDependenciesError', (err) => ({
+		Match.tag('AuthServerDependenciesError', (err) => ({
 			_tag: 'AuthErrorDescriptor' as const,
 			category: 'dependency' as const,
 			code: 'dependency_error' as const,
@@ -201,7 +196,7 @@ export const describeCoreAuthError = (error: CoreAuthServerError): AuthServerErr
 			status: 500,
 			cause: err.cause,
 		})),
-		Match.tag('CoreAuthServerDataMissingError', (err) => ({
+		Match.tag('AuthServerDataMissingError', (err) => ({
 			_tag: 'AuthErrorDescriptor' as const,
 			category: 'server' as const,
 			code: 'data_missing' as const,

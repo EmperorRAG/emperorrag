@@ -3,9 +3,9 @@
  * @description Type definitions for server-side refresh token operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 export type AuthServerApiRefreshTokenPropsFor<T extends AuthServerFor = AuthServerFor> =
 	'refreshToken' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['refreshToken'] : never;
@@ -17,12 +17,10 @@ export type AuthServerApiRefreshTokenResultFor<T extends AuthServerFor = AuthSer
 export interface refreshTokenPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
 		params: AuthServerApiRefreshTokenParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiRefreshTokenResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	): Effect.Effect<Awaited<AuthServerApiRefreshTokenResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
-export const isAuthServerApiRefreshTokenParamsFor = (
-	value: unknown
-): value is AuthServerApiRefreshTokenParamsFor<AuthServerFor> => {
+export const isAuthServerApiRefreshTokenParamsFor = (value: unknown): value is AuthServerApiRefreshTokenParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	return true;
 };

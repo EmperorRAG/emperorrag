@@ -1,6 +1,6 @@
 import type * as Effect from 'effect/Effect';
-import type { CoreAuthServerApiError, CoreAuthServerInputError } from '../../shared/core.error';
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerApiError, AuthServerInputError } from '../../shared/core.error';
 
 /**
  * Type helper to extract the signInSocial endpoint type from an AuthServer.
@@ -59,10 +59,10 @@ export function isAuthServerApiSignInSocialParamsFor<T extends AuthServerFor = A
  * @description Defines the contract for the signInSocial service and controller functions.
  * It specifies that the function takes `AuthServerApiSignInSocialParamsFor` as input
  * and returns an Effect that requires `AuthServerFor` context.
- * The Effect can fail with `CoreAuthServerApiError` or succeed with the result of `signInSocial`.
+ * The Effect can fail with `AuthServerApiError` or succeed with the result of `signInSocial`.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type signInSocialPropsFor = (
 	params: AuthServerApiSignInSocialParamsFor<AuthServerFor>
-) => Effect.Effect<Awaited<AuthServerApiSignInSocialResultFor<AuthServerFor>>, CoreAuthServerApiError | CoreAuthServerInputError, AuthServerFor>;
+) => Effect.Effect<Awaited<AuthServerApiSignInSocialResultFor<AuthServerFor>>, AuthServerApiError | AuthServerInputError, AuthServerFor>;

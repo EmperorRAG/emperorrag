@@ -4,15 +4,15 @@
  */
 
 import * as Effect from 'effect/Effect';
-import type { AuthServerApiRefreshTokenParamsFor, refreshTokenPropsFor } from './refreshToken.types';
-import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
-import type { AuthServerFor } from '../../../server.types';
 import { AuthServerTag } from '../../../server.service';
+import type { AuthServerFor } from '../../../server.types';
+import { mapApiError } from '../../shared/core.error';
+import type { AuthServerApiRefreshTokenParamsFor, refreshTokenPropsFor } from './refreshToken.types';
 
 export const refreshTokenServerService: refreshTokenPropsFor = (params: AuthServerApiRefreshTokenParamsFor<AuthServerFor>) =>
 	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.refreshToken(params),
-			catch: mapBetterAuthApiErrorToCoreAuthError,
+			catch: mapApiError,
 		})
 	);

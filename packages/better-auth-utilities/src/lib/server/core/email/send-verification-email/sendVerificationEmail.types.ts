@@ -3,9 +3,9 @@
  * @description Type definitions for server-side send verification email operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 /**
  * Type helper to extract the sendVerificationEmail endpoint type from an AuthServer.
@@ -47,7 +47,9 @@ export type AuthServerApiSendVerificationEmailPropsFor<T extends AuthServerFor =
  * // { body: { email: string, callbackURL?: string }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiSendVerificationEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiSendVerificationEmailPropsFor<AuthServerFor>>[0];
+export type AuthServerApiSendVerificationEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+	AuthServerApiSendVerificationEmailPropsFor<AuthServerFor>
+>[0];
 
 /**
  * Type helper to extract the return type from auth.api.sendVerificationEmail.
@@ -64,7 +66,9 @@ export type AuthServerApiSendVerificationEmailParamsFor<T extends AuthServerFor 
  * // Promise<{ status: boolean }>
  * ```
  */
-export type AuthServerApiSendVerificationEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiSendVerificationEmailPropsFor<AuthServerFor>>;
+export type AuthServerApiSendVerificationEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+	AuthServerApiSendVerificationEmailPropsFor<AuthServerFor>
+>;
 
 /**
  * Function signature for sendVerificationEmail server service.
@@ -82,8 +86,8 @@ export type AuthServerApiSendVerificationEmailResultFor<T extends AuthServerFor 
  * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
- * - CoreAuthServerApiError: API call failures with HTTP status codes
- * - Other CoreAuthServerError types from validation layers (if using controller)
+ * - AuthServerApiError: API call failures with HTTP status codes
+ * - Other AuthServerError types from validation layers (if using controller)
  *
  * @example
  * ```typescript
@@ -106,7 +110,7 @@ export type AuthServerApiSendVerificationEmailResultFor<T extends AuthServerFor 
 export interface sendVerificationEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
 		params: AuthServerApiSendVerificationEmailParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiSendVerificationEmailResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	): Effect.Effect<Awaited<AuthServerApiSendVerificationEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**
@@ -122,9 +126,7 @@ export interface sendVerificationEmailPropsFor<T extends AuthServerFor = AuthSer
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiSendVerificationEmailParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiSendVerificationEmailParamsFor = (
-	value: unknown
-): value is AuthServerApiSendVerificationEmailParamsFor<AuthServerFor> => {
+export const isAuthServerApiSendVerificationEmailParamsFor = (value: unknown): value is AuthServerApiSendVerificationEmailParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

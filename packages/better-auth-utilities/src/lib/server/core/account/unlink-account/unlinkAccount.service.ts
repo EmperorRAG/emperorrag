@@ -4,17 +4,17 @@
  */
 
 import * as Effect from 'effect/Effect';
-import type { AuthServerApiUnlinkAccountParamsFor, unlinkAccountPropsFor } from './unlinkAccount.types';
-import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
-import type { AuthServerFor } from '../../../server.types';
 import { AuthServerTag } from '../../../server.service';
+import type { AuthServerFor } from '../../../server.types';
+import { mapApiError } from '../../shared/core.error';
+import type { AuthServerApiUnlinkAccountParamsFor, unlinkAccountPropsFor } from './unlinkAccount.types';
 
 /**
  * Unlink an OAuth/social account from the authenticated user using Better Auth server API.
  *
  * @pure
  * @description Wraps auth.api.unlinkAccount in an Effect, converting Promise-based
- * errors into typed CoreAuthServerApiError failures. Removes a linked provider
+ * errors into typed AuthServerApiError failures. Removes a linked provider
  * account from the current user.
  *
  * @remarks
@@ -33,7 +33,7 @@ import { AuthServerTag } from '../../../server.service';
  * **Error Handling:**
  * - Better Auth throws APIError instances on failure
  * - Common errors: Unauthorized (401), provider not found (404), last login method (400)
- * - Status codes extracted and preserved in CoreAuthServerApiError
+ * - Status codes extracted and preserved in AuthServerApiError
  * - Error cause chain maintained for debugging
  *
  * @template T - The Better Auth server type with all plugin augmentations
@@ -68,7 +68,7 @@ import { AuthServerTag } from '../../../server.service';
  *   headers: requestHeaders
  * });
  *
- * const handled = Effect.catchTag(program, 'CoreAuthServerApiError', (error) => {
+ * const handled = Effect.catchTag(program, 'AuthServerApiError', (error) => {
  *   if (error.status === 404) {
  *     console.error('Provider not linked to this account');
  *     return Effect.fail(new Error('Provider not found'));
@@ -91,7 +91,7 @@ import { AuthServerTag } from '../../../server.service';
  *   headers: requestHeaders
  * });
  *
- * const handled = Effect.catchTag(program, 'CoreAuthServerApiError', (error) => {
+ * const handled = Effect.catchTag(program, 'AuthServerApiError', (error) => {
  *   if (error.status === 400) {
  *     console.error('Cannot unlink last login method');
  *     return Effect.fail(new Error('Add another login method first'));
@@ -108,6 +108,6 @@ export const unlinkAccountServerService: unlinkAccountPropsFor = (params: AuthSe
 	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.unlinkAccount(params),
-			catch: mapBetterAuthApiErrorToCoreAuthError,
+			catch: mapApiError,
 		})
 	);

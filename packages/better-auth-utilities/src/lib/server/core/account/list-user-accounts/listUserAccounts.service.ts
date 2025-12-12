@@ -5,9 +5,9 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { CoreAuthServerDataMissingError, mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import { AuthServerTag } from '../../../server.service';
 import type { AuthServerFor } from '../../../server.types';
+import { AuthServerDataMissingError, mapApiError } from '../../shared/core.error';
 import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor } from './listUserAccounts.types';
 
 /**
@@ -19,8 +19,8 @@ import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor }
  * Returns an Effect requiring AuthServerFor context that, when provided, fetches the accounts list.
  *
  * @param params - The listUserAccounts parameters including headers for session
- * @returns Effect requiring AuthServerFor context, failing with CoreAuthServerApiError
- *          or CoreAuthServerDataMissingError, and succeeding with the accounts list
+ * @returns Effect requiring AuthServerFor context, failing with AuthServerApiError
+ *          or AuthServerDataMissingError, and succeeding with the accounts list
  *
  * @example
  * ```typescript
@@ -63,7 +63,7 @@ import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor }
  * const program = Effect.gen(function* (_) {
  *   const accounts = yield* _(
  *     listUserAccountsServerService({ headers: request.headers }).pipe(
- *       Effect.catchTag('CoreAuthServerApiError', (e) =>
+ *       Effect.catchTag('AuthServerApiError', (e) =>
  *         Effect.fail(new Error('Failed to fetch accounts'))
  *       )
  *     )
@@ -78,12 +78,12 @@ export const listUserAccountsServerService: listUserAccountsPropsFor = (params: 
 			const result = yield* _(
 				Effect.tryPromise({
 					try: () => authServer.api.listUserAccounts(params),
-					catch: mapBetterAuthApiErrorToCoreAuthError,
+					catch: mapApiError,
 				})
 			);
 
 			if (result === null || result === undefined) {
-				yield* _(Effect.fail(new CoreAuthServerDataMissingError('No accounts data returned from listUserAccounts API')));
+				yield* _(Effect.fail(new AuthServerDataMissingError('No accounts data returned from listUserAccounts API')));
 			}
 
 			return result;

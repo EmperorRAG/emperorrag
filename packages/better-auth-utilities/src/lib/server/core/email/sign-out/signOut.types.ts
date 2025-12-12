@@ -3,9 +3,9 @@
  * @description Type definitions for server-side sign-out operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 /**
  * Type helper to extract the signOut endpoint type from an AuthServer.
@@ -79,8 +79,8 @@ export type AuthServerApiSignOutResultFor<T extends AuthServerFor = AuthServerFo
  * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
- * - CoreAuthServerApiError: API call failures with HTTP status codes
- * - Other CoreAuthServerError types from validation layers (if using controller)
+ * - AuthServerApiError: API call failures with HTTP status codes
+ * - Other AuthServerError types from validation layers (if using controller)
  *
  * @example
  * ```typescript
@@ -98,7 +98,9 @@ export type AuthServerApiSignOutResultFor<T extends AuthServerFor = AuthServerFo
  * ```
  */
 export interface signOutPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiSignOutParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiSignOutResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	(
+		params: AuthServerApiSignOutParamsFor<AuthServerFor>
+	): Effect.Effect<Awaited<AuthServerApiSignOutResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**

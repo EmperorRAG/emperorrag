@@ -3,7 +3,7 @@ import { pipe } from 'effect/Function';
 import type { z } from 'zod';
 import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import { OperationCodes } from '../../enums/operationCodes.enum';
-import { type CoreAuthServerInputError } from '../../server/core/shared/core.error';
+import { type AuthServerInputError } from '../../server/core/shared/core.error';
 import { mapInputError } from '../map-input-error/mapInputError';
 
 /**
@@ -11,11 +11,11 @@ import { mapInputError } from '../map-input-error/mapInputError';
  *
  * @pure
  * @description Wraps schema creation in an Effect that maps any errors to
- * CoreAuthServerInputError with 'schema_creation' source for traceability.
+ * AuthServerInputError with 'schema_creation' source for traceability.
  */
 
 export const createSchemaEffect = <T extends z.ZodType, R = never>(
 	schemaEffect: Effect.Effect<T, unknown, R>,
 	endpoint: AuthServerApiEndpoints
-): Effect.Effect<T, CoreAuthServerInputError, R> =>
+): Effect.Effect<T, AuthServerInputError, R> =>
 	Effect.catchAll(schemaEffect, (error) => pipe(mapInputError(error, OperationCodes.schemaCreation, endpoint), Effect.flatMap(Effect.fail)));

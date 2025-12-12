@@ -2,7 +2,7 @@ import * as Effect from 'effect/Effect';
 import { pipe } from 'effect/Function';
 import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import { OperationCodes } from '../../enums/operationCodes.enum';
-import { type CoreAuthServerInputError } from '../../server/core/shared/core.error';
+import { type AuthServerInputError } from '../../server/core/shared/core.error';
 import { mapInputError } from '../map-input-error/mapInputError';
 
 /**
@@ -10,14 +10,14 @@ import { mapInputError } from '../map-input-error/mapInputError';
  *
  * @pure
  * @description Applies a type guard to validated data and returns an Effect.
- * If the type guard fails, returns a traced CoreAuthServerInputError.
+ * If the type guard fails, returns a traced AuthServerInputError.
  */
 
 export const validateWithTypeGuardEffect = <T, AuthServerApiEndpoint extends AuthServerApiEndpoints = AuthServerApiEndpoints>(
 	data: unknown,
 	typeGuard: (value: unknown) => value is T,
 	endpoint: AuthServerApiEndpoint
-): Effect.Effect<T, CoreAuthServerInputError> =>
+): Effect.Effect<T, AuthServerInputError> =>
 	Effect.suspend(() => {
 		if (typeGuard(data)) {
 			return Effect.succeed(data);

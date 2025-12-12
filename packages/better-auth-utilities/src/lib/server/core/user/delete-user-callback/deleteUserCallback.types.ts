@@ -3,26 +3,28 @@
  * @description Type definitions for server-side delete user callback operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 export type AuthServerApiDeleteUserCallbackPropsFor<T extends AuthServerFor = AuthServerFor> =
 	'deleteUserCallback' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['deleteUserCallback'] : never;
 
-export type AuthServerApiDeleteUserCallbackParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiDeleteUserCallbackPropsFor<AuthServerFor>>[0];
+export type AuthServerApiDeleteUserCallbackParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+	AuthServerApiDeleteUserCallbackPropsFor<AuthServerFor>
+>[0];
 
-export type AuthServerApiDeleteUserCallbackResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiDeleteUserCallbackPropsFor<AuthServerFor>>;
+export type AuthServerApiDeleteUserCallbackResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+	AuthServerApiDeleteUserCallbackPropsFor<AuthServerFor>
+>;
 
 export interface deleteUserCallbackPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
 		params: AuthServerApiDeleteUserCallbackParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiDeleteUserCallbackResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	): Effect.Effect<Awaited<AuthServerApiDeleteUserCallbackResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
-export const isAuthServerApiDeleteUserCallbackParamsFor = (
-	value: unknown
-): value is AuthServerApiDeleteUserCallbackParamsFor<AuthServerFor> => {
+export const isAuthServerApiDeleteUserCallbackParamsFor = (value: unknown): value is AuthServerApiDeleteUserCallbackParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 	if (typeof obj['query'] !== 'object' || obj['query'] === null) return false;

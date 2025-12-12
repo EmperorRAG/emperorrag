@@ -4,27 +4,27 @@
  */
 
 import * as Effect from 'effect/Effect';
-import type { AuthServerApiRevokeSessionParamsFor, revokeSessionPropsFor } from './revokeSession.types';
-import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
-import type { AuthServerFor } from '../../../server.types';
 import { AuthServerTag } from '../../../server.service';
+import type { AuthServerFor } from '../../../server.types';
+import { mapApiError } from '../../shared/core.error';
+import type { AuthServerApiRevokeSessionParamsFor, revokeSessionPropsFor } from './revokeSession.types';
 
 /**
  * Revoke a specific session via Better Auth server API.
  *
  * @pure
  * @description Wraps auth.api.revokeSession in an Effect, converting Promise-based
- * errors into typed CoreAuthServerApiError failures.
+ * errors into typed AuthServerApiError failures.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param params - The revoke session parameters
- * @returns Effect that resolves to revoke result or fails with CoreAuthServerApiError
+ * @returns Effect that resolves to revoke result or fails with AuthServerApiError
  */
 export const revokeSessionServerService: revokeSessionPropsFor = (params: AuthServerApiRevokeSessionParamsFor<AuthServerFor>) =>
 	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.revokeSession(params),
-			catch: mapBetterAuthApiErrorToCoreAuthError,
+			catch: mapApiError,
 		})
 	);

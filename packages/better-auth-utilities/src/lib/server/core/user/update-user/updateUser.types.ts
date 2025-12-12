@@ -3,9 +3,9 @@
  * @description Type definitions for server-side update user operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 /**
  * Type helper to extract the updateUser endpoint type from an AuthServer.
@@ -57,11 +57,13 @@ export type AuthServerApiUpdateUserResultFor<T extends AuthServerFor = AuthServe
  * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
- * - CoreAuthServerApiError: API call failures with HTTP status codes
- * - Other CoreAuthServerError types from validation layers (if using controller)
+ * - AuthServerApiError: API call failures with HTTP status codes
+ * - Other AuthServerError types from validation layers (if using controller)
  */
 export interface updateUserPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiUpdateUserParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiUpdateUserResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	(
+		params: AuthServerApiUpdateUserParamsFor<AuthServerFor>
+	): Effect.Effect<Awaited<AuthServerApiUpdateUserResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**

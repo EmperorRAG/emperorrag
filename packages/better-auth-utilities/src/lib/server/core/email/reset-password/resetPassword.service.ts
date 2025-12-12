@@ -4,17 +4,17 @@
  */
 
 import * as Effect from 'effect/Effect';
-import type { AuthServerApiResetPasswordParamsFor, resetPasswordPropsFor } from './resetPassword.types';
-import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
-import type { AuthServerFor } from '../../../server.types';
 import { AuthServerTag } from '../../../server.service';
+import type { AuthServerFor } from '../../../server.types';
+import { mapApiError } from '../../shared/core.error';
+import type { AuthServerApiResetPasswordParamsFor, resetPasswordPropsFor } from './resetPassword.types';
 
 /**
  * Reset user password using Better Auth server API.
  *
  * @pure
  * @description Wraps auth.api.resetPassword in an Effect, converting Promise-based
- * errors into typed CoreAuthServerApiError failures. Completes password reset workflow
+ * errors into typed AuthServerApiError failures. Completes password reset workflow
  * by verifying token and setting new password.
  *
  * @remarks
@@ -35,7 +35,7 @@ import { AuthServerTag } from '../../../server.service';
  * **Error Handling:**
  * - Better Auth throws APIError instances on failure
  * - Common errors: Invalid/expired token (400/401), weak password (400), token already used (400)
- * - Status codes extracted and preserved in CoreAuthServerApiError
+ * - Status codes extracted and preserved in AuthServerApiError
  * - Error cause chain maintained for debugging
  *
  * @template T - The Better Auth server type with all plugin augmentations
@@ -77,7 +77,7 @@ import { AuthServerTag } from '../../../server.service';
  *   headers: requestHeaders
  * });
  *
- * const handled = Effect.catchTag(program, 'CoreAuthServerApiError', (error) => {
+ * const handled = Effect.catchTag(program, 'AuthServerApiError', (error) => {
  *   if (error.status === 400 || error.status === 401) {
  *     console.error('Reset token is invalid or expired');
  *     return Effect.fail(new Error('Please request a new password reset'));
@@ -106,6 +106,6 @@ export const resetPasswordServerService: resetPasswordPropsFor = (params: AuthSe
 	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.resetPassword(params),
-			catch: mapBetterAuthApiErrorToCoreAuthError,
+			catch: mapApiError,
 		})
 	);

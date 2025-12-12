@@ -4,17 +4,17 @@
  */
 
 import * as Effect from 'effect/Effect';
-import type { AuthServerApiSignInEmailParamsFor, signInEmailPropsFor } from './signInEmail.types';
-import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
-import type { AuthServerFor } from '../../../server.types';
 import { AuthServerTag } from '../../../server.service';
+import type { AuthServerFor } from '../../../server.types';
+import { mapApiError } from '../../shared/core.error';
+import type { AuthServerApiSignInEmailParamsFor, signInEmailPropsFor } from './signInEmail.types';
 
 /**
  * Sign in a user via email and password using Better Auth server API.
  *
  * @pure
  * @description Wraps auth.api.signInEmail in an Effect, converting Promise-based
- * errors into typed CoreAuthServerApiError failures. Authenticates user and
+ * errors into typed AuthServerApiError failures. Authenticates user and
  * creates a session.
  *
  * @remarks
@@ -33,7 +33,7 @@ import { AuthServerTag } from '../../../server.service';
  * **Error Handling:**
  * - Better Auth throws APIError instances on failure
  * - Common errors: Invalid credentials (401), user not found (404)
- * - Status codes extracted and preserved in CoreAuthServerApiError
+ * - Status codes extracted and preserved in AuthServerApiError
  * - Error cause chain maintained for debugging
  *
  * @template T - The Better Auth server type with all plugin augmentations
@@ -71,7 +71,7 @@ import { AuthServerTag } from '../../../server.service';
  *   headers: requestHeaders
  * });
  *
- * const handled = Effect.catchTag(program, 'CoreAuthServerApiError', (error) => {
+ * const handled = Effect.catchTag(program, 'AuthServerApiError', (error) => {
  *   if (error.status === 401) {
  *     return Effect.fail(new Error('Invalid credentials'));
  *   }
@@ -87,6 +87,6 @@ export const signInEmailServerService: signInEmailPropsFor = (params: AuthServer
 	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.signInEmail(params),
-			catch: mapBetterAuthApiErrorToCoreAuthError,
+			catch: mapApiError,
 		})
 	);

@@ -3,9 +3,9 @@
  * @description Type definitions for server-side change password operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 /**
  * Type helper to extract the changePassword endpoint type from an AuthServer.
@@ -82,8 +82,8 @@ export type AuthServerApiChangePasswordResultFor<T extends AuthServerFor = AuthS
  * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
- * - CoreAuthServerApiError: API call failures with HTTP status codes
- * - Other CoreAuthServerError types from validation layers (if using controller)
+ * - AuthServerApiError: API call failures with HTTP status codes
+ * - Other AuthServerError types from validation layers (if using controller)
  *
  * @example
  * ```typescript
@@ -107,7 +107,9 @@ export type AuthServerApiChangePasswordResultFor<T extends AuthServerFor = AuthS
  * ```
  */
 export interface changePasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiChangePasswordParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiChangePasswordResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	(
+		params: AuthServerApiChangePasswordParamsFor<AuthServerFor>
+	): Effect.Effect<Awaited<AuthServerApiChangePasswordResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**
@@ -123,9 +125,7 @@ export interface changePasswordPropsFor<T extends AuthServerFor = AuthServerFor>
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiChangePasswordParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiChangePasswordParamsFor = (
-	value: unknown
-): value is AuthServerApiChangePasswordParamsFor<AuthServerFor> => {
+export const isAuthServerApiChangePasswordParamsFor = (value: unknown): value is AuthServerApiChangePasswordParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

@@ -4,17 +4,15 @@
  */
 
 import * as Effect from 'effect/Effect';
-import type { AuthServerApiRevokeOtherSessionsParamsFor, revokeOtherSessionsPropsFor } from './revokeOtherSessions.types';
-import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
-import type { AuthServerFor } from '../../../server.types';
 import { AuthServerTag } from '../../../server.service';
+import type { AuthServerFor } from '../../../server.types';
+import { mapApiError } from '../../shared/core.error';
+import type { AuthServerApiRevokeOtherSessionsParamsFor, revokeOtherSessionsPropsFor } from './revokeOtherSessions.types';
 
-export const revokeOtherSessionsServerService: revokeOtherSessionsPropsFor = (
-	params: AuthServerApiRevokeOtherSessionsParamsFor<AuthServerFor>
-) =>
+export const revokeOtherSessionsServerService: revokeOtherSessionsPropsFor = (params: AuthServerApiRevokeOtherSessionsParamsFor<AuthServerFor>) =>
 	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.revokeOtherSessions(params),
-			catch: mapBetterAuthApiErrorToCoreAuthError,
+			catch: mapApiError,
 		})
 	);

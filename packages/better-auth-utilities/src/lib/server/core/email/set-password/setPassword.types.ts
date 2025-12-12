@@ -3,9 +3,9 @@
  * @description Type definitions for server-side set password operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 /**
  * Type helper to extract the setPassword endpoint type from an AuthServer.
@@ -48,7 +48,9 @@ export type AuthServerApiSetPasswordResultFor<T extends AuthServerFor = AuthServ
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export interface setPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiSetPasswordParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiSetPasswordResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	(
+		params: AuthServerApiSetPasswordParamsFor<AuthServerFor>
+	): Effect.Effect<Awaited<AuthServerApiSetPasswordResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**

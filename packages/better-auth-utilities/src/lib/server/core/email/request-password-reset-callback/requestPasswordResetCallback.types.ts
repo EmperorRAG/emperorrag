@@ -3,9 +3,9 @@
  * @description Type definitions for server-side request password reset callback operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 export type AuthServerApiRequestPasswordResetCallbackPropsFor<T extends AuthServerFor = AuthServerFor> =
 	'requestPasswordResetCallback' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['requestPasswordResetCallback'] : never;
@@ -21,7 +21,7 @@ export type AuthServerApiRequestPasswordResetCallbackResultFor<T extends AuthSer
 export interface requestPasswordResetCallbackPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
 		params: AuthServerApiRequestPasswordResetCallbackParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiRequestPasswordResetCallbackResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	): Effect.Effect<Awaited<AuthServerApiRequestPasswordResetCallbackResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 export const isAuthServerApiRequestPasswordResetCallbackParamsFor = (

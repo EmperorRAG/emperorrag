@@ -3,7 +3,7 @@ import { pipe } from 'effect/Function';
 import type { z } from 'zod';
 import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
 import { OperationCodes } from '../../enums/operationCodes.enum';
-import { type CoreAuthServerInputError } from '../../server/core/shared/core.error';
+import { type AuthServerInputError } from '../../server/core/shared/core.error';
 import { mapInputError } from '../map-input-error/mapInputError';
 
 /**
@@ -11,10 +11,10 @@ import { mapInputError } from '../map-input-error/mapInputError';
  *
  * @pure
  * @description Validates input against the provided schema and wraps the result
- * in an Effect. Failed validation returns a properly traced CoreAuthServerInputError.
+ * in an Effect. Failed validation returns a properly traced AuthServerInputError.
  */
 
-export const parseWithSchemaEffect = <T>(schema: z.ZodType<T>, input: unknown, endpoint: AuthServerApiEndpoints): Effect.Effect<T, CoreAuthServerInputError> =>
+export const parseWithSchemaEffect = <T>(schema: z.ZodType<T>, input: unknown, endpoint: AuthServerApiEndpoints): Effect.Effect<T, AuthServerInputError> =>
 	Effect.suspend(() => {
 		const result = schema.safeParse(input);
 

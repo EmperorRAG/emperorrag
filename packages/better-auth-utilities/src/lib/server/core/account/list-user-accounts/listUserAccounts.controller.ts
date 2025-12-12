@@ -9,7 +9,7 @@ import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints
 import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
 import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
-import { CoreAuthServerApiError, CoreAuthServerDataMissingError, CoreAuthServerInputError } from '../../shared/core.error';
+import { AuthServerApiError, AuthServerDataMissingError, AuthServerInputError } from '../../shared/core.error';
 import { listUserAccountsServerService } from './listUserAccounts.service';
 import {
 	isAuthServerApiListUserAccountsParamsFor,
@@ -53,7 +53,7 @@ export const listUserAccountsServerController = (
 	input: AuthServerApiListUserAccountsParamsFor
 ): Effect.Effect<
 	Awaited<AuthServerApiListUserAccountsResultFor<AuthServerFor>>,
-	CoreAuthServerInputError | CoreAuthServerApiError | CoreAuthServerDataMissingError,
+	AuthServerInputError | AuthServerApiError | AuthServerDataMissingError,
 	AuthServerFor
 > =>
 	Effect.gen(function* () {

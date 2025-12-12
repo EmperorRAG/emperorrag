@@ -5,8 +5,8 @@
  */
 
 import * as Effect from 'effect/Effect';
-import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
 import { AuthServerTag } from '../../../server.service';
+import { mapApiError } from '../../shared/core.error';
 import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from './getSession.types';
 
 /**
@@ -19,7 +19,7 @@ import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from './get
  * fetches the session data or returns null if no valid session exists.
  *
  * @param params - The getSession parameters including headers for cookie-based lookup
- * @returns Effect requiring AuthServerTag context, failing with CoreAuthServerApiError,
+ * @returns Effect requiring AuthServerTag context, failing with AuthServerApiError,
  *          and succeeding with session/user data or null
  *
  * @example
@@ -72,7 +72,7 @@ import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from './get
  * const program = Effect.gen(function* (_) {
  *   const session = yield* _(
  *     getSessionServerService({ headers: request.headers }).pipe(
- *       Effect.catchTag('CoreAuthServerApiError', (e) => {
+ *       Effect.catchTag('AuthServerApiError', (e) => {
  *         console.error('Session API error:', e.message);
  *         return Effect.succeed(null);
  *       })
@@ -86,6 +86,6 @@ export const getSessionServerService: getSessionPropsFor = (params: AuthServerAp
 	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.getSession(params),
-			catch: mapBetterAuthApiErrorToCoreAuthError,
+			catch: mapApiError,
 		})
 	);

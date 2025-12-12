@@ -3,9 +3,9 @@
  * @description Type definitions for server-side revoke session operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 /**
  * Type helper to extract the revokeSession endpoint type from an AuthServer.
@@ -49,7 +49,7 @@ export type AuthServerApiRevokeSessionResultFor<T extends AuthServerFor = AuthSe
 export interface revokeSessionPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
 		params: AuthServerApiRevokeSessionParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiRevokeSessionResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	): Effect.Effect<Awaited<AuthServerApiRevokeSessionResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**
@@ -63,9 +63,7 @@ export interface revokeSessionPropsFor<T extends AuthServerFor = AuthServerFor> 
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiRevokeSessionParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiRevokeSessionParamsFor = (
-	value: unknown
-): value is AuthServerApiRevokeSessionParamsFor<AuthServerFor> => {
+export const isAuthServerApiRevokeSessionParamsFor = (value: unknown): value is AuthServerApiRevokeSessionParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

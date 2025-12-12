@@ -3,9 +3,9 @@
  * @description Reusable error handler workflow pipeline for server-side operations.
  */
 
-import * as Effect from 'effect/Effect';
 import * as Cause from 'effect/Cause';
-import { describeCoreAuthError, type CoreAuthServerError } from '../../server/core/shared/core.error';
+import * as Effect from 'effect/Effect';
+import { describeError, type AuthServerError } from '../../server/core/shared/core.error';
 import type { AuthServerErrorDescriptor } from '../../server/server.types';
 
 /**
@@ -13,7 +13,7 @@ import type { AuthServerErrorDescriptor } from '../../server/server.types';
  *
  * @pure
  * @description A functional pipeline that intercepts errors from server workflows.
- * It transforms known domain errors (CoreAuthServerError) into standardized descriptors
+ * It transforms known domain errors (AuthServerError) into standardized descriptors
  * and catches unexpected defects (crashes), converting them into a generic 500 error descriptor.
  *
  * This ensures that all failures leaving the domain layer are structured, predictable,
@@ -33,12 +33,12 @@ export const withServerErrorHandler = <A, E, R>(effect: Effect.Effect<A, E, R>):
 				if (typeof error === 'object' && error !== null && '_tag' in error) {
 					const tag = (error as { _tag: string })._tag;
 					switch (tag) {
-						case 'CoreAuthServerDependenciesError':
-						case 'CoreAuthServerInputError':
-						case 'CoreAuthServerApiError':
-						case 'CoreAuthServerDataMissingError':
-						case 'CoreAuthServerSessionError':
-							return Effect.fail(describeCoreAuthError(error as unknown as CoreAuthServerError));
+						case 'AuthServerDependenciesError':
+						case 'AuthServerInputError':
+						case 'AuthServerApiError':
+						case 'AuthServerDataMissingError':
+						case 'AuthServerSessionError':
+							return Effect.fail(describeError(error as unknown as AuthServerError));
 					}
 				}
 

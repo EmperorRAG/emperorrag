@@ -4,17 +4,17 @@
  */
 
 import * as Effect from 'effect/Effect';
-import type { AuthServerApiForgetPasswordParamsFor, forgetPasswordPropsFor } from './forgetPassword.types';
-import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
-import type { AuthServerFor } from '../../../server.types';
 import { AuthServerTag } from '../../../server.service';
+import type { AuthServerFor } from '../../../server.types';
+import { mapApiError } from '../../shared/core.error';
+import type { AuthServerApiForgetPasswordParamsFor, forgetPasswordPropsFor } from './forgetPassword.types';
 
 /**
  * Request password reset email using Better Auth server API.
  *
  * @pure
  * @description Wraps auth.api.forgetPassword in an Effect, converting Promise-based
- * errors into typed CoreAuthServerApiError failures. Initiates password reset workflow
+ * errors into typed AuthServerApiError failures. Initiates password reset workflow
  * by sending a secure reset link via email.
  *
  * @remarks
@@ -33,7 +33,7 @@ import { AuthServerTag } from '../../../server.service';
  * **Error Handling:**
  * - Better Auth throws APIError instances on failure
  * - Common errors: Rate limit exceeded (429), email service failure (500)
- * - Status codes extracted and preserved in CoreAuthServerApiError
+ * - Status codes extracted and preserved in AuthServerApiError
  * - Error cause chain maintained for debugging
  * - For security, should not reveal whether email exists in system
  *
@@ -71,7 +71,7 @@ import { AuthServerTag } from '../../../server.service';
  *   body: { email: 'user@example.com' }
  * });
  *
- * const handled = Effect.catchTag(program, 'CoreAuthServerApiError', (error) => {
+ * const handled = Effect.catchTag(program, 'AuthServerApiError', (error) => {
  *   if (error.status === 429) {
  *     console.error('Too many requests. Please try again later.');
  *     return Effect.fail(new Error('Rate limit exceeded'));
@@ -112,6 +112,6 @@ export const forgetPasswordServerService: forgetPasswordPropsFor = (params: Auth
 	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.forgetPassword(params),
-			catch: mapBetterAuthApiErrorToCoreAuthError,
+			catch: mapApiError,
 		})
 	);

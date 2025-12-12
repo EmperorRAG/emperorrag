@@ -5,7 +5,7 @@
 
 import type * as Effect from 'effect/Effect';
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
+import type { AuthServerError } from '../../shared/core.error';
 
 /**
  * Type helper to extract the unlinkAccount endpoint type from an AuthServer.
@@ -81,8 +81,8 @@ export type AuthServerApiUnlinkAccountResultFor<T extends AuthServerFor = AuthSe
  * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
- * - CoreAuthServerApiError: API call failures with HTTP status codes
- * - Other CoreAuthServerError types from validation layers (if using controller)
+ * - AuthServerApiError: API call failures with HTTP status codes
+ * - Other AuthServerError types from validation layers (if using controller)
  *
  * @example
  * ```typescript
@@ -101,7 +101,7 @@ export type AuthServerApiUnlinkAccountResultFor<T extends AuthServerFor = AuthSe
  * ```
  */
 export interface unlinkAccountPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiUnlinkAccountParamsFor<T>): Effect.Effect<Awaited<AuthServerApiUnlinkAccountResultFor<T>>, CoreAuthServerError, T>;
+	(params: AuthServerApiUnlinkAccountParamsFor<T>): Effect.Effect<Awaited<AuthServerApiUnlinkAccountResultFor<T>>, AuthServerError, T>;
 }
 
 /**

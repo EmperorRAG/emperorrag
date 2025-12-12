@@ -3,26 +3,28 @@
  * @description Type definitions for server-side link social account operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 export type AuthServerApiLinkSocialAccountPropsFor<T extends AuthServerFor = AuthServerFor> =
 	'linkSocialAccount' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['linkSocialAccount'] : never;
 
-export type AuthServerApiLinkSocialAccountParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiLinkSocialAccountPropsFor<AuthServerFor>>[0];
+export type AuthServerApiLinkSocialAccountParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+	AuthServerApiLinkSocialAccountPropsFor<AuthServerFor>
+>[0];
 
-export type AuthServerApiLinkSocialAccountResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiLinkSocialAccountPropsFor<AuthServerFor>>;
+export type AuthServerApiLinkSocialAccountResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+	AuthServerApiLinkSocialAccountPropsFor<AuthServerFor>
+>;
 
 export interface linkSocialAccountPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
 		params: AuthServerApiLinkSocialAccountParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiLinkSocialAccountResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	): Effect.Effect<Awaited<AuthServerApiLinkSocialAccountResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
-export const isAuthServerApiLinkSocialAccountParamsFor = (
-	value: unknown
-): value is AuthServerApiLinkSocialAccountParamsFor<AuthServerFor> => {
+export const isAuthServerApiLinkSocialAccountParamsFor = (value: unknown): value is AuthServerApiLinkSocialAccountParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 

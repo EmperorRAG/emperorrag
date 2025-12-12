@@ -3,9 +3,9 @@
  * @description Type definitions for server-side get access token operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 export type AuthServerApiGetAccessTokenPropsFor<T extends AuthServerFor = AuthServerFor> =
 	'getAccessToken' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['getAccessToken'] : never;
@@ -17,12 +17,10 @@ export type AuthServerApiGetAccessTokenResultFor<T extends AuthServerFor = AuthS
 export interface getAccessTokenPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
 		params: AuthServerApiGetAccessTokenParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiGetAccessTokenResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	): Effect.Effect<Awaited<AuthServerApiGetAccessTokenResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
-export const isAuthServerApiGetAccessTokenParamsFor = (
-	value: unknown
-): value is AuthServerApiGetAccessTokenParamsFor<AuthServerFor> => {
+export const isAuthServerApiGetAccessTokenParamsFor = (value: unknown): value is AuthServerApiGetAccessTokenParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	return true;
 };

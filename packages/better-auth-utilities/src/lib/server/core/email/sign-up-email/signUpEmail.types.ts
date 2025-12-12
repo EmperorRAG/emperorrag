@@ -3,9 +3,9 @@
  * @description Type definitions for server-side sign-up email operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 /**
  * Type helper to extract the signUp endpoint type from an AuthServer.
@@ -83,8 +83,8 @@ export type AuthServerApiSignUpEmailResultFor<T extends AuthServerFor = AuthServ
  * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
- * - CoreAuthServerApiError: API call failures with HTTP status codes
- * - Other CoreAuthServerError types from validation layers (if using controller)
+ * - AuthServerApiError: API call failures with HTTP status codes
+ * - Other AuthServerError types from validation layers (if using controller)
  *
  * @example
  * ```typescript
@@ -109,10 +109,12 @@ export type AuthServerApiSignUpEmailResultFor<T extends AuthServerFor = AuthServ
 // export interface signUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
 // 	(
 // 		deps: EmailAuthServerDeps<T>
-// 	): (params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>) => Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<AuthServerFor>>, CoreAuthServerError>;
+// 	): (params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>) => Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<AuthServerFor>>, AuthServerError>;
 // }
 export interface signUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>): Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	(
+		params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>
+	): Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**

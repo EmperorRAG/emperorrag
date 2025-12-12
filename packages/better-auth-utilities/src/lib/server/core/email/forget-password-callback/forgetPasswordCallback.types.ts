@@ -3,9 +3,9 @@
  * @description Type definitions for server-side forget password callback operation.
  */
 
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
-import type { CoreAuthServerError } from '../../shared/core.error';
 import type * as Effect from 'effect/Effect';
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type { AuthServerError } from '../../shared/core.error';
 
 export type AuthServerApiForgetPasswordCallbackPropsFor<T extends AuthServerFor = AuthServerFor> =
 	'forgetPasswordCallback' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['forgetPasswordCallback'] : never;
@@ -14,17 +14,17 @@ export type AuthServerApiForgetPasswordCallbackParamsFor<T extends AuthServerFor
 	AuthServerApiForgetPasswordCallbackPropsFor<AuthServerFor>
 >[0];
 
-export type AuthServerApiForgetPasswordCallbackResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiForgetPasswordCallbackPropsFor<AuthServerFor>>;
+export type AuthServerApiForgetPasswordCallbackResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+	AuthServerApiForgetPasswordCallbackPropsFor<AuthServerFor>
+>;
 
 export interface forgetPasswordCallbackPropsFor<T extends AuthServerFor = AuthServerFor> {
 	(
 		params: AuthServerApiForgetPasswordCallbackParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiForgetPasswordCallbackResultFor<AuthServerFor>>, CoreAuthServerError, AuthServerFor>;
+	): Effect.Effect<Awaited<AuthServerApiForgetPasswordCallbackResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
-export const isAuthServerApiForgetPasswordCallbackParamsFor = (
-	value: unknown
-): value is AuthServerApiForgetPasswordCallbackParamsFor<AuthServerFor> => {
+export const isAuthServerApiForgetPasswordCallbackParamsFor = (value: unknown): value is AuthServerApiForgetPasswordCallbackParamsFor<AuthServerFor> => {
 	if (typeof value !== 'object' || value === null) return false;
 	const obj = value as Record<string, unknown>;
 	if (typeof obj['query'] !== 'object' || obj['query'] === null) return false;

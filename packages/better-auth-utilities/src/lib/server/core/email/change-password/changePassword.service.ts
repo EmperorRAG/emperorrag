@@ -4,17 +4,17 @@
  */
 
 import * as Effect from 'effect/Effect';
-import type { AuthServerApiChangePasswordParamsFor, changePasswordPropsFor } from './changePassword.types';
-import { mapBetterAuthApiErrorToCoreAuthError } from '../../shared/core.error';
-import type { AuthServerFor } from '../../../server.types';
 import { AuthServerTag } from '../../../server.service';
+import type { AuthServerFor } from '../../../server.types';
+import { mapApiError } from '../../shared/core.error';
+import type { AuthServerApiChangePasswordParamsFor, changePasswordPropsFor } from './changePassword.types';
 
 /**
  * Change user password using Better Auth server API.
  *
  * @pure
  * @description Wraps auth.api.changePassword in an Effect, converting Promise-based
- * errors into typed CoreAuthServerApiError failures. Verifies current password
+ * errors into typed AuthServerApiError failures. Verifies current password
  * before updating to new password.
  *
  * @remarks
@@ -34,7 +34,7 @@ import { AuthServerTag } from '../../../server.service';
  * **Error Handling:**
  * - Better Auth throws APIError instances on failure
  * - Common errors: Incorrect current password (401), weak new password (400)
- * - Status codes extracted and preserved in CoreAuthServerApiError
+ * - Status codes extracted and preserved in AuthServerApiError
  * - Error cause chain maintained for debugging
  *
  * @template T - The Better Auth server type with all plugin augmentations
@@ -78,7 +78,7 @@ import { AuthServerTag } from '../../../server.service';
  *   headers: requestHeaders
  * });
  *
- * const handled = Effect.catchTag(program, 'CoreAuthServerApiError', (error) => {
+ * const handled = Effect.catchTag(program, 'AuthServerApiError', (error) => {
  *   if (error.status === 401) {
  *     console.error('Current password is incorrect');
  *     return Effect.fail(new Error('Please verify your current password'));
@@ -121,6 +121,6 @@ export const changePasswordServerService: changePasswordPropsFor = (params: Auth
 	Effect.flatMap(AuthServerTag, (authServer) =>
 		Effect.tryPromise({
 			try: () => authServer.api.changePassword(params),
-			catch: mapBetterAuthApiErrorToCoreAuthError,
+			catch: mapApiError,
 		})
 	);
