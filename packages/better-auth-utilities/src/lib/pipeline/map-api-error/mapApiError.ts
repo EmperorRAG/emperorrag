@@ -2,10 +2,10 @@ import { APIError } from 'better-auth';
 import * as Effect from 'effect/Effect';
 import { pipe } from 'effect/Function';
 import * as Match from 'effect/Match';
-import type { AuthServerApiError } from '../../errors/authServer.error';
 import { createAuthServerApiError } from '../create-auth-server-api-error/createAuthServerApiError';
+import type { MapApiErrorProps } from './mapApiError.types';
 
-export const mapApiError = (error: unknown): Effect.Effect<never, AuthServerApiError> =>
+export const mapApiError: MapApiErrorProps = (error) =>
 	pipe(
 		Match.value(error),
 		Match.when(Match.instanceOf(APIError), (err) => {

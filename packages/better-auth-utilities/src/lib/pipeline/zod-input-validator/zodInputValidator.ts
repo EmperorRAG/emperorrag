@@ -1,10 +1,10 @@
 import * as Effect from 'effect/Effect';
 import type { z } from 'zod';
 import type { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
-import { type AuthServerInputError } from '../../errors/authServer.error';
 import { handleInputError } from '../handle-input-error/handleInputError';
 import { parseWithSchema } from '../parse-with-schema/parseWithSchema';
 import { validateWithTypeGuard } from '../validate-with-type-guard/validateWithTypeGuard';
+import type { ZodInputValidatorProps } from './zodInputValidator.types';
 
 /**
  * Composes schema creation, parsing, and type guard validation into a single Effect.
@@ -19,12 +19,12 @@ import { validateWithTypeGuard } from '../validate-with-type-guard/validateWithT
  * enabling precise identification of where validation failed.
  */
 
-export const validateInputEffect = <T, R>(
+export const validateInputEffect: ZodInputValidatorProps = <T, R>(
 	schemaEffect: Effect.Effect<z.ZodType, unknown, R>,
 	input: unknown,
 	typeGuard: (value: unknown) => value is T,
 	endpoint: AuthServerApiEndpoints
-): Effect.Effect<T, AuthServerInputError, R> =>
+) =>
 	Effect.gen(function* () {
 		const schema = yield* handleInputError(schemaEffect, endpoint);
 		const parsed = yield* parseWithSchema(schema, input, endpoint);

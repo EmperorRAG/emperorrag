@@ -1,9 +1,9 @@
 import * as Effect from 'effect/Effect';
 import * as Match from 'effect/Match';
 import { z } from 'zod';
-import { extractAuthServerConfig } from '../extract-auth-server-config/extractAuthServerConfig';
-import type { AuthServerFor } from '../../server/server.types';
 import { AuthServerApiEndpoints } from '../../enums/authServerApiEndpoints.enum';
+import { extractAuthServerConfig } from '../extract-auth-server-config/extractAuthServerConfig';
+import type { AuthServerApiEndpointBodyZodSchemaBuilderProps } from './authServerApiEndpointBodyZodSchemaBuilder.types';
 
 // =============================================================================
 // EMAIL SCHEMA PROPERTIES
@@ -372,7 +372,7 @@ export const sessionTokenBodySchema = z.object({
  * @param endpoint - The API endpoint to generate the schema for.
  * @returns Effect that resolves to the generated Zod schema.
  */
-export const authServerApiEndpointBodyZodSchemaBuilder = <K extends AuthServerApiEndpoints>(endpoint: K): Effect.Effect<z.ZodSchema, Error, AuthServerFor> =>
+export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBodyZodSchemaBuilderProps = <K extends AuthServerApiEndpoints>(endpoint: K) =>
 	Effect.gen(function* () {
 		const matcher = Match.value(endpoint as AuthServerApiEndpoints);
 

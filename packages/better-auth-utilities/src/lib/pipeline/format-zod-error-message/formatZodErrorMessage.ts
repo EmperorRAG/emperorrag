@@ -1,7 +1,7 @@
 import * as Array from 'effect/Array';
 import * as Effect from 'effect/Effect';
 import { pipe } from 'effect/Function';
-import type { z } from 'zod';
+import type { FormatZodErrorMessageProps } from './formatZodErrorMessage.types';
 
 /**
  * Formats ZodError into a human-readable message.
@@ -10,7 +10,7 @@ import type { z } from 'zod';
  * @description Creates a structured error message from ZodError field-level issues.
  */
 
-export const formatZodErrorMessage = (error: z.ZodError) =>
+export const formatZodErrorMessage: FormatZodErrorMessageProps = (error) =>
 	Effect.succeed(error.issues).pipe(
 		Effect.map((issues) =>
 			pipe(

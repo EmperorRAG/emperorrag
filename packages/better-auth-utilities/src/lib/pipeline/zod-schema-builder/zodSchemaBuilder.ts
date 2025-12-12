@@ -13,6 +13,7 @@ import {
 	authServerApiEndpointBodyZodSchemaBuilder,
 	tokenRequiredSchema,
 } from '../auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder';
+import type { CreateAuthServerApiEndpointParamsSchemaProps } from './zodSchemaBuilder.types';
 export * from '../auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder';
 // import { AuthServerTag } from '../../server/server.service';
 
@@ -279,7 +280,7 @@ export const withAdditionalFields =
  * @param endpoint - The API endpoint to generate the schema for.
  * @returns An Effect that resolves to the Zod schema.
  */
-export const createAuthServerApiEndpointParamsSchema = <K extends AuthServerApiEndpoints>(endpoint: K) =>
+export const createAuthServerApiEndpointParamsSchema: CreateAuthServerApiEndpointParamsSchemaProps = <K extends AuthServerApiEndpoints>(endpoint: K) =>
 	Effect.gen(function* () {
 		const bodySchema = yield* authServerApiEndpointBodyZodSchemaBuilder(endpoint);
 

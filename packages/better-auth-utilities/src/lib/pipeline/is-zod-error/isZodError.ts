@@ -1,6 +1,7 @@
 import { pipe } from 'effect/Function';
 import * as Predicate from 'effect/Predicate';
 import type { z } from 'zod';
+import type { IsZodErrorProps } from './isZodError.types';
 
 /**
  * Type guard for ZodError detection.
@@ -11,7 +12,7 @@ import type { z } from 'zod';
  * @fp-pattern Predicate Composition
  * @composition pipe(error, Predicate.compose(Predicate.isRecord, Predicate.struct(...)))
  */
-export const isZodError = (error: unknown): error is z.ZodError =>
+export const isZodError: IsZodErrorProps = (error: unknown): error is z.ZodError =>
 	pipe(
 		error,
 		Predicate.compose(
