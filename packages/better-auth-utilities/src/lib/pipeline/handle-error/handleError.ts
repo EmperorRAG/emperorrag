@@ -8,7 +8,7 @@ import * as Effect from 'effect/Effect';
 import { type AuthServerError } from '../../errors/authServer.error';
 import { createUnknownErrorDescriptor, describeError } from '../describe-error/describeError';
 import { isAuthServerErrorDescriptor } from '../describe-error/describeError.types';
-import type { WithServerErrorHandlerProps } from './errorHandler.types';
+import type { WithServerErrorHandlerProps as HandleErrorProps } from './handleError.types';
 
 /**
  * Standardized server error handler pipeline.
@@ -24,7 +24,7 @@ import type { WithServerErrorHandlerProps } from './errorHandler.types';
  * @param effect - The effect to wrap with error handling.
  * @returns An effect that fails with a standardized AuthServerErrorDescriptor.
  */
-export const withServerErrorHandler: WithServerErrorHandlerProps = <A, E, R>(effect: Effect.Effect<A, E, R>) => {
+export const handleError: HandleErrorProps = <A, E, R>(effect: Effect.Effect<A, E, R>) => {
 	return effect.pipe(
 		Effect.catchAllCause((cause) => {
 			// If it's a failure (expected error E)
