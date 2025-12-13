@@ -4,16 +4,19 @@ import * as Schema from 'effect/Schema';
 import { AuthServerInputError } from '../../../../errors/authServer.error';
 import { AdditionalFieldsSchema } from '../../../../schema/additional-fields.schema';
 import { Email, EmailSchema } from '../../../../schema/email.schema';
+import { Image, ImageSchema } from '../../../../schema/image.schema';
+import { Name, NameSchema } from '../../../../schema/name.schema';
 import { Password, PasswordSchema } from '../../../../schema/password.schema';
+import { Url, UrlSchema } from '../../../../schema/url.schema';
 import { AuthServerTag } from '../../../server.service';
 import type { AuthServer } from '../../../server.types';
 
 export class SignUpEmailCommand extends Data.TaggedClass('SignUpEmailCommand')<{
-	name: string;
+	name: Name;
 	email: Email;
 	password: Password;
-	callbackURL?: string;
-	image?: string;
+	callbackURL?: Url;
+	image?: Image;
 	additionalFields: Readonly<Record<string, unknown>>;
 }> {}
 
@@ -24,11 +27,11 @@ export const SignUpEmailCommandSchema = (authServer: AuthServer) => {
 	};
 
 	const KnownFields = Schema.Struct({
-		name: Schema.String,
+		name: NameSchema,
 		email: EmailSchema,
 		password: PasswordSchema(passwordPolicy),
-		callbackURL: Schema.optional(Schema.String),
-		image: Schema.optional(Schema.String),
+		callbackURL: Schema.optional(UrlSchema),
+		image: Schema.optional(ImageSchema),
 	});
 
 	const InputSchema = KnownFields.pipe(Schema.extend(Schema.Record({ key: Schema.String, value: Schema.Unknown })));
