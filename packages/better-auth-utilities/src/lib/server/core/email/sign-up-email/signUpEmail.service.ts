@@ -132,6 +132,8 @@ export const signUpEmailServerServiceFromCommandWithCtx = (cmd: SignUpEmailComma
 		password: cmd.password,
 		name: cmd.name,
 		...(cmd.image !== undefined ? { image: cmd.image } : {}),
+		...(cmd.callbackURL !== undefined ? { callbackURL: cmd.callbackURL } : {}),
+		...cmd.additionalFields,
 	};
 
 	const params = {
