@@ -63,6 +63,24 @@ type AuthOptions = AuthServer['options'];
 type EmailAndPasswordConfig = NonNullable<AuthOptions>['emailAndPassword'];
 
 /**
+ * Helper to extract a property from an Option wrapped object.
+ *
+ * @param input - The object wrapped in Option.
+ * @param selector - A function to select the property from the object.
+ * @returns {Effect.Effect<Option.Option<TOutput>>} The selected property wrapped in Option and Effect.
+ */
+const extractProperty = <TInput, TOutput>(
+	input: Option.Option<TInput>,
+	selector: (input: TInput) => TOutput | undefined | null
+): Effect.Effect<Option.Option<TOutput>> =>
+	Effect.sync(() =>
+		pipe(
+			input,
+			Option.flatMap((i) => Option.fromNullable(selector(i)))
+		)
+	);
+
+/**
  * Extracts the options from the AuthServer instance.
  *
  * @param server - The AuthServer instance.
@@ -77,12 +95,7 @@ export const extractAuthOptions = (server: AuthServer): Effect.Effect<Option.Opt
  * @returns {Effect.Effect<Option.Option<EmailAndPasswordConfig>>} The configuration wrapped in Option.
  */
 export const extractEmailAndPasswordConfig = (options: Option.Option<AuthOptions>): Effect.Effect<Option.Option<EmailAndPasswordConfig>> =>
-	Effect.sync(() =>
-		pipe(
-			options,
-			Option.flatMap((opts) => Option.fromNullable(opts?.emailAndPassword))
-		)
-	);
+	extractProperty(options, (opts) => opts?.emailAndPassword);
 
 /**
  * Extracts the minimum password length from the configuration.
@@ -91,12 +104,9 @@ export const extractEmailAndPasswordConfig = (options: Option.Option<AuthOptions
  * @returns {Effect.Effect<number>} The minimum password length (defaults to 8).
  */
 export const extractMinPasswordLength = (config: Option.Option<EmailAndPasswordConfig>): Effect.Effect<number> =>
-	Effect.sync(() =>
-		pipe(
-			config,
-			Option.flatMap((c) => Option.fromNullable(c?.minPasswordLength)),
-			Option.getOrElse(() => 8)
-		)
+	pipe(
+		extractProperty(config, (c) => c?.minPasswordLength),
+		Effect.map(Option.getOrElse(() => 8))
 	);
 
 /**
@@ -106,12 +116,9 @@ export const extractMinPasswordLength = (config: Option.Option<EmailAndPasswordC
  * @returns {Effect.Effect<number>} The maximum password length (defaults to 32).
  */
 export const extractMaxPasswordLength = (config: Option.Option<EmailAndPasswordConfig>): Effect.Effect<number> =>
-	Effect.sync(() =>
-		pipe(
-			config,
-			Option.flatMap((c) => Option.fromNullable(c?.maxPasswordLength)),
-			Option.getOrElse(() => 32)
-		)
+	pipe(
+		extractProperty(config, (c) => c?.maxPasswordLength),
+		Effect.map(Option.getOrElse(() => 32))
 	);
 
 /**
@@ -129,124 +136,69 @@ export const constructPasswordPolicy = (inputs: { minLength: number; maxLength: 
 /**
  * Extracts the secret from the options.
  */
-export const extractSecret = (options: Option.Option<AuthOptions>): Effect.Effect<Option.Option<string>> =>
-	Effect.sync(() =>
-		pipe(
-			options,
-			Option.flatMap((opts) => Option.fromNullable(opts?.secret))
-		)
-	);
+export const extractSecret = (options: Option.Option<AuthOptions>): Effect.Effect<Option.Option<string>> => extractProperty(options, (opts) => opts?.secret);
 
 /**
  * Extracts the baseURL from the options.
  */
-export const extractBaseURL = (options: Option.Option<AuthOptions>): Effect.Effect<Option.Option<string>> =>
-	Effect.sync(() =>
-		pipe(
-			options,
-			Option.flatMap((opts) => Option.fromNullable(opts?.baseURL))
-		)
-	);
+export const extractBaseURL = (options: Option.Option<AuthOptions>): Effect.Effect<Option.Option<string>> => extractProperty(options, (opts) => opts?.baseURL);
 
 /**
  * Extracts the basePath from the options.
  */
 export const extractBasePath = (options: Option.Option<AuthOptions>): Effect.Effect<string> =>
-	Effect.sync(() =>
-		pipe(
-			options,
-			Option.flatMap((opts) => Option.fromNullable(opts?.basePath)),
-			Option.getOrElse(() => '/api/auth')
-		)
+	pipe(
+		extractProperty(options, (opts) => opts?.basePath),
+		Effect.map(Option.getOrElse(() => '/api/auth'))
 	);
 
 /**
  * Extracts the database configuration from the options.
  */
 export const extractDatabase = (options: Option.Option<AuthOptions>): Effect.Effect<Option.Option<NonNullable<AuthOptions>['database']>> =>
-	Effect.sync(() =>
-		pipe(
-			options,
-			Option.flatMap((opts) => Option.fromNullable(opts?.database))
-		)
-	);
+	extractProperty(options, (opts) => opts?.database);
 
 /**
  * Extracts the session configuration from the options.
  */
 export const extractSession = (options: Option.Option<AuthOptions>): Effect.Effect<Option.Option<NonNullable<AuthOptions>['session']>> =>
-	Effect.sync(() =>
-		pipe(
-			options,
-			Option.flatMap((opts) => Option.fromNullable(opts?.session))
-		)
-	);
+	extractProperty(options, (opts) => opts?.session);
 
 /**
  * Extracts the cookies configuration from the options.
  */
 export const extractCookies = (options: Option.Option<AuthOptions>): Effect.Effect<Option.Option<NonNullable<AuthOptions>['advanced']>> =>
-	Effect.sync(() =>
-		pipe(
-			options,
-			Option.flatMap((opts) => Option.fromNullable(opts?.advanced?.cookies ? opts.advanced : undefined))
-		)
-	);
+	extractProperty(options, (opts) => (opts?.advanced?.cookies ? opts.advanced : undefined));
 
 /**
  * Extracts the trustedOrigins from the options.
  */
 export const extractTrustedOrigins = (options: Option.Option<AuthOptions>): Effect.Effect<Option.Option<NonNullable<AuthOptions>['trustedOrigins']>> =>
-	Effect.sync(() =>
-		pipe(
-			options,
-			Option.flatMap((opts) => Option.fromNullable(opts?.trustedOrigins))
-		)
-	);
+	extractProperty(options, (opts) => opts?.trustedOrigins);
 
 /**
  * Extracts the socialProviders from the options.
  */
 export const extractSocialProviders = (options: Option.Option<AuthOptions>): Effect.Effect<Option.Option<NonNullable<AuthOptions>['socialProviders']>> =>
-	Effect.sync(() =>
-		pipe(
-			options,
-			Option.flatMap((opts) => Option.fromNullable(opts?.socialProviders))
-		)
-	);
+	extractProperty(options, (opts) => opts?.socialProviders);
 
 /**
  * Extracts the user configuration from the options.
  */
 export const extractUser = (options: Option.Option<AuthOptions>): Effect.Effect<Option.Option<NonNullable<AuthOptions>['user']>> =>
-	Effect.sync(() =>
-		pipe(
-			options,
-			Option.flatMap((opts) => Option.fromNullable(opts?.user))
-		)
-	);
+	extractProperty(options, (opts) => opts?.user);
 
 /**
  * Extracts the plugins from the options.
  */
 export const extractPlugins = (options: Option.Option<AuthOptions>): Effect.Effect<Option.Option<NonNullable<AuthOptions>['plugins']>> =>
-	Effect.sync(() =>
-		pipe(
-			options,
-			Option.flatMap((opts) => Option.fromNullable(opts?.plugins))
-		)
-	);
+	extractProperty(options, (opts) => opts?.plugins);
 
 /**
  * Extracts the logger from the options.
  */
 export const extractLogger = (options: Option.Option<AuthOptions>): Effect.Effect<Option.Option<NonNullable<AuthOptions>['logger']>> =>
-	Effect.sync(() =>
-		pipe(
-			options,
-			Option.flatMap((opts) => Option.fromNullable(opts?.logger))
-		)
-	);
+	extractProperty(options, (opts) => opts?.logger);
 
 /**
  * Constructs the global policy from the password policy.
