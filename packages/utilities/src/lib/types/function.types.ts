@@ -1,4 +1,5 @@
-import { pipe, Match } from 'effect';
+import { pipe } from 'effect/Function';
+import * as Match from 'effect/Match';
 
 /**
  * A type alias for any function.

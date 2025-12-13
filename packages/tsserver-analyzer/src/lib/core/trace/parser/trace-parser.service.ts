@@ -1,4 +1,4 @@
-import { Option } from 'effect';
+import * as Option from 'effect/Option';
 import type { TraceEvent } from './trace-parser.types.ts';
 
 /**

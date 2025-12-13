@@ -4,6 +4,9 @@
 	"type": "module",
 	"sideEffects": false,
 	"scripts": {
+		"tsc:list-files": "tsc --project tsconfig.json --listFiles",
+		"tsc:list-files:lib": "tsc --project tsconfig.lib.json --listFiles",
+		"tsc:list-files:spec": "tsc --project tsconfig.spec.json --listFiles",
 		"run": "npx nx build tsserver-analyzer && node dist/cli.js"
 	},
 	"bin": {

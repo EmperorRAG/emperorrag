@@ -1,4 +1,5 @@
-import { pipe, Match } from 'effect';
+import { pipe } from 'effect/Function';
+import * as Match from 'effect/Match';
 import { map } from 'effect/Array';
 import { isArrowFunction, isNamedFunction, AnyFunction } from '../types/function.types.js';
 
@@ -86,8 +87,7 @@ export const getAllFunctionValues = (): AnyFunction[] => [
  * getAllFunctionLabelValues();
  * // => ['arrow function', 'named function']
  */
-export const getAllFunctionLabelValues = (): string[] =>
-	pipe(getAllFunctionValues(), map(getFunctionLabelValue));
+export const getAllFunctionLabelValues = (): string[] => pipe(getAllFunctionValues(), map(getFunctionLabelValue));
 
 /**
  * Maps all function values to their expected boolean values for stringability tests.
@@ -104,5 +104,4 @@ export const getAllFunctionLabelValues = (): string[] =>
  * getAllFunctionExpectedValues();
  * // => [true, true]
  */
-export const getAllFunctionExpectedValues = (): boolean[] =>
-	pipe(getAllFunctionValues(), map(getFunctionExpectedValue));
+export const getAllFunctionExpectedValues = (): boolean[] => pipe(getAllFunctionValues(), map(getFunctionExpectedValue));

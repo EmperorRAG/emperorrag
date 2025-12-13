@@ -1,4 +1,5 @@
-import { pipe, Match } from 'effect';
+import { pipe } from 'effect/Function';
+import * as Match from 'effect/Match';
 import { map } from 'effect/Array';
 import { isValueArrayOfStringable } from '../types/array/array.types.js';
 import { isValueObject } from '../types/object/object.types.js';
@@ -26,10 +27,7 @@ const stringifyValue = (value: Stringable): string =>
 	pipe(
 		Match.value(value),
 		Match.when(
-			(v: Stringable): v is object =>
-				isValueObject(v) &&
-				typeof v.toString === 'function' &&
-				v.toString !== Object.prototype.toString,
+			(v: Stringable): v is object => isValueObject(v) && typeof v.toString === 'function' && v.toString !== Object.prototype.toString,
 			(v) => String(v)
 		),
 		Match.when(isValueObject, (v) => JSON.stringify(v)),

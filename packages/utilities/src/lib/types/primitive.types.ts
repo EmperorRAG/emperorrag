@@ -1,4 +1,5 @@
-import { pipe, Match } from 'effect';
+import { pipe } from 'effect/Function';
+import * as Match from 'effect/Match';
 
 /**
  * Checks if a value is the primitive value `null`.

@@ -17,7 +17,8 @@
  *
  * @example
  * ```typescript
- * import { Effect, pipe } from 'effect';
+ * import * as Effect from 'effect/Effect';
+ * import { pipe } from 'effect/Function';
  * import { sendVerificationEmailInputSchema } from './sendVerificationEmail.schema';
  * import { sendVerificationEmail } from './sendVerificationEmail.service';
  *

@@ -2,6 +2,9 @@
 	"name": "@emperorrag/better-auth-next-js-frontend",
 	"version": "0.0.1",
 	"private": true,
+	"scripts": {
+		"tsc:list-files": "tsc --project tsconfig.json --listFiles"
+	},
 	"nx": {
 		"name": "better-auth-next-js-frontend",
 		"tags": [

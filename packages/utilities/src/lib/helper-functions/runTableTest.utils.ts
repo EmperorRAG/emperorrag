@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest';
-import { pipe } from 'effect';
+import { pipe } from 'effect/Function';
 import { forEach } from 'effect/Array';
 
 type TestCase<Input, Expected> = {

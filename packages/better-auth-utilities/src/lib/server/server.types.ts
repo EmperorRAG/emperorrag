@@ -708,16 +708,3 @@ export type AuthServerAccountInfoFor<T extends AuthServerFor = AuthServerFor> =
  * ```
  */
 export type AuthServerOkFor<T extends AuthServerFor = AuthServerFor> = 'ok' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['ok'] : never;
-
-/**
- * Type helper to extract the error endpoint type from an AuthServer.
- *
- * @pure
- * @description Returns the type of the `error` utility method from the server API.
- *
- * @example
- * ```typescript
- * type ErrorMethod = AuthServerErrorFor<typeof authServer>;
- * ```
- */
-export type AuthServerErrorFor<T extends AuthServerFor = AuthServerFor> = 'error' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['error'] : never;

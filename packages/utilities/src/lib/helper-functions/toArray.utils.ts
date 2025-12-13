@@ -1,4 +1,4 @@
-import { pipe } from 'effect';
+import { pipe } from 'effect/Function';
 import { of } from 'effect/Array';
 
 /**

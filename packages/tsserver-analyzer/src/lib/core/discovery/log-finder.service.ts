@@ -1,7 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
-import { Effect, Console } from 'effect';
+import * as Effect from 'effect/Effect';
+import * as Console from 'effect/Console';
 
 export const findSessionTraceFiles = Effect.gen(function* (_) {
 	let logsDir = '';

@@ -2,6 +2,9 @@
 	"name": "@emperorrag/ts-analyzer-next",
 	"version": "0.0.1",
 	"private": true,
+	"scripts": {
+		"tsc:list-files": "tsc --project tsconfig.json --listFiles"
+	},
 	"nx": {
 		"name": "ts-analyzer-next",
 		"tags": [

@@ -1,33 +1,24 @@
 import * as Effect from 'effect/Effect';
-import { createSignUpEmailServerParamsSchema } from './signUpEmail.schema';
+import { PipelineContext } from '../../../../context/pipeline.context';
+import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
+import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
+import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
 import type { AuthServerFor } from '../../../server.types';
-import { isAuthServerApiSignUpEmailParamsFor, type AuthServerApiSignUpEmailParamsFor, type signUpEmailPropsFor } from './signUpEmail.types';
-import { EmailAuthServerInputError } from '../shared/email.error';
 import { signUpEmailServerService } from './signUpEmail.service';
-import { EmailAuthServerServiceTag } from '../shared/email.service';
+import { isAuthServerApiSignUpEmailParamsFor, type AuthServerApiSignUpEmailParamsFor, type signUpEmailPropsFor } from './signUpEmail.types';
 
-export const signUpEmailServerController: signUpEmailPropsFor = <T extends AuthServerFor = AuthServerFor>(params: AuthServerApiSignUpEmailParamsFor<T>) =>
-	Effect.gen(function* (_) {
-		const { authServer } = yield* _(EmailAuthServerServiceTag);
-		const schema = yield* _(createSignUpEmailServerParamsSchema(authServer));
-
-		// 1) Validate params input with Zod
-		const parsed = schema.safeParse(params);
-
-		if (!parsed.success) {
-			const message = 'Invalid sign up parameters';
-			const cause = parsed.error;
-			return yield* _(Effect.fail(new EmailAuthServerInputError(message, cause)));
-		}
-
-		if (!isAuthServerApiSignUpEmailParamsFor<T>(parsed.data)) {
-			const message = 'Parsed data does not conform to expected sign up parameters structure';
-			return yield* _(Effect.fail(new EmailAuthServerInputError(message)));
-		}
+export const signUpEmailServerController: signUpEmailPropsFor = (params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>) =>
+	Effect.gen(function* () {
+		// 1) Validate params input with Effect-based validation pipeline
+		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiSignUpEmailParamsFor)(params);
 
 		// 2) Call the service with the validated params
-		const result = yield* _(signUpEmailServerService(parsed.data));
+		const result = yield* signUpEmailServerService(validatedParams);
 
 		// 3) Return the success value of the whole controller Effect
 		return result;
-	});
+	}).pipe(
+		Effect.provideService(PipelineContext, {
+			endpoint: AuthServerApiEndpoints.SignUpEmail(),
+		})
+	);

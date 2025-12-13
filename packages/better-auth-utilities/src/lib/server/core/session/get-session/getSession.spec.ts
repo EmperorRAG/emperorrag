@@ -1,10 +1,10 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import * as Effect from 'effect/Effect';
-import * as Either from 'effect/Either';
-import { getSessionServer } from './getSession.service';
 import { setupTestEnv } from '../../../../test/setup-test-env';
+import { getSessionServerService } from './getSession.service';
+import { AuthServerTag } from '../../../server.service';
+import * as Effect from 'effect/Effect';
 
-describe('getSessionServer', () => {
+describe('Server Get Session', () => {
 	let env: Awaited<ReturnType<typeof setupTestEnv>>;
 
 	beforeAll(async () => {
@@ -15,71 +15,46 @@ describe('getSessionServer', () => {
 		await env.cleanup();
 	});
 
-	it('should get session successfully via server api', async () => {
-		const { authClient, authServer, baseURL } = env;
+	it('should get session for authenticated user', async () => {
+		const { authServer } = env;
+		const email = 'get-session-test@example.com';
+		const password = 'password123';
+		const name = 'Get Session Test';
 
-		// 1. Sign up a user
-		await authClient.signUp.email({
-			email: 'test-server-session@example.com',
-			password: 'password123',
-			name: 'Server Session User',
+		// Create a user
+		await authServer.api.signUpEmail({
+			body: { email, password, name },
 		});
 
-		// 2. Sign in manually to get the session cookie
-		const signInRes = await fetch(`${baseURL}/api/auth/sign-in/email`, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				email: 'test-server-session@example.com',
-				password: 'password123',
+		// Sign in to get session cookie
+		const signInRes = await authServer.api.signInEmail({
+			body: { email, password },
+			asResponse: true,
+		});
+
+		const cookie = signInRes.headers.get('set-cookie');
+		expect(cookie).toBeDefined();
+
+		const program = getSessionServerService({
+			headers: new Headers({
+				cookie: cookie || '',
 			}),
 		});
-		const cookie = signInRes.headers.get('set-cookie');
 
-		const headers = new Headers();
-		if (cookie) {
-			headers.set('Cookie', cookie);
-		}
+		const res = await Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer));
 
-		// 3. Get session via server
-		const result = await Effect.runPromise(
-			Effect.either(
-				getSessionServer({ authServer })({
-					headers: headers,
-				})
-			)
-		);
-
-		if (Either.isLeft(result)) {
-			console.error('Get Session Server Error:', result.left);
-		}
-		expect(Either.isRight(result)).toBeTruthy();
-		if (Either.isRight(result)) {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const data = result.right as any;
-			expect(data).toBeDefined();
-			expect(data.user).toBeDefined();
-			expect(data.user.email).toBe('test-server-session@example.com');
-			expect(data.session).toBeDefined();
-		}
+		expect(res).toBeDefined();
+		expect(res?.user).toBeDefined();
+		expect(res?.user.email).toBe(email);
 	});
 
-	it('should return null session when not authenticated', async () => {
+	it('should return null without authentication', async () => {
 		const { authServer } = env;
 
-		const result = await Effect.runPromise(
-			Effect.either(
-				getSessionServer({ authServer })({
-					headers: new Headers(),
-				})
-			)
-		);
+		const program = getSessionServerService({ headers: new Headers() });
 
-		expect(Either.isRight(result)).toBeTruthy();
-		if (Either.isRight(result)) {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const data = result.right as any;
-			expect(data).toBeNull();
-		}
+		const res = await Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer));
+
+		expect(res).toBeNull();
 	});
 });

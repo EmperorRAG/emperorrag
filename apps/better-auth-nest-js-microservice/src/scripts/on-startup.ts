@@ -1,14 +1,14 @@
-import { Match, Option, Effect, pipe } from 'effect';
+import * as Match from 'effect/Match';
+import * as Option from 'effect/Option';
+import * as Effect from 'effect/Effect';
+import { pipe } from 'effect/Function';
 import * as ReadonlyArray from 'effect/Array';
 import { hashPassword } from 'better-auth/crypto';
 import { PrismaClient } from '../../better-auth-db/prisma/generated/client/index.js';
 import { resolve } from 'node:path';
 import { promises as fs } from 'node:fs';
 
-const ENV_FILE_PATH = resolve(
-	process.cwd(),
-	'apps/better-auth-nest-js-microservice/.env'
-);
+const ENV_FILE_PATH = resolve(process.cwd(), 'apps/better-auth-nest-js-microservice/.env');
 
 interface SeedAdminUser {
 	readonly id: string;
@@ -85,25 +85,25 @@ const loadEnvironmentFile = (): Effect.Effect<void, EnvironmentLoadFailure, neve
 				pipe(
 					Effect.tryPromise({
 						try: () => fs.readFile(ENV_FILE_PATH, 'utf-8'),
-						catch: (error) =>
-							new EnvironmentLoadFailure('Failed to load Better Auth environment file.', error),
+						catch: (error) => new EnvironmentLoadFailure('Failed to load Better Auth environment file.', error),
 					}),
 					Effect.flatMap((content) =>
-						Effect.forEach(parseEnvContent(content), (entry) =>
-							Effect.sync(() => {
-								if (!(entry.key in process.env)) {
-									process.env[entry.key] = entry.value;
-								}
-							}),
-						{ concurrency: 'unbounded', discard: true }
+						Effect.forEach(
+							parseEnvContent(content),
+							(entry) =>
+								Effect.sync(() => {
+									if (!(entry.key in process.env)) {
+										process.env[entry.key] = entry.value;
+									}
+								}),
+							{ concurrency: 'unbounded', discard: true }
 						)
 					)
 				),
 			onSome: (loadEnvFile) =>
 				Effect.try({
 					try: () => loadEnvFile(ENV_FILE_PATH),
-					catch: (error) =>
-						new EnvironmentLoadFailure('Failed to load Better Auth environment file.', error),
+					catch: (error) => new EnvironmentLoadFailure('Failed to load Better Auth environment file.', error),
 				}),
 		})
 	);
@@ -124,11 +124,7 @@ interface ParsedEnvEntry {
  * @param content - Raw dotenv file content.
  * @returns Parsed environment entries.
  */
-const parseEnvContent = (content: string): ReadonlyArray<ParsedEnvEntry> =>
-	pipe(
-		content.split(/\r?\n/),
-		ReadonlyArray.filterMap(parseEnvLine)
-	);
+const parseEnvContent = (content: string): ReadonlyArray<ParsedEnvEntry> => pipe(content.split(/\r?\n/), ReadonlyArray.filterMap(parseEnvLine));
 
 /**
  * Parses an individual dotenv line into a key/value entry when possible.
@@ -168,14 +164,8 @@ const normalizeEnvValue = (value: string): string =>
 		Option.fromNullable(value.trim()),
 		Option.map((trimmed) =>
 			pipe(
-				optionFromPredicate(trimmed, (input) =>
-					input.length >= 2 && input.startsWith('"') && input.endsWith('"')
-				),
-				Option.orElse(() =>
-					optionFromPredicate(trimmed, (input) =>
-						input.length >= 2 && input.startsWith("'") && input.endsWith("'")
-					)
-				),
+				optionFromPredicate(trimmed, (input) => input.length >= 2 && input.startsWith('"') && input.endsWith('"')),
+				Option.orElse(() => optionFromPredicate(trimmed, (input) => input.length >= 2 && input.startsWith("'") && input.endsWith("'"))),
 				Option.map((quoted) => quoted.slice(1, -1)),
 				Option.getOrElse(() => trimmed)
 			)
@@ -193,10 +183,7 @@ const normalizeEnvValue = (value: string): string =>
  * @param predicate - Predicate determining presence.
  * @returns Option containing the value when the predicate passes.
  */
-const optionFromPredicate = <A>(
-	value: A,
-	predicate: (value: A) => boolean
-): Option.Option<A> => (predicate(value) ? Option.some(value) : Option.none());
+const optionFromPredicate = <A>(value: A, predicate: (value: A) => boolean): Option.Option<A> => (predicate(value) ? Option.some(value) : Option.none());
 
 /**
  * Reads an environment variable and returns it as an Option.
@@ -222,9 +209,7 @@ const readEnvValue = (key: string): Option.Option<string> =>
  * @param descriptor - Admin seed descriptor metadata.
  * @returns Configured admin seed when all environment values are available.
  */
-const buildSeedAdminUser = (
-	descriptor: SeedAdminUserDescriptor
-): Option.Option<SeedAdminUser> =>
+const buildSeedAdminUser = (descriptor: SeedAdminUserDescriptor): Option.Option<SeedAdminUser> =>
 	pipe(
 		Option.all({
 			id: readEnvValue(`${descriptor.prefix}_USER_ID`),
@@ -254,21 +239,19 @@ const buildSeedAdminUser = (
 const getSeedAdminUsersConfig = (): SeedAdminUsersConfig =>
 	pipe(
 		SEED_ADMIN_USER_DESCRIPTORS,
-		ReadonlyArray.reduce(
-			{ seeds: [] as ReadonlyArray<SeedAdminUser>, missingPrefixes: [] as ReadonlyArray<string> },
-			(accumulator, descriptor) =>
-				pipe(
-					buildSeedAdminUser(descriptor),
-					Option.match({
-						onNone: () => ({
-							seeds: accumulator.seeds,
-							missingPrefixes: [...accumulator.missingPrefixes, descriptor.prefix],
-						}),
-						onSome: (seed) => ({
-							seeds: [...accumulator.seeds, seed],
-							missingPrefixes: accumulator.missingPrefixes,
-						}),
-					})
+		ReadonlyArray.reduce({ seeds: [] as ReadonlyArray<SeedAdminUser>, missingPrefixes: [] as ReadonlyArray<string> }, (accumulator, descriptor) =>
+			pipe(
+				buildSeedAdminUser(descriptor),
+				Option.match({
+					onNone: () => ({
+						seeds: accumulator.seeds,
+						missingPrefixes: [...accumulator.missingPrefixes, descriptor.prefix],
+					}),
+					onSome: (seed) => ({
+						seeds: [...accumulator.seeds, seed],
+						missingPrefixes: accumulator.missingPrefixes,
+					}),
+				})
 			)
 		)
 	);
@@ -292,9 +275,7 @@ const createCredentialId = (seed: SeedAdminUser): string => `${seed.id}-credenti
  * @param password - Raw password to hash.
  * @returns {Effect.Effect<string, PasswordHashFailure, never>} Effect yielding the hashed password.
  */
-const hashAdminPassword = (
-	password: string
-): Effect.Effect<string, PasswordHashFailure, never> =>
+const hashAdminPassword = (password: string): Effect.Effect<string, PasswordHashFailure, never> =>
 	Effect.tryPromise({
 		try: () => hashPassword(password),
 		catch: (error) => new PasswordHashFailure('Failed to hash admin user password.', error),
@@ -310,11 +291,7 @@ const hashAdminPassword = (
  * @param hashedPassword - Hashed password for the credential account.
  * @returns {Effect.Effect<void, AdminUserPersistenceFailure, never>} Effect describing the persistence workflow.
  */
-const persistAdminUser = (
-	prisma: PrismaClient,
-	seed: SeedAdminUser,
-	hashedPassword: string
-): Effect.Effect<void, AdminUserPersistenceFailure, never> =>
+const persistAdminUser = (prisma: PrismaClient, seed: SeedAdminUser, hashedPassword: string): Effect.Effect<void, AdminUserPersistenceFailure, never> =>
 	Effect.tryPromise({
 		try: () =>
 			prisma.$transaction(async (tx) => {
@@ -373,18 +350,11 @@ const persistAdminUser = (
  * @param seed - Seed admin user metadata.
  * @returns {Effect.Effect<void, AdminSeedError, never>} Effect describing the seeding of a single admin user.
  */
-const ensureAdminUser = (
-	prisma: PrismaClient,
-	seed: SeedAdminUser
-): Effect.Effect<void, AdminSeedError, never> =>
+const ensureAdminUser = (prisma: PrismaClient, seed: SeedAdminUser): Effect.Effect<void, AdminSeedError, never> =>
 	pipe(
 		hashAdminPassword(seed.password),
 		Effect.flatMap((hashedPassword) => persistAdminUser(prisma, seed, hashedPassword)),
-		Effect.tap(() =>
-			Effect.sync(() =>
-				console.log(`[better-auth] Seeded administrator account for ${seed.email}.`)
-			)
-		)
+		Effect.tap(() => Effect.sync(() => console.log(`[better-auth] Seeded administrator account for ${seed.email}.`)))
 	);
 
 /**
@@ -395,20 +365,16 @@ const ensureAdminUser = (
  * @param seeds - Collection of admin seed users.
  * @returns {Effect.Effect<void, AdminSeedError, never>} Effect describing the scoped seeding workflow.
  */
-const seedAdminUsers = (
-	seeds: ReadonlyArray<SeedAdminUser>
-): Effect.Effect<void, AdminSeedError, never> =>
+const seedAdminUsers = (seeds: ReadonlyArray<SeedAdminUser>): Effect.Effect<void, AdminSeedError, never> =>
 	Effect.scoped(
 		pipe(
 			Effect.acquireRelease(
 				Effect.sync(() => new PrismaClient()),
 				(prisma) =>
-						pipe(
-							Effect.promise(() => prisma.$disconnect()),
-							Effect.orDieWith((error) =>
-								new PrismaDisconnectFailure('Failed to disconnect Prisma client.', error)
-							)
-						)
+					pipe(
+						Effect.promise(() => prisma.$disconnect()),
+						Effect.orDieWith((error) => new PrismaDisconnectFailure('Failed to disconnect Prisma client.', error))
+					)
 			),
 			Effect.flatMap((prisma) =>
 				Effect.forEach(seeds, (seed) => ensureAdminUser(prisma, seed), {
@@ -425,29 +391,21 @@ const mainProgram = pipe(
 		const config = getSeedAdminUsersConfig();
 
 		return pipe(
-			Effect.forEach(config.missingPrefixes, (prefix) =>
-				Effect.sync(() =>
-					console.warn(
-						`[better-auth] Skipping admin seed for prefix "${prefix}" because required environment variables are missing.`
-					)
-				),
+			Effect.forEach(
+				config.missingPrefixes,
+				(prefix) =>
+					Effect.sync(() =>
+						console.warn(`[better-auth] Skipping admin seed for prefix "${prefix}" because required environment variables are missing.`)
+					),
 				{ concurrency: 'unbounded', discard: true }
 			),
 			Effect.flatMap(() =>
 				Match.value(config.seeds.length).pipe(
-					Match.when(0, () =>
-						Effect.sync(() =>
-							console.log('[better-auth] No admin seed users configured; skipping seeding workflow.')
-						)
-					),
+					Match.when(0, () => Effect.sync(() => console.log('[better-auth] No admin seed users configured; skipping seeding workflow.'))),
 					Match.orElse(() =>
 						pipe(
 							seedAdminUsers(config.seeds),
-							Effect.tap(() =>
-								Effect.sync(() =>
-									console.log('[better-auth] Completed admin user seeding workflow.')
-								)
-							)
+							Effect.tap(() => Effect.sync(() => console.log('[better-auth] Completed admin user seeding workflow.')))
 						)
 					)
 				)

@@ -1,4 +1,6 @@
-import { Context, Effect, Ref } from 'effect';
+import * as Context from 'effect/Context';
+import * as Effect from 'effect/Effect';
+import * as Ref from 'effect/Ref';
 import { createInitialState, processEvent, reset } from './core/trace/analyzer/trace-analyzer.service.js';
 import type { PerformanceStat, SlowOperation } from './core/trace/analyzer/trace-analyzer.types.js';
 import type { TraceEvent } from './core/trace/parser/trace-parser.types.js';

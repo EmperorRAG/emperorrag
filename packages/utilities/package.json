@@ -2,6 +2,11 @@
 	"name": "@emperorrag/utilities",
 	"version": "0.0.1",
 	"type": "module",
+	"scripts": {
+		"tsc:list-files": "tsc --project tsconfig.json --listFiles",
+		"tsc:list-files:lib": "tsc --project tsconfig.lib.json --listFiles",
+		"tsc:list-files:spec": "tsc --project tsconfig.spec.json --listFiles"
+	},
 	"main": "./dist/utilities.js",
 	"module": "./dist/utilities.js",
 	"types": "./dist/utilities.d.ts",

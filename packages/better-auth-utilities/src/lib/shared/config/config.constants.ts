@@ -6,6 +6,19 @@
 import type { ClientConfig, ServerConfig } from './config.types';
 
 // ============================================================================
+// PASSWORD POLICY DEFAULTS
+// ============================================================================
+
+/** Default minimum password length when not configured */
+export const DEFAULT_MIN_PASSWORD_LENGTH = 8;
+
+/** Default maximum password length when not configured */
+export const DEFAULT_MAX_PASSWORD_LENGTH = 128;
+
+/** Default reset password token expiration time in seconds (1 hour) */
+export const DEFAULT_RESET_PASSWORD_TOKEN_EXPIRES_IN = 3600;
+
+// ============================================================================
 // DEFAULT VALUES
 // ============================================================================
 

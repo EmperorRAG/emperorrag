@@ -1,6 +1,8 @@
 import * as fs from 'fs';
 import * as readline from 'readline';
-import { Effect, Console, Option } from 'effect';
+import * as Effect from 'effect/Effect';
+import * as Console from 'effect/Console';
+import * as Option from 'effect/Option';
 import { TraceAnalyzer } from '../../tsserver-analyzer.js';
 import { parseTraceLine } from '../trace/parser/trace-parser.service.js';
 

@@ -3,7 +3,12 @@
  * @description Barrel export for server-side sign-in email module.
  */
 
-export { signInEmailServer } from './signInEmail.service';
-
-// Controller exports (when implemented)
-// export { signInEmailServerController } from './signInEmail.controller';
+export { signInEmailServerService } from './signInEmail.service';
+export { signInEmailServerController } from './signInEmail.controller';
+export type {
+	AuthServerApiSignInEmailPropsFor,
+	AuthServerApiSignInEmailParamsFor,
+	AuthServerApiSignInEmailResultFor,
+	signInEmailPropsFor,
+} from './signInEmail.types';
+export { isAuthServerApiSignInEmailParamsFor } from './signInEmail.types';

@@ -1,4 +1,5 @@
-import { pipe, Match } from 'effect';
+import { pipe } from 'effect/Function';
+import * as Match from 'effect/Match';
 import { every } from 'effect/Array';
 import { isArray } from '../object.types.js';
 import { isString } from '../primitive.types.js';
