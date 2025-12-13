@@ -1,22 +1,17 @@
 import * as Effect from 'effect/Effect';
 import { PipelineContext } from '../../../../context/pipeline.context';
 import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
-import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
-import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import type { AuthServerFor } from '../../../server.types';
-import { signUpEmailServerService } from './signUpEmail.service';
-import { isAuthServerApiSignUpEmailParamsFor, type AuthServerApiSignUpEmailParamsFor, type signUpEmailPropsFor } from './signUpEmail.types';
+import { extractBodyStrict, extractSignUpCtxStrict } from './signUpEmail.adapters';
+import { decodeSignUpEmailCommand } from './signUpEmail.decoder';
+import { signUpEmailServerServiceFromCommandWithCtx } from './signUpEmail.service';
 
-export const signUpEmailServerController: signUpEmailPropsFor = (params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>) =>
+export const signUpEmailServerController = (input: unknown) =>
 	Effect.gen(function* () {
-		// 1) Validate params input with Effect-based validation pipeline
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiSignUpEmailParamsFor)(params);
+		const body = yield* extractBodyStrict(input);
+		const ctx = yield* extractSignUpCtxStrict(input);
+		const command = yield* decodeSignUpEmailCommand(body);
 
-		// 2) Call the service with the validated params
-		const result = yield* signUpEmailServerService(validatedParams);
-
-		// 3) Return the success value of the whole controller Effect
-		return result;
+		return yield* signUpEmailServerServiceFromCommandWithCtx(command, ctx);
 	}).pipe(
 		Effect.provideService(PipelineContext, {
 			endpoint: AuthServerApiEndpoints.SignUpEmail(),
