@@ -37,6 +37,7 @@ export default defineConfig(() => ({
 			tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
 			rollupTypes: false,
 			staticImport: true,
+			exclude: ['**/*.spec.ts', '**/*.test.ts', '**/__tests__/**', '**/dist/**', '**/out-tsc/**'],
 		}),
 	],
 	// Uncomment this if you are using workers.

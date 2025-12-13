@@ -4,6 +4,9 @@
 	"type": "module",
 	"sideEffects": false,
 	"scripts": {
+		"tsc:list-files": "tsc --project tsconfig.json --listFiles",
+		"tsc:list-files:lib": "tsc --project tsconfig.lib.json --listFiles",
+		"tsc:list-files:spec": "tsc --project tsconfig.spec.json --listFiles",
 		"generate-graph": "madge --extensions ts --include-npm --json src > dependency-graph.json && madge --extensions ts --include-npm --image dependency-graph.svg src"
 	},
 	"private": true,

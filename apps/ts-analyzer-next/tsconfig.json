@@ -22,6 +22,6 @@
 		"outDir": "./dist",
 		"tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
 	},
-	"include": ["./.next/types/**/*.ts", "./next-env.d.ts", "./src/**/*.js", "./src/**/*.jsx", "./src/**/*.ts", "./src/**/*.tsx", ".next/types/**/*.ts"],
+	"include": ["./.next/types/**/*.ts", "./next-env.d.ts", "./src/**/*.js", "./src/**/*.jsx", "./src/**/*.ts", "./src/**/*.tsx"],
 	"exclude": ["./out-tsc", "./dist", "./node_modules", "./jest.config.ts", "./src/**/*.spec.ts", "./src/**/*.test.ts", "./.next"]
 }

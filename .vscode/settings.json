@@ -93,9 +93,6 @@
 		".github/instructions/continuous-improvement": true
 	},
 	"chat.mcp.gallery.enabled": true,
-	"chat.modeFilesLocations": {
-		".github/chatmodes/personal": true
-	},
 	"chat.promptFilesLocations": {
 		".github/prompts/personal": true
 	},
@@ -158,7 +155,7 @@
 		"**/Thumbs.db": true,
 		"**/dist": true,
 		"**/node_modules": false,
-		"**/out-tsc": false,
+		"**/out-tsc": true,
 		"**/prisma/generated/client": true,
 		"**/prisma/generated/client/client*": false,
 		"**/prisma/generated/client/default*": false,
@@ -222,9 +219,6 @@
 		"!**/*.{prompt,instructions,chatmode}.{md,mkd,mdwn,mdown,markdown,markdn,mdtxt,mdtext,workbook}",
 		"!**/official-documentation/**/*.{md,mkd,mdwn,mdown,markdown,markdn,mdtxt,mdtext,workbook}"
 	],
-	"npm.enableRunFromFolder": true,
-	"npm.packageManager": "npm",
-	"npm.scriptRunner": "npm",
 	"path-intellisense.autoTriggerNextSuggestion": true,
 	"postman.settings.dotenv-detection-notification-visibility": false,
 	"powershell.buttons.showPanelMovementButtons": true,
@@ -301,8 +295,11 @@
 	"todo-tree.tree.showBadges": true,
 	"todo-tree.tree.showCountsInTree": true,
 	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.preferences.autoImportFileExcludePatterns": ["**/dist/**", "**/out-tsc/**", "**/coverage/**", "**/prisma/generated/**"],
 	"typescript.tsserver.watchOptions": {
 		"excludeDirectories": [
+			"**/dist",
+			"**/out-tsc",
 			"**/node_modules",
 			"**/.nx",
 			"**/.git",
@@ -317,9 +314,9 @@
 		"fallbackPolling": "dynamicPriorityPolling",
 		"watchDirectory": "useFsEvents"
 	},
-	"vitest.configSearchPatternExclude": "{**/node_modules/**,**/.*/**,**/*.d.ts}",
+	"vitest.configSearchPatternExclude": "{**/node_modules/**,**/.*/**,**/*.d.ts,**/dist/**,**/out-tsc/**,**/coverage/**}",
 	"vitest.configSearchPatternInclude": "**/*{vite,vitest}*.config*.{ts,js,mjs,cjs,cts,mts}",
-	"vitest.filesWatcherInclude": "apps/**/*.{ts,tsx,js,jsx,vue,svelte,css,html}\npackages/**/*.{ts,tsx,js,jsx,vue,svelte,css,html}\n*.{json,ts}",
+	"vitest.filesWatcherInclude": "{apps,packages}/**/*.{ts,tsx,js,jsx,json}",
 	"vitest.vitestPackagePath": "node_modules/vitest/package.json",
 	"vitest.workspaceConfig": "vitest.workspace.ts",
 	"wallaby.codeLensFeature.runTest": true,

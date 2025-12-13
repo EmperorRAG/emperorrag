@@ -1,48 +1,54 @@
 {
-  "name": "@emperorrag/components",
-  "version": "0.0.1",
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "@emperorrag/source": "./src/index.ts",
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
-    },
-    "./*": {
-      "@emperorrag/source": "./src/lib/*.ts",
-      "types": "./dist/lib/*.d.ts",
-      "import": "./dist/lib/*.js",
-      "default": "./dist/lib/*.js"
-    }
-  },
-  "files": [
-    "dist",
-    "!**/*.tsbuildinfo"
-  ],
-  "nx": {
-    "name": "components",
-    "tags": [
-      "library components shared front-end"
-    ]
-  },
-  "dependencies": {
-    "effect": "^3.18.4",
-    "react": "19.0.0"
-  },
-  "devDependencies": {
-    "tslib": "^2.3.0",
-    "vite-plugin-dts": "^4.5.4",
-    "vite": "^7.0.0",
-    "vitest": "^3.0.0",
-    "@nx/vite": "21.6.5",
-    "@testing-library/react": "16.1.0",
-    "storybook": "10.1.2",
-    "@storybook/react-vite": "10.1.2",
-    "@vitejs/plugin-react-swc": "^3.5.0"
-  }
+	"name": "@emperorrag/components",
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"tsc:list-files": "tsc --project tsconfig.json --listFiles",
+		"tsc:list-files:lib": "tsc --project tsconfig.lib.json --listFiles",
+		"tsc:list-files:spec": "tsc --project tsconfig.spec.json --listFiles",
+		"tsc:list-files:storybook": "tsc --project tsconfig.storybook.json --listFiles"
+	},
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"@emperorrag/source": "./src/index.ts",
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		},
+		"./*": {
+			"@emperorrag/source": "./src/lib/*.ts",
+			"types": "./dist/lib/*.d.ts",
+			"import": "./dist/lib/*.js",
+			"default": "./dist/lib/*.js"
+		}
+	},
+	"files": [
+		"dist",
+		"!**/*.tsbuildinfo"
+	],
+	"nx": {
+		"name": "components",
+		"tags": [
+			"library components shared front-end"
+		]
+	},
+	"dependencies": {
+		"effect": "^3.18.4",
+		"react": "19.0.0"
+	},
+	"devDependencies": {
+		"tslib": "^2.3.0",
+		"vite-plugin-dts": "^4.5.4",
+		"vite": "^7.0.0",
+		"vitest": "^3.0.0",
+		"@nx/vite": "21.6.5",
+		"@testing-library/react": "16.1.0",
+		"storybook": "10.1.2",
+		"@storybook/react-vite": "10.1.2",
+		"@vitejs/plugin-react-swc": "^3.5.0"
+	}
 }

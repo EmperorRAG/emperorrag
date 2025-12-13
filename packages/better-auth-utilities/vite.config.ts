@@ -40,6 +40,7 @@ export default defineConfig(() => ({
 			rollupTypes: false,
 			staticImport: true,
 			outDir: './dist',
+			exclude: ['**/*.spec.ts', '**/*.test.ts', '**/__tests__/**', '**/dist/**', '**/out-tsc/**'],
 		}),
 	],
 	// Uncomment this if you are using workers.

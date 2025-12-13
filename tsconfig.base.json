@@ -21,7 +21,7 @@
 		"customConditions": ["@emperorrag/source"],
 		"plugins": [{ "name": "@effect/language-service" }],
 		"paths": {
-			"@prisma/client": ["packages/prisma/better-auth-db/prisma/generated/client"],
+			//"@prisma/client": ["packages/prisma/better-auth-db/prisma/generated/client"],
 			"@emperorrag/better-auth-utilities/client/service": ["packages/better-auth-utilities/src/lib/client/client.service.ts"],
 			"@emperorrag/better-auth-utilities/client/types": ["packages/better-auth-utilities/src/lib/client/client.types.ts"],
 			"@emperorrag/better-auth-utilities/client/constants": ["packages/better-auth-utilities/src/lib/client/client.constants.ts"],
@@ -109,7 +109,7 @@
 			"@emperorrag/utilities/types": ["packages/utilities/src/lib/types/types.ts"],
 			"@emperorrag/utilities/object-utils": ["packages/utilities/src/lib/helper-functions/object.utils.ts"],
 			"@emperorrag/components": ["packages/components/src/index.ts"],
-			"@emperorrag/components/*": ["packages/components/src/*"],
+			//"@emperorrag/components/*": ["packages/components/src/*"],
 			"@emperorrag/prisma-better-auth-db": ["packages/prisma/better-auth-db/src/index.ts"],
 			"@emperorrag/prisma-better-auth-db/change-password/client": [
 				"packages/prisma/better-auth-db/src/lib/client/core/email/change-password/changePassword.ts"
@@ -159,8 +159,9 @@
 			"@emperorrag/prisma-better-auth-db/update-user/client": ["packages/prisma/better-auth-db/src/lib/client/core/user/update-user/updateUser.ts"],
 			"@emperorrag/prisma-better-auth-db/update-user/server": ["packages/prisma/better-auth-db/src/lib/server/core/user/update-user/updateUser.ts"],
 			"@emperorrag/prisma-better-auth-db/sign-in/client": ["packages/prisma/better-auth-db/src/lib/client/core/oauth/sign-in/signIn.ts"],
-			"@emperorrag/prisma-better-auth-db/sign-in/server": ["packages/prisma/better-auth-db/src/lib/server/core/oauth/sign-in/signIn.ts"],
-			"@emperorrag/prisma-better-auth-db/*": ["packages/prisma/better-auth-db/src/*"]
+			"@emperorrag/prisma-better-auth-db/sign-in/server": ["packages/prisma/better-auth-db/src/lib/server/core/oauth/sign-in/signIn.ts"]
+			//"@emperorrag/prisma-better-auth-db/*": ["packages/prisma/better-auth-db/src/*"]
 		}
-	}
+	},
+	"exclude": ["node_modules", "tmp", "dist", "out-tsc", "**/node_modules", "**/dist", "**/out-tsc"]
 }
