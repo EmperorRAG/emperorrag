@@ -3,17 +3,17 @@ import { Schema } from 'effect';
 /**
  * @description Schema for Better Auth database configuration
  */
-const DatabaseOptions = Schema.Struct({
+export class DatabaseOptions extends Schema.TaggedClass<DatabaseOptions>()('DatabaseOptions', {
 	dialect: Schema.optional(Schema.Literal('postgres', 'mysql', 'sqlite', 'mssql')),
 	type: Schema.optional(Schema.Literal('postgres', 'mysql', 'sqlite', 'mssql')),
 	casing: Schema.optional(Schema.Literal('camel', 'snake')),
 	provider: Schema.optional(Schema.String), // For custom providers
-});
+}) {}
 
 /**
  * @description Schema for Better Auth session configuration
  */
-const SessionOptions = Schema.Struct({
+export class SessionOptions extends Schema.TaggedClass<SessionOptions>()('SessionOptions', {
 	modelName: Schema.optional(Schema.String),
 	fields: Schema.optional(Schema.Record({ key: Schema.String, value: Schema.String })),
 	expiresIn: Schema.optional(Schema.Number),
@@ -27,12 +27,12 @@ const SessionOptions = Schema.Struct({
 			maxAge: Schema.optional(Schema.Number),
 		})
 	),
-});
+}) {}
 
 /**
  * @description Schema for Better Auth user configuration
  */
-const UserOptions = Schema.Struct({
+export class UserOptions extends Schema.TaggedClass<UserOptions>()('UserOptions', {
 	modelName: Schema.optional(Schema.String),
 	fields: Schema.optional(Schema.Record({ key: Schema.String, value: Schema.String })),
 	additionalFields: Schema.optional(Schema.Record({ key: Schema.String, value: Schema.Any })),
@@ -51,12 +51,12 @@ const UserOptions = Schema.Struct({
 			afterDelete: Schema.optional(Schema.Any), // Function
 		})
 	),
-});
+}) {}
 
 /**
  * @description Schema for Better Auth account configuration
  */
-const AccountOptions = Schema.Struct({
+export class AccountOptions extends Schema.TaggedClass<AccountOptions>()('AccountOptions', {
 	modelName: Schema.optional(Schema.String),
 	fields: Schema.optional(Schema.Record({ key: Schema.String, value: Schema.String })),
 	encryptOAuthTokens: Schema.optional(Schema.Boolean),
@@ -68,12 +68,12 @@ const AccountOptions = Schema.Struct({
 			allowDifferentEmails: Schema.optional(Schema.Boolean),
 		})
 	),
-});
+}) {}
 
 /**
  * @description Schema for Better Auth email and password authentication
  */
-const EmailAndPasswordOptions = Schema.Struct({
+export class EmailAndPasswordOptions extends Schema.TaggedClass<EmailAndPasswordOptions>()('EmailAndPasswordOptions', {
 	enabled: Schema.optional(Schema.Boolean),
 	disableSignUp: Schema.optional(Schema.Boolean),
 	requireEmailVerification: Schema.optional(Schema.Boolean),
@@ -88,45 +88,45 @@ const EmailAndPasswordOptions = Schema.Struct({
 			verify: Schema.Any, // Function
 		})
 	),
-});
+}) {}
 
 /**
  * @description Schema for Better Auth social providers
  */
-const SocialProviderOptions = Schema.Struct({
+export class SocialProviderOptions extends Schema.TaggedClass<SocialProviderOptions>()('SocialProviderOptions', {
 	clientId: Schema.String,
 	clientSecret: Schema.String,
 	redirectURI: Schema.optional(Schema.String),
 	scope: Schema.optional(Schema.Array(Schema.String)),
-});
+}) {}
 
 /**
  * @description Schema for Better Auth rate limiting
  */
-const RateLimitOptions = Schema.Struct({
+export class RateLimitOptions extends Schema.TaggedClass<RateLimitOptions>()('RateLimitOptions', {
 	enabled: Schema.optional(Schema.Boolean),
 	window: Schema.optional(Schema.Number),
 	max: Schema.optional(Schema.Number),
 	customRules: Schema.optional(Schema.Record({ key: Schema.String, value: Schema.Any })),
 	storage: Schema.optional(Schema.Literal('memory', 'database')),
 	modelName: Schema.optional(Schema.String),
-});
+}) {}
 
 /**
  * @description Schema for Better Auth email verification
  */
-const EmailVerificationOptions = Schema.Struct({
+export class EmailVerificationOptions extends Schema.TaggedClass<EmailVerificationOptions>()('EmailVerificationOptions', {
 	sendVerificationEmail: Schema.Any, // Function
 	sendOnSignUp: Schema.optional(Schema.Boolean),
 	sendOnSignIn: Schema.optional(Schema.Boolean),
 	autoSignInAfterVerification: Schema.optional(Schema.Boolean),
 	expiresIn: Schema.optional(Schema.Number),
-});
+}) {}
 
 /**
  * @description Schema for Better Auth advanced options
  */
-const AdvancedOptions = Schema.Struct({
+export class AdvancedOptions extends Schema.TaggedClass<AdvancedOptions>()('AdvancedOptions', {
 	ipAddress: Schema.optional(
 		Schema.Struct({
 			ipAddressHeaders: Schema.optional(Schema.Array(Schema.String)),
@@ -152,22 +152,22 @@ const AdvancedOptions = Schema.Struct({
 		})
 	),
 	cookiePrefix: Schema.optional(Schema.String),
-});
+}) {}
 
 /**
  * @description Schema for Better Auth logger
  */
-const LoggerOptions = Schema.Struct({
+export class LoggerOptions extends Schema.TaggedClass<LoggerOptions>()('LoggerOptions', {
 	disabled: Schema.optional(Schema.Boolean),
 	disableColors: Schema.optional(Schema.Boolean),
 	level: Schema.optional(Schema.Literal('error', 'warn', 'info', 'debug')),
 	log: Schema.optional(Schema.Any), // Function
-});
+}) {}
 
 /**
  * @description Main Schema for BetterAuthOptions
  */
-export const BetterAuthOptionsSchema = Schema.Struct({
+export class BetterAuthOptions extends Schema.TaggedClass<BetterAuthOptions>()('BetterAuthOptions', {
 	appName: Schema.optional(Schema.String),
 	baseURL: Schema.optional(Schema.String),
 	basePath: Schema.optional(Schema.String),
@@ -186,6 +186,7 @@ export const BetterAuthOptionsSchema = Schema.Struct({
 	logger: Schema.optional(LoggerOptions),
 	trustedOrigins: Schema.optional(Schema.Union(Schema.Array(Schema.String), Schema.Any)), // Array or Function
 	onAPIError: Schema.optional(Schema.Any), // Function
-});
+}) {}
 
+export const BetterAuthOptionsSchema = BetterAuthOptions;
 export type BetterAuthOptionsSchemaType = typeof BetterAuthOptionsSchema.Type;
