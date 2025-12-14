@@ -1,4 +1,4 @@
-import { Schema } from 'effect';
+import { Arbitrary, FastCheck, Schema } from 'effect';
 
 /**
  * @description Schema for Better Auth database configuration
@@ -51,20 +51,25 @@ export class SessionOptions extends Schema.TaggedClass<SessionOptions>()('Sessio
 export class UserOptions extends Schema.TaggedClass<UserOptions>()('UserOptions', {
 	modelName: Schema.optional(Schema.String),
 	fields: Schema.optional(Schema.Record({ key: Schema.String, value: Schema.String })),
-	additionalFields: Schema.optional(Schema.Record({ key: Schema.String, value: Schema.Any })),
+	additionalFields: Schema.optional(
+		Schema.Record({
+			key: Schema.String,
+			value: Schema.Any.annotations({ arbitrary: () => () => FastCheck.json() }),
+		})
+	),
 	changeEmail: Schema.optional(
 		Schema.Struct({
 			enabled: Schema.optional(Schema.Boolean),
-			sendChangeEmailConfirmation: Schema.optional(Schema.Any), // Function
+			sendChangeEmailConfirmation: Schema.optional(Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.boolean()) })), // Function
 			updateEmailWithoutVerification: Schema.optional(Schema.Boolean),
 		})
 	),
 	deleteUser: Schema.optional(
 		Schema.Struct({
 			enabled: Schema.optional(Schema.Boolean),
-			sendDeleteAccountVerification: Schema.optional(Schema.Any), // Function
-			beforeDelete: Schema.optional(Schema.Any), // Function
-			afterDelete: Schema.optional(Schema.Any), // Function
+			sendDeleteAccountVerification: Schema.optional(Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.boolean()) })), // Function
+			beforeDelete: Schema.optional(Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.boolean()) })), // Function
+			afterDelete: Schema.optional(Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.boolean()) })), // Function
 		})
 	),
 }) {
@@ -112,12 +117,12 @@ export class EmailAndPasswordOptions extends Schema.TaggedClass<EmailAndPassword
 	minPasswordLength: Schema.optional(Schema.Number),
 	maxPasswordLength: Schema.optional(Schema.Number),
 	autoSignIn: Schema.optional(Schema.Boolean),
-	sendResetPassword: Schema.optional(Schema.Any), // Function
+	sendResetPassword: Schema.optional(Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.boolean()) })), // Function
 	resetPasswordTokenExpiresIn: Schema.optional(Schema.Number),
 	password: Schema.optional(
 		Schema.Struct({
-			hash: Schema.optional(Schema.Any), // Function
-			verify: Schema.optional(Schema.Any), // Function
+			hash: Schema.optional(Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.string()) })), // Function
+			verify: Schema.optional(Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.boolean()) })), // Function
 		})
 	),
 }) {
@@ -147,7 +152,12 @@ export class RateLimitOptions extends Schema.TaggedClass<RateLimitOptions>()('Ra
 	enabled: Schema.optional(Schema.Boolean),
 	window: Schema.optional(Schema.Number),
 	max: Schema.optional(Schema.Number),
-	customRules: Schema.optional(Schema.Record({ key: Schema.String, value: Schema.Any })),
+	customRules: Schema.optional(
+		Schema.Record({
+			key: Schema.String,
+			value: Schema.Any.annotations({ arbitrary: () => () => FastCheck.json() }),
+		})
+	),
 	storage: Schema.optional(Schema.Literal('memory', 'database', 'secondary-storage')),
 	modelName: Schema.optional(Schema.String),
 }) {
@@ -164,7 +174,7 @@ export class RateLimitOptions extends Schema.TaggedClass<RateLimitOptions>()('Ra
  * @description Schema for Better Auth email verification
  */
 export class EmailVerificationOptions extends Schema.TaggedClass<EmailVerificationOptions>()('EmailVerificationOptions', {
-	sendVerificationEmail: Schema.optional(Schema.Any), // Function
+	sendVerificationEmail: Schema.optional(Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.boolean()) })), // Function
 	sendOnSignUp: Schema.optional(Schema.Boolean),
 	sendOnSignIn: Schema.optional(Schema.Boolean),
 	autoSignInAfterVerification: Schema.optional(Schema.Boolean),
@@ -225,7 +235,7 @@ export class LoggerOptions extends Schema.TaggedClass<LoggerOptions>()('LoggerOp
 	disabled: Schema.optional(Schema.Boolean),
 	disableColors: Schema.optional(Schema.Boolean),
 	level: Schema.optional(Schema.Literal('error', 'warn', 'info', 'debug')),
-	log: Schema.optional(Schema.Any), // Function
+	log: Schema.optional(Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.constant(undefined)) })), // Function
 }) {
 	static decode(input: unknown) {
 		return Schema.decodeUnknown(LoggerOptions)(input);
@@ -245,19 +255,21 @@ export class BetterAuthOptions extends Schema.TaggedClass<BetterAuthOptions>()('
 	basePath: Schema.optional(Schema.String),
 	secret: Schema.optional(Schema.String),
 	database: Schema.optional(DatabaseOptions),
-	secondaryStorage: Schema.optional(Schema.Any),
+	secondaryStorage: Schema.optional(Schema.Any.annotations({ arbitrary: () => () => FastCheck.dictionary(FastCheck.string(), FastCheck.anything()) })),
 	session: Schema.optional(SessionOptions),
 	user: Schema.optional(UserOptions),
 	account: Schema.optional(AccountOptions),
 	emailAndPassword: Schema.optional(EmailAndPasswordOptions),
 	socialProviders: Schema.optional(Schema.Record({ key: Schema.String, value: SocialProviderOptions })),
-	plugins: Schema.optional(Schema.Array(Schema.Any)),
+	plugins: Schema.optional(Schema.Array(Schema.Any.annotations({ arbitrary: () => () => FastCheck.dictionary(FastCheck.string(), FastCheck.anything()) }))),
 	rateLimit: Schema.optional(RateLimitOptions),
 	emailVerification: Schema.optional(EmailVerificationOptions),
 	advanced: Schema.optional(AdvancedOptions),
 	logger: Schema.optional(LoggerOptions),
-	trustedOrigins: Schema.optional(Schema.Union(Schema.Array(Schema.String), Schema.Any)), // Array or Function
-	onAPIError: Schema.optional(Schema.Any), // Function
+	trustedOrigins: Schema.optional(
+		Schema.Union(Schema.Array(Schema.String), Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.boolean()) }))
+	), // Array or Function
+	onAPIError: Schema.optional(Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.constant(undefined)) })), // Function
 }) {
 	static decode(input: unknown) {
 		return Schema.decodeUnknown(BetterAuthOptions)(input);
