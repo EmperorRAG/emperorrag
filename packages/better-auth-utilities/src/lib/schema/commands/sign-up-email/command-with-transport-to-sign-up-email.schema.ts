@@ -6,7 +6,7 @@ import { SignUpEmailCommandWithTransport } from './SignUpEmailCommandWithTranspo
 export const CommandWithTransportToSignUpEmail = Schema.transformOrFail(CommandWithTransport, SignUpEmailCommandWithTransport, {
 	decode: (input, options) => {
 		return Schema.decodeUnknown(SignUpEmailCommand)(input.command).pipe(
-			Effect.mapError((issue) => new ParseResult.Pointer('command', input.command, issue)),
+			Effect.mapError((issue) => new ParseResult.Pointer('command', input.command, issue.issue)),
 			Effect.map(
 				(command) =>
 					new SignUpEmailCommandWithTransport({
