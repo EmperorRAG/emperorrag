@@ -1,28 +1,31 @@
-import { Schema } from 'effect';
+import { Effect, ParseResult, Schema } from 'effect';
+import { SignUpEmailAuthServer } from '../commands/sign-up-email/SignUpEmail.adapters';
+import { SignUpEmailCommand } from '../commands/sign-up-email/SignUpEmail.command';
 import { CommandWithTransport } from './command-with-transport.schema';
 import { TransportCtx } from './transport-ctx.schema';
 
-const ServerParamsInput = Schema.Struct({
-	body: Schema.Unknown,
-	headers: Schema.optional(Schema.instanceOf(Headers)),
-	asResponse: Schema.optional(Schema.Boolean),
-	returnHeaders: Schema.optional(Schema.Boolean),
-});
-
-export const ServerParamsToCommandWithTransport = Schema.transform(ServerParamsInput, CommandWithTransport, {
+export const ServerParamsToCommandWithTransport = Schema.transformOrFail(SignUpEmailAuthServer, CommandWithTransport, {
 	decode: (input) =>
-		new CommandWithTransport({
-			command: input.body,
-			ctx: new TransportCtx({
-				headers: input.headers,
-				asResponse: input.asResponse,
-				returnHeaders: input.returnHeaders,
-			}),
-		}),
-	encode: (output) => ({
-		body: output.command,
-		headers: output.ctx.headers,
-		asResponse: output.ctx.asResponse,
-		returnHeaders: output.ctx.returnHeaders,
-	}),
+		ParseResult.succeed(
+			new CommandWithTransport({
+				command: input.body,
+				ctx: new TransportCtx({
+					headers: input.headers,
+					asResponse: input.asResponse,
+					returnHeaders: input.returnHeaders,
+				}),
+			})
+		),
+	encode: (output) =>
+		Schema.decodeUnknown(SignUpEmailCommand)(output.command).pipe(
+			Effect.map(
+				(body) =>
+					new SignUpEmailAuthServer({
+						body,
+						headers: output.ctx.headers,
+						asResponse: output.ctx.asResponse,
+						returnHeaders: output.ctx.returnHeaders,
+					})
+			)
+		),
 });
