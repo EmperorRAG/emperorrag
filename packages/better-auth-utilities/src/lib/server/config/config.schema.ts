@@ -8,7 +8,11 @@ export class DatabaseOptions extends Schema.TaggedClass<DatabaseOptions>()('Data
 	type: Schema.optional(Schema.Literal('postgres', 'mysql', 'sqlite', 'mssql')),
 	casing: Schema.optional(Schema.Literal('camel', 'snake')),
 	provider: Schema.optional(Schema.String), // For custom providers
-}) {}
+}) {
+	static decode(input: unknown) {
+		return Schema.decodeUnknown(DatabaseOptions)(input);
+	}
+}
 
 /**
  * @description Schema for Better Auth session configuration
@@ -23,11 +27,15 @@ export class SessionOptions extends Schema.TaggedClass<SessionOptions>()('Sessio
 	preserveSessionInDatabase: Schema.optional(Schema.Boolean),
 	cookieCache: Schema.optional(
 		Schema.Struct({
-			enabled: Schema.Boolean,
+			enabled: Schema.optional(Schema.Boolean),
 			maxAge: Schema.optional(Schema.Number),
 		})
 	),
-}) {}
+}) {
+	static decode(input: unknown) {
+		return Schema.decodeUnknown(SessionOptions)(input);
+	}
+}
 
 /**
  * @description Schema for Better Auth user configuration
@@ -38,20 +46,24 @@ export class UserOptions extends Schema.TaggedClass<UserOptions>()('UserOptions'
 	additionalFields: Schema.optional(Schema.Record({ key: Schema.String, value: Schema.Any })),
 	changeEmail: Schema.optional(
 		Schema.Struct({
-			enabled: Schema.Boolean,
+			enabled: Schema.optional(Schema.Boolean),
 			sendChangeEmailConfirmation: Schema.optional(Schema.Any), // Function
 			updateEmailWithoutVerification: Schema.optional(Schema.Boolean),
 		})
 	),
 	deleteUser: Schema.optional(
 		Schema.Struct({
-			enabled: Schema.Boolean,
+			enabled: Schema.optional(Schema.Boolean),
 			sendDeleteAccountVerification: Schema.optional(Schema.Any), // Function
 			beforeDelete: Schema.optional(Schema.Any), // Function
 			afterDelete: Schema.optional(Schema.Any), // Function
 		})
 	),
-}) {}
+}) {
+	static decode(input: unknown) {
+		return Schema.decodeUnknown(UserOptions)(input);
+	}
+}
 
 /**
  * @description Schema for Better Auth account configuration
@@ -63,12 +75,16 @@ export class AccountOptions extends Schema.TaggedClass<AccountOptions>()('Accoun
 	storeAccountCookie: Schema.optional(Schema.Boolean),
 	accountLinking: Schema.optional(
 		Schema.Struct({
-			enabled: Schema.Boolean,
+			enabled: Schema.optional(Schema.Boolean),
 			trustedProviders: Schema.optional(Schema.Array(Schema.String)),
 			allowDifferentEmails: Schema.optional(Schema.Boolean),
 		})
 	),
-}) {}
+}) {
+	static decode(input: unknown) {
+		return Schema.decodeUnknown(AccountOptions)(input);
+	}
+}
 
 /**
  * @description Schema for Better Auth email and password authentication
@@ -84,11 +100,15 @@ export class EmailAndPasswordOptions extends Schema.TaggedClass<EmailAndPassword
 	resetPasswordTokenExpiresIn: Schema.optional(Schema.Number),
 	password: Schema.optional(
 		Schema.Struct({
-			hash: Schema.Any, // Function
-			verify: Schema.Any, // Function
+			hash: Schema.optional(Schema.Any), // Function
+			verify: Schema.optional(Schema.Any), // Function
 		})
 	),
-}) {}
+}) {
+	static decode(input: unknown) {
+		return Schema.decodeUnknown(EmailAndPasswordOptions)(input);
+	}
+}
 
 /**
  * @description Schema for Better Auth social providers
@@ -108,20 +128,28 @@ export class RateLimitOptions extends Schema.TaggedClass<RateLimitOptions>()('Ra
 	window: Schema.optional(Schema.Number),
 	max: Schema.optional(Schema.Number),
 	customRules: Schema.optional(Schema.Record({ key: Schema.String, value: Schema.Any })),
-	storage: Schema.optional(Schema.Literal('memory', 'database')),
+	storage: Schema.optional(Schema.Literal('memory', 'database', 'secondary-storage')),
 	modelName: Schema.optional(Schema.String),
-}) {}
+}) {
+	static decode(input: unknown) {
+		return Schema.decodeUnknown(RateLimitOptions)(input);
+	}
+}
 
 /**
  * @description Schema for Better Auth email verification
  */
 export class EmailVerificationOptions extends Schema.TaggedClass<EmailVerificationOptions>()('EmailVerificationOptions', {
-	sendVerificationEmail: Schema.Any, // Function
+	sendVerificationEmail: Schema.optional(Schema.Any), // Function
 	sendOnSignUp: Schema.optional(Schema.Boolean),
 	sendOnSignIn: Schema.optional(Schema.Boolean),
 	autoSignInAfterVerification: Schema.optional(Schema.Boolean),
 	expiresIn: Schema.optional(Schema.Number),
-}) {}
+}) {
+	static decode(input: unknown) {
+		return Schema.decodeUnknown(EmailVerificationOptions)(input);
+	}
+}
 
 /**
  * @description Schema for Better Auth advanced options
@@ -146,13 +174,17 @@ export class AdvancedOptions extends Schema.TaggedClass<AdvancedOptions>()('Adva
 		Schema.Struct({
 			httpOnly: Schema.optional(Schema.Boolean),
 			secure: Schema.optional(Schema.Boolean),
-			sameSite: Schema.optional(Schema.Literal('lax', 'strict', 'none')),
+			sameSite: Schema.optional(Schema.Literal('lax', 'strict', 'none', 'Lax', 'Strict', 'None')),
 			domain: Schema.optional(Schema.String),
 			path: Schema.optional(Schema.String),
 		})
 	),
 	cookiePrefix: Schema.optional(Schema.String),
-}) {}
+}) {
+	static decode(input: unknown) {
+		return Schema.decodeUnknown(AdvancedOptions)(input);
+	}
+}
 
 /**
  * @description Schema for Better Auth logger
@@ -162,7 +194,11 @@ export class LoggerOptions extends Schema.TaggedClass<LoggerOptions>()('LoggerOp
 	disableColors: Schema.optional(Schema.Boolean),
 	level: Schema.optional(Schema.Literal('error', 'warn', 'info', 'debug')),
 	log: Schema.optional(Schema.Any), // Function
-}) {}
+}) {
+	static decode(input: unknown) {
+		return Schema.decodeUnknown(LoggerOptions)(input);
+	}
+}
 
 /**
  * @description Main Schema for BetterAuthOptions
@@ -186,7 +222,11 @@ export class BetterAuthOptions extends Schema.TaggedClass<BetterAuthOptions>()('
 	logger: Schema.optional(LoggerOptions),
 	trustedOrigins: Schema.optional(Schema.Union(Schema.Array(Schema.String), Schema.Any)), // Array or Function
 	onAPIError: Schema.optional(Schema.Any), // Function
-}) {}
+}) {
+	static decode(input: unknown) {
+		return Schema.decodeUnknown(BetterAuthOptions)(input);
+	}
+}
 
 export const BetterAuthOptionsSchema = BetterAuthOptions;
 export type BetterAuthOptionsSchemaType = typeof BetterAuthOptionsSchema.Type;

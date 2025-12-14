@@ -13,9 +13,9 @@
 // Subpath Imports (Optimized for TS Server Performance)
 // =============================================================================
 
+import * as Context from 'effect/Context';
 import * as Effect from 'effect/Effect';
 import * as Layer from 'effect/Layer';
-import * as Context from 'effect/Context';
 import type { AuthServer } from './server.types';
 
 // Runtime import - betterAuth function is only available from root
@@ -24,7 +24,7 @@ import { betterAuth } from 'better-auth';
 import type { BetterAuthOptions } from 'better-auth/types';
 // Adapter import - using dedicated adapter subpath
 import { prismaAdapter } from 'better-auth/adapters/prisma';
-import type { BetterAuthConfig, AvailablePlugins } from '../shared/config/config.types';
+import type { AvailablePlugins, BetterAuthConfig } from '../shared/config/config.types';
 // Note: ALWAYS_INCLUDED_SERVER_PLUGINS is currently empty (openAPI commented out)
 // Uncomment the import when re-enabling automatic plugins
 // import { SERVER_PLUGIN_FACTORIES, ALWAYS_INCLUDED_SERVER_PLUGINS } from './server.constants';
@@ -128,7 +128,7 @@ export function createAuthServerInstance<
 			? {
 					enabled: config.server.emailAndPassword.enabled ?? true,
 					minPasswordLength: config.server.emailAndPassword.minPasswordLength,
-					requireEmailVerification: config.server.emailAndPassword.requireEmailVerification,
+					requireEmailVerification: config.server.emailAndPassword.requireEmailVerification ?? false,
 					sendResetPassword: config.server.emailAndPassword.sendResetPassword,
 				}
 			: {

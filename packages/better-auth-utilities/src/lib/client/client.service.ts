@@ -4,7 +4,7 @@
  */
 
 import { createAuthClient as createBetterAuthClientCore } from 'better-auth/client';
-import type { BetterAuthConfig, AvailablePlugins } from '../shared/config/config.types';
+import type { AvailablePlugins, BetterAuthConfig } from '../shared/config/config.types';
 import { CLIENT_PLUGIN_FACTORIES } from './client.constants';
 
 /**
@@ -76,8 +76,8 @@ export function createAuthClient<ServerPlugins extends readonly AvailablePlugins
 
 		// Fetch options
 		fetchOptions: {
-			onSuccess: config.client.fetchOptions?.onSuccess,
-			onError: config.client.fetchOptions?.onError,
+			...(config.client.fetchOptions?.onSuccess ? { onSuccess: config.client.fetchOptions.onSuccess } : {}),
+			...(config.client.fetchOptions?.onError ? { onError: config.client.fetchOptions.onError } : {}),
 			credentials: config.client.fetchOptions?.credentials || 'include',
 		},
 
