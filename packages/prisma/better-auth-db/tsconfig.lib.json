@@ -14,10 +14,10 @@
 		}
 	],
 	"exclude": [
-		"./node_modules",
-		"./tmp",
-		"./dist",
-		"./out-tsc",
+		// "./node_modules",
+		// "./tmp",
+		// "./dist",
+		// "./out-tsc",
 		"./vite.config.ts",
 		"./vite.config.mts",
 		"./vitest.config.ts",
