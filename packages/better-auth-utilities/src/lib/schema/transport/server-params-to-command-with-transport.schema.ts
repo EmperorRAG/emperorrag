@@ -18,6 +18,7 @@ export const ServerParamsToCommandWithTransport = Schema.transformOrFail(SignUpE
 		),
 	encode: (output) =>
 		Schema.decodeUnknown(SignUpEmailCommand)(output.command).pipe(
+			Effect.mapError((issue) => new ParseResult.Pointer('command', output.command, issue.issue)),
 			Effect.map(
 				(body) =>
 					new SignUpEmailAuthServer({
