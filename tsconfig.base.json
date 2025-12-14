@@ -22,144 +22,144 @@
 		"plugins": [{ "name": "@effect/language-service" }],
 		"paths": {
 			//"@prisma/client": ["packages/prisma/better-auth-db/prisma/generated/client"],
-			"@emperorrag/better-auth-utilities/client/service": ["packages/better-auth-utilities/src/lib/client/client.service.ts"],
-			"@emperorrag/better-auth-utilities/client/types": ["packages/better-auth-utilities/src/lib/client/client.types.ts"],
-			"@emperorrag/better-auth-utilities/client/constants": ["packages/better-auth-utilities/src/lib/client/client.constants.ts"],
-			"@emperorrag/better-auth-utilities/client/config": ["packages/better-auth-utilities/src/lib/client/config/config.service.ts"],
-			"@emperorrag/better-auth-utilities/server/service": ["packages/better-auth-utilities/src/lib/server/server.service.ts"],
-			"@emperorrag/better-auth-utilities/server/types": ["packages/better-auth-utilities/src/lib/server/server.types.ts"],
-			"@emperorrag/better-auth-utilities/server/constants": ["packages/better-auth-utilities/src/lib/server/server.constants.ts"],
-			"@emperorrag/better-auth-utilities/server/config": ["packages/better-auth-utilities/src/lib/server/config/config.service.ts"],
-			"@emperorrag/better-auth-utilities/shared/config/types": ["packages/better-auth-utilities/src/lib/shared/config/config.types.ts"],
-			"@emperorrag/better-auth-utilities/shared/config/constants": ["packages/better-auth-utilities/src/lib/shared/config/config.constants.ts"],
-			"@emperorrag/better-auth-utilities/shared/config/service": ["packages/better-auth-utilities/src/lib/shared/config/config.service.ts"],
-			"@emperorrag/better-auth-utilities/client/account/types": ["packages/better-auth-utilities/src/lib/client/core/account/shared/account.types.ts"],
-			"@emperorrag/better-auth-utilities/client/account/error": ["packages/better-auth-utilities/src/lib/client/core/account/shared/account.error.ts"],
-			"@emperorrag/better-auth-utilities/client/email/types": ["packages/better-auth-utilities/src/lib/client/core/email/shared/email.types.ts"],
-			"@emperorrag/better-auth-utilities/client/email/error": ["packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts"],
-			"@emperorrag/better-auth-utilities/client/email/schema": ["packages/better-auth-utilities/src/lib/client/core/email/shared/email.schema.ts"],
-			"@emperorrag/better-auth-utilities/client/oauth/types": ["packages/better-auth-utilities/src/lib/client/core/oauth/shared/oauth.types.ts"],
-			"@emperorrag/better-auth-utilities/client/oauth/error": ["packages/better-auth-utilities/src/lib/client/core/oauth/shared/oauth.error.ts"],
-			"@emperorrag/better-auth-utilities/client/session/types": ["packages/better-auth-utilities/src/lib/client/core/session/shared/session.types.ts"],
-			"@emperorrag/better-auth-utilities/client/session/error": ["packages/better-auth-utilities/src/lib/client/core/session/shared/session.error.ts"],
-			"@emperorrag/better-auth-utilities/client/user/types": ["packages/better-auth-utilities/src/lib/client/core/user/shared/user.types.ts"],
-			"@emperorrag/better-auth-utilities/client/user/error": ["packages/better-auth-utilities/src/lib/client/core/user/shared/user.error.ts"],
-			"@emperorrag/better-auth-utilities/server/account/types": ["packages/better-auth-utilities/src/lib/server/core/account/shared/account.types.ts"],
-			"@emperorrag/better-auth-utilities/server/account/error": ["packages/better-auth-utilities/src/lib/server/core/account/shared/account.error.ts"],
-			"@emperorrag/better-auth-utilities/server/email/types": ["packages/better-auth-utilities/src/lib/server/core/email/shared/email.types.ts"],
-			"@emperorrag/better-auth-utilities/server/email/error": ["packages/better-auth-utilities/src/lib/server/core/email/shared/email.error.ts"],
-			"@emperorrag/better-auth-utilities/server/email/schema": ["packages/better-auth-utilities/src/lib/server/core/email/shared/email.schema.ts"],
-			"@emperorrag/better-auth-utilities/server/oauth/types": ["packages/better-auth-utilities/src/lib/server/core/oauth/shared/oauth.types.ts"],
-			"@emperorrag/better-auth-utilities/server/oauth/error": ["packages/better-auth-utilities/src/lib/server/core/oauth/shared/oauth.error.ts"],
-			"@emperorrag/better-auth-utilities/server/session/types": ["packages/better-auth-utilities/src/lib/server/core/session/shared/session.types.ts"],
-			"@emperorrag/better-auth-utilities/server/session/error": ["packages/better-auth-utilities/src/lib/server/core/session/shared/session.error.ts"],
-			"@emperorrag/better-auth-utilities/server/user/types": ["packages/better-auth-utilities/src/lib/server/core/user/shared/user.types.ts"],
-			"@emperorrag/better-auth-utilities/server/user/error": ["packages/better-auth-utilities/src/lib/server/core/user/shared/user.error.ts"],
-			"@emperorrag/better-auth-utilities/change-password/client": [
-				"packages/better-auth-utilities/src/lib/client/core/email/change-password/changePassword.ts"
-			],
-			"@emperorrag/better-auth-utilities/change-password/server": [
-				"packages/better-auth-utilities/src/lib/server/core/email/change-password/changePassword.ts"
-			],
-			"@emperorrag/better-auth-utilities/request-password-reset/client": [
-				"packages/better-auth-utilities/src/lib/client/core/email/request-password-reset/requestPasswordReset.ts"
-			],
-			"@emperorrag/better-auth-utilities/request-password-reset/server": [
-				"packages/better-auth-utilities/src/lib/server/core/email/forget-password/forgetPassword.ts"
-			],
-			"@emperorrag/better-auth-utilities/reset-password/client": [
-				"packages/better-auth-utilities/src/lib/client/core/email/reset-password/resetPassword.ts"
-			],
-			"@emperorrag/better-auth-utilities/reset-password/server": [
-				"packages/better-auth-utilities/src/lib/server/core/email/reset-password/resetPassword.ts"
-			],
-			"@emperorrag/better-auth-utilities/send-verification-email/client": [
-				"packages/better-auth-utilities/src/lib/client/core/email/send-verification-email/sendVerificationEmail.ts"
-			],
-			"@emperorrag/better-auth-utilities/send-verification-email/server": [
-				"packages/better-auth-utilities/src/lib/server/core/email/send-verification-email/sendVerificationEmail.ts"
-			],
-			"@emperorrag/better-auth-utilities/sign-in-email/client": ["packages/better-auth-utilities/src/lib/client/core/email/sign-in-email/signInEmail.ts"],
-			"@emperorrag/better-auth-utilities/sign-in-email/server": ["packages/better-auth-utilities/src/lib/server/core/email/sign-in-email/signInEmail.ts"],
-			"@emperorrag/better-auth-utilities/sign-out/client": ["packages/better-auth-utilities/src/lib/client/core/email/sign-out/signOut.ts"],
-			"@emperorrag/better-auth-utilities/sign-out/server": ["packages/better-auth-utilities/src/lib/server/core/email/sign-out/signOut.ts"],
-			"@emperorrag/better-auth-utilities/sign-up-email/client": ["packages/better-auth-utilities/src/lib/client/core/email/sign-up-email/signUpEmail.ts"],
-			"@emperorrag/better-auth-utilities/sign-up-email/server": ["packages/better-auth-utilities/src/lib/server/core/email/sign-up-email/signUpEmail.ts"],
-			"@emperorrag/better-auth-utilities/link-social/client": ["packages/better-auth-utilities/src/lib/client/core/account/link-social/linkSocial.ts"],
-			"@emperorrag/better-auth-utilities/list-accounts/client": [
-				"packages/better-auth-utilities/src/lib/client/core/account/list-accounts/listAccounts.ts"
-			],
-			"@emperorrag/better-auth-utilities/list-accounts/server": [
-				"packages/better-auth-utilities/src/lib/server/core/account/list-accounts/listAccounts.ts"
-			],
-			"@emperorrag/better-auth-utilities/unlink-account/client": [
-				"packages/better-auth-utilities/src/lib/client/core/account/unlink-account/unlinkAccount.ts"
-			],
-			"@emperorrag/better-auth-utilities/unlink-account/server": [
-				"packages/better-auth-utilities/src/lib/server/core/account/unlink-account/unlinkAccount.ts"
-			],
-			"@emperorrag/better-auth-utilities/get-session/client": ["packages/better-auth-utilities/src/lib/client/core/session/get-session/getSession.ts"],
-			"@emperorrag/better-auth-utilities/get-session/server": ["packages/better-auth-utilities/src/lib/server/core/session/get-session/getSession.ts"],
-			"@emperorrag/better-auth-utilities/update-user/client": ["packages/better-auth-utilities/src/lib/client/core/user/update-user/updateUser.ts"],
-			"@emperorrag/better-auth-utilities/update-user/server": ["packages/better-auth-utilities/src/lib/server/core/user/update-user/updateUser.ts"],
-			"@emperorrag/better-auth-utilities/sign-in/client": ["packages/better-auth-utilities/src/lib/client/core/oauth/sign-in/signIn.ts"],
-			"@emperorrag/better-auth-utilities/sign-in/server": ["packages/better-auth-utilities/src/lib/server/core/oauth/sign-in/signIn.ts"],
-			"@emperorrag/utilities": ["packages/utilities/src/utilities.ts"],
-			"@emperorrag/utilities/helper-functions": ["packages/utilities/src/lib/helper-functions/helperFunctions.ts"],
-			"@emperorrag/utilities/types": ["packages/utilities/src/lib/types/types.ts"],
-			"@emperorrag/utilities/object-utils": ["packages/utilities/src/lib/helper-functions/object.utils.ts"],
-			"@emperorrag/components": ["packages/components/src/index.ts"],
+			// "@emperorrag/better-auth-utilities/client/service": ["packages/better-auth-utilities/src/lib/client/client.service.ts"],
+			// "@emperorrag/better-auth-utilities/client/types": ["packages/better-auth-utilities/src/lib/client/client.types.ts"],
+			// "@emperorrag/better-auth-utilities/client/constants": ["packages/better-auth-utilities/src/lib/client/client.constants.ts"],
+			// "@emperorrag/better-auth-utilities/client/config": ["packages/better-auth-utilities/src/lib/client/config/config.service.ts"],
+			// "@emperorrag/better-auth-utilities/server/service": ["packages/better-auth-utilities/src/lib/server/server.service.ts"],
+			// "@emperorrag/better-auth-utilities/server/types": ["packages/better-auth-utilities/src/lib/server/server.types.ts"],
+			// "@emperorrag/better-auth-utilities/server/constants": ["packages/better-auth-utilities/src/lib/server/server.constants.ts"],
+			// "@emperorrag/better-auth-utilities/server/config": ["packages/better-auth-utilities/src/lib/server/config/config.service.ts"],
+			// "@emperorrag/better-auth-utilities/shared/config/types": ["packages/better-auth-utilities/src/lib/shared/config/config.types.ts"],
+			// "@emperorrag/better-auth-utilities/shared/config/constants": ["packages/better-auth-utilities/src/lib/shared/config/config.constants.ts"],
+			// "@emperorrag/better-auth-utilities/shared/config/service": ["packages/better-auth-utilities/src/lib/shared/config/config.service.ts"],
+			// "@emperorrag/better-auth-utilities/client/account/types": ["packages/better-auth-utilities/src/lib/client/core/account/shared/account.types.ts"],
+			// "@emperorrag/better-auth-utilities/client/account/error": ["packages/better-auth-utilities/src/lib/client/core/account/shared/account.error.ts"],
+			// "@emperorrag/better-auth-utilities/client/email/types": ["packages/better-auth-utilities/src/lib/client/core/email/shared/email.types.ts"],
+			// "@emperorrag/better-auth-utilities/client/email/error": ["packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts"],
+			// "@emperorrag/better-auth-utilities/client/email/schema": ["packages/better-auth-utilities/src/lib/client/core/email/shared/email.schema.ts"],
+			// "@emperorrag/better-auth-utilities/client/oauth/types": ["packages/better-auth-utilities/src/lib/client/core/oauth/shared/oauth.types.ts"],
+			// "@emperorrag/better-auth-utilities/client/oauth/error": ["packages/better-auth-utilities/src/lib/client/core/oauth/shared/oauth.error.ts"],
+			// "@emperorrag/better-auth-utilities/client/session/types": ["packages/better-auth-utilities/src/lib/client/core/session/shared/session.types.ts"],
+			// "@emperorrag/better-auth-utilities/client/session/error": ["packages/better-auth-utilities/src/lib/client/core/session/shared/session.error.ts"],
+			// "@emperorrag/better-auth-utilities/client/user/types": ["packages/better-auth-utilities/src/lib/client/core/user/shared/user.types.ts"],
+			// "@emperorrag/better-auth-utilities/client/user/error": ["packages/better-auth-utilities/src/lib/client/core/user/shared/user.error.ts"],
+			// "@emperorrag/better-auth-utilities/server/account/types": ["packages/better-auth-utilities/src/lib/server/core/account/shared/account.types.ts"],
+			// "@emperorrag/better-auth-utilities/server/account/error": ["packages/better-auth-utilities/src/lib/server/core/account/shared/account.error.ts"],
+			// "@emperorrag/better-auth-utilities/server/email/types": ["packages/better-auth-utilities/src/lib/server/core/email/shared/email.types.ts"],
+			// "@emperorrag/better-auth-utilities/server/email/error": ["packages/better-auth-utilities/src/lib/server/core/email/shared/email.error.ts"],
+			// "@emperorrag/better-auth-utilities/server/email/schema": ["packages/better-auth-utilities/src/lib/server/core/email/shared/email.schema.ts"],
+			// "@emperorrag/better-auth-utilities/server/oauth/types": ["packages/better-auth-utilities/src/lib/server/core/oauth/shared/oauth.types.ts"],
+			// "@emperorrag/better-auth-utilities/server/oauth/error": ["packages/better-auth-utilities/src/lib/server/core/oauth/shared/oauth.error.ts"],
+			// "@emperorrag/better-auth-utilities/server/session/types": ["packages/better-auth-utilities/src/lib/server/core/session/shared/session.types.ts"],
+			// "@emperorrag/better-auth-utilities/server/session/error": ["packages/better-auth-utilities/src/lib/server/core/session/shared/session.error.ts"],
+			// "@emperorrag/better-auth-utilities/server/user/types": ["packages/better-auth-utilities/src/lib/server/core/user/shared/user.types.ts"],
+			// "@emperorrag/better-auth-utilities/server/user/error": ["packages/better-auth-utilities/src/lib/server/core/user/shared/user.error.ts"],
+			// "@emperorrag/better-auth-utilities/change-password/client": [
+			// 	"packages/better-auth-utilities/src/lib/client/core/email/change-password/changePassword.ts"
+			// ],
+			// "@emperorrag/better-auth-utilities/change-password/server": [
+			// 	"packages/better-auth-utilities/src/lib/server/core/email/change-password/changePassword.ts"
+			// ],
+			// "@emperorrag/better-auth-utilities/request-password-reset/client": [
+			// 	"packages/better-auth-utilities/src/lib/client/core/email/request-password-reset/requestPasswordReset.ts"
+			// ],
+			// "@emperorrag/better-auth-utilities/request-password-reset/server": [
+			// 	"packages/better-auth-utilities/src/lib/server/core/email/forget-password/forgetPassword.ts"
+			// ],
+			// "@emperorrag/better-auth-utilities/reset-password/client": [
+			// 	"packages/better-auth-utilities/src/lib/client/core/email/reset-password/resetPassword.ts"
+			// ],
+			// "@emperorrag/better-auth-utilities/reset-password/server": [
+			// 	"packages/better-auth-utilities/src/lib/server/core/email/reset-password/resetPassword.ts"
+			// ],
+			// "@emperorrag/better-auth-utilities/send-verification-email/client": [
+			// 	"packages/better-auth-utilities/src/lib/client/core/email/send-verification-email/sendVerificationEmail.ts"
+			// ],
+			// "@emperorrag/better-auth-utilities/send-verification-email/server": [
+			// 	"packages/better-auth-utilities/src/lib/server/core/email/send-verification-email/sendVerificationEmail.ts"
+			// ],
+			// "@emperorrag/better-auth-utilities/sign-in-email/client": ["packages/better-auth-utilities/src/lib/client/core/email/sign-in-email/signInEmail.ts"],
+			// "@emperorrag/better-auth-utilities/sign-in-email/server": ["packages/better-auth-utilities/src/lib/server/core/email/sign-in-email/signInEmail.ts"],
+			// "@emperorrag/better-auth-utilities/sign-out/client": ["packages/better-auth-utilities/src/lib/client/core/email/sign-out/signOut.ts"],
+			// "@emperorrag/better-auth-utilities/sign-out/server": ["packages/better-auth-utilities/src/lib/server/core/email/sign-out/signOut.ts"],
+			// "@emperorrag/better-auth-utilities/sign-up-email/client": ["packages/better-auth-utilities/src/lib/client/core/email/sign-up-email/signUpEmail.ts"],
+			// "@emperorrag/better-auth-utilities/sign-up-email/server": ["packages/better-auth-utilities/src/lib/server/core/email/sign-up-email/signUpEmail.ts"],
+			// "@emperorrag/better-auth-utilities/link-social/client": ["packages/better-auth-utilities/src/lib/client/core/account/link-social/linkSocial.ts"],
+			// "@emperorrag/better-auth-utilities/list-accounts/client": [
+			// 	"packages/better-auth-utilities/src/lib/client/core/account/list-accounts/listAccounts.ts"
+			// ],
+			// "@emperorrag/better-auth-utilities/list-accounts/server": [
+			// 	"packages/better-auth-utilities/src/lib/server/core/account/list-accounts/listAccounts.ts"
+			// ],
+			// "@emperorrag/better-auth-utilities/unlink-account/client": [
+			// 	"packages/better-auth-utilities/src/lib/client/core/account/unlink-account/unlinkAccount.ts"
+			// ],
+			// "@emperorrag/better-auth-utilities/unlink-account/server": [
+			// 	"packages/better-auth-utilities/src/lib/server/core/account/unlink-account/unlinkAccount.ts"
+			// ],
+			// "@emperorrag/better-auth-utilities/get-session/client": ["packages/better-auth-utilities/src/lib/client/core/session/get-session/getSession.ts"],
+			// "@emperorrag/better-auth-utilities/get-session/server": ["packages/better-auth-utilities/src/lib/server/core/session/get-session/getSession.ts"],
+			// "@emperorrag/better-auth-utilities/update-user/client": ["packages/better-auth-utilities/src/lib/client/core/user/update-user/updateUser.ts"],
+			// "@emperorrag/better-auth-utilities/update-user/server": ["packages/better-auth-utilities/src/lib/server/core/user/update-user/updateUser.ts"],
+			// "@emperorrag/better-auth-utilities/sign-in/client": ["packages/better-auth-utilities/src/lib/client/core/oauth/sign-in/signIn.ts"],
+			// "@emperorrag/better-auth-utilities/sign-in/server": ["packages/better-auth-utilities/src/lib/server/core/oauth/sign-in/signIn.ts"],
+			// "@emperorrag/utilities": ["packages/utilities/src/utilities.ts"],
+			// "@emperorrag/utilities/helper-functions": ["packages/utilities/src/lib/helper-functions/helperFunctions.ts"],
+			// "@emperorrag/utilities/types": ["packages/utilities/src/lib/types/types.ts"],
+			// "@emperorrag/utilities/object-utils": ["packages/utilities/src/lib/helper-functions/object.utils.ts"],
+			// "@emperorrag/components": ["packages/components/src/index.ts"],
 			//"@emperorrag/components/*": ["packages/components/src/*"],
-			"@emperorrag/prisma-better-auth-db": ["packages/prisma/better-auth-db/src/index.ts"],
-			"@emperorrag/prisma-better-auth-db/change-password/client": [
-				"packages/prisma/better-auth-db/src/lib/client/core/email/change-password/changePassword.ts"
-			],
-			"@emperorrag/prisma-better-auth-db/change-password/server": [
-				"packages/prisma/better-auth-db/src/lib/server/core/email/change-password/changePassword.ts"
-			],
-			"@emperorrag/prisma-better-auth-db/request-password-reset/client": [
-				"packages/prisma/better-auth-db/src/lib/client/core/email/request-password-reset/requestPasswordReset.ts"
-			],
-			"@emperorrag/prisma-better-auth-db/request-password-reset/server": [
-				"packages/prisma/better-auth-db/src/lib/server/core/email/forget-password/forgetPassword.ts"
-			],
-			"@emperorrag/prisma-better-auth-db/reset-password/client": [
-				"packages/prisma/better-auth-db/src/lib/client/core/email/reset-password/resetPassword.ts"
-			],
-			"@emperorrag/prisma-better-auth-db/reset-password/server": [
-				"packages/prisma/better-auth-db/src/lib/server/core/email/reset-password/resetPassword.ts"
-			],
-			"@emperorrag/prisma-better-auth-db/send-verification-email/client": [
-				"packages/prisma/better-auth-db/src/lib/client/core/email/send-verification-email/sendVerificationEmail.ts"
-			],
-			"@emperorrag/prisma-better-auth-db/send-verification-email/server": [
-				"packages/prisma/better-auth-db/src/lib/server/core/email/send-verification-email/sendVerificationEmail.ts"
-			],
-			"@emperorrag/prisma-better-auth-db/sign-in-email/client": ["packages/prisma/better-auth-db/src/lib/client/core/email/sign-in-email/signInEmail.ts"],
-			"@emperorrag/prisma-better-auth-db/sign-in-email/server": ["packages/prisma/better-auth-db/src/lib/server/core/email/sign-in-email/signInEmail.ts"],
-			"@emperorrag/prisma-better-auth-db/sign-out/client": ["packages/prisma/better-auth-db/src/lib/client/core/email/sign-out/signOut.ts"],
-			"@emperorrag/prisma-better-auth-db/sign-out/server": ["packages/prisma/better-auth-db/src/lib/server/core/email/sign-out/signOut.ts"],
-			"@emperorrag/prisma-better-auth-db/sign-up-email/client": ["packages/prisma/better-auth-db/src/lib/client/core/email/sign-up-email/signUpEmail.ts"],
-			"@emperorrag/prisma-better-auth-db/sign-up-email/server": ["packages/prisma/better-auth-db/src/lib/server/core/email/sign-up-email/signUpEmail.ts"],
-			"@emperorrag/prisma-better-auth-db/link-social/client": ["packages/prisma/better-auth-db/src/lib/client/core/account/link-social/linkSocial.ts"],
-			"@emperorrag/prisma-better-auth-db/list-accounts/client": [
-				"packages/prisma/better-auth-db/src/lib/client/core/account/list-accounts/listAccounts.ts"
-			],
-			"@emperorrag/prisma-better-auth-db/list-accounts/server": [
-				"packages/prisma/better-auth-db/src/lib/server/core/account/list-accounts/listAccounts.ts"
-			],
-			"@emperorrag/prisma-better-auth-db/unlink-account/client": [
-				"packages/prisma/better-auth-db/src/lib/client/core/account/unlink-account/unlinkAccount.ts"
-			],
-			"@emperorrag/prisma-better-auth-db/unlink-account/server": [
-				"packages/prisma/better-auth-db/src/lib/server/core/account/unlink-account/unlinkAccount.ts"
-			],
-			"@emperorrag/prisma-better-auth-db/get-session/client": ["packages/prisma/better-auth-db/src/lib/client/core/session/get-session/getSession.ts"],
-			"@emperorrag/prisma-better-auth-db/get-session/server": ["packages/prisma/better-auth-db/src/lib/server/core/session/get-session/getSession.ts"],
-			"@emperorrag/prisma-better-auth-db/update-user/client": ["packages/prisma/better-auth-db/src/lib/client/core/user/update-user/updateUser.ts"],
-			"@emperorrag/prisma-better-auth-db/update-user/server": ["packages/prisma/better-auth-db/src/lib/server/core/user/update-user/updateUser.ts"],
-			"@emperorrag/prisma-better-auth-db/sign-in/client": ["packages/prisma/better-auth-db/src/lib/client/core/oauth/sign-in/signIn.ts"],
-			"@emperorrag/prisma-better-auth-db/sign-in/server": ["packages/prisma/better-auth-db/src/lib/server/core/oauth/sign-in/signIn.ts"]
+			// "@emperorrag/prisma-better-auth-db": ["packages/prisma/better-auth-db/src/index.ts"],
+			// "@emperorrag/prisma-better-auth-db/change-password/client": [
+			// 	"packages/prisma/better-auth-db/src/lib/client/core/email/change-password/changePassword.ts"
+			// ],
+			// "@emperorrag/prisma-better-auth-db/change-password/server": [
+			// 	"packages/prisma/better-auth-db/src/lib/server/core/email/change-password/changePassword.ts"
+			// ],
+			// "@emperorrag/prisma-better-auth-db/request-password-reset/client": [
+			// 	"packages/prisma/better-auth-db/src/lib/client/core/email/request-password-reset/requestPasswordReset.ts"
+			// ],
+			// "@emperorrag/prisma-better-auth-db/request-password-reset/server": [
+			// 	"packages/prisma/better-auth-db/src/lib/server/core/email/forget-password/forgetPassword.ts"
+			// ],
+			// "@emperorrag/prisma-better-auth-db/reset-password/client": [
+			// 	"packages/prisma/better-auth-db/src/lib/client/core/email/reset-password/resetPassword.ts"
+			// ],
+			// "@emperorrag/prisma-better-auth-db/reset-password/server": [
+			// 	"packages/prisma/better-auth-db/src/lib/server/core/email/reset-password/resetPassword.ts"
+			// ],
+			// "@emperorrag/prisma-better-auth-db/send-verification-email/client": [
+			// 	"packages/prisma/better-auth-db/src/lib/client/core/email/send-verification-email/sendVerificationEmail.ts"
+			// ],
+			// "@emperorrag/prisma-better-auth-db/send-verification-email/server": [
+			// 	"packages/prisma/better-auth-db/src/lib/server/core/email/send-verification-email/sendVerificationEmail.ts"
+			// ],
+			// "@emperorrag/prisma-better-auth-db/sign-in-email/client": ["packages/prisma/better-auth-db/src/lib/client/core/email/sign-in-email/signInEmail.ts"],
+			// "@emperorrag/prisma-better-auth-db/sign-in-email/server": ["packages/prisma/better-auth-db/src/lib/server/core/email/sign-in-email/signInEmail.ts"],
+			// "@emperorrag/prisma-better-auth-db/sign-out/client": ["packages/prisma/better-auth-db/src/lib/client/core/email/sign-out/signOut.ts"],
+			// "@emperorrag/prisma-better-auth-db/sign-out/server": ["packages/prisma/better-auth-db/src/lib/server/core/email/sign-out/signOut.ts"],
+			// "@emperorrag/prisma-better-auth-db/sign-up-email/client": ["packages/prisma/better-auth-db/src/lib/client/core/email/sign-up-email/signUpEmail.ts"],
+			// "@emperorrag/prisma-better-auth-db/sign-up-email/server": ["packages/prisma/better-auth-db/src/lib/server/core/email/sign-up-email/signUpEmail.ts"],
+			// "@emperorrag/prisma-better-auth-db/link-social/client": ["packages/prisma/better-auth-db/src/lib/client/core/account/link-social/linkSocial.ts"],
+			// "@emperorrag/prisma-better-auth-db/list-accounts/client": [
+			// 	"packages/prisma/better-auth-db/src/lib/client/core/account/list-accounts/listAccounts.ts"
+			// ],
+			// "@emperorrag/prisma-better-auth-db/list-accounts/server": [
+			// 	"packages/prisma/better-auth-db/src/lib/server/core/account/list-accounts/listAccounts.ts"
+			// ],
+			// "@emperorrag/prisma-better-auth-db/unlink-account/client": [
+			// 	"packages/prisma/better-auth-db/src/lib/client/core/account/unlink-account/unlinkAccount.ts"
+			// ],
+			// "@emperorrag/prisma-better-auth-db/unlink-account/server": [
+			// 	"packages/prisma/better-auth-db/src/lib/server/core/account/unlink-account/unlinkAccount.ts"
+			// ],
+			// "@emperorrag/prisma-better-auth-db/get-session/client": ["packages/prisma/better-auth-db/src/lib/client/core/session/get-session/getSession.ts"],
+			// "@emperorrag/prisma-better-auth-db/get-session/server": ["packages/prisma/better-auth-db/src/lib/server/core/session/get-session/getSession.ts"],
+			// "@emperorrag/prisma-better-auth-db/update-user/client": ["packages/prisma/better-auth-db/src/lib/client/core/user/update-user/updateUser.ts"],
+			// "@emperorrag/prisma-better-auth-db/update-user/server": ["packages/prisma/better-auth-db/src/lib/server/core/user/update-user/updateUser.ts"],
+			// "@emperorrag/prisma-better-auth-db/sign-in/client": ["packages/prisma/better-auth-db/src/lib/client/core/oauth/sign-in/signIn.ts"],
+			// "@emperorrag/prisma-better-auth-db/sign-in/server": ["packages/prisma/better-auth-db/src/lib/server/core/oauth/sign-in/signIn.ts"]
 			//"@emperorrag/prisma-better-auth-db/*": ["packages/prisma/better-auth-db/src/*"]
 		}
 	},

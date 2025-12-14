@@ -2,6 +2,7 @@ import * as path from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 // import * as fs from 'fs';
+import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 import { externalizePackages, toExternalizeConfig } from './externalize-packages.js';
 import externalsJson from './externals.json' with { type: 'json' };
 
@@ -33,7 +34,7 @@ export default defineConfig(() => ({
 	root: __dirname,
 	cacheDir: '../../node_modules/.vite/packages/better-auth-utilities',
 	plugins: [
-		// nxCopyAssetsPlugin(['*.md', 'package.json']),
+		nxCopyAssetsPlugin(['README.md', 'package.json']),
 		dts({
 			entryRoot: './src',
 			tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
