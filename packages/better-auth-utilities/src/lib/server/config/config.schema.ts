@@ -12,6 +12,10 @@ export class DatabaseOptions extends Schema.TaggedClass<DatabaseOptions>()('Data
 	static decode(input: unknown) {
 		return Schema.decodeUnknown(DatabaseOptions)(input);
 	}
+
+	static encode(value: DatabaseOptions) {
+		return Schema.encode(DatabaseOptions)(value);
+	}
 }
 
 /**
@@ -34,6 +38,10 @@ export class SessionOptions extends Schema.TaggedClass<SessionOptions>()('Sessio
 }) {
 	static decode(input: unknown) {
 		return Schema.decodeUnknown(SessionOptions)(input);
+	}
+
+	static encode(value: SessionOptions) {
+		return Schema.encode(SessionOptions)(value);
 	}
 }
 
@@ -63,6 +71,10 @@ export class UserOptions extends Schema.TaggedClass<UserOptions>()('UserOptions'
 	static decode(input: unknown) {
 		return Schema.decodeUnknown(UserOptions)(input);
 	}
+
+	static encode(value: UserOptions) {
+		return Schema.encode(UserOptions)(value);
+	}
 }
 
 /**
@@ -83,6 +95,10 @@ export class AccountOptions extends Schema.TaggedClass<AccountOptions>()('Accoun
 }) {
 	static decode(input: unknown) {
 		return Schema.decodeUnknown(AccountOptions)(input);
+	}
+
+	static encode(value: AccountOptions) {
+		return Schema.encode(AccountOptions)(value);
 	}
 }
 
@@ -107,6 +123,10 @@ export class EmailAndPasswordOptions extends Schema.TaggedClass<EmailAndPassword
 }) {
 	static decode(input: unknown) {
 		return Schema.decodeUnknown(EmailAndPasswordOptions)(input);
+	}
+
+	static encode(value: EmailAndPasswordOptions) {
+		return Schema.encode(EmailAndPasswordOptions)(value);
 	}
 }
 
@@ -134,6 +154,10 @@ export class RateLimitOptions extends Schema.TaggedClass<RateLimitOptions>()('Ra
 	static decode(input: unknown) {
 		return Schema.decodeUnknown(RateLimitOptions)(input);
 	}
+
+	static encode(value: RateLimitOptions) {
+		return Schema.encode(RateLimitOptions)(value);
+	}
 }
 
 /**
@@ -148,6 +172,10 @@ export class EmailVerificationOptions extends Schema.TaggedClass<EmailVerificati
 }) {
 	static decode(input: unknown) {
 		return Schema.decodeUnknown(EmailVerificationOptions)(input);
+	}
+
+	static encode(value: EmailVerificationOptions) {
+		return Schema.encode(EmailVerificationOptions)(value);
 	}
 }
 
@@ -184,6 +212,10 @@ export class AdvancedOptions extends Schema.TaggedClass<AdvancedOptions>()('Adva
 	static decode(input: unknown) {
 		return Schema.decodeUnknown(AdvancedOptions)(input);
 	}
+
+	static encode(value: AdvancedOptions) {
+		return Schema.encode(AdvancedOptions)(value);
+	}
 }
 
 /**
@@ -197,6 +229,10 @@ export class LoggerOptions extends Schema.TaggedClass<LoggerOptions>()('LoggerOp
 }) {
 	static decode(input: unknown) {
 		return Schema.decodeUnknown(LoggerOptions)(input);
+	}
+
+	static encode(value: LoggerOptions) {
+		return Schema.encode(LoggerOptions)(value);
 	}
 }
 
@@ -225,6 +261,10 @@ export class BetterAuthOptions extends Schema.TaggedClass<BetterAuthOptions>()('
 }) {
 	static decode(input: unknown) {
 		return Schema.decodeUnknown(BetterAuthOptions)(input);
+	}
+
+	static encode(value: BetterAuthOptions) {
+		return Schema.encode(BetterAuthOptions)(value);
 	}
 }
 
