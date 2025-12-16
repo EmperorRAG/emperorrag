@@ -1,12 +1,14 @@
 {
-	"servers": {
-		"effect-mcp": {
-			"command": "node",
-			"args": ["./node_modules/@niklaserik/effect-mcp/bin.js"]
-		},
-		"sequential-thinking": {
-			"command": "node",
-			"args": ["./node_modules/@modelcontextprotocol/server-sequential-thinking/dist/index.js"]
-		}
-	}
+  "servers": {
+    "effect-mcp": {
+      "command": "node",
+      "args": ["./node_modules/@niklaserik/effect-mcp/bin.js"]
+    },
+    "sequential-thinking": {
+      "command": "node",
+      "args": [
+        "./node_modules/@modelcontextprotocol/server-sequential-thinking/dist/index.js"
+      ]
+    }
+  }
 }

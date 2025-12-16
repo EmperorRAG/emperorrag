@@ -32,8 +32,10 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * });
  * ```
  */
-export type AuthServerApiListUserAccountsPropsFor<T extends AuthServerFor = AuthServerFor> = "listUserAccounts" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["listUserAccounts"] : never;
+export type AuthServerApiListUserAccountsPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "listUserAccounts" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["listUserAccounts"]
+  : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.listUserAccounts.
@@ -50,9 +52,9 @@ export type AuthServerApiListUserAccountsPropsFor<T extends AuthServerFor = Auth
  * // { headers: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiListUserAccountsParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiListUserAccountsPropsFor<T>
->[0];
+export type AuthServerApiListUserAccountsParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiListUserAccountsPropsFor<T>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.listUserAccounts.
@@ -69,9 +71,9 @@ export type AuthServerApiListUserAccountsParamsFor<T extends AuthServerFor = Aut
  * // Promise<Account[]>
  * ```
  */
-export type AuthServerApiListUserAccountsResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiListUserAccountsPropsFor<T>
->;
+export type AuthServerApiListUserAccountsResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiListUserAccountsPropsFor<T>>;
 
 /**
  * Function signature for listUserAccounts server service.

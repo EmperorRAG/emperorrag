@@ -16,9 +16,11 @@ export const updateUserClient: UpdateUserProps = (deps) => (input) => {
 
   return Effect.tryPromise({
     try: async () => {
-      const result = await (authClient.updateUser as unknown as (input: unknown) => Promise<{ error?: unknown }>)(
-        input,
-      );
+      const result = await (
+        authClient.updateUser as unknown as (
+          input: unknown,
+        ) => Promise<{ error?: unknown }>
+      )(input);
       if (result?.error) {
         throw result.error;
       }
@@ -26,7 +28,8 @@ export const updateUserClient: UpdateUserProps = (deps) => (input) => {
     },
     catch: (error) => {
       const errObj = error as { message?: string; status?: number };
-      const message = errObj?.message || (error instanceof Error ? error.message : "Update user failed");
+      const message = errObj?.message
+        || (error instanceof Error ? error.message : "Update user failed");
       const status = errObj?.status;
       return new UserAuthApiError(message, status, error);
     },

@@ -7,21 +7,29 @@ import type * as Effect from "effect/Effect";
 import type { AuthServerError } from "../../../../errors/authServer.error";
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
-export type AuthServerApiLinkSocialAccountPropsFor<T extends AuthServerFor = AuthServerFor> =
-  "linkSocialAccount" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["linkSocialAccount"] : never;
+export type AuthServerApiLinkSocialAccountPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "linkSocialAccount" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["linkSocialAccount"]
+  : never;
 
-export type AuthServerApiLinkSocialAccountParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiLinkSocialAccountPropsFor<T>
->[0];
+export type AuthServerApiLinkSocialAccountParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiLinkSocialAccountPropsFor<T>>[0];
 
-export type AuthServerApiLinkSocialAccountResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiLinkSocialAccountPropsFor<T>
->;
+export type AuthServerApiLinkSocialAccountResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiLinkSocialAccountPropsFor<T>>;
 
-export interface LinkSocialAccountPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface LinkSocialAccountPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> {
   (
     params: AuthServerApiLinkSocialAccountParamsFor<T>,
-  ): Effect.Effect<Awaited<AuthServerApiLinkSocialAccountResultFor<T>>, AuthServerError, T>;
+  ): Effect.Effect<
+    Awaited<AuthServerApiLinkSocialAccountResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
 
 export const isAuthServerApiLinkSocialAccountParamsFor = (

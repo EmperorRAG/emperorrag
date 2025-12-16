@@ -11,12 +11,14 @@ import {
   type signOutPropsFor,
 } from "./signOut.types";
 
-export const signOutServerController: signOutPropsFor = (params: AuthServerApiSignOutParamsFor<AuthServerFor>) =>
+export const signOutServerController: signOutPropsFor = (
+  params: AuthServerApiSignOutParamsFor<AuthServerFor>,
+) =>
   Effect.gen(function*() {
     // 1) Validate params input with Effect-based validation pipeline
-    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
-      isAuthServerApiSignOutParamsFor,
-    )(params);
+    const validatedParams = yield* validateInputEffect(
+      createAuthServerApiEndpointParamsSchema(),
+    )(isAuthServerApiSignOutParamsFor)(params);
 
     // 2) Call the service with the validated params
     const result = yield* signOutServerService(validatedParams);

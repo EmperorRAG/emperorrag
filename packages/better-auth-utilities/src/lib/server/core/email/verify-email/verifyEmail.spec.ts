@@ -24,6 +24,10 @@ describe("Server Verify Email", () => {
       },
     });
 
-    await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
+    await expect(
+      Effect.runPromise(
+        Effect.provideService(program, AuthServerTag, authServer),
+      ),
+    ).rejects.toThrow();
   });
 });

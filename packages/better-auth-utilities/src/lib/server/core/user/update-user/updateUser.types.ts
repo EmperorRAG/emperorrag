@@ -16,8 +16,10 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiUpdateUserPropsFor<T extends AuthServerFor = AuthServerFor> = "updateUser" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["updateUser"] : never;
+export type AuthServerApiUpdateUserPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "updateUser" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["updateUser"]
+  : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.updateUser.
@@ -28,9 +30,9 @@ export type AuthServerApiUpdateUserPropsFor<T extends AuthServerFor = AuthServer
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiUpdateUserParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiUpdateUserPropsFor<T>
->[0];
+export type AuthServerApiUpdateUserParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiUpdateUserPropsFor<T>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.updateUser.
@@ -41,9 +43,9 @@ export type AuthServerApiUpdateUserParamsFor<T extends AuthServerFor = AuthServe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiUpdateUserResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiUpdateUserPropsFor<T>
->;
+export type AuthServerApiUpdateUserResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiUpdateUserPropsFor<T>>;
 
 /**
  * Function signature for updateUser server service.
@@ -67,7 +69,11 @@ export type AuthServerApiUpdateUserResultFor<T extends AuthServerFor = AuthServe
 export interface UpdateUserPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
     params: AuthServerApiUpdateUserParamsFor<T>,
-  ): Effect.Effect<Awaited<AuthServerApiUpdateUserResultFor<T>>, AuthServerError, T>;
+  ): Effect.Effect<
+    Awaited<AuthServerApiUpdateUserResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
 
 /**
@@ -96,7 +102,13 @@ export const isAuthServerApiUpdateUserParamsFor = (
   // Optional fields: name, email, image
   if (body.name !== undefined && typeof body.name !== "string") return false;
   if (body.email !== undefined && typeof body.email !== "string") return false;
-  if (body.image !== undefined && body.image !== null && typeof body.image !== "string") return false;
+  if (
+    body.image !== undefined
+    && body.image !== null
+    && typeof body.image !== "string"
+  ) {
+    return false;
+  }
 
   return true;
 };

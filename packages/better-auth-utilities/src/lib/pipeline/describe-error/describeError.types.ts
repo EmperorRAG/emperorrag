@@ -11,7 +11,13 @@ export interface AuthServerErrorDescriptor {
  * Type guard to check if an error is already a descriptor.
  */
 
-export const isAuthServerErrorDescriptor = (error: unknown): error is AuthServerErrorDescriptor => {
-  return typeof error === "object" && error !== null && "_tag" in error
-    && (error as AuthServerErrorDescriptor)._tag === "AuthServerErrorDescriptor";
+export const isAuthServerErrorDescriptor = (
+  error: unknown,
+): error is AuthServerErrorDescriptor => {
+  return (
+    typeof error === "object"
+    && error !== null
+    && "_tag" in error
+    && (error as AuthServerErrorDescriptor)._tag === "AuthServerErrorDescriptor"
+  );
 };

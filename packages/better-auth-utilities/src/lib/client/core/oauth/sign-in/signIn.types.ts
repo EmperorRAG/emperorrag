@@ -10,14 +10,16 @@ import type { OAuthAuthClientDeps } from "../shared/oauth.types";
  * @description Infers the input type directly from the `signIn.social` method of the Better Auth client.
  */
 export type SignInSocialInput<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > = Parameters<
   "signIn" extends keyof T
-  ? "social" extends keyof T["signIn"]
-  ? T["signIn"]["social"] extends (...args: unknown[]) => unknown ? T["signIn"]["social"]
-  : never
-  : never
-  : never
+    ? "social" extends keyof T["signIn"]
+      ? T["signIn"]["social"] extends (...args: unknown[]) => unknown ? T["signIn"]["social"]
+      : never
+    : never
+    : never
 >[0];
 
 /**
@@ -26,14 +28,16 @@ export type SignInSocialInput<
  * @description Infers the return type directly from the `signIn.social` method of the Better Auth client.
  */
 export type SignInSocialResult<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > = ReturnType<
   "signIn" extends keyof T
-  ? "social" extends keyof T["signIn"]
-  ? T["signIn"]["social"] extends (...args: unknown[]) => unknown ? T["signIn"]["social"]
-  : never
-  : never
-  : never
+    ? "social" extends keyof T["signIn"]
+      ? T["signIn"]["social"] extends (...args: unknown[]) => unknown ? T["signIn"]["social"]
+      : never
+    : never
+    : never
 >;
 
 /**
@@ -42,9 +46,13 @@ export type SignInSocialResult<
  * @description Defines the curried function signature for the signIn social operation.
  */
 export interface SignInSocialProps<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > {
   (
     deps: OAuthAuthClientDeps<T>,
-  ): (input: SignInSocialInput<T>) => Effect.Effect<Awaited<SignInSocialResult<T>>, OAuthAuthError>;
+  ): (
+    input: SignInSocialInput<T>,
+  ) => Effect.Effect<Awaited<SignInSocialResult<T>>, OAuthAuthError>;
 }

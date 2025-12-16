@@ -8,7 +8,9 @@ import type { AuthClientFor } from "../../../client.types";
  * account service functions. This ensures that the Better Auth client is available.
  */
 export type AccountAuthClientDeps<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > = Readonly<{
   /**
    * The Better Auth client instance.

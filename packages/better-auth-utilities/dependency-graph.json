@@ -1,18 +1,12 @@
 {
-  "lib/client/client.constants.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
+  "lib/client/client.constants.ts": ["lib/shared/config/config.types.ts"],
   "lib/client/client.service.ts": [
     "lib/client/client.constants.ts",
     "lib/shared/config/config.types.ts"
   ],
-  "lib/client/client.spec.ts": [
-    "lib/test/setup-test-env.ts"
-  ],
+  "lib/client/client.spec.ts": ["lib/test/setup-test-env.ts"],
   "lib/client/client.types.ts": [],
-  "lib/client/config/config.service.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
+  "lib/client/config/config.service.ts": ["lib/shared/config/config.types.ts"],
   "lib/client/core/account/link-social/linkSocial.schema.ts": [],
   "lib/client/core/account/link-social/linkSocial.service.ts": [
     "lib/client/core/account/link-social/linkSocial.types.ts",
@@ -130,9 +124,7 @@
   "lib/client/core/email/send-verification-email/sendVerificationEmail.utils.ts": [],
   "lib/client/core/email/shared/email.error.ts": [],
   "lib/client/core/email/shared/email.schema.ts": [],
-  "lib/client/core/email/shared/email.types.ts": [
-    "lib/client/client.types.ts"
-  ],
+  "lib/client/core/email/shared/email.types.ts": ["lib/client/client.types.ts"],
   "lib/client/core/email/sign-in-email/signInEmail.controller.ts": [],
   "lib/client/core/email/sign-in-email/signInEmail.schema.ts": [],
   "lib/client/core/email/sign-in-email/signInEmail.service.ts": [
@@ -188,9 +180,7 @@
   ],
   "lib/client/core/email/sign-up-email/signUpEmail.utils.ts": [],
   "lib/client/core/oauth/shared/oauth.error.ts": [],
-  "lib/client/core/oauth/shared/oauth.types.ts": [
-    "lib/client/client.types.ts"
-  ],
+  "lib/client/core/oauth/shared/oauth.types.ts": ["lib/client/client.types.ts"],
   "lib/client/core/oauth/sign-in/signIn.schema.ts": [],
   "lib/client/core/oauth/sign-in/signIn.service.ts": [
     "lib/client/core/oauth/shared/oauth.error.ts",
@@ -226,9 +216,7 @@
     "lib/client/client.types.ts"
   ],
   "lib/client/core/user/shared/user.error.ts": [],
-  "lib/client/core/user/shared/user.types.ts": [
-    "lib/client/client.types.ts"
-  ],
+  "lib/client/core/user/shared/user.types.ts": ["lib/client/client.types.ts"],
   "lib/client/core/user/update-user/updateUser.schema.ts": [],
   "lib/client/core/user/update-user/updateUser.service.ts": [
     "lib/client/core/user/shared/user.error.ts",
@@ -310,9 +298,7 @@
     "lib/enums/authServerApiEndpoints.enum.ts",
     "lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.ts"
   ],
-  "lib/server/config/config.service.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
+  "lib/server/config/config.service.ts": ["lib/shared/config/config.types.ts"],
   "lib/server/core/account/account-info/accountInfo.controller.ts": [
     "lib/enums/authServerApiEndpoints.enum.ts",
     "lib/pipeline/zod-input-validator/zodInputValidator.ts",
@@ -1039,9 +1025,7 @@
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/shared/core.error.ts": [
-    "lib/server/server.types.ts"
-  ],
+  "lib/server/core/shared/core.error.ts": ["lib/server/server.types.ts"],
   "lib/server/core/user/delete-user-callback/deleteUserCallback.controller.ts": [
     "lib/enums/authServerApiEndpoints.enum.ts",
     "lib/pipeline/zod-input-validator/zodInputValidator.ts",
@@ -1126,26 +1110,18 @@
     "lib/server/core/shared/core.error.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/server.constants.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
+  "lib/server/server.constants.ts": ["lib/shared/config/config.types.ts"],
   "lib/server/server.service.ts": [
     "lib/server/server.constants.ts",
     "lib/server/server.types.ts",
     "lib/shared/config/config.types.ts"
   ],
-  "lib/server/server.spec.ts": [
-    "lib/test/setup-test-env.ts"
-  ],
-  "lib/server/server.types.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
+  "lib/server/server.spec.ts": ["lib/test/setup-test-env.ts"],
+  "lib/server/server.types.ts": ["lib/shared/config/config.types.ts"],
   "lib/shared/config/config.constants.ts": [
     "lib/shared/config/config.types.ts"
   ],
-  "lib/shared/config/config.service.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
+  "lib/shared/config/config.service.ts": ["lib/shared/config/config.types.ts"],
   "lib/shared/config/config.spec.ts": [
     "lib/client/config/config.service.ts",
     "lib/server/config/config.service.ts",
@@ -1162,9 +1138,7 @@
   "lib/test/debug-devtools.ts": [
     "lib/pipeline/format-zod-error-message/formatZodErrorMessage.ts"
   ],
-  "lib/test/integration.spec.ts": [
-    "lib/test/setup-test-env.ts"
-  ],
+  "lib/test/integration.spec.ts": ["lib/test/setup-test-env.ts"],
   "lib/test/setup-test-env.ts": [
     "lib/client/client.service.ts",
     "lib/server/server.service.ts",

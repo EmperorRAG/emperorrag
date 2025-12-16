@@ -78,7 +78,11 @@ export interface PluginConfigRegistry {
   magicLink: {
     enabled: boolean;
     expiresIn?: string;
-    sendMagicLink?: (params: { email: string; token: string; url: string }) => Promise<void>;
+    sendMagicLink?: (params: {
+      email: string;
+      token: string;
+      url: string;
+    }) => Promise<void>;
   };
   twoFactor: {
     enabled: boolean;
@@ -293,14 +297,22 @@ export interface ServerConfig {
     enabled?: boolean;
     minPasswordLength?: number;
     requireEmailVerification?: boolean;
-    sendResetPassword?: (params: { user: unknown; url: string; token: string }) => Promise<void>;
+    sendResetPassword?: (params: {
+      user: unknown;
+      url: string;
+      token: string;
+    }) => Promise<void>;
   };
 
   /**
    * Email verification configuration.
    */
   emailVerification?: {
-    sendVerificationEmail?: (params: { user: unknown; url: string; token: string }) => Promise<void>;
+    sendVerificationEmail?: (params: {
+      user: unknown;
+      url: string;
+      token: string;
+    }) => Promise<void>;
     sendOnSignUp?: boolean;
     autoSignInAfterVerification?: boolean;
   };

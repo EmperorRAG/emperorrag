@@ -1,65 +1,65 @@
 {
-	"name": "@emperorrag/tsserver-analyzer",
-	"version": "0.0.1",
-	"type": "module",
-	"sideEffects": false,
-	"scripts": {
-		"clean:dist": "npx rimraf dist",
-		"clean:node_modules": "npx rimraf node_modules",
-		"clean:out-tsc": "npx rimraf out-tsc",
-		"clean:all": "npm run clean:dist && npm run clean:node_modules && npm run clean:out-tsc",
-		"tsc:list-files": "tsc --project tsconfig.json --listFiles",
-		"tsc:list-files:lib": "tsc --project tsconfig.lib.json --listFiles",
-		"tsc:list-files:spec": "tsc --project tsconfig.spec.json --listFiles",
-		"run": "npx nx build tsserver-analyzer && node dist/cli.js"
-	},
-	"bin": {
-		"tsserver-analyzer": "./src/cli.ts"
-	},
-	"main": "./dist/index.js",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"exports": {
-		"./package.json": "./package.json",
-		".": {
-			"@emperorrag/source": "./src/index.ts",
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"default": "./dist/index.js"
-		},
-		"./*": {
-			"@emperorrag/source": "./src/lib/*.ts",
-			"types": "./dist/lib/*.d.ts",
-			"import": "./dist/lib/*.js",
-			"default": "./dist/lib/*.js"
-		}
-	},
-	"files": [
-		"dist",
-		"src",
-		"!**/*.tsbuildinfo",
-		"!**/*.test.*",
-		"!**/*.spec.*"
-	],
-	"nx": {
-		"name": "tsserver-analyzer",
-		"tags": [
-			"utilities",
-			"library",
-			"common",
-			"shared",
-			"packages",
-			"typescript",
-			"tsserver-analyzer"
-		]
-	},
-	"dependencies": {
-		"effect": "^3.18.4",
-		"ts-node": "^10.9.1",
-		"typescript": "^5.0.0"
-	},
-	"devDependencies": {
-		"@types/node": "^20.0.0",
-		"vite-plugin-dts": "^4.5.4"
-	}
+  "name": "@emperorrag/tsserver-analyzer",
+  "version": "0.0.1",
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "clean:dist": "npx rimraf dist",
+    "clean:node_modules": "npx rimraf node_modules",
+    "clean:out-tsc": "npx rimraf out-tsc",
+    "clean:all": "npm run clean:dist && npm run clean:node_modules && npm run clean:out-tsc",
+    "tsc:list-files": "tsc --project tsconfig.json --listFiles",
+    "tsc:list-files:lib": "tsc --project tsconfig.lib.json --listFiles",
+    "tsc:list-files:spec": "tsc --project tsconfig.spec.json --listFiles",
+    "run": "npx nx build tsserver-analyzer && node dist/cli.js"
+  },
+  "bin": {
+    "tsserver-analyzer": "./src/cli.ts"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "@emperorrag/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./*": {
+      "@emperorrag/source": "./src/lib/*.ts",
+      "types": "./dist/lib/*.d.ts",
+      "import": "./dist/lib/*.js",
+      "default": "./dist/lib/*.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "!**/*.tsbuildinfo",
+    "!**/*.test.*",
+    "!**/*.spec.*"
+  ],
+  "nx": {
+    "name": "tsserver-analyzer",
+    "tags": [
+      "utilities",
+      "library",
+      "common",
+      "shared",
+      "packages",
+      "typescript",
+      "tsserver-analyzer"
+    ]
+  },
+  "dependencies": {
+    "effect": "^3.18.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "vite-plugin-dts": "^4.5.4"
+  }
 }

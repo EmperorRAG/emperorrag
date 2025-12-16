@@ -28,12 +28,10 @@ const isRecord = (value: unknown): value is Record<string, unknown> => typeof va
  * @description Filters non-string entries to guarantee matcher integrity.
  */
 const ensureStringArray = (value: unknown): ReadonlyArray<string> | undefined =>
-  pipe(
-    value,
-    (candidate) => (Array.isArray(candidate)
+  pipe(value, (candidate) =>
+    Array.isArray(candidate)
       ? candidate.filter((item): item is string => typeof item === "string")
-      : undefined),
-  );
+      : undefined);
 
 /**
  * Safely converts untyped JSON input into the expected externalization config.
@@ -90,8 +88,9 @@ const normalizePath = (value: string): string => value.replace(/\\/g, "/");
  * @pure
  * @description Normalizes each entry in the provided collection while preserving order.
  */
-const toNormalizedArray = (values: ReadonlyArray<string> | undefined): ReadonlyArray<string> =>
-  pipe(values ?? [], (entries) => Array.from(entries, normalizePath));
+const toNormalizedArray = (
+  values: ReadonlyArray<string> | undefined,
+): ReadonlyArray<string> => pipe(values ?? [], (entries) => Array.from(entries, normalizePath));
 
 /**
  * Evaluates whether any pattern in the collection matches according to the provided comparison.
@@ -99,8 +98,10 @@ const toNormalizedArray = (values: ReadonlyArray<string> | undefined): ReadonlyA
  * @pure
  * @description Applies the supplied comparison to every pattern until a match is found.
  */
-const matchAny = (patterns: ReadonlyArray<string>, compare: (pattern: string) => boolean): boolean =>
-  pipe(patterns, (entries) => entries.some(compare));
+const matchAny = (
+  patterns: ReadonlyArray<string>,
+  compare: (pattern: string) => boolean,
+): boolean => pipe(patterns, (entries) => entries.some(compare));
 
 /**
  * Creates an external predicate for Rollup based on declared package matchers.
@@ -122,7 +123,9 @@ const matchAny = (patterns: ReadonlyArray<string>, compare: (pattern: string) =>
  * const result = predicate('better-auth/plugins');
  * // => true
  */
-export const externalizePackages = (config: ExternalizeConfig): (id: string) => boolean => {
+export const externalizePackages = (
+  config: ExternalizeConfig,
+): (id: string) => boolean => {
   const normalizedConfig = createNormalizedConfig(config);
 
   return (id: string): boolean => {

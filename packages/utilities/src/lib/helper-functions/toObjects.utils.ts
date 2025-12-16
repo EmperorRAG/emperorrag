@@ -1,5 +1,5 @@
-import { pipe } from 'effect/Function';
-import { map } from 'effect/Array';
+import { pipe } from "effect/Function";
+import { map } from "effect/Array";
 
 /**
  * @pure
@@ -17,12 +17,12 @@ import { map } from 'effect/Array';
  * // => [ { id: 1 }, { id: 2 }, { id: 3 } ]
  */
 export const toObjects =
-	<K extends string>(propertyName: K) =>
-	<T>(values: T[]): Record<K, T>[] =>
-		pipe(
-			values,
-			map((value) => ({ [propertyName]: value }) as Record<K, T>)
-		);
+  <K extends string>(propertyName: K) =>
+  <T>(values: T[]): Record<K, T>[] =>
+    pipe(
+      values,
+      map((value) => ({ [propertyName]: value }) as Record<K, T>),
+    );
 
 /**
  * @pure
@@ -39,7 +39,7 @@ export const toObjects =
  * const result = toInputObjects([1, 2, 3]);
  * // => [ { input: 1 }, { input: 2 }, { input: 3 } ]
  */
-export const toInputObjects = toObjects('input');
+export const toInputObjects = toObjects("input");
 
 /**
  * @pure
@@ -56,7 +56,7 @@ export const toInputObjects = toObjects('input');
  * const result = toLabelObjects(['foo', 'bar']);
  * // => [ { label: 'foo' }, { label: 'bar' } ]
  */
-export const toLabelObjects = toObjects('label');
+export const toLabelObjects = toObjects("label");
 
 /**
  * @pure
@@ -73,7 +73,7 @@ export const toLabelObjects = toObjects('label');
  * const result = toExpectedObjects([true, false]);
  * // => [ { expected: true }, { expected: false } ]
  */
-export const toExpectedObjects = toObjects('expected');
+export const toExpectedObjects = toObjects("expected");
 
 /**
  * @pure
@@ -86,7 +86,7 @@ export const toExpectedObjects = toObjects('expected');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'name' property.
  */
-export const toNameObjects = toObjects('name');
+export const toNameObjects = toObjects("name");
 
 /**
  * @pure
@@ -99,7 +99,7 @@ export const toNameObjects = toObjects('name');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'value' property.
  */
-export const toValueObjects = toObjects('value');
+export const toValueObjects = toObjects("value");
 
 /**
  * @pure
@@ -112,7 +112,7 @@ export const toValueObjects = toObjects('value');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'key' property.
  */
-export const toKeyObjects = toObjects('key');
+export const toKeyObjects = toObjects("key");
 
 /**
  * @pure
@@ -125,7 +125,7 @@ export const toKeyObjects = toObjects('key');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'options' property.
  */
-export const toOptionsObjects = toObjects('options');
+export const toOptionsObjects = toObjects("options");
 
 /**
  * @pure
@@ -138,7 +138,7 @@ export const toOptionsObjects = toObjects('options');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'defaultValue' property.
  */
-export const toDefaultValueObjects = toObjects('defaultValue');
+export const toDefaultValueObjects = toObjects("defaultValue");
 
 /**
  * @pure
@@ -155,7 +155,7 @@ export const toDefaultValueObjects = toObjects('defaultValue');
  * const result = toPlaceholderObjects(['foo', 'bar']);
  * // => [ { placeholder: 'foo' }, { placeholder: 'bar' } ]
  */
-export const toPlaceholderObjects = toObjects('placeholder');
+export const toPlaceholderObjects = toObjects("placeholder");
 
 /**
  * @pure
@@ -168,7 +168,7 @@ export const toPlaceholderObjects = toObjects('placeholder');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'min' property.
  */
-export const toMinObjects = toObjects('min');
+export const toMinObjects = toObjects("min");
 
 /**
  * @pure
@@ -181,7 +181,7 @@ export const toMinObjects = toObjects('min');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'max' property.
  */
-export const toMaxObjects = toObjects('max');
+export const toMaxObjects = toObjects("max");
 
 /**
  * @pure
@@ -194,7 +194,7 @@ export const toMaxObjects = toObjects('max');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'required' property.
  */
-export const toRequiredObjects = toObjects('required');
+export const toRequiredObjects = toObjects("required");
 
 /**
  * @pure
@@ -207,7 +207,7 @@ export const toRequiredObjects = toObjects('required');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'columns' property.
  */
-export const toColumnsObjects = toObjects('columns');
+export const toColumnsObjects = toObjects("columns");
 
 /**
  * @pure
@@ -220,7 +220,7 @@ export const toColumnsObjects = toObjects('columns');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'description' property.
  */
-export const toDescriptionObjects = toObjects('description');
+export const toDescriptionObjects = toObjects("description");
 
 /**
  * @pure
@@ -233,7 +233,7 @@ export const toDescriptionObjects = toObjects('description');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'styles' property.
  */
-export const toStylesObjects = toObjects('styles');
+export const toStylesObjects = toObjects("styles");
 
 /**
  * @pure
@@ -246,7 +246,7 @@ export const toStylesObjects = toObjects('styles');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'id' property.
  */
-export const toIdObjects = toObjects('id');
+export const toIdObjects = toObjects("id");
 
 /**
  * @pure
@@ -259,7 +259,7 @@ export const toIdObjects = toObjects('id');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'formId' property.
  */
-export const toFormIdObjects = toObjects('formId');
+export const toFormIdObjects = toObjects("formId");
 
 /**
  * @pure
@@ -272,7 +272,7 @@ export const toFormIdObjects = toObjects('formId');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'errorId' property.
  */
-export const toErrorIdObjects = toObjects('errorId');
+export const toErrorIdObjects = toObjects("errorId");
 
 /**
  * @pure
@@ -285,7 +285,7 @@ export const toErrorIdObjects = toObjects('errorId');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'valid' property.
  */
-export const toValidObjects = toObjects('valid');
+export const toValidObjects = toObjects("valid");
 
 /**
  * @pure
@@ -298,7 +298,7 @@ export const toValidObjects = toObjects('valid');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'defaultChecked' property.
  */
-export const toDefaultCheckedObjects = toObjects('defaultChecked');
+export const toDefaultCheckedObjects = toObjects("defaultChecked");
 
 /**
  * @pure
@@ -311,4 +311,4 @@ export const toDefaultCheckedObjects = toObjects('defaultChecked');
  *
  * @returns A function that takes an array of values and returns an array of objects with the 'multiple' property.
  */
-export const toMultipleObjects = toObjects('multiple');
+export const toMultipleObjects = toObjects("multiple");

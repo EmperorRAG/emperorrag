@@ -19,10 +19,12 @@ import type { MapInputErrorProps } from "./mapInputError.types";
  */
 
 export const mapInputError: MapInputErrorProps = (error) =>
-  Effect.gen(function* () {
+  Effect.gen(function*() {
     const { operationCode, endpoint } = yield* PipelineContext;
     if (!operationCode) {
-      return yield* Effect.dieMessage("Operation code is required in PipelineContext for mapInputError");
+      return yield* Effect.dieMessage(
+        "Operation code is required in PipelineContext for mapInputError",
+      );
     }
 
     return yield* Match.value(error as unknown).pipe(
@@ -54,10 +56,13 @@ export const mapInputError: MapInputErrorProps = (error) =>
           details: { operationCode, endpoint },
         })),
       Match.orElse((err) =>
-        createAuthServerInputError(`Invalid ${endpoint} parameters: ${operationCode._tag} failed`, {
-          originalError: err,
-          details: { operationCode, endpoint },
-        })
+        createAuthServerInputError(
+          `Invalid ${endpoint} parameters: ${operationCode._tag} failed`,
+          {
+            originalError: err,
+            details: { operationCode, endpoint },
+          },
+        )
       ),
       (effect) => effect as Effect.Effect<AuthServerInputError>,
       Effect.flatMap(Effect.fail),

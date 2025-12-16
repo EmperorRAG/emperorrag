@@ -8,7 +8,9 @@ import type { ServerConfig } from "../../shared/config/config.types";
  */
 export const serverConfig = Config.all({
   appName: Config.string("APP_NAME").pipe(Config.withDefault("My Application")),
-  baseURL: Config.string("BETTER_AUTH_URL").pipe(Config.withDefault("http://localhost:3000")),
+  baseURL: Config.string("BETTER_AUTH_URL").pipe(
+    Config.withDefault("http://localhost:3000"),
+  ),
   secret: Config.string("BETTER_AUTH_SECRET"),
 });
 

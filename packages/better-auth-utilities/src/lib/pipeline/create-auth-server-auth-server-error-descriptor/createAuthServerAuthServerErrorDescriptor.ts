@@ -4,7 +4,9 @@ import type { AuthServerErrorDescriptor } from "../describe-error/describeError.
 /**
  * @pure
  */
-export const createAuthServerAuthServerErrorDescriptor = (error: AuthServerApiError): AuthServerErrorDescriptor => ({
+export const createAuthServerAuthServerErrorDescriptor = (
+  error: AuthServerApiError,
+): AuthServerErrorDescriptor => ({
   _tag: "AuthServerErrorDescriptor",
   authServerErrorType: error,
   code: "auth_server_error",

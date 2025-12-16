@@ -3,12 +3,19 @@ import { FastCheck, Schema } from "effect";
 /**
  * @description Schema for Better Auth database configuration
  */
-export class DatabaseOptions extends Schema.TaggedClass<DatabaseOptions>()("DatabaseOptions", {
-  dialect: Schema.optional(Schema.Literal("postgres", "mysql", "sqlite", "mssql")),
-  type: Schema.optional(Schema.Literal("postgres", "mysql", "sqlite", "mssql")),
-  casing: Schema.optional(Schema.Literal("camel", "snake")),
-  provider: Schema.optional(Schema.String), // For custom providers
-}) {
+export class DatabaseOptions extends Schema.TaggedClass<DatabaseOptions>()(
+  "DatabaseOptions",
+  {
+    dialect: Schema.optional(
+      Schema.Literal("postgres", "mysql", "sqlite", "mssql"),
+    ),
+    type: Schema.optional(
+      Schema.Literal("postgres", "mysql", "sqlite", "mssql"),
+    ),
+    casing: Schema.optional(Schema.Literal("camel", "snake")),
+    provider: Schema.optional(Schema.String), // For custom providers
+  },
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(DatabaseOptions)(input);
   }
@@ -21,21 +28,26 @@ export class DatabaseOptions extends Schema.TaggedClass<DatabaseOptions>()("Data
 /**
  * @description Schema for Better Auth session configuration
  */
-export class SessionOptions extends Schema.TaggedClass<SessionOptions>()("SessionOptions", {
-  modelName: Schema.optional(Schema.String),
-  fields: Schema.optional(Schema.Record({ key: Schema.String, value: Schema.String })),
-  expiresIn: Schema.optional(Schema.Number),
-  updateAge: Schema.optional(Schema.Number),
-  disableSessionRefresh: Schema.optional(Schema.Boolean),
-  storeSessionInDatabase: Schema.optional(Schema.Boolean),
-  preserveSessionInDatabase: Schema.optional(Schema.Boolean),
-  cookieCache: Schema.optional(
-    Schema.Struct({
-      enabled: Schema.optional(Schema.Boolean),
-      maxAge: Schema.optional(Schema.Number),
-    }),
-  ),
-}) {
+export class SessionOptions extends Schema.TaggedClass<SessionOptions>()(
+  "SessionOptions",
+  {
+    modelName: Schema.optional(Schema.String),
+    fields: Schema.optional(
+      Schema.Record({ key: Schema.String, value: Schema.String }),
+    ),
+    expiresIn: Schema.optional(Schema.Number),
+    updateAge: Schema.optional(Schema.Number),
+    disableSessionRefresh: Schema.optional(Schema.Boolean),
+    storeSessionInDatabase: Schema.optional(Schema.Boolean),
+    preserveSessionInDatabase: Schema.optional(Schema.Boolean),
+    cookieCache: Schema.optional(
+      Schema.Struct({
+        enabled: Schema.optional(Schema.Boolean),
+        maxAge: Schema.optional(Schema.Number),
+      }),
+    ),
+  },
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(SessionOptions)(input);
   }
@@ -48,39 +60,54 @@ export class SessionOptions extends Schema.TaggedClass<SessionOptions>()("Sessio
 /**
  * @description Schema for Better Auth user configuration
  */
-export class UserOptions extends Schema.TaggedClass<UserOptions>()("UserOptions", {
-  modelName: Schema.optional(Schema.String),
-  fields: Schema.optional(Schema.Record({ key: Schema.String, value: Schema.String })),
-  additionalFields: Schema.optional(
-    Schema.Record({
-      key: Schema.String,
-      value: Schema.Any.annotations({ arbitrary: () => () => FastCheck.json() }),
-    }),
-  ),
-  changeEmail: Schema.optional(
-    Schema.Struct({
-      enabled: Schema.optional(Schema.Boolean),
-      sendChangeEmailConfirmation: Schema.optional(
-        Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.boolean()) }),
-      ), // Function
-      updateEmailWithoutVerification: Schema.optional(Schema.Boolean),
-    }),
-  ),
-  deleteUser: Schema.optional(
-    Schema.Struct({
-      enabled: Schema.optional(Schema.Boolean),
-      sendDeleteAccountVerification: Schema.optional(
-        Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.boolean()) }),
-      ), // Function
-      beforeDelete: Schema.optional(
-        Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.boolean()) }),
-      ), // Function
-      afterDelete: Schema.optional(
-        Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.boolean()) }),
-      ), // Function
-    }),
-  ),
-}) {
+export class UserOptions extends Schema.TaggedClass<UserOptions>()(
+  "UserOptions",
+  {
+    modelName: Schema.optional(Schema.String),
+    fields: Schema.optional(
+      Schema.Record({ key: Schema.String, value: Schema.String }),
+    ),
+    additionalFields: Schema.optional(
+      Schema.Record({
+        key: Schema.String,
+        value: Schema.Any.annotations({
+          arbitrary: () => () => FastCheck.json(),
+        }),
+      }),
+    ),
+    changeEmail: Schema.optional(
+      Schema.Struct({
+        enabled: Schema.optional(Schema.Boolean),
+        sendChangeEmailConfirmation: Schema.optional(
+          Schema.Any.annotations({
+            arbitrary: () => () => FastCheck.func(FastCheck.boolean()),
+          }),
+        ), // Function
+        updateEmailWithoutVerification: Schema.optional(Schema.Boolean),
+      }),
+    ),
+    deleteUser: Schema.optional(
+      Schema.Struct({
+        enabled: Schema.optional(Schema.Boolean),
+        sendDeleteAccountVerification: Schema.optional(
+          Schema.Any.annotations({
+            arbitrary: () => () => FastCheck.func(FastCheck.boolean()),
+          }),
+        ), // Function
+        beforeDelete: Schema.optional(
+          Schema.Any.annotations({
+            arbitrary: () => () => FastCheck.func(FastCheck.boolean()),
+          }),
+        ), // Function
+        afterDelete: Schema.optional(
+          Schema.Any.annotations({
+            arbitrary: () => () => FastCheck.func(FastCheck.boolean()),
+          }),
+        ), // Function
+      }),
+    ),
+  },
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(UserOptions)(input);
   }
@@ -93,19 +120,24 @@ export class UserOptions extends Schema.TaggedClass<UserOptions>()("UserOptions"
 /**
  * @description Schema for Better Auth account configuration
  */
-export class AccountOptions extends Schema.TaggedClass<AccountOptions>()("AccountOptions", {
-  modelName: Schema.optional(Schema.String),
-  fields: Schema.optional(Schema.Record({ key: Schema.String, value: Schema.String })),
-  encryptOAuthTokens: Schema.optional(Schema.Boolean),
-  storeAccountCookie: Schema.optional(Schema.Boolean),
-  accountLinking: Schema.optional(
-    Schema.Struct({
-      enabled: Schema.optional(Schema.Boolean),
-      trustedProviders: Schema.optional(Schema.Array(Schema.String)),
-      allowDifferentEmails: Schema.optional(Schema.Boolean),
-    }),
-  ),
-}) {
+export class AccountOptions extends Schema.TaggedClass<AccountOptions>()(
+  "AccountOptions",
+  {
+    modelName: Schema.optional(Schema.String),
+    fields: Schema.optional(
+      Schema.Record({ key: Schema.String, value: Schema.String }),
+    ),
+    encryptOAuthTokens: Schema.optional(Schema.Boolean),
+    storeAccountCookie: Schema.optional(Schema.Boolean),
+    accountLinking: Schema.optional(
+      Schema.Struct({
+        enabled: Schema.optional(Schema.Boolean),
+        trustedProviders: Schema.optional(Schema.Array(Schema.String)),
+        allowDifferentEmails: Schema.optional(Schema.Boolean),
+      }),
+    ),
+  },
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(AccountOptions)(input);
   }
@@ -118,24 +150,37 @@ export class AccountOptions extends Schema.TaggedClass<AccountOptions>()("Accoun
 /**
  * @description Schema for Better Auth email and password authentication
  */
-export class EmailAndPasswordOptions extends Schema.TaggedClass<EmailAndPasswordOptions>()("EmailAndPasswordOptions", {
-  enabled: Schema.optional(Schema.Boolean),
-  disableSignUp: Schema.optional(Schema.Boolean),
-  requireEmailVerification: Schema.optional(Schema.Boolean),
-  minPasswordLength: Schema.optional(Schema.Number),
-  maxPasswordLength: Schema.optional(Schema.Number),
-  autoSignIn: Schema.optional(Schema.Boolean),
-  sendResetPassword: Schema.optional(
-    Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.boolean()) }),
-  ), // Function
-  resetPasswordTokenExpiresIn: Schema.optional(Schema.Number),
-  password: Schema.optional(
-    Schema.Struct({
-      hash: Schema.optional(Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.string()) })), // Function
-      verify: Schema.optional(Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.boolean()) })), // Function
-    }),
-  ),
-}) {
+export class EmailAndPasswordOptions extends Schema.TaggedClass<EmailAndPasswordOptions>()(
+  "EmailAndPasswordOptions",
+  {
+    enabled: Schema.optional(Schema.Boolean),
+    disableSignUp: Schema.optional(Schema.Boolean),
+    requireEmailVerification: Schema.optional(Schema.Boolean),
+    minPasswordLength: Schema.optional(Schema.Number),
+    maxPasswordLength: Schema.optional(Schema.Number),
+    autoSignIn: Schema.optional(Schema.Boolean),
+    sendResetPassword: Schema.optional(
+      Schema.Any.annotations({
+        arbitrary: () => () => FastCheck.func(FastCheck.boolean()),
+      }),
+    ), // Function
+    resetPasswordTokenExpiresIn: Schema.optional(Schema.Number),
+    password: Schema.optional(
+      Schema.Struct({
+        hash: Schema.optional(
+          Schema.Any.annotations({
+            arbitrary: () => () => FastCheck.func(FastCheck.string()),
+          }),
+        ), // Function
+        verify: Schema.optional(
+          Schema.Any.annotations({
+            arbitrary: () => () => FastCheck.func(FastCheck.boolean()),
+          }),
+        ), // Function
+      }),
+    ),
+  },
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(EmailAndPasswordOptions)(input);
   }
@@ -148,29 +193,39 @@ export class EmailAndPasswordOptions extends Schema.TaggedClass<EmailAndPassword
 /**
  * @description Schema for Better Auth social providers
  */
-export class SocialProviderOptions extends Schema.TaggedClass<SocialProviderOptions>()("SocialProviderOptions", {
-  clientId: Schema.String,
-  clientSecret: Schema.String,
-  redirectURI: Schema.optional(Schema.String),
-  scope: Schema.optional(Schema.Array(Schema.String)),
-}) {}
+export class SocialProviderOptions extends Schema.TaggedClass<SocialProviderOptions>()(
+  "SocialProviderOptions",
+  {
+    clientId: Schema.String,
+    clientSecret: Schema.String,
+    redirectURI: Schema.optional(Schema.String),
+    scope: Schema.optional(Schema.Array(Schema.String)),
+  },
+) {}
 
 /**
  * @description Schema for Better Auth rate limiting
  */
-export class RateLimitOptions extends Schema.TaggedClass<RateLimitOptions>()("RateLimitOptions", {
-  enabled: Schema.optional(Schema.Boolean),
-  window: Schema.optional(Schema.Number),
-  max: Schema.optional(Schema.Number),
-  customRules: Schema.optional(
-    Schema.Record({
-      key: Schema.String,
-      value: Schema.Any.annotations({ arbitrary: () => () => FastCheck.json() }),
-    }),
-  ),
-  storage: Schema.optional(Schema.Literal("memory", "database", "secondary-storage")),
-  modelName: Schema.optional(Schema.String),
-}) {
+export class RateLimitOptions extends Schema.TaggedClass<RateLimitOptions>()(
+  "RateLimitOptions",
+  {
+    enabled: Schema.optional(Schema.Boolean),
+    window: Schema.optional(Schema.Number),
+    max: Schema.optional(Schema.Number),
+    customRules: Schema.optional(
+      Schema.Record({
+        key: Schema.String,
+        value: Schema.Any.annotations({
+          arbitrary: () => () => FastCheck.json(),
+        }),
+      }),
+    ),
+    storage: Schema.optional(
+      Schema.Literal("memory", "database", "secondary-storage"),
+    ),
+    modelName: Schema.optional(Schema.String),
+  },
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(RateLimitOptions)(input);
   }
@@ -183,17 +238,20 @@ export class RateLimitOptions extends Schema.TaggedClass<RateLimitOptions>()("Ra
 /**
  * @description Schema for Better Auth email verification
  */
-export class EmailVerificationOptions
-  extends Schema.TaggedClass<EmailVerificationOptions>()("EmailVerificationOptions", {
+export class EmailVerificationOptions extends Schema.TaggedClass<EmailVerificationOptions>()(
+  "EmailVerificationOptions",
+  {
     sendVerificationEmail: Schema.optional(
-      Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.boolean()) }),
+      Schema.Any.annotations({
+        arbitrary: () => () => FastCheck.func(FastCheck.boolean()),
+      }),
     ), // Function
     sendOnSignUp: Schema.optional(Schema.Boolean),
     sendOnSignIn: Schema.optional(Schema.Boolean),
     autoSignInAfterVerification: Schema.optional(Schema.Boolean),
     expiresIn: Schema.optional(Schema.Number),
-  })
-{
+  },
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(EmailVerificationOptions)(input);
   }
@@ -206,33 +264,38 @@ export class EmailVerificationOptions
 /**
  * @description Schema for Better Auth advanced options
  */
-export class AdvancedOptions extends Schema.TaggedClass<AdvancedOptions>()("AdvancedOptions", {
-  ipAddress: Schema.optional(
-    Schema.Struct({
-      ipAddressHeaders: Schema.optional(Schema.Array(Schema.String)),
-      disableIpTracking: Schema.optional(Schema.Boolean),
-    }),
-  ),
-  useSecureCookies: Schema.optional(Schema.Boolean),
-  disableCSRFCheck: Schema.optional(Schema.Boolean),
-  crossSubDomainCookies: Schema.optional(
-    Schema.Struct({
-      enabled: Schema.Boolean,
-      additionalCookies: Schema.optional(Schema.Array(Schema.String)),
-      domain: Schema.optional(Schema.String),
-    }),
-  ),
-  defaultCookieAttributes: Schema.optional(
-    Schema.Struct({
-      httpOnly: Schema.optional(Schema.Boolean),
-      secure: Schema.optional(Schema.Boolean),
-      sameSite: Schema.optional(Schema.Literal("lax", "strict", "none", "Lax", "Strict", "None")),
-      domain: Schema.optional(Schema.String),
-      path: Schema.optional(Schema.String),
-    }),
-  ),
-  cookiePrefix: Schema.optional(Schema.String),
-}) {
+export class AdvancedOptions extends Schema.TaggedClass<AdvancedOptions>()(
+  "AdvancedOptions",
+  {
+    ipAddress: Schema.optional(
+      Schema.Struct({
+        ipAddressHeaders: Schema.optional(Schema.Array(Schema.String)),
+        disableIpTracking: Schema.optional(Schema.Boolean),
+      }),
+    ),
+    useSecureCookies: Schema.optional(Schema.Boolean),
+    disableCSRFCheck: Schema.optional(Schema.Boolean),
+    crossSubDomainCookies: Schema.optional(
+      Schema.Struct({
+        enabled: Schema.Boolean,
+        additionalCookies: Schema.optional(Schema.Array(Schema.String)),
+        domain: Schema.optional(Schema.String),
+      }),
+    ),
+    defaultCookieAttributes: Schema.optional(
+      Schema.Struct({
+        httpOnly: Schema.optional(Schema.Boolean),
+        secure: Schema.optional(Schema.Boolean),
+        sameSite: Schema.optional(
+          Schema.Literal("lax", "strict", "none", "Lax", "Strict", "None"),
+        ),
+        domain: Schema.optional(Schema.String),
+        path: Schema.optional(Schema.String),
+      }),
+    ),
+    cookiePrefix: Schema.optional(Schema.String),
+  },
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(AdvancedOptions)(input);
   }
@@ -245,14 +308,19 @@ export class AdvancedOptions extends Schema.TaggedClass<AdvancedOptions>()("Adva
 /**
  * @description Schema for Better Auth logger
  */
-export class LoggerOptions extends Schema.TaggedClass<LoggerOptions>()("LoggerOptions", {
-  disabled: Schema.optional(Schema.Boolean),
-  disableColors: Schema.optional(Schema.Boolean),
-  level: Schema.optional(Schema.Literal("error", "warn", "info", "debug")),
-  log: Schema.optional(
-    Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.constant(undefined)) }),
-  ), // Function
-}) {
+export class LoggerOptions extends Schema.TaggedClass<LoggerOptions>()(
+  "LoggerOptions",
+  {
+    disabled: Schema.optional(Schema.Boolean),
+    disableColors: Schema.optional(Schema.Boolean),
+    level: Schema.optional(Schema.Literal("error", "warn", "info", "debug")),
+    log: Schema.optional(
+      Schema.Any.annotations({
+        arbitrary: () => () => FastCheck.func(FastCheck.constant(undefined)),
+      }),
+    ), // Function
+  },
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(LoggerOptions)(input);
   }
@@ -265,39 +333,52 @@ export class LoggerOptions extends Schema.TaggedClass<LoggerOptions>()("LoggerOp
 /**
  * @description Main Schema for BetterAuthOptions
  */
-export class BetterAuthOptions extends Schema.TaggedClass<BetterAuthOptions>()("BetterAuthOptions", {
-  appName: Schema.optional(Schema.String),
-  baseURL: Schema.optional(Schema.String),
-  basePath: Schema.optional(Schema.String),
-  secret: Schema.optional(Schema.String),
-  database: Schema.optional(DatabaseOptions),
-  secondaryStorage: Schema.optional(
-    Schema.Any.annotations({ arbitrary: () => () => FastCheck.dictionary(FastCheck.string(), FastCheck.anything()) }),
-  ),
-  session: Schema.optional(SessionOptions),
-  user: Schema.optional(UserOptions),
-  account: Schema.optional(AccountOptions),
-  emailAndPassword: Schema.optional(EmailAndPasswordOptions),
-  socialProviders: Schema.optional(Schema.Record({ key: Schema.String, value: SocialProviderOptions })),
-  plugins: Schema.optional(
-    Schema.Array(Schema.Any.annotations({
-      arbitrary: () => () => FastCheck.dictionary(FastCheck.string(), FastCheck.anything()),
-    })),
-  ),
-  rateLimit: Schema.optional(RateLimitOptions),
-  emailVerification: Schema.optional(EmailVerificationOptions),
-  advanced: Schema.optional(AdvancedOptions),
-  logger: Schema.optional(LoggerOptions),
-  trustedOrigins: Schema.optional(
-    Schema.Union(
-      Schema.Array(Schema.String),
-      Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.boolean()) }),
+export class BetterAuthOptions extends Schema.TaggedClass<BetterAuthOptions>()(
+  "BetterAuthOptions",
+  {
+    appName: Schema.optional(Schema.String),
+    baseURL: Schema.optional(Schema.String),
+    basePath: Schema.optional(Schema.String),
+    secret: Schema.optional(Schema.String),
+    database: Schema.optional(DatabaseOptions),
+    secondaryStorage: Schema.optional(
+      Schema.Any.annotations({
+        arbitrary: () => () => FastCheck.dictionary(FastCheck.string(), FastCheck.anything()),
+      }),
     ),
-  ), // Array or Function
-  onAPIError: Schema.optional(
-    Schema.Any.annotations({ arbitrary: () => () => FastCheck.func(FastCheck.constant(undefined)) }),
-  ), // Function
-}) {
+    session: Schema.optional(SessionOptions),
+    user: Schema.optional(UserOptions),
+    account: Schema.optional(AccountOptions),
+    emailAndPassword: Schema.optional(EmailAndPasswordOptions),
+    socialProviders: Schema.optional(
+      Schema.Record({ key: Schema.String, value: SocialProviderOptions }),
+    ),
+    plugins: Schema.optional(
+      Schema.Array(
+        Schema.Any.annotations({
+          arbitrary: () => () => FastCheck.dictionary(FastCheck.string(), FastCheck.anything()),
+        }),
+      ),
+    ),
+    rateLimit: Schema.optional(RateLimitOptions),
+    emailVerification: Schema.optional(EmailVerificationOptions),
+    advanced: Schema.optional(AdvancedOptions),
+    logger: Schema.optional(LoggerOptions),
+    trustedOrigins: Schema.optional(
+      Schema.Union(
+        Schema.Array(Schema.String),
+        Schema.Any.annotations({
+          arbitrary: () => () => FastCheck.func(FastCheck.boolean()),
+        }),
+      ),
+    ), // Array or Function
+    onAPIError: Schema.optional(
+      Schema.Any.annotations({
+        arbitrary: () => () => FastCheck.func(FastCheck.constant(undefined)),
+      }),
+    ), // Function
+  },
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(BetterAuthOptions)(input);
   }

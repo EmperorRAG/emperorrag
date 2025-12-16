@@ -18,5 +18,7 @@ export const requestPasswordResetServerService: requestPasswordResetPropsFor = (
   Effect.flatMap(
     AuthServerTag,
     (authServer) =>
-      Effect.tryPromise(() => authServer.api.requestPasswordReset(params)).pipe(Effect.catchAll(mapApiError)),
+      Effect.tryPromise(() => authServer.api.requestPasswordReset(params)).pipe(
+        Effect.catchAll(mapApiError),
+      ),
   );

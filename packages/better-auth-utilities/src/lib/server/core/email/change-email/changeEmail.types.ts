@@ -16,8 +16,10 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiChangeEmailPropsFor<T extends AuthServerFor = AuthServerFor> = "changeEmail" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["changeEmail"] : never;
+export type AuthServerApiChangeEmailPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "changeEmail" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["changeEmail"]
+  : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.changeEmail.
@@ -27,9 +29,9 @@ export type AuthServerApiChangeEmailPropsFor<T extends AuthServerFor = AuthServe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiChangeEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiChangeEmailPropsFor<T>
->[0];
+export type AuthServerApiChangeEmailParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiChangeEmailPropsFor<T>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.changeEmail.
@@ -39,9 +41,9 @@ export type AuthServerApiChangeEmailParamsFor<T extends AuthServerFor = AuthServ
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiChangeEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiChangeEmailPropsFor<T>
->;
+export type AuthServerApiChangeEmailResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiChangeEmailPropsFor<T>>;
 
 /**
  * Function signature for changeEmail server service.
@@ -54,7 +56,11 @@ export type AuthServerApiChangeEmailResultFor<T extends AuthServerFor = AuthServ
 export interface ChangeEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
     params: AuthServerApiChangeEmailParamsFor<T>,
-  ): Effect.Effect<Awaited<AuthServerApiChangeEmailResultFor<T>>, AuthServerError, T>;
+  ): Effect.Effect<
+    Awaited<AuthServerApiChangeEmailResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
 
 /**

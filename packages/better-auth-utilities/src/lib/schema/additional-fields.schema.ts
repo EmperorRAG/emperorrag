@@ -20,7 +20,10 @@ export const AdditionalFieldsSchema = (authServer: AuthServer) => {
   const additionalFields = authServer.options?.user?.additionalFields || {};
 
   // 1. Build runtime field specs
-  const fieldSpecs: Record<string, { schema: Schema.Schema<unknown>; required: boolean }> = {};
+  const fieldSpecs: Record<
+    string,
+    { schema: Schema.Schema<unknown>; required: boolean }
+  > = {};
 
   for (const [key, options] of Object.entries(additionalFields)) {
     // Skip fields where input is explicitly false
@@ -50,52 +53,56 @@ export const AdditionalFieldsSchema = (authServer: AuthServer) => {
   }
 
   // 2. Define the transformation
-  return Schema.transformOrFail(Schema.Unknown, Schema.Record({ key: Schema.String, value: Schema.Unknown }), {
-    decode: (input: unknown, _options: unknown, ast: unknown) => {
-      // Ensure input is an object
-      if (typeof input !== "object" || input === null) {
-        return ParseResult.fail(new ParseResult.Type(ast as AST.AST, input));
-      }
+  return Schema.transformOrFail(
+    Schema.Unknown,
+    Schema.Record({ key: Schema.String, value: Schema.Unknown }),
+    {
+      decode: (input: unknown, _options: unknown, ast: unknown) => {
+        // Ensure input is an object
+        if (typeof input !== "object" || input === null) {
+          return ParseResult.fail(new ParseResult.Type(ast as AST.AST, input));
+        }
 
-      const output: Record<string, unknown> = {};
-      const errors: ParseResult.ParseIssue[] = [];
+        const output: Record<string, unknown> = {};
+        const errors: ParseResult.ParseIssue[] = [];
 
-      // Iterate over the *expected* fields (not the input keys)
-      for (const [key, spec] of Object.entries(fieldSpecs)) {
-        const value = (input as Record<string, unknown>)[key];
+        // Iterate over the *expected* fields (not the input keys)
+        for (const [key, spec] of Object.entries(fieldSpecs)) {
+          const value = (input as Record<string, unknown>)[key];
 
-        // Handle missing values
-        if (value === undefined) {
-          if (spec.required) {
-            errors.push(new ParseResult.Missing(spec.schema.ast));
+          // Handle missing values
+          if (value === undefined) {
+            if (spec.required) {
+              errors.push(new ParseResult.Missing(spec.schema.ast));
+            }
+            continue;
           }
-          continue;
+
+          // Validate present values
+          const result = Schema.decodeUnknownEither(spec.schema)(value);
+
+          if (Either.isLeft(result)) {
+            // Add the error to the list
+            // We wrap it in a Pointer error to indicate which field failed
+            errors.push(new ParseResult.Pointer(key, value, result.left.issue));
+          } else {
+            output[key] = result.right;
+          }
         }
 
-        // Validate present values
-        const result = Schema.decodeUnknownEither(spec.schema)(value);
-
-        if (Either.isLeft(result)) {
-          // Add the error to the list
-          // We wrap it in a Pointer error to indicate which field failed
-          errors.push(new ParseResult.Pointer(key, value, result.left.issue));
-        } else {
-          output[key] = result.right;
+        if (errors.length > 0) {
+          return ParseResult.fail(
+            new ParseResult.Composite(
+              ast as AST.AST,
+              input,
+              errors as [ParseResult.ParseIssue, ...ParseResult.ParseIssue[]],
+            ),
+          );
         }
-      }
 
-      if (errors.length > 0) {
-        return ParseResult.fail(
-          new ParseResult.Composite(
-            ast as AST.AST,
-            input,
-            errors as [ParseResult.ParseIssue, ...ParseResult.ParseIssue[]],
-          ),
-        );
-      }
-
-      return ParseResult.succeed(output);
+        return ParseResult.succeed(output);
+      },
+      encode: (output: unknown) => ParseResult.succeed(output), // Encoding is identity
     },
-    encode: (output: unknown) => ParseResult.succeed(output), // Encoding is identity
-  });
+  );
 };

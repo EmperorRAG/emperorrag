@@ -42,7 +42,9 @@ export const signInEmailClient: signInEmailProps = (deps) => (input) => {
     try: () => authClient.signIn.email(input),
     catch: (error) => {
       const message = error instanceof Error ? error.message : "Sign in failed";
-      const status = error && typeof error === "object" && "status" in error ? (error.status as number) : undefined;
+      const status = error && typeof error === "object" && "status" in error
+        ? (error.status as number)
+        : undefined;
       return new EmailAuthApiError(message, status, error);
     },
   });

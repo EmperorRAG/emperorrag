@@ -17,10 +17,10 @@ import type { EmailAuthClientDeps } from "../shared/email.types";
  * ```
  */
 export type ResetPasswordInput<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
-> = Parameters<
-  T["resetPassword"]
->[0];
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
+> = Parameters<T["resetPassword"]>[0];
 
 /**
  * Type helper to extract the result type from resetPassword.
@@ -35,10 +35,10 @@ export type ResetPasswordInput<
  * ```
  */
 export type ResetPasswordResult<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
-> = ReturnType<
-  T["resetPassword"]
->;
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
+> = ReturnType<T["resetPassword"]>;
 
 /**
  * Function signature for resetPassword service.
@@ -56,9 +56,13 @@ export type ResetPasswordResult<
  * ```
  */
 export interface resetPasswordProps<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > {
   (
     deps: EmailAuthClientDeps<T>,
-  ): (input: ResetPasswordInput<T>) => Effect.Effect<Awaited<ResetPasswordResult<T>>, EmailAuthError>;
+  ): (
+    input: ResetPasswordInput<T>,
+  ) => Effect.Effect<Awaited<ResetPasswordResult<T>>, EmailAuthError>;
 }

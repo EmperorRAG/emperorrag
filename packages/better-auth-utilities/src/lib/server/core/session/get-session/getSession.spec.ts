@@ -41,7 +41,9 @@ describe("Server Get Session", () => {
       }),
     });
 
-    const res = await Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer));
+    const res = await Effect.runPromise(
+      Effect.provideService(program, AuthServerTag, authServer),
+    );
 
     expect(res).toBeDefined();
     expect(res?.user).toBeDefined();
@@ -53,7 +55,9 @@ describe("Server Get Session", () => {
 
     const program = getSessionServerService({ headers: new Headers() });
 
-    const res = await Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer));
+    const res = await Effect.runPromise(
+      Effect.provideService(program, AuthServerTag, authServer),
+    );
 
     expect(res).toBeNull();
   });

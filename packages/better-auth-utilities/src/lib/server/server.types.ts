@@ -117,7 +117,9 @@ export type AuthServerApiFor<T extends AuthServerFor = AuthServerFor> = T["api"]
  * }
  * ```
  */
-export type AuthServerApiEndpointKeyFor<T extends AuthServerFor = AuthServerFor> = keyof AuthServerApiFor<T>;
+export type AuthServerApiEndpointKeyFor<
+  T extends AuthServerFor = AuthServerFor,
+> = keyof AuthServerApiFor<T>;
 
 /**
  * Type helper to extract the union of all API endpoint method types.
@@ -203,8 +205,9 @@ export type AuthServerSessionUserFor<T extends AuthServerFor = AuthServerFor> = 
  * }
  * ```
  */
-export type AuthServerSessionUserSessionFor<T extends AuthServerFor = AuthServerFor> =
-  T["$Infer"]["Session"]["session"];
+export type AuthServerSessionUserSessionFor<
+  T extends AuthServerFor = AuthServerFor,
+> = T["$Infer"]["Session"]["session"];
 
 /**
  * Type helper to extract the signIn endpoint type from an AuthServer.
@@ -227,7 +230,8 @@ export type AuthServerSessionUserSessionFor<T extends AuthServerFor = AuthServer
  * ```
  */
 export type AuthServerSignInFor<T extends AuthServerFor = AuthServerFor> = "signInEmail" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["signInEmail"] : never;
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["signInEmail"]
+  : never;
 
 /**
  * Type helper to extract the signOut endpoint type from an AuthServer.
@@ -247,7 +251,8 @@ export type AuthServerSignInFor<T extends AuthServerFor = AuthServerFor> = "sign
  * ```
  */
 export type AuthServerSignOutFor<T extends AuthServerFor = AuthServerFor> = "signOut" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["signOut"] : never;
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["signOut"]
+  : never;
 
 /**
  * Type helper to extract the getSession endpoint type from an AuthServer.
@@ -267,7 +272,8 @@ export type AuthServerSignOutFor<T extends AuthServerFor = AuthServerFor> = "sig
  * ```
  */
 export type AuthServerGetSessionFor<T extends AuthServerFor = AuthServerFor> = "getSession" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["getSession"] : never;
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["getSession"]
+  : never;
 
 /**
  * Type helper to extract the updateUser endpoint type from an AuthServer.
@@ -290,7 +296,8 @@ export type AuthServerGetSessionFor<T extends AuthServerFor = AuthServerFor> = "
  * ```
  */
 export type AuthServerUpdateUserFor<T extends AuthServerFor = AuthServerFor> = "updateUser" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["updateUser"] : never;
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["updateUser"]
+  : never;
 
 /**
  * Type helper to extract the sendVerificationEmail endpoint type from an AuthServer.
@@ -311,8 +318,10 @@ export type AuthServerUpdateUserFor<T extends AuthServerFor = AuthServerFor> = "
  * });
  * ```
  */
-export type AuthServerSendVerificationEmailFor<T extends AuthServerFor = AuthServerFor> =
-  "sendVerificationEmail" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["sendVerificationEmail"] : never;
+export type AuthServerSendVerificationEmailFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "sendVerificationEmail" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["sendVerificationEmail"]
+  : never;
 
 /**
  * Type helper to extract the changePassword endpoint type from an AuthServer.
@@ -334,8 +343,10 @@ export type AuthServerSendVerificationEmailFor<T extends AuthServerFor = AuthSer
  * });
  * ```
  */
-export type AuthServerChangePasswordFor<T extends AuthServerFor = AuthServerFor> = "changePassword" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["changePassword"] : never;
+export type AuthServerChangePasswordFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "changePassword" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["changePassword"]
+  : never;
 
 /**
  * Type helper to extract the forgetPassword endpoint type from an AuthServer.
@@ -356,8 +367,10 @@ export type AuthServerChangePasswordFor<T extends AuthServerFor = AuthServerFor>
  * });
  * ```
  */
-export type AuthServerForgetPasswordFor<T extends AuthServerFor = AuthServerFor> = "forgetPassword" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["forgetPassword"] : never;
+export type AuthServerForgetPasswordFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "forgetPassword" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["forgetPassword"]
+  : never;
 
 /**
  * Type helper to extract the resetPassword endpoint type from an AuthServer.
@@ -379,8 +392,10 @@ export type AuthServerForgetPasswordFor<T extends AuthServerFor = AuthServerFor>
  * });
  * ```
  */
-export type AuthServerResetPasswordFor<T extends AuthServerFor = AuthServerFor> = "resetPassword" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["resetPassword"] : never;
+export type AuthServerResetPasswordFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "resetPassword" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["resetPassword"]
+  : never;
 
 /**
  * Type helper to extract the signInSocial endpoint type from an AuthServer.
@@ -402,7 +417,8 @@ export type AuthServerResetPasswordFor<T extends AuthServerFor = AuthServerFor> 
  * ```
  */
 export type AuthServerSignInSocialFor<T extends AuthServerFor = AuthServerFor> = "signInSocial" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["signInSocial"] : never;
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["signInSocial"]
+  : never;
 
 /**
  * Type helper to extract the listUserAccounts endpoint type from an AuthServer.
@@ -421,8 +437,10 @@ export type AuthServerSignInSocialFor<T extends AuthServerFor = AuthServerFor> =
  * const accounts = await listUserAccounts({ headers: request.headers });
  * ```
  */
-export type AuthServerListUserAccountsFor<T extends AuthServerFor = AuthServerFor> = "listUserAccounts" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["listUserAccounts"] : never;
+export type AuthServerListUserAccountsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "listUserAccounts" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["listUserAccounts"]
+  : never;
 
 /**
  * Type helper to extract the unlinkAccount endpoint type from an AuthServer.
@@ -444,8 +462,10 @@ export type AuthServerListUserAccountsFor<T extends AuthServerFor = AuthServerFo
  * });
  * ```
  */
-export type AuthServerUnlinkAccountFor<T extends AuthServerFor = AuthServerFor> = "unlinkAccount" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["unlinkAccount"] : never;
+export type AuthServerUnlinkAccountFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "unlinkAccount" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["unlinkAccount"]
+  : never;
 
 /**
  * Type helper to extract the callbackOAuth endpoint type from an AuthServer.
@@ -459,8 +479,10 @@ export type AuthServerUnlinkAccountFor<T extends AuthServerFor = AuthServerFor> 
  * type CallbackOAuthMethod = AuthServerCallbackOAuthFor<typeof authServer>;
  * ```
  */
-export type AuthServerCallbackOAuthFor<T extends AuthServerFor = AuthServerFor> = "callbackOAuth" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["callbackOAuth"] : never;
+export type AuthServerCallbackOAuthFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "callbackOAuth" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["callbackOAuth"]
+  : never;
 
 /**
  * Type helper to extract the verifyEmail endpoint type from an AuthServer.
@@ -475,7 +497,8 @@ export type AuthServerCallbackOAuthFor<T extends AuthServerFor = AuthServerFor> 
  * ```
  */
 export type AuthServerVerifyEmailFor<T extends AuthServerFor = AuthServerFor> = "verifyEmail" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["verifyEmail"] : never;
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["verifyEmail"]
+  : never;
 
 /**
  * Type helper to extract the changeEmail endpoint type from an AuthServer.
@@ -490,7 +513,8 @@ export type AuthServerVerifyEmailFor<T extends AuthServerFor = AuthServerFor> = 
  * ```
  */
 export type AuthServerChangeEmailFor<T extends AuthServerFor = AuthServerFor> = "changeEmail" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["changeEmail"] : never;
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["changeEmail"]
+  : never;
 
 /**
  * Type helper to extract the setPassword endpoint type from an AuthServer.
@@ -505,7 +529,8 @@ export type AuthServerChangeEmailFor<T extends AuthServerFor = AuthServerFor> = 
  * ```
  */
 export type AuthServerSetPasswordFor<T extends AuthServerFor = AuthServerFor> = "setPassword" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["setPassword"] : never;
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["setPassword"]
+  : never;
 
 /**
  * Type helper to extract the deleteUser endpoint type from an AuthServer.
@@ -520,7 +545,8 @@ export type AuthServerSetPasswordFor<T extends AuthServerFor = AuthServerFor> = 
  * ```
  */
 export type AuthServerDeleteUserFor<T extends AuthServerFor = AuthServerFor> = "deleteUser" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["deleteUser"] : never;
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["deleteUser"]
+  : never;
 
 /**
  * Type helper to extract the deleteUserCallback endpoint type from an AuthServer.
@@ -534,8 +560,10 @@ export type AuthServerDeleteUserFor<T extends AuthServerFor = AuthServerFor> = "
  * type DeleteUserCallbackMethod = AuthServerDeleteUserCallbackFor<typeof authServer>;
  * ```
  */
-export type AuthServerDeleteUserCallbackFor<T extends AuthServerFor = AuthServerFor> = "deleteUserCallback" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["deleteUserCallback"] : never;
+export type AuthServerDeleteUserCallbackFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "deleteUserCallback" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["deleteUserCallback"]
+  : never;
 
 /**
  * Type helper to extract the forgetPasswordCallback endpoint type from an AuthServer.
@@ -549,9 +577,10 @@ export type AuthServerDeleteUserCallbackFor<T extends AuthServerFor = AuthServer
  * type ForgetPasswordCallbackMethod = AuthServerForgetPasswordCallbackFor<typeof authServer>;
  * ```
  */
-export type AuthServerForgetPasswordCallbackFor<T extends AuthServerFor = AuthServerFor> =
-  "forgetPasswordCallback" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["forgetPasswordCallback"]
-    : never;
+export type AuthServerForgetPasswordCallbackFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "forgetPasswordCallback" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["forgetPasswordCallback"]
+  : never;
 
 /**
  * Type helper to extract the requestPasswordReset endpoint type from an AuthServer.
@@ -565,8 +594,10 @@ export type AuthServerForgetPasswordCallbackFor<T extends AuthServerFor = AuthSe
  * type RequestPasswordResetMethod = AuthServerRequestPasswordResetFor<typeof authServer>;
  * ```
  */
-export type AuthServerRequestPasswordResetFor<T extends AuthServerFor = AuthServerFor> = "requestPasswordReset" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["requestPasswordReset"] : never;
+export type AuthServerRequestPasswordResetFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "requestPasswordReset" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["requestPasswordReset"]
+  : never;
 
 /**
  * Type helper to extract the requestPasswordResetCallback endpoint type from an AuthServer.
@@ -580,10 +611,11 @@ export type AuthServerRequestPasswordResetFor<T extends AuthServerFor = AuthServ
  * type RequestPasswordResetCallbackMethod = AuthServerRequestPasswordResetCallbackFor<typeof authServer>;
  * ```
  */
-export type AuthServerRequestPasswordResetCallbackFor<T extends AuthServerFor = AuthServerFor> =
-  "requestPasswordResetCallback" extends AuthServerApiEndpointKeyFor<T>
-    ? AuthServerApiFor<T>["requestPasswordResetCallback"]
-    : never;
+export type AuthServerRequestPasswordResetCallbackFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "requestPasswordResetCallback" extends AuthServerApiEndpointKeyFor<T>
+  ? AuthServerApiFor<T>["requestPasswordResetCallback"]
+  : never;
 
 /**
  * Type helper to extract the listSessions endpoint type from an AuthServer.
@@ -598,7 +630,8 @@ export type AuthServerRequestPasswordResetCallbackFor<T extends AuthServerFor = 
  * ```
  */
 export type AuthServerListSessionsFor<T extends AuthServerFor = AuthServerFor> = "listSessions" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["listSessions"] : never;
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["listSessions"]
+  : never;
 
 /**
  * Type helper to extract the revokeSession endpoint type from an AuthServer.
@@ -612,8 +645,10 @@ export type AuthServerListSessionsFor<T extends AuthServerFor = AuthServerFor> =
  * type RevokeSessionMethod = AuthServerRevokeSessionFor<typeof authServer>;
  * ```
  */
-export type AuthServerRevokeSessionFor<T extends AuthServerFor = AuthServerFor> = "revokeSession" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["revokeSession"] : never;
+export type AuthServerRevokeSessionFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "revokeSession" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["revokeSession"]
+  : never;
 
 /**
  * Type helper to extract the revokeSessions endpoint type from an AuthServer.
@@ -627,8 +662,10 @@ export type AuthServerRevokeSessionFor<T extends AuthServerFor = AuthServerFor> 
  * type RevokeSessionsMethod = AuthServerRevokeSessionsFor<typeof authServer>;
  * ```
  */
-export type AuthServerRevokeSessionsFor<T extends AuthServerFor = AuthServerFor> = "revokeSessions" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["revokeSessions"] : never;
+export type AuthServerRevokeSessionsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "revokeSessions" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["revokeSessions"]
+  : never;
 
 /**
  * Type helper to extract the revokeOtherSessions endpoint type from an AuthServer.
@@ -642,8 +679,10 @@ export type AuthServerRevokeSessionsFor<T extends AuthServerFor = AuthServerFor>
  * type RevokeOtherSessionsMethod = AuthServerRevokeOtherSessionsFor<typeof authServer>;
  * ```
  */
-export type AuthServerRevokeOtherSessionsFor<T extends AuthServerFor = AuthServerFor> = "revokeOtherSessions" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["revokeOtherSessions"] : never;
+export type AuthServerRevokeOtherSessionsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "revokeOtherSessions" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["revokeOtherSessions"]
+  : never;
 
 /**
  * Type helper to extract the linkSocialAccount endpoint type from an AuthServer.
@@ -657,8 +696,10 @@ export type AuthServerRevokeOtherSessionsFor<T extends AuthServerFor = AuthServe
  * type LinkSocialAccountMethod = AuthServerLinkSocialAccountFor<typeof authServer>;
  * ```
  */
-export type AuthServerLinkSocialAccountFor<T extends AuthServerFor = AuthServerFor> = "linkSocialAccount" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["linkSocialAccount"] : never;
+export type AuthServerLinkSocialAccountFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "linkSocialAccount" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["linkSocialAccount"]
+  : never;
 
 /**
  * Type helper to extract the refreshToken endpoint type from an AuthServer.
@@ -673,7 +714,8 @@ export type AuthServerLinkSocialAccountFor<T extends AuthServerFor = AuthServerF
  * ```
  */
 export type AuthServerRefreshTokenFor<T extends AuthServerFor = AuthServerFor> = "refreshToken" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["refreshToken"] : never;
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["refreshToken"]
+  : never;
 
 /**
  * Type helper to extract the getAccessToken endpoint type from an AuthServer.
@@ -687,8 +729,10 @@ export type AuthServerRefreshTokenFor<T extends AuthServerFor = AuthServerFor> =
  * type GetAccessTokenMethod = AuthServerGetAccessTokenFor<typeof authServer>;
  * ```
  */
-export type AuthServerGetAccessTokenFor<T extends AuthServerFor = AuthServerFor> = "getAccessToken" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["getAccessToken"] : never;
+export type AuthServerGetAccessTokenFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "getAccessToken" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["getAccessToken"]
+  : never;
 
 /**
  * Type helper to extract the accountInfo endpoint type from an AuthServer.
@@ -703,7 +747,8 @@ export type AuthServerGetAccessTokenFor<T extends AuthServerFor = AuthServerFor>
  * ```
  */
 export type AuthServerAccountInfoFor<T extends AuthServerFor = AuthServerFor> = "accountInfo" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["accountInfo"] : never;
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["accountInfo"]
+  : never;
 
 /**
  * Type helper to extract the ok endpoint type from an AuthServer.

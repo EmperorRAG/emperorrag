@@ -27,6 +27,10 @@ describe("Server Forget Password Callback", () => {
       },
     });
 
-    await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
+    await expect(
+      Effect.runPromise(
+        Effect.provideService(program, AuthServerTag, authServer),
+      ),
+    ).rejects.toThrow();
   });
 });

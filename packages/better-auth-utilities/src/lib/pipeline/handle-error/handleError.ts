@@ -40,7 +40,9 @@ export const handleError: HandleErrorProps = (effect) => {
             case "AuthServerApiError":
             case "AuthServerDataMissingError":
             case "AuthServerSessionError":
-              return Effect.fail(describeError(error as unknown as AuthServerError));
+              return Effect.fail(
+                describeError(error as unknown as AuthServerError),
+              );
           }
         }
 

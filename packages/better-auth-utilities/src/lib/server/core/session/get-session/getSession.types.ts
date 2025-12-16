@@ -27,8 +27,10 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * });
  * ```
  */
-export type AuthServerApiGetSessionPropsFor<T extends AuthServerFor = AuthServerFor> = "getSession" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["getSession"] : never;
+export type AuthServerApiGetSessionPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "getSession" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["getSession"]
+  : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.getSession.
@@ -45,9 +47,9 @@ export type AuthServerApiGetSessionPropsFor<T extends AuthServerFor = AuthServer
  * // { headers: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiGetSessionParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiGetSessionPropsFor<T>
->[0];
+export type AuthServerApiGetSessionParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiGetSessionPropsFor<T>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.getSession.
@@ -64,9 +66,9 @@ export type AuthServerApiGetSessionParamsFor<T extends AuthServerFor = AuthServe
  * // Promise<{ user: User, session: Session } | null>
  * ```
  */
-export type AuthServerApiGetSessionResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiGetSessionPropsFor<T>
->;
+export type AuthServerApiGetSessionResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiGetSessionPropsFor<T>>;
 
 /**
  * Function signature for getSession server service.

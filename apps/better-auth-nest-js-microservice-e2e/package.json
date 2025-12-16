@@ -1,34 +1,34 @@
 {
-	"name": "@emperorrag/better-auth-nest-js-microservice-e2e",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"clean:dist": "npx rimraf dist",
-		"clean:node_modules": "npx rimraf node_modules",
-		"clean:out-tsc": "npx rimraf out-tsc",
-		"clean:all": "npm run clean:dist && npm run clean:node_modules && npm run clean:out-tsc",
-		"tsc:list-files": "tsc --project tsconfig.json --listFiles"
-	},
-	"nx": {
-		"name": "better-auth-nest-js-microservice-e2e",
-		"implicitDependencies": [
-			"better-auth-nest-js-microservice"
-		],
-		"targets": {
-			"e2e": {
-				"executor": "@nx/jest:jest",
-				"outputs": [
-					"{projectRoot}/test-output/jest/coverage"
-				],
-				"options": {
-					"jestConfig": "apps/better-auth-nest-js-microservice-e2e/jest.config.ts",
-					"passWithNoTests": true
-				},
-				"dependsOn": [
-					"better-auth-nest-js-microservice:build",
-					"better-auth-nest-js-microservice:serve"
-				]
-			}
-		}
-	}
+  "name": "@emperorrag/better-auth-nest-js-microservice-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "clean:dist": "npx rimraf dist",
+    "clean:node_modules": "npx rimraf node_modules",
+    "clean:out-tsc": "npx rimraf out-tsc",
+    "clean:all": "npm run clean:dist && npm run clean:node_modules && npm run clean:out-tsc",
+    "tsc:list-files": "tsc --project tsconfig.json --listFiles"
+  },
+  "nx": {
+    "name": "better-auth-nest-js-microservice-e2e",
+    "implicitDependencies": [
+      "better-auth-nest-js-microservice"
+    ],
+    "targets": {
+      "e2e": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{projectRoot}/test-output/jest/coverage"
+        ],
+        "options": {
+          "jestConfig": "apps/better-auth-nest-js-microservice-e2e/jest.config.ts",
+          "passWithNoTests": true
+        },
+        "dependsOn": [
+          "better-auth-nest-js-microservice:build",
+          "better-auth-nest-js-microservice:serve"
+        ]
+      }
+    }
+  }
 }

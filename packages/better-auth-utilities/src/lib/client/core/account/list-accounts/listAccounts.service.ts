@@ -17,10 +17,11 @@ export const listAccountsClient: ListAccountsProps = (deps) => (input) => {
   return Effect.tryPromise({
     try: async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { data, error } =
-        await (authClient.listAccounts as unknown as (input: unknown) => Promise<{ data: unknown; error: unknown }>)(
-          input,
-        );
+      const { data, error } = await (
+        authClient.listAccounts as unknown as (
+          input: unknown,
+        ) => Promise<{ data: unknown; error: unknown }>
+      )(input);
 
       if (error) {
         throw error;
@@ -30,7 +31,8 @@ export const listAccountsClient: ListAccountsProps = (deps) => (input) => {
     },
     catch: (error) => {
       const errObj = error as { message?: string; status?: number };
-      const message = errObj?.message || (error instanceof Error ? error.message : "List accounts failed");
+      const message = errObj?.message
+        || (error instanceof Error ? error.message : "List accounts failed");
       const status = errObj?.status;
       return new AccountAuthApiError(message, status, error);
     },

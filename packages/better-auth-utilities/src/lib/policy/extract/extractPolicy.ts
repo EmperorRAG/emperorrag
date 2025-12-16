@@ -52,8 +52,12 @@ export type Policy = {
   readonly database: Option.Option<NonNullable<AuthOptions>["database"]>;
   readonly session: Option.Option<NonNullable<AuthOptions>["session"]>;
   readonly cookies: Option.Option<NonNullable<AuthOptions>["advanced"]>;
-  readonly trustedOrigins: Option.Option<NonNullable<AuthOptions>["trustedOrigins"]>;
-  readonly socialProviders: Option.Option<NonNullable<AuthOptions>["socialProviders"]>;
+  readonly trustedOrigins: Option.Option<
+    NonNullable<AuthOptions>["trustedOrigins"]
+  >;
+  readonly socialProviders: Option.Option<
+    NonNullable<AuthOptions>["socialProviders"]
+  >;
   readonly user: Option.Option<NonNullable<AuthOptions>["user"]>;
   readonly plugins: Option.Option<NonNullable<AuthOptions>["plugins"]>;
   readonly logger: Option.Option<NonNullable<AuthOptions>["logger"]>;
@@ -86,8 +90,9 @@ const extractProperty = <TInput, TOutput>(
  * @param server - The AuthServer instance.
  * @returns {Effect.Effect<Option.Option<AuthOptions>>} The options wrapped in Option.
  */
-export const extractAuthOptions = (server: AuthServer): Effect.Effect<Option.Option<AuthOptions>> =>
-  Effect.sync(() => Option.fromNullable(server.options));
+export const extractAuthOptions = (
+  server: AuthServer,
+): Effect.Effect<Option.Option<AuthOptions>> => Effect.sync(() => Option.fromNullable(server.options));
 
 /**
  * Extracts the minimum password length from the configuration.
@@ -95,7 +100,9 @@ export const extractAuthOptions = (server: AuthServer): Effect.Effect<Option.Opt
  * @param config - The EmailAndPasswordConfig wrapped in Option.
  * @returns {Effect.Effect<number>} The minimum password length (defaults to 8).
  */
-export const extractMinPasswordLength = (config: Option.Option<EmailAndPasswordConfig>): Effect.Effect<number> =>
+export const extractMinPasswordLength = (
+  config: Option.Option<EmailAndPasswordConfig>,
+): Effect.Effect<number> =>
   pipe(
     extractProperty(config, (c) => c?.minPasswordLength),
     Effect.map(Option.getOrElse(() => 8)),
@@ -107,7 +114,9 @@ export const extractMinPasswordLength = (config: Option.Option<EmailAndPasswordC
  * @param config - The EmailAndPasswordConfig wrapped in Option.
  * @returns {Effect.Effect<number>} The maximum password length (defaults to 32).
  */
-export const extractMaxPasswordLength = (config: Option.Option<EmailAndPasswordConfig>): Effect.Effect<number> =>
+export const extractMaxPasswordLength = (
+  config: Option.Option<EmailAndPasswordConfig>,
+): Effect.Effect<number> =>
   pipe(
     extractProperty(config, (c) => c?.maxPasswordLength),
     Effect.map(Option.getOrElse(() => 32)),
@@ -119,9 +128,10 @@ export const extractMaxPasswordLength = (config: Option.Option<EmailAndPasswordC
  * @param inputs - The min and max lengths.
  * @returns {Effect.Effect<PasswordPolicy>} The password policy.
  */
-export const constructPasswordPolicy = (
-  inputs: { minLength: number; maxLength: number },
-): Effect.Effect<PasswordPolicy> =>
+export const constructPasswordPolicy = (inputs: {
+  minLength: number;
+  maxLength: number;
+}): Effect.Effect<PasswordPolicy> =>
   Effect.succeed({
     minLength: inputs.minLength,
     maxLength: inputs.maxLength,
@@ -133,10 +143,15 @@ export const constructPasswordPolicy = (
  * @param options - The AuthOptions wrapped in Option.
  * @returns {Effect.Effect<Policy>} The policy.
  */
-export const decodePolicy = (options: Option.Option<AuthOptions>): Effect.Effect<Policy> =>
+export const decodePolicy = (
+  options: Option.Option<AuthOptions>,
+): Effect.Effect<Policy> =>
   pipe(
     Effect.all({
-      emailAndPassword: extractProperty(options, (opts) => opts?.emailAndPassword),
+      emailAndPassword: extractProperty(
+        options,
+        (opts) => opts?.emailAndPassword,
+      ),
       secret: extractProperty(options, (opts) => opts?.secret),
       baseURL: extractProperty(options, (opts) => opts?.baseURL),
       basePath: pipe(
@@ -145,9 +160,12 @@ export const decodePolicy = (options: Option.Option<AuthOptions>): Effect.Effect
       ),
       database: extractProperty(options, (opts) => opts?.database),
       session: extractProperty(options, (opts) => opts?.session),
-      cookies: extractProperty(options, (opts) => (opts?.advanced?.cookies ? opts.advanced : undefined)),
+      cookies: extractProperty(options, (opts) => opts?.advanced?.cookies ? opts.advanced : undefined),
       trustedOrigins: extractProperty(options, (opts) => opts?.trustedOrigins),
-      socialProviders: extractProperty(options, (opts) => opts?.socialProviders),
+      socialProviders: extractProperty(
+        options,
+        (opts) => opts?.socialProviders,
+      ),
       user: extractProperty(options, (opts) => opts?.user),
       plugins: extractProperty(options, (opts) => opts?.plugins),
       logger: extractProperty(options, (opts) => opts?.logger),

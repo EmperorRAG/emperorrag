@@ -15,7 +15,9 @@ import type { AuthClientFor } from "../../../client.types";
  * ```
  */
 export type EmailAuthClientDeps<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > = Readonly<{
   authClient: T;
 }>;

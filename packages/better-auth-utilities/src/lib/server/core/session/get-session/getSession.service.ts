@@ -82,8 +82,10 @@ import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from "./get
  * });
  * ```
  */
-export const getSessionServerService: getSessionPropsFor = (params: AuthServerApiGetSessionParamsFor) =>
-  Effect.flatMap(
-    AuthServerTag,
-    (authServer) => Effect.tryPromise(() => authServer.api.getSession(params)).pipe(Effect.catchAll(mapApiError)),
-  );
+export const getSessionServerService: getSessionPropsFor = (
+  params: AuthServerApiGetSessionParamsFor,
+) =>
+  Effect.flatMap(AuthServerTag, (authServer) =>
+    Effect.tryPromise(() => authServer.api.getSession(params)).pipe(
+      Effect.catchAll(mapApiError),
+    ));

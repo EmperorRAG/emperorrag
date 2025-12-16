@@ -12,12 +12,14 @@ import type { HandleInputErrorProps } from "./handleInputError.types";
  * AuthServerInputError with 'schema_creation' source for traceability.
  */
 
-export const handleInputError: HandleInputErrorProps = <T, R = never>(effect: Effect.Effect<T, unknown, R>) =>
-  Effect.catchAll(
-    effect,
-    (error) =>
-      Effect.flatMap(PipelineContext, (context) =>
-        mapInputError(error).pipe(
-          Effect.provideService(PipelineContext, { ...context, operationCode: OperationCodes.SchemaCreation() }),
-        )),
-  );
+export const handleInputError: HandleInputErrorProps = <T, R = never>(
+  effect: Effect.Effect<T, unknown, R>,
+) =>
+  Effect.catchAll(effect, (error) =>
+    Effect.flatMap(PipelineContext, (context) =>
+      mapInputError(error).pipe(
+        Effect.provideService(PipelineContext, {
+          ...context,
+          operationCode: OperationCodes.SchemaCreation(),
+        }),
+      )));

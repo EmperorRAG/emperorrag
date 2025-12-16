@@ -18,10 +18,11 @@ export const linkSocialClient: LinkSocialProps = (deps) => (input) => {
     try: async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // Cast to unknown first, then to a function signature to avoid any
-      const { data, error } =
-        await (authClient.linkSocial as unknown as (input: unknown) => Promise<{ data: unknown; error: unknown }>)(
-          input,
-        );
+      const { data, error } = await (
+        authClient.linkSocial as unknown as (
+          input: unknown,
+        ) => Promise<{ data: unknown; error: unknown }>
+      )(input);
 
       if (error) {
         throw error;
@@ -31,7 +32,8 @@ export const linkSocialClient: LinkSocialProps = (deps) => (input) => {
     },
     catch: (error) => {
       const errObj = error as { message?: string; status?: number };
-      const message = errObj?.message || (error instanceof Error ? error.message : "Link social failed");
+      const message = errObj?.message
+        || (error instanceof Error ? error.message : "Link social failed");
       const status = errObj?.status;
       return new AccountAuthApiError(message, status, error);
     },

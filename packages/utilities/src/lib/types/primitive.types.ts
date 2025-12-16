@@ -1,5 +1,5 @@
-import { pipe } from 'effect/Function';
-import * as Match from 'effect/Match';
+import { pipe } from "effect/Function";
+import * as Match from "effect/Match";
 
 /**
  * Checks if a value is the primitive value `null`.
@@ -21,7 +21,8 @@ export const isNull = (value: unknown): value is null => value === null;
  * @example
  * isBigInt(1n); // => true
  */
-export const isBigInt = (value: unknown): value is bigint => typeof value === 'bigint';
+export const isBigInt = (value: unknown): value is bigint =>
+  typeof value === "bigint";
 
 /**
  * Checks if a value is a `symbol` primitive.
@@ -32,7 +33,8 @@ export const isBigInt = (value: unknown): value is bigint => typeof value === 'b
  * @example
  * isSymbol(Symbol('a')); // => true
  */
-export const isSymbol = (value: unknown): value is symbol => typeof value === 'symbol';
+export const isSymbol = (value: unknown): value is symbol =>
+  typeof value === "symbol";
 
 /**
  * Checks if a value is a `string` primitive.
@@ -43,7 +45,8 @@ export const isSymbol = (value: unknown): value is symbol => typeof value === 's
  * @example
  * isString('hello'); // => true
  */
-export const isString = (value: unknown): value is string => typeof value === 'string';
+export const isString = (value: unknown): value is string =>
+  typeof value === "string";
 
 /**
  * Checks if a value is a `number` primitive and not `NaN`.
@@ -61,14 +64,14 @@ export const isString = (value: unknown): value is string => typeof value === 's
  * isNumber(NaN); // => false
  */
 export const isNumber = (value: unknown): value is number =>
-	pipe(
-		Match.value(value),
-		Match.when(
-			(v: unknown): v is number => typeof v === 'number' && !Number.isNaN(v),
-			() => true
-		),
-		Match.orElse(() => false)
-	);
+  pipe(
+    Match.value(value),
+    Match.when(
+      (v: unknown): v is number => typeof v === "number" && !Number.isNaN(v),
+      () => true,
+    ),
+    Match.orElse(() => false),
+  );
 
 /**
  * Checks if a value is a `boolean` primitive.
@@ -79,7 +82,8 @@ export const isNumber = (value: unknown): value is number =>
  * @example
  * isBoolean(true); // => true
  */
-export const isBoolean = (value: unknown): value is boolean => typeof value === 'boolean';
+export const isBoolean = (value: unknown): value is boolean =>
+  typeof value === "boolean";
 
 /**
  * Checks if a value is `undefined`.
@@ -90,12 +94,20 @@ export const isBoolean = (value: unknown): value is boolean => typeof value === 
  * @example
  * isUndefined(undefined); // => true
  */
-export const isUndefined = (value: unknown): value is undefined => value === undefined;
+export const isUndefined = (value: unknown): value is undefined =>
+  value === undefined;
 
 /**
  * A type representing all primitive types in TypeScript.
  */
-export type Primitive = string | number | boolean | undefined | null | symbol | bigint;
+export type Primitive =
+  | string
+  | number
+  | boolean
+  | undefined
+  | null
+  | symbol
+  | bigint;
 
 /**
  * Checks if a value is a primitive type.
@@ -113,14 +125,14 @@ export type Primitive = string | number | boolean | undefined | null | symbol | 
  * isPrimitive({}); // => false
  */
 export const isPrimitive = (value: unknown): value is Primitive =>
-	pipe(
-		Match.value(value),
-		Match.when(isString, () => true),
-		Match.when(isNumber, () => true),
-		Match.when(isBoolean, () => true),
-		Match.when(isUndefined, () => true),
-		Match.when(isNull, () => true),
-		Match.when(isSymbol, () => true),
-		Match.when(isBigInt, () => true),
-		Match.orElse(() => false)
-	);
+  pipe(
+    Match.value(value),
+    Match.when(isString, () => true),
+    Match.when(isNumber, () => true),
+    Match.when(isBoolean, () => true),
+    Match.when(isUndefined, () => true),
+    Match.when(isNull, () => true),
+    Match.when(isSymbol, () => true),
+    Match.when(isBigInt, () => true),
+    Match.orElse(() => false),
+  );

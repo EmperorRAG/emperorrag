@@ -4,37 +4,35 @@
 >
 > **Context / existing code (already in repo):**
 >
-> * `SignUpEmailCommand` is a `Schema.TaggedClass` representing the authClient params (intent/body shape).
-> * `SignUpEmailAuthServerParams` is a `Schema.TaggedClass` representing the authServer params `{ body, headers?, asResponse?, returnHeaders? }` where `body: SignUpEmailCommand`.
-> * `TransportCommand` is a `Schema.TaggedClass` with optional strict typed fields:
+> - `SignUpEmailCommand` is a `Schema.TaggedClass` representing the authClient params (intent/body shape).
+> - `SignUpEmailAuthServerParams` is a `Schema.TaggedClass` representing the authServer params `{ body, headers?, asResponse?, returnHeaders? }` where `body: SignUpEmailCommand`.
+> - `TransportCommand` is a `Schema.TaggedClass` with optional strict typed fields:
+>   - `headers?: Headers` using `Schema.instanceOf(Headers)`
+>   - `asResponse?: boolean`
+>   - `returnHeaders?: boolean`
 >
->   * `headers?: Headers` using `Schema.instanceOf(Headers)`
->   * `asResponse?: boolean`
->   * `returnHeaders?: boolean`
-> * `UnknownCommandWithTransportCommand` is a `Schema.TaggedClass`:
+> - `UnknownCommandWithTransportCommand` is a `Schema.TaggedClass`:
+>   - `{ command: Schema.Unknown, context: TransportCommand }`
 >
->   * `{ command: Schema.Unknown, context: TransportCommand }`
-> * `SignUpEmailCommandWithTransportCommand` is a `Schema.TaggedClass`:
+> - `SignUpEmailCommandWithTransportCommand` is a `Schema.TaggedClass`:
+>   - `{ command: SignUpEmailCommand, ctx: TransportCommand }`
 >
->   * `{ command: SignUpEmailCommand, ctx: TransportCommand }`
-> * Transform schemas already exist:
->
+> - Transform schemas already exist:
 >   1. `SignUpEmailAuthServerParamsToCommandWithTransportCommandTransform`:
+>      - `SignUpEmailAuthServerParams -> UnknownCommandWithTransportCommand`
 >
->      * `SignUpEmailAuthServerParams -> UnknownCommandWithTransportCommand`
 >   2. `UnknownCommandWithTransportCommandToSignUpEmailCommandTransform`:
->
->      * `UnknownCommandWithTransportCommand -> SignUpEmailCommandWithTransportCommand`
+>      - `UnknownCommandWithTransportCommand -> SignUpEmailCommandWithTransportCommand`
 >
 > **Requirements:**
 >
 > 1. Create a function `SignUpEmailAuthServerParamsToSignUpEmailCommand(raw: unknown)` that returns `Effect.Effect<SignUpEmailCommand, EmailAuthServerInputError>`.
 > 2. The pipeline must be implemented using `pipe` from `effect/Function` and must use schema decoding + existing transforms in this order:
+>    - decode `raw` using `Schema.decodeUnknown(SignUpEmailAuthServerParams)`
+>    - decode the result using `Schema.decodeUnknown(SignUpEmailAuthServerParamsToCommandWithTransportCommandTransform)`
+>    - decode the result using `Schema.decodeUnknown(UnknownCommandWithTransportCommandToSignUpEmailCommandTransform)`
+>    - `Effect.map` to extract `.command` (discard transport)
 >
->    * decode `raw` using `Schema.decodeUnknown(SignUpEmailAuthServerParams)`
->    * decode the result using `Schema.decodeUnknown(SignUpEmailAuthServerParamsToCommandWithTransportCommandTransform)`
->    * decode the result using `Schema.decodeUnknown(UnknownCommandWithTransportCommandToSignUpEmailCommandTransform)`
->    * `Effect.map` to extract `.command` (discard transport)
 > 3. Add `Effect.mapError` at each stage to wrap the failure in `EmailAuthServerInputError` with a helpful stage-specific message, and include the original schema issue/cause as the error cause.
 > 4. Use imports consistent with this repo:
 >
@@ -47,5 +45,5 @@
 >
 > **Output:**
 >
-> * Show the final TypeScript function with correct imports and exports.
-> * Ensure the function compiles with the existing schemas/transforms and field names (`context` vs `ctx`).
+> - Show the final TypeScript function with correct imports and exports.
+> - Ensure the function compiles with the existing schemas/transforms and field names (`context` vs `ctx`).

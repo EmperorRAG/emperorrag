@@ -126,12 +126,15 @@ import type { AuthServerApiSignUpEmailParamsFor, signUpEmailPropsFor } from "./s
 export const signUpEmailServerService: signUpEmailPropsFor = (
   params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>,
 ) =>
-  Effect.flatMap(
-    AuthServerTag,
-    (authServer) => Effect.tryPromise(() => authServer.api.signUpEmail(params)).pipe(Effect.catchAll(mapApiError)),
-  );
+  Effect.flatMap(AuthServerTag, (authServer) =>
+    Effect.tryPromise(() => authServer.api.signUpEmail(params)).pipe(
+      Effect.catchAll(mapApiError),
+    ));
 
-export const signUpEmailServerServiceFromCommandWithCtx = (cmd: SignUpEmailCommand, ctx: SignUpTransportCtx) => {
+export const signUpEmailServerServiceFromCommandWithCtx = (
+  cmd: SignUpEmailCommand,
+  ctx: SignUpTransportCtx,
+) => {
   const body = {
     email: cmd.email,
     password: cmd.password,
@@ -145,7 +148,9 @@ export const signUpEmailServerServiceFromCommandWithCtx = (cmd: SignUpEmailComma
     body,
     ...(ctx.headers !== undefined ? { headers: ctx.headers } : {}),
     ...(ctx.asResponse !== undefined ? { asResponse: ctx.asResponse } : {}),
-    ...(ctx.returnHeaders !== undefined ? { returnHeaders: ctx.returnHeaders } : {}),
+    ...(ctx.returnHeaders !== undefined
+      ? { returnHeaders: ctx.returnHeaders }
+      : {}),
   };
 
   return signUpEmailServerService(params);

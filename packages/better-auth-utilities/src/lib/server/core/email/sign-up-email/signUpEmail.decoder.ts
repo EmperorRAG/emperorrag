@@ -18,7 +18,7 @@ export class SignUpEmailCommand extends Data.TaggedClass("SignUpEmailCommand")<{
   callbackURL?: Url;
   image?: Image;
   additionalFields: Readonly<Record<string, unknown>>;
-}> { }
+}> {}
 
 export const SignUpEmailCommandSchema = (authServer: AuthServer) => {
   const passwordPolicy = {
@@ -34,35 +34,45 @@ export const SignUpEmailCommandSchema = (authServer: AuthServer) => {
     image: Schema.optional(ImageSchema),
   });
 
-  const InputSchema = KnownFields.pipe(Schema.extend(Schema.Record({ key: Schema.String, value: Schema.Unknown })));
+  const InputSchema = KnownFields.pipe(
+    Schema.extend(Schema.Record({ key: Schema.String, value: Schema.Unknown })),
+  );
 
-  return Schema.transformOrFail(InputSchema, Schema.instanceOf(SignUpEmailCommand), {
-    strict: true,
-    decode: (input) =>
-      Schema.decodeUnknown(AdditionalFieldsSchema(authServer))(input).pipe(
-        Effect.mapError((error) => error.issue),
-        Effect.map(
-          (additionalFields) =>
-            new SignUpEmailCommand({
-              name: input.name,
-              email: input.email,
-              password: input.password,
-              ...(input.callbackURL !== undefined ? { callbackURL: input.callbackURL } : {}),
-              ...(input.image !== undefined ? { image: input.image } : {}),
-              additionalFields,
-            }),
+  return Schema.transformOrFail(
+    InputSchema,
+    Schema.instanceOf(SignUpEmailCommand),
+    {
+      strict: true,
+      decode: (input) =>
+        Schema.decodeUnknown(AdditionalFieldsSchema(authServer))(input).pipe(
+          Effect.mapError((error) => error.issue),
+          Effect.map(
+            (additionalFields) =>
+              new SignUpEmailCommand({
+                name: input.name,
+                email: input.email,
+                password: input.password,
+                ...(input.callbackURL !== undefined
+                  ? { callbackURL: input.callbackURL }
+                  : {}),
+                ...(input.image !== undefined ? { image: input.image } : {}),
+                additionalFields,
+              }),
+          ),
         ),
-      ),
-    encode: (command) =>
-      Effect.succeed({
-        name: command.name,
-        email: command.email,
-        password: command.password,
-        ...(command.image !== undefined ? { image: command.image } : {}),
-        ...(command.callbackURL !== undefined ? { callbackURL: command.callbackURL } : {}),
-        ...command.additionalFields,
-      }),
-  });
+      encode: (command) =>
+        Effect.succeed({
+          name: command.name,
+          email: command.email,
+          password: command.password,
+          ...(command.image !== undefined ? { image: command.image } : {}),
+          ...(command.callbackURL !== undefined
+            ? { callbackURL: command.callbackURL }
+            : {}),
+          ...command.additionalFields,
+        }),
+    },
+  );
 };
 
 export const decodeSignUpEmailCommand = (rawBody: unknown) =>
@@ -70,6 +80,12 @@ export const decodeSignUpEmailCommand = (rawBody: unknown) =>
     AuthServerTag,
     (authServer) =>
       Schema.decodeUnknown(SignUpEmailCommandSchema(authServer))(rawBody).pipe(
-        Effect.mapError((e) => new AuthServerInputError({ message: "Invalid sign up input", cause: e })),
+        Effect.mapError(
+          (e) =>
+            new AuthServerInputError({
+              message: "Invalid sign up input",
+              cause: e,
+            }),
+        ),
       ),
   );

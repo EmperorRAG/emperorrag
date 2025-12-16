@@ -16,8 +16,10 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiVerifyEmailPropsFor<T extends AuthServerFor = AuthServerFor> = "verifyEmail" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["verifyEmail"] : never;
+export type AuthServerApiVerifyEmailPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "verifyEmail" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["verifyEmail"]
+  : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.verifyEmail.
@@ -27,9 +29,9 @@ export type AuthServerApiVerifyEmailPropsFor<T extends AuthServerFor = AuthServe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiVerifyEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiVerifyEmailPropsFor<T>
->[0];
+export type AuthServerApiVerifyEmailParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiVerifyEmailPropsFor<T>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.verifyEmail.
@@ -39,9 +41,9 @@ export type AuthServerApiVerifyEmailParamsFor<T extends AuthServerFor = AuthServ
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiVerifyEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiVerifyEmailPropsFor<T>
->;
+export type AuthServerApiVerifyEmailResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiVerifyEmailPropsFor<T>>;
 
 /**
  * Function signature for verifyEmail server service.
@@ -54,7 +56,11 @@ export type AuthServerApiVerifyEmailResultFor<T extends AuthServerFor = AuthServ
 export interface VerifyEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
     params: AuthServerApiVerifyEmailParamsFor<T>,
-  ): Effect.Effect<Awaited<AuthServerApiVerifyEmailResultFor<T>>, AuthServerError, T>;
+  ): Effect.Effect<
+    Awaited<AuthServerApiVerifyEmailResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
 
 /**

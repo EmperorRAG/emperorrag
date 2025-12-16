@@ -1,17 +1,17 @@
 {
-	"name": "ts-analyzer-next-e2e",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"clean:dist": "npx rimraf dist",
-		"clean:node_modules": "npx rimraf node_modules",
-		"clean:out-tsc": "npx rimraf out-tsc",
-		"clean:all": "npm run clean:dist && npm run clean:node_modules && npm run clean:out-tsc",
-		"tsc:list-files": "tsc --project tsconfig.json --listFiles"
-	},
-	"nx": {
-		"implicitDependencies": [
-			"ts-analyzer-next"
-		]
-	}
+  "name": "ts-analyzer-next-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "clean:dist": "npx rimraf dist",
+    "clean:node_modules": "npx rimraf node_modules",
+    "clean:out-tsc": "npx rimraf out-tsc",
+    "clean:all": "npm run clean:dist && npm run clean:node_modules && npm run clean:out-tsc",
+    "tsc:list-files": "tsc --project tsconfig.json --listFiles"
+  },
+  "nx": {
+    "implicitDependencies": [
+      "ts-analyzer-next"
+    ]
+  }
 }

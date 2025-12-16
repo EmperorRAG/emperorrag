@@ -11,7 +11,11 @@ type AuthClientReservedKey = "$fetch" | "$store" | "$ERROR_CODES" | "$Infer";
  * export type AuthClient = AuthClientFor<typeof authClient>;
  * ```
  */
-export type AuthClientFor<T extends ReturnType<typeof createAuthClient> = ReturnType<typeof createAuthClient>> = T;
+export type AuthClientFor<
+  T extends ReturnType<typeof createAuthClient> = ReturnType<
+    typeof createAuthClient
+  >,
+> = T;
 
 /**
  * Type helper to extract API method keys from an AuthClient type, excluding reserved internal properties.
@@ -25,11 +29,10 @@ export type AuthClientFor<T extends ReturnType<typeof createAuthClient> = Return
  * ```
  */
 export type AuthClientApiKeyFor<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
-> = Exclude<
-  keyof AuthClientFor<T>,
-  AuthClientReservedKey
->;
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
+> = Exclude<keyof AuthClientFor<T>, AuthClientReservedKey>;
 
 /**
  * Type helper to extract only the API methods from an AuthClient type, excluding reserved internal properties.
@@ -43,11 +46,10 @@ export type AuthClientApiKeyFor<
  * ```
  */
 export type AuthClientApiFor<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
-> = Pick<
-  AuthClientFor<T>,
-  AuthClientApiKeyFor<T>
->;
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
+> = Pick<AuthClientFor<T>, AuthClientApiKeyFor<T>>;
 
 /**
  * Type helper to extract the union of all API endpoint types from an AuthClient.
@@ -61,7 +63,9 @@ export type AuthClientApiFor<
  * ```
  */
 export type AuthClientApiEndpointFor<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > = AuthClientApiFor<T>[keyof AuthClientApiFor<T>];
 
 /**
@@ -76,7 +80,9 @@ export type AuthClientApiEndpointFor<
  * ```
  */
 export type AuthClientApiEndpointKeyFor<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > = keyof AuthClientApiEndpointFor<T>;
 
 /**
@@ -91,8 +97,11 @@ export type AuthClientApiEndpointKeyFor<
  * ```
  */
 export type AuthClientSignInFor<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
-> = "signIn" extends AuthClientApiKeyFor<T> ? AuthClientApiFor<T>["signIn"] : never;
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
+> = "signIn" extends AuthClientApiKeyFor<T> ? AuthClientApiFor<T>["signIn"]
+  : never;
 
 /**
  * Type helper to extract the signUp method type from an AuthClient.
@@ -106,5 +115,8 @@ export type AuthClientSignInFor<
  * ```
  */
 export type AuthClientSignUpFor<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
-> = "signUp" extends AuthClientApiKeyFor<T> ? AuthClientApiFor<T>["signUp"] : never;
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
+> = "signUp" extends AuthClientApiKeyFor<T> ? AuthClientApiFor<T>["signUp"]
+  : never;

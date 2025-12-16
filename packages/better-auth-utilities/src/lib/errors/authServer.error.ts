@@ -13,7 +13,9 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * @description Indicates that the provided authServer dependency is invalid or missing.
  * This error occurs during the first stage of validation in the controller layer.
  */
-export class AuthServerDependenciesError extends Data.TaggedError("AuthServerDependenciesError")<{
+export class AuthServerDependenciesError extends Data.TaggedError(
+  "AuthServerDependenciesError",
+)<{
   message: string;
   cause?: unknown;
 }> {}
@@ -25,7 +27,9 @@ export class AuthServerDependenciesError extends Data.TaggedError("AuthServerDep
  * @description Indicates that the provided operation parameters (body, headers, etc.)
  * failed validation. This error occurs during the second stage of validation in the controller layer.
  */
-export class AuthServerInputError extends Data.TaggedError("AuthServerInputError")<{
+export class AuthServerInputError extends Data.TaggedError(
+  "AuthServerInputError",
+)<{
   message: string;
   cause?: unknown;
 }> {}
@@ -50,7 +54,9 @@ export class AuthServerApiError extends Data.TaggedError("AuthServerApiError")<{
  * @description Indicates that the Better Auth server API returned a response
  * but essential data (user, session, etc.) is missing or malformed.
  */
-export class AuthServerDataMissingError extends Data.TaggedError("AuthServerDataMissingError")<{
+export class AuthServerDataMissingError extends Data.TaggedError(
+  "AuthServerDataMissingError",
+)<{
   message: string;
   cause?: unknown;
 }> {}
@@ -62,7 +68,9 @@ export class AuthServerDataMissingError extends Data.TaggedError("AuthServerData
  * @description Indicates failures in session creation, retrieval, or validation
  * during server-side authentication operations.
  */
-export class AuthServerSessionError extends Data.TaggedError("AuthServerSessionError")<{
+export class AuthServerSessionError extends Data.TaggedError(
+  "AuthServerSessionError",
+)<{
   message: string;
   cause?: unknown;
 }> {}

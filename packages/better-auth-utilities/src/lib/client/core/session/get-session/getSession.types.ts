@@ -10,10 +10,13 @@ import type { SessionAuthClientDeps } from "../shared/session.types";
  * @description Infers the input type directly from the `getSession` method of the Better Auth client.
  */
 export type GetSessionInput<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > = Parameters<
-  "getSession" extends keyof T ? (T["getSession"] extends (...args: unknown[]) => unknown ? T["getSession"] : never)
-  : never
+  "getSession" extends keyof T ? T["getSession"] extends (...args: unknown[]) => unknown ? T["getSession"]
+    : never
+    : never
 >[0];
 
 /**
@@ -22,10 +25,13 @@ export type GetSessionInput<
  * @description Infers the return type directly from the `getSession` method of the Better Auth client.
  */
 export type GetSessionResult<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > = ReturnType<
-  "getSession" extends keyof T ? (T["getSession"] extends (...args: unknown[]) => unknown ? T["getSession"] : never)
-  : never
+  "getSession" extends keyof T ? T["getSession"] extends (...args: unknown[]) => unknown ? T["getSession"]
+    : never
+    : never
 >;
 
 /**
@@ -34,9 +40,13 @@ export type GetSessionResult<
  * @description Defines the curried function signature for the getSession operation.
  */
 export interface GetSessionProps<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > {
   (
     deps: SessionAuthClientDeps<T>,
-  ): (input?: GetSessionInput<T>) => Effect.Effect<Awaited<GetSessionResult<T>>, SessionAuthError>;
+  ): (
+    input?: GetSessionInput<T>,
+  ) => Effect.Effect<Awaited<GetSessionResult<T>>, SessionAuthError>;
 }

@@ -94,7 +94,7 @@ import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from ".
 export const signInSocialServerService: signInSocialPropsFor = (
   params: AuthServerApiSignInSocialParamsFor<AuthServerFor>,
 ) =>
-  Effect.flatMap(
-    AuthServerTag,
-    (authServer) => Effect.tryPromise(() => authServer.api.signInSocial(params)).pipe(Effect.catchAll(mapApiError)),
-  );
+  Effect.flatMap(AuthServerTag, (authServer) =>
+    Effect.tryPromise(() => authServer.api.signInSocial(params)).pipe(
+      Effect.catchAll(mapApiError),
+    ));

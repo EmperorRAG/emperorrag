@@ -1,10 +1,11 @@
 import { Schema } from "effect";
 
-export class DeleteUserCallbackCommand
-  extends Schema.TaggedClass<DeleteUserCallbackCommand>()("DeleteUserCallbackCommand", {
+export class DeleteUserCallbackCommand extends Schema.TaggedClass<DeleteUserCallbackCommand>()(
+  "DeleteUserCallbackCommand",
+  {
     token: Schema.String,
-  })
-{
+  },
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(DeleteUserCallbackCommand)(input);
   }

@@ -15,8 +15,10 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiRevokeSessionPropsFor<T extends AuthServerFor = AuthServerFor> = "revokeSession" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["revokeSession"] : never;
+export type AuthServerApiRevokeSessionPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "revokeSession" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["revokeSession"]
+  : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.revokeSession.
@@ -26,9 +28,9 @@ export type AuthServerApiRevokeSessionPropsFor<T extends AuthServerFor = AuthSer
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiRevokeSessionParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiRevokeSessionPropsFor<T>
->[0];
+export type AuthServerApiRevokeSessionParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiRevokeSessionPropsFor<T>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.revokeSession.
@@ -38,9 +40,9 @@ export type AuthServerApiRevokeSessionParamsFor<T extends AuthServerFor = AuthSe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiRevokeSessionResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiRevokeSessionPropsFor<T>
->;
+export type AuthServerApiRevokeSessionResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiRevokeSessionPropsFor<T>>;
 
 /**
  * Function signature for revokeSession server service.
@@ -50,10 +52,16 @@ export type AuthServerApiRevokeSessionResultFor<T extends AuthServerFor = AuthSe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export interface RevokeSessionPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface RevokeSessionPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> {
   (
     params: AuthServerApiRevokeSessionParamsFor<T>,
-  ): Effect.Effect<Awaited<AuthServerApiRevokeSessionResultFor<T>>, AuthServerError, T>;
+  ): Effect.Effect<
+    Awaited<AuthServerApiRevokeSessionResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
 
 /**

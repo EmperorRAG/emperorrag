@@ -1,10 +1,11 @@
 import { Schema } from "effect";
 
-export class ForgetPasswordCallbackCommand
-  extends Schema.TaggedClass<ForgetPasswordCallbackCommand>()("ForgetPasswordCallbackCommand", {
+export class ForgetPasswordCallbackCommand extends Schema.TaggedClass<ForgetPasswordCallbackCommand>()(
+  "ForgetPasswordCallbackCommand",
+  {
     token: Schema.String,
-  })
-{
+  },
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(ForgetPasswordCallbackCommand)(input);
   }

@@ -18,8 +18,14 @@ describe("Server Get Access Token", () => {
   it("should fail without authentication", async () => {
     const { authServer } = env;
 
-    const program = getAccessTokenServerService({ body: { providerId: "test" } });
+    const program = getAccessTokenServerService({
+      body: { providerId: "test" },
+    });
 
-    await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
+    await expect(
+      Effect.runPromise(
+        Effect.provideService(program, AuthServerTag, authServer),
+      ),
+    ).rejects.toThrow();
   });
 });

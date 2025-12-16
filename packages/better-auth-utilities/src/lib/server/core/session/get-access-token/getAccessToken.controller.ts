@@ -20,9 +20,9 @@ export const getAccessTokenServerController: getAccessTokenPropsFor = (
   params: AuthServerApiGetAccessTokenParamsFor<AuthServerFor>,
 ) =>
   Effect.gen(function*() {
-    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
-      isAuthServerApiGetAccessTokenParamsFor,
-    )(params);
+    const validatedParams = yield* validateInputEffect(
+      createAuthServerApiEndpointParamsSchema(),
+    )(isAuthServerApiGetAccessTokenParamsFor)(params);
     return yield* getAccessTokenServerService(validatedParams);
   }).pipe(
     Effect.provideService(PipelineContext, {

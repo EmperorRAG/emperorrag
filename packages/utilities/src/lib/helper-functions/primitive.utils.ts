@@ -1,7 +1,15 @@
-import { pipe } from 'effect/Function';
-import * as Match from 'effect/Match';
-import { map } from 'effect/Array';
-import { isBigInt, isBoolean, isNull, isNumber, isString, isSymbol, isUndefined } from '../types/primitive.types.js';
+import { pipe } from "effect/Function";
+import * as Match from "effect/Match";
+import { map } from "effect/Array";
+import {
+  isBigInt,
+  isBoolean,
+  isNull,
+  isNumber,
+  isString,
+  isSymbol,
+  isUndefined,
+} from "../types/primitive.types.js";
 
 /**
  * Returns the result of JavaScript's typeof operator for the given value.
@@ -31,17 +39,17 @@ const getTypeOf = (value: unknown): string => typeof value;
  * getPrimitiveLabelValue(null); // 'null'
  */
 export const getPrimitiveLabelValue = (value: unknown): string =>
-	pipe(
-		Match.value(value),
-		Match.when(isNull, () => 'null'),
-		Match.when(isBigInt, () => 'bigint'),
-		Match.when(isSymbol, () => 'symbol'),
-		Match.when(isString, () => 'string'),
-		Match.when(isNumber, () => 'number'),
-		Match.when(isBoolean, () => 'boolean'),
-		Match.when(isUndefined, () => 'undefined'),
-		Match.orElse(getTypeOf)
-	);
+  pipe(
+    Match.value(value),
+    Match.when(isNull, () => "null"),
+    Match.when(isBigInt, () => "bigint"),
+    Match.when(isSymbol, () => "symbol"),
+    Match.when(isString, () => "string"),
+    Match.when(isNumber, () => "number"),
+    Match.when(isBoolean, () => "boolean"),
+    Match.when(isUndefined, () => "undefined"),
+    Match.orElse(getTypeOf),
+  );
 
 /**
  * Returns the expected value (boolean) for a given primitive value for stringability tests.
@@ -60,17 +68,17 @@ export const getPrimitiveLabelValue = (value: unknown): string =>
  * getPrimitiveExpectedValue(null); // true
  */
 export const getPrimitiveExpectedValue = (value: unknown): boolean =>
-	pipe(
-		Match.value(value),
-		Match.when(isNull, () => true),
-		Match.when(isBigInt, () => true),
-		Match.when(isSymbol, () => true),
-		Match.when(isString, () => true),
-		Match.when(isNumber, () => true),
-		Match.when(isBoolean, () => true),
-		Match.when(isUndefined, () => true),
-		Match.orElse(() => false)
-	);
+  pipe(
+    Match.value(value),
+    Match.when(isNull, () => true),
+    Match.when(isBigInt, () => true),
+    Match.when(isSymbol, () => true),
+    Match.when(isString, () => true),
+    Match.when(isNumber, () => true),
+    Match.when(isBoolean, () => true),
+    Match.when(isUndefined, () => true),
+    Match.orElse(() => false),
+  );
 
 /**
  * Returns an array of values representative of all JavaScript primitive types.
@@ -85,13 +93,13 @@ export const getPrimitiveExpectedValue = (value: unknown): boolean =>
  * // => ['string', 42, true, undefined, null, Symbol('sym'), 123n]
  */
 export const getAllPrimitiveValues = (): unknown[] => [
-	'string', // string
-	42, // number
-	true, // boolean
-	undefined, // undefined
-	null, // null
-	Symbol('sym'), // symbol
-	123n, // bigint
+  "string", // string
+  42, // number
+  true, // boolean
+  undefined, // undefined
+  null, // null
+  Symbol("sym"), // symbol
+  123n, // bigint
 ];
 
 /**
@@ -109,7 +117,8 @@ export const getAllPrimitiveValues = (): unknown[] => [
  * getAllPrimitiveLabelValues();
  * // => ['string', 'number', 'boolean', 'undefined', 'null', 'symbol', 'bigint']
  */
-export const getAllPrimitiveLabelValues = (): string[] => pipe(getAllPrimitiveValues(), map(getPrimitiveLabelValue));
+export const getAllPrimitiveLabelValues = (): string[] =>
+  pipe(getAllPrimitiveValues(), map(getPrimitiveLabelValue));
 
 /**
  * Maps all primitive values to their expected boolean values for stringability tests.
@@ -126,4 +135,5 @@ export const getAllPrimitiveLabelValues = (): string[] => pipe(getAllPrimitiveVa
  * getAllPrimitiveExpectedValues();
  * // => [true, true, true, true, true, true, true]
  */
-export const getAllPrimitiveExpectedValues = (): boolean[] => pipe(getAllPrimitiveValues(), map(getPrimitiveExpectedValue));
+export const getAllPrimitiveExpectedValues = (): boolean[] =>
+  pipe(getAllPrimitiveValues(), map(getPrimitiveExpectedValue));

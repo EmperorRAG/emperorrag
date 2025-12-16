@@ -12,8 +12,7 @@ import type { AuthServerApiLinkSocialAccountParamsFor, linkSocialAccountPropsFor
 export const linkSocialAccountServerService: linkSocialAccountPropsFor = (
   params: AuthServerApiLinkSocialAccountParamsFor<AuthServerFor>,
 ) =>
-  Effect.flatMap(
-    AuthServerTag,
-    (authServer) =>
-      Effect.tryPromise(() => authServer.api.linkSocialAccount(params)).pipe(Effect.catchAll(mapApiError)),
-  );
+  Effect.flatMap(AuthServerTag, (authServer) =>
+    Effect.tryPromise(() => authServer.api.linkSocialAccount(params)).pipe(
+      Effect.catchAll(mapApiError),
+    ));

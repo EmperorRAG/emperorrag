@@ -16,8 +16,10 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiSetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> = "setPassword" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["setPassword"] : never;
+export type AuthServerApiSetPasswordPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "setPassword" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["setPassword"]
+  : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.setPassword.
@@ -27,9 +29,9 @@ export type AuthServerApiSetPasswordPropsFor<T extends AuthServerFor = AuthServe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiSetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiSetPasswordPropsFor<T>
->[0];
+export type AuthServerApiSetPasswordParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiSetPasswordPropsFor<T>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.setPassword.
@@ -39,9 +41,9 @@ export type AuthServerApiSetPasswordParamsFor<T extends AuthServerFor = AuthServ
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiSetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiSetPasswordPropsFor<T>
->;
+export type AuthServerApiSetPasswordResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiSetPasswordPropsFor<T>>;
 
 /**
  * Function signature for setPassword server service.
@@ -54,7 +56,11 @@ export type AuthServerApiSetPasswordResultFor<T extends AuthServerFor = AuthServ
 export interface SetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
     params: AuthServerApiSetPasswordParamsFor<T>,
-  ): Effect.Effect<Awaited<AuthServerApiSetPasswordResultFor<T>>, AuthServerError, T>;
+  ): Effect.Effect<
+    Awaited<AuthServerApiSetPasswordResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
 
 /**

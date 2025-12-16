@@ -84,7 +84,9 @@ export const listUserAccountsServerService: listUserAccountsPropsFor = (
 
       if (result === null || result === undefined) {
         return yield* Effect.fail(
-          new AuthServerDataMissingError({ message: "No accounts data returned from listUserAccounts API" }),
+          new AuthServerDataMissingError({
+            message: "No accounts data returned from listUserAccounts API",
+          }),
         );
       }
 

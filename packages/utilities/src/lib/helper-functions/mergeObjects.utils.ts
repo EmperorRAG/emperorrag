@@ -1,5 +1,5 @@
-import { pipe } from 'effect/Function';
-import { zipWith } from 'effect/Array';
+import { pipe } from "effect/Function";
+import { zipWith } from "effect/Array";
 
 /**
  * Merges two arrays of objects element-wise.
@@ -24,9 +24,9 @@ import { zipWith } from 'effect/Array';
  * // => [{ a: 1, b: 2 }, { a: 3, b: 4 }]
  */
 export const mergeObjects =
-	<U extends object>(arr2: U[]) =>
-	<T extends object>(arr1: T[]): (T & U)[] =>
-		pipe(
-			arr1,
-			zipWith(arr2, (a, b) => ({ ...a, ...b }))
-		);
+  <U extends object>(arr2: U[]) =>
+  <T extends object>(arr1: T[]): (T & U)[] =>
+    pipe(
+      arr1,
+      zipWith(arr2, (a, b) => ({ ...a, ...b })),
+    );

@@ -38,8 +38,9 @@ export const headersOptionalSchema = z.instanceof(Headers).optional();
  *
  * @param message - Custom error message for validation failure
  */
-export const headersRequiredSchema = (message = "Headers instance required for session identification") =>
-  z.instanceof(Headers, { message });
+export const headersRequiredSchema = (
+  message = "Headers instance required for session identification",
+) => z.instanceof(Headers, { message });
 
 /**
  * Schema for the asResponse option.
@@ -110,7 +111,9 @@ export const tokenQuerySchema = z.object({
  *
  * @param additionalFields - Additional fields to include in the schema
  */
-export const createSchemaWithOptionalHeaders = <T extends z.ZodRawShape>(additionalFields?: T) =>
+export const createSchemaWithOptionalHeaders = <T extends z.ZodRawShape>(
+  additionalFields?: T,
+) =>
   z.object({
     ...additionalFields,
     ...requestOptionsOptionalHeadersShape,
@@ -142,7 +145,9 @@ export const createSchemaWithRequiredHeaders = <T extends z.ZodRawShape>(
  *
  * @param bodySchema - The Zod schema for the body field
  */
-export const createBodySchemaWithOptionalHeaders = <T extends z.ZodTypeAny>(bodySchema: T) =>
+export const createBodySchemaWithOptionalHeaders = <T extends z.ZodTypeAny>(
+  bodySchema: T,
+) =>
   z.object({
     body: bodySchema,
     ...requestOptionsOptionalHeadersShape,
@@ -157,7 +162,10 @@ export const createBodySchemaWithOptionalHeaders = <T extends z.ZodTypeAny>(body
  * @param bodySchema - The Zod schema for the body field
  * @param headerMessage - Custom error message for headers validation
  */
-export const createBodySchemaWithRequiredHeaders = <T extends z.ZodTypeAny>(bodySchema: T, headerMessage?: string) =>
+export const createBodySchemaWithRequiredHeaders = <T extends z.ZodTypeAny>(
+  bodySchema: T,
+  headerMessage?: string,
+) =>
   z.object({
     body: bodySchema,
     ...requestOptionsRequiredHeadersShape(headerMessage),
@@ -171,7 +179,9 @@ export const createBodySchemaWithRequiredHeaders = <T extends z.ZodTypeAny>(body
  *
  * @param querySchema - The Zod schema for the query field
  */
-export const createQuerySchemaWithOptionalHeaders = <T extends z.ZodTypeAny>(querySchema: T) =>
+export const createQuerySchemaWithOptionalHeaders = <T extends z.ZodTypeAny>(
+  querySchema: T,
+) =>
   z.object({
     query: querySchema,
     ...requestOptionsOptionalHeadersShape,
@@ -186,7 +196,10 @@ export const createQuerySchemaWithOptionalHeaders = <T extends z.ZodTypeAny>(que
  * @param querySchema - The Zod schema for the query field
  * @param headerMessage - Custom error message for headers validation
  */
-export const createQuerySchemaWithRequiredHeaders = <T extends z.ZodTypeAny>(querySchema: T, headerMessage?: string) =>
+export const createQuerySchemaWithRequiredHeaders = <T extends z.ZodTypeAny>(
+  querySchema: T,
+  headerMessage?: string,
+) =>
   z.object({
     query: querySchema,
     ...requestOptionsRequiredHeadersShape(headerMessage),
@@ -277,18 +290,32 @@ export const withAdditionalFields =
  */
 export const createAuthServerApiEndpointParamsSchema: CreateAuthServerApiEndpointParamsSchemaProps = () =>
   pipe(
-    Effect.all([PipelineContext, authServerApiEndpointBodyZodSchemaBuilder()]),
+    Effect.all([
+      PipelineContext,
+      authServerApiEndpointBodyZodSchemaBuilder(),
+    ]),
     Effect.map(([{ endpoint }, bodySchema]) =>
       pipe(
         Match.value(endpoint).pipe(
-          Match.tag("VerifyEmail", () => ({ headers: "optional" as const, query: tokenQuerySchema })),
+          Match.tag("VerifyEmail", () => ({
+            headers: "optional" as const,
+            query: tokenQuerySchema,
+          })),
           Match.tag("SignInEmail", () => ({ headers: "optional" as const })),
           Match.tag("SignUpEmail", () => ({ headers: "optional" as const })),
           Match.tag("SignInSocial", () => ({ headers: "optional" as const })),
-          Match.tag("ForgetPassword", () => ({ headers: "optional" as const })),
-          Match.tag("ResetPassword", () => ({ headers: "optional" as const })),
-          Match.tag("CallbackOAuth", () => ({ headers: "optional" as const })),
-          Match.tag("RequestPasswordReset", () => ({ headers: "optional" as const })),
+          Match.tag("ForgetPassword", () => ({
+            headers: "optional" as const,
+          })),
+          Match.tag("ResetPassword", () => ({
+            headers: "optional" as const,
+          })),
+          Match.tag("CallbackOAuth", () => ({
+            headers: "optional" as const,
+          })),
+          Match.tag("RequestPasswordReset", () => ({
+            headers: "optional" as const,
+          })),
           Match.orElse(() => ({ headers: "required" as const })),
         ),
         (config) =>

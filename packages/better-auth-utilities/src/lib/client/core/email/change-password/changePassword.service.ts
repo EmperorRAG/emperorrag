@@ -42,7 +42,9 @@ export const changePasswordClient: changePasswordProps = (deps) => (input) => {
     try: () => authClient.changePassword(input),
     catch: (error) => {
       const message = error instanceof Error ? error.message : "Change password failed";
-      const status = error && typeof error === "object" && "status" in error ? (error.status as number) : undefined;
+      const status = error && typeof error === "object" && "status" in error
+        ? (error.status as number)
+        : undefined;
       return new EmailAuthApiError(message, status, error);
     },
   });

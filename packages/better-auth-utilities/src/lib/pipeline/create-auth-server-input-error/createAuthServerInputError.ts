@@ -9,7 +9,10 @@ import type { CreateAuthServerInputErrorProps } from "./createAuthServerInputErr
  * @pure
  * @description Initializes a new AuthServerInputError wrapped in an Effect.
  */
-export const createAuthServerInputError: CreateAuthServerInputErrorProps = (message, cause) =>
+export const createAuthServerInputError: CreateAuthServerInputErrorProps = (
+  message,
+  cause,
+) =>
   pipe(
     Effect.succeed(message),
     Effect.map((msg) => new AuthServerInputError({ message: msg, cause })),

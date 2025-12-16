@@ -17,7 +17,9 @@ import type { EmailAuthClientDeps } from "../shared/email.types";
  * ```
  */
 export type SendVerificationEmailInput<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > = Parameters<T["sendVerificationEmail"]>[0];
 
 /**
@@ -33,7 +35,9 @@ export type SendVerificationEmailInput<
  * ```
  */
 export type SendVerificationEmailResult<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > = ReturnType<T["sendVerificationEmail"]>;
 
 /**
@@ -52,9 +56,13 @@ export type SendVerificationEmailResult<
  * ```
  */
 export interface sendVerificationEmailProps<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > {
   (
     deps: EmailAuthClientDeps<T>,
-  ): (input: SendVerificationEmailInput<T>) => Effect.Effect<Awaited<SendVerificationEmailResult<T>>, EmailAuthError>;
+  ): (
+    input: SendVerificationEmailInput<T>,
+  ) => Effect.Effect<Awaited<SendVerificationEmailResult<T>>, EmailAuthError>;
 }

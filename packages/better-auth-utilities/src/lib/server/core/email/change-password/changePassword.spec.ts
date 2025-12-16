@@ -58,7 +58,9 @@ describe("Server Change Password", () => {
       headers,
     });
 
-    const res = await Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer));
+    const res = await Effect.runPromise(
+      Effect.provideService(program, AuthServerTag, authServer),
+    );
 
     expect(res).toBeDefined();
 

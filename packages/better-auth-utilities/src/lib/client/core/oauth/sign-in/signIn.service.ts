@@ -17,9 +17,11 @@ export const signInSocialClient: SignInSocialProps = (deps) => (input) => {
   return Effect.tryPromise({
     try: async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const result = await (authClient.signIn.social as unknown as (input: unknown) => Promise<{ error?: unknown }>)(
-        input,
-      );
+      const result = await (
+        authClient.signIn.social as unknown as (
+          input: unknown,
+        ) => Promise<{ error?: unknown }>
+      )(input);
       if (result?.error) {
         throw result.error;
       }
@@ -27,7 +29,8 @@ export const signInSocialClient: SignInSocialProps = (deps) => (input) => {
     },
     catch: (error) => {
       const errObj = error as { message?: string; status?: number };
-      const message = errObj?.message || (error instanceof Error ? error.message : "Social sign-in failed");
+      const message = errObj?.message
+        || (error instanceof Error ? error.message : "Social sign-in failed");
       const status = errObj?.status;
       return new OAuthAuthApiError(message, status, error);
     },

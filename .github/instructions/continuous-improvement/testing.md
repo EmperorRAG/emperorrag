@@ -1,4 +1,4 @@
-# 3️⃣ Effect library: Testing features & how they fit *your* rules
+# 3️⃣ Effect library: Testing features & how they fit _your_ rules
 
 Now to the testing side — this is where Effect really shines **with your architecture**.
 
@@ -6,9 +6,9 @@ Now to the testing side — this is where Effect really shines **with your archi
 
 ### 1. `Effect.runPromise` / `Effect.runSync`
 
-* Execute an Effect in tests
-* Deterministic: no hidden async
-* Ideal for unit tests of helpers, schemas, services
+- Execute an Effect in tests
+- Deterministic: no hidden async
+- Ideal for unit tests of helpers, schemas, services
 
 ```ts
 await Effect.runPromise(myEffect);
@@ -16,15 +16,15 @@ await Effect.runPromise(myEffect);
 
 ### 2. `Effect.exit`
 
-* Observe **success vs failure** without throwing
-* Critical for testing error cases
+- Observe **success vs failure** without throwing
+- Critical for testing error cases
 
 ```ts
 const exit = await Effect.runPromise(Effect.exit(effect));
 expect(exit._tag).toBe("Failure");
 ```
 
-This maps *perfectly* to your rule “errors are values”.
+This maps _perfectly_ to your rule “errors are values”.
 
 ---
 
@@ -35,7 +35,9 @@ This maps *perfectly* to your rule “errors are values”.
 You can test schemas directly without controllers or services.
 
 ```ts
-const result = Schema.decodeUnknownEither(SignUpEmailCommandSchema(authServer))(input);
+const result = Schema.decodeUnknownEither(SignUpEmailCommandSchema(authServer))(
+  input,
+);
 
 expect(Either.isRight(result)).toBe(true);
 ```
@@ -48,10 +50,10 @@ expect(Either.isLeft(result)).toBe(true);
 
 This lets you test:
 
-* required fields
-* additionalFields behavior
-* password policy enforcement
-* ignored unknown keys
+- required fields
+- additionalFields behavior
+- password policy enforcement
+- ignored unknown keys
 
 👉 **No mocks needed. No adapters needed.**
 
@@ -61,9 +63,9 @@ This lets you test:
 
 Your helpers are ideal for unit testing because:
 
-* unary
-* deterministic
-* Effect-returning
+- unary
+- deterministic
+- Effect-returning
 
 Example:
 
@@ -94,10 +96,9 @@ Because you use `Context.Tag` + `Layer`:
 ### 1. Provide a test layer
 
 ```ts
-const TestAuthServerLayer = Layer.succeed(
-  EmailAuthServerServiceTag,
-  { authServer: fakeAuthServer }
-);
+const TestAuthServerLayer = Layer.succeed(EmailAuthServerServiceTag, {
+  authServer: fakeAuthServer,
+});
 ```
 
 ### 2. Provide it to the Effect
@@ -105,9 +106,7 @@ const TestAuthServerLayer = Layer.succeed(
 ```ts
 const effect = signUpEmailServerServiceFromCommandWithCtx(cmd, ctx);
 
-await Effect.runPromise(
-  Effect.provide(effect, TestAuthServerLayer)
-);
+await Effect.runPromise(Effect.provide(effect, TestAuthServerLayer));
 ```
 
 No mocks. No globals. No monkey-patching.
@@ -119,9 +118,7 @@ No mocks. No globals. No monkey-patching.
 Because errors are values:
 
 ```ts
-const exit = await Effect.runPromise(
-  Effect.exit(effect)
-);
+const exit = await Effect.runPromise(Effect.exit(effect));
 
 if (exit._tag === "Failure") {
   expect(exit.cause.error._tag).toBe("EmailAuthServerApiError");
@@ -130,17 +127,17 @@ if (exit._tag === "Failure") {
 
 You can test:
 
-* API error mapping
-* input error mapping
-* missing body handling
-* invalid headers handling
+- API error mapping
+- input error mapping
+- missing body handling
+- invalid headers handling
 
 ## Mental model to keep
 
 ### Your architecture + Effect testing = perfect fit
 
-* Schemas → tested directly
-* Adapters → tested as unary Effects
-* Commands → data, no tests needed beyond schema
-* Services → tested with Layers
-* Controllers → thin orchestration, few tests needed
+- Schemas → tested directly
+- Adapters → tested as unary Effects
+- Commands → data, no tests needed beyond schema
+- Services → tested with Layers
+- Controllers → thin orchestration, few tests needed

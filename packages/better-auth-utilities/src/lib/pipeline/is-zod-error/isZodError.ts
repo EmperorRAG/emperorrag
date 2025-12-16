@@ -12,7 +12,9 @@ import type { IsZodErrorProps } from "./isZodError.types";
  * @fp-pattern Predicate Composition
  * @composition pipe(error, Predicate.compose(Predicate.isRecord, Predicate.struct(...)))
  */
-export const isZodError: IsZodErrorProps = (error: unknown): error is z.ZodError =>
+export const isZodError: IsZodErrorProps = (
+  error: unknown,
+): error is z.ZodError =>
   pipe(
     error,
     Predicate.compose(

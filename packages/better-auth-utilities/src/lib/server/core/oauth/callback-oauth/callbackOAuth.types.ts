@@ -7,21 +7,29 @@ import type * as Effect from "effect/Effect";
 import type { AuthServerError } from "../../../../errors/authServer.error";
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
-export type AuthServerApiCallbackOAuthPropsFor<T extends AuthServerFor = AuthServerFor> = "callbackOAuth" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["callbackOAuth"] : never;
+export type AuthServerApiCallbackOAuthPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "callbackOAuth" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["callbackOAuth"]
+  : never;
 
-export type AuthServerApiCallbackOAuthParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiCallbackOAuthPropsFor<T>
->[0];
+export type AuthServerApiCallbackOAuthParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiCallbackOAuthPropsFor<T>>[0];
 
-export type AuthServerApiCallbackOAuthResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiCallbackOAuthPropsFor<T>
->;
+export type AuthServerApiCallbackOAuthResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiCallbackOAuthPropsFor<T>>;
 
-export interface CallbackOAuthPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface CallbackOAuthPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> {
   (
     params: AuthServerApiCallbackOAuthParamsFor<T>,
-  ): Effect.Effect<Awaited<AuthServerApiCallbackOAuthResultFor<T>>, AuthServerError, T>;
+  ): Effect.Effect<
+    Awaited<AuthServerApiCallbackOAuthResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
 
 export const isAuthServerApiCallbackOAuthParamsFor = (

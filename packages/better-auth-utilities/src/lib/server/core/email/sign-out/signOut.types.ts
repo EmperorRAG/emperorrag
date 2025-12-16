@@ -26,8 +26,10 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * await signOut({ headers: request.headers });
  * ```
  */
-export type AuthServerApiSignOutPropsFor<T extends AuthServerFor = AuthServerFor> = "signOut" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["signOut"] : never;
+export type AuthServerApiSignOutPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "signOut" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["signOut"]
+  : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.signOut.
@@ -44,9 +46,9 @@ export type AuthServerApiSignOutPropsFor<T extends AuthServerFor = AuthServerFor
  * // { headers: Headers, asResponse?: boolean, returnHeaders?: boolean }
  * ```
  */
-export type AuthServerApiSignOutParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiSignOutPropsFor<T>
->[0];
+export type AuthServerApiSignOutParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiSignOutPropsFor<T>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.signOut.
@@ -63,9 +65,9 @@ export type AuthServerApiSignOutParamsFor<T extends AuthServerFor = AuthServerFo
  * // Promise<{ success: boolean } | void>
  * ```
  */
-export type AuthServerApiSignOutResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiSignOutPropsFor<T>
->;
+export type AuthServerApiSignOutResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiSignOutPropsFor<T>>;
 
 /**
  * Function signature for signOut server service.
@@ -104,7 +106,11 @@ export type AuthServerApiSignOutResultFor<T extends AuthServerFor = AuthServerFo
 export interface signOutPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
     params: AuthServerApiSignOutParamsFor<T>,
-  ): Effect.Effect<Awaited<AuthServerApiSignOutResultFor<T>>, AuthServerError, T>;
+  ): Effect.Effect<
+    Awaited<AuthServerApiSignOutResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
 
 /**

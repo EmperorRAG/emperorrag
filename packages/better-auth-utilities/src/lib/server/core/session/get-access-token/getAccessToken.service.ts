@@ -12,7 +12,7 @@ import type { AuthServerApiGetAccessTokenParamsFor, getAccessTokenPropsFor } fro
 export const getAccessTokenServerService: getAccessTokenPropsFor = (
   params: AuthServerApiGetAccessTokenParamsFor<AuthServerFor>,
 ) =>
-  Effect.flatMap(
-    AuthServerTag,
-    (authServer) => Effect.tryPromise(() => authServer.api.getAccessToken(params)).pipe(Effect.catchAll(mapApiError)),
-  );
+  Effect.flatMap(AuthServerTag, (authServer) =>
+    Effect.tryPromise(() => authServer.api.getAccessToken(params)).pipe(
+      Effect.catchAll(mapApiError),
+    ));

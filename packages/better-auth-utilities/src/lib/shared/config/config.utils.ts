@@ -171,7 +171,9 @@ export const getSendOnSignUpFromConfig = (
 export const getAutoSignInAfterVerificationFromConfig = (
   emailVerificationConfig: NonNullable<AuthOptions["emailVerification"]>,
 ): Option.Option<boolean> => {
-  return Option.fromNullable(emailVerificationConfig.autoSignInAfterVerification);
+  return Option.fromNullable(
+    emailVerificationConfig.autoSignInAfterVerification,
+  );
 };
 
 // =============================================================================
@@ -188,7 +190,9 @@ export const getAutoSignInAfterVerificationFromConfig = (
  * @param options - The Better Auth configuration options
  * @returns Option.Option<NonNullable<AuthOptions['user']>> - The user config if present
  */
-export const getUserConfig = (options: AuthOptions): Option.Option<NonNullable<AuthOptions["user"]>> => {
+export const getUserConfig = (
+  options: AuthOptions,
+): Option.Option<NonNullable<AuthOptions["user"]>> => {
   return Option.fromNullable(options.user);
 };
 
@@ -204,7 +208,9 @@ export const getUserConfig = (options: AuthOptions): Option.Option<NonNullable<A
  */
 export const getUserAdditionalFields = (
   userConfig: NonNullable<AuthOptions["user"]>,
-): Option.Option<NonNullable<NonNullable<AuthOptions["user"]>["additionalFields"]>> => {
+): Option.Option<
+  NonNullable<NonNullable<AuthOptions["user"]>["additionalFields"]>
+> => {
   return Option.fromNullable(userConfig.additionalFields);
 };
 
@@ -220,7 +226,9 @@ export const getUserAdditionalFields = (
  */
 export const getChangeEmailConfig = (
   userConfig: NonNullable<AuthOptions["user"]>,
-): Option.Option<NonNullable<NonNullable<AuthOptions["user"]>["changeEmail"]>> => {
+): Option.Option<
+  NonNullable<NonNullable<AuthOptions["user"]>["changeEmail"]>
+> => {
   return Option.fromNullable(userConfig.changeEmail);
 };
 
@@ -233,7 +241,9 @@ export const getChangeEmailConfig = (
  * @param userConfig - The user configuration object
  * @returns boolean - True if change email is enabled, false otherwise
  */
-export const isChangeEmailEnabled = (userConfig: NonNullable<AuthOptions["user"]>): boolean => {
+export const isChangeEmailEnabled = (
+  userConfig: NonNullable<AuthOptions["user"]>,
+): boolean => {
   return pipe(
     getChangeEmailConfig(userConfig),
     Option.flatMap((config) => Option.fromNullable(config.enabled)),
@@ -255,7 +265,9 @@ export const isChangeEmailEnabled = (userConfig: NonNullable<AuthOptions["user"]
  * @param authServer - The Better Auth server instance
  * @returns number - The minimum password length
  */
-export const getMinPasswordLength = <T extends AuthServerFor = AuthServerFor>(authServer: T): number =>
+export const getMinPasswordLength = <T extends AuthServerFor = AuthServerFor>(
+  authServer: T,
+): number =>
   pipe(
     getAuthServerConfig(authServer),
     Option.flatMap(getEmailAndPasswordConfig),
@@ -273,7 +285,9 @@ export const getMinPasswordLength = <T extends AuthServerFor = AuthServerFor>(au
  * @param authServer - The Better Auth server instance
  * @returns number - The maximum password length
  */
-export const getMaxPasswordLength = <T extends AuthServerFor = AuthServerFor>(authServer: T): number =>
+export const getMaxPasswordLength = <T extends AuthServerFor = AuthServerFor>(
+  authServer: T,
+): number =>
   pipe(
     getAuthServerConfig(authServer),
     Option.flatMap(getEmailAndPasswordConfig),
@@ -291,7 +305,9 @@ export const getMaxPasswordLength = <T extends AuthServerFor = AuthServerFor>(au
  * @param authServer - The Better Auth server instance
  * @returns { minPasswordLength: number; maxPasswordLength: number } - The password length constraints
  */
-export const getPasswordLengthConstraints = <T extends AuthServerFor = AuthServerFor>(
+export const getPasswordLengthConstraints = <
+  T extends AuthServerFor = AuthServerFor,
+>(
   authServer: T,
 ): { minPasswordLength: number; maxPasswordLength: number } => ({
   minPasswordLength: getMinPasswordLength(authServer),
@@ -308,7 +324,11 @@ export const getPasswordLengthConstraints = <T extends AuthServerFor = AuthServe
  * @param authServer - The Better Auth server instance
  * @returns number - The reset password token expiration in seconds
  */
-export const getResetPasswordTokenExpiresIn = <T extends AuthServerFor = AuthServerFor>(authServer: T): number =>
+export const getResetPasswordTokenExpiresIn = <
+  T extends AuthServerFor = AuthServerFor,
+>(
+  authServer: T,
+): number =>
   pipe(
     getAuthServerConfig(authServer),
     Option.flatMap(getEmailAndPasswordConfig),
@@ -326,7 +346,11 @@ export const getResetPasswordTokenExpiresIn = <T extends AuthServerFor = AuthSer
  * @param authServer - The Better Auth server instance
  * @returns boolean - Whether email verification is required
  */
-export const isEmailVerificationRequired = <T extends AuthServerFor = AuthServerFor>(authServer: T): boolean =>
+export const isEmailVerificationRequired = <
+  T extends AuthServerFor = AuthServerFor,
+>(
+  authServer: T,
+): boolean =>
   pipe(
     getAuthServerConfig(authServer),
     Option.flatMap(getEmailAndPasswordConfig),
@@ -344,7 +368,9 @@ export const isEmailVerificationRequired = <T extends AuthServerFor = AuthServer
  * @param authServer - The Better Auth server instance
  * @returns boolean - Whether auto sign-in is enabled
  */
-export const isAutoSignInEnabled = <T extends AuthServerFor = AuthServerFor>(authServer: T): boolean =>
+export const isAutoSignInEnabled = <T extends AuthServerFor = AuthServerFor>(
+  authServer: T,
+): boolean =>
   pipe(
     getAuthServerConfig(authServer),
     Option.flatMap(getEmailAndPasswordConfig),
@@ -362,7 +388,11 @@ export const isAutoSignInEnabled = <T extends AuthServerFor = AuthServerFor>(aut
  * @param authServer - The Better Auth server instance
  * @returns boolean - Whether change email functionality is enabled
  */
-export const isChangeEmailEnabledForServer = <T extends AuthServerFor = AuthServerFor>(authServer: T): boolean =>
+export const isChangeEmailEnabledForServer = <
+  T extends AuthServerFor = AuthServerFor,
+>(
+  authServer: T,
+): boolean =>
   pipe(
     getAuthServerConfig(authServer),
     Option.flatMap(getUserConfig),

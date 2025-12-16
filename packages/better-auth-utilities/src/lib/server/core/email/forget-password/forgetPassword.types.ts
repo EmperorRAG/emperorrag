@@ -29,8 +29,10 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * });
  * ```
  */
-export type AuthServerApiForgetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> = "forgetPassword" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["forgetPassword"] : never;
+export type AuthServerApiForgetPasswordPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "forgetPassword" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["forgetPassword"]
+  : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.forgetPassword.
@@ -47,9 +49,9 @@ export type AuthServerApiForgetPasswordPropsFor<T extends AuthServerFor = AuthSe
  * // { body: { email: string, redirectTo?: string }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiForgetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiForgetPasswordPropsFor<T>
->[0];
+export type AuthServerApiForgetPasswordParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiForgetPasswordPropsFor<T>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.forgetPassword.
@@ -66,9 +68,9 @@ export type AuthServerApiForgetPasswordParamsFor<T extends AuthServerFor = AuthS
  * // Promise<{ status: boolean }>
  * ```
  */
-export type AuthServerApiForgetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiForgetPasswordPropsFor<T>
->;
+export type AuthServerApiForgetPasswordResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiForgetPasswordPropsFor<T>>;
 
 /**
  * Function signature for forgetPassword server service.
@@ -108,10 +110,16 @@ export type AuthServerApiForgetPasswordResultFor<T extends AuthServerFor = AuthS
  * );
  * ```
  */
-export interface ForgetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface ForgetPasswordPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> {
   (
     params: AuthServerApiForgetPasswordParamsFor<T>,
-  ): Effect.Effect<Awaited<AuthServerApiForgetPasswordResultFor<T>>, AuthServerError, T>;
+  ): Effect.Effect<
+    Awaited<AuthServerApiForgetPasswordResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
 
 /**

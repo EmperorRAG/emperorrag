@@ -9,8 +9,10 @@ import { createAuthClient } from "../client/client.service";
 import { createAuthServerInstance } from "../server/server.service";
 import type { ServerConfig } from "../shared/config/config.types";
 
-export const setupTestEnv = (options?: { serverConfig?: Partial<ServerConfig> }) => {
-  const program = Effect.gen(function* () {
+export const setupTestEnv = (options?: {
+  serverConfig?: Partial<ServerConfig>;
+}) => {
+  const program = Effect.gen(function*() {
     // 1. Create in-memory SQLite DB
     const db = yield* Effect.sync(() => new DatabaseSync(":memory:"));
 
@@ -84,5 +86,7 @@ export const setupTestEnv = (options?: { serverConfig?: Partial<ServerConfig> })
 
   const DevToolsLive = DevTools.layer();
 
-  return Effect.runPromise(program.pipe(Effect.withSpan("setupTestEnv"), Effect.provide(DevToolsLive)));
+  return Effect.runPromise(
+    program.pipe(Effect.withSpan("setupTestEnv"), Effect.provide(DevToolsLive)),
+  );
 };

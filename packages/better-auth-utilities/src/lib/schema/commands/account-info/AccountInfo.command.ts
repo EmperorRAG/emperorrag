@@ -1,6 +1,9 @@
 import { Schema } from "effect";
 
-export class AccountInfoCommand extends Schema.TaggedClass<AccountInfoCommand>()("AccountInfoCommand", {}) {
+export class AccountInfoCommand extends Schema.TaggedClass<AccountInfoCommand>()(
+  "AccountInfoCommand",
+  {},
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(AccountInfoCommand)(input);
   }

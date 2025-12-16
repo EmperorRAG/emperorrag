@@ -1,10 +1,11 @@
 import { Schema } from "effect";
 
-export class RequestPasswordResetCallbackCommand
-  extends Schema.TaggedClass<RequestPasswordResetCallbackCommand>()("RequestPasswordResetCallbackCommand", {
+export class RequestPasswordResetCallbackCommand extends Schema.TaggedClass<RequestPasswordResetCallbackCommand>()(
+  "RequestPasswordResetCallbackCommand",
+  {
     token: Schema.String,
-  })
-{
+  },
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(RequestPasswordResetCallbackCommand)(input);
   }

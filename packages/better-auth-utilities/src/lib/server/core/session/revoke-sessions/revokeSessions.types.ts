@@ -7,21 +7,29 @@ import type * as Effect from "effect/Effect";
 import type { AuthServerError } from "../../../../errors/authServer.error";
 import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
-export type AuthServerApiRevokeSessionsPropsFor<T extends AuthServerFor = AuthServerFor> = "revokeSessions" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["revokeSessions"] : never;
+export type AuthServerApiRevokeSessionsPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "revokeSessions" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["revokeSessions"]
+  : never;
 
-export type AuthServerApiRevokeSessionsParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiRevokeSessionsPropsFor<T>
->[0];
+export type AuthServerApiRevokeSessionsParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiRevokeSessionsPropsFor<T>>[0];
 
-export type AuthServerApiRevokeSessionsResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiRevokeSessionsPropsFor<T>
->;
+export type AuthServerApiRevokeSessionsResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiRevokeSessionsPropsFor<T>>;
 
-export interface RevokeSessionsPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface RevokeSessionsPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> {
   (
     params: AuthServerApiRevokeSessionsParamsFor<T>,
-  ): Effect.Effect<Awaited<AuthServerApiRevokeSessionsResultFor<T>>, AuthServerError, T>;
+  ): Effect.Effect<
+    Awaited<AuthServerApiRevokeSessionsResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
 
 export const isAuthServerApiRevokeSessionsParamsFor = (

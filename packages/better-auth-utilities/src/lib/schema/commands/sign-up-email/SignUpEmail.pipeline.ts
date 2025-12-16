@@ -5,12 +5,13 @@ import { SignUpEmailCommand } from "./SignUpEmail.command";
 import { SignUpEmailAuthServerParams } from "./SignUpEmailAuthServer.params";
 import { UnknownCommandWithTransportCommandToSignUpEmailCommandTransform } from "./UnknownCommandWithTransportCommandToSignUpEmailCommand.transform";
 
-export class EmailAuthServerInputError
-  extends Schema.TaggedError<EmailAuthServerInputError>()("EmailAuthServerInputError", {
+export class EmailAuthServerInputError extends Schema.TaggedError<EmailAuthServerInputError>()(
+  "EmailAuthServerInputError",
+  {
     message: Schema.String,
     cause: Schema.Unknown,
-  })
-{ }
+  },
+) {}
 
 export const SignUpEmailAuthServerParamsToSignUpEmailCommand = (raw: unknown) =>
   pipe(
@@ -20,14 +21,26 @@ export const SignUpEmailAuthServerParamsToSignUpEmailCommand = (raw: unknown) =>
         strict: true,
         decode: (input) =>
           Schema.decodeUnknown(SignUpEmailAuthServerParams)(input).pipe(
-            Effect.mapError(() =>
-              new ParseResult.Type(SignUpEmailAuthServerParams.ast, input, "Failed to decode server params")
+            Effect.mapError(
+              () =>
+                new ParseResult.Type(
+                  SignUpEmailAuthServerParams.ast,
+                  input,
+                  "Failed to decode server params",
+                ),
             ),
           ),
         encode: (output) =>
-          Schema.encode(SignUpEmailAuthServerParams)(output as unknown as SignUpEmailAuthServerParams).pipe(
-            Effect.mapError(() =>
-              new ParseResult.Type(SignUpEmailAuthServerParams.ast, output, "Failed to encode server params")
+          Schema.encode(SignUpEmailAuthServerParams)(
+            output as unknown as SignUpEmailAuthServerParams,
+          ).pipe(
+            Effect.mapError(
+              () =>
+                new ParseResult.Type(
+                  SignUpEmailAuthServerParams.ast,
+                  output,
+                  "Failed to encode server params",
+                ),
             ),
           ),
       }),
@@ -35,7 +48,9 @@ export const SignUpEmailAuthServerParamsToSignUpEmailCommand = (raw: unknown) =>
     Effect.flatMap((params) =>
       pipe(
         params,
-        Schema.decodeUnknown(SignUpEmailAuthServerParamsToCommandWithTransportCommandTransform),
+        Schema.decodeUnknown(
+          SignUpEmailAuthServerParamsToCommandWithTransportCommandTransform,
+        ),
         Effect.mapError(
           (cause) =>
             new EmailAuthServerInputError({
@@ -48,7 +63,9 @@ export const SignUpEmailAuthServerParamsToSignUpEmailCommand = (raw: unknown) =>
     Effect.flatMap((transportCmd) =>
       pipe(
         transportCmd,
-        Schema.decodeUnknown(UnknownCommandWithTransportCommandToSignUpEmailCommandTransform),
+        Schema.decodeUnknown(
+          UnknownCommandWithTransportCommandToSignUpEmailCommandTransform,
+        ),
         Effect.mapError(
           (cause) =>
             new EmailAuthServerInputError({
@@ -58,5 +75,7 @@ export const SignUpEmailAuthServerParamsToSignUpEmailCommand = (raw: unknown) =>
         ),
       )
     ),
-    Effect.map((cmdWithTransport) => new SignUpEmailCommand(cmdWithTransport.command)),
+    Effect.map(
+      (cmdWithTransport) => new SignUpEmailCommand(cmdWithTransport.command),
+    ),
   );

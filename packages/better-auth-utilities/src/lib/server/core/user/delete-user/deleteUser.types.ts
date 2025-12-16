@@ -16,8 +16,10 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiDeleteUserPropsFor<T extends AuthServerFor = AuthServerFor> = "deleteUser" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["deleteUser"] : never;
+export type AuthServerApiDeleteUserPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "deleteUser" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["deleteUser"]
+  : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.deleteUser.
@@ -27,9 +29,9 @@ export type AuthServerApiDeleteUserPropsFor<T extends AuthServerFor = AuthServer
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiDeleteUserParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiDeleteUserPropsFor<T>
->[0];
+export type AuthServerApiDeleteUserParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiDeleteUserPropsFor<T>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.deleteUser.
@@ -39,9 +41,9 @@ export type AuthServerApiDeleteUserParamsFor<T extends AuthServerFor = AuthServe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiDeleteUserResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiDeleteUserPropsFor<T>
->;
+export type AuthServerApiDeleteUserResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiDeleteUserPropsFor<T>>;
 
 /**
  * Function signature for deleteUser server service.
@@ -54,7 +56,11 @@ export type AuthServerApiDeleteUserResultFor<T extends AuthServerFor = AuthServe
 export interface DeleteUserPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
     params: AuthServerApiDeleteUserParamsFor<T>,
-  ): Effect.Effect<Awaited<AuthServerApiDeleteUserResultFor<T>>, AuthServerError, T>;
+  ): Effect.Effect<
+    Awaited<AuthServerApiDeleteUserResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
 
 /**

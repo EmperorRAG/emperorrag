@@ -9,7 +9,9 @@ export const UnknownCommandWithTransportCommandToSignUpEmailCommandTransform = S
   {
     decode: (input) => {
       return Schema.decodeUnknown(SignUpEmailCommand)(input.command).pipe(
-        Effect.mapError((issue) => new ParseResult.Pointer("command", input.command, issue.issue)),
+        Effect.mapError(
+          (issue) => new ParseResult.Pointer("command", input.command, issue.issue),
+        ),
         Effect.map(
           (command) =>
             new SignUpEmailCommandWithTransportCommand({

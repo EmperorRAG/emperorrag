@@ -29,8 +29,10 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * });
  * ```
  */
-export type AuthServerApiUnlinkAccountPropsFor<T extends AuthServerFor = AuthServerFor> = "unlinkAccount" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["unlinkAccount"] : never;
+export type AuthServerApiUnlinkAccountPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "unlinkAccount" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["unlinkAccount"]
+  : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.unlinkAccount.
@@ -47,9 +49,9 @@ export type AuthServerApiUnlinkAccountPropsFor<T extends AuthServerFor = AuthSer
  * // { body: { providerId: string }, headers: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiUnlinkAccountParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiUnlinkAccountPropsFor<T>
->[0];
+export type AuthServerApiUnlinkAccountParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiUnlinkAccountPropsFor<T>>[0];
 /**
  * Type helper to extract the return type from auth.api.unlinkAccount.
  *
@@ -65,9 +67,9 @@ export type AuthServerApiUnlinkAccountParamsFor<T extends AuthServerFor = AuthSe
  * // Promise<{ status: boolean }>
  * ```
  */
-export type AuthServerApiUnlinkAccountResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiUnlinkAccountPropsFor<T>
->;
+export type AuthServerApiUnlinkAccountResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiUnlinkAccountPropsFor<T>>;
 
 /**
  * Function signature for unlinkAccount server service.
@@ -104,10 +106,16 @@ export type AuthServerApiUnlinkAccountResultFor<T extends AuthServerFor = AuthSe
  * );
  * ```
  */
-export interface unlinkAccountPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface unlinkAccountPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> {
   (
     params: AuthServerApiUnlinkAccountParamsFor<T>,
-  ): Effect.Effect<Awaited<AuthServerApiUnlinkAccountResultFor<T>>, AuthServerError, T>;
+  ): Effect.Effect<
+    Awaited<AuthServerApiUnlinkAccountResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
 
 /**

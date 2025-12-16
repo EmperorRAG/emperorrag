@@ -24,7 +24,7 @@ import type { AuthServerApiRevokeSessionParamsFor, revokeSessionPropsFor } from 
 export const revokeSessionServerService: revokeSessionPropsFor = (
   params: AuthServerApiRevokeSessionParamsFor<AuthServerFor>,
 ) =>
-  Effect.flatMap(
-    AuthServerTag,
-    (authServer) => Effect.tryPromise(() => authServer.api.revokeSession(params)).pipe(Effect.catchAll(mapApiError)),
-  );
+  Effect.flatMap(AuthServerTag, (authServer) =>
+    Effect.tryPromise(() => authServer.api.revokeSession(params)).pipe(
+      Effect.catchAll(mapApiError),
+    ));

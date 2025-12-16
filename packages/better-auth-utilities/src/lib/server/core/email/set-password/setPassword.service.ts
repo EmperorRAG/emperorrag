@@ -24,7 +24,7 @@ import type { AuthServerApiSetPasswordParamsFor, setPasswordPropsFor } from "./s
 export const setPasswordServerService: setPasswordPropsFor = (
   params: AuthServerApiSetPasswordParamsFor<AuthServerFor>,
 ) =>
-  Effect.flatMap(
-    AuthServerTag,
-    (authServer) => Effect.tryPromise(() => authServer.api.setPassword(params)).pipe(Effect.catchAll(mapApiError)),
-  );
+  Effect.flatMap(AuthServerTag, (authServer) =>
+    Effect.tryPromise(() => authServer.api.setPassword(params)).pipe(
+      Effect.catchAll(mapApiError),
+    ));

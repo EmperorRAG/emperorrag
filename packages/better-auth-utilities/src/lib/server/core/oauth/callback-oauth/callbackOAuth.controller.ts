@@ -20,9 +20,9 @@ export const callbackOAuthServerController: callbackOAuthPropsFor = (
   params: AuthServerApiCallbackOAuthParamsFor<AuthServerFor>,
 ) =>
   Effect.gen(function*() {
-    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
-      isAuthServerApiCallbackOAuthParamsFor,
-    )(params);
+    const validatedParams = yield* validateInputEffect(
+      createAuthServerApiEndpointParamsSchema(),
+    )(isAuthServerApiCallbackOAuthParamsFor)(params);
     return yield* callbackOAuthServerService(validatedParams);
   }).pipe(
     Effect.provideService(PipelineContext, {

@@ -41,14 +41,18 @@ describe("Node Effect Tests", () => {
   testEffect("should use testEffect helper", Effect.succeed("success"));
 
   it("should use dependency injection", async () => {
-    const program = GreetingService.pipe(Effect.flatMap((service) => service.greet("World")));
+    const program = GreetingService.pipe(
+      Effect.flatMap((service) => service.greet("World")),
+    );
 
     const result = await run(Effect.provide(program, GreetingServiceLive));
     expect(result).toBe("Hello, World!");
   });
 
   it("should allow layer overrides", async () => {
-    const program = GreetingService.pipe(Effect.flatMap((service) => service.greet("World")));
+    const program = GreetingService.pipe(
+      Effect.flatMap((service) => service.greet("World")),
+    );
 
     const result = await run(Effect.provide(program, GreetingServiceMock));
     expect(result).toBe("Mock Hello, World!");

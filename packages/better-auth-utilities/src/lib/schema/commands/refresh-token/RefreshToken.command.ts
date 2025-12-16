@@ -1,6 +1,9 @@
 import { Schema } from "effect";
 
-export class RefreshTokenCommand extends Schema.TaggedClass<RefreshTokenCommand>()("RefreshTokenCommand", {}) {
+export class RefreshTokenCommand extends Schema.TaggedClass<RefreshTokenCommand>()(
+  "RefreshTokenCommand",
+  {},
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(RefreshTokenCommand)(input);
   }

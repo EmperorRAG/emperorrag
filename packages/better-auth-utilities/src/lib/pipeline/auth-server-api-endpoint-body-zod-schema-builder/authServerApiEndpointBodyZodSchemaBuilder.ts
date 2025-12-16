@@ -23,7 +23,10 @@ export const emailSchema = z.string().email("Invalid email format");
  * @pure
  * @description Validates email format and ensures non-empty value.
  */
-export const emailRequiredSchema = z.string().email("Invalid email format").min(1, "Email is required");
+export const emailRequiredSchema = z
+  .string()
+  .email("Invalid email format")
+  .min(1, "Email is required");
 
 /**
  * New email field schema.
@@ -43,7 +46,10 @@ export const newEmailSchema = z.string().email("Invalid email format");
  * @pure
  * @description Validates callback URL format when provided.
  */
-export const callbackURLOptionalSchema = z.string().url("Invalid callback URL").optional();
+export const callbackURLOptionalSchema = z
+  .string()
+  .url("Invalid callback URL")
+  .optional();
 
 /**
  * Optional redirect URL schema.
@@ -51,7 +57,10 @@ export const callbackURLOptionalSchema = z.string().url("Invalid callback URL").
  * @pure
  * @description Validates redirect URL format when provided.
  */
-export const redirectToOptionalSchema = z.string().url("Invalid redirect URL").optional();
+export const redirectToOptionalSchema = z
+  .string()
+  .url("Invalid redirect URL")
+  .optional();
 
 /**
  * Optional error callback URL schema.
@@ -59,7 +68,10 @@ export const redirectToOptionalSchema = z.string().url("Invalid redirect URL").o
  * @pure
  * @description Validates error callback URL format when provided.
  */
-export const errorCallbackURLOptionalSchema = z.string().url("Invalid error callback URL").optional();
+export const errorCallbackURLOptionalSchema = z
+  .string()
+  .url("Invalid error callback URL")
+  .optional();
 
 /**
  * Optional new user callback URL schema.
@@ -67,7 +79,10 @@ export const errorCallbackURLOptionalSchema = z.string().url("Invalid error call
  * @pure
  * @description Validates new user callback URL format when provided.
  */
-export const newUserCallbackURLOptionalSchema = z.string().url("Invalid new user callback URL").optional();
+export const newUserCallbackURLOptionalSchema = z
+  .string()
+  .url("Invalid new user callback URL")
+  .optional();
 
 /**
  * Optional image URL schema.
@@ -75,7 +90,10 @@ export const newUserCallbackURLOptionalSchema = z.string().url("Invalid new user
  * @pure
  * @description Validates image URL format when provided.
  */
-export const imageURLOptionalSchema = z.string().url("Invalid image URL").optional();
+export const imageURLOptionalSchema = z
+  .string()
+  .url("Invalid image URL")
+  .optional();
 
 /**
  * Optional nullable image URL schema.
@@ -83,7 +101,11 @@ export const imageURLOptionalSchema = z.string().url("Invalid image URL").option
  * @pure
  * @description Validates image URL format when provided, allows null to clear image.
  */
-export const imageURLNullableOptionalSchema = z.string().url("Invalid image URL").nullable().optional();
+export const imageURLNullableOptionalSchema = z
+  .string()
+  .url("Invalid image URL")
+  .nullable()
+  .optional();
 
 // =============================================================================
 // TOKEN SCHEMA PROPERTIES
@@ -103,7 +125,9 @@ export const tokenRequiredSchema = z.string().min(1, "Token is required");
  * @pure
  * @description Validates that reset token is a non-empty string.
  */
-export const resetTokenRequiredSchema = z.string().min(1, "Reset token is required");
+export const resetTokenRequiredSchema = z
+  .string()
+  .min(1, "Reset token is required");
 
 /**
  * Required session token schema.
@@ -111,7 +135,9 @@ export const resetTokenRequiredSchema = z.string().min(1, "Reset token is requir
  * @pure
  * @description Validates that session token is a non-empty string.
  */
-export const sessionTokenRequiredSchema = z.string().min(1, "Session token is required");
+export const sessionTokenRequiredSchema = z
+  .string()
+  .min(1, "Session token is required");
 
 /**
  * Optional token schema.
@@ -142,7 +168,9 @@ export const createPasswordSchema = (minLength: number, maxLength: number) => z.
  * @pure
  * @description Validates that current password is provided.
  */
-export const currentPasswordRequiredSchema = z.string().min(1, "Current password is required");
+export const currentPasswordRequiredSchema = z
+  .string()
+  .min(1, "Current password is required");
 
 /**
  * Optional password schema.
@@ -170,7 +198,9 @@ export const providerRequiredSchema = z.string().min(1, "Provider is required");
  * @pure
  * @description Validates that provider ID is a non-empty string.
  */
-export const providerIdRequiredSchema = z.string().min(1, "Provider ID is required");
+export const providerIdRequiredSchema = z
+  .string()
+  .min(1, "Provider ID is required");
 
 // =============================================================================
 // USER PROFILE SCHEMA PROPERTIES
@@ -190,7 +220,10 @@ export const nameRequiredSchema = z.string().min(1, "Name is required");
  * @pure
  * @description Validates name format when provided.
  */
-export const nameOptionalSchema = z.string().min(1, "Name cannot be empty").optional();
+export const nameOptionalSchema = z
+  .string()
+  .min(1, "Name cannot be empty")
+  .optional();
 
 /**
  * Optional email schema (for updates).
@@ -198,7 +231,10 @@ export const nameOptionalSchema = z.string().min(1, "Name cannot be empty").opti
  * @pure
  * @description Validates email format when provided.
  */
-export const emailOptionalSchema = z.string().email("Invalid email format").optional();
+export const emailOptionalSchema = z
+  .string()
+  .email("Invalid email format")
+  .optional();
 
 // =============================================================================
 // BOOLEAN OPTION SCHEMA PROPERTIES
@@ -385,7 +421,10 @@ export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBod
           const maxPasswordLength = options?.maxPasswordLength ?? 32;
           return z.object({
             email: emailSchema,
-            password: createPasswordSchema(minPasswordLength, maxPasswordLength),
+            password: createPasswordSchema(
+              minPasswordLength,
+              maxPasswordLength,
+            ),
           });
         })),
       Match.tag("SignUpEmail", () =>
@@ -396,7 +435,10 @@ export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBod
           const maxPasswordLength = options?.maxPasswordLength ?? 32;
           return z.object({
             email: emailSchema,
-            password: createPasswordSchema(minPasswordLength, maxPasswordLength),
+            password: createPasswordSchema(
+              minPasswordLength,
+              maxPasswordLength,
+            ),
             name: nameOptionalSchema,
             image: imageURLOptionalSchema,
           });
@@ -428,7 +470,10 @@ export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBod
           const maxPasswordLength = options?.maxPasswordLength ?? 32;
           return z.object({
             currentPassword: currentPasswordRequiredSchema,
-            newPassword: createPasswordSchema(minPasswordLength, maxPasswordLength),
+            newPassword: createPasswordSchema(
+              minPasswordLength,
+              maxPasswordLength,
+            ),
             revokeOtherSessions: revokeOtherSessionsOptionalSchema,
           });
         })),
@@ -440,7 +485,10 @@ export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBod
           const minPasswordLength = options?.minPasswordLength ?? 8;
           const maxPasswordLength = options?.maxPasswordLength ?? 32;
           return z.object({
-            newPassword: createPasswordSchema(minPasswordLength, maxPasswordLength),
+            newPassword: createPasswordSchema(
+              minPasswordLength,
+              maxPasswordLength,
+            ),
             token: tokenRequiredSchema,
           });
         })),
@@ -459,7 +507,10 @@ export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBod
           const minPasswordLength = options?.minPasswordLength ?? 8;
           const maxPasswordLength = options?.maxPasswordLength ?? 32;
           return z.object({
-            newPassword: createPasswordSchema(minPasswordLength, maxPasswordLength),
+            newPassword: createPasswordSchema(
+              minPasswordLength,
+              maxPasswordLength,
+            ),
             token: tokenOptionalSchema,
           });
         })),

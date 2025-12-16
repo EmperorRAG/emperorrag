@@ -1,9 +1,9 @@
-import { pipe } from 'effect/Function';
-import * as Match from 'effect/Match';
-import { every } from 'effect/Array';
-import { values } from 'effect/Record';
-import { isValueArrayOfUnknowns } from '../array/array.types.js';
-import { isValueObject } from '../object/object.types.js';
+import { pipe } from "effect/Function";
+import * as Match from "effect/Match";
+import { every } from "effect/Array";
+import { values } from "effect/Record";
+import { isValueArrayOfUnknowns } from "../array/array.types.js";
+import { isValueObject } from "../object/object.types.js";
 
 /**
  * Checks if a value is a record of unknown values.
@@ -21,15 +21,18 @@ import { isValueObject } from '../object/object.types.js';
  * isValueRecordOfUnknown({}); // => true
  * isValueRecordOfUnknown([]); // => false
  */
-export const isValueRecordOfUnknown = (value: unknown): value is Record<string, unknown> =>
-	pipe(
-		Match.value(value),
-		Match.when(
-			(v: unknown): v is Record<string, unknown> => isValueObject(v) && !isValueArrayOfUnknowns(v),
-			() => true
-		),
-		Match.orElse(() => false)
-	);
+export const isValueRecordOfUnknown = (
+  value: unknown,
+): value is Record<string, unknown> =>
+  pipe(
+    Match.value(value),
+    Match.when(
+      (v: unknown): v is Record<string, unknown> =>
+        isValueObject(v) && !isValueArrayOfUnknowns(v),
+      () => true,
+    ),
+    Match.orElse(() => false),
+  );
 
 /**
  * A higher-order function that returns a type guard to check if a value is a record of a specific type.
@@ -50,10 +53,12 @@ export const isValueRecordOfUnknown = (value: unknown): value is Record<string, 
  * isStringRecord({ a: '1', b: 2 }); // => false
  */
 export const isValueRecordOf =
-	<T>(valueGuard: (v: unknown) => v is T) =>
-	(value: unknown): value is Record<string, T> =>
-		pipe(
-			Match.value(value),
-			Match.when(isValueRecordOfUnknown, (record) => pipe(values(record), every(valueGuard))),
-			Match.orElse(() => false)
-		);
+  <T>(valueGuard: (v: unknown) => v is T) =>
+  (value: unknown): value is Record<string, T> =>
+    pipe(
+      Match.value(value),
+      Match.when(isValueRecordOfUnknown, (record) =>
+        pipe(values(record), every(valueGuard)),
+      ),
+      Match.orElse(() => false),
+    );

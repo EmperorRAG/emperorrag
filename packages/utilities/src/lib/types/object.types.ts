@@ -1,6 +1,6 @@
-import { pipe } from 'effect/Function';
-import * as Match from 'effect/Match';
-import { isValueObject } from './object/object.types.js';
+import { pipe } from "effect/Function";
+import * as Match from "effect/Match";
+import { isValueObject } from "./object/object.types.js";
 
 /**
  * Checks if a value is an array.
@@ -34,14 +34,14 @@ export const isArray = (obj: unknown): obj is unknown[] => Array.isArray(obj);
  * isDate('2025-10-09'); // => false
  */
 export const isDate = (obj: unknown): obj is Date =>
-	pipe(
-		Match.value(obj),
-		Match.when(
-			(v: unknown): v is Date => isValueObject(v) && v instanceof Date,
-			() => true
-		),
-		Match.orElse(() => false)
-	);
+  pipe(
+    Match.value(obj),
+    Match.when(
+      (v: unknown): v is Date => isValueObject(v) && v instanceof Date,
+      () => true,
+    ),
+    Match.orElse(() => false),
+  );
 
 /**
  * Checks if a value is a RegExp instance.
@@ -60,14 +60,14 @@ export const isDate = (obj: unknown): obj is Date =>
  * isRegExp('/a/'); // => false
  */
 export const isRegExp = (obj: unknown): obj is RegExp =>
-	pipe(
-		Match.value(obj),
-		Match.when(
-			(v: unknown): v is RegExp => isValueObject(v) && v instanceof RegExp,
-			() => true
-		),
-		Match.orElse(() => false)
-	);
+  pipe(
+    Match.value(obj),
+    Match.when(
+      (v: unknown): v is RegExp => isValueObject(v) && v instanceof RegExp,
+      () => true,
+    ),
+    Match.orElse(() => false),
+  );
 
 /**
  * Checks if an object has a custom `Symbol.toStringTag` property.
@@ -87,14 +87,14 @@ export const isRegExp = (obj: unknown): obj is RegExp =>
  * hasCustomToStringTag({}); // => false
  */
 export const hasCustomToStringTag = (obj: unknown): boolean =>
-	pipe(
-		Match.value(obj),
-		Match.when(
-			(v: unknown): v is object => isValueObject(v) && Symbol.toStringTag in v,
-			() => true
-		),
-		Match.orElse(() => false)
-	);
+  pipe(
+    Match.value(obj),
+    Match.when(
+      (v: unknown): v is object => isValueObject(v) && Symbol.toStringTag in v,
+      () => true,
+    ),
+    Match.orElse(() => false),
+  );
 
 /**
  * Checks if calling `toString()` on an object throws an error.
@@ -116,24 +116,26 @@ export const hasCustomToStringTag = (obj: unknown): boolean =>
  * throwsOnToString({ toString: () => 'ok' }); // => false
  */
 export const throwsOnToString = (obj: unknown): boolean => {
-	const check = (v: { toString: () => string }): boolean => {
-		try {
-			v.toString();
-			return false;
-		} catch {
-			return true;
-		}
-	};
+  const check = (v: { toString: () => string }): boolean => {
+    try {
+      v.toString();
+      return false;
+    } catch {
+      return true;
+    }
+  };
 
-	return pipe(
-		Match.value(obj),
-		Match.when(
-			(v: unknown): v is { toString: () => string } =>
-				isValueObject(v) && Object.prototype.hasOwnProperty.call(v, 'toString') && typeof (v as { toString: () => string }).toString === 'function',
-			check
-		),
-		Match.orElse(() => false)
-	);
+  return pipe(
+    Match.value(obj),
+    Match.when(
+      (v: unknown): v is { toString: () => string } =>
+        isValueObject(v) &&
+        Object.prototype.hasOwnProperty.call(v, "toString") &&
+        typeof (v as { toString: () => string }).toString === "function",
+      check,
+    ),
+    Match.orElse(() => false),
+  );
 };
 
 /**
@@ -155,11 +157,17 @@ export const throwsOnToString = (obj: unknown): boolean => {
  * isPlainObject(new Date()); // => false
  */
 export const isPlainObject = (obj: unknown): obj is object =>
-	pipe(
-		Match.value(obj),
-		Match.when(
-			(v: unknown): v is object => isValueObject(v) && !isArray(v) && !isDate(v) && !isRegExp(v) && !hasCustomToStringTag(v) && !throwsOnToString(v),
-			() => true
-		),
-		Match.orElse(() => false)
-	);
+  pipe(
+    Match.value(obj),
+    Match.when(
+      (v: unknown): v is object =>
+        isValueObject(v) &&
+        !isArray(v) &&
+        !isDate(v) &&
+        !isRegExp(v) &&
+        !hasCustomToStringTag(v) &&
+        !throwsOnToString(v),
+      () => true,
+    ),
+    Match.orElse(() => false),
+  );

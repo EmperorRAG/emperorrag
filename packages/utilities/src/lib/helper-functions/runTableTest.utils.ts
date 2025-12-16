@@ -1,11 +1,11 @@
-import { test, expect } from 'vitest';
-import { pipe } from 'effect/Function';
-import { forEach } from 'effect/Array';
+import { test, expect } from "vitest";
+import { pipe } from "effect/Function";
+import { forEach } from "effect/Array";
 
 type TestCase<Input, Expected> = {
-	input: Input;
-	expected: Expected;
-	label?: string;
+  input: Input;
+  expected: Expected;
+  label?: string;
 };
 
 /**
@@ -29,18 +29,18 @@ type TestCase<Input, Expected> = {
  * );
  */
 export const runTableTestWithMatcher =
-	<Input, Expected>(fn: (input: Input) => Expected) =>
-	(matcher: (result: Expected, expected: Expected) => void) =>
-	(description: string, cases: ReadonlyArray<TestCase<Input, Expected>>) => {
-		test(description, () => {
-			pipe(
-				cases,
-				forEach(({ input, expected }) => {
-					matcher(fn(input), expected);
-				})
-			);
-		});
-	};
+  <Input, Expected>(fn: (input: Input) => Expected) =>
+  (matcher: (result: Expected, expected: Expected) => void) =>
+  (description: string, cases: ReadonlyArray<TestCase<Input, Expected>>) => {
+    test(description, () => {
+      pipe(
+        cases,
+        forEach(({ input, expected }) => {
+          matcher(fn(input), expected);
+        }),
+      );
+    });
+  };
 
 /**
  * A higher-order function that creates a table-driven test runner using Jest's `toBe` matcher.
@@ -58,7 +58,9 @@ export const runTableTestWithMatcher =
  * const testAdd = runExpectToBeTableTest(add(1));
  * testAdd('should add numbers', [{ input: 2, expected: 3 }]);
  */
-export const runExpectToBeTableTest = <Input, Expected>(fn: (input: Input) => Expected) =>
-	runTableTestWithMatcher(fn)((result, expected) => {
-		expect(result).toBe(expected);
-	});
+export const runExpectToBeTableTest = <Input, Expected>(
+  fn: (input: Input) => Expected,
+) =>
+  runTableTestWithMatcher(fn)((result, expected) => {
+    expect(result).toBe(expected);
+  });

@@ -20,9 +20,9 @@ export const updateUserServerController: updateUserPropsFor = (
   params: AuthServerApiUpdateUserParamsFor<AuthServerFor>,
 ) =>
   Effect.gen(function*() {
-    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
-      isAuthServerApiUpdateUserParamsFor,
-    )(params);
+    const validatedParams = yield* validateInputEffect(
+      createAuthServerApiEndpointParamsSchema(),
+    )(isAuthServerApiUpdateUserParamsFor)(params);
     return yield* updateUserServerService(validatedParams);
   }).pipe(
     Effect.provideService(PipelineContext, {

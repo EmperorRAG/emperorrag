@@ -53,6 +53,10 @@ describe("Server Change Email", () => {
     });
 
     // Change email is disabled in test environment
-    await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
+    await expect(
+      Effect.runPromise(
+        Effect.provideService(program, AuthServerTag, authServer),
+      ),
+    ).rejects.toThrow();
   });
 });

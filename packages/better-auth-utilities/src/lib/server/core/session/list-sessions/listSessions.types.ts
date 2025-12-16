@@ -16,8 +16,10 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiListSessionsPropsFor<T extends AuthServerFor = AuthServerFor> = "listSessions" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["listSessions"] : never;
+export type AuthServerApiListSessionsPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "listSessions" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["listSessions"]
+  : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.listSessions.
@@ -27,9 +29,9 @@ export type AuthServerApiListSessionsPropsFor<T extends AuthServerFor = AuthServ
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiListSessionsParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiListSessionsPropsFor<T>
->[0];
+export type AuthServerApiListSessionsParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiListSessionsPropsFor<T>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.listSessions.
@@ -39,9 +41,9 @@ export type AuthServerApiListSessionsParamsFor<T extends AuthServerFor = AuthSer
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiListSessionsResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiListSessionsPropsFor<T>
->;
+export type AuthServerApiListSessionsResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiListSessionsPropsFor<T>>;
 
 /**
  * Function signature for listSessions server service.
@@ -54,7 +56,11 @@ export type AuthServerApiListSessionsResultFor<T extends AuthServerFor = AuthSer
 export interface ListSessionsPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
     params: AuthServerApiListSessionsParamsFor<T>,
-  ): Effect.Effect<Awaited<AuthServerApiListSessionsResultFor<T>>, AuthServerError, T>;
+  ): Effect.Effect<
+    Awaited<AuthServerApiListSessionsResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
 
 /**

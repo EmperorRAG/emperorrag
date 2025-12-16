@@ -18,8 +18,14 @@ describe("Server Revoke Other Sessions", () => {
   it("should fail without authentication", async () => {
     const { authServer } = env;
 
-    const program = revokeOtherSessionsServerService({ headers: new Headers() });
+    const program = revokeOtherSessionsServerService({
+      headers: new Headers(),
+    });
 
-    await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
+    await expect(
+      Effect.runPromise(
+        Effect.provideService(program, AuthServerTag, authServer),
+      ),
+    ).rejects.toThrow();
   });
 });

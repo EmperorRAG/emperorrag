@@ -33,9 +33,9 @@ export const changeEmailServerController: changeEmailPropsFor = (
 ) =>
   Effect.gen(function*() {
     // 1) Validate params input with Effect-based validation pipeline
-    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
-      isAuthServerApiChangeEmailParamsFor,
-    )(params);
+    const validatedParams = yield* validateInputEffect(
+      createAuthServerApiEndpointParamsSchema(),
+    )(isAuthServerApiChangeEmailParamsFor)(params);
 
     // 2) Call the service with the validated params
     const result = yield* changeEmailServerService(validatedParams);

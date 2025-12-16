@@ -20,6 +20,10 @@ describe("Server Account Info", () => {
 
     const program = accountInfoServerService({ body: { accountId: "test" } });
 
-    await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
+    await expect(
+      Effect.runPromise(
+        Effect.provideService(program, AuthServerTag, authServer),
+      ),
+    ).rejects.toThrow();
   });
 });

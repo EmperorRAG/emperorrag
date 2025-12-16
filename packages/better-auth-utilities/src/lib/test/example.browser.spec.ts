@@ -12,7 +12,10 @@ describe("Browser Effect Tests", () => {
     );
   });
 
-  testEffect("should run effect in browser environment", Effect.succeed("browser success"));
+  testEffect(
+    "should run effect in browser environment",
+    Effect.succeed("browser success"),
+  );
 
   it("should interact with DOM", async () => {
     await run(

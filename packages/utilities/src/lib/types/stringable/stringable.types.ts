@@ -1,20 +1,36 @@
-import { pipe } from 'effect/Function';
-import * as Match from 'effect/Match';
-import { isFunction } from '../function.types';
-import { isValueObject } from '../object/object.types';
-import { isPrimitive } from '../primitive.types';
+import { pipe } from "effect/Function";
+import * as Match from "effect/Match";
+import { isFunction } from "../function.types";
+import { isValueObject } from "../object/object.types";
+import { isPrimitive } from "../primitive.types";
 
 /**
  * A type representing any value that can be safely passed to the `String()` constructor.
  * This includes all primitive types, objects, and functions.
  */
-export type Stringable = string | number | boolean | bigint | symbol | undefined | null | object | ((...args: unknown[]) => unknown);
+export type Stringable =
+  | string
+  | number
+  | boolean
+  | bigint
+  | symbol
+  | undefined
+  | null
+  | object
+  | ((...args: unknown[]) => unknown);
 
 /**
  * A type representing any primitive value that can be safely passed to the `String()` constructor.
  * This includes all primitive types except for objects and functions.
  */
-export type PrimitiveStringable = string | number | boolean | bigint | symbol | undefined | null;
+export type PrimitiveStringable =
+  | string
+  | number
+  | boolean
+  | bigint
+  | symbol
+  | undefined
+  | null;
 
 /**
  * Checks if a value can be safely converted to a string.
@@ -35,14 +51,14 @@ export type PrimitiveStringable = string | number | boolean | bigint | symbol | 
  * isValueStringable(() => {}); // => true
  */
 export const isValueStringable = (value: unknown): value is Stringable =>
-	pipe(
-		Match.value(value),
-		Match.when(isPrimitive, () => true),
-		Match.when(isValueObject, () => true),
+  pipe(
+    Match.value(value),
+    Match.when(isPrimitive, () => true),
+    Match.when(isValueObject, () => true),
 
-		Match.when(isFunction, () => true),
-		Match.orElse(() => false)
-	);
+    Match.when(isFunction, () => true),
+    Match.orElse(() => false),
+  );
 
 /**
  * Checks if a value is a primitive that can be safely converted to a string.
@@ -62,9 +78,11 @@ export const isValueStringable = (value: unknown): value is Stringable =>
  * isValuePrimitiveStringable({}); // => false
  * isValuePrimitiveStringable(() => {}); // => false
  */
-export const isValuePrimitiveStringable = (value: unknown): value is PrimitiveStringable =>
-	pipe(
-		Match.value(value),
-		Match.when(isPrimitive, () => true),
-		Match.orElse(() => false)
-	);
+export const isValuePrimitiveStringable = (
+  value: unknown,
+): value is PrimitiveStringable =>
+  pipe(
+    Match.value(value),
+    Match.when(isPrimitive, () => true),
+    Match.orElse(() => false),
+  );

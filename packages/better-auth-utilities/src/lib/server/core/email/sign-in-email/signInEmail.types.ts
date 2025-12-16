@@ -29,8 +29,10 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * });
  * ```
  */
-export type AuthServerApiSignInEmailPropsFor<T extends AuthServerFor = AuthServerFor> = "signInEmail" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["signInEmail"] : never;
+export type AuthServerApiSignInEmailPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "signInEmail" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["signInEmail"]
+  : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.signInEmail.
@@ -47,9 +49,9 @@ export type AuthServerApiSignInEmailPropsFor<T extends AuthServerFor = AuthServe
  * // { body: { email: string, password: string, rememberMe?: boolean, ... }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiSignInEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiSignInEmailPropsFor<T>
->[0];
+export type AuthServerApiSignInEmailParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiSignInEmailPropsFor<T>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.signInEmail.
@@ -66,9 +68,9 @@ export type AuthServerApiSignInEmailParamsFor<T extends AuthServerFor = AuthServ
  * // Promise<{ user: { id: string, email: string, ... }, session: { id: string, ... }, ... }>
  * ```
  */
-export type AuthServerApiSignInEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiSignInEmailPropsFor<T>
->;
+export type AuthServerApiSignInEmailResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiSignInEmailPropsFor<T>>;
 
 /**
  * Function signature for signInEmail server service.
@@ -111,7 +113,11 @@ export type AuthServerApiSignInEmailResultFor<T extends AuthServerFor = AuthServ
 export interface SignInEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
     params: AuthServerApiSignInEmailParamsFor<T>,
-  ): Effect.Effect<Awaited<AuthServerApiSignInEmailResultFor<T>>, AuthServerError, T>;
+  ): Effect.Effect<
+    Awaited<AuthServerApiSignInEmailResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
 
 /**

@@ -40,8 +40,12 @@ export const requestPasswordResetClient: requestPasswordResetProps = (deps) => (
   return Effect.tryPromise({
     try: () => authClient.forgetPassword(input),
     catch: (error) => {
-      const message = error instanceof Error ? error.message : "Request password reset failed";
-      const status = error && typeof error === "object" && "status" in error ? (error.status as number) : undefined;
+      const message = error instanceof Error
+        ? error.message
+        : "Request password reset failed";
+      const status = error && typeof error === "object" && "status" in error
+        ? (error.status as number)
+        : undefined;
       return new EmailAuthApiError(message, status, error);
     },
   });

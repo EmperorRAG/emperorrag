@@ -17,10 +17,10 @@ import type { EmailAuthClientDeps } from "../shared/email.types";
  * ```
  */
 export type ChangePasswordInput<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
-> = Parameters<
-  T["changePassword"]
->[0];
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
+> = Parameters<T["changePassword"]>[0];
 
 /**
  * Type helper to extract the result type from changePassword.
@@ -35,7 +35,9 @@ export type ChangePasswordInput<
  * ```
  */
 export type ChangePasswordResult<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > = ReturnType<T["changePassword"]>;
 
 /**
@@ -54,9 +56,13 @@ export type ChangePasswordResult<
  * ```
  */
 export interface changePasswordProps<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > {
   (
     deps: EmailAuthClientDeps<T>,
-  ): (input: ChangePasswordInput<T>) => Effect.Effect<Awaited<ChangePasswordResult<T>>, EmailAuthError>;
+  ): (
+    input: ChangePasswordInput<T>,
+  ) => Effect.Effect<Awaited<ChangePasswordResult<T>>, EmailAuthError>;
 }

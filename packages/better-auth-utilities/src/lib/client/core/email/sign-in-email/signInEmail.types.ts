@@ -17,9 +17,12 @@ import type { EmailAuthClientDeps } from "../shared/email.types";
  * ```
  */
 export type SignInEmailInput<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > = Parameters<
-  "email" extends keyof AuthClientSignInFor<T> ? AuthClientSignInFor<T>["email"] : never
+  "email" extends keyof AuthClientSignInFor<T> ? AuthClientSignInFor<T>["email"]
+    : never
 >[0];
 
 /**
@@ -35,9 +38,12 @@ export type SignInEmailInput<
  * ```
  */
 export type SignInEmailResult<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > = ReturnType<
-  "email" extends keyof AuthClientSignInFor<T> ? AuthClientSignInFor<T>["email"] : never
+  "email" extends keyof AuthClientSignInFor<T> ? AuthClientSignInFor<T>["email"]
+    : never
 >;
 
 /**
@@ -56,9 +62,13 @@ export type SignInEmailResult<
  * ```
  */
 export interface signInEmailProps<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > {
   (
     deps: EmailAuthClientDeps<T>,
-  ): (input: SignInEmailInput<T>) => Effect.Effect<Awaited<SignInEmailResult<T>>, EmailAuthError>;
+  ): (
+    input: SignInEmailInput<T>,
+  ) => Effect.Effect<Awaited<SignInEmailResult<T>>, EmailAuthError>;
 }

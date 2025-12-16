@@ -105,7 +105,7 @@ import type { AuthServerApiResetPasswordParamsFor, resetPasswordPropsFor } from 
 export const resetPasswordServerService: resetPasswordPropsFor = (
   params: AuthServerApiResetPasswordParamsFor<AuthServerFor>,
 ) =>
-  Effect.flatMap(
-    AuthServerTag,
-    (authServer) => Effect.tryPromise(() => authServer.api.resetPassword(params)).pipe(Effect.catchAll(mapApiError)),
-  );
+  Effect.flatMap(AuthServerTag, (authServer) =>
+    Effect.tryPromise(() => authServer.api.resetPassword(params)).pipe(
+      Effect.catchAll(mapApiError),
+    ));

@@ -21,11 +21,9 @@ export const requestPasswordResetCallbackServerController: requestPasswordResetC
 ) =>
   Effect.gen(function*() {
     // 1) Validate params input with Effect-based validation pipeline
-    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
-      isAuthServerApiRequestPasswordResetCallbackParamsFor,
-    )(
-      params,
-    );
+    const validatedParams = yield* validateInputEffect(
+      createAuthServerApiEndpointParamsSchema(),
+    )(isAuthServerApiRequestPasswordResetCallbackParamsFor)(params);
 
     // 2) Call the service with the validated params
     return yield* requestPasswordResetCallbackServerService(validatedParams);

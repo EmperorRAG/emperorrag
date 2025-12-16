@@ -4,51 +4,50 @@ These are **constraints you’re operating under**, not stylistic preferences.
 
 ## C1. Runtime-driven schemas
 
-* Validation schemas depend on:
+- Validation schemas depend on:
+  - runtime `authServer` config
+  - plugin-defined additional fields
 
-  * runtime `authServer` config
-  * plugin-defined additional fields
-* Compile-time typing cannot fully represent all fields
+- Compile-time typing cannot fully represent all fields
 
 ## C2. Additional fields strategy
 
-* Unknown keys:
+- Unknown keys:
+  - allowed in input
+  - **ignored** unless configured
 
-  * allowed in input
-  * **ignored** unless configured
-* Only configured fields:
+- Only configured fields:
+  - are validated
+  - may be required
 
-  * are validated
-  * may be required
-* Unknown field types → `Schema.Unknown`
+- Unknown field types → `Schema.Unknown`
 
 ## C3. Strict adapter semantics
 
-* Server adapters must:
+- Server adapters must:
+  - extract transport context
+  - validate it strictly
+  - fail early
 
-  * extract transport context
-  * validate it strictly
-  * fail early
-* Adapters are allowed to be strict even if downstream APIs are lenient
+- Adapters are allowed to be strict even if downstream APIs are lenient
 
 ## C4. Shared core across client & server
 
-* Same `*CommandSchema` is used for:
+- Same `*CommandSchema` is used for:
+  - authClient (body-only)
+  - authServer (via adapter)
 
-  * authClient (body-only)
-  * authServer (via adapter)
-* Divergence is handled via adapters, not forks
+- Divergence is handled via adapters, not forks
 
 ## C5. Minimal hidden magic
 
-* No “accept many shapes” controller inputs
-* No implicit nesting or guessing
-* Every accepted shape is **explicitly adapted**
+- No “accept many shapes” controller inputs
+- No implicit nesting or guessing
+- Every accepted shape is **explicitly adapted**
 
 ## C6. Refactor-friendly error handling
 
-* Early failures (e.g. missing `body`) are structured so they can later be:
-
-  * formatted
-  * logged
-  * adapted (e.g. to HTTP responses)
+- Early failures (e.g. missing `body`) are structured so they can later be:
+  - formatted
+  - logged
+  - adapted (e.g. to HTTP responses)

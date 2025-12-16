@@ -1,7 +1,7 @@
-import { pipe } from 'effect/Function';
-import * as Match from 'effect/Match';
-import { isValueNumber } from '../number/number.types.js';
-import { isValueString } from '../string/string.types.js';
+import { pipe } from "effect/Function";
+import * as Match from "effect/Match";
+import { isValueNumber } from "../number/number.types.js";
+import { isValueString } from "../string/string.types.js";
 
 /**
  * Checks if a value is either a string or a number.
@@ -20,10 +20,12 @@ import { isValueString } from '../string/string.types.js';
  * isValueStringOrNumber(123); // => true
  * isValueStringOrNumber(true); // => false
  */
-export const isValueStringOrNumber = (value: unknown): value is string | number =>
-	pipe(
-		Match.value(value),
-		Match.when(isValueString, () => true),
-		Match.when(isValueNumber, () => true),
-		Match.orElse(() => false)
-	);
+export const isValueStringOrNumber = (
+  value: unknown,
+): value is string | number =>
+  pipe(
+    Match.value(value),
+    Match.when(isValueString, () => true),
+    Match.when(isValueNumber, () => true),
+    Match.orElse(() => false),
+  );

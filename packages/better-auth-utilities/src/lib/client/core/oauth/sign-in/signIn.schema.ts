@@ -7,7 +7,17 @@ import { z } from "zod";
  * Requires a provider and optional callbackURL/errorURL.
  */
 export const signInSocialSchema = z.object({
-  provider: z.enum(["github", "google", "apple", "discord", "facebook", "microsoft", "spotify", "twitch", "twitter"]), // Add more as needed or use string()
+  provider: z.enum([
+    "github",
+    "google",
+    "apple",
+    "discord",
+    "facebook",
+    "microsoft",
+    "spotify",
+    "twitch",
+    "twitter",
+  ]), // Add more as needed or use string()
   callbackURL: z.string().optional(),
   errorCallbackURL: z.string().optional(),
   newUserCallbackURL: z.string().optional(),

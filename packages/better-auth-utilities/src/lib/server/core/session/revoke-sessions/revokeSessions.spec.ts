@@ -20,6 +20,10 @@ describe("Server Revoke Sessions", () => {
 
     const program = revokeSessionsServerService({ headers: new Headers() });
 
-    await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
+    await expect(
+      Effect.runPromise(
+        Effect.provideService(program, AuthServerTag, authServer),
+      ),
+    ).rejects.toThrow();
   });
 });

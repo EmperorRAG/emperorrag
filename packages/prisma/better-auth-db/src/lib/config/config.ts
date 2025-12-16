@@ -4,33 +4,45 @@
  * Uses the adapter pattern from better-auth-utilities for NestJS integration.
  */
 
-import { createClientConfig } from '@emperorrag/better-auth-utilities/client';
-import { defineConfig } from '@emperorrag/better-auth-utilities/config';
-import { createServerConfig } from '@emperorrag/better-auth-utilities/server';
-import { admin, /*emailOTP, twoFactor,*/ apiKey, bearer, jwt, organization, username } from 'better-auth/plugins';
+import { createClientConfig } from "@emperorrag/better-auth-utilities/client";
+import { defineConfig } from "@emperorrag/better-auth-utilities/config";
+import { createServerConfig } from "@emperorrag/better-auth-utilities/server";
+import {
+  admin,
+  /*emailOTP, twoFactor,*/ apiKey,
+  bearer,
+  jwt,
+  organization,
+  username,
+} from "better-auth/plugins";
 
 const plugins = {
-	// Username authentication support (3-50 characters)
-	username: username({
-		minUsernameLength: 3,
-		maxUsernameLength: 50,
-	}),
+  // Username authentication support (3-50 characters)
+  username: username({
+    minUsernameLength: 3,
+    maxUsernameLength: 50,
+  }),
 
-	// JWT token support
-	jwt: jwt(),
+  // JWT token support
+  jwt: jwt(),
 
-	// Bearer token support
-	bearer: bearer(),
+  // Bearer token support
+  bearer: bearer(),
 
-	// Admin role management
-	admin: admin({ adminUserIds: [process.env.BETTER_AUTH_NEST_JS_MICROSERVICE_USER_ID ?? '0', process.env.BETTER_AUTH_NEXT_JS_FRONTEND_USER_ID ?? '1'] }),
+  // Admin role management
+  admin: admin({
+    adminUserIds: [
+      process.env.BETTER_AUTH_NEST_JS_MICROSERVICE_USER_ID ?? "0",
+      process.env.BETTER_AUTH_NEXT_JS_FRONTEND_USER_ID ?? "1",
+    ],
+  }),
 
-	// Organization/multi-tenancy support
-	organization: organization(),
+  // Organization/multi-tenancy support
+  organization: organization(),
 
-	// DON'T REMOVE
-	// Email OTP authentication (6-digit OTP, 5 minutes expiry)
-	/*emailOTP({
+  // DON'T REMOVE
+  // Email OTP authentication (6-digit OTP, 5 minutes expiry)
+  /*emailOTP({
 		otpLength: 6,
 		expiresIn: 300, // 5 minutes
 		async sendVerificationOTP({ email, otp, type }) {
@@ -41,9 +53,9 @@ const plugins = {
 		},
 	}),*/
 
-	// DON'T REMOVE
-	// Two-factor authentication with TOTP
-	/*twoFactor({
+  // DON'T REMOVE
+  // Two-factor authentication with TOTP
+  /*twoFactor({
 		issuer: 'My Auth Service',
 		otpOptions: {
 			async sendOTP({ user, otp }) {
@@ -54,24 +66,30 @@ const plugins = {
 		},
 	}),*/
 
-	// API key management
-	apiKey: apiKey(),
+  // API key management
+  apiKey: apiKey(),
 };
 
 const serverConfig = createServerConfig({
-	secret: process.env.BETTER_AUTH_SECRET || 'default-development-secret-change-in-production',
-	// Email and password authentication
-	emailAndPassword: {
-		enabled: true,
-	},
-	// Session configuration
-	session: {
-		expiresIn: 60 * 60 * 24 * 7, // 7 days in seconds
-		updateAge: 60 * 60 * 24, // 1 day in seconds
-	},
-	// CORS configuration
-	trustedOrigins: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:4200'],
-	plugins: plugins,
+  secret:
+    process.env.BETTER_AUTH_SECRET ||
+    "default-development-secret-change-in-production",
+  // Email and password authentication
+  emailAndPassword: {
+    enabled: true,
+  },
+  // Session configuration
+  session: {
+    expiresIn: 60 * 60 * 24 * 7, // 7 days in seconds
+    updateAge: 60 * 60 * 24, // 1 day in seconds
+  },
+  // CORS configuration
+  trustedOrigins: [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://localhost:4200",
+  ],
+  plugins: plugins,
 });
 
 const clientConfig = createClientConfig({ plugins: plugins });
@@ -85,8 +103,22 @@ const clientConfig = createClientConfig({ plugins: plugins });
  * provide sensible fallbacks for local development yet remain overrideable via process variables.
  */
 export const betterAuthConfig = defineConfig({
-	server: serverConfig,
-	client: clientConfig,
-	enabledServerPlugins: ['jwt', 'admin', 'apiKey', 'bearer', 'username', 'organization'],
-	enabledClientPlugins: ['jwt', 'admin', 'apiKey', 'bearer', 'username', 'organization'],
+  server: serverConfig,
+  client: clientConfig,
+  enabledServerPlugins: [
+    "jwt",
+    "admin",
+    "apiKey",
+    "bearer",
+    "username",
+    "organization",
+  ],
+  enabledClientPlugins: [
+    "jwt",
+    "admin",
+    "apiKey",
+    "bearer",
+    "username",
+    "organization",
+  ],
 });

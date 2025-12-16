@@ -33,7 +33,9 @@ describe("Server Sign In Email", () => {
       },
     });
 
-    const res = await Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer));
+    const res = await Effect.runPromise(
+      Effect.provideService(program, AuthServerTag, authServer),
+    );
 
     expect(res).toBeDefined();
     expect(res.user).toBeDefined();

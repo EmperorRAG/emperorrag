@@ -12,7 +12,7 @@ import type { accountInfoPropsFor, AuthServerApiAccountInfoParamsFor } from "./a
 export const accountInfoServerService: accountInfoPropsFor = (
   params: AuthServerApiAccountInfoParamsFor<AuthServerFor>,
 ) =>
-  Effect.flatMap(
-    AuthServerTag,
-    (authServer) => Effect.tryPromise(() => authServer.api.accountInfo(params)).pipe(Effect.catchAll(mapApiError)),
-  );
+  Effect.flatMap(AuthServerTag, (authServer) =>
+    Effect.tryPromise(() => authServer.api.accountInfo(params)).pipe(
+      Effect.catchAll(mapApiError),
+    ));

@@ -11,8 +11,10 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiSignInSocialPropsFor<T extends AuthServerFor = AuthServerFor> = "signInSocial" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["signInSocial"] : never;
+export type AuthServerApiSignInSocialPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "signInSocial" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["signInSocial"]
+  : never;
 
 /**
  * Type alias for the parameters of the signInSocial API.
@@ -23,9 +25,9 @@ export type AuthServerApiSignInSocialPropsFor<T extends AuthServerFor = AuthServ
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiSignInSocialParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiSignInSocialPropsFor<T>
->[0];
+export type AuthServerApiSignInSocialParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiSignInSocialPropsFor<T>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.signInSocial.
@@ -36,9 +38,9 @@ export type AuthServerApiSignInSocialParamsFor<T extends AuthServerFor = AuthSer
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiSignInSocialResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiSignInSocialPropsFor<T>
->;
+export type AuthServerApiSignInSocialResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiSignInSocialPropsFor<T>>;
 
 /**
  * Type guard for AuthServerApiSignInSocialParamsFor.
@@ -51,9 +53,9 @@ export type AuthServerApiSignInSocialResultFor<T extends AuthServerFor = AuthSer
  * @param u - The unknown value to check
  * @returns True if u is a valid AuthServerApiSignInSocialParamsFor, false otherwise
  */
-export function isAuthServerApiSignInSocialParamsFor<T extends AuthServerFor = AuthServerFor>(
-  u: unknown,
-): u is AuthServerApiSignInSocialParamsFor<T> {
+export function isAuthServerApiSignInSocialParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+>(u: unknown): u is AuthServerApiSignInSocialParamsFor<T> {
   return typeof u === "object" && u !== null && "body" in u;
 }
 

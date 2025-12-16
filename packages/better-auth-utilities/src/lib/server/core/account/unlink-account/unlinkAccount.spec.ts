@@ -28,7 +28,9 @@ describe("Server Unlink Account", () => {
 
     const program = Effect.flatMap(AuthServerTag, (server) => Effect.succeed(server));
 
-    const result = await Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer));
+    const result = await Effect.runPromise(
+      Effect.provideService(program, AuthServerTag, authServer),
+    );
 
     expect(result).toBe(authServer);
   });

@@ -29,8 +29,10 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * });
  * ```
  */
-export type AuthServerApiResetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> = "resetPassword" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["resetPassword"] : never;
+export type AuthServerApiResetPasswordPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "resetPassword" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["resetPassword"]
+  : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.resetPassword.
@@ -47,9 +49,9 @@ export type AuthServerApiResetPasswordPropsFor<T extends AuthServerFor = AuthSer
  * // { body: { token: string, newPassword: string }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiResetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiResetPasswordPropsFor<T>
->[0];
+export type AuthServerApiResetPasswordParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiResetPasswordPropsFor<T>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.resetPassword.
@@ -66,9 +68,9 @@ export type AuthServerApiResetPasswordParamsFor<T extends AuthServerFor = AuthSe
  * // Promise<{ status: boolean, session?: { id: string, ... }, user?: { id: string, ... } }>
  * ```
  */
-export type AuthServerApiResetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiResetPasswordPropsFor<T>
->;
+export type AuthServerApiResetPasswordResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiResetPasswordPropsFor<T>>;
 
 /**
  * Function signature for resetPassword server service.
@@ -108,10 +110,16 @@ export type AuthServerApiResetPasswordResultFor<T extends AuthServerFor = AuthSe
  * );
  * ```
  */
-export interface ResetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface ResetPasswordPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> {
   (
     params: AuthServerApiResetPasswordParamsFor<T>,
-  ): Effect.Effect<Awaited<AuthServerApiResetPasswordResultFor<T>>, AuthServerError, T>;
+  ): Effect.Effect<
+    Awaited<AuthServerApiResetPasswordResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
 
 /**

@@ -20,9 +20,9 @@ export const listSessionsServerController: listSessionsPropsFor = (
   params: AuthServerApiListSessionsParamsFor<AuthServerFor>,
 ) =>
   Effect.gen(function*() {
-    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
-      isAuthServerApiListSessionsParamsFor,
-    )(params);
+    const validatedParams = yield* validateInputEffect(
+      createAuthServerApiEndpointParamsSchema(),
+    )(isAuthServerApiListSessionsParamsFor)(params);
     return yield* listSessionsServerService(validatedParams);
   }).pipe(
     Effect.provideService(PipelineContext, {

@@ -1,5 +1,5 @@
-import { pipe } from 'effect/Function';
-import * as Match from 'effect/Match';
+import { pipe } from "effect/Function";
+import * as Match from "effect/Match";
 
 /**
  * A type alias for any function.
@@ -22,7 +22,8 @@ export type AnyFunction = (...args: unknown[]) => unknown;
  * isFunction(() => {}); // => true
  * isFunction('not a function'); // => false
  */
-export const isFunction = (value: unknown): value is AnyFunction => typeof value === 'function';
+export const isFunction = (value: unknown): value is AnyFunction =>
+  typeof value === "function";
 
 /**
  * Checks if the given function is an arrow function.
@@ -45,11 +46,11 @@ export const isFunction = (value: unknown): value is AnyFunction => typeof value
  * isArrowFunction(namedFn); // => false
  */
 export const isArrowFunction = (fn: unknown): fn is AnyFunction =>
-	pipe(
-		Match.value(fn),
-		Match.when(isFunction, (f) => !f.name || f.name === 'anonymous'),
-		Match.orElse(() => false)
-	);
+  pipe(
+    Match.value(fn),
+    Match.when(isFunction, (f) => !f.name || f.name === "anonymous"),
+    Match.orElse(() => false),
+  );
 
 /**
  * Checks if the given function is a named function.
@@ -72,8 +73,8 @@ export const isArrowFunction = (fn: unknown): fn is AnyFunction =>
  * isNamedFunction(arrowFn); // => false
  */
 export const isNamedFunction = (fn: unknown): fn is AnyFunction =>
-	pipe(
-		Match.value(fn),
-		Match.when(isFunction, (f) => !!f.name && f.name !== 'anonymous'),
-		Match.orElse(() => false)
-	);
+  pipe(
+    Match.value(fn),
+    Match.when(isFunction, (f) => !!f.name && f.name !== "anonymous"),
+    Match.orElse(() => false),
+  );

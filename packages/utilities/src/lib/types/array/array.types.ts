@@ -1,9 +1,9 @@
-import { pipe } from 'effect/Function';
-import * as Match from 'effect/Match';
-import { every } from 'effect/Array';
-import { isArray } from '../object.types.js';
-import { isString } from '../primitive.types.js';
-import { isValueStringable } from '../stringable/stringable.types.js';
+import { pipe } from "effect/Function";
+import * as Match from "effect/Match";
+import { every } from "effect/Array";
+import { isArray } from "../object.types.js";
+import { isString } from "../primitive.types.js";
+import { isValueStringable } from "../stringable/stringable.types.js";
 
 /**
  * Checks if a value is an array of unknown elements.
@@ -18,7 +18,8 @@ import { isValueStringable } from '../stringable/stringable.types.js';
  * isValueArrayOfUnknowns([1, 'a']); // => true
  * isValueArrayOfUnknowns({}); // => false
  */
-export const isValueArrayOfUnknowns = (value: unknown): value is unknown[] => isArray(value);
+export const isValueArrayOfUnknowns = (value: unknown): value is unknown[] =>
+  isArray(value);
 
 /**
  * A higher-order function that returns a type guard to check if a value is an array of a specific type.
@@ -39,13 +40,13 @@ export const isValueArrayOfUnknowns = (value: unknown): value is unknown[] => is
  * isNumberArray([1, '2', 3]); // => false
  */
 export const isValueArrayOf =
-	<T>(valueGuard: (v: unknown) => v is T) =>
-	(value: unknown): value is T[] =>
-		pipe(
-			Match.value(value),
-			Match.when(isValueArrayOfUnknowns, (arr) => pipe(arr, every(valueGuard))),
-			Match.orElse(() => false)
-		);
+  <T>(valueGuard: (v: unknown) => v is T) =>
+  (value: unknown): value is T[] =>
+    pipe(
+      Match.value(value),
+      Match.when(isValueArrayOfUnknowns, (arr) => pipe(arr, every(valueGuard))),
+      Match.orElse(() => false),
+    );
 
 /**
  * A type guard that checks if a value is an array of strings.

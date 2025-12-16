@@ -3,16 +3,24 @@ import { pipe } from "effect/Function";
 import { AuthServerInputError as EmailAuthServerInputError } from "../../../../errors/authServer.error";
 
 // 1. ensureRecord
-export const ensureRecord =
-  (message: string) => (u: unknown): Effect.Effect<Readonly<Record<string, unknown>>, EmailAuthServerInputError> => {
-    if (typeof u === "object" && u !== null && !Array.isArray(u)) {
-      return Effect.succeed(u as Readonly<Record<string, unknown>>);
-    }
-    return Effect.fail(new EmailAuthServerInputError({ message }));
-  };
+export const ensureRecord = (message: string) =>
+(
+  u: unknown,
+): Effect.Effect<
+  Readonly<Record<string, unknown>>,
+  EmailAuthServerInputError
+> => {
+  if (typeof u === "object" && u !== null && !Array.isArray(u)) {
+    return Effect.succeed(u as Readonly<Record<string, unknown>>);
+  }
+  return Effect.fail(new EmailAuthServerInputError({ message }));
+};
 
 // 2. getPropE
-export const getPropE = (key: string) => (record: Readonly<Record<string, unknown>>): Effect.Effect<unknown, never> => {
+export const getPropE = (key: string) =>
+(
+  record: Readonly<Record<string, unknown>>,
+): Effect.Effect<unknown, never> => {
   return Effect.succeed(record[key]);
 };
 
@@ -51,11 +59,19 @@ export const requireHeaders = (message: string) => (u: unknown): Effect.Effect<H
 };
 
 // 7. extractBodyStrict
-export const extractBodyStrict = (rawParams: unknown): Effect.Effect<unknown, EmailAuthServerInputError> =>
+export const extractBodyStrict = (
+  rawParams: unknown,
+): Effect.Effect<unknown, EmailAuthServerInputError> =>
   pipe(
     rawParams,
     ensureRecord("rawParams must be an object"),
-    Effect.flatMap((params) => pipe(params, getPropE("body"), Effect.flatMap(requireDefined("body is missing")))),
+    Effect.flatMap((params) =>
+      pipe(
+        params,
+        getPropE("body"),
+        Effect.flatMap(requireDefined("body is missing")),
+      )
+    ),
   );
 
 export type SignUpTransportCtx = Readonly<{
@@ -82,13 +98,17 @@ export const extractSignUpCtxStrict = (
         const asResponse = yield* pipe(
           params,
           getPropE("asResponse"),
-          Effect.flatMap(optionalOf(requireBoolean("asResponse must be boolean"))),
+          Effect.flatMap(
+            optionalOf(requireBoolean("asResponse must be boolean")),
+          ),
         );
 
         const returnHeaders = yield* pipe(
           params,
           getPropE("returnHeaders"),
-          Effect.flatMap(optionalOf(requireBoolean("returnHeaders must be boolean"))),
+          Effect.flatMap(
+            optionalOf(requireBoolean("returnHeaders must be boolean")),
+          ),
         );
 
         return {

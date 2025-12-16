@@ -29,8 +29,10 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * });
  * ```
  */
-export type AuthServerApiChangePasswordPropsFor<T extends AuthServerFor = AuthServerFor> = "changePassword" extends
-  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["changePassword"] : never;
+export type AuthServerApiChangePasswordPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "changePassword" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["changePassword"]
+  : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.changePassword.
@@ -47,9 +49,9 @@ export type AuthServerApiChangePasswordPropsFor<T extends AuthServerFor = AuthSe
  * // { body: { currentPassword: string, newPassword: string, revokeOtherSessions?: boolean }, headers: Headers, ... }
  * ```
  */
-export type AuthServerApiChangePasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiChangePasswordPropsFor<T>
->[0];
+export type AuthServerApiChangePasswordParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiChangePasswordPropsFor<T>>[0];
 
 /**
  * Type helper to extract the return type from auth.api.changePassword.
@@ -66,9 +68,9 @@ export type AuthServerApiChangePasswordParamsFor<T extends AuthServerFor = AuthS
  * // Promise<{ status: boolean, session?: { id: string, ... } }>
  * ```
  */
-export type AuthServerApiChangePasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiChangePasswordPropsFor<T>
->;
+export type AuthServerApiChangePasswordResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiChangePasswordPropsFor<T>>;
 
 /**
  * Function signature for changePassword server service.
@@ -110,10 +112,16 @@ export type AuthServerApiChangePasswordResultFor<T extends AuthServerFor = AuthS
  * );
  * ```
  */
-export interface ChangePasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface ChangePasswordPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> {
   (
     params: AuthServerApiChangePasswordParamsFor<T>,
-  ): Effect.Effect<Awaited<AuthServerApiChangePasswordResultFor<T>>, AuthServerError, T>;
+  ): Effect.Effect<
+    Awaited<AuthServerApiChangePasswordResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
 
 /**

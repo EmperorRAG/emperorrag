@@ -2,10 +2,13 @@ import { Schema } from "effect";
 import { EmailSchema } from "../../emails/email.schema";
 import { UrlSchema } from "../../urls/url.schema";
 
-export class ChangeEmailCommand extends Schema.TaggedClass<ChangeEmailCommand>()("ChangeEmailCommand", {
-  newEmail: EmailSchema,
-  callbackURL: Schema.optional(UrlSchema),
-}) {
+export class ChangeEmailCommand extends Schema.TaggedClass<ChangeEmailCommand>()(
+  "ChangeEmailCommand",
+  {
+    newEmail: EmailSchema,
+    callbackURL: Schema.optional(UrlSchema),
+  },
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(ChangeEmailCommand)(input);
   }

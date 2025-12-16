@@ -141,7 +141,9 @@ describe("better-auth-utilities: config", () => {
       expect(config).toBeDefined();
       expect(config.server).toBeDefined();
       expect(config.client).toBeDefined();
-      expect(config.server.secret).toBe("test-secret-key-minimum-32-chars-long");
+      expect(config.server.secret).toBe(
+        "test-secret-key-minimum-32-chars-long",
+      );
     });
 
     it("should handle server plugins configuration", () => {
@@ -298,9 +300,13 @@ describe("better-auth-utilities: config", () => {
         client: {},
       });
 
-      expect(config.server.emailVerification?.sendVerificationEmail).toBe(sendEmail);
+      expect(config.server.emailVerification?.sendVerificationEmail).toBe(
+        sendEmail,
+      );
       expect(config.server.emailVerification?.sendOnSignUp).toBe(true);
-      expect(config.server.emailVerification?.autoSignInAfterVerification).toBe(true);
+      expect(config.server.emailVerification?.autoSignInAfterVerification).toBe(
+        true,
+      );
     });
 
     it("should preserve type information with generics", () => {
@@ -320,7 +326,14 @@ describe("better-auth-utilities: config", () => {
 
     it("should handle all core authentication plugins", () => {
       const config = defineConfig({
-        enabledServerPlugins: ["username", "magicLink", "twoFactor", "admin", "organization", "passkey"] as const,
+        enabledServerPlugins: [
+          "username",
+          "magicLink",
+          "twoFactor",
+          "admin",
+          "organization",
+          "passkey",
+        ] as const,
         server: {
           secret: "test-secret-key-minimum-32-chars-long",
           plugins: {
@@ -345,7 +358,12 @@ describe("better-auth-utilities: config", () => {
 
     it("should handle all OAuth/Auth plugins", () => {
       const config = defineConfig({
-        enabledServerPlugins: ["oidc", "siwe", "genericOAuth", "oneTap"] as const,
+        enabledServerPlugins: [
+          "oidc",
+          "siwe",
+          "genericOAuth",
+          "oneTap",
+        ] as const,
         server: {
           secret: "test-secret-key-minimum-32-chars-long",
           plugins: {
@@ -366,7 +384,12 @@ describe("better-auth-utilities: config", () => {
 
     it("should handle all integration plugins", () => {
       const config = defineConfig({
-        enabledServerPlugins: ["stripe", "polar", "dodopayments", "dubAnalytics"] as const,
+        enabledServerPlugins: [
+          "stripe",
+          "polar",
+          "dodopayments",
+          "dubAnalytics",
+        ] as const,
         server: {
           secret: "test-secret-key-minimum-32-chars-long",
           plugins: {
@@ -387,7 +410,12 @@ describe("better-auth-utilities: config", () => {
 
     it("should handle all security plugins", () => {
       const config = defineConfig({
-        enabledServerPlugins: ["bearer", "jwt", "apiKey", "haveIBeenPwned"] as const,
+        enabledServerPlugins: [
+          "bearer",
+          "jwt",
+          "apiKey",
+          "haveIBeenPwned",
+        ] as const,
         server: {
           secret: "test-secret-key-minimum-32-chars-long",
           plugins: {
@@ -424,7 +452,11 @@ describe("better-auth-utilities: config", () => {
             anonymous: { enabled: true, emailDomainName: "temp.example.com" },
             phoneNumber: { enabled: true },
             emailOTP: { enabled: true, expiresIn: "10m" },
-            deviceAuthorization: { enabled: true, expiresIn: "15m", interval: "5s" },
+            deviceAuthorization: {
+              enabled: true,
+              expiresIn: "15m",
+              interval: "5s",
+            },
             lastLoginMethod: { enabled: true, cookieName: "last_login" },
             oneTimeToken: { enabled: true, expiresIn: "5m" },
           },
@@ -601,10 +633,16 @@ describe("better-auth-utilities: config", () => {
   describe("Integration Tests", () => {
     it("should create a complete production-ready configuration", () => {
       const config = defineConfig({
-        enabledServerPlugins: ["jwt", "twoFactor", "organization", "stripe"] as const,
+        enabledServerPlugins: [
+          "jwt",
+          "twoFactor",
+          "organization",
+          "stripe",
+        ] as const,
         enabledClientPlugins: ["twoFactor", "organization", "stripe"] as const,
         server: {
-          secret: process.env.BETTER_AUTH_SECRET || "fallback-secret-key-32-chars-long",
+          secret: process.env.BETTER_AUTH_SECRET
+            || "fallback-secret-key-32-chars-long",
           database: process.env.DATABASE_URL || "postgresql://localhost/prod",
           appName: "Production App",
           baseURL: "https://api.production.com",
@@ -711,7 +749,9 @@ describe("better-auth-utilities: config", () => {
         enabledServerPlugins: allPlugins as readonly AvailablePlugins[],
         server: {
           secret: "all-plugins-secret-key-32-chars-long",
-          plugins: Object.fromEntries(allPlugins.map((plugin) => [plugin, { enabled: true }])),
+          plugins: Object.fromEntries(
+            allPlugins.map((plugin) => [plugin, { enabled: true }]),
+          ),
         },
         client: {},
       });
@@ -811,7 +851,9 @@ describe("better-auth-utilities: config", () => {
           client: {},
         });
 
-        const jwtPlugin = config.server.plugins?.jwt as { enabled: boolean; jwtAlgorithm?: string } | undefined;
+        const jwtPlugin = config.server.plugins?.jwt as
+          | { enabled: boolean; jwtAlgorithm?: string }
+          | undefined;
         expect(jwtPlugin?.jwtAlgorithm).toBe(algorithm);
       });
     });

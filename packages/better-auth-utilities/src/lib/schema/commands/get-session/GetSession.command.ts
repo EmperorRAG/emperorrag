@@ -1,6 +1,9 @@
 import { Schema } from "effect";
 
-export class GetSessionCommand extends Schema.TaggedClass<GetSessionCommand>()("GetSessionCommand", {}) {
+export class GetSessionCommand extends Schema.TaggedClass<GetSessionCommand>()(
+  "GetSessionCommand",
+  {},
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(GetSessionCommand)(input);
   }

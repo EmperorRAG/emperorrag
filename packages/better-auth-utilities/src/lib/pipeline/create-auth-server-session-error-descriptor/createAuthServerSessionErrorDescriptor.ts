@@ -4,7 +4,9 @@ import type { AuthServerErrorDescriptor } from "../describe-error/describeError.
 /**
  * @pure
  */
-export const createAuthServerSessionErrorDescriptor = (error: AuthServerSessionError): AuthServerErrorDescriptor => ({
+export const createAuthServerSessionErrorDescriptor = (
+  error: AuthServerSessionError,
+): AuthServerErrorDescriptor => ({
   _tag: "AuthServerErrorDescriptor",
   authServerErrorType: error,
   code: "session_error",

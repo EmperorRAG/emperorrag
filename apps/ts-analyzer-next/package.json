@@ -1,25 +1,25 @@
 {
-	"name": "@emperorrag/ts-analyzer-next",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"clean:dist": "npx rimraf dist",
-		"clean:node_modules": "npx rimraf node_modules",
-		"clean:out-tsc": "npx rimraf out-tsc",
-		"clean:all": "npm run clean:dist && npm run clean:node_modules && npm run clean:out-tsc",
-		"tsc:list-files": "tsc --project tsconfig.json --listFiles"
-	},
-	"nx": {
-		"name": "ts-analyzer-next",
-		"tags": [
-			"frontend next ts-server-analyzer ts-analyzer-next"
-		]
-	},
-	"dependencies": {
-		"next": "~15.2.4",
-		"react": "19.0.0",
-		"react-dom": "19.0.0",
-		"@radix-ui/themes": "^3.2.1",
-		"radix-ui": "^1.4.3"
-	}
+  "name": "@emperorrag/ts-analyzer-next",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "clean:dist": "npx rimraf dist",
+    "clean:node_modules": "npx rimraf node_modules",
+    "clean:out-tsc": "npx rimraf out-tsc",
+    "clean:all": "npm run clean:dist && npm run clean:node_modules && npm run clean:out-tsc",
+    "tsc:list-files": "tsc --project tsconfig.json --listFiles"
+  },
+  "nx": {
+    "name": "ts-analyzer-next",
+    "tags": [
+      "frontend next ts-server-analyzer ts-analyzer-next"
+    ]
+  },
+  "dependencies": {
+    "next": "~15.2.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "@radix-ui/themes": "^3.2.1",
+    "radix-ui": "^1.4.3"
+  }
 }

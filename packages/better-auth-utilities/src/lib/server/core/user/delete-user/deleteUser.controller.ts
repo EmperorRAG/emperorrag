@@ -20,9 +20,9 @@ export const deleteUserServerController: deleteUserPropsFor = (
   params: AuthServerApiDeleteUserParamsFor<AuthServerFor>,
 ) =>
   Effect.gen(function*() {
-    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
-      isAuthServerApiDeleteUserParamsFor,
-    )(params);
+    const validatedParams = yield* validateInputEffect(
+      createAuthServerApiEndpointParamsSchema(),
+    )(isAuthServerApiDeleteUserParamsFor)(params);
     return yield* deleteUserServerService(validatedParams);
   }).pipe(
     Effect.provideService(PipelineContext, {

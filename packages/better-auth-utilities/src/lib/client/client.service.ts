@@ -50,7 +50,8 @@ export function createAuthClient<
   const plugins: any[] = [];
 
   // Add enabled client plugins
-  const enabledPlugins = config.enabledClientPlugins || config.enabledServerPlugins
+  const enabledPlugins = config.enabledClientPlugins
+    || config.enabledServerPlugins
     || ([] as readonly AvailablePlugins[]);
 
   for (const pluginName of enabledPlugins) {
@@ -76,12 +77,19 @@ export function createAuthClient<
   }
 
   return createBetterAuthClientCore({
-    baseURL: config.client.baseURL || config.server.baseURL || process.env.BETTER_AUTH_URL || "http://localhost:3000",
+    baseURL: config.client.baseURL
+      || config.server.baseURL
+      || process.env.BETTER_AUTH_URL
+      || "http://localhost:3000",
 
     // Fetch options
     fetchOptions: {
-      ...(config.client.fetchOptions?.onSuccess ? { onSuccess: config.client.fetchOptions.onSuccess } : {}),
-      ...(config.client.fetchOptions?.onError ? { onError: config.client.fetchOptions.onError } : {}),
+      ...(config.client.fetchOptions?.onSuccess
+        ? { onSuccess: config.client.fetchOptions.onSuccess }
+        : {}),
+      ...(config.client.fetchOptions?.onError
+        ? { onError: config.client.fetchOptions.onError }
+        : {}),
       credentials: config.client.fetchOptions?.credentials || "include",
     },
 

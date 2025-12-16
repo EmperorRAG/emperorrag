@@ -10,10 +10,15 @@ import { createAuthServerSessionErrorDescriptor } from "../create-auth-server-se
 import { createAuthServerUserAlreadyExistsErrorDescriptor } from "../create-auth-server-user-already-exists-error-descriptor/createAuthServerUserAlreadyExistsErrorDescriptor";
 import type { AuthServerErrorDescriptor } from "./describeError.types";
 
-export const describeError = (error: AuthServerError): AuthServerErrorDescriptor =>
+export const describeError = (
+  error: AuthServerError,
+): AuthServerErrorDescriptor =>
   pipe(
     Match.value(error),
-    Match.tag("AuthServerInputError", createAuthServerInvalidInputErrorDescriptor),
+    Match.tag(
+      "AuthServerInputError",
+      createAuthServerInvalidInputErrorDescriptor,
+    ),
     Match.tag("AuthServerApiError", (err) => {
       if (err.status === 401) {
         return createAuthServerInvalidCredentialsErrorDescriptor(err);
@@ -24,16 +29,28 @@ export const describeError = (error: AuthServerError): AuthServerErrorDescriptor
       return createAuthServerAuthServerErrorDescriptor(err);
     }),
     Match.tag("AuthServerSessionError", createAuthServerSessionErrorDescriptor),
-    Match.tag("AuthServerDependenciesError", createAuthServerDependencyErrorDescriptor),
-    Match.tag("AuthServerDataMissingError", createAuthServerDataMissingErrorDescriptor),
+    Match.tag(
+      "AuthServerDependenciesError",
+      createAuthServerDependencyErrorDescriptor,
+    ),
+    Match.tag(
+      "AuthServerDataMissingError",
+      createAuthServerDataMissingErrorDescriptor,
+    ),
     Match.exhaustive,
   );
 
 /**
  * Helper to create a generic 500 error descriptor for unknown errors.
  */
-export const createUnknownErrorDescriptor = (cause: unknown): AuthServerErrorDescriptor => {
-  const error = new AuthServerApiError({ message: "An unexpected error occurred", status: 500, cause });
+export const createUnknownErrorDescriptor = (
+  cause: unknown,
+): AuthServerErrorDescriptor => {
+  const error = new AuthServerApiError({
+    message: "An unexpected error occurred",
+    status: 500,
+    cause,
+  });
   return {
     _tag: "AuthServerErrorDescriptor",
     authServerErrorType: error,

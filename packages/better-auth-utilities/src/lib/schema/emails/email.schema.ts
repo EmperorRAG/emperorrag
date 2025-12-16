@@ -1,9 +1,30 @@
-import * as Schema from "effect/Schema";
+import { Schema } from "effect";
 
-export const EmailSchema = Schema.String.pipe(
-  Schema.compose(Schema.Trim),
-  Schema.compose(Schema.Lowercase),
-  Schema.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
-  Schema.brand("Email"),
+export class Email extends Schema.TaggedClass<Email>()("Email", {
+  value: Schema.String.pipe(
+    Schema.compose(Schema.Trim),
+    Schema.compose(Schema.Lowercase),
+    Schema.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
+  ),
+}) {
+  static decode(input: unknown) {
+    return Schema.decodeUnknown(Email)(input);
+  }
+
+  static encode(value: Email) {
+    return Schema.encode(Email)(value);
+  }
+}
+
+export const EmailSchema = Schema.transform(
+  Schema.String.pipe(
+    Schema.compose(Schema.Trim),
+    Schema.compose(Schema.Lowercase),
+    Schema.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
+  ),
+  Email,
+  {
+    decode: (value) => new Email({ value }),
+    encode: (email) => email.value,
+  },
 );
-export type Email = Schema.Schema.Type<typeof EmailSchema>;

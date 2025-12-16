@@ -120,7 +120,7 @@ import type { AuthServerApiChangePasswordParamsFor, changePasswordPropsFor } fro
 export const changePasswordServerService: changePasswordPropsFor = (
   params: AuthServerApiChangePasswordParamsFor<AuthServerFor>,
 ) =>
-  Effect.flatMap(
-    AuthServerTag,
-    (authServer) => Effect.tryPromise(() => authServer.api.changePassword(params)).pipe(Effect.catchAll(mapApiError)),
-  );
+  Effect.flatMap(AuthServerTag, (authServer) =>
+    Effect.tryPromise(() => authServer.api.changePassword(params)).pipe(
+      Effect.catchAll(mapApiError),
+    ));

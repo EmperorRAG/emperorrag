@@ -15,7 +15,10 @@ export type AuthServerConfigKey = keyof AuthServerConfig;
  * Scope definition for configuration extraction.
  * Can be a specific key or 'all' for the full configuration.
  */
-export type AuthServerConfigScope = AuthServerConfigKey | "all" | AuthServerApiEndpoints;
+export type AuthServerConfigScope =
+  | AuthServerConfigKey
+  | "all"
+  | AuthServerApiEndpoints;
 
 /**
  * Mapping from AuthServerApiEndpoints to AuthServerConfigKey.

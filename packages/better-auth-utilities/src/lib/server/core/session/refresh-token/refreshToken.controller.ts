@@ -20,9 +20,9 @@ export const refreshTokenServerController: refreshTokenPropsFor = (
   params: AuthServerApiRefreshTokenParamsFor<AuthServerFor>,
 ) =>
   Effect.gen(function*() {
-    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
-      isAuthServerApiRefreshTokenParamsFor,
-    )(params);
+    const validatedParams = yield* validateInputEffect(
+      createAuthServerApiEndpointParamsSchema(),
+    )(isAuthServerApiRefreshTokenParamsFor)(params);
     return yield* refreshTokenServerService(validatedParams);
   }).pipe(
     Effect.provideService(PipelineContext, {

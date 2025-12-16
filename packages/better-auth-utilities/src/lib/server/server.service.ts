@@ -37,7 +37,9 @@ import { SERVER_PLUGIN_FACTORIES } from "./server.constants";
 /**
  * Tag for the AuthServer service.
  */
-export const AuthServerTag = Context.GenericTag<AuthServer>("@better-auth/AuthServer");
+export const AuthServerTag = Context.GenericTag<AuthServer>(
+  "@better-auth/AuthServer",
+);
 
 /**
  * Creates a fully configured better-auth server instance from a BetterAuthConfig.

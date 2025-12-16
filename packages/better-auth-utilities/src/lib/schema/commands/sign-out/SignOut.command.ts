@@ -1,6 +1,9 @@
 import { Schema } from "effect";
 
-export class SignOutCommand extends Schema.TaggedClass<SignOutCommand>()("SignOutCommand", {}) {
+export class SignOutCommand extends Schema.TaggedClass<SignOutCommand>()(
+  "SignOutCommand",
+  {},
+) {
   static decode(input: unknown) {
     return Schema.decodeUnknown(SignOutCommand)(input);
   }

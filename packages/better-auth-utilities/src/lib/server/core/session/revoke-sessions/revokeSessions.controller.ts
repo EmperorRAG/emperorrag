@@ -20,9 +20,9 @@ export const revokeSessionsServerController: revokeSessionsPropsFor = (
   params: AuthServerApiRevokeSessionsParamsFor<AuthServerFor>,
 ) =>
   Effect.gen(function*() {
-    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
-      isAuthServerApiRevokeSessionsParamsFor,
-    )(params);
+    const validatedParams = yield* validateInputEffect(
+      createAuthServerApiEndpointParamsSchema(),
+    )(isAuthServerApiRevokeSessionsParamsFor)(params);
     return yield* revokeSessionsServerService(validatedParams);
   }).pipe(
     Effect.provideService(PipelineContext, {

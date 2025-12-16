@@ -7,4 +7,6 @@ export type ZodInputValidatorProps = <R>(
   schemaEffect: Effect.Effect<z.ZodType, unknown, R>,
 ) => <T>(
   typeGuard: (value: unknown) => value is T,
-) => (input: unknown) => Effect.Effect<T, AuthServerInputError, R | PipelineContext>;
+) => (
+  input: unknown,
+) => Effect.Effect<T, AuthServerInputError, R | PipelineContext>;

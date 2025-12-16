@@ -17,9 +17,11 @@ export const getSessionClient: GetSessionProps = (deps) => (input) => {
   return Effect.tryPromise({
     try: async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const result = await (authClient.getSession as unknown as (input: unknown) => Promise<{ error?: unknown }>)(
-        input,
-      );
+      const result = await (
+        authClient.getSession as unknown as (
+          input: unknown,
+        ) => Promise<{ error?: unknown }>
+      )(input);
       if (result?.error) {
         throw result.error;
       }
@@ -27,7 +29,8 @@ export const getSessionClient: GetSessionProps = (deps) => (input) => {
     },
     catch: (error) => {
       const errObj = error as { message?: string; status?: number };
-      const message = errObj?.message || (error instanceof Error ? error.message : "Get session failed");
+      const message = errObj?.message
+        || (error instanceof Error ? error.message : "Get session failed");
       const status = errObj?.status;
       return new SessionAuthApiError(message, status, error);
     },

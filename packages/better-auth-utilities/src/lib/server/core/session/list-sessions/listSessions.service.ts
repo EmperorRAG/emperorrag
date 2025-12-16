@@ -24,7 +24,7 @@ import type { AuthServerApiListSessionsParamsFor, listSessionsPropsFor } from ".
 export const listSessionsServerService: listSessionsPropsFor = (
   params: AuthServerApiListSessionsParamsFor<AuthServerFor>,
 ) =>
-  Effect.flatMap(
-    AuthServerTag,
-    (authServer) => Effect.tryPromise(() => authServer.api.listSessions(params)).pipe(Effect.catchAll(mapApiError)),
-  );
+  Effect.flatMap(AuthServerTag, (authServer) =>
+    Effect.tryPromise(() => authServer.api.listSessions(params)).pipe(
+      Effect.catchAll(mapApiError),
+    ));

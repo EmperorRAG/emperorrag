@@ -1,6 +1,6 @@
-import { pipe } from 'effect/Function';
-import * as Array from 'effect/Array';
-import * as Option from 'effect/Option';
+import { pipe } from "effect/Function";
+import * as Array from "effect/Array";
+import * as Option from "effect/Option";
 
 /**
  * Safely extracts the first element from an array.
@@ -25,4 +25,5 @@ import * as Option from 'effect/Option';
  * const result2 = fromArray([]);
  * // => Option.none()
  */
-export const fromArray = <T>(arr: T[]): Option.Option<T> => pipe(arr, Array.head);
+export const fromArray = <T>(arr: T[]): Option.Option<T> =>
+  pipe(arr, Array.head);

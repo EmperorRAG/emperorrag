@@ -17,10 +17,10 @@ import type { EmailAuthClientDeps } from "../shared/email.types";
  * ```
  */
 export type SignOutInput<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
-> = Parameters<
-  T["signOut"]
->[0] extends undefined ? Record<string, never>
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
+> = Parameters<T["signOut"]>[0] extends undefined ? Record<string, never>
   : Parameters<T["signOut"]>[0];
 
 /**
@@ -36,10 +36,10 @@ export type SignOutInput<
  * ```
  */
 export type SignOutResult<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
-> = ReturnType<
-  T["signOut"]
->;
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
+> = ReturnType<T["signOut"]>;
 
 /**
  * Function signature for signOut service.
@@ -57,7 +57,13 @@ export type SignOutResult<
  * ```
  */
 export interface signOutProps<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > {
-  (deps: EmailAuthClientDeps<T>): (input: SignOutInput<T>) => Effect.Effect<Awaited<SignOutResult<T>>, EmailAuthError>;
+  (
+    deps: EmailAuthClientDeps<T>,
+  ): (
+    input: SignOutInput<T>,
+  ) => Effect.Effect<Awaited<SignOutResult<T>>, EmailAuthError>;
 }

@@ -24,7 +24,7 @@ import type { AuthServerApiChangeEmailParamsFor, changeEmailPropsFor } from "./c
 export const changeEmailServerService: changeEmailPropsFor = (
   params: AuthServerApiChangeEmailParamsFor<AuthServerFor>,
 ) =>
-  Effect.flatMap(
-    AuthServerTag,
-    (authServer) => Effect.tryPromise(() => authServer.api.changeEmail(params)).pipe(Effect.catchAll(mapApiError)),
-  );
+  Effect.flatMap(AuthServerTag, (authServer) =>
+    Effect.tryPromise(() => authServer.api.changeEmail(params)).pipe(
+      Effect.catchAll(mapApiError),
+    ));

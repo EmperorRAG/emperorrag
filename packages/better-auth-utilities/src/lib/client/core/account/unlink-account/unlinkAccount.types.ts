@@ -8,10 +8,13 @@ import type { AccountAuthClientDeps } from "../shared/account.types";
  * Input for unlinking an account.
  */
 export type UnlinkAccountInput<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > = Parameters<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  "unlinkAccount" extends keyof T ? (T["unlinkAccount"] extends (...args: any) => any ? T["unlinkAccount"] : never)
+  "unlinkAccount" extends keyof T ? T["unlinkAccount"] extends (...args: any) => any ? T["unlinkAccount"]
+    : never
     : never
 >[0];
 
@@ -19,10 +22,13 @@ export type UnlinkAccountInput<
  * Result of unlinking an account.
  */
 export type UnlinkAccountResult<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > = ReturnType<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  "unlinkAccount" extends keyof T ? (T["unlinkAccount"] extends (...args: any) => any ? T["unlinkAccount"] : never)
+  "unlinkAccount" extends keyof T ? T["unlinkAccount"] extends (...args: any) => any ? T["unlinkAccount"]
+    : never
     : never
 >;
 
@@ -30,9 +36,13 @@ export type UnlinkAccountResult<
  * Type definition for the unlinkAccount service function.
  */
 export interface UnlinkAccountProps<
-  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
 > {
   (
     deps: AccountAuthClientDeps<T>,
-  ): (input: UnlinkAccountInput<T>) => Effect.Effect<Awaited<UnlinkAccountResult<T>>, AccountAuthError>;
+  ): (
+    input: UnlinkAccountInput<T>,
+  ) => Effect.Effect<Awaited<UnlinkAccountResult<T>>, AccountAuthError>;
 }

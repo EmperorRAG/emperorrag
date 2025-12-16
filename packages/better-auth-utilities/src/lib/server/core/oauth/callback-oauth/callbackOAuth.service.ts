@@ -12,7 +12,7 @@ import type { AuthServerApiCallbackOAuthParamsFor, callbackOAuthPropsFor } from 
 export const callbackOAuthServerService: callbackOAuthPropsFor = (
   params: AuthServerApiCallbackOAuthParamsFor<AuthServerFor>,
 ) =>
-  Effect.flatMap(
-    AuthServerTag,
-    (authServer) => Effect.tryPromise(() => authServer.api.callbackOAuth(params)).pipe(Effect.catchAll(mapApiError)),
-  );
+  Effect.flatMap(AuthServerTag, (authServer) =>
+    Effect.tryPromise(() => authServer.api.callbackOAuth(params)).pipe(
+      Effect.catchAll(mapApiError),
+    ));

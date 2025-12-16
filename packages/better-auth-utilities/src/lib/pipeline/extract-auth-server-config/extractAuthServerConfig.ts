@@ -21,7 +21,7 @@ import type {
 export const extractAuthServerConfig = <K extends AuthServerConfigScope>(
   scope: K,
 ): Effect.Effect<ExtractedAuthServerConfig<K>, Error, AuthServerFor> =>
-  Effect.gen(function* () {
+  Effect.gen(function*() {
     const authServer = yield* AuthServerTag;
 
     // Accessing internal options property.
@@ -30,7 +30,9 @@ export const extractAuthServerConfig = <K extends AuthServerConfigScope>(
     const options = authServer.options as AuthServerConfig | undefined;
 
     if (!options) {
-      return yield* Effect.fail(new Error("AuthServer configuration options are not available"));
+      return yield* Effect.fail(
+        new Error("AuthServer configuration options are not available"),
+      );
     }
 
     if (scope === "all") {

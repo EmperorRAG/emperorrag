@@ -4,9 +4,9 @@
 
 ```markdown
 ---
-description: 'Brief description of the chat mode and its purpose'
-model: 'gpt-5'
-tools: ['codebase', 'terminalCommand']
+description: "Brief description of the chat mode and its purpose"
+model: "gpt-5"
+tools: ["codebase", "terminalCommand"]
 ---
 
 # Chat Mode Title

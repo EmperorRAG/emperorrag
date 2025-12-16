@@ -21,8 +21,10 @@ import type { AuthServerApiDeleteUserParamsFor, deleteUserPropsFor } from "./del
  * @param params - The delete user parameters
  * @returns Effect that resolves to delete user result or fails with AuthServerApiError
  */
-export const deleteUserServerService: deleteUserPropsFor = (params: AuthServerApiDeleteUserParamsFor<AuthServerFor>) =>
-  Effect.flatMap(
-    AuthServerTag,
-    (authServer) => Effect.tryPromise(() => authServer.api.deleteUser(params)).pipe(Effect.catchAll(mapApiError)),
-  );
+export const deleteUserServerService: deleteUserPropsFor = (
+  params: AuthServerApiDeleteUserParamsFor<AuthServerFor>,
+) =>
+  Effect.flatMap(AuthServerTag, (authServer) =>
+    Effect.tryPromise(() => authServer.api.deleteUser(params)).pipe(
+      Effect.catchAll(mapApiError),
+    ));

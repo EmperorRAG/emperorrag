@@ -18,5 +18,7 @@ export const revokeOtherSessionsServerService: revokeOtherSessionsPropsFor = (
   Effect.flatMap(
     AuthServerTag,
     (authServer) =>
-      Effect.tryPromise(() => authServer.api.revokeOtherSessions(params)).pipe(Effect.catchAll(mapApiError)),
+      Effect.tryPromise(() => authServer.api.revokeOtherSessions(params)).pipe(
+        Effect.catchAll(mapApiError),
+      ),
   );

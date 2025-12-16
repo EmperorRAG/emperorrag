@@ -111,7 +111,7 @@ import type { AuthServerApiForgetPasswordParamsFor, forgetPasswordPropsFor } fro
 export const forgetPasswordServerService: forgetPasswordPropsFor = (
   params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>,
 ) =>
-  Effect.flatMap(
-    AuthServerTag,
-    (authServer) => Effect.tryPromise(() => authServer.api.forgetPassword(params)).pipe(Effect.catchAll(mapApiError)),
-  );
+  Effect.flatMap(AuthServerTag, (authServer) =>
+    Effect.tryPromise(() => authServer.api.forgetPassword(params)).pipe(
+      Effect.catchAll(mapApiError),
+    ));
