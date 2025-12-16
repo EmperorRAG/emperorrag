@@ -15,7 +15,7 @@
 >
 > **What to implement:**
 >
-> 1. A small test harness module (create `packages/better-auth-utilities/src/test/effectTestHarness.ts` or similar) that provides:
+> 1. A small test harness module (create `packages/better-auth-utilities/src/lib/test/effectTestHarness.ts` or similar) that provides:
 >
 >    * `run(effect, options?)` helper that executes an Effect and returns the value (or throws a test-friendly error)
 >    * `runExit(effect, options?)` helper that returns `Exit` so tests can assert on failures without throwing
