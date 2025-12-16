@@ -51,7 +51,7 @@ export type AuthServerApiListUserAccountsPropsFor<T extends AuthServerFor = Auth
  * ```
  */
 export type AuthServerApiListUserAccountsParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiListUserAccountsPropsFor<AuthServerFor>
+  AuthServerApiListUserAccountsPropsFor<T>
 >[0];
 
 /**
@@ -70,7 +70,7 @@ export type AuthServerApiListUserAccountsParamsFor<T extends AuthServerFor = Aut
  * ```
  */
 export type AuthServerApiListUserAccountsResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiListUserAccountsPropsFor<AuthServerFor>
+  AuthServerApiListUserAccountsPropsFor<T>
 >;
 
 /**
@@ -97,11 +97,11 @@ export type AuthServerApiListUserAccountsResultFor<T extends AuthServerFor = Aut
  * ```
  */
 export type listUserAccountsPropsFor<T extends AuthServerFor = AuthServerFor> = (
-  params: AuthServerApiListUserAccountsParamsFor<AuthServerFor>,
+  params: AuthServerApiListUserAccountsParamsFor<T>,
 ) => Effect.Effect<
-  Awaited<AuthServerApiListUserAccountsResultFor<AuthServerFor>>,
+  Awaited<AuthServerApiListUserAccountsResultFor<T>>,
   AuthServerApiError | AuthServerInputError | AuthServerDataMissingError,
-  AuthServerFor
+  T
 >;
 
 /**

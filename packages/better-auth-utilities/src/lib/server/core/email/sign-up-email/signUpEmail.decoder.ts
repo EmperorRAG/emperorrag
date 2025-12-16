@@ -18,7 +18,7 @@ export class SignUpEmailCommand extends Data.TaggedClass("SignUpEmailCommand")<{
   callbackURL?: Url;
   image?: Image;
   additionalFields: Readonly<Record<string, unknown>>;
-}> {}
+}> { }
 
 export const SignUpEmailCommandSchema = (authServer: AuthServer) => {
   const passwordPolicy = {
@@ -38,7 +38,7 @@ export const SignUpEmailCommandSchema = (authServer: AuthServer) => {
 
   return Schema.transformOrFail(InputSchema, Schema.instanceOf(SignUpEmailCommand), {
     strict: true,
-    decode: (input, _, ast) =>
+    decode: (input) =>
       Schema.decodeUnknown(AdditionalFieldsSchema(authServer))(input).pipe(
         Effect.mapError((error) => error.issue),
         Effect.map(
@@ -53,7 +53,7 @@ export const SignUpEmailCommandSchema = (authServer: AuthServer) => {
             }),
         ),
       ),
-    encode: (command, _, ast) =>
+    encode: (command) =>
       Effect.succeed({
         name: command.name,
         email: command.email,

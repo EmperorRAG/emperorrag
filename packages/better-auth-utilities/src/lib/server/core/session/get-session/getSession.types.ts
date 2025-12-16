@@ -46,7 +46,7 @@ export type AuthServerApiGetSessionPropsFor<T extends AuthServerFor = AuthServer
  * ```
  */
 export type AuthServerApiGetSessionParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiGetSessionPropsFor<AuthServerFor>
+  AuthServerApiGetSessionPropsFor<T>
 >[0];
 
 /**
@@ -65,7 +65,7 @@ export type AuthServerApiGetSessionParamsFor<T extends AuthServerFor = AuthServe
  * ```
  */
 export type AuthServerApiGetSessionResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiGetSessionPropsFor<AuthServerFor>
+  AuthServerApiGetSessionPropsFor<T>
 >;
 
 /**
@@ -110,25 +110,25 @@ export type AuthServerApiGetSessionResultFor<T extends AuthServerFor = AuthServe
  * ```
  */
 export type getSessionPropsFor<T extends AuthServerFor = AuthServerFor> = (
-  params: AuthServerApiGetSessionParamsFor<AuthServerFor>,
+  params: AuthServerApiGetSessionParamsFor<T>,
 ) => Effect.Effect<
-  Awaited<AuthServerApiGetSessionResultFor<AuthServerFor>>,
+  Awaited<AuthServerApiGetSessionResultFor<T>>,
   AuthServerApiError | AuthServerInputError,
-  AuthServerFor
+  T
 >;
 
 /**
  * Type guard for validating AuthServerApiGetSessionParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiGetSessionParamsFor<AuthServerFor> by checking
+ * @description Narrows an unknown value to AuthServerApiGetSessionParamsFor<T> by checking
  * the required structural properties. Use after Zod validation to provide type narrowing
  * without casting.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiGetSessionParamsFor<AuthServerFor> structure
+ * @returns True if value conforms to AuthServerApiGetSessionParamsFor<T> structure
  *
  * @example
  * ```typescript
@@ -144,7 +144,7 @@ export type getSessionPropsFor<T extends AuthServerFor = AuthServerFor> = (
  */
 export const isAuthServerApiGetSessionParamsFor = (
   value: unknown,
-): value is AuthServerApiGetSessionParamsFor<AuthServerFor> => {
+): value is AuthServerApiGetSessionParamsFor<T> => {
   if (typeof value !== "object" || value === null) {
     return false;
   }

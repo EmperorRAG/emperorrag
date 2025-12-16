@@ -21,7 +21,7 @@ import type {
 export const extractAuthServerConfig = <K extends AuthServerConfigScope>(
   scope: K,
 ): Effect.Effect<ExtractedAuthServerConfig<K>, Error, AuthServerFor> =>
-  Effect.gen(function*() {
+  Effect.gen(function* () {
     const authServer = yield* AuthServerTag;
 
     // Accessing internal options property.
@@ -41,7 +41,7 @@ export const extractAuthServerConfig = <K extends AuthServerConfigScope>(
       if (typeof s !== "object" || s === null || !("_tag" in s)) {
         return undefined;
       }
-      const tag = (s as any)._tag;
+      const tag = (s as { _tag: string })._tag;
       switch (tag) {
         case "SignInEmail":
         case "SignUpEmail":

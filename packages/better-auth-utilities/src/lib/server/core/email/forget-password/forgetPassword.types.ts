@@ -48,7 +48,7 @@ export type AuthServerApiForgetPasswordPropsFor<T extends AuthServerFor = AuthSe
  * ```
  */
 export type AuthServerApiForgetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiForgetPasswordPropsFor<AuthServerFor>
+  AuthServerApiForgetPasswordPropsFor<T>
 >[0];
 
 /**
@@ -67,7 +67,7 @@ export type AuthServerApiForgetPasswordParamsFor<T extends AuthServerFor = AuthS
  * ```
  */
 export type AuthServerApiForgetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiForgetPasswordPropsFor<AuthServerFor>
+  AuthServerApiForgetPasswordPropsFor<T>
 >;
 
 /**
@@ -108,28 +108,28 @@ export type AuthServerApiForgetPasswordResultFor<T extends AuthServerFor = AuthS
  * );
  * ```
  */
-export interface forgetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface ForgetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiForgetPasswordResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiForgetPasswordParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiForgetPasswordResultFor<T>>, AuthServerError, T>;
 }
 
 /**
  * Type guard for validating AuthServerApiForgetPasswordParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiForgetPasswordParamsFor<AuthServerFor> by checking
+ * @description Narrows an unknown value to AuthServerApiForgetPasswordParamsFor<T> by checking
  * the required structural properties. Use after Zod validation to provide type narrowing
  * without casting.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiForgetPasswordParamsFor<AuthServerFor> structure
+ * @returns True if value conforms to AuthServerApiForgetPasswordParamsFor<T> structure
  */
 export const isAuthServerApiForgetPasswordParamsFor = (
   value: unknown,
-): value is AuthServerApiForgetPasswordParamsFor<AuthServerFor> => {
+): value is AuthServerApiForgetPasswordParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   const obj = value as Record<string, unknown>;
 

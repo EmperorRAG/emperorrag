@@ -29,7 +29,7 @@ export type AuthServerApiUpdateUserPropsFor<T extends AuthServerFor = AuthServer
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type AuthServerApiUpdateUserParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiUpdateUserPropsFor<AuthServerFor>
+  AuthServerApiUpdateUserPropsFor<T>
 >[0];
 
 /**
@@ -42,7 +42,7 @@ export type AuthServerApiUpdateUserParamsFor<T extends AuthServerFor = AuthServe
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type AuthServerApiUpdateUserResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiUpdateUserPropsFor<AuthServerFor>
+  AuthServerApiUpdateUserPropsFor<T>
 >;
 
 /**
@@ -64,28 +64,28 @@ export type AuthServerApiUpdateUserResultFor<T extends AuthServerFor = AuthServe
  * - AuthServerApiError: API call failures with HTTP status codes
  * - Other AuthServerError types from validation layers (if using controller)
  */
-export interface updateUserPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface UpdateUserPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiUpdateUserParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiUpdateUserResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiUpdateUserParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiUpdateUserResultFor<T>>, AuthServerError, T>;
 }
 
 /**
  * Type guard for validating AuthServerApiUpdateUserParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiUpdateUserParamsFor<AuthServerFor> by checking
+ * @description Narrows an unknown value to AuthServerApiUpdateUserParamsFor<T> by checking
  * the required structural properties. Use after Zod validation to provide type narrowing
  * without casting.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiUpdateUserParamsFor<AuthServerFor> structure
+ * @returns True if value conforms to AuthServerApiUpdateUserParamsFor<T> structure
  */
 export const isAuthServerApiUpdateUserParamsFor = (
   value: unknown,
-): value is AuthServerApiUpdateUserParamsFor<AuthServerFor> => {
+): value is AuthServerApiUpdateUserParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   const obj = value as Record<string, unknown>;
 

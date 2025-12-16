@@ -27,7 +27,7 @@ export type AuthServerApiRevokeSessionPropsFor<T extends AuthServerFor = AuthSer
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type AuthServerApiRevokeSessionParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiRevokeSessionPropsFor<AuthServerFor>
+  AuthServerApiRevokeSessionPropsFor<T>
 >[0];
 
 /**
@@ -39,7 +39,7 @@ export type AuthServerApiRevokeSessionParamsFor<T extends AuthServerFor = AuthSe
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type AuthServerApiRevokeSessionResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiRevokeSessionPropsFor<AuthServerFor>
+  AuthServerApiRevokeSessionPropsFor<T>
 >;
 
 /**
@@ -50,26 +50,26 @@ export type AuthServerApiRevokeSessionResultFor<T extends AuthServerFor = AuthSe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export interface revokeSessionPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface RevokeSessionPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiRevokeSessionParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiRevokeSessionResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiRevokeSessionParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiRevokeSessionResultFor<T>>, AuthServerError, T>;
 }
 
 /**
  * Type guard for validating AuthServerApiRevokeSessionParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiRevokeSessionParamsFor<AuthServerFor>.
+ * @description Narrows an unknown value to AuthServerApiRevokeSessionParamsFor<T>.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiRevokeSessionParamsFor<AuthServerFor> structure
+ * @returns True if value conforms to AuthServerApiRevokeSessionParamsFor<T> structure
  */
 export const isAuthServerApiRevokeSessionParamsFor = (
   value: unknown,
-): value is AuthServerApiRevokeSessionParamsFor<AuthServerFor> => {
+): value is AuthServerApiRevokeSessionParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   const obj = value as Record<string, unknown>;
 

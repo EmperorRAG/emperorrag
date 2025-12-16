@@ -11,17 +11,17 @@ export type AuthServerApiAccountInfoPropsFor<T extends AuthServerFor = AuthServe
   AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["accountInfo"] : never;
 
 export type AuthServerApiAccountInfoParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiAccountInfoPropsFor<AuthServerFor>
+  AuthServerApiAccountInfoPropsFor<T>
 >[0];
 
 export type AuthServerApiAccountInfoResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiAccountInfoPropsFor<AuthServerFor>
+  AuthServerApiAccountInfoPropsFor<T>
 >;
 
 export interface accountInfoPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiAccountInfoParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiAccountInfoResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiAccountInfoParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiAccountInfoResultFor<T>>, AuthServerError, T>;
 }
 
 export const isAuthServerApiAccountInfoParamsFor = (

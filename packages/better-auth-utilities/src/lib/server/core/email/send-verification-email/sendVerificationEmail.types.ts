@@ -48,7 +48,7 @@ export type AuthServerApiSendVerificationEmailPropsFor<T extends AuthServerFor =
  * ```
  */
 export type AuthServerApiSendVerificationEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiSendVerificationEmailPropsFor<AuthServerFor>
+  AuthServerApiSendVerificationEmailPropsFor<T>
 >[0];
 
 /**
@@ -67,7 +67,7 @@ export type AuthServerApiSendVerificationEmailParamsFor<T extends AuthServerFor 
  * ```
  */
 export type AuthServerApiSendVerificationEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiSendVerificationEmailPropsFor<AuthServerFor>
+  AuthServerApiSendVerificationEmailPropsFor<T>
 >;
 
 /**
@@ -107,28 +107,28 @@ export type AuthServerApiSendVerificationEmailResultFor<T extends AuthServerFor 
  * );
  * ```
  */
-export interface sendVerificationEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface SendVerificationEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiSendVerificationEmailParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiSendVerificationEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiSendVerificationEmailParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiSendVerificationEmailResultFor<T>>, AuthServerError, T>;
 }
 
 /**
  * Type guard for validating AuthServerApiSendVerificationEmailParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiSendVerificationEmailParamsFor<AuthServerFor> by checking
+ * @description Narrows an unknown value to AuthServerApiSendVerificationEmailParamsFor<T> by checking
  * the required structural properties. Use after Zod validation to provide type narrowing
  * without casting.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiSendVerificationEmailParamsFor<AuthServerFor> structure
+ * @returns True if value conforms to AuthServerApiSendVerificationEmailParamsFor<T> structure
  */
 export const isAuthServerApiSendVerificationEmailParamsFor = (
   value: unknown,
-): value is AuthServerApiSendVerificationEmailParamsFor<AuthServerFor> => {
+): value is AuthServerApiSendVerificationEmailParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   const obj = value as Record<string, unknown>;
 

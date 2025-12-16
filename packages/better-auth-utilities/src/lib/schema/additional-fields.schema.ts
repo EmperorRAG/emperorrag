@@ -1,3 +1,4 @@
+import { AST } from "effect";
 import * as Either from "effect/Either";
 import * as ParseResult from "effect/ParseResult";
 import * as Schema from "effect/Schema";
@@ -19,23 +20,23 @@ export const AdditionalFieldsSchema = (authServer: AuthServer) => {
   const additionalFields = authServer.options?.user?.additionalFields || {};
 
   // 1. Build runtime field specs
-  const fieldSpecs: Record<string, { schema: Schema.Schema<any>; required: boolean }> = {};
+  const fieldSpecs: Record<string, { schema: Schema.Schema<unknown>; required: boolean }> = {};
 
   for (const [key, options] of Object.entries(additionalFields)) {
     // Skip fields where input is explicitly false
     if (options.input === false) continue;
 
-    let schema: Schema.Schema<any>;
+    let schema: Schema.Schema<unknown>;
     // Map types to Effect Schemas
     switch (options.type) {
       case "string":
-        schema = Schema.String;
+        schema = Schema.String as unknown as Schema.Schema<unknown>;
         break;
       case "number":
-        schema = Schema.Number;
+        schema = Schema.Number as unknown as Schema.Schema<unknown>;
         break;
       case "boolean":
-        schema = Schema.Boolean;
+        schema = Schema.Boolean as unknown as Schema.Schema<unknown>;
         break;
       default:
         schema = Schema.Unknown;
@@ -50,10 +51,10 @@ export const AdditionalFieldsSchema = (authServer: AuthServer) => {
 
   // 2. Define the transformation
   return Schema.transformOrFail(Schema.Unknown, Schema.Record({ key: Schema.String, value: Schema.Unknown }), {
-    decode: (input: unknown, _options: any, ast: any) => {
+    decode: (input: unknown, _options: unknown, ast: unknown) => {
       // Ensure input is an object
       if (typeof input !== "object" || input === null) {
-        return ParseResult.fail(new ParseResult.Type(ast, input));
+        return ParseResult.fail(new ParseResult.Type(ast as AST.AST, input));
       }
 
       const output: Record<string, unknown> = {};
@@ -61,12 +62,12 @@ export const AdditionalFieldsSchema = (authServer: AuthServer) => {
 
       // Iterate over the *expected* fields (not the input keys)
       for (const [key, spec] of Object.entries(fieldSpecs)) {
-        const value = (input as any)[key];
+        const value = (input as Record<string, unknown>)[key];
 
         // Handle missing values
         if (value === undefined) {
           if (spec.required) {
-            errors.push(new ParseResult.Missing(spec.schema.ast as any));
+            errors.push(new ParseResult.Missing(spec.schema.ast));
           }
           continue;
         }
@@ -84,11 +85,17 @@ export const AdditionalFieldsSchema = (authServer: AuthServer) => {
       }
 
       if (errors.length > 0) {
-        return ParseResult.fail(new ParseResult.Composite(ast, input, errors as any));
+        return ParseResult.fail(
+          new ParseResult.Composite(
+            ast as AST.AST,
+            input,
+            errors as [ParseResult.ParseIssue, ...ParseResult.ParseIssue[]],
+          ),
+        );
       }
 
       return ParseResult.succeed(output);
     },
-    encode: (output: any) => ParseResult.succeed(output), // Encoding is identity
+    encode: (output: unknown) => ParseResult.succeed(output), // Encoding is identity
   });
 };

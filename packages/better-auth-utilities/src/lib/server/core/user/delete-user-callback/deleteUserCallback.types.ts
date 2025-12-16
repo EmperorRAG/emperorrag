@@ -11,22 +11,22 @@ export type AuthServerApiDeleteUserCallbackPropsFor<T extends AuthServerFor = Au
   "deleteUserCallback" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["deleteUserCallback"] : never;
 
 export type AuthServerApiDeleteUserCallbackParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiDeleteUserCallbackPropsFor<AuthServerFor>
+  AuthServerApiDeleteUserCallbackPropsFor<T>
 >[0];
 
 export type AuthServerApiDeleteUserCallbackResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiDeleteUserCallbackPropsFor<AuthServerFor>
+  AuthServerApiDeleteUserCallbackPropsFor<T>
 >;
 
-export interface deleteUserCallbackPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface DeleteUserCallbackPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiDeleteUserCallbackParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiDeleteUserCallbackResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiDeleteUserCallbackParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiDeleteUserCallbackResultFor<T>>, AuthServerError, T>;
 }
 
 export const isAuthServerApiDeleteUserCallbackParamsFor = (
   value: unknown,
-): value is AuthServerApiDeleteUserCallbackParamsFor<AuthServerFor> => {
+): value is AuthServerApiDeleteUserCallbackParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   const obj = value as Record<string, unknown>;
   if (typeof obj["query"] !== "object" || obj["query"] === null) return false;

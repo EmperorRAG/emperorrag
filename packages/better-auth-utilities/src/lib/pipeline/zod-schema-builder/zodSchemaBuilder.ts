@@ -212,10 +212,11 @@ export const createBaseSchema = () => z.object({});
  *
  * @param bodySchema - The schema for the body property
  */
-export const withBody = <T extends z.ZodTypeAny>(bodySchema: T) => <Base extends z.ZodObject<any>>(base: Base) =>
-  base.extend({
-    body: bodySchema,
-  });
+export const withBody =
+  <T extends z.ZodTypeAny>(bodySchema: T) => <Base extends z.ZodObject<z.ZodRawShape>>(base: Base) =>
+    base.extend({
+      body: bodySchema,
+    });
 
 /**
  * Adds a query field to the schema.
@@ -225,10 +226,11 @@ export const withBody = <T extends z.ZodTypeAny>(bodySchema: T) => <Base extends
  *
  * @param querySchema - The schema for the query property
  */
-export const withQuery = <T extends z.ZodTypeAny>(querySchema: T) => <Base extends z.ZodObject<any>>(base: Base) =>
-  base.extend({
-    query: querySchema,
-  });
+export const withQuery =
+  <T extends z.ZodTypeAny>(querySchema: T) => <Base extends z.ZodObject<z.ZodRawShape>>(base: Base) =>
+    base.extend({
+      query: querySchema,
+    });
 
 /**
  * Adds optional headers and standard request options to the schema.
@@ -237,7 +239,7 @@ export const withQuery = <T extends z.ZodTypeAny>(querySchema: T) => <Base exten
  * @description Extends the schema with optional headers, asResponse, and returnHeaders.
  * Used for endpoints that do not require authentication.
  */
-export const withOptionalHeaders = () => <Base extends z.ZodObject<any>>(base: Base) =>
+export const withOptionalHeaders = () => <Base extends z.ZodObject<z.ZodRawShape>>(base: Base) =>
   base.extend(requestOptionsOptionalHeadersShape);
 
 /**
@@ -249,7 +251,7 @@ export const withOptionalHeaders = () => <Base extends z.ZodObject<any>>(base: B
  *
  * @param headerMessage - Custom error message for missing headers
  */
-export const withRequiredHeaders = (headerMessage?: string) => <Base extends z.ZodObject<any>>(base: Base) =>
+export const withRequiredHeaders = (headerMessage?: string) => <Base extends z.ZodObject<z.ZodRawShape>>(base: Base) =>
   base.extend(requestOptionsRequiredHeadersShape(headerMessage));
 
 /**
@@ -262,7 +264,7 @@ export const withRequiredHeaders = (headerMessage?: string) => <Base extends z.Z
  * @param shape - The Zod raw shape to add
  */
 export const withAdditionalFields =
-  <T extends z.ZodRawShape>(shape: T) => <Base extends z.ZodObject<any>>(base: Base) => base.extend(shape);
+  <T extends z.ZodRawShape>(shape: T) => <Base extends z.ZodObject<z.ZodRawShape>>(base: Base) => base.extend(shape);
 
 // =============================================================================
 // WORKFLOW PIPELINE FACTORY

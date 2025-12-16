@@ -28,7 +28,7 @@ export type AuthServerApiListSessionsPropsFor<T extends AuthServerFor = AuthServ
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type AuthServerApiListSessionsParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiListSessionsPropsFor<AuthServerFor>
+  AuthServerApiListSessionsPropsFor<T>
 >[0];
 
 /**
@@ -40,7 +40,7 @@ export type AuthServerApiListSessionsParamsFor<T extends AuthServerFor = AuthSer
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type AuthServerApiListSessionsResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiListSessionsPropsFor<AuthServerFor>
+  AuthServerApiListSessionsPropsFor<T>
 >;
 
 /**
@@ -51,27 +51,27 @@ export type AuthServerApiListSessionsResultFor<T extends AuthServerFor = AuthSer
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export interface listSessionsPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface ListSessionsPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiListSessionsParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiListSessionsResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiListSessionsParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiListSessionsResultFor<T>>, AuthServerError, T>;
 }
 
 /**
  * Type guard for validating AuthServerApiListSessionsParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiListSessionsParamsFor<AuthServerFor> by checking
+ * @description Narrows an unknown value to AuthServerApiListSessionsParamsFor<T> by checking
  * the required structural properties.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiListSessionsParamsFor<AuthServerFor> structure
+ * @returns True if value conforms to AuthServerApiListSessionsParamsFor<T> structure
  */
 export const isAuthServerApiListSessionsParamsFor = (
   value: unknown,
-): value is AuthServerApiListSessionsParamsFor<AuthServerFor> => {
+): value is AuthServerApiListSessionsParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   return true;
 };

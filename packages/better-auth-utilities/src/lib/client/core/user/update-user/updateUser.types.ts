@@ -10,6 +10,7 @@ import type { UserAuthClientDeps } from "../shared/user.types";
 export type UpdateUserInput<
   T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
 > = Parameters<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   "updateUser" extends keyof T ? (T["updateUser"] extends (...args: any) => any ? T["updateUser"] : never) : never
 >[0];
 
@@ -19,6 +20,7 @@ export type UpdateUserInput<
 export type UpdateUserResult<
   T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
 > = ReturnType<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   "updateUser" extends keyof T ? (T["updateUser"] extends (...args: any) => any ? T["updateUser"] : never) : never
 >;
 

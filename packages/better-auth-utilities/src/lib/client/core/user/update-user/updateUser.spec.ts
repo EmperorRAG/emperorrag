@@ -47,7 +47,7 @@ describe("updateUser", () => {
               Cookie: cookie || "",
             },
           },
-        } as any),
+        } as unknown),
       ),
     );
 
@@ -81,7 +81,7 @@ describe("updateUser", () => {
       Effect.either(
         updateUserClient({ authClient })({
           name: newName,
-        } as any),
+        } as unknown),
       ),
     );
 

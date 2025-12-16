@@ -12,7 +12,8 @@ import type { SessionAuthClientDeps } from "../shared/session.types";
 export type GetSessionInput<
   T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
 > = Parameters<
-  "getSession" extends keyof T ? (T["getSession"] extends (...args: any) => any ? T["getSession"] : never) : never
+  "getSession" extends keyof T ? (T["getSession"] extends (...args: unknown[]) => unknown ? T["getSession"] : never)
+  : never
 >[0];
 
 /**
@@ -23,7 +24,8 @@ export type GetSessionInput<
 export type GetSessionResult<
   T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
 > = ReturnType<
-  "getSession" extends keyof T ? (T["getSession"] extends (...args: any) => any ? T["getSession"] : never) : never
+  "getSession" extends keyof T ? (T["getSession"] extends (...args: unknown[]) => unknown ? T["getSession"] : never)
+  : never
 >;
 
 /**

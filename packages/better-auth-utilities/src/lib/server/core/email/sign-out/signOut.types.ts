@@ -45,7 +45,7 @@ export type AuthServerApiSignOutPropsFor<T extends AuthServerFor = AuthServerFor
  * ```
  */
 export type AuthServerApiSignOutParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiSignOutPropsFor<AuthServerFor>
+  AuthServerApiSignOutPropsFor<T>
 >[0];
 
 /**
@@ -64,7 +64,7 @@ export type AuthServerApiSignOutParamsFor<T extends AuthServerFor = AuthServerFo
  * ```
  */
 export type AuthServerApiSignOutResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiSignOutPropsFor<AuthServerFor>
+  AuthServerApiSignOutPropsFor<T>
 >;
 
 /**
@@ -111,18 +111,18 @@ export interface signOutPropsFor<T extends AuthServerFor = AuthServerFor> {
  * Type guard for validating AuthServerApiSignOutParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiSignOutParamsFor<AuthServerFor> by checking
+ * @description Narrows an unknown value to AuthServerApiSignOutParamsFor<T> by checking
  * the required structural properties. Use after Zod validation to provide type narrowing
  * without casting.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiSignOutParamsFor<AuthServerFor> structure
+ * @returns True if value conforms to AuthServerApiSignOutParamsFor<T> structure
  */
 export const isAuthServerApiSignOutParamsFor = (
   value: unknown,
-): value is AuthServerApiSignOutParamsFor<AuthServerFor> => {
+): value is AuthServerApiSignOutParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   const obj = value as Record<string, unknown>;
 

@@ -8,7 +8,7 @@ import type { MapApiErrorProps } from "./mapApiError.types";
 
 export const mapApiError: MapApiErrorProps = (error) =>
   pipe(
-    Match.value(error as any),
+    Match.value(error as unknown),
     Match.tag("APIError", (err) => {
       const apiError = err as unknown as APIError;
       const status = typeof apiError.status === "number"

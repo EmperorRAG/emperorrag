@@ -11,22 +11,22 @@ export type AuthServerApiCallbackOAuthPropsFor<T extends AuthServerFor = AuthSer
   AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["callbackOAuth"] : never;
 
 export type AuthServerApiCallbackOAuthParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiCallbackOAuthPropsFor<AuthServerFor>
+  AuthServerApiCallbackOAuthPropsFor<T>
 >[0];
 
 export type AuthServerApiCallbackOAuthResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiCallbackOAuthPropsFor<AuthServerFor>
+  AuthServerApiCallbackOAuthPropsFor<T>
 >;
 
-export interface callbackOAuthPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface CallbackOAuthPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiCallbackOAuthParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiCallbackOAuthResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiCallbackOAuthParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiCallbackOAuthResultFor<T>>, AuthServerError, T>;
 }
 
 export const isAuthServerApiCallbackOAuthParamsFor = (
   value: unknown,
-): value is AuthServerApiCallbackOAuthParamsFor<AuthServerFor> => {
+): value is AuthServerApiCallbackOAuthParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   return true;
 };

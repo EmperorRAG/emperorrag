@@ -48,7 +48,7 @@ export type AuthServerApiResetPasswordPropsFor<T extends AuthServerFor = AuthSer
  * ```
  */
 export type AuthServerApiResetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiResetPasswordPropsFor<AuthServerFor>
+  AuthServerApiResetPasswordPropsFor<T>
 >[0];
 
 /**
@@ -67,7 +67,7 @@ export type AuthServerApiResetPasswordParamsFor<T extends AuthServerFor = AuthSe
  * ```
  */
 export type AuthServerApiResetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiResetPasswordPropsFor<AuthServerFor>
+  AuthServerApiResetPasswordPropsFor<T>
 >;
 
 /**
@@ -108,28 +108,28 @@ export type AuthServerApiResetPasswordResultFor<T extends AuthServerFor = AuthSe
  * );
  * ```
  */
-export interface resetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface ResetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiResetPasswordParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiResetPasswordResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiResetPasswordParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiResetPasswordResultFor<T>>, AuthServerError, T>;
 }
 
 /**
  * Type guard for validating AuthServerApiResetPasswordParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiResetPasswordParamsFor<AuthServerFor> by checking
+ * @description Narrows an unknown value to AuthServerApiResetPasswordParamsFor<T> by checking
  * the required structural properties. Use after Zod validation to provide type narrowing
  * without casting.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiResetPasswordParamsFor<AuthServerFor> structure
+ * @returns True if value conforms to AuthServerApiResetPasswordParamsFor<T> structure
  */
 export const isAuthServerApiResetPasswordParamsFor = (
   value: unknown,
-): value is AuthServerApiResetPasswordParamsFor<AuthServerFor> => {
+): value is AuthServerApiResetPasswordParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   const obj = value as Record<string, unknown>;
 

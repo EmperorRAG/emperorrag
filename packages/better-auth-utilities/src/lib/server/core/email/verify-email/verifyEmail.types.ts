@@ -28,7 +28,7 @@ export type AuthServerApiVerifyEmailPropsFor<T extends AuthServerFor = AuthServe
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type AuthServerApiVerifyEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiVerifyEmailPropsFor<AuthServerFor>
+  AuthServerApiVerifyEmailPropsFor<T>
 >[0];
 
 /**
@@ -40,7 +40,7 @@ export type AuthServerApiVerifyEmailParamsFor<T extends AuthServerFor = AuthServ
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type AuthServerApiVerifyEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiVerifyEmailPropsFor<AuthServerFor>
+  AuthServerApiVerifyEmailPropsFor<T>
 >;
 
 /**
@@ -51,27 +51,27 @@ export type AuthServerApiVerifyEmailResultFor<T extends AuthServerFor = AuthServ
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export interface verifyEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface VerifyEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiVerifyEmailParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiVerifyEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiVerifyEmailParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiVerifyEmailResultFor<T>>, AuthServerError, T>;
 }
 
 /**
  * Type guard for validating AuthServerApiVerifyEmailParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiVerifyEmailParamsFor<AuthServerFor> by checking
+ * @description Narrows an unknown value to AuthServerApiVerifyEmailParamsFor<T> by checking
  * the required structural properties.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiVerifyEmailParamsFor<AuthServerFor> structure
+ * @returns True if value conforms to AuthServerApiVerifyEmailParamsFor<T> structure
  */
 export const isAuthServerApiVerifyEmailParamsFor = (
   value: unknown,
-): value is AuthServerApiVerifyEmailParamsFor<AuthServerFor> => {
+): value is AuthServerApiVerifyEmailParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   const obj = value as Record<string, unknown>;
 

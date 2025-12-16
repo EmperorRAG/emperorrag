@@ -24,7 +24,7 @@ export type AuthServerApiSignInSocialPropsFor<T extends AuthServerFor = AuthServ
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type AuthServerApiSignInSocialParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiSignInSocialPropsFor<AuthServerFor>
+  AuthServerApiSignInSocialPropsFor<T>
 >[0];
 
 /**
@@ -37,7 +37,7 @@ export type AuthServerApiSignInSocialParamsFor<T extends AuthServerFor = AuthSer
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type AuthServerApiSignInSocialResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiSignInSocialPropsFor<AuthServerFor>
+  AuthServerApiSignInSocialPropsFor<T>
 >;
 
 /**
@@ -53,7 +53,7 @@ export type AuthServerApiSignInSocialResultFor<T extends AuthServerFor = AuthSer
  */
 export function isAuthServerApiSignInSocialParamsFor<T extends AuthServerFor = AuthServerFor>(
   u: unknown,
-): u is AuthServerApiSignInSocialParamsFor<AuthServerFor> {
+): u is AuthServerApiSignInSocialParamsFor<T> {
   return typeof u === "object" && u !== null && "body" in u;
 }
 
@@ -68,9 +68,9 @@ export function isAuthServerApiSignInSocialParamsFor<T extends AuthServerFor = A
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type signInSocialPropsFor = (
-  params: AuthServerApiSignInSocialParamsFor<AuthServerFor>,
+  params: AuthServerApiSignInSocialParamsFor<T>,
 ) => Effect.Effect<
-  Awaited<AuthServerApiSignInSocialResultFor<AuthServerFor>>,
+  Awaited<AuthServerApiSignInSocialResultFor<T>>,
   AuthServerApiError | AuthServerInputError,
-  AuthServerFor
+  T
 >;

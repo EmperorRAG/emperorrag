@@ -11,22 +11,22 @@ export type AuthServerApiGetAccessTokenPropsFor<T extends AuthServerFor = AuthSe
   AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["getAccessToken"] : never;
 
 export type AuthServerApiGetAccessTokenParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiGetAccessTokenPropsFor<AuthServerFor>
+  AuthServerApiGetAccessTokenPropsFor<T>
 >[0];
 
 export type AuthServerApiGetAccessTokenResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiGetAccessTokenPropsFor<AuthServerFor>
+  AuthServerApiGetAccessTokenPropsFor<T>
 >;
 
-export interface getAccessTokenPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface GetAccessTokenPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiGetAccessTokenParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiGetAccessTokenResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiGetAccessTokenParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiGetAccessTokenResultFor<T>>, AuthServerError, T>;
 }
 
 export const isAuthServerApiGetAccessTokenParamsFor = (
   value: unknown,
-): value is AuthServerApiGetAccessTokenParamsFor<AuthServerFor> => {
+): value is AuthServerApiGetAccessTokenParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   return true;
 };

@@ -4,37 +4,39 @@ import { it } from "vitest";
 
 export const TestLayer = Layer.mergeAll(Logger.minimumLogLevel(LogLevel.Warning));
 
-export const makeTestRuntime = (layer: Layer.Layer<any, any, never> = TestLayer as any) => {
+export const makeTestRuntime = (
+  layer: Layer.Layer<unknown, unknown, never> = TestLayer as unknown as Layer.Layer<unknown, unknown, never>,
+) => {
   return ManagedRuntime.make(layer);
 };
 
 const defaultRuntime = makeTestRuntime();
 
 export const run = <A, E>(
-  effect: Effect.Effect<A, E, any>,
-  options?: { runtime?: ManagedRuntime.ManagedRuntime<any, any> },
+  effect: Effect.Effect<A, E, unknown>,
+  options?: { runtime?: ManagedRuntime.ManagedRuntime<unknown, unknown> },
 ) => {
   const runtime = options?.runtime ?? defaultRuntime;
   return runtime.runPromise(effect);
 };
 
 export const runExit = <A, E>(
-  effect: Effect.Effect<A, E, any>,
-  options?: { runtime?: ManagedRuntime.ManagedRuntime<any, any> },
+  effect: Effect.Effect<A, E, unknown>,
+  options?: { runtime?: ManagedRuntime.ManagedRuntime<unknown, unknown> },
 ) => {
   const runtime = options?.runtime ?? defaultRuntime;
   return runtime.runPromiseExit(effect);
 };
 
 export const runEither = <A, E>(
-  effect: Effect.Effect<A, E, any>,
-  options?: { runtime?: ManagedRuntime.ManagedRuntime<any, any> },
+  effect: Effect.Effect<A, E, unknown>,
+  options?: { runtime?: ManagedRuntime.ManagedRuntime<unknown, unknown> },
 ) => {
   const runtime = options?.runtime ?? defaultRuntime;
   return runtime.runPromise(Effect.either(effect));
 };
 
-export const testEffect = <A, E>(name: string, effect: Effect.Effect<A, E, any>, timeout?: number) => {
+export const testEffect = <A, E>(name: string, effect: Effect.Effect<A, E, unknown>, timeout?: number) => {
   it(
     name,
     async () => {
@@ -44,6 +46,6 @@ export const testEffect = <A, E>(name: string, effect: Effect.Effect<A, E, any>,
   );
 };
 
-export const provideTestLayer = <A, E, R>(effect: Effect.Effect<A, E, R>, layer: Layer.Layer<R, any, any>) => {
+export const provideTestLayer = <A, E, R>(effect: Effect.Effect<A, E, R>, layer: Layer.Layer<R, unknown, unknown>) => {
   return Effect.provide(effect, layer);
 };

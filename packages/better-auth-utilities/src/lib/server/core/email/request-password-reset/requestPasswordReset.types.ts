@@ -11,22 +11,22 @@ export type AuthServerApiRequestPasswordResetPropsFor<T extends AuthServerFor = 
   "requestPasswordReset" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["requestPasswordReset"] : never;
 
 export type AuthServerApiRequestPasswordResetParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiRequestPasswordResetPropsFor<AuthServerFor>
+  AuthServerApiRequestPasswordResetPropsFor<T>
 >[0];
 
 export type AuthServerApiRequestPasswordResetResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiRequestPasswordResetPropsFor<AuthServerFor>
+  AuthServerApiRequestPasswordResetPropsFor<T>
 >;
 
-export interface requestPasswordResetPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface RequestPasswordResetPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiRequestPasswordResetParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiRequestPasswordResetResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiRequestPasswordResetParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiRequestPasswordResetResultFor<T>>, AuthServerError, T>;
 }
 
 export const isAuthServerApiRequestPasswordResetParamsFor = (
   value: unknown,
-): value is AuthServerApiRequestPasswordResetParamsFor<AuthServerFor> => {
+): value is AuthServerApiRequestPasswordResetParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   const obj = value as Record<string, unknown>;
   if (typeof obj["body"] !== "object" || obj["body"] === null) return false;

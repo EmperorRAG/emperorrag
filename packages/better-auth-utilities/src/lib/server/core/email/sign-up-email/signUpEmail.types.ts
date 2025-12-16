@@ -49,7 +49,7 @@ export type AuthServerApiSignUpEmailPropsFor<T extends AuthServerFor = AuthServe
  * ```
  */
 export type AuthServerApiSignUpEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiSignUpEmailPropsFor<AuthServerFor>
+  AuthServerApiSignUpEmailPropsFor<T>
 >[0];
 
 /**
@@ -68,7 +68,7 @@ export type AuthServerApiSignUpEmailParamsFor<T extends AuthServerFor = AuthServ
  * ```
  */
 export type AuthServerApiSignUpEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiSignUpEmailPropsFor<AuthServerFor>
+  AuthServerApiSignUpEmailPropsFor<T>
 >;
 
 /**
@@ -113,30 +113,30 @@ export type AuthServerApiSignUpEmailResultFor<T extends AuthServerFor = AuthServ
 // export interface signUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
 // 	(
 // 		deps: EmailAuthServerDeps<T>
-// 	): (params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>) => Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<AuthServerFor>>, AuthServerError>;
+// 	): (params: AuthServerApiSignUpEmailParamsFor<T>) => Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<T>>, AuthServerError>;
 // }
-export interface signUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface SignUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiSignUpEmailParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<T>>, AuthServerError, T>;
 }
 
 /**
  * Type guard for validating AuthServerApiSignUpEmailParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiSignUpEmailParamsFor<AuthServerFor> by checking
+ * @description Narrows an unknown value to AuthServerApiSignUpEmailParamsFor<T> by checking
  * the required structural properties. Use after Zod validation to provide type narrowing
  * without casting.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiSignUpEmailParamsFor<AuthServerFor> structure
+ * @returns True if value conforms to AuthServerApiSignUpEmailParamsFor<T> structure
  */
 export const isAuthServerApiSignUpEmailParamsFor = (
   value: unknown,
-): value is AuthServerApiSignUpEmailParamsFor<AuthServerFor> => {
+): value is AuthServerApiSignUpEmailParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   const obj = value as Record<string, unknown>;
 

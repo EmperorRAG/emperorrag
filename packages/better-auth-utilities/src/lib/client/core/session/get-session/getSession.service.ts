@@ -17,19 +17,18 @@ export const getSessionClient: GetSessionProps = (deps) => (input) => {
   return Effect.tryPromise({
     try: async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const result = await (authClient.getSession as any)(input);
+      const result = await (authClient.getSession as unknown as (input: unknown) => Promise<{ error?: unknown }>)(
+        input,
+      );
       if (result?.error) {
         throw result.error;
       }
       return result;
     },
     catch: (error) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const message = (error as any)?.message || (error instanceof Error ? error.message : "Get session failed");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const status = error && typeof error === "object" && "status" in error
-        ? ((error as any).status as number)
-        : undefined;
+      const errObj = error as { message?: string; status?: number };
+      const message = errObj?.message || (error instanceof Error ? error.message : "Get session failed");
+      const status = errObj?.status;
       return new SessionAuthApiError(message, status, error);
     },
   });

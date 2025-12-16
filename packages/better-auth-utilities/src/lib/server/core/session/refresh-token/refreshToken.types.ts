@@ -11,22 +11,22 @@ export type AuthServerApiRefreshTokenPropsFor<T extends AuthServerFor = AuthServ
   AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["refreshToken"] : never;
 
 export type AuthServerApiRefreshTokenParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiRefreshTokenPropsFor<AuthServerFor>
+  AuthServerApiRefreshTokenPropsFor<T>
 >[0];
 
 export type AuthServerApiRefreshTokenResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiRefreshTokenPropsFor<AuthServerFor>
+  AuthServerApiRefreshTokenPropsFor<T>
 >;
 
-export interface refreshTokenPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface RefreshTokenPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiRefreshTokenParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiRefreshTokenResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiRefreshTokenParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiRefreshTokenResultFor<T>>, AuthServerError, T>;
 }
 
 export const isAuthServerApiRefreshTokenParamsFor = (
   value: unknown,
-): value is AuthServerApiRefreshTokenParamsFor<AuthServerFor> => {
+): value is AuthServerApiRefreshTokenParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   return true;
 };

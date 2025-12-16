@@ -9,29 +9,29 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
 
 export type AuthServerApiForgetPasswordCallbackPropsFor<T extends AuthServerFor = AuthServerFor> =
   "forgetPasswordCallback" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["forgetPasswordCallback"]
-    : never;
+  : never;
 
 export type AuthServerApiForgetPasswordCallbackParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiForgetPasswordCallbackPropsFor<AuthServerFor>
+  AuthServerApiForgetPasswordCallbackPropsFor<T>
 >[0];
 
 export type AuthServerApiForgetPasswordCallbackResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiForgetPasswordCallbackPropsFor<AuthServerFor>
+  AuthServerApiForgetPasswordCallbackPropsFor<T>
 >;
 
 export interface forgetPasswordCallbackPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiForgetPasswordCallbackParamsFor<AuthServerFor>,
+    params: AuthServerApiForgetPasswordCallbackParamsFor<T>,
   ): Effect.Effect<
-    Awaited<AuthServerApiForgetPasswordCallbackResultFor<AuthServerFor>>,
+    Awaited<AuthServerApiForgetPasswordCallbackResultFor<T>>,
     AuthServerError,
-    AuthServerFor
+    T
   >;
 }
 
 export const isAuthServerApiForgetPasswordCallbackParamsFor = (
   value: unknown,
-): value is AuthServerApiForgetPasswordCallbackParamsFor<AuthServerFor> => {
+): value is AuthServerApiForgetPasswordCallbackParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   const obj = value as Record<string, unknown>;
   if (typeof obj["query"] !== "object" || obj["query"] === null) return false;

@@ -28,7 +28,7 @@ export type AuthServerApiChangeEmailPropsFor<T extends AuthServerFor = AuthServe
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type AuthServerApiChangeEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiChangeEmailPropsFor<AuthServerFor>
+  AuthServerApiChangeEmailPropsFor<T>
 >[0];
 
 /**
@@ -40,7 +40,7 @@ export type AuthServerApiChangeEmailParamsFor<T extends AuthServerFor = AuthServ
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type AuthServerApiChangeEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiChangeEmailPropsFor<AuthServerFor>
+  AuthServerApiChangeEmailPropsFor<T>
 >;
 
 /**
@@ -51,27 +51,27 @@ export type AuthServerApiChangeEmailResultFor<T extends AuthServerFor = AuthServ
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export interface changeEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface ChangeEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiChangeEmailParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiChangeEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiChangeEmailParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiChangeEmailResultFor<T>>, AuthServerError, T>;
 }
 
 /**
  * Type guard for validating AuthServerApiChangeEmailParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiChangeEmailParamsFor<AuthServerFor> by checking
+ * @description Narrows an unknown value to AuthServerApiChangeEmailParamsFor<T> by checking
  * the required structural properties.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiChangeEmailParamsFor<AuthServerFor> structure
+ * @returns True if value conforms to AuthServerApiChangeEmailParamsFor<T> structure
  */
 export const isAuthServerApiChangeEmailParamsFor = (
   value: unknown,
-): value is AuthServerApiChangeEmailParamsFor<AuthServerFor> => {
+): value is AuthServerApiChangeEmailParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   const obj = value as Record<string, unknown>;
 

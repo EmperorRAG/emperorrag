@@ -28,7 +28,7 @@ export type AuthServerApiDeleteUserPropsFor<T extends AuthServerFor = AuthServer
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type AuthServerApiDeleteUserParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiDeleteUserPropsFor<AuthServerFor>
+  AuthServerApiDeleteUserPropsFor<T>
 >[0];
 
 /**
@@ -40,7 +40,7 @@ export type AuthServerApiDeleteUserParamsFor<T extends AuthServerFor = AuthServe
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type AuthServerApiDeleteUserResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiDeleteUserPropsFor<AuthServerFor>
+  AuthServerApiDeleteUserPropsFor<T>
 >;
 
 /**
@@ -51,27 +51,27 @@ export type AuthServerApiDeleteUserResultFor<T extends AuthServerFor = AuthServe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export interface deleteUserPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface DeleteUserPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiDeleteUserParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiDeleteUserResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiDeleteUserParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiDeleteUserResultFor<T>>, AuthServerError, T>;
 }
 
 /**
  * Type guard for validating AuthServerApiDeleteUserParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiDeleteUserParamsFor<AuthServerFor> by checking
+ * @description Narrows an unknown value to AuthServerApiDeleteUserParamsFor<T> by checking
  * the required structural properties.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiDeleteUserParamsFor<AuthServerFor> structure
+ * @returns True if value conforms to AuthServerApiDeleteUserParamsFor<T> structure
  */
 export const isAuthServerApiDeleteUserParamsFor = (
   value: unknown,
-): value is AuthServerApiDeleteUserParamsFor<AuthServerFor> => {
+): value is AuthServerApiDeleteUserParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   const obj = value as Record<string, unknown>;
 

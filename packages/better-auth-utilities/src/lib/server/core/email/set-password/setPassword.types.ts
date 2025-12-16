@@ -28,7 +28,7 @@ export type AuthServerApiSetPasswordPropsFor<T extends AuthServerFor = AuthServe
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type AuthServerApiSetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiSetPasswordPropsFor<AuthServerFor>
+  AuthServerApiSetPasswordPropsFor<T>
 >[0];
 
 /**
@@ -40,7 +40,7 @@ export type AuthServerApiSetPasswordParamsFor<T extends AuthServerFor = AuthServ
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export type AuthServerApiSetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiSetPasswordPropsFor<AuthServerFor>
+  AuthServerApiSetPasswordPropsFor<T>
 >;
 
 /**
@@ -51,27 +51,27 @@ export type AuthServerApiSetPasswordResultFor<T extends AuthServerFor = AuthServ
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export interface setPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface SetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiSetPasswordParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiSetPasswordResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiSetPasswordParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiSetPasswordResultFor<T>>, AuthServerError, T>;
 }
 
 /**
  * Type guard for validating AuthServerApiSetPasswordParamsFor.
  *
  * @pure
- * @description Narrows an unknown value to AuthServerApiSetPasswordParamsFor<AuthServerFor> by checking
+ * @description Narrows an unknown value to AuthServerApiSetPasswordParamsFor<T> by checking
  * the required structural properties.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @param value - The value to check
- * @returns True if value conforms to AuthServerApiSetPasswordParamsFor<AuthServerFor> structure
+ * @returns True if value conforms to AuthServerApiSetPasswordParamsFor<T> structure
  */
 export const isAuthServerApiSetPasswordParamsFor = (
   value: unknown,
-): value is AuthServerApiSetPasswordParamsFor<AuthServerFor> => {
+): value is AuthServerApiSetPasswordParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   const obj = value as Record<string, unknown>;
 

@@ -11,22 +11,22 @@ export type AuthServerApiRevokeSessionsPropsFor<T extends AuthServerFor = AuthSe
   AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["revokeSessions"] : never;
 
 export type AuthServerApiRevokeSessionsParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiRevokeSessionsPropsFor<AuthServerFor>
+  AuthServerApiRevokeSessionsPropsFor<T>
 >[0];
 
 export type AuthServerApiRevokeSessionsResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiRevokeSessionsPropsFor<AuthServerFor>
+  AuthServerApiRevokeSessionsPropsFor<T>
 >;
 
-export interface revokeSessionsPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface RevokeSessionsPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiRevokeSessionsParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiRevokeSessionsResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiRevokeSessionsParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiRevokeSessionsResultFor<T>>, AuthServerError, T>;
 }
 
 export const isAuthServerApiRevokeSessionsParamsFor = (
   value: unknown,
-): value is AuthServerApiRevokeSessionsParamsFor<AuthServerFor> => {
+): value is AuthServerApiRevokeSessionsParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   return true;
 };

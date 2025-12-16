@@ -13,10 +13,11 @@ export type SignInSocialInput<
   T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
 > = Parameters<
   "signIn" extends keyof T
-    ? "social" extends keyof T["signIn"] ? T["signIn"]["social"] extends (...args: any) => any ? T["signIn"]["social"]
-      : never
-    : never
-    : never
+  ? "social" extends keyof T["signIn"]
+  ? T["signIn"]["social"] extends (...args: unknown[]) => unknown ? T["signIn"]["social"]
+  : never
+  : never
+  : never
 >[0];
 
 /**
@@ -28,10 +29,11 @@ export type SignInSocialResult<
   T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
 > = ReturnType<
   "signIn" extends keyof T
-    ? "social" extends keyof T["signIn"] ? T["signIn"]["social"] extends (...args: any) => any ? T["signIn"]["social"]
-      : never
-    : never
-    : never
+  ? "social" extends keyof T["signIn"]
+  ? T["signIn"]["social"] extends (...args: unknown[]) => unknown ? T["signIn"]["social"]
+  : never
+  : never
+  : never
 >;
 
 /**

@@ -11,22 +11,22 @@ export type AuthServerApiLinkSocialAccountPropsFor<T extends AuthServerFor = Aut
   "linkSocialAccount" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["linkSocialAccount"] : never;
 
 export type AuthServerApiLinkSocialAccountParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-  AuthServerApiLinkSocialAccountPropsFor<AuthServerFor>
+  AuthServerApiLinkSocialAccountPropsFor<T>
 >[0];
 
 export type AuthServerApiLinkSocialAccountResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-  AuthServerApiLinkSocialAccountPropsFor<AuthServerFor>
+  AuthServerApiLinkSocialAccountPropsFor<T>
 >;
 
-export interface linkSocialAccountPropsFor<T extends AuthServerFor = AuthServerFor> {
+export interface LinkSocialAccountPropsFor<T extends AuthServerFor = AuthServerFor> {
   (
-    params: AuthServerApiLinkSocialAccountParamsFor<AuthServerFor>,
-  ): Effect.Effect<Awaited<AuthServerApiLinkSocialAccountResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+    params: AuthServerApiLinkSocialAccountParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiLinkSocialAccountResultFor<T>>, AuthServerError, T>;
 }
 
 export const isAuthServerApiLinkSocialAccountParamsFor = (
   value: unknown,
-): value is AuthServerApiLinkSocialAccountParamsFor<AuthServerFor> => {
+): value is AuthServerApiLinkSocialAccountParamsFor<T> => {
   if (typeof value !== "object" || value === null) return false;
   const obj = value as Record<string, unknown>;
 

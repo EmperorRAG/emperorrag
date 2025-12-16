@@ -19,13 +19,13 @@ import type { MapInputErrorProps } from "./mapInputError.types";
  */
 
 export const mapInputError: MapInputErrorProps = (error) =>
-  Effect.gen(function*() {
+  Effect.gen(function* () {
     const { operationCode, endpoint } = yield* PipelineContext;
     if (!operationCode) {
       return yield* Effect.dieMessage("Operation code is required in PipelineContext for mapInputError");
     }
 
-    return yield* Match.value(error as any).pipe(
+    return yield* Match.value(error as unknown).pipe(
       Match.tag("ZodError", (err) => {
         const zodError = err as unknown as z.ZodError;
         return pipe(

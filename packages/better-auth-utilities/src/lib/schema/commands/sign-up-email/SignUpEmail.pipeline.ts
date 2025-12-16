@@ -10,7 +10,7 @@ export class EmailAuthServerInputError
     message: Schema.String,
     cause: Schema.Unknown,
   })
-{}
+{ }
 
 export const SignUpEmailAuthServerParamsToSignUpEmailCommand = (raw: unknown) =>
   pipe(
@@ -20,13 +20,13 @@ export const SignUpEmailAuthServerParamsToSignUpEmailCommand = (raw: unknown) =>
         strict: true,
         decode: (input) =>
           Schema.decodeUnknown(SignUpEmailAuthServerParams)(input).pipe(
-            Effect.mapError((issue) =>
+            Effect.mapError(() =>
               new ParseResult.Type(SignUpEmailAuthServerParams.ast, input, "Failed to decode server params")
             ),
           ),
         encode: (output) =>
-          Schema.encode(SignUpEmailAuthServerParams)(output as any).pipe(
-            Effect.mapError((issue) =>
+          Schema.encode(SignUpEmailAuthServerParams)(output as unknown as SignUpEmailAuthServerParams).pipe(
+            Effect.mapError(() =>
               new ParseResult.Type(SignUpEmailAuthServerParams.ast, output, "Failed to encode server params")
             ),
           ),

@@ -45,7 +45,7 @@ describe("getSession", () => {
               Cookie: cookie || "",
             },
           },
-        } as any),
+        } as unknown),
       ),
     );
 
