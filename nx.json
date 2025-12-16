@@ -1,73 +1,88 @@
 {
-	"$schema": "./node_modules/nx/schemas/nx-schema.json",
-	"defaultBase": "master",
-	"generators": {
-		"@nx/next": {
-			"application": {
-				"linter": "none",
-				"style": "css"
-			}
-		},
-		"@nx/react": {
-			"library": {
-				"unitTestRunner": "vitest"
-			}
-		}
-	},
-	"namedInputs": {
-		"default": ["{projectRoot}/**/*", "sharedGlobals"],
-		"production": [
-			"default",
-			"!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
-			"!{projectRoot}/tsconfig.spec.json",
-			"!{projectRoot}/src/test-setup.[jt]s",
-			"!{projectRoot}/jest.config.[jt]s",
-			"!{projectRoot}/test-setup.[jt]s",
-			"!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
-			"!{projectRoot}/.storybook/**/*",
-			"!{projectRoot}/tsconfig.storybook.json"
-		],
-		"sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
-	},
-	"nxCloudId": "68f27910d4c1a465750f0832",
-	"plugins": [
-		{
-			"options": {
-				"build": {
-					"buildDepsName": "build-deps",
-					"configName": "tsconfig.lib.json",
-					"targetName": "build",
-					"watchDepsName": "watch-deps"
-				},
-				"typecheck": {
-					"targetName": "typecheck"
-				}
-			},
-			"plugin": "@nx/js/typescript"
-		},
-		{
-			"options": {
-				"buildDepsTargetName": "build-deps",
-				"buildTargetName": "build",
-				"devTargetName": "dev",
-				"previewTargetName": "preview",
-				"serveStaticTargetName": "serve-static",
-				"serveTargetName": "serve",
-				"testTargetName": "test",
-				"typecheckTargetName": "typecheck",
-				"watchDepsTargetName": "watch-deps"
-			},
-			"plugin": "@nx/vite/plugin"
-		}
-	],
-	"release": {
-		"version": {
-			"preVersionCommand": "pnpm dlx nx run-many -t build"
-		}
-	},
-	"targetDefaults": {
-		"test": {
-			"dependsOn": ["^build"]
-		}
-	}
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "defaultBase": "master",
+  "generators": {
+    "@nx/next": {
+      "application": {
+        "linter": "none",
+        "style": "css"
+      }
+    },
+    "@nx/react": {
+      "library": {
+        "unitTestRunner": "vitest"
+      }
+    }
+  },
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
+    "production": [
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/test-setup.[jt]s",
+      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      "!{projectRoot}/.storybook/**/*",
+      "!{projectRoot}/tsconfig.storybook.json",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/eslint.config.mjs"
+    ],
+    "sharedGlobals": [
+      "{workspaceRoot}/.github/workflows/ci.yml"
+    ]
+  },
+  "nxCloudId": "68f27910d4c1a465750f0832",
+  "plugins": [
+    {
+      "options": {
+        "build": {
+          "buildDepsName": "build-deps",
+          "configName": "tsconfig.lib.json",
+          "targetName": "build",
+          "watchDepsName": "watch-deps"
+        },
+        "typecheck": {
+          "targetName": "typecheck"
+        }
+      },
+      "plugin": "@nx/js/typescript"
+    },
+    {
+      "options": {
+        "buildDepsTargetName": "build-deps",
+        "buildTargetName": "build",
+        "devTargetName": "dev",
+        "previewTargetName": "preview",
+        "serveStaticTargetName": "serve-static",
+        "serveTargetName": "serve",
+        "testTargetName": "test",
+        "typecheckTargetName": "typecheck",
+        "watchDepsTargetName": "watch-deps"
+      },
+      "plugin": "@nx/vite/plugin"
+    },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    }
+  ],
+  "release": {
+    "version": {
+      "preVersionCommand": "pnpm dlx nx run-many -t build"
+    }
+  },
+  "targetDefaults": {
+    "test": {
+      "dependsOn": [
+        "^build"
+      ]
+    }
+  }
 }
