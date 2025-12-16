@@ -1,5 +1,5 @@
 import { Schema } from "effect";
-import { UrlSchema } from "../../url.schema";
+import { UrlSchema } from "../../urls/url.schema";
 
 export class SignInSocialCommand extends Schema.TaggedClass<SignInSocialCommand>()("SignInSocialCommand", {
   provider: Schema.String,

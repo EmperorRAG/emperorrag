@@ -1,9 +1,9 @@
 import { Schema } from "effect";
-import { EmailSchema } from "../../email.schema";
+import { EmailSchema } from "../../emails/email.schema";
 import { ImageSchema } from "../../image.schema";
-import { NameSchema } from "../../name.schema";
-import { PasswordSchema } from "../../password.schema";
-import { UrlSchema } from "../../url.schema";
+import { NameSchema } from "../../names/name.schema";
+import { PasswordSchema } from "../../passwords/password.schema";
+import { UrlSchema } from "../../urls/url.schema";
 
 export class SignUpEmailCommand extends Schema.TaggedClass<SignUpEmailCommand>()("SignUpEmailCommand", {
   email: EmailSchema,

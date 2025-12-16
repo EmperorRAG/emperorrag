@@ -1,6 +1,6 @@
 import { Schema } from "effect";
-import { PasswordSchema } from "../../password.schema";
-import { UrlSchema } from "../../url.schema";
+import { PasswordSchema } from "../../passwords/password.schema";
+import { UrlSchema } from "../../urls/url.schema";
 
 export class DeleteUserCommand extends Schema.TaggedClass<DeleteUserCommand>()("DeleteUserCommand", {
   password: Schema.optional(PasswordSchema({ minLength: 1, maxLength: 100 })),

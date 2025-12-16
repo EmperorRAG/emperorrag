@@ -1,5 +1,5 @@
 import { Schema } from "effect";
-import { ImageSchema } from "../../image.schema";
+import { ImageSchema } from "../../images/image.schema";
 import { NameSchema } from "../../name.schema";
 
 export class UpdateUserCommand extends Schema.TaggedClass<UpdateUserCommand>()("UpdateUserCommand", {

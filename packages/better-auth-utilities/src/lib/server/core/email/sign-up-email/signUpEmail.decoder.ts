@@ -3,11 +3,11 @@ import * as Effect from "effect/Effect";
 import * as Schema from "effect/Schema";
 import { AuthServerInputError } from "../../../../errors/authServer.error";
 import { AdditionalFieldsSchema } from "../../../../schema/additional-fields.schema";
-import { Email, EmailSchema } from "../../../../schema/email.schema";
+import { Email, EmailSchema } from "../../../../schema/emails/email.schema";
 import { Image, ImageSchema } from "../../../../schema/image.schema";
-import { Name, NameSchema } from "../../../../schema/name.schema";
-import { Password, PasswordSchema } from "../../../../schema/password.schema";
-import { Url, UrlSchema } from "../../../../schema/url.schema";
+import { Name, NameSchema } from "../../../../schema/names/name.schema";
+import { Password, PasswordSchema } from "../../../../schema/passwords/password.schema";
+import { Url, UrlSchema } from "../../../../schema/urls/url.schema";
 import { AuthServerTag } from "../../../server.service";
 import type { AuthServer } from "../../../server.types";
 

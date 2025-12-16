@@ -1,5 +1,5 @@
 import { Schema } from "effect";
-import { PasswordSchema } from "../../password.schema";
+import { PasswordSchema } from "../../passwords/password.schema";
 
 export class ChangePasswordCommand extends Schema.TaggedClass<ChangePasswordCommand>()("ChangePasswordCommand", {
   currentPassword: PasswordSchema({ minLength: 1, maxLength: 100 }), // Current password validation might be looser or same

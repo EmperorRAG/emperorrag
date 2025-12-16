@@ -1,6 +1,6 @@
 import { Schema } from "effect";
-import { EmailSchema } from "../../email.schema";
-import { UrlSchema } from "../../url.schema";
+import { EmailSchema } from "../../emails/email.schema";
+import { UrlSchema } from "../../urls/url.schema";
 
 export class RequestPasswordResetCommand
   extends Schema.TaggedClass<RequestPasswordResetCommand>()("RequestPasswordResetCommand", {

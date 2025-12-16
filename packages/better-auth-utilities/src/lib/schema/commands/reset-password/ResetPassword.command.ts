@@ -1,5 +1,5 @@
 import { Schema } from "effect";
-import { PasswordSchema } from "../../password.schema";
+import { PasswordSchema } from "../../passwords/password.schema";
 
 export class ResetPasswordCommand extends Schema.TaggedClass<ResetPasswordCommand>()("ResetPasswordCommand", {
   token: Schema.String,

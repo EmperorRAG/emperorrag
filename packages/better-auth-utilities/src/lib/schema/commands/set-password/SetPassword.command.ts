@@ -1,5 +1,5 @@
 import { Schema } from "effect";
-import { PasswordSchema } from "../../password.schema";
+import { PasswordSchema } from "../../passwords/password.schema";
 
 export class SetPasswordCommand extends Schema.TaggedClass<SetPasswordCommand>()("SetPasswordCommand", {
   newPassword: PasswordSchema({ minLength: 8, maxLength: 100 }),
