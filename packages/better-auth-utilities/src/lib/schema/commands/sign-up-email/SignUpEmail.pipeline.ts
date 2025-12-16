@@ -21,7 +21,7 @@ export const SignUpEmailAuthServerParamsToSignUpEmailCommand = (raw: unknown) =>
 						Effect.mapError((issue) => new ParseResult.Type(SignUpEmailAuthServerParams.ast, input, 'Failed to decode server params'))
 					),
 				encode: (output) =>
-					Schema.encode(SignUpEmailAuthServerParams)(output).pipe(
+					Schema.encode(SignUpEmailAuthServerParams)(output as any).pipe(
 						Effect.mapError((issue) => new ParseResult.Type(SignUpEmailAuthServerParams.ast, output, 'Failed to encode server params'))
 					),
 			})
