@@ -11,7 +11,7 @@ export default defineConfig(() => ({
 	//  plugins: [ nxViteTsPaths() ],
 	// },
 	test: {
-		name: 'better-auth-utilities',
+		name: '@emperorrag/better-auth-utilities',
 		watch: false,
 		globals: true,
 		environment: 'node',
