@@ -3,12 +3,12 @@
  * @description Reusable error handler workflow pipeline for server-side operations.
  */
 
-import * as Cause from 'effect/Cause';
-import * as Effect from 'effect/Effect';
-import { type AuthServerError } from '../../errors/authServer.error';
-import { createUnknownErrorDescriptor, describeError } from '../describe-error/describeError';
-import { isAuthServerErrorDescriptor } from '../describe-error/describeError.types';
-import type { WithServerErrorHandlerProps as HandleErrorProps } from './handleError.types';
+import * as Cause from "effect/Cause";
+import * as Effect from "effect/Effect";
+import { type AuthServerError } from "../../errors/authServer.error";
+import { createUnknownErrorDescriptor, describeError } from "../describe-error/describeError";
+import { isAuthServerErrorDescriptor } from "../describe-error/describeError.types";
+import type { WithServerErrorHandlerProps as HandleErrorProps } from "./handleError.types";
 
 /**
  * Standardized server error handler pipeline.
@@ -25,37 +25,37 @@ import type { WithServerErrorHandlerProps as HandleErrorProps } from './handleEr
  * @returns An effect that fails with a standardized AuthServerErrorDescriptor.
  */
 export const handleError: HandleErrorProps = (effect) => {
-	return effect.pipe(
-		Effect.catchAllCause((cause) => {
-			// If it's a failure (expected error E)
-			if (Cause.isFailType(cause)) {
-				const error = cause.error;
+  return effect.pipe(
+    Effect.catchAllCause((cause) => {
+      // If it's a failure (expected error E)
+      if (Cause.isFailType(cause)) {
+        const error = cause.error;
 
-				// Handle known domain errors by mapping them to descriptors
-				if (typeof error === 'object' && error !== null && '_tag' in error) {
-					const tag = (error as { _tag: string })._tag;
-					switch (tag) {
-						case 'AuthServerDependenciesError':
-						case 'AuthServerInputError':
-						case 'AuthServerApiError':
-						case 'AuthServerDataMissingError':
-						case 'AuthServerSessionError':
-							return Effect.fail(describeError(error as unknown as AuthServerError));
-					}
-				}
+        // Handle known domain errors by mapping them to descriptors
+        if (typeof error === "object" && error !== null && "_tag" in error) {
+          const tag = (error as { _tag: string })._tag;
+          switch (tag) {
+            case "AuthServerDependenciesError":
+            case "AuthServerInputError":
+            case "AuthServerApiError":
+            case "AuthServerDataMissingError":
+            case "AuthServerSessionError":
+              return Effect.fail(describeError(error as unknown as AuthServerError));
+          }
+        }
 
-				// If it's already a descriptor (re-thrown), pass it through
-				if (isAuthServerErrorDescriptor(error)) {
-					return Effect.fail(error);
-				}
+        // If it's already a descriptor (re-thrown), pass it through
+        if (isAuthServerErrorDescriptor(error)) {
+          return Effect.fail(error);
+        }
 
-				// Otherwise treat as unknown expected error
-				return Effect.fail(createUnknownErrorDescriptor(error));
-			}
+        // Otherwise treat as unknown expected error
+        return Effect.fail(createUnknownErrorDescriptor(error));
+      }
 
-			// If it's a defect (throw/die), log it and return generic 500
-			const defect = Cause.squash(cause);
-			return Effect.fail(createUnknownErrorDescriptor(defect));
-		})
-	);
+      // If it's a defect (throw/die), log it and return generic 500
+      const defect = Cause.squash(cause);
+      return Effect.fail(createUnknownErrorDescriptor(defect));
+    }),
+  );
 };

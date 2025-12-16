@@ -1,8 +1,8 @@
-import type { createAuthClient } from 'better-auth/client';
-import type { AuthClientFor, AuthClientSignInFor } from '../../../client.types';
-import type { EmailAuthError } from '../shared/email.error';
-import type { EmailAuthClientDeps } from '../shared/email.types';
-import type * as Effect from 'effect/Effect';
+import type { createAuthClient } from "better-auth/client";
+import type * as Effect from "effect/Effect";
+import type { AuthClientFor, AuthClientSignInFor } from "../../../client.types";
+import type { EmailAuthError } from "../shared/email.error";
+import type { EmailAuthClientDeps } from "../shared/email.types";
 
 /**
  * Type helper to extract the input parameter type for signIn.email.
@@ -16,8 +16,10 @@ import type * as Effect from 'effect/Effect';
  * // { email: string, password: string, rememberMe?: boolean, callbackURL?: string, ...fetchOptions }
  * ```
  */
-export type SignInEmailInput<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> = Parameters<
-	'email' extends keyof AuthClientSignInFor<T> ? AuthClientSignInFor<T>['email'] : never
+export type SignInEmailInput<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> = Parameters<
+  "email" extends keyof AuthClientSignInFor<T> ? AuthClientSignInFor<T>["email"] : never
 >[0];
 
 /**
@@ -32,8 +34,10 @@ export type SignInEmailInput<T extends AuthClientFor<ReturnType<typeof createAut
  * // Promise<{ data?: { user: User, session: Session }, error?: unknown }>
  * ```
  */
-export type SignInEmailResult<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> = ReturnType<
-	'email' extends keyof AuthClientSignInFor<T> ? AuthClientSignInFor<T>['email'] : never
+export type SignInEmailResult<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> = ReturnType<
+  "email" extends keyof AuthClientSignInFor<T> ? AuthClientSignInFor<T>["email"] : never
 >;
 
 /**
@@ -51,6 +55,10 @@ export type SignInEmailResult<T extends AuthClientFor<ReturnType<typeof createAu
  *   });
  * ```
  */
-export interface signInEmailProps<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> {
-	(deps: EmailAuthClientDeps<T>): (input: SignInEmailInput<T>) => Effect.Effect<Awaited<SignInEmailResult<T>>, EmailAuthError>;
+export interface signInEmailProps<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> {
+  (
+    deps: EmailAuthClientDeps<T>,
+  ): (input: SignInEmailInput<T>) => Effect.Effect<Awaited<SignInEmailResult<T>>, EmailAuthError>;
 }

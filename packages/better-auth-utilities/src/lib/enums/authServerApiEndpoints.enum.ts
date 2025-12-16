@@ -7,7 +7,7 @@
  *
  * @see {@link AuthServerApiEndpointKeyFor} in `server.types.ts`
  */
-import * as Data from 'effect/Data';
+import * as Data from "effect/Data";
 
 /**
  * Enum representing the available API endpoints on the Better Auth server.
@@ -19,37 +19,37 @@ import * as Data from 'effect/Data';
  * @see {@link AuthServerApiEndpointKeyFor} in `server.types.ts`
  */
 export type AuthServerApiEndpoints = Data.TaggedEnum<{
-	SignInEmail: {};
-	SignUpEmail: {};
-	SignOut: {};
-	GetSession: {};
-	UpdateUser: {};
-	SendVerificationEmail: {};
-	ChangePassword: {};
-	ForgetPassword: {};
-	ResetPassword: {};
-	SignInSocial: {};
-	ListUserAccounts: {};
-	UnlinkAccount: {};
-	CallbackOAuth: {};
-	VerifyEmail: {};
-	ChangeEmail: {};
-	SetPassword: {};
-	DeleteUser: {};
-	DeleteUserCallback: {};
-	ForgetPasswordCallback: {};
-	RequestPasswordReset: {};
-	RequestPasswordResetCallback: {};
-	ListSessions: {};
-	RevokeSession: {};
-	RevokeSessions: {};
-	RevokeOtherSessions: {};
-	LinkSocialAccount: {};
-	RefreshToken: {};
-	GetAccessToken: {};
-	AccountInfo: {};
-	Ok: {};
-	Error: {};
+  SignInEmail: {};
+  SignUpEmail: {};
+  SignOut: {};
+  GetSession: {};
+  UpdateUser: {};
+  SendVerificationEmail: {};
+  ChangePassword: {};
+  ForgetPassword: {};
+  ResetPassword: {};
+  SignInSocial: {};
+  ListUserAccounts: {};
+  UnlinkAccount: {};
+  CallbackOAuth: {};
+  VerifyEmail: {};
+  ChangeEmail: {};
+  SetPassword: {};
+  DeleteUser: {};
+  DeleteUserCallback: {};
+  ForgetPasswordCallback: {};
+  RequestPasswordReset: {};
+  RequestPasswordResetCallback: {};
+  ListSessions: {};
+  RevokeSession: {};
+  RevokeSessions: {};
+  RevokeOtherSessions: {};
+  LinkSocialAccount: {};
+  RefreshToken: {};
+  GetAccessToken: {};
+  AccountInfo: {};
+  Ok: {};
+  Error: {};
 }>;
 
 export const AuthServerApiEndpoints = Data.taggedEnum<AuthServerApiEndpoints>();

@@ -1,13 +1,13 @@
 {
-	"[css]": {
+	/*"[css]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"[html]": {
+	},*/
+	/*"[html]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
+	},*/
 	"[instructions]": {
 		"diffEditor.ignoreTrimWhitespace": false,
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		// "editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.quickSuggestions": {
 			"comments": "off",
 			"other": "off",
@@ -17,23 +17,23 @@
 		"editor.unicodeHighlight.invisibleCharacters": false,
 		"editor.wordWrap": "on"
 	},
-	"[javascript]": {
+	/*"[javascript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"[json]": {
+	},*/
+	/*"[json]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"[jsonc]": {
+	},*/
+	/*"[jsonc]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
+	},*/
 	"[markdown]": {
 		"editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
 		"editor.formatOnPaste": true,
 		"editor.formatOnSave": true
 	},
-	"[typescript]": {
+	/*"[typescript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
+	},*/
 	"[yaml]": {
 		"editor.defaultFormatter": "redhat.vscode-yaml"
 	},

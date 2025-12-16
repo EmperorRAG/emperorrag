@@ -3,12 +3,12 @@
  * @description Barrel export for server-side list sessions module.
  */
 
-export { listSessionsServerService } from './listSessions.service';
-export { listSessionsServerController } from './listSessions.controller';
+export { listSessionsServerController } from "./listSessions.controller";
+export { listSessionsServerService } from "./listSessions.service";
 export {
-	isAuthServerApiListSessionsParamsFor,
-	type AuthServerApiListSessionsPropsFor,
-	type AuthServerApiListSessionsParamsFor,
-	type AuthServerApiListSessionsResultFor,
-	type listSessionsPropsFor,
-} from './listSessions.types';
+  type AuthServerApiListSessionsParamsFor,
+  type AuthServerApiListSessionsPropsFor,
+  type AuthServerApiListSessionsResultFor,
+  isAuthServerApiListSessionsParamsFor,
+  type listSessionsPropsFor,
+} from "./listSessions.types";

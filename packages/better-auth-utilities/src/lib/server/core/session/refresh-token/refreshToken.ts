@@ -3,12 +3,12 @@
  * @description Barrel export for server-side refresh token module.
  */
 
-export { refreshTokenServerService } from './refreshToken.service';
-export { refreshTokenServerController } from './refreshToken.controller';
+export { refreshTokenServerController } from "./refreshToken.controller";
+export { refreshTokenServerService } from "./refreshToken.service";
 export {
-	isAuthServerApiRefreshTokenParamsFor,
-	type AuthServerApiRefreshTokenPropsFor,
-	type AuthServerApiRefreshTokenParamsFor,
-	type AuthServerApiRefreshTokenResultFor,
-	type refreshTokenPropsFor,
-} from './refreshToken.types';
+  type AuthServerApiRefreshTokenParamsFor,
+  type AuthServerApiRefreshTokenPropsFor,
+  type AuthServerApiRefreshTokenResultFor,
+  isAuthServerApiRefreshTokenParamsFor,
+  type refreshTokenPropsFor,
+} from "./refreshToken.types";

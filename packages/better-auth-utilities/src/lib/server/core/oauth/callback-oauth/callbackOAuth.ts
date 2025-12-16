@@ -3,12 +3,12 @@
  * @description Barrel export for server-side OAuth callback module.
  */
 
-export { callbackOAuthServerService } from './callbackOAuth.service';
-export { callbackOAuthServerController } from './callbackOAuth.controller';
+export { callbackOAuthServerController } from "./callbackOAuth.controller";
+export { callbackOAuthServerService } from "./callbackOAuth.service";
 export {
-	isAuthServerApiCallbackOAuthParamsFor,
-	type AuthServerApiCallbackOAuthPropsFor,
-	type AuthServerApiCallbackOAuthParamsFor,
-	type AuthServerApiCallbackOAuthResultFor,
-	type callbackOAuthPropsFor,
-} from './callbackOAuth.types';
+  type AuthServerApiCallbackOAuthParamsFor,
+  type AuthServerApiCallbackOAuthPropsFor,
+  type AuthServerApiCallbackOAuthResultFor,
+  type callbackOAuthPropsFor,
+  isAuthServerApiCallbackOAuthParamsFor,
+} from "./callbackOAuth.types";

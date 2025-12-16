@@ -2,15 +2,15 @@
  * Utilities for declaring Rollup externals in a functional style.
  */
 
-import { pipe } from 'effect/Function';
+import { pipe } from "effect/Function";
 
 /**
  * Configuration describing how module identifiers should be externalized.
  */
 export type ExternalizeConfig = Readonly<{
-	readonly exact?: ReadonlyArray<string>;
-	readonly startsWith?: ReadonlyArray<string>;
-	readonly includes?: ReadonlyArray<string>;
+  readonly exact?: ReadonlyArray<string>;
+  readonly startsWith?: ReadonlyArray<string>;
+  readonly includes?: ReadonlyArray<string>;
 }>;
 
 /**
@@ -19,7 +19,7 @@ export type ExternalizeConfig = Readonly<{
  * @pure
  * @description Guards runtime values before attempting to read matcher properties.
  */
-const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null;
+const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === "object" && value !== null;
 
 /**
  * Coerces an unknown value into a readonly string array when possible.
@@ -28,7 +28,12 @@ const isRecord = (value: unknown): value is Record<string, unknown> => typeof va
  * @description Filters non-string entries to guarantee matcher integrity.
  */
 const ensureStringArray = (value: unknown): ReadonlyArray<string> | undefined =>
-	pipe(value, (candidate) => (Array.isArray(candidate) ? candidate.filter((item): item is string => typeof item === 'string') : undefined));
+  pipe(
+    value,
+    (candidate) => (Array.isArray(candidate)
+      ? candidate.filter((item): item is string => typeof item === "string")
+      : undefined),
+  );
 
 /**
  * Safely converts untyped JSON input into the expected externalization config.
@@ -37,21 +42,21 @@ const ensureStringArray = (value: unknown): ReadonlyArray<string> | undefined =>
  * @description Provides a defensive layer around deserialized matcher objects.
  */
 export const toExternalizeConfig = (input: unknown): ExternalizeConfig =>
-	pipe(input, (candidate) => {
-		if (!isRecord(candidate)) {
-			return {};
-		}
+  pipe(input, (candidate) => {
+    if (!isRecord(candidate)) {
+      return {};
+    }
 
-		const exact = ensureStringArray(candidate.exact);
-		const startsWith = ensureStringArray(candidate.startsWith);
-		const includes = ensureStringArray(candidate.includes);
+    const exact = ensureStringArray(candidate.exact);
+    const startsWith = ensureStringArray(candidate.startsWith);
+    const includes = ensureStringArray(candidate.includes);
 
-		return {
-			...(exact ? { exact } : {}),
-			...(startsWith ? { startsWith } : {}),
-			...(includes ? { includes } : {}),
-		};
-	});
+    return {
+      ...(exact ? { exact } : {}),
+      ...(startsWith ? { startsWith } : {}),
+      ...(includes ? { includes } : {}),
+    };
+  });
 
 /**
  * Normalizes the provided configuration arrays for the external matcher.
@@ -60,15 +65,15 @@ export const toExternalizeConfig = (input: unknown): ExternalizeConfig =>
  * @description Creates immutable matcher lists with normalized separators.
  */
 const createNormalizedConfig = (
-	config: ExternalizeConfig
+  config: ExternalizeConfig,
 ): Readonly<{
-	readonly exact: ReadonlyArray<string>;
-	readonly startsWith: ReadonlyArray<string>;
-	readonly includes: ReadonlyArray<string>;
+  readonly exact: ReadonlyArray<string>;
+  readonly startsWith: ReadonlyArray<string>;
+  readonly includes: ReadonlyArray<string>;
 }> => ({
-	exact: toNormalizedArray(config.exact),
-	startsWith: toNormalizedArray(config.startsWith),
-	includes: toNormalizedArray(config.includes),
+  exact: toNormalizedArray(config.exact),
+  startsWith: toNormalizedArray(config.startsWith),
+  includes: toNormalizedArray(config.includes),
 });
 
 /**
@@ -77,7 +82,7 @@ const createNormalizedConfig = (
  * @pure
  * @description Normalizes path separators for consistent matcher evaluation.
  */
-const normalizePath = (value: string): string => value.replace(/\\/g, '/');
+const normalizePath = (value: string): string => value.replace(/\\/g, "/");
 
 /**
  * Converts an optional array into a normalized readonly array.
@@ -86,7 +91,7 @@ const normalizePath = (value: string): string => value.replace(/\\/g, '/');
  * @description Normalizes each entry in the provided collection while preserving order.
  */
 const toNormalizedArray = (values: ReadonlyArray<string> | undefined): ReadonlyArray<string> =>
-	pipe(values ?? [], (entries) => Array.from(entries, normalizePath));
+  pipe(values ?? [], (entries) => Array.from(entries, normalizePath));
 
 /**
  * Evaluates whether any pattern in the collection matches according to the provided comparison.
@@ -94,7 +99,8 @@ const toNormalizedArray = (values: ReadonlyArray<string> | undefined): ReadonlyA
  * @pure
  * @description Applies the supplied comparison to every pattern until a match is found.
  */
-const matchAny = (patterns: ReadonlyArray<string>, compare: (pattern: string) => boolean): boolean => pipe(patterns, (entries) => entries.some(compare));
+const matchAny = (patterns: ReadonlyArray<string>, compare: (pattern: string) => boolean): boolean =>
+  pipe(patterns, (entries) => entries.some(compare));
 
 /**
  * Creates an external predicate for Rollup based on declared package matchers.
@@ -116,16 +122,16 @@ const matchAny = (patterns: ReadonlyArray<string>, compare: (pattern: string) =>
  * const result = predicate('better-auth/plugins');
  * // => true
  */
-export const externalizePackages = (config: ExternalizeConfig): ((id: string) => boolean) => {
-	const normalizedConfig = createNormalizedConfig(config);
+export const externalizePackages = (config: ExternalizeConfig): (id: string) => boolean => {
+  const normalizedConfig = createNormalizedConfig(config);
 
-	return (id: string): boolean => {
-		const normalizedId = normalizePath(id);
+  return (id: string): boolean => {
+    const normalizedId = normalizePath(id);
 
-		return (
-			matchAny(normalizedConfig.exact, (pattern) => normalizedId === pattern) ||
-			matchAny(normalizedConfig.startsWith, (pattern) => normalizedId.startsWith(pattern)) ||
-			matchAny(normalizedConfig.includes, (pattern) => normalizedId.includes(pattern))
-		);
-	};
+    return (
+      matchAny(normalizedConfig.exact, (pattern) => normalizedId === pattern)
+      || matchAny(normalizedConfig.startsWith, (pattern) => normalizedId.startsWith(pattern))
+      || matchAny(normalizedConfig.includes, (pattern) => normalizedId.includes(pattern))
+    );
+  };
 };

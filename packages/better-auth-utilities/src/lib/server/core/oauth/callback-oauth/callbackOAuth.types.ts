@@ -3,24 +3,30 @@
  * @description Type definitions for server-side OAuth callback operation.
  */
 
-import type * as Effect from 'effect/Effect';
-import type { AuthServerError } from '../../../../errors/authServer.error';
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
-export type AuthServerApiCallbackOAuthPropsFor<T extends AuthServerFor = AuthServerFor> =
-	'callbackOAuth' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['callbackOAuth'] : never;
+export type AuthServerApiCallbackOAuthPropsFor<T extends AuthServerFor = AuthServerFor> = "callbackOAuth" extends
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["callbackOAuth"] : never;
 
-export type AuthServerApiCallbackOAuthParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiCallbackOAuthPropsFor<AuthServerFor>>[0];
+export type AuthServerApiCallbackOAuthParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+  AuthServerApiCallbackOAuthPropsFor<AuthServerFor>
+>[0];
 
-export type AuthServerApiCallbackOAuthResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiCallbackOAuthPropsFor<AuthServerFor>>;
+export type AuthServerApiCallbackOAuthResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+  AuthServerApiCallbackOAuthPropsFor<AuthServerFor>
+>;
 
 export interface callbackOAuthPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(
-		params: AuthServerApiCallbackOAuthParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiCallbackOAuthResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+  (
+    params: AuthServerApiCallbackOAuthParamsFor<AuthServerFor>,
+  ): Effect.Effect<Awaited<AuthServerApiCallbackOAuthResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
-export const isAuthServerApiCallbackOAuthParamsFor = (value: unknown): value is AuthServerApiCallbackOAuthParamsFor<AuthServerFor> => {
-	if (typeof value !== 'object' || value === null) return false;
-	return true;
+export const isAuthServerApiCallbackOAuthParamsFor = (
+  value: unknown,
+): value is AuthServerApiCallbackOAuthParamsFor<AuthServerFor> => {
+  if (typeof value !== "object" || value === null) return false;
+  return true;
 };

@@ -3,12 +3,12 @@
  * @description Barrel export for server-side set password module.
  */
 
-export { setPasswordServerService } from './setPassword.service';
-export { setPasswordServerController } from './setPassword.controller';
+export { setPasswordServerController } from "./setPassword.controller";
+export { setPasswordServerService } from "./setPassword.service";
 export {
-	isAuthServerApiSetPasswordParamsFor,
-	type AuthServerApiSetPasswordPropsFor,
-	type AuthServerApiSetPasswordParamsFor,
-	type AuthServerApiSetPasswordResultFor,
-	type setPasswordPropsFor,
-} from './setPassword.types';
+  type AuthServerApiSetPasswordParamsFor,
+  type AuthServerApiSetPasswordPropsFor,
+  type AuthServerApiSetPasswordResultFor,
+  isAuthServerApiSetPasswordParamsFor,
+  type setPasswordPropsFor,
+} from "./setPassword.types";

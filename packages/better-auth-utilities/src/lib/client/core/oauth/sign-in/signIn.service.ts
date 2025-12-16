@@ -1,6 +1,6 @@
-import * as Effect from 'effect/Effect';
-import { OAuthAuthApiError } from '../shared/oauth.error';
-import type { SignInSocialProps } from './signIn.types';
+import * as Effect from "effect/Effect";
+import { OAuthAuthApiError } from "../shared/oauth.error";
+import type { SignInSocialProps } from "./signIn.types";
 
 /**
  * Initiates a social sign-in flow.
@@ -12,23 +12,25 @@ import type { SignInSocialProps } from './signIn.types';
  * @returns Curried function accepting input and returning an Effect
  */
 export const signInSocialClient: SignInSocialProps = (deps) => (input) => {
-	const { authClient } = deps;
+  const { authClient } = deps;
 
-	return Effect.tryPromise({
-		try: async () => {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const result = await (authClient.signIn.social as any)(input);
-			if (result?.error) {
-				throw result.error;
-			}
-			return result;
-		},
-		catch: (error) => {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const message = (error as any)?.message || (error instanceof Error ? error.message : 'Social sign-in failed');
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const status = error && typeof error === 'object' && 'status' in error ? ((error as any).status as number) : undefined;
-			return new OAuthAuthApiError(message, status, error);
-		},
-	});
+  return Effect.tryPromise({
+    try: async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const result = await (authClient.signIn.social as any)(input);
+      if (result?.error) {
+        throw result.error;
+      }
+      return result;
+    },
+    catch: (error) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const message = (error as any)?.message || (error instanceof Error ? error.message : "Social sign-in failed");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const status = error && typeof error === "object" && "status" in error
+        ? ((error as any).status as number)
+        : undefined;
+      return new OAuthAuthApiError(message, status, error);
+    },
+  });
 };

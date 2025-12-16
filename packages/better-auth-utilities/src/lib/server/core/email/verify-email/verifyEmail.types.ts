@@ -3,9 +3,9 @@
  * @description Type definitions for server-side verify email operation.
  */
 
-import type * as Effect from 'effect/Effect';
-import type { AuthServerError } from '../../../../errors/authServer.error';
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
  * Type helper to extract the verifyEmail endpoint type from an AuthServer.
@@ -16,8 +16,8 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiVerifyEmailPropsFor<T extends AuthServerFor = AuthServerFor> =
-	'verifyEmail' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['verifyEmail'] : never;
+export type AuthServerApiVerifyEmailPropsFor<T extends AuthServerFor = AuthServerFor> = "verifyEmail" extends
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["verifyEmail"] : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.verifyEmail.
@@ -27,7 +27,9 @@ export type AuthServerApiVerifyEmailPropsFor<T extends AuthServerFor = AuthServe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiVerifyEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiVerifyEmailPropsFor<AuthServerFor>>[0];
+export type AuthServerApiVerifyEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+  AuthServerApiVerifyEmailPropsFor<AuthServerFor>
+>[0];
 
 /**
  * Type helper to extract the return type from auth.api.verifyEmail.
@@ -37,7 +39,9 @@ export type AuthServerApiVerifyEmailParamsFor<T extends AuthServerFor = AuthServ
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiVerifyEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiVerifyEmailPropsFor<AuthServerFor>>;
+export type AuthServerApiVerifyEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+  AuthServerApiVerifyEmailPropsFor<AuthServerFor>
+>;
 
 /**
  * Function signature for verifyEmail server service.
@@ -48,9 +52,9 @@ export type AuthServerApiVerifyEmailResultFor<T extends AuthServerFor = AuthServ
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export interface verifyEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(
-		params: AuthServerApiVerifyEmailParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiVerifyEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+  (
+    params: AuthServerApiVerifyEmailParamsFor<AuthServerFor>,
+  ): Effect.Effect<Awaited<AuthServerApiVerifyEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**
@@ -65,14 +69,16 @@ export interface verifyEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiVerifyEmailParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiVerifyEmailParamsFor = (value: unknown): value is AuthServerApiVerifyEmailParamsFor<AuthServerFor> => {
-	if (typeof value !== 'object' || value === null) return false;
-	const obj = value as Record<string, unknown>;
+export const isAuthServerApiVerifyEmailParamsFor = (
+  value: unknown,
+): value is AuthServerApiVerifyEmailParamsFor<AuthServerFor> => {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
 
-	if (typeof obj.query !== 'object' || obj.query === null) return false;
-	const query = obj.query as Record<string, unknown>;
+  if (typeof obj.query !== "object" || obj.query === null) return false;
+  const query = obj.query as Record<string, unknown>;
 
-	if (typeof query.token !== 'string') return false;
+  if (typeof query.token !== "string") return false;
 
-	return true;
+  return true;
 };

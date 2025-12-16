@@ -3,12 +3,12 @@
  * @description Barrel export for server-side revoke other sessions module.
  */
 
-export { revokeOtherSessionsServerService } from './revokeOtherSessions.service';
-export { revokeOtherSessionsServerController } from './revokeOtherSessions.controller';
+export { revokeOtherSessionsServerController } from "./revokeOtherSessions.controller";
+export { revokeOtherSessionsServerService } from "./revokeOtherSessions.service";
 export {
-	isAuthServerApiRevokeOtherSessionsParamsFor,
-	type AuthServerApiRevokeOtherSessionsPropsFor,
-	type AuthServerApiRevokeOtherSessionsParamsFor,
-	type AuthServerApiRevokeOtherSessionsResultFor,
-	type revokeOtherSessionsPropsFor,
-} from './revokeOtherSessions.types';
+  type AuthServerApiRevokeOtherSessionsParamsFor,
+  type AuthServerApiRevokeOtherSessionsPropsFor,
+  type AuthServerApiRevokeOtherSessionsResultFor,
+  isAuthServerApiRevokeOtherSessionsParamsFor,
+  type revokeOtherSessionsPropsFor,
+} from "./revokeOtherSessions.types";

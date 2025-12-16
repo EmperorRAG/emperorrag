@@ -3,9 +3,9 @@
  * @description Type definitions for server-side unlink account operation.
  */
 
-import type * as Effect from 'effect/Effect';
-import type { AuthServerError } from '../../../../errors/authServer.error';
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
  * Type helper to extract the unlinkAccount endpoint type from an AuthServer.
@@ -29,8 +29,8 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * });
  * ```
  */
-export type AuthServerApiUnlinkAccountPropsFor<T extends AuthServerFor = AuthServerFor> =
-	'unlinkAccount' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['unlinkAccount'] : never;
+export type AuthServerApiUnlinkAccountPropsFor<T extends AuthServerFor = AuthServerFor> = "unlinkAccount" extends
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["unlinkAccount"] : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.unlinkAccount.
@@ -47,7 +47,9 @@ export type AuthServerApiUnlinkAccountPropsFor<T extends AuthServerFor = AuthSer
  * // { body: { providerId: string }, headers: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiUnlinkAccountParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiUnlinkAccountPropsFor<T>>[0];
+export type AuthServerApiUnlinkAccountParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+  AuthServerApiUnlinkAccountPropsFor<T>
+>[0];
 /**
  * Type helper to extract the return type from auth.api.unlinkAccount.
  *
@@ -63,7 +65,9 @@ export type AuthServerApiUnlinkAccountParamsFor<T extends AuthServerFor = AuthSe
  * // Promise<{ status: boolean }>
  * ```
  */
-export type AuthServerApiUnlinkAccountResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiUnlinkAccountPropsFor<T>>;
+export type AuthServerApiUnlinkAccountResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+  AuthServerApiUnlinkAccountPropsFor<T>
+>;
 
 /**
  * Function signature for unlinkAccount server service.
@@ -101,7 +105,9 @@ export type AuthServerApiUnlinkAccountResultFor<T extends AuthServerFor = AuthSe
  * ```
  */
 export interface unlinkAccountPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiUnlinkAccountParamsFor<T>): Effect.Effect<Awaited<AuthServerApiUnlinkAccountResultFor<T>>, AuthServerError, T>;
+  (
+    params: AuthServerApiUnlinkAccountParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiUnlinkAccountResultFor<T>>, AuthServerError, T>;
 }
 
 /**
@@ -117,17 +123,19 @@ export interface unlinkAccountPropsFor<T extends AuthServerFor = AuthServerFor> 
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiUnlinkAccountParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiUnlinkAccountParamsFor = (value: unknown): value is AuthServerApiUnlinkAccountParamsFor<AuthServerFor> => {
-	if (typeof value !== 'object' || value === null) return false;
-	const obj = value as Record<string, unknown>;
+export const isAuthServerApiUnlinkAccountParamsFor = (
+  value: unknown,
+): value is AuthServerApiUnlinkAccountParamsFor<AuthServerFor> => {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
 
-	if (typeof obj.body !== 'object' || obj.body === null) return false;
-	const body = obj.body as Record<string, unknown>;
+  if (typeof obj.body !== "object" || obj.body === null) return false;
+  const body = obj.body as Record<string, unknown>;
 
-	if (typeof body.providerId !== 'string') return false;
+  if (typeof body.providerId !== "string") return false;
 
-	// headers is required for unlinkAccount
-	if (!(obj.headers instanceof Headers)) return false;
+  // headers is required for unlinkAccount
+  if (!(obj.headers instanceof Headers)) return false;
 
-	return true;
+  return true;
 };

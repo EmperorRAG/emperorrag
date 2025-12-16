@@ -3,9 +3,9 @@
  * @description Type definitions for server-side sign-out operation.
  */
 
-import type * as Effect from 'effect/Effect';
-import type { AuthServerError } from '../../../../errors/authServer.error';
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
  * Type helper to extract the signOut endpoint type from an AuthServer.
@@ -26,8 +26,8 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * await signOut({ headers: request.headers });
  * ```
  */
-export type AuthServerApiSignOutPropsFor<T extends AuthServerFor = AuthServerFor> =
-	'signOut' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['signOut'] : never;
+export type AuthServerApiSignOutPropsFor<T extends AuthServerFor = AuthServerFor> = "signOut" extends
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["signOut"] : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.signOut.
@@ -44,7 +44,9 @@ export type AuthServerApiSignOutPropsFor<T extends AuthServerFor = AuthServerFor
  * // { headers: Headers, asResponse?: boolean, returnHeaders?: boolean }
  * ```
  */
-export type AuthServerApiSignOutParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiSignOutPropsFor<AuthServerFor>>[0];
+export type AuthServerApiSignOutParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+  AuthServerApiSignOutPropsFor<AuthServerFor>
+>[0];
 
 /**
  * Type helper to extract the return type from auth.api.signOut.
@@ -61,7 +63,9 @@ export type AuthServerApiSignOutParamsFor<T extends AuthServerFor = AuthServerFo
  * // Promise<{ success: boolean } | void>
  * ```
  */
-export type AuthServerApiSignOutResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiSignOutPropsFor<AuthServerFor>>;
+export type AuthServerApiSignOutResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+  AuthServerApiSignOutPropsFor<AuthServerFor>
+>;
 
 /**
  * Function signature for signOut server service.
@@ -98,7 +102,9 @@ export type AuthServerApiSignOutResultFor<T extends AuthServerFor = AuthServerFo
  * ```
  */
 export interface signOutPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(params: AuthServerApiSignOutParamsFor<T>): Effect.Effect<Awaited<AuthServerApiSignOutResultFor<T>>, AuthServerError, T>;
+  (
+    params: AuthServerApiSignOutParamsFor<T>,
+  ): Effect.Effect<Awaited<AuthServerApiSignOutResultFor<T>>, AuthServerError, T>;
 }
 
 /**
@@ -114,11 +120,13 @@ export interface signOutPropsFor<T extends AuthServerFor = AuthServerFor> {
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiSignOutParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiSignOutParamsFor = (value: unknown): value is AuthServerApiSignOutParamsFor<AuthServerFor> => {
-	if (typeof value !== 'object' || value === null) return false;
-	const obj = value as Record<string, unknown>;
+export const isAuthServerApiSignOutParamsFor = (
+  value: unknown,
+): value is AuthServerApiSignOutParamsFor<AuthServerFor> => {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
 
-	if (!(obj.headers instanceof Headers)) return false;
+  if (!(obj.headers instanceof Headers)) return false;
 
-	return true;
+  return true;
 };

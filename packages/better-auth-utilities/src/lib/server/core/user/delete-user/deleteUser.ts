@@ -3,12 +3,12 @@
  * @description Barrel export for server-side delete user module.
  */
 
-export { deleteUserServerService } from './deleteUser.service';
-export { deleteUserServerController } from './deleteUser.controller';
+export { deleteUserServerController } from "./deleteUser.controller";
+export { deleteUserServerService } from "./deleteUser.service";
 export {
-	isAuthServerApiDeleteUserParamsFor,
-	type AuthServerApiDeleteUserPropsFor,
-	type AuthServerApiDeleteUserParamsFor,
-	type AuthServerApiDeleteUserResultFor,
-	type deleteUserPropsFor,
-} from './deleteUser.types';
+  type AuthServerApiDeleteUserParamsFor,
+  type AuthServerApiDeleteUserPropsFor,
+  type AuthServerApiDeleteUserResultFor,
+  type deleteUserPropsFor,
+  isAuthServerApiDeleteUserParamsFor,
+} from "./deleteUser.types";

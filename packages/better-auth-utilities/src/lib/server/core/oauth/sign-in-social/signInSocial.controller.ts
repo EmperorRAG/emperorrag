@@ -1,11 +1,15 @@
-import * as Effect from 'effect/Effect';
-import { PipelineContext } from '../../../../context/pipeline.context';
-import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
-import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
-import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import type { AuthServerFor } from '../../../server.types';
-import { signInSocialServerService } from './signInSocial.service';
-import { isAuthServerApiSignInSocialParamsFor, type AuthServerApiSignInSocialParamsFor, type signInSocialPropsFor } from './signInSocial.types';
+import * as Effect from "effect/Effect";
+import { PipelineContext } from "../../../../context/pipeline.context";
+import { AuthServerApiEndpoints } from "../../../../enums/authServerApiEndpoints.enum";
+import { validateInputEffect } from "../../../../pipeline/zod-input-validator/zodInputValidator";
+import { createAuthServerApiEndpointParamsSchema } from "../../../../pipeline/zod-schema-builder/zodSchemaBuilder";
+import type { AuthServerFor } from "../../../server.types";
+import { signInSocialServerService } from "./signInSocial.service";
+import {
+  type AuthServerApiSignInSocialParamsFor,
+  isAuthServerApiSignInSocialParamsFor,
+  type signInSocialPropsFor,
+} from "./signInSocial.types";
 
 /**
  * Server-side controller for OAuth social sign-in.
@@ -53,13 +57,17 @@ import { isAuthServerApiSignInSocialParamsFor, type AuthServerApiSignInSocialPar
  *   );
  * ```
  */
-export const signInSocialServerController: signInSocialPropsFor = (params: AuthServerApiSignInSocialParamsFor<AuthServerFor>) =>
-	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiSignInSocialParamsFor)(params);
+export const signInSocialServerController: signInSocialPropsFor = (
+  params: AuthServerApiSignInSocialParamsFor<AuthServerFor>,
+) =>
+  Effect.gen(function*() {
+    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
+      isAuthServerApiSignInSocialParamsFor,
+    )(params);
 
-		return yield* signInSocialServerService(validatedParams);
-	}).pipe(
-		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.SignInSocial(),
-		})
-	);
+    return yield* signInSocialServerService(validatedParams);
+  }).pipe(
+    Effect.provideService(PipelineContext, {
+      endpoint: AuthServerApiEndpoints.SignInSocial(),
+    }),
+  );

@@ -4,11 +4,11 @@
  * Uses Context-based dependency injection to access the Better Auth server.
  */
 
-import * as Effect from 'effect/Effect';
-import { mapApiError } from '../../../../pipeline/map-api-error/mapApiError';
-import { AuthServerTag } from '../../../server.service';
-import type { AuthServerFor } from '../../../server.types';
-import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from './signInSocial.types';
+import * as Effect from "effect/Effect";
+import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
+import { AuthServerTag } from "../../../server.service";
+import type { AuthServerFor } from "../../../server.types";
+import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from "./signInSocial.types";
 
 /**
  * Server-side service for OAuth social sign-in.
@@ -91,5 +91,10 @@ import type { AuthServerApiSignInSocialParamsFor, signInSocialPropsFor } from '.
  * });
  * ```
  */
-export const signInSocialServerService: signInSocialPropsFor = (params: AuthServerApiSignInSocialParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.signInSocial(params)).pipe(Effect.catchAll(mapApiError)));
+export const signInSocialServerService: signInSocialPropsFor = (
+  params: AuthServerApiSignInSocialParamsFor<AuthServerFor>,
+) =>
+  Effect.flatMap(
+    AuthServerTag,
+    (authServer) => Effect.tryPromise(() => authServer.api.signInSocial(params)).pipe(Effect.catchAll(mapApiError)),
+  );

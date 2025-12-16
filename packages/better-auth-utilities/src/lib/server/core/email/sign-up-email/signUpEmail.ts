@@ -3,5 +3,5 @@
  * @description Barrel export for server-side sign-up email module.
  */
 
-export { signUpEmailServerService } from './signUpEmail.service';
-export { signUpEmailServerController } from './signUpEmail.controller';
+export { signUpEmailServerController } from "./signUpEmail.controller";
+export { signUpEmailServerService } from "./signUpEmail.service";

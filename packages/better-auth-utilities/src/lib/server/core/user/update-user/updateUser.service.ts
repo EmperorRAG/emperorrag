@@ -3,11 +3,11 @@
  * @description Server-side service for update user operation using Better Auth API.
  */
 
-import * as Effect from 'effect/Effect';
-import { mapApiError } from '../../../../pipeline/map-api-error/mapApiError';
-import { AuthServerTag } from '../../../server.service';
-import type { AuthServerFor } from '../../../server.types';
-import type { AuthServerApiUpdateUserParamsFor, updateUserPropsFor } from './updateUser.types';
+import * as Effect from "effect/Effect";
+import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
+import { AuthServerTag } from "../../../server.service";
+import type { AuthServerFor } from "../../../server.types";
+import type { AuthServerApiUpdateUserParamsFor, updateUserPropsFor } from "./updateUser.types";
 
 /**
  * Update user profile via Better Auth server API.
@@ -40,4 +40,7 @@ import type { AuthServerApiUpdateUserParamsFor, updateUserPropsFor } from './upd
  * @returns Effect that resolves to updated user data or fails with AuthServerApiError
  */
 export const updateUserServerService: updateUserPropsFor = (params: AuthServerApiUpdateUserParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.updateUser(params)).pipe(Effect.catchAll(mapApiError)));
+  Effect.flatMap(
+    AuthServerTag,
+    (authServer) => Effect.tryPromise(() => authServer.api.updateUser(params)).pipe(Effect.catchAll(mapApiError)),
+  );

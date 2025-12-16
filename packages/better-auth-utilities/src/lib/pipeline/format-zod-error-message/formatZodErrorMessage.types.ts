@@ -1,6 +1,6 @@
-import type * as Effect from 'effect/Effect';
-import type { z } from 'zod';
+import type * as Effect from "effect/Effect";
+import type { z } from "zod";
 
 export interface FormatZodErrorMessageProps {
-	(error: z.ZodError): Effect.Effect<string>;
+  (error: z.ZodError): Effect.Effect<string>;
 }

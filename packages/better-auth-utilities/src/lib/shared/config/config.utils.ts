@@ -1,8 +1,12 @@
-import { pipe } from 'effect/Function';
-import * as Option from 'effect/Option';
-import type { AuthOptions } from './config.types';
-import type { AuthServerFor } from '../../server/server.types';
-import { DEFAULT_MIN_PASSWORD_LENGTH, DEFAULT_MAX_PASSWORD_LENGTH, DEFAULT_RESET_PASSWORD_TOKEN_EXPIRES_IN } from './config.constants';
+import { pipe } from "effect/Function";
+import * as Option from "effect/Option";
+import type { AuthServerFor } from "../../server/server.types";
+import {
+  DEFAULT_MAX_PASSWORD_LENGTH,
+  DEFAULT_MIN_PASSWORD_LENGTH,
+  DEFAULT_RESET_PASSWORD_TOKEN_EXPIRES_IN,
+} from "./config.constants";
+import type { AuthOptions } from "./config.types";
 
 // =============================================================================
 // AUTH SERVER CONFIG EXTRACTORS
@@ -18,8 +22,10 @@ import { DEFAULT_MIN_PASSWORD_LENGTH, DEFAULT_MAX_PASSWORD_LENGTH, DEFAULT_RESET
  * @param authServer - The Better Auth server instance
  * @returns Option.Option<AuthOptions> - The configuration options if found
  */
-export const getAuthServerConfig = <T extends AuthServerFor = AuthServerFor>(authServer: T): Option.Option<AuthOptions> => {
-	return Option.fromNullable(authServer.options);
+export const getAuthServerConfig = <T extends AuthServerFor = AuthServerFor>(
+  authServer: T,
+): Option.Option<AuthOptions> => {
+  return Option.fromNullable(authServer.options);
 };
 
 // =============================================================================
@@ -36,8 +42,10 @@ export const getAuthServerConfig = <T extends AuthServerFor = AuthServerFor>(aut
  * @param options - The Better Auth configuration options
  * @returns Option.Option<NonNullable<AuthOptions['emailAndPassword']>> - The email and password config if present
  */
-export const getEmailAndPasswordConfig = (options: AuthOptions): Option.Option<NonNullable<AuthOptions['emailAndPassword']>> => {
-	return Option.fromNullable(options.emailAndPassword);
+export const getEmailAndPasswordConfig = (
+  options: AuthOptions,
+): Option.Option<NonNullable<AuthOptions["emailAndPassword"]>> => {
+  return Option.fromNullable(options.emailAndPassword);
 };
 
 /**
@@ -49,8 +57,10 @@ export const getEmailAndPasswordConfig = (options: AuthOptions): Option.Option<N
  * @param emailPasswordConfig - The email and password configuration object
  * @returns Option.Option<number> - The minimum password length if configured
  */
-export const getMinPasswordLengthFromConfig = (emailPasswordConfig: NonNullable<AuthOptions['emailAndPassword']>): Option.Option<number> => {
-	return Option.fromNullable(emailPasswordConfig.minPasswordLength);
+export const getMinPasswordLengthFromConfig = (
+  emailPasswordConfig: NonNullable<AuthOptions["emailAndPassword"]>,
+): Option.Option<number> => {
+  return Option.fromNullable(emailPasswordConfig.minPasswordLength);
 };
 
 /**
@@ -62,8 +72,10 @@ export const getMinPasswordLengthFromConfig = (emailPasswordConfig: NonNullable<
  * @param emailPasswordConfig - The email and password configuration object
  * @returns Option.Option<number> - The maximum password length if configured
  */
-export const getMaxPasswordLengthFromConfig = (emailPasswordConfig: NonNullable<AuthOptions['emailAndPassword']>): Option.Option<number> => {
-	return Option.fromNullable(emailPasswordConfig.maxPasswordLength);
+export const getMaxPasswordLengthFromConfig = (
+  emailPasswordConfig: NonNullable<AuthOptions["emailAndPassword"]>,
+): Option.Option<number> => {
+  return Option.fromNullable(emailPasswordConfig.maxPasswordLength);
 };
 
 /**
@@ -75,8 +87,10 @@ export const getMaxPasswordLengthFromConfig = (emailPasswordConfig: NonNullable<
  * @param emailPasswordConfig - The email and password configuration object
  * @returns Option.Option<number> - The reset password token expiration in seconds if configured
  */
-export const getResetPasswordTokenExpiresInFromConfig = (emailPasswordConfig: NonNullable<AuthOptions['emailAndPassword']>): Option.Option<number> => {
-	return Option.fromNullable(emailPasswordConfig.resetPasswordTokenExpiresIn);
+export const getResetPasswordTokenExpiresInFromConfig = (
+  emailPasswordConfig: NonNullable<AuthOptions["emailAndPassword"]>,
+): Option.Option<number> => {
+  return Option.fromNullable(emailPasswordConfig.resetPasswordTokenExpiresIn);
 };
 
 /**
@@ -88,8 +102,10 @@ export const getResetPasswordTokenExpiresInFromConfig = (emailPasswordConfig: No
  * @param emailPasswordConfig - The email and password configuration object
  * @returns Option.Option<boolean> - Whether email verification is required if configured
  */
-export const getRequireEmailVerificationFromConfig = (emailPasswordConfig: NonNullable<AuthOptions['emailAndPassword']>): Option.Option<boolean> => {
-	return Option.fromNullable(emailPasswordConfig.requireEmailVerification);
+export const getRequireEmailVerificationFromConfig = (
+  emailPasswordConfig: NonNullable<AuthOptions["emailAndPassword"]>,
+): Option.Option<boolean> => {
+  return Option.fromNullable(emailPasswordConfig.requireEmailVerification);
 };
 
 /**
@@ -102,8 +118,10 @@ export const getRequireEmailVerificationFromConfig = (emailPasswordConfig: NonNu
  * @param emailPasswordConfig - The email and password configuration object
  * @returns Option.Option<boolean> - Whether auto sign-in is enabled if configured
  */
-export const getAutoSignInFromConfig = (emailPasswordConfig: NonNullable<AuthOptions['emailAndPassword']>): Option.Option<boolean> => {
-	return Option.fromNullable(emailPasswordConfig.autoSignIn);
+export const getAutoSignInFromConfig = (
+  emailPasswordConfig: NonNullable<AuthOptions["emailAndPassword"]>,
+): Option.Option<boolean> => {
+  return Option.fromNullable(emailPasswordConfig.autoSignIn);
 };
 
 // =============================================================================
@@ -120,8 +138,10 @@ export const getAutoSignInFromConfig = (emailPasswordConfig: NonNullable<AuthOpt
  * @param options - The Better Auth configuration options
  * @returns Option.Option<NonNullable<AuthOptions['emailVerification']>> - The email verification config if present
  */
-export const getEmailVerificationConfig = (options: AuthOptions): Option.Option<NonNullable<AuthOptions['emailVerification']>> => {
-	return Option.fromNullable(options.emailVerification);
+export const getEmailVerificationConfig = (
+  options: AuthOptions,
+): Option.Option<NonNullable<AuthOptions["emailVerification"]>> => {
+  return Option.fromNullable(options.emailVerification);
 };
 
 /**
@@ -133,8 +153,10 @@ export const getEmailVerificationConfig = (options: AuthOptions): Option.Option<
  * @param emailVerificationConfig - The email verification configuration object
  * @returns Option.Option<boolean> - Whether verification email is sent on sign-up if configured
  */
-export const getSendOnSignUpFromConfig = (emailVerificationConfig: NonNullable<AuthOptions['emailVerification']>): Option.Option<boolean> => {
-	return Option.fromNullable(emailVerificationConfig.sendOnSignUp);
+export const getSendOnSignUpFromConfig = (
+  emailVerificationConfig: NonNullable<AuthOptions["emailVerification"]>,
+): Option.Option<boolean> => {
+  return Option.fromNullable(emailVerificationConfig.sendOnSignUp);
 };
 
 /**
@@ -146,8 +168,10 @@ export const getSendOnSignUpFromConfig = (emailVerificationConfig: NonNullable<A
  * @param emailVerificationConfig - The email verification configuration object
  * @returns Option.Option<boolean> - Whether auto sign-in after verification is enabled if configured
  */
-export const getAutoSignInAfterVerificationFromConfig = (emailVerificationConfig: NonNullable<AuthOptions['emailVerification']>): Option.Option<boolean> => {
-	return Option.fromNullable(emailVerificationConfig.autoSignInAfterVerification);
+export const getAutoSignInAfterVerificationFromConfig = (
+  emailVerificationConfig: NonNullable<AuthOptions["emailVerification"]>,
+): Option.Option<boolean> => {
+  return Option.fromNullable(emailVerificationConfig.autoSignInAfterVerification);
 };
 
 // =============================================================================
@@ -164,8 +188,8 @@ export const getAutoSignInAfterVerificationFromConfig = (emailVerificationConfig
  * @param options - The Better Auth configuration options
  * @returns Option.Option<NonNullable<AuthOptions['user']>> - The user config if present
  */
-export const getUserConfig = (options: AuthOptions): Option.Option<NonNullable<AuthOptions['user']>> => {
-	return Option.fromNullable(options.user);
+export const getUserConfig = (options: AuthOptions): Option.Option<NonNullable<AuthOptions["user"]>> => {
+  return Option.fromNullable(options.user);
 };
 
 /**
@@ -179,9 +203,9 @@ export const getUserConfig = (options: AuthOptions): Option.Option<NonNullable<A
  * @returns Option.Option<NonNullable<AuthOptions['user']['additionalFields']>> - The additional fields config if present
  */
 export const getUserAdditionalFields = (
-	userConfig: NonNullable<AuthOptions['user']>
-): Option.Option<NonNullable<NonNullable<AuthOptions['user']>['additionalFields']>> => {
-	return Option.fromNullable(userConfig.additionalFields);
+  userConfig: NonNullable<AuthOptions["user"]>,
+): Option.Option<NonNullable<NonNullable<AuthOptions["user"]>["additionalFields"]>> => {
+  return Option.fromNullable(userConfig.additionalFields);
 };
 
 /**
@@ -195,9 +219,9 @@ export const getUserAdditionalFields = (
  * @returns Option.Option<NonNullable<AuthOptions['user']['changeEmail']>> - The change email config if present
  */
 export const getChangeEmailConfig = (
-	userConfig: NonNullable<AuthOptions['user']>
-): Option.Option<NonNullable<NonNullable<AuthOptions['user']>['changeEmail']>> => {
-	return Option.fromNullable(userConfig.changeEmail);
+  userConfig: NonNullable<AuthOptions["user"]>,
+): Option.Option<NonNullable<NonNullable<AuthOptions["user"]>["changeEmail"]>> => {
+  return Option.fromNullable(userConfig.changeEmail);
 };
 
 /**
@@ -209,12 +233,12 @@ export const getChangeEmailConfig = (
  * @param userConfig - The user configuration object
  * @returns boolean - True if change email is enabled, false otherwise
  */
-export const isChangeEmailEnabled = (userConfig: NonNullable<AuthOptions['user']>): boolean => {
-	return pipe(
-		getChangeEmailConfig(userConfig),
-		Option.flatMap((config) => Option.fromNullable(config.enabled)),
-		Option.getOrElse(() => false)
-	);
+export const isChangeEmailEnabled = (userConfig: NonNullable<AuthOptions["user"]>): boolean => {
+  return pipe(
+    getChangeEmailConfig(userConfig),
+    Option.flatMap((config) => Option.fromNullable(config.enabled)),
+    Option.getOrElse(() => false),
+  );
 };
 
 // =============================================================================
@@ -232,12 +256,12 @@ export const isChangeEmailEnabled = (userConfig: NonNullable<AuthOptions['user']
  * @returns number - The minimum password length
  */
 export const getMinPasswordLength = <T extends AuthServerFor = AuthServerFor>(authServer: T): number =>
-	pipe(
-		getAuthServerConfig(authServer),
-		Option.flatMap(getEmailAndPasswordConfig),
-		Option.flatMap(getMinPasswordLengthFromConfig),
-		Option.getOrElse(() => DEFAULT_MIN_PASSWORD_LENGTH)
-	);
+  pipe(
+    getAuthServerConfig(authServer),
+    Option.flatMap(getEmailAndPasswordConfig),
+    Option.flatMap(getMinPasswordLengthFromConfig),
+    Option.getOrElse(() => DEFAULT_MIN_PASSWORD_LENGTH),
+  );
 
 /**
  * Extracts the maximum password length from an AuthServer instance with a default fallback.
@@ -250,12 +274,12 @@ export const getMinPasswordLength = <T extends AuthServerFor = AuthServerFor>(au
  * @returns number - The maximum password length
  */
 export const getMaxPasswordLength = <T extends AuthServerFor = AuthServerFor>(authServer: T): number =>
-	pipe(
-		getAuthServerConfig(authServer),
-		Option.flatMap(getEmailAndPasswordConfig),
-		Option.flatMap(getMaxPasswordLengthFromConfig),
-		Option.getOrElse(() => DEFAULT_MAX_PASSWORD_LENGTH)
-	);
+  pipe(
+    getAuthServerConfig(authServer),
+    Option.flatMap(getEmailAndPasswordConfig),
+    Option.flatMap(getMaxPasswordLengthFromConfig),
+    Option.getOrElse(() => DEFAULT_MAX_PASSWORD_LENGTH),
+  );
 
 /**
  * Extracts both minimum and maximum password lengths from an AuthServer instance.
@@ -268,10 +292,10 @@ export const getMaxPasswordLength = <T extends AuthServerFor = AuthServerFor>(au
  * @returns { minPasswordLength: number; maxPasswordLength: number } - The password length constraints
  */
 export const getPasswordLengthConstraints = <T extends AuthServerFor = AuthServerFor>(
-	authServer: T
+  authServer: T,
 ): { minPasswordLength: number; maxPasswordLength: number } => ({
-	minPasswordLength: getMinPasswordLength(authServer),
-	maxPasswordLength: getMaxPasswordLength(authServer),
+  minPasswordLength: getMinPasswordLength(authServer),
+  maxPasswordLength: getMaxPasswordLength(authServer),
 });
 
 /**
@@ -285,12 +309,12 @@ export const getPasswordLengthConstraints = <T extends AuthServerFor = AuthServe
  * @returns number - The reset password token expiration in seconds
  */
 export const getResetPasswordTokenExpiresIn = <T extends AuthServerFor = AuthServerFor>(authServer: T): number =>
-	pipe(
-		getAuthServerConfig(authServer),
-		Option.flatMap(getEmailAndPasswordConfig),
-		Option.flatMap(getResetPasswordTokenExpiresInFromConfig),
-		Option.getOrElse(() => DEFAULT_RESET_PASSWORD_TOKEN_EXPIRES_IN)
-	);
+  pipe(
+    getAuthServerConfig(authServer),
+    Option.flatMap(getEmailAndPasswordConfig),
+    Option.flatMap(getResetPasswordTokenExpiresInFromConfig),
+    Option.getOrElse(() => DEFAULT_RESET_PASSWORD_TOKEN_EXPIRES_IN),
+  );
 
 /**
  * Checks if email verification is required from an AuthServer instance.
@@ -303,12 +327,12 @@ export const getResetPasswordTokenExpiresIn = <T extends AuthServerFor = AuthSer
  * @returns boolean - Whether email verification is required
  */
 export const isEmailVerificationRequired = <T extends AuthServerFor = AuthServerFor>(authServer: T): boolean =>
-	pipe(
-		getAuthServerConfig(authServer),
-		Option.flatMap(getEmailAndPasswordConfig),
-		Option.flatMap(getRequireEmailVerificationFromConfig),
-		Option.getOrElse(() => false)
-	);
+  pipe(
+    getAuthServerConfig(authServer),
+    Option.flatMap(getEmailAndPasswordConfig),
+    Option.flatMap(getRequireEmailVerificationFromConfig),
+    Option.getOrElse(() => false),
+  );
 
 /**
  * Checks if auto sign-in is enabled from an AuthServer instance.
@@ -321,12 +345,12 @@ export const isEmailVerificationRequired = <T extends AuthServerFor = AuthServer
  * @returns boolean - Whether auto sign-in is enabled
  */
 export const isAutoSignInEnabled = <T extends AuthServerFor = AuthServerFor>(authServer: T): boolean =>
-	pipe(
-		getAuthServerConfig(authServer),
-		Option.flatMap(getEmailAndPasswordConfig),
-		Option.flatMap(getAutoSignInFromConfig),
-		Option.getOrElse(() => true)
-	);
+  pipe(
+    getAuthServerConfig(authServer),
+    Option.flatMap(getEmailAndPasswordConfig),
+    Option.flatMap(getAutoSignInFromConfig),
+    Option.getOrElse(() => true),
+  );
 
 /**
  * Checks if change email functionality is enabled from an AuthServer instance.
@@ -339,9 +363,9 @@ export const isAutoSignInEnabled = <T extends AuthServerFor = AuthServerFor>(aut
  * @returns boolean - Whether change email functionality is enabled
  */
 export const isChangeEmailEnabledForServer = <T extends AuthServerFor = AuthServerFor>(authServer: T): boolean =>
-	pipe(
-		getAuthServerConfig(authServer),
-		Option.flatMap(getUserConfig),
-		Option.map(isChangeEmailEnabled),
-		Option.getOrElse(() => false)
-	);
+  pipe(
+    getAuthServerConfig(authServer),
+    Option.flatMap(getUserConfig),
+    Option.map(isChangeEmailEnabled),
+    Option.getOrElse(() => false),
+  );

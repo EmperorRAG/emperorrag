@@ -5,14 +5,14 @@
  * the contract. This typically occurs when the auth client is missing.
  */
 export class UserAuthDependenciesError extends Error {
-	readonly _tag = 'UserAuthDependenciesError';
-	override readonly cause?: unknown;
+  readonly _tag = "UserAuthDependenciesError";
+  override readonly cause?: unknown;
 
-	constructor(message: string, cause?: unknown) {
-		super(message);
-		this.name = 'UserAuthDependenciesError';
-		this.cause = cause;
-	}
+  constructor(message: string, cause?: unknown) {
+    super(message);
+    this.name = "UserAuthDependenciesError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -22,14 +22,14 @@ export class UserAuthDependenciesError extends Error {
  * expected schema for the user operation.
  */
 export class UserAuthInputError extends Error {
-	readonly _tag = 'UserAuthInputError';
-	override readonly cause?: unknown;
+  readonly _tag = "UserAuthInputError";
+  override readonly cause?: unknown;
 
-	constructor(message: string, cause?: unknown) {
-		super(message);
-		this.name = 'UserAuthInputError';
-		this.cause = cause;
-	}
+  constructor(message: string, cause?: unknown) {
+    super(message);
+    this.name = "UserAuthInputError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -39,18 +39,18 @@ export class UserAuthInputError extends Error {
  * The `status` property contains the HTTP status code when available.
  */
 export class UserAuthApiError extends Error {
-	readonly _tag = 'UserAuthApiError';
-	override readonly cause?: unknown;
+  readonly _tag = "UserAuthApiError";
+  override readonly cause?: unknown;
 
-	constructor(
-		message: string,
-		public readonly status?: number,
-		cause?: unknown
-	) {
-		super(message);
-		this.name = 'UserAuthApiError';
-		this.cause = cause;
-	}
+  constructor(
+    message: string,
+    public readonly status?: number,
+    cause?: unknown,
+  ) {
+    super(message);
+    this.name = "UserAuthApiError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -60,14 +60,14 @@ export class UserAuthApiError extends Error {
  * expected data fields.
  */
 export class UserAuthDataMissingError extends Error {
-	readonly _tag = 'UserAuthDataMissingError';
-	override readonly cause?: unknown;
+  readonly _tag = "UserAuthDataMissingError";
+  override readonly cause?: unknown;
 
-	constructor(message: string, cause?: unknown) {
-		super(message);
-		this.name = 'UserAuthDataMissingError';
-		this.cause = cause;
-	}
+  constructor(message: string, cause?: unknown) {
+    super(message);
+    this.name = "UserAuthDataMissingError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -76,4 +76,8 @@ export class UserAuthDataMissingError extends Error {
  * @description Discriminated union of all possible error types that can occur
  * during user operations.
  */
-export type UserAuthError = UserAuthDependenciesError | UserAuthInputError | UserAuthApiError | UserAuthDataMissingError;
+export type UserAuthError =
+  | UserAuthDependenciesError
+  | UserAuthInputError
+  | UserAuthApiError
+  | UserAuthDataMissingError;

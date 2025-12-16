@@ -3,9 +3,9 @@
  * @description Type definitions for server-side change password operation.
  */
 
-import type * as Effect from 'effect/Effect';
-import type { AuthServerError } from '../../../../errors/authServer.error';
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
  * Type helper to extract the changePassword endpoint type from an AuthServer.
@@ -29,8 +29,8 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * });
  * ```
  */
-export type AuthServerApiChangePasswordPropsFor<T extends AuthServerFor = AuthServerFor> =
-	'changePassword' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['changePassword'] : never;
+export type AuthServerApiChangePasswordPropsFor<T extends AuthServerFor = AuthServerFor> = "changePassword" extends
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["changePassword"] : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.changePassword.
@@ -47,7 +47,9 @@ export type AuthServerApiChangePasswordPropsFor<T extends AuthServerFor = AuthSe
  * // { body: { currentPassword: string, newPassword: string, revokeOtherSessions?: boolean }, headers: Headers, ... }
  * ```
  */
-export type AuthServerApiChangePasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiChangePasswordPropsFor<AuthServerFor>>[0];
+export type AuthServerApiChangePasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+  AuthServerApiChangePasswordPropsFor<AuthServerFor>
+>[0];
 
 /**
  * Type helper to extract the return type from auth.api.changePassword.
@@ -64,7 +66,9 @@ export type AuthServerApiChangePasswordParamsFor<T extends AuthServerFor = AuthS
  * // Promise<{ status: boolean, session?: { id: string, ... } }>
  * ```
  */
-export type AuthServerApiChangePasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiChangePasswordPropsFor<AuthServerFor>>;
+export type AuthServerApiChangePasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+  AuthServerApiChangePasswordPropsFor<AuthServerFor>
+>;
 
 /**
  * Function signature for changePassword server service.
@@ -107,9 +111,9 @@ export type AuthServerApiChangePasswordResultFor<T extends AuthServerFor = AuthS
  * ```
  */
 export interface changePasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(
-		params: AuthServerApiChangePasswordParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiChangePasswordResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+  (
+    params: AuthServerApiChangePasswordParamsFor<AuthServerFor>,
+  ): Effect.Effect<Awaited<AuthServerApiChangePasswordResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**
@@ -125,18 +129,20 @@ export interface changePasswordPropsFor<T extends AuthServerFor = AuthServerFor>
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiChangePasswordParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiChangePasswordParamsFor = (value: unknown): value is AuthServerApiChangePasswordParamsFor<AuthServerFor> => {
-	if (typeof value !== 'object' || value === null) return false;
-	const obj = value as Record<string, unknown>;
+export const isAuthServerApiChangePasswordParamsFor = (
+  value: unknown,
+): value is AuthServerApiChangePasswordParamsFor<AuthServerFor> => {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
 
-	if (typeof obj.body !== 'object' || obj.body === null) return false;
-	const body = obj.body as Record<string, unknown>;
+  if (typeof obj.body !== "object" || obj.body === null) return false;
+  const body = obj.body as Record<string, unknown>;
 
-	if (typeof body.currentPassword !== 'string') return false;
-	if (typeof body.newPassword !== 'string') return false;
+  if (typeof body.currentPassword !== "string") return false;
+  if (typeof body.newPassword !== "string") return false;
 
-	// headers is required for changePassword
-	if (!(obj.headers instanceof Headers)) return false;
+  // headers is required for changePassword
+  if (!(obj.headers instanceof Headers)) return false;
 
-	return true;
+  return true;
 };

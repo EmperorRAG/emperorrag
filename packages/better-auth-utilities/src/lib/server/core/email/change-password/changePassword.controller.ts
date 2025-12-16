@@ -3,14 +3,18 @@
  * @description Controller for server-side change password operation with validation.
  */
 
-import * as Effect from 'effect/Effect';
-import { PipelineContext } from '../../../../context/pipeline.context';
-import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
-import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
-import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import type { AuthServerFor } from '../../../server.types';
-import { changePasswordServerService } from './changePassword.service';
-import { isAuthServerApiChangePasswordParamsFor, type AuthServerApiChangePasswordParamsFor, type changePasswordPropsFor } from './changePassword.types';
+import * as Effect from "effect/Effect";
+import { PipelineContext } from "../../../../context/pipeline.context";
+import { AuthServerApiEndpoints } from "../../../../enums/authServerApiEndpoints.enum";
+import { validateInputEffect } from "../../../../pipeline/zod-input-validator/zodInputValidator";
+import { createAuthServerApiEndpointParamsSchema } from "../../../../pipeline/zod-schema-builder/zodSchemaBuilder";
+import type { AuthServerFor } from "../../../server.types";
+import { changePasswordServerService } from "./changePassword.service";
+import {
+  type AuthServerApiChangePasswordParamsFor,
+  type changePasswordPropsFor,
+  isAuthServerApiChangePasswordParamsFor,
+} from "./changePassword.types";
 
 /**
  * Controller for change password operation with input validation.
@@ -53,13 +57,17 @@ import { isAuthServerApiChangePasswordParamsFor, type AuthServerApiChangePasswor
  * );
  * ```
  */
-export const changePasswordServerController: changePasswordPropsFor = (params: AuthServerApiChangePasswordParamsFor<AuthServerFor>) =>
-	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiChangePasswordParamsFor)(params);
+export const changePasswordServerController: changePasswordPropsFor = (
+  params: AuthServerApiChangePasswordParamsFor<AuthServerFor>,
+) =>
+  Effect.gen(function*() {
+    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
+      isAuthServerApiChangePasswordParamsFor,
+    )(params);
 
-		return yield* changePasswordServerService(validatedParams);
-	}).pipe(
-		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.ChangePassword(),
-		})
-	);
+    return yield* changePasswordServerService(validatedParams);
+  }).pipe(
+    Effect.provideService(PipelineContext, {
+      endpoint: AuthServerApiEndpoints.ChangePassword(),
+    }),
+  );

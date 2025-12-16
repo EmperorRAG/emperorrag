@@ -3,9 +3,9 @@
  * @description Type definitions for server-side sign-up email operation.
  */
 
-import type * as Effect from 'effect/Effect';
-import type { AuthServerError } from '../../../../errors/authServer.error';
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
  * Type helper to extract the signUp endpoint type from an AuthServer.
@@ -30,8 +30,8 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * });
  * ```
  */
-export type AuthServerApiSignUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> =
-	'signUpEmail' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['signUpEmail'] : never;
+export type AuthServerApiSignUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> = "signUpEmail" extends
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["signUpEmail"] : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.signUpEmail.
@@ -48,7 +48,9 @@ export type AuthServerApiSignUpEmailPropsFor<T extends AuthServerFor = AuthServe
  * // { body: { name: string, email: string, password: string, ... }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiSignUpEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiSignUpEmailPropsFor<AuthServerFor>>[0];
+export type AuthServerApiSignUpEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+  AuthServerApiSignUpEmailPropsFor<AuthServerFor>
+>[0];
 
 /**
  * Type helper to extract the return type from auth.api.signUpEmail.
@@ -65,7 +67,9 @@ export type AuthServerApiSignUpEmailParamsFor<T extends AuthServerFor = AuthServ
  * // Promise<{ user: { id: string, name: string, email: string, ... }, session: { id: string, ... }, ... }>
  * ```
  */
-export type AuthServerApiSignUpEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiSignUpEmailPropsFor<AuthServerFor>>;
+export type AuthServerApiSignUpEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+  AuthServerApiSignUpEmailPropsFor<AuthServerFor>
+>;
 
 /**
  * Function signature for signUpEmail server service.
@@ -112,9 +116,9 @@ export type AuthServerApiSignUpEmailResultFor<T extends AuthServerFor = AuthServ
 // 	): (params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>) => Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<AuthServerFor>>, AuthServerError>;
 // }
 export interface signUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(
-		params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+  (
+    params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>,
+  ): Effect.Effect<Awaited<AuthServerApiSignUpEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**
@@ -130,16 +134,18 @@ export interface signUpEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiSignUpEmailParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiSignUpEmailParamsFor = (value: unknown): value is AuthServerApiSignUpEmailParamsFor<AuthServerFor> => {
-	if (typeof value !== 'object' || value === null) return false;
-	const obj = value as Record<string, unknown>;
+export const isAuthServerApiSignUpEmailParamsFor = (
+  value: unknown,
+): value is AuthServerApiSignUpEmailParamsFor<AuthServerFor> => {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
 
-	if (typeof obj.body !== 'object' || obj.body === null) return false;
-	const body = obj.body as Record<string, unknown>;
+  if (typeof obj.body !== "object" || obj.body === null) return false;
+  const body = obj.body as Record<string, unknown>;
 
-	if (typeof body.name !== 'string') return false;
-	if (typeof body.email !== 'string') return false;
-	if (typeof body.password !== 'string') return false;
+  if (typeof body.name !== "string") return false;
+  if (typeof body.email !== "string") return false;
+  if (typeof body.password !== "string") return false;
 
-	return true;
+  return true;
 };

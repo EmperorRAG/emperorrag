@@ -1,5 +1,5 @@
-import type { z } from 'zod';
+import type { z } from "zod";
 
 export interface IsZodErrorProps {
-	(error: unknown): error is z.ZodError;
+  (error: unknown): error is z.ZodError;
 }

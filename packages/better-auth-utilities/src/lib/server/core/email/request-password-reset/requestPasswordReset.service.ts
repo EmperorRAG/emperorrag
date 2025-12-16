@@ -3,11 +3,20 @@
  * @description Server-side service for request password reset operation using Better Auth API.
  */
 
-import * as Effect from 'effect/Effect';
-import { mapApiError } from '../../../../pipeline/map-api-error/mapApiError';
-import { AuthServerTag } from '../../../server.service';
-import type { AuthServerFor } from '../../../server.types';
-import type { AuthServerApiRequestPasswordResetParamsFor, requestPasswordResetPropsFor } from './requestPasswordReset.types';
+import * as Effect from "effect/Effect";
+import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
+import { AuthServerTag } from "../../../server.service";
+import type { AuthServerFor } from "../../../server.types";
+import type {
+  AuthServerApiRequestPasswordResetParamsFor,
+  requestPasswordResetPropsFor,
+} from "./requestPasswordReset.types";
 
-export const requestPasswordResetServerService: requestPasswordResetPropsFor = (params: AuthServerApiRequestPasswordResetParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.requestPasswordReset(params)).pipe(Effect.catchAll(mapApiError)));
+export const requestPasswordResetServerService: requestPasswordResetPropsFor = (
+  params: AuthServerApiRequestPasswordResetParamsFor<AuthServerFor>,
+) =>
+  Effect.flatMap(
+    AuthServerTag,
+    (authServer) =>
+      Effect.tryPromise(() => authServer.api.requestPasswordReset(params)).pipe(Effect.catchAll(mapApiError)),
+  );

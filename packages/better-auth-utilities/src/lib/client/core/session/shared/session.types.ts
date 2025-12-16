@@ -1,5 +1,5 @@
-import type { createAuthClient } from 'better-auth/client';
-import type { AuthClientFor } from '../../../client.types';
+import type { createAuthClient } from "better-auth/client";
+import type { AuthClientFor } from "../../../client.types";
 
 /**
  * Dependencies required for session operations.
@@ -7,11 +7,12 @@ import type { AuthClientFor } from '../../../client.types';
  * @description Defines the contract for dependencies that must be injected into
  * session service functions. This ensures that the Better Auth client is available.
  */
-export type SessionAuthClientDeps<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> =
-	Readonly<{
-		/**
-		 * The Better Auth client instance.
-		 * @see {@link createAuthClient}
-		 */
-		authClient: T;
-	}>;
+export type SessionAuthClientDeps<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> = Readonly<{
+  /**
+   * The Better Auth client instance.
+   * @see {@link createAuthClient}
+   */
+  authClient: T;
+}>;

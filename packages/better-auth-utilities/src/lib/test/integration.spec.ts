@@ -1,42 +1,42 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { setupTestEnv } from './setup-test-env';
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { setupTestEnv } from "./setup-test-env";
 
-describe('Better Auth Integration', () => {
-	let env: Awaited<ReturnType<typeof setupTestEnv>>;
+describe("Better Auth Integration", () => {
+  let env: Awaited<ReturnType<typeof setupTestEnv>>;
 
-	beforeAll(async () => {
-		env = await setupTestEnv();
-	});
+  beforeAll(async () => {
+    env = await setupTestEnv();
+  });
 
-	afterAll(async () => {
-		await env.cleanup();
-	});
+  afterAll(async () => {
+    await env.cleanup();
+  });
 
-	it('should sign up and sign in a user', async () => {
-		const { authClient } = env;
-		const email = 'test@example.com';
-		const password = 'password123';
-		const name = 'Test User';
+  it("should sign up and sign in a user", async () => {
+    const { authClient } = env;
+    const email = "test@example.com";
+    const password = "password123";
+    const name = "Test User";
 
-		// 1. Sign Up
-		const signUpRes = await authClient.signUp.email({
-			email,
-			password,
-			name,
-		});
+    // 1. Sign Up
+    const signUpRes = await authClient.signUp.email({
+      email,
+      password,
+      name,
+    });
 
-		expect(signUpRes.data).toBeDefined();
-		expect(signUpRes.error).toBeNull();
-		expect(signUpRes.data?.user.email).toBe(email);
+    expect(signUpRes.data).toBeDefined();
+    expect(signUpRes.error).toBeNull();
+    expect(signUpRes.data?.user.email).toBe(email);
 
-		// 2. Sign In
-		const signInRes = await authClient.signIn.email({
-			email,
-			password,
-		});
+    // 2. Sign In
+    const signInRes = await authClient.signIn.email({
+      email,
+      password,
+    });
 
-		expect(signInRes.data).toBeDefined();
-		expect(signInRes.error).toBeNull();
-		expect(signInRes.data?.user.email).toBe(email);
-	});
+    expect(signInRes.data).toBeDefined();
+    expect(signInRes.error).toBeNull();
+    expect(signInRes.data?.user.email).toBe(email);
+  });
 });

@@ -3,21 +3,29 @@
  * @description Controller for server-side refresh token operation with validation.
  */
 
-import * as Effect from 'effect/Effect';
-import { PipelineContext } from '../../../../context/pipeline.context';
-import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
-import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
-import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import type { AuthServerFor } from '../../../server.types';
-import { refreshTokenServerService } from './refreshToken.service';
-import { isAuthServerApiRefreshTokenParamsFor, type AuthServerApiRefreshTokenParamsFor, type refreshTokenPropsFor } from './refreshToken.types';
+import * as Effect from "effect/Effect";
+import { PipelineContext } from "../../../../context/pipeline.context";
+import { AuthServerApiEndpoints } from "../../../../enums/authServerApiEndpoints.enum";
+import { validateInputEffect } from "../../../../pipeline/zod-input-validator/zodInputValidator";
+import { createAuthServerApiEndpointParamsSchema } from "../../../../pipeline/zod-schema-builder/zodSchemaBuilder";
+import type { AuthServerFor } from "../../../server.types";
+import { refreshTokenServerService } from "./refreshToken.service";
+import {
+  type AuthServerApiRefreshTokenParamsFor,
+  isAuthServerApiRefreshTokenParamsFor,
+  type refreshTokenPropsFor,
+} from "./refreshToken.types";
 
-export const refreshTokenServerController: refreshTokenPropsFor = (params: AuthServerApiRefreshTokenParamsFor<AuthServerFor>) =>
-	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiRefreshTokenParamsFor)(params);
-		return yield* refreshTokenServerService(validatedParams);
-	}).pipe(
-		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.RefreshToken(),
-		})
-	);
+export const refreshTokenServerController: refreshTokenPropsFor = (
+  params: AuthServerApiRefreshTokenParamsFor<AuthServerFor>,
+) =>
+  Effect.gen(function*() {
+    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
+      isAuthServerApiRefreshTokenParamsFor,
+    )(params);
+    return yield* refreshTokenServerService(validatedParams);
+  }).pipe(
+    Effect.provideService(PipelineContext, {
+      endpoint: AuthServerApiEndpoints.RefreshToken(),
+    }),
+  );

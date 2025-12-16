@@ -3,9 +3,9 @@
  * @description Type definitions for server-side reset password operation.
  */
 
-import type * as Effect from 'effect/Effect';
-import type { AuthServerError } from '../../../../errors/authServer.error';
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
  * Type helper to extract the resetPassword endpoint type from an AuthServer.
@@ -29,8 +29,8 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * });
  * ```
  */
-export type AuthServerApiResetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> =
-	'resetPassword' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['resetPassword'] : never;
+export type AuthServerApiResetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> = "resetPassword" extends
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["resetPassword"] : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.resetPassword.
@@ -47,7 +47,9 @@ export type AuthServerApiResetPasswordPropsFor<T extends AuthServerFor = AuthSer
  * // { body: { token: string, newPassword: string }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiResetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiResetPasswordPropsFor<AuthServerFor>>[0];
+export type AuthServerApiResetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+  AuthServerApiResetPasswordPropsFor<AuthServerFor>
+>[0];
 
 /**
  * Type helper to extract the return type from auth.api.resetPassword.
@@ -64,7 +66,9 @@ export type AuthServerApiResetPasswordParamsFor<T extends AuthServerFor = AuthSe
  * // Promise<{ status: boolean, session?: { id: string, ... }, user?: { id: string, ... } }>
  * ```
  */
-export type AuthServerApiResetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiResetPasswordPropsFor<AuthServerFor>>;
+export type AuthServerApiResetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+  AuthServerApiResetPasswordPropsFor<AuthServerFor>
+>;
 
 /**
  * Function signature for resetPassword server service.
@@ -105,9 +109,9 @@ export type AuthServerApiResetPasswordResultFor<T extends AuthServerFor = AuthSe
  * ```
  */
 export interface resetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(
-		params: AuthServerApiResetPasswordParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiResetPasswordResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+  (
+    params: AuthServerApiResetPasswordParamsFor<AuthServerFor>,
+  ): Effect.Effect<Awaited<AuthServerApiResetPasswordResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**
@@ -123,15 +127,17 @@ export interface resetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> 
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiResetPasswordParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiResetPasswordParamsFor = (value: unknown): value is AuthServerApiResetPasswordParamsFor<AuthServerFor> => {
-	if (typeof value !== 'object' || value === null) return false;
-	const obj = value as Record<string, unknown>;
+export const isAuthServerApiResetPasswordParamsFor = (
+  value: unknown,
+): value is AuthServerApiResetPasswordParamsFor<AuthServerFor> => {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
 
-	if (typeof obj.body !== 'object' || obj.body === null) return false;
-	const body = obj.body as Record<string, unknown>;
+  if (typeof obj.body !== "object" || obj.body === null) return false;
+  const body = obj.body as Record<string, unknown>;
 
-	if (typeof body.token !== 'string') return false;
-	if (typeof body.newPassword !== 'string') return false;
+  if (typeof body.token !== "string") return false;
+  if (typeof body.newPassword !== "string") return false;
 
-	return true;
+  return true;
 };

@@ -3,12 +3,12 @@
  * @description Barrel export for server-side unlink account module.
  */
 
-export { unlinkAccountServerService } from './unlinkAccount.service';
-export { unlinkAccountServerController } from './unlinkAccount.controller';
+export { unlinkAccountServerController } from "./unlinkAccount.controller";
+export { unlinkAccountServerService } from "./unlinkAccount.service";
 export type {
-	AuthServerApiUnlinkAccountPropsFor,
-	AuthServerApiUnlinkAccountParamsFor,
-	AuthServerApiUnlinkAccountResultFor,
-	unlinkAccountPropsFor,
-} from './unlinkAccount.types';
-export { isAuthServerApiUnlinkAccountParamsFor } from './unlinkAccount.types';
+  AuthServerApiUnlinkAccountParamsFor,
+  AuthServerApiUnlinkAccountPropsFor,
+  AuthServerApiUnlinkAccountResultFor,
+  unlinkAccountPropsFor,
+} from "./unlinkAccount.types";
+export { isAuthServerApiUnlinkAccountParamsFor } from "./unlinkAccount.types";

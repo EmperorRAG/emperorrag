@@ -1,8 +1,8 @@
-import type { createAuthClient } from 'better-auth/client';
-import type { AuthClientFor, AuthClientSignUpFor } from '../../../client.types';
-import type { EmailAuthError } from '../shared/email.error';
-import type { EmailAuthClientDeps } from '../shared/email.types';
-import type * as Effect from 'effect/Effect';
+import type { createAuthClient } from "better-auth/client";
+import type * as Effect from "effect/Effect";
+import type { AuthClientFor, AuthClientSignUpFor } from "../../../client.types";
+import type { EmailAuthError } from "../shared/email.error";
+import type { EmailAuthClientDeps } from "../shared/email.types";
 
 /**
  * Type helper to extract the input parameter type for signUp.email.
@@ -17,8 +17,10 @@ import type * as Effect from 'effect/Effect';
  * //   callbackURL?: string, fetchOptions?: {...} }
  * ```
  */
-export type SignUpEmailInput<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> = Parameters<
-	'email' extends keyof AuthClientSignUpFor<T> ? AuthClientSignUpFor<T>['email'] : never
+export type SignUpEmailInput<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> = Parameters<
+  "email" extends keyof AuthClientSignUpFor<T> ? AuthClientSignUpFor<T>["email"] : never
 >[0];
 
 /**
@@ -33,8 +35,10 @@ export type SignUpEmailInput<T extends AuthClientFor<ReturnType<typeof createAut
  * // Promise<{ data?: { user: User, session: Session }, error?: unknown }>
  * ```
  */
-export type SignUpEmailResult<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> = ReturnType<
-	'email' extends keyof AuthClientSignUpFor<T> ? AuthClientSignUpFor<T>['email'] : never
+export type SignUpEmailResult<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> = ReturnType<
+  "email" extends keyof AuthClientSignUpFor<T> ? AuthClientSignUpFor<T>["email"] : never
 >;
 
 /**
@@ -52,6 +56,10 @@ export type SignUpEmailResult<T extends AuthClientFor<ReturnType<typeof createAu
  *   });
  * ```
  */
-export interface signUpEmailProps<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> {
-	(deps: EmailAuthClientDeps<T>): (input: SignUpEmailInput<T>) => Effect.Effect<Awaited<SignUpEmailResult<T>>, EmailAuthError>;
+export interface signUpEmailProps<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> {
+  (
+    deps: EmailAuthClientDeps<T>,
+  ): (input: SignUpEmailInput<T>) => Effect.Effect<Awaited<SignUpEmailResult<T>>, EmailAuthError>;
 }

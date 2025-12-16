@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Zod schema for validating EmailAuthClientDeps dependencies.
@@ -19,5 +19,5 @@ import { z } from 'zod';
  * ```
  */
 export const emailAuthClientDepsSchema = z.object({
-	authClient: z.object({}).passthrough(),
+  authClient: z.object({}).passthrough(),
 });

@@ -4,12 +4,12 @@
  * Uses Context-based dependency injection to access the Better Auth server.
  */
 
-import * as Effect from 'effect/Effect';
-import { AuthServerDataMissingError } from '../../../../errors/authServer.error';
-import { mapApiError } from '../../../../pipeline/map-api-error/mapApiError';
-import { AuthServerTag } from '../../../server.service';
-import type { AuthServerFor } from '../../../server.types';
-import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor } from './listUserAccounts.types';
+import * as Effect from "effect/Effect";
+import { AuthServerDataMissingError } from "../../../../errors/authServer.error";
+import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
+import { AuthServerTag } from "../../../server.service";
+import type { AuthServerFor } from "../../../server.types";
+import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor } from "./listUserAccounts.types";
 
 /**
  * Server-side service for listing user's linked accounts.
@@ -73,15 +73,20 @@ import type { AuthServerApiListUserAccountsParamsFor, listUserAccountsPropsFor }
  * });
  * ```
  */
-export const listUserAccountsServerService: listUserAccountsPropsFor = (params: AuthServerApiListUserAccountsParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) =>
-		Effect.gen(function* () {
-			const result = yield* Effect.tryPromise(() => authServer.api.listUserAccounts(params)).pipe(Effect.catchAll(mapApiError));
+export const listUserAccountsServerService: listUserAccountsPropsFor = (
+  params: AuthServerApiListUserAccountsParamsFor<AuthServerFor>,
+) =>
+  Effect.flatMap(AuthServerTag, (authServer) =>
+    Effect.gen(function*() {
+      const result = yield* Effect.tryPromise(() => authServer.api.listUserAccounts(params)).pipe(
+        Effect.catchAll(mapApiError),
+      );
 
-			if (result === null || result === undefined) {
-				return yield* Effect.fail(new AuthServerDataMissingError({ message: 'No accounts data returned from listUserAccounts API' }));
-			}
+      if (result === null || result === undefined) {
+        return yield* Effect.fail(
+          new AuthServerDataMissingError({ message: "No accounts data returned from listUserAccounts API" }),
+        );
+      }
 
-			return result;
-		})
-	);
+      return result;
+    }));

@@ -3,9 +3,9 @@
  * @description Type definitions for server-side update user operation.
  */
 
-import type * as Effect from 'effect/Effect';
-import type { AuthServerError } from '../../../../errors/authServer.error';
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
  * Type helper to extract the updateUser endpoint type from an AuthServer.
@@ -16,8 +16,8 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiUpdateUserPropsFor<T extends AuthServerFor = AuthServerFor> =
-	'updateUser' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['updateUser'] : never;
+export type AuthServerApiUpdateUserPropsFor<T extends AuthServerFor = AuthServerFor> = "updateUser" extends
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["updateUser"] : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.updateUser.
@@ -28,7 +28,9 @@ export type AuthServerApiUpdateUserPropsFor<T extends AuthServerFor = AuthServer
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiUpdateUserParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiUpdateUserPropsFor<AuthServerFor>>[0];
+export type AuthServerApiUpdateUserParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+  AuthServerApiUpdateUserPropsFor<AuthServerFor>
+>[0];
 
 /**
  * Type helper to extract the return type from auth.api.updateUser.
@@ -39,7 +41,9 @@ export type AuthServerApiUpdateUserParamsFor<T extends AuthServerFor = AuthServe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiUpdateUserResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiUpdateUserPropsFor<AuthServerFor>>;
+export type AuthServerApiUpdateUserResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+  AuthServerApiUpdateUserPropsFor<AuthServerFor>
+>;
 
 /**
  * Function signature for updateUser server service.
@@ -61,9 +65,9 @@ export type AuthServerApiUpdateUserResultFor<T extends AuthServerFor = AuthServe
  * - Other AuthServerError types from validation layers (if using controller)
  */
 export interface updateUserPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(
-		params: AuthServerApiUpdateUserParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiUpdateUserResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+  (
+    params: AuthServerApiUpdateUserParamsFor<AuthServerFor>,
+  ): Effect.Effect<Awaited<AuthServerApiUpdateUserResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**
@@ -79,18 +83,20 @@ export interface updateUserPropsFor<T extends AuthServerFor = AuthServerFor> {
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiUpdateUserParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiUpdateUserParamsFor = (value: unknown): value is AuthServerApiUpdateUserParamsFor<AuthServerFor> => {
-	if (typeof value !== 'object' || value === null) return false;
-	const obj = value as Record<string, unknown>;
+export const isAuthServerApiUpdateUserParamsFor = (
+  value: unknown,
+): value is AuthServerApiUpdateUserParamsFor<AuthServerFor> => {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
 
-	if (typeof obj.body !== 'object' || obj.body === null) return false;
-	const body = obj.body as Record<string, unknown>;
+  if (typeof obj.body !== "object" || obj.body === null) return false;
+  const body = obj.body as Record<string, unknown>;
 
-	// updateUser requires at least one updatable field, but body structure must exist
-	// Optional fields: name, email, image
-	if (body.name !== undefined && typeof body.name !== 'string') return false;
-	if (body.email !== undefined && typeof body.email !== 'string') return false;
-	if (body.image !== undefined && body.image !== null && typeof body.image !== 'string') return false;
+  // updateUser requires at least one updatable field, but body structure must exist
+  // Optional fields: name, email, image
+  if (body.name !== undefined && typeof body.name !== "string") return false;
+  if (body.email !== undefined && typeof body.email !== "string") return false;
+  if (body.image !== undefined && body.image !== null && typeof body.image !== "string") return false;
 
-	return true;
+  return true;
 };

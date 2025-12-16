@@ -1,58 +1,58 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { setupTestEnv } from '../../../../test/setup-test-env';
-import { changeEmailServerService } from './changeEmail.service';
-import { AuthServerTag } from '../../../server.service';
-import * as Effect from 'effect/Effect';
+import * as Effect from "effect/Effect";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { setupTestEnv } from "../../../../test/setup-test-env";
+import { AuthServerTag } from "../../../server.service";
+import { changeEmailServerService } from "./changeEmail.service";
 
-describe('Server Change Email', () => {
-	let env: Awaited<ReturnType<typeof setupTestEnv>>;
+describe("Server Change Email", () => {
+  let env: Awaited<ReturnType<typeof setupTestEnv>>;
 
-	beforeAll(async () => {
-		env = await setupTestEnv();
-	});
+  beforeAll(async () => {
+    env = await setupTestEnv();
+  });
 
-	afterAll(async () => {
-		await env.cleanup();
-	});
+  afterAll(async () => {
+    await env.cleanup();
+  });
 
-	it('should fail when change email is disabled', async () => {
-		const { authServer } = env;
-		const email = 'change-email-test@example.com';
-		const password = 'password123';
-		const name = 'Change Email Test';
-		const newEmail = 'new-email@example.com';
+  it("should fail when change email is disabled", async () => {
+    const { authServer } = env;
+    const email = "change-email-test@example.com";
+    const password = "password123";
+    const name = "Change Email Test";
+    const newEmail = "new-email@example.com";
 
-		// First create a user
-		await authServer.api.signUpEmail({
-			body: {
-				email,
-				password,
-				name,
-			},
-		});
+    // First create a user
+    await authServer.api.signUpEmail({
+      body: {
+        email,
+        password,
+        name,
+      },
+    });
 
-		// Sign in to get session cookie
-		const signInRes = await authServer.api.signInEmail({
-			body: {
-				email,
-				password,
-			},
-			asResponse: true,
-		});
+    // Sign in to get session cookie
+    const signInRes = await authServer.api.signInEmail({
+      body: {
+        email,
+        password,
+      },
+      asResponse: true,
+    });
 
-		const cookie = signInRes.headers.get('set-cookie');
-		expect(cookie).toBeDefined();
+    const cookie = signInRes.headers.get("set-cookie");
+    expect(cookie).toBeDefined();
 
-		const program = changeEmailServerService({
-			body: {
-				newEmail,
-			},
-			headers: new Headers({
-				cookie: cookie || '',
-			}),
-		});
+    const program = changeEmailServerService({
+      body: {
+        newEmail,
+      },
+      headers: new Headers({
+        cookie: cookie || "",
+      }),
+    });
 
-		// Change email is disabled in test environment
-		await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
-	});
+    // Change email is disabled in test environment
+    await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
+  });
 });

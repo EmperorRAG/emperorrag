@@ -3,9 +3,9 @@
  * @description Type definitions for server-side forget password (request password reset) operation.
  */
 
-import type * as Effect from 'effect/Effect';
-import type { AuthServerError } from '../../../../errors/authServer.error';
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
  * Type helper to extract the forgetPassword endpoint type from an AuthServer.
@@ -29,8 +29,8 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * });
  * ```
  */
-export type AuthServerApiForgetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> =
-	'forgetPassword' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['forgetPassword'] : never;
+export type AuthServerApiForgetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> = "forgetPassword" extends
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["forgetPassword"] : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.forgetPassword.
@@ -47,7 +47,9 @@ export type AuthServerApiForgetPasswordPropsFor<T extends AuthServerFor = AuthSe
  * // { body: { email: string, redirectTo?: string }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiForgetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiForgetPasswordPropsFor<AuthServerFor>>[0];
+export type AuthServerApiForgetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+  AuthServerApiForgetPasswordPropsFor<AuthServerFor>
+>[0];
 
 /**
  * Type helper to extract the return type from auth.api.forgetPassword.
@@ -64,7 +66,9 @@ export type AuthServerApiForgetPasswordParamsFor<T extends AuthServerFor = AuthS
  * // Promise<{ status: boolean }>
  * ```
  */
-export type AuthServerApiForgetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiForgetPasswordPropsFor<AuthServerFor>>;
+export type AuthServerApiForgetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+  AuthServerApiForgetPasswordPropsFor<AuthServerFor>
+>;
 
 /**
  * Function signature for forgetPassword server service.
@@ -105,9 +109,9 @@ export type AuthServerApiForgetPasswordResultFor<T extends AuthServerFor = AuthS
  * ```
  */
 export interface forgetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(
-		params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiForgetPasswordResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+  (
+    params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>,
+  ): Effect.Effect<Awaited<AuthServerApiForgetPasswordResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**
@@ -123,14 +127,16 @@ export interface forgetPasswordPropsFor<T extends AuthServerFor = AuthServerFor>
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiForgetPasswordParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiForgetPasswordParamsFor = (value: unknown): value is AuthServerApiForgetPasswordParamsFor<AuthServerFor> => {
-	if (typeof value !== 'object' || value === null) return false;
-	const obj = value as Record<string, unknown>;
+export const isAuthServerApiForgetPasswordParamsFor = (
+  value: unknown,
+): value is AuthServerApiForgetPasswordParamsFor<AuthServerFor> => {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
 
-	if (typeof obj.body !== 'object' || obj.body === null) return false;
-	const body = obj.body as Record<string, unknown>;
+  if (typeof obj.body !== "object" || obj.body === null) return false;
+  const body = obj.body as Record<string, unknown>;
 
-	if (typeof body.email !== 'string') return false;
+  if (typeof body.email !== "string") return false;
 
-	return true;
+  return true;
 };

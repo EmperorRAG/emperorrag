@@ -3,11 +3,11 @@
  * @description Server-side service for forget password operation using Better Auth API.
  */
 
-import * as Effect from 'effect/Effect';
-import { mapApiError } from '../../../../pipeline/map-api-error/mapApiError';
-import { AuthServerTag } from '../../../server.service';
-import type { AuthServerFor } from '../../../server.types';
-import type { AuthServerApiForgetPasswordParamsFor, forgetPasswordPropsFor } from './forgetPassword.types';
+import * as Effect from "effect/Effect";
+import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
+import { AuthServerTag } from "../../../server.service";
+import type { AuthServerFor } from "../../../server.types";
+import type { AuthServerApiForgetPasswordParamsFor, forgetPasswordPropsFor } from "./forgetPassword.types";
 
 /**
  * Request password reset email using Better Auth server API.
@@ -108,5 +108,10 @@ import type { AuthServerApiForgetPasswordParamsFor, forgetPasswordPropsFor } fro
  * );
  * ```
  */
-export const forgetPasswordServerService: forgetPasswordPropsFor = (params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.forgetPassword(params)).pipe(Effect.catchAll(mapApiError)));
+export const forgetPasswordServerService: forgetPasswordPropsFor = (
+  params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>,
+) =>
+  Effect.flatMap(
+    AuthServerTag,
+    (authServer) => Effect.tryPromise(() => authServer.api.forgetPassword(params)).pipe(Effect.catchAll(mapApiError)),
+  );

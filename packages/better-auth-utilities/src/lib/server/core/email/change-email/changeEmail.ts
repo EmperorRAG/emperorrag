@@ -3,12 +3,12 @@
  * @description Barrel export for server-side change email module.
  */
 
-export { changeEmailServerService } from './changeEmail.service';
-export { changeEmailServerController } from './changeEmail.controller';
+export { changeEmailServerController } from "./changeEmail.controller";
+export { changeEmailServerService } from "./changeEmail.service";
 export {
-	isAuthServerApiChangeEmailParamsFor,
-	type AuthServerApiChangeEmailPropsFor,
-	type AuthServerApiChangeEmailParamsFor,
-	type AuthServerApiChangeEmailResultFor,
-	type changeEmailPropsFor,
-} from './changeEmail.types';
+  type AuthServerApiChangeEmailParamsFor,
+  type AuthServerApiChangeEmailPropsFor,
+  type AuthServerApiChangeEmailResultFor,
+  type changeEmailPropsFor,
+  isAuthServerApiChangeEmailParamsFor,
+} from "./changeEmail.types";

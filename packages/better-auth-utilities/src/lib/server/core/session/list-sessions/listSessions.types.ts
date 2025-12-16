@@ -3,9 +3,9 @@
  * @description Type definitions for server-side list sessions operation.
  */
 
-import type * as Effect from 'effect/Effect';
-import type { AuthServerError } from '../../../../errors/authServer.error';
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
  * Type helper to extract the listSessions endpoint type from an AuthServer.
@@ -16,8 +16,8 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiListSessionsPropsFor<T extends AuthServerFor = AuthServerFor> =
-	'listSessions' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['listSessions'] : never;
+export type AuthServerApiListSessionsPropsFor<T extends AuthServerFor = AuthServerFor> = "listSessions" extends
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["listSessions"] : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.listSessions.
@@ -27,7 +27,9 @@ export type AuthServerApiListSessionsPropsFor<T extends AuthServerFor = AuthServ
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiListSessionsParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiListSessionsPropsFor<AuthServerFor>>[0];
+export type AuthServerApiListSessionsParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+  AuthServerApiListSessionsPropsFor<AuthServerFor>
+>[0];
 
 /**
  * Type helper to extract the return type from auth.api.listSessions.
@@ -37,7 +39,9 @@ export type AuthServerApiListSessionsParamsFor<T extends AuthServerFor = AuthSer
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiListSessionsResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiListSessionsPropsFor<AuthServerFor>>;
+export type AuthServerApiListSessionsResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+  AuthServerApiListSessionsPropsFor<AuthServerFor>
+>;
 
 /**
  * Function signature for listSessions server service.
@@ -48,9 +52,9 @@ export type AuthServerApiListSessionsResultFor<T extends AuthServerFor = AuthSer
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export interface listSessionsPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(
-		params: AuthServerApiListSessionsParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiListSessionsResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+  (
+    params: AuthServerApiListSessionsParamsFor<AuthServerFor>,
+  ): Effect.Effect<Awaited<AuthServerApiListSessionsResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**
@@ -65,7 +69,9 @@ export interface listSessionsPropsFor<T extends AuthServerFor = AuthServerFor> {
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiListSessionsParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiListSessionsParamsFor = (value: unknown): value is AuthServerApiListSessionsParamsFor<AuthServerFor> => {
-	if (typeof value !== 'object' || value === null) return false;
-	return true;
+export const isAuthServerApiListSessionsParamsFor = (
+  value: unknown,
+): value is AuthServerApiListSessionsParamsFor<AuthServerFor> => {
+  if (typeof value !== "object" || value === null) return false;
+  return true;
 };

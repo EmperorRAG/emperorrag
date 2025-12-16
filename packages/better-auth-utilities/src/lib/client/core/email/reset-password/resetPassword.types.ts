@@ -1,8 +1,8 @@
-import type { createAuthClient } from 'better-auth/client';
-import type { AuthClientFor } from '../../../client.types';
-import type { EmailAuthError } from '../shared/email.error';
-import type { EmailAuthClientDeps } from '../shared/email.types';
-import type * as Effect from 'effect/Effect';
+import type { createAuthClient } from "better-auth/client";
+import type * as Effect from "effect/Effect";
+import type { AuthClientFor } from "../../../client.types";
+import type { EmailAuthError } from "../shared/email.error";
+import type { EmailAuthClientDeps } from "../shared/email.types";
 
 /**
  * Type helper to extract the input parameter type for resetPassword.
@@ -16,8 +16,10 @@ import type * as Effect from 'effect/Effect';
  * // { newPassword: string, token?: string, callbackURL?: string, fetchOptions?: {...} }
  * ```
  */
-export type ResetPasswordInput<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> = Parameters<
-	T['resetPassword']
+export type ResetPasswordInput<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> = Parameters<
+  T["resetPassword"]
 >[0];
 
 /**
@@ -32,8 +34,10 @@ export type ResetPasswordInput<T extends AuthClientFor<ReturnType<typeof createA
  * // Promise<{ success: boolean, message?: string }>
  * ```
  */
-export type ResetPasswordResult<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> = ReturnType<
-	T['resetPassword']
+export type ResetPasswordResult<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> = ReturnType<
+  T["resetPassword"]
 >;
 
 /**
@@ -51,6 +55,10 @@ export type ResetPasswordResult<T extends AuthClientFor<ReturnType<typeof create
  *   });
  * ```
  */
-export interface resetPasswordProps<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> {
-	(deps: EmailAuthClientDeps<T>): (input: ResetPasswordInput<T>) => Effect.Effect<Awaited<ResetPasswordResult<T>>, EmailAuthError>;
+export interface resetPasswordProps<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> {
+  (
+    deps: EmailAuthClientDeps<T>,
+  ): (input: ResetPasswordInput<T>) => Effect.Effect<Awaited<ResetPasswordResult<T>>, EmailAuthError>;
 }

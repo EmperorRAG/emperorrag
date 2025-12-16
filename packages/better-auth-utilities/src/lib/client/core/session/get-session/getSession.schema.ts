@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Zod schema for validating GetSessionInput.
@@ -7,11 +7,11 @@ import { z } from 'zod';
  * Since getSession mainly takes fetchOptions, we define a loose schema for it.
  */
 export const getSessionSchema = z
-	.object({
-		fetchOptions: z
-			.object({
-				headers: z.record(z.string(), z.string()).optional(),
-			})
-			.optional(),
-	})
-	.optional();
+  .object({
+    fetchOptions: z
+      .object({
+        headers: z.record(z.string(), z.string()).optional(),
+      })
+      .optional(),
+  })
+  .optional();

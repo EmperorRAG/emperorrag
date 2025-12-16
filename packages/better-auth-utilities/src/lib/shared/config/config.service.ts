@@ -1,4 +1,4 @@
-import type { AvailablePlugins, BetterAuthConfig } from './config.types';
+import type { AvailablePlugins, BetterAuthConfig } from "./config.types";
 
 /**
  * Type-safe configuration builder for better-auth with plugin support.
@@ -44,9 +44,12 @@ import type { AvailablePlugins, BetterAuthConfig } from './config.types';
  * });
  * ```
  */
-export function defineConfig<ServerPlugins extends readonly AvailablePlugins[] = [], ClientPlugins extends readonly AvailablePlugins[] = ServerPlugins>(
-	config: BetterAuthConfig<ServerPlugins, ClientPlugins>
+export function defineConfig<
+  ServerPlugins extends readonly AvailablePlugins[] = [],
+  ClientPlugins extends readonly AvailablePlugins[] = ServerPlugins,
+>(
+  config: BetterAuthConfig<ServerPlugins, ClientPlugins>,
 ): BetterAuthConfig<ServerPlugins, ClientPlugins> {
-	// Simple merge with defaults - TypeScript will infer the correct types
-	return config as BetterAuthConfig<ServerPlugins, ClientPlugins>;
+  // Simple merge with defaults - TypeScript will infer the correct types
+  return config as BetterAuthConfig<ServerPlugins, ClientPlugins>;
 }

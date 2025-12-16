@@ -3,13 +3,13 @@
  * @description Server-side service for sign-up email operation using Better Auth API.
  */
 
-import * as Effect from 'effect/Effect';
-import { mapApiError } from '../../../../pipeline/map-api-error/mapApiError';
-import { AuthServerTag } from '../../../server.service';
-import type { AuthServerFor } from '../../../server.types';
-import type { SignUpTransportCtx } from './signUpEmail.adapters';
-import type { SignUpEmailCommand } from './signUpEmail.decoder';
-import type { AuthServerApiSignUpEmailParamsFor, signUpEmailPropsFor } from './signUpEmail.types';
+import * as Effect from "effect/Effect";
+import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
+import { AuthServerTag } from "../../../server.service";
+import type { AuthServerFor } from "../../../server.types";
+import type { SignUpTransportCtx } from "./signUpEmail.adapters";
+import type { SignUpEmailCommand } from "./signUpEmail.decoder";
+import type { AuthServerApiSignUpEmailParamsFor, signUpEmailPropsFor } from "./signUpEmail.types";
 
 /**
  * Register a new user via email and password using Better Auth server API.
@@ -123,25 +123,30 @@ import type { AuthServerApiSignUpEmailParamsFor, signUpEmailPropsFor } from './s
  * });
  * ```
  */
-export const signUpEmailServerService: signUpEmailPropsFor = (params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.signUpEmail(params)).pipe(Effect.catchAll(mapApiError)));
+export const signUpEmailServerService: signUpEmailPropsFor = (
+  params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>,
+) =>
+  Effect.flatMap(
+    AuthServerTag,
+    (authServer) => Effect.tryPromise(() => authServer.api.signUpEmail(params)).pipe(Effect.catchAll(mapApiError)),
+  );
 
 export const signUpEmailServerServiceFromCommandWithCtx = (cmd: SignUpEmailCommand, ctx: SignUpTransportCtx) => {
-	const body = {
-		email: cmd.email,
-		password: cmd.password,
-		name: cmd.name,
-		...(cmd.image !== undefined ? { image: cmd.image } : {}),
-		...(cmd.callbackURL !== undefined ? { callbackURL: cmd.callbackURL } : {}),
-		...cmd.additionalFields,
-	};
+  const body = {
+    email: cmd.email,
+    password: cmd.password,
+    name: cmd.name,
+    ...(cmd.image !== undefined ? { image: cmd.image } : {}),
+    ...(cmd.callbackURL !== undefined ? { callbackURL: cmd.callbackURL } : {}),
+    ...cmd.additionalFields,
+  };
 
-	const params = {
-		body,
-		...(ctx.headers !== undefined ? { headers: ctx.headers } : {}),
-		...(ctx.asResponse !== undefined ? { asResponse: ctx.asResponse } : {}),
-		...(ctx.returnHeaders !== undefined ? { returnHeaders: ctx.returnHeaders } : {}),
-	};
+  const params = {
+    body,
+    ...(ctx.headers !== undefined ? { headers: ctx.headers } : {}),
+    ...(ctx.asResponse !== undefined ? { asResponse: ctx.asResponse } : {}),
+    ...(ctx.returnHeaders !== undefined ? { returnHeaders: ctx.returnHeaders } : {}),
+  };
 
-	return signUpEmailServerService(params);
+  return signUpEmailServerService(params);
 };

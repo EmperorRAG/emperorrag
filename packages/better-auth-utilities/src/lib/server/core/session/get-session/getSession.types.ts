@@ -3,9 +3,9 @@
  * @description Type definitions for server-side get session operation.
  */
 
-import type * as Effect from 'effect/Effect';
-import type { AuthServerApiError, AuthServerInputError } from '../../../../errors/authServer.error';
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type * as Effect from "effect/Effect";
+import type { AuthServerApiError, AuthServerInputError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
  * Type helper to extract the getSession endpoint type from an AuthServer.
@@ -27,8 +27,8 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * });
  * ```
  */
-export type AuthServerApiGetSessionPropsFor<T extends AuthServerFor = AuthServerFor> =
-	'getSession' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['getSession'] : never;
+export type AuthServerApiGetSessionPropsFor<T extends AuthServerFor = AuthServerFor> = "getSession" extends
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["getSession"] : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.getSession.
@@ -45,7 +45,9 @@ export type AuthServerApiGetSessionPropsFor<T extends AuthServerFor = AuthServer
  * // { headers: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiGetSessionParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiGetSessionPropsFor<AuthServerFor>>[0];
+export type AuthServerApiGetSessionParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+  AuthServerApiGetSessionPropsFor<AuthServerFor>
+>[0];
 
 /**
  * Type helper to extract the return type from auth.api.getSession.
@@ -62,7 +64,9 @@ export type AuthServerApiGetSessionParamsFor<T extends AuthServerFor = AuthServe
  * // Promise<{ user: User, session: Session } | null>
  * ```
  */
-export type AuthServerApiGetSessionResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiGetSessionPropsFor<AuthServerFor>>;
+export type AuthServerApiGetSessionResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+  AuthServerApiGetSessionPropsFor<AuthServerFor>
+>;
 
 /**
  * Function signature for getSession server service.
@@ -106,8 +110,12 @@ export type AuthServerApiGetSessionResultFor<T extends AuthServerFor = AuthServe
  * ```
  */
 export type getSessionPropsFor<T extends AuthServerFor = AuthServerFor> = (
-	params: AuthServerApiGetSessionParamsFor<AuthServerFor>
-) => Effect.Effect<Awaited<AuthServerApiGetSessionResultFor<AuthServerFor>>, AuthServerApiError | AuthServerInputError, AuthServerFor>;
+  params: AuthServerApiGetSessionParamsFor<AuthServerFor>,
+) => Effect.Effect<
+  Awaited<AuthServerApiGetSessionResultFor<AuthServerFor>>,
+  AuthServerApiError | AuthServerInputError,
+  AuthServerFor
+>;
 
 /**
  * Type guard for validating AuthServerApiGetSessionParamsFor.
@@ -134,17 +142,19 @@ export type getSessionPropsFor<T extends AuthServerFor = AuthServerFor> = (
  * }
  * ```
  */
-export const isAuthServerApiGetSessionParamsFor = (value: unknown): value is AuthServerApiGetSessionParamsFor<AuthServerFor> => {
-	if (typeof value !== 'object' || value === null) {
-		return false;
-	}
+export const isAuthServerApiGetSessionParamsFor = (
+  value: unknown,
+): value is AuthServerApiGetSessionParamsFor<AuthServerFor> => {
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
 
-	const candidate = value as Record<string, unknown>;
+  const candidate = value as Record<string, unknown>;
 
-	// getSession requires headers for cookie-based session lookup
-	if (!('headers' in candidate) || !(candidate['headers'] instanceof Headers)) {
-		return false;
-	}
+  // getSession requires headers for cookie-based session lookup
+  if (!("headers" in candidate) || !(candidate["headers"] instanceof Headers)) {
+    return false;
+  }
 
-	return true;
+  return true;
 };

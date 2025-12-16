@@ -65,7 +65,7 @@
 // 	multiSession,
 // } from 'better-auth/plugins';
 
-import type { AvailablePlugins } from '../shared/config/config.types';
+import type { AvailablePlugins } from "../shared/config/config.types";
 
 /**
  * Maps plugin names to their server factory functions.
@@ -102,99 +102,99 @@ import type { AvailablePlugins } from '../shared/config/config.types';
  * ```
  */
 export const SERVER_PLUGIN_FACTORIES: Record<
-	AvailablePlugins,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	(config?: unknown) => any
+  AvailablePlugins,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (config?: unknown) => any
 > = {
-	// =============================================================================
-	// ALL PLUGIN FACTORIES COMMENTED OUT
-	// These return placeholder throws. Uncomment imports and factory implementations when needed.
-	// =============================================================================
+  // =============================================================================
+  // ALL PLUGIN FACTORIES COMMENTED OUT
+  // These return placeholder throws. Uncomment imports and factory implementations when needed.
+  // =============================================================================
 
-	// Core authentication plugins (COMMENTED OUT)
-	username: () => {
-		throw new Error('Username plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
-	twoFactor: () => {
-		throw new Error('TwoFactor plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
-	admin: () => {
-		throw new Error('Admin plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
-	organization: () => {
-		throw new Error('Organization plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
-	magicLink: () => {
-		throw new Error('MagicLink plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
-	passkey: () => {
-		throw new Error('Passkey plugin requires @better-auth/passkey package or correct import path');
-	},
+  // Core authentication plugins (COMMENTED OUT)
+  username: () => {
+    throw new Error("Username plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
+  twoFactor: () => {
+    throw new Error("TwoFactor plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
+  admin: () => {
+    throw new Error("Admin plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
+  organization: () => {
+    throw new Error("Organization plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
+  magicLink: () => {
+    throw new Error("MagicLink plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
+  passkey: () => {
+    throw new Error("Passkey plugin requires @better-auth/passkey package or correct import path");
+  },
 
-	// OAuth/Auth plugins (COMMENTED OUT)
-	oidc: () => {
-		throw new Error('OIDC plugin requires correct import or @better-auth/oidc package');
-	},
-	siwe: () => {
-		throw new Error('SIWE plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
-	genericOAuth: () => {
-		throw new Error('GenericOAuth plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
-	oneTap: () => {
-		throw new Error('OneTap plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
+  // OAuth/Auth plugins (COMMENTED OUT)
+  oidc: () => {
+    throw new Error("OIDC plugin requires correct import or @better-auth/oidc package");
+  },
+  siwe: () => {
+    throw new Error("SIWE plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
+  genericOAuth: () => {
+    throw new Error("GenericOAuth plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
+  oneTap: () => {
+    throw new Error("OneTap plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
 
-	// Integration plugins (require separate packages)
-	stripe: () => {
-		throw new Error('Stripe plugin requires @better-auth/stripe package');
-	},
-	polar: () => {
-		throw new Error('Polar plugin requires @polar-sh/better-auth package');
-	},
-	dodopayments: () => {
-		throw new Error('Dodo Payments plugin requires @dodopayments/better-auth package');
-	},
-	dubAnalytics: () => {
-		throw new Error('Dub Analytics plugin requires @dub/better-auth package');
-	},
+  // Integration plugins (require separate packages)
+  stripe: () => {
+    throw new Error("Stripe plugin requires @better-auth/stripe package");
+  },
+  polar: () => {
+    throw new Error("Polar plugin requires @polar-sh/better-auth package");
+  },
+  dodopayments: () => {
+    throw new Error("Dodo Payments plugin requires @dodopayments/better-auth package");
+  },
+  dubAnalytics: () => {
+    throw new Error("Dub Analytics plugin requires @dub/better-auth package");
+  },
 
-	// Security plugins (COMMENTED OUT)
-	bearer: () => {
-		throw new Error('Bearer plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
-	jwt: () => {
-		throw new Error('JWT plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
-	apiKey: () => {
-		throw new Error('ApiKey plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
-	haveIBeenPwned: () => {
-		throw new Error('Have I Been Pwned plugin requires @better-auth/hibp package');
-	},
+  // Security plugins (COMMENTED OUT)
+  bearer: () => {
+    throw new Error("Bearer plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
+  jwt: () => {
+    throw new Error("JWT plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
+  apiKey: () => {
+    throw new Error("ApiKey plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
+  haveIBeenPwned: () => {
+    throw new Error("Have I Been Pwned plugin requires @better-auth/hibp package");
+  },
 
-	// Advanced plugins (COMMENTED OUT)
-	emailOTP: () => {
-		throw new Error('EmailOTP plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
-	multiSession: () => {
-		throw new Error('MultiSession plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
-	anonymous: () => {
-		throw new Error('Anonymous plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
-	phoneNumber: () => {
-		throw new Error('PhoneNumber plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
-	deviceAuthorization: () => {
-		throw new Error('DeviceAuthorization plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
-	lastLoginMethod: () => {
-		throw new Error('LastLoginMethod plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
-	oneTimeToken: () => {
-		throw new Error('OneTimeToken plugin is commented out. Uncomment import in server.constants.ts to enable.');
-	},
+  // Advanced plugins (COMMENTED OUT)
+  emailOTP: () => {
+    throw new Error("EmailOTP plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
+  multiSession: () => {
+    throw new Error("MultiSession plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
+  anonymous: () => {
+    throw new Error("Anonymous plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
+  phoneNumber: () => {
+    throw new Error("PhoneNumber plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
+  deviceAuthorization: () => {
+    throw new Error("DeviceAuthorization plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
+  lastLoginMethod: () => {
+    throw new Error("LastLoginMethod plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
+  oneTimeToken: () => {
+    throw new Error("OneTimeToken plugin is commented out. Uncomment import in server.constants.ts to enable.");
+  },
 };
 
 /**

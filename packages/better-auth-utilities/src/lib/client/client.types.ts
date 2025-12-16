@@ -1,6 +1,6 @@
-import { createAuthClient } from 'better-auth/client';
+import { createAuthClient } from "better-auth/client";
 
-type AuthClientReservedKey = '$fetch' | '$store' | '$ERROR_CODES' | '$Infer';
+type AuthClientReservedKey = "$fetch" | "$store" | "$ERROR_CODES" | "$Infer";
 
 /**
  * Type helper to infer the full client type including all plugins.
@@ -24,9 +24,11 @@ export type AuthClientFor<T extends ReturnType<typeof createAuthClient> = Return
  * // 'signIn' | 'signOut' | 'session' | 'signUp' | ... (no $ prefixed keys)
  * ```
  */
-export type AuthClientApiKeyFor<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> = Exclude<
-	keyof AuthClientFor<T>,
-	AuthClientReservedKey
+export type AuthClientApiKeyFor<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> = Exclude<
+  keyof AuthClientFor<T>,
+  AuthClientReservedKey
 >;
 
 /**
@@ -40,9 +42,11 @@ export type AuthClientApiKeyFor<T extends AuthClientFor<ReturnType<typeof create
  * // { signIn: ..., signOut: ..., session: ..., signUp: ... } (no $ prefixed properties)
  * ```
  */
-export type AuthClientApiFor<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> = Pick<
-	AuthClientFor<T>,
-	AuthClientApiKeyFor<T>
+export type AuthClientApiFor<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> = Pick<
+  AuthClientFor<T>,
+  AuthClientApiKeyFor<T>
 >;
 
 /**
@@ -56,8 +60,9 @@ export type AuthClientApiFor<T extends AuthClientFor<ReturnType<typeof createAut
  * // Will be a union of all method/property types
  * ```
  */
-export type AuthClientApiEndpointFor<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> =
-	AuthClientApiFor<T>[keyof AuthClientApiFor<T>];
+export type AuthClientApiEndpointFor<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> = AuthClientApiFor<T>[keyof AuthClientApiFor<T>];
 
 /**
  * Type helper to extract the union of all keys from API endpoint types.
@@ -70,8 +75,9 @@ export type AuthClientApiEndpointFor<T extends AuthClientFor<ReturnType<typeof c
  * // Union of all keys from all endpoint objects
  * ```
  */
-export type AuthClientApiEndpointKeyFor<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> =
-	keyof AuthClientApiEndpointFor<T>;
+export type AuthClientApiEndpointKeyFor<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> = keyof AuthClientApiEndpointFor<T>;
 
 /**
  * Type helper to extract the signIn method type from an AuthClient.
@@ -84,8 +90,9 @@ export type AuthClientApiEndpointKeyFor<T extends AuthClientFor<ReturnType<typeo
  * // { email: (input: {...}) => Promise<...>, ... }
  * ```
  */
-export type AuthClientSignInFor<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> =
-	'signIn' extends AuthClientApiKeyFor<T> ? AuthClientApiFor<T>['signIn'] : never;
+export type AuthClientSignInFor<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> = "signIn" extends AuthClientApiKeyFor<T> ? AuthClientApiFor<T>["signIn"] : never;
 
 /**
  * Type helper to extract the signUp method type from an AuthClient.
@@ -98,5 +105,6 @@ export type AuthClientSignInFor<T extends AuthClientFor<ReturnType<typeof create
  * // { email: (input: {...}) => Promise<...>, ... }
  * ```
  */
-export type AuthClientSignUpFor<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> =
-	'signUp' extends AuthClientApiKeyFor<T> ? AuthClientApiFor<T>['signUp'] : never;
+export type AuthClientSignUpFor<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> = "signUp" extends AuthClientApiKeyFor<T> ? AuthClientApiFor<T>["signUp"] : never;

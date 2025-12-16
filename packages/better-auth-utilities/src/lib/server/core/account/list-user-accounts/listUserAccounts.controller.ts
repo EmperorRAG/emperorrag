@@ -4,19 +4,23 @@
  * Combines schema validation with service execution in a type-safe manner.
  */
 
-import * as Effect from 'effect/Effect';
-import { PipelineContext } from '../../../../context/pipeline.context';
-import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
-import { AuthServerApiError, AuthServerDataMissingError, AuthServerInputError } from '../../../../errors/authServer.error';
-import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
-import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import type { AuthServerFor } from '../../../server.types';
-import { listUserAccountsServerService } from './listUserAccounts.service';
+import * as Effect from "effect/Effect";
+import { PipelineContext } from "../../../../context/pipeline.context";
+import { AuthServerApiEndpoints } from "../../../../enums/authServerApiEndpoints.enum";
 import {
-	isAuthServerApiListUserAccountsParamsFor,
-	type AuthServerApiListUserAccountsParamsFor,
-	type AuthServerApiListUserAccountsResultFor,
-} from './listUserAccounts.types';
+  AuthServerApiError,
+  AuthServerDataMissingError,
+  AuthServerInputError,
+} from "../../../../errors/authServer.error";
+import { validateInputEffect } from "../../../../pipeline/zod-input-validator/zodInputValidator";
+import { createAuthServerApiEndpointParamsSchema } from "../../../../pipeline/zod-schema-builder/zodSchemaBuilder";
+import type { AuthServerFor } from "../../../server.types";
+import { listUserAccountsServerService } from "./listUserAccounts.service";
+import {
+  type AuthServerApiListUserAccountsParamsFor,
+  type AuthServerApiListUserAccountsResultFor,
+  isAuthServerApiListUserAccountsParamsFor,
+} from "./listUserAccounts.types";
 
 /**
  * Controller for server-side listUserAccounts operations with validation.
@@ -51,17 +55,19 @@ import {
  * ```
  */
 export const listUserAccountsServerController = (
-	input: AuthServerApiListUserAccountsParamsFor
+  input: AuthServerApiListUserAccountsParamsFor,
 ): Effect.Effect<
-	Awaited<AuthServerApiListUserAccountsResultFor<AuthServerFor>>,
-	AuthServerInputError | AuthServerApiError | AuthServerDataMissingError,
-	AuthServerFor
+  Awaited<AuthServerApiListUserAccountsResultFor<AuthServerFor>>,
+  AuthServerInputError | AuthServerApiError | AuthServerDataMissingError,
+  AuthServerFor
 > =>
-	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiListUserAccountsParamsFor)(input);
-		return yield* listUserAccountsServerService(validatedParams);
-	}).pipe(
-		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.ListUserAccounts(),
-		})
-	);
+  Effect.gen(function*() {
+    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
+      isAuthServerApiListUserAccountsParamsFor,
+    )(input);
+    return yield* listUserAccountsServerService(validatedParams);
+  }).pipe(
+    Effect.provideService(PipelineContext, {
+      endpoint: AuthServerApiEndpoints.ListUserAccounts(),
+    }),
+  );

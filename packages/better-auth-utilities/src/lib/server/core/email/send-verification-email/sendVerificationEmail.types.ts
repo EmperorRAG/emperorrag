@@ -3,9 +3,9 @@
  * @description Type definitions for server-side send verification email operation.
  */
 
-import type * as Effect from 'effect/Effect';
-import type { AuthServerError } from '../../../../errors/authServer.error';
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
  * Type helper to extract the sendVerificationEmail endpoint type from an AuthServer.
@@ -30,7 +30,7 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * ```
  */
 export type AuthServerApiSendVerificationEmailPropsFor<T extends AuthServerFor = AuthServerFor> =
-	'sendVerificationEmail' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['sendVerificationEmail'] : never;
+  "sendVerificationEmail" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["sendVerificationEmail"] : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.sendVerificationEmail.
@@ -48,7 +48,7 @@ export type AuthServerApiSendVerificationEmailPropsFor<T extends AuthServerFor =
  * ```
  */
 export type AuthServerApiSendVerificationEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-	AuthServerApiSendVerificationEmailPropsFor<AuthServerFor>
+  AuthServerApiSendVerificationEmailPropsFor<AuthServerFor>
 >[0];
 
 /**
@@ -67,7 +67,7 @@ export type AuthServerApiSendVerificationEmailParamsFor<T extends AuthServerFor 
  * ```
  */
 export type AuthServerApiSendVerificationEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
-	AuthServerApiSendVerificationEmailPropsFor<AuthServerFor>
+  AuthServerApiSendVerificationEmailPropsFor<AuthServerFor>
 >;
 
 /**
@@ -108,9 +108,9 @@ export type AuthServerApiSendVerificationEmailResultFor<T extends AuthServerFor 
  * ```
  */
 export interface sendVerificationEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(
-		params: AuthServerApiSendVerificationEmailParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiSendVerificationEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+  (
+    params: AuthServerApiSendVerificationEmailParamsFor<AuthServerFor>,
+  ): Effect.Effect<Awaited<AuthServerApiSendVerificationEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**
@@ -126,14 +126,16 @@ export interface sendVerificationEmailPropsFor<T extends AuthServerFor = AuthSer
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiSendVerificationEmailParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiSendVerificationEmailParamsFor = (value: unknown): value is AuthServerApiSendVerificationEmailParamsFor<AuthServerFor> => {
-	if (typeof value !== 'object' || value === null) return false;
-	const obj = value as Record<string, unknown>;
+export const isAuthServerApiSendVerificationEmailParamsFor = (
+  value: unknown,
+): value is AuthServerApiSendVerificationEmailParamsFor<AuthServerFor> => {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
 
-	if (typeof obj.body !== 'object' || obj.body === null) return false;
-	const body = obj.body as Record<string, unknown>;
+  if (typeof obj.body !== "object" || obj.body === null) return false;
+  const body = obj.body as Record<string, unknown>;
 
-	if (typeof body.email !== 'string') return false;
+  if (typeof body.email !== "string") return false;
 
-	return true;
+  return true;
 };

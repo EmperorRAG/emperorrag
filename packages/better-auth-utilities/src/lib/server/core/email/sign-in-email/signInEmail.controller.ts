@@ -1,24 +1,32 @@
-import * as Effect from 'effect/Effect';
-import { PipelineContext } from '../../../../context/pipeline.context';
-import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
-import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
-import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import type { AuthServerFor } from '../../../server.types';
-import { signInEmailServerService } from './signInEmail.service';
-import { isAuthServerApiSignInEmailParamsFor, type AuthServerApiSignInEmailParamsFor, type signInEmailPropsFor } from './signInEmail.types';
+import * as Effect from "effect/Effect";
+import { PipelineContext } from "../../../../context/pipeline.context";
+import { AuthServerApiEndpoints } from "../../../../enums/authServerApiEndpoints.enum";
+import { validateInputEffect } from "../../../../pipeline/zod-input-validator/zodInputValidator";
+import { createAuthServerApiEndpointParamsSchema } from "../../../../pipeline/zod-schema-builder/zodSchemaBuilder";
+import type { AuthServerFor } from "../../../server.types";
+import { signInEmailServerService } from "./signInEmail.service";
+import {
+  type AuthServerApiSignInEmailParamsFor,
+  isAuthServerApiSignInEmailParamsFor,
+  type signInEmailPropsFor,
+} from "./signInEmail.types";
 
-export const signInEmailServerController: signInEmailPropsFor = (params: AuthServerApiSignInEmailParamsFor<AuthServerFor>) =>
-	Effect.gen(function* () {
-		// 1) Validate params input with Effect-based validation pipeline
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiSignInEmailParamsFor)(params);
+export const signInEmailServerController: signInEmailPropsFor = (
+  params: AuthServerApiSignInEmailParamsFor<AuthServerFor>,
+) =>
+  Effect.gen(function*() {
+    // 1) Validate params input with Effect-based validation pipeline
+    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
+      isAuthServerApiSignInEmailParamsFor,
+    )(params);
 
-		// 2) Call the service with the validated params
-		const result = yield* signInEmailServerService(validatedParams);
+    // 2) Call the service with the validated params
+    const result = yield* signInEmailServerService(validatedParams);
 
-		// 3) Return the success value of the whole controller Effect
-		return result;
-	}).pipe(
-		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.SignInEmail(),
-		})
-	);
+    // 3) Return the success value of the whole controller Effect
+    return result;
+  }).pipe(
+    Effect.provideService(PipelineContext, {
+      endpoint: AuthServerApiEndpoints.SignInEmail(),
+    }),
+  );

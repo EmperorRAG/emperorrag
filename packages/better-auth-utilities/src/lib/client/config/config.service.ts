@@ -1,4 +1,4 @@
-import type { ClientConfig } from '../../shared/config/config.types';
+import type { ClientConfig } from "../../shared/config/config.types";
 
 /**
  * Helper function to create client configuration with defaults.
@@ -7,5 +7,5 @@ import type { ClientConfig } from '../../shared/config/config.types';
  * @returns Client configuration with defaults
  */
 export function createClientConfig(config: ClientConfig): ClientConfig {
-	return config;
+  return config;
 }

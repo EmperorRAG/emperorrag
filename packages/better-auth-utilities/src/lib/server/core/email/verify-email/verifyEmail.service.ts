@@ -3,11 +3,11 @@
  * @description Server-side service for verify email operation using Better Auth API.
  */
 
-import * as Effect from 'effect/Effect';
-import { mapApiError } from '../../../../pipeline/map-api-error/mapApiError';
-import { AuthServerTag } from '../../../server.service';
-import type { AuthServerFor } from '../../../server.types';
-import type { AuthServerApiVerifyEmailParamsFor, verifyEmailPropsFor } from './verifyEmail.types';
+import * as Effect from "effect/Effect";
+import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
+import { AuthServerTag } from "../../../server.service";
+import type { AuthServerFor } from "../../../server.types";
+import type { AuthServerApiVerifyEmailParamsFor, verifyEmailPropsFor } from "./verifyEmail.types";
 
 /**
  * Verify user email via Better Auth server API.
@@ -21,5 +21,10 @@ import type { AuthServerApiVerifyEmailParamsFor, verifyEmailPropsFor } from './v
  * @param params - The verify email parameters containing query token
  * @returns Effect that resolves to verification result or fails with AuthServerApiError
  */
-export const verifyEmailServerService: verifyEmailPropsFor = (params: AuthServerApiVerifyEmailParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.verifyEmail(params)).pipe(Effect.catchAll(mapApiError)));
+export const verifyEmailServerService: verifyEmailPropsFor = (
+  params: AuthServerApiVerifyEmailParamsFor<AuthServerFor>,
+) =>
+  Effect.flatMap(
+    AuthServerTag,
+    (authServer) => Effect.tryPromise(() => authServer.api.verifyEmail(params)).pipe(Effect.catchAll(mapApiError)),
+  );

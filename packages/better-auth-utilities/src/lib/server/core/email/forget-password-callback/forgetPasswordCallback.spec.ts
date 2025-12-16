@@ -1,32 +1,32 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { setupTestEnv } from '../../../../test/setup-test-env';
-import { forgetPasswordCallbackServerService } from './forgetPasswordCallback.service';
-import { AuthServerTag } from '../../../server.service';
-import * as Effect from 'effect/Effect';
+import * as Effect from "effect/Effect";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { setupTestEnv } from "../../../../test/setup-test-env";
+import { AuthServerTag } from "../../../server.service";
+import { forgetPasswordCallbackServerService } from "./forgetPasswordCallback.service";
 
-describe('Server Forget Password Callback', () => {
-	let env: Awaited<ReturnType<typeof setupTestEnv>>;
+describe("Server Forget Password Callback", () => {
+  let env: Awaited<ReturnType<typeof setupTestEnv>>;
 
-	beforeAll(async () => {
-		env = await setupTestEnv();
-	});
+  beforeAll(async () => {
+    env = await setupTestEnv();
+  });
 
-	afterAll(async () => {
-		await env.cleanup();
-	});
+  afterAll(async () => {
+    await env.cleanup();
+  });
 
-	it('should fail with invalid token', async () => {
-		const { authServer } = env;
+  it("should fail with invalid token", async () => {
+    const { authServer } = env;
 
-		const program = forgetPasswordCallbackServerService({
-			params: {
-				token: 'invalid-token',
-			},
-			query: {
-				callbackURL: 'http://localhost',
-			},
-		});
+    const program = forgetPasswordCallbackServerService({
+      params: {
+        token: "invalid-token",
+      },
+      query: {
+        callbackURL: "http://localhost",
+      },
+    });
 
-		await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
-	});
+    await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
+  });
 });

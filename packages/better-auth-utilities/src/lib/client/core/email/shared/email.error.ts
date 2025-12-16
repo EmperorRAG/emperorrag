@@ -6,14 +6,14 @@
  * is missing or required adapters have incorrect shapes.
  */
 export class EmailAuthDependenciesError extends Error {
-	readonly _tag = 'EmailAuthDependenciesError';
-	override readonly cause?: unknown;
+  readonly _tag = "EmailAuthDependenciesError";
+  override readonly cause?: unknown;
 
-	constructor(message: string, cause?: unknown) {
-		super(message);
-		this.name = 'EmailAuthDependenciesError';
-		this.cause = cause;
-	}
+  constructor(message: string, cause?: unknown) {
+    super(message);
+    this.name = "EmailAuthDependenciesError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -24,14 +24,14 @@ export class EmailAuthDependenciesError extends Error {
  * This typically occurs when required fields are missing or have invalid formats.
  */
 export class EmailAuthInputError extends Error {
-	readonly _tag = 'EmailAuthInputError';
-	override readonly cause?: unknown;
+  readonly _tag = "EmailAuthInputError";
+  override readonly cause?: unknown;
 
-	constructor(message: string, cause?: unknown) {
-		super(message);
-		this.name = 'EmailAuthInputError';
-		this.cause = cause;
-	}
+  constructor(message: string, cause?: unknown) {
+    super(message);
+    this.name = "EmailAuthInputError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -42,18 +42,18 @@ export class EmailAuthInputError extends Error {
  * include invalid credentials, rate limiting, or network failures.
  */
 export class EmailAuthApiError extends Error {
-	readonly _tag = 'EmailAuthApiError';
-	override readonly cause?: unknown;
+  readonly _tag = "EmailAuthApiError";
+  override readonly cause?: unknown;
 
-	constructor(
-		message: string,
-		public readonly status?: number,
-		cause?: unknown
-	) {
-		super(message);
-		this.name = 'EmailAuthApiError';
-		this.cause = cause;
-	}
+  constructor(
+    message: string,
+    public readonly status?: number,
+    cause?: unknown,
+  ) {
+    super(message);
+    this.name = "EmailAuthApiError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -64,14 +64,14 @@ export class EmailAuthApiError extends Error {
  * response structure changes or when optional fields are unexpectedly absent.
  */
 export class EmailAuthDataMissingError extends Error {
-	readonly _tag = 'EmailAuthDataMissingError';
-	override readonly cause?: unknown;
+  readonly _tag = "EmailAuthDataMissingError";
+  override readonly cause?: unknown;
 
-	constructor(message: string, cause?: unknown) {
-		super(message);
-		this.name = 'EmailAuthDataMissingError';
-		this.cause = cause;
-	}
+  constructor(message: string, cause?: unknown) {
+    super(message);
+    this.name = "EmailAuthDataMissingError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -82,14 +82,14 @@ export class EmailAuthDataMissingError extends Error {
  * expired, or when the session fetch API call fails.
  */
 export class EmailAuthSessionError extends Error {
-	readonly _tag = 'EmailAuthSessionError';
-	override readonly cause?: unknown;
+  readonly _tag = "EmailAuthSessionError";
+  override readonly cause?: unknown;
 
-	constructor(message: string, cause?: unknown) {
-		super(message);
-		this.name = 'EmailAuthSessionError';
-		this.cause = cause;
-	}
+  constructor(message: string, cause?: unknown) {
+    super(message);
+    this.name = "EmailAuthSessionError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -114,4 +114,9 @@ export class EmailAuthSessionError extends Error {
  *   );
  * ```
  */
-export type EmailAuthError = EmailAuthDependenciesError | EmailAuthInputError | EmailAuthApiError | EmailAuthDataMissingError | EmailAuthSessionError;
+export type EmailAuthError =
+  | EmailAuthDependenciesError
+  | EmailAuthInputError
+  | EmailAuthApiError
+  | EmailAuthDataMissingError
+  | EmailAuthSessionError;

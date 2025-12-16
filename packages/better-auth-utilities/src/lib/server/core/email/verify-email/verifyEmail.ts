@@ -3,12 +3,12 @@
  * @description Barrel export for server-side verify email module.
  */
 
-export { verifyEmailServerService } from './verifyEmail.service';
-export { verifyEmailServerController } from './verifyEmail.controller';
+export { verifyEmailServerController } from "./verifyEmail.controller";
+export { verifyEmailServerService } from "./verifyEmail.service";
 export {
-	isAuthServerApiVerifyEmailParamsFor,
-	type AuthServerApiVerifyEmailPropsFor,
-	type AuthServerApiVerifyEmailParamsFor,
-	type AuthServerApiVerifyEmailResultFor,
-	type verifyEmailPropsFor,
-} from './verifyEmail.types';
+  type AuthServerApiVerifyEmailParamsFor,
+  type AuthServerApiVerifyEmailPropsFor,
+  type AuthServerApiVerifyEmailResultFor,
+  isAuthServerApiVerifyEmailParamsFor,
+  type verifyEmailPropsFor,
+} from "./verifyEmail.types";

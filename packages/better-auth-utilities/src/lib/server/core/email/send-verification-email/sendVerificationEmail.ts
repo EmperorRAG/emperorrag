@@ -3,12 +3,12 @@
  * @description Barrel export for server-side send verification email module.
  */
 
-export { sendVerificationEmailServerService } from './sendVerificationEmail.service';
-export { sendVerificationEmailServerController } from './sendVerificationEmail.controller';
+export { sendVerificationEmailServerController } from "./sendVerificationEmail.controller";
+export { sendVerificationEmailServerService } from "./sendVerificationEmail.service";
 export type {
-	AuthServerApiSendVerificationEmailPropsFor,
-	AuthServerApiSendVerificationEmailParamsFor,
-	AuthServerApiSendVerificationEmailResultFor,
-	sendVerificationEmailPropsFor,
-} from './sendVerificationEmail.types';
-export { isAuthServerApiSendVerificationEmailParamsFor } from './sendVerificationEmail.types';
+  AuthServerApiSendVerificationEmailParamsFor,
+  AuthServerApiSendVerificationEmailPropsFor,
+  AuthServerApiSendVerificationEmailResultFor,
+  sendVerificationEmailPropsFor,
+} from "./sendVerificationEmail.types";
+export { isAuthServerApiSendVerificationEmailParamsFor } from "./sendVerificationEmail.types";

@@ -3,11 +3,11 @@
  * @description Server-side service for sign-in email operation using Better Auth API.
  */
 
-import * as Effect from 'effect/Effect';
-import { mapApiError } from '../../../../pipeline/map-api-error/mapApiError';
-import { AuthServerTag } from '../../../server.service';
-import type { AuthServerFor } from '../../../server.types';
-import type { AuthServerApiSignInEmailParamsFor, signInEmailPropsFor } from './signInEmail.types';
+import * as Effect from "effect/Effect";
+import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
+import { AuthServerTag } from "../../../server.service";
+import type { AuthServerFor } from "../../../server.types";
+import type { AuthServerApiSignInEmailParamsFor, signInEmailPropsFor } from "./signInEmail.types";
 
 /**
  * Sign in a user via email and password using Better Auth server API.
@@ -83,5 +83,10 @@ import type { AuthServerApiSignInEmailParamsFor, signInEmailPropsFor } from './s
  * );
  * ```
  */
-export const signInEmailServerService: signInEmailPropsFor = (params: AuthServerApiSignInEmailParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.signInEmail(params)).pipe(Effect.catchAll(mapApiError)));
+export const signInEmailServerService: signInEmailPropsFor = (
+  params: AuthServerApiSignInEmailParamsFor<AuthServerFor>,
+) =>
+  Effect.flatMap(
+    AuthServerTag,
+    (authServer) => Effect.tryPromise(() => authServer.api.signInEmail(params)).pipe(Effect.catchAll(mapApiError)),
+  );

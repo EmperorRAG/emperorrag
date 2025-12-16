@@ -4,9 +4,13 @@
  * Provides comprehensive type safety for listing user's linked accounts (OAuth providers, credentials).
  */
 
-import type * as Effect from 'effect/Effect';
-import type { AuthServerApiError, AuthServerDataMissingError, AuthServerInputError } from '../../../../errors/authServer.error';
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type * as Effect from "effect/Effect";
+import type {
+  AuthServerApiError,
+  AuthServerDataMissingError,
+  AuthServerInputError,
+} from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
  * Type helper to extract the listUserAccounts endpoint type from an AuthServer.
@@ -28,8 +32,8 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * });
  * ```
  */
-export type AuthServerApiListUserAccountsPropsFor<T extends AuthServerFor = AuthServerFor> =
-	'listUserAccounts' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['listUserAccounts'] : never;
+export type AuthServerApiListUserAccountsPropsFor<T extends AuthServerFor = AuthServerFor> = "listUserAccounts" extends
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["listUserAccounts"] : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.listUserAccounts.
@@ -47,7 +51,7 @@ export type AuthServerApiListUserAccountsPropsFor<T extends AuthServerFor = Auth
  * ```
  */
 export type AuthServerApiListUserAccountsParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
-	AuthServerApiListUserAccountsPropsFor<AuthServerFor>
+  AuthServerApiListUserAccountsPropsFor<AuthServerFor>
 >[0];
 
 /**
@@ -65,7 +69,9 @@ export type AuthServerApiListUserAccountsParamsFor<T extends AuthServerFor = Aut
  * // Promise<Account[]>
  * ```
  */
-export type AuthServerApiListUserAccountsResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiListUserAccountsPropsFor<AuthServerFor>>;
+export type AuthServerApiListUserAccountsResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+  AuthServerApiListUserAccountsPropsFor<AuthServerFor>
+>;
 
 /**
  * Function signature for listUserAccounts server service.
@@ -91,11 +97,11 @@ export type AuthServerApiListUserAccountsResultFor<T extends AuthServerFor = Aut
  * ```
  */
 export type listUserAccountsPropsFor<T extends AuthServerFor = AuthServerFor> = (
-	params: AuthServerApiListUserAccountsParamsFor<AuthServerFor>
+  params: AuthServerApiListUserAccountsParamsFor<AuthServerFor>,
 ) => Effect.Effect<
-	Awaited<AuthServerApiListUserAccountsResultFor<AuthServerFor>>,
-	AuthServerApiError | AuthServerInputError | AuthServerDataMissingError,
-	AuthServerFor
+  Awaited<AuthServerApiListUserAccountsResultFor<AuthServerFor>>,
+  AuthServerApiError | AuthServerInputError | AuthServerDataMissingError,
+  AuthServerFor
 >;
 
 /**
@@ -120,17 +126,19 @@ export type listUserAccountsPropsFor<T extends AuthServerFor = AuthServerFor> = 
  * }
  * ```
  */
-export const isAuthServerApiListUserAccountsParamsFor = (value: unknown): value is AuthServerApiListUserAccountsParamsFor<AuthServerFor> => {
-	if (typeof value !== 'object' || value === null) {
-		return false;
-	}
+export const isAuthServerApiListUserAccountsParamsFor = (
+  value: unknown,
+): value is AuthServerApiListUserAccountsParamsFor<AuthServerFor> => {
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
 
-	const candidate = value as Record<string, unknown>;
+  const candidate = value as Record<string, unknown>;
 
-	// listUserAccounts requires headers for session authentication
-	if (!('headers' in candidate) || !(candidate['headers'] instanceof Headers)) {
-		return false;
-	}
+  // listUserAccounts requires headers for session authentication
+  if (!("headers" in candidate) || !(candidate["headers"] instanceof Headers)) {
+    return false;
+  }
 
-	return true;
+  return true;
 };

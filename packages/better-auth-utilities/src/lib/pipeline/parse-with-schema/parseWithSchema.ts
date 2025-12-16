@@ -1,6 +1,6 @@
-import * as Either from 'effect/Either';
-import { pipe } from 'effect/Function';
-import type { ParseWithSchemaProps } from './parseWithSchema.types';
+import * as Either from "effect/Either";
+import { pipe } from "effect/Function";
+import type { ParseWithSchemaProps } from "./parseWithSchema.types";
 
 /**
  * Parses input against a Zod schema and returns an Either.
@@ -11,4 +11,4 @@ import type { ParseWithSchemaProps } from './parseWithSchema.types';
  */
 
 export const parseWithSchema: ParseWithSchemaProps = (schema) => (input) =>
-	pipe(schema.safeParse(input), (result) => (result.success ? Either.right(result.data) : Either.left(result.error)));
+  pipe(schema.safeParse(input), (result) => (result.success ? Either.right(result.data) : Either.left(result.error)));

@@ -1,6 +1,6 @@
-import * as Effect from 'effect/Effect';
-import type { resetPasswordProps } from './resetPassword.types';
-import { EmailAuthApiError } from '../shared/email.error';
+import * as Effect from "effect/Effect";
+import { EmailAuthApiError } from "../shared/email.error";
+import type { resetPasswordProps } from "./resetPassword.types";
 
 /**
  * Reset a user's password using Better Auth.
@@ -36,14 +36,14 @@ import { EmailAuthApiError } from '../shared/email.error';
  * @returns Curried function accepting reset password input and returning an Effect
  */
 export const resetPasswordClient: resetPasswordProps = (deps) => (input) => {
-	const { authClient } = deps;
+  const { authClient } = deps;
 
-	return Effect.tryPromise({
-		try: () => authClient.resetPassword(input),
-		catch: (error) => {
-			const message = error instanceof Error ? error.message : 'Reset password failed';
-			const status = error && typeof error === 'object' && 'status' in error ? (error.status as number) : undefined;
-			return new EmailAuthApiError(message, status, error);
-		},
-	});
+  return Effect.tryPromise({
+    try: () => authClient.resetPassword(input),
+    catch: (error) => {
+      const message = error instanceof Error ? error.message : "Reset password failed";
+      const status = error && typeof error === "object" && "status" in error ? (error.status as number) : undefined;
+      return new EmailAuthApiError(message, status, error);
+    },
+  });
 };

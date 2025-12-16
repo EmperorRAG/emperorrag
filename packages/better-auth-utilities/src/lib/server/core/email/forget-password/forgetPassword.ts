@@ -3,12 +3,12 @@
  * @description Barrel export for server-side forget password module.
  */
 
-export { forgetPasswordServerService } from './forgetPassword.service';
-export { forgetPasswordServerController } from './forgetPassword.controller';
+export { forgetPasswordServerController } from "./forgetPassword.controller";
+export { forgetPasswordServerService } from "./forgetPassword.service";
 export type {
-	AuthServerApiForgetPasswordPropsFor,
-	AuthServerApiForgetPasswordParamsFor,
-	AuthServerApiForgetPasswordResultFor,
-	forgetPasswordPropsFor,
-} from './forgetPassword.types';
-export { isAuthServerApiForgetPasswordParamsFor } from './forgetPassword.types';
+  AuthServerApiForgetPasswordParamsFor,
+  AuthServerApiForgetPasswordPropsFor,
+  AuthServerApiForgetPasswordResultFor,
+  forgetPasswordPropsFor,
+} from "./forgetPassword.types";
+export { isAuthServerApiForgetPasswordParamsFor } from "./forgetPassword.types";

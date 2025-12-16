@@ -3,18 +3,18 @@
  * @description Controller for server-side link social account operation with validation.
  */
 
-import * as Effect from 'effect/Effect';
-import { PipelineContext } from '../../../../context/pipeline.context';
-import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
-import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
-import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import type { AuthServerFor } from '../../../server.types';
-import { linkSocialAccountServerService } from './linkSocialAccount.service';
+import * as Effect from "effect/Effect";
+import { PipelineContext } from "../../../../context/pipeline.context";
+import { AuthServerApiEndpoints } from "../../../../enums/authServerApiEndpoints.enum";
+import { validateInputEffect } from "../../../../pipeline/zod-input-validator/zodInputValidator";
+import { createAuthServerApiEndpointParamsSchema } from "../../../../pipeline/zod-schema-builder/zodSchemaBuilder";
+import type { AuthServerFor } from "../../../server.types";
+import { linkSocialAccountServerService } from "./linkSocialAccount.service";
 import {
-	isAuthServerApiLinkSocialAccountParamsFor,
-	type AuthServerApiLinkSocialAccountParamsFor,
-	type linkSocialAccountPropsFor,
-} from './linkSocialAccount.types';
+  type AuthServerApiLinkSocialAccountParamsFor,
+  isAuthServerApiLinkSocialAccountParamsFor,
+  type linkSocialAccountPropsFor,
+} from "./linkSocialAccount.types";
 
 /**
  * Controller for link social account operation with input validation.
@@ -36,12 +36,16 @@ import {
  * @param params - The link social account parameters to validate and process
  * @returns Effect requiring AuthServerFor context
  */
-export const linkSocialAccountServerController: linkSocialAccountPropsFor = (params: AuthServerApiLinkSocialAccountParamsFor<AuthServerFor>) =>
-	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiLinkSocialAccountParamsFor)(params);
-		return yield* linkSocialAccountServerService(validatedParams);
-	}).pipe(
-		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.LinkSocialAccount(),
-		})
-	);
+export const linkSocialAccountServerController: linkSocialAccountPropsFor = (
+  params: AuthServerApiLinkSocialAccountParamsFor<AuthServerFor>,
+) =>
+  Effect.gen(function*() {
+    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
+      isAuthServerApiLinkSocialAccountParamsFor,
+    )(params);
+    return yield* linkSocialAccountServerService(validatedParams);
+  }).pipe(
+    Effect.provideService(PipelineContext, {
+      endpoint: AuthServerApiEndpoints.LinkSocialAccount(),
+    }),
+  );

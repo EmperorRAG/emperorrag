@@ -3,12 +3,12 @@
  * @description Barrel export for server-side forget password callback module.
  */
 
-export { forgetPasswordCallbackServerService } from './forgetPasswordCallback.service';
-export { forgetPasswordCallbackServerController } from './forgetPasswordCallback.controller';
+export { forgetPasswordCallbackServerController } from "./forgetPasswordCallback.controller";
+export { forgetPasswordCallbackServerService } from "./forgetPasswordCallback.service";
 export {
-	isAuthServerApiForgetPasswordCallbackParamsFor,
-	type AuthServerApiForgetPasswordCallbackPropsFor,
-	type AuthServerApiForgetPasswordCallbackParamsFor,
-	type AuthServerApiForgetPasswordCallbackResultFor,
-	type forgetPasswordCallbackPropsFor,
-} from './forgetPasswordCallback.types';
+  type AuthServerApiForgetPasswordCallbackParamsFor,
+  type AuthServerApiForgetPasswordCallbackPropsFor,
+  type AuthServerApiForgetPasswordCallbackResultFor,
+  type forgetPasswordCallbackPropsFor,
+  isAuthServerApiForgetPasswordCallbackParamsFor,
+} from "./forgetPasswordCallback.types";

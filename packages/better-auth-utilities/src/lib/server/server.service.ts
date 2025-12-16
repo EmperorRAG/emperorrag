@@ -13,22 +13,22 @@
 // Subpath Imports (Optimized for TS Server Performance)
 // =============================================================================
 
-import * as Context from 'effect/Context';
-import * as Effect from 'effect/Effect';
-import * as Layer from 'effect/Layer';
-import type { AuthServer } from './server.types';
+import * as Context from "effect/Context";
+import * as Effect from "effect/Effect";
+import * as Layer from "effect/Layer";
+import type { AuthServer } from "./server.types";
 
 // Runtime import - betterAuth function is only available from root
-import { betterAuth } from 'better-auth';
+import { betterAuth } from "better-auth";
 // Type import - using dedicated types subpath to avoid loading runtime code
-import type { BetterAuthOptions } from 'better-auth/types';
+import type { BetterAuthOptions } from "better-auth/types";
 // Adapter import - using dedicated adapter subpath
-import { prismaAdapter } from 'better-auth/adapters/prisma';
-import type { AvailablePlugins, BetterAuthConfig } from '../shared/config/config.types';
+import { prismaAdapter } from "better-auth/adapters/prisma";
+import type { AvailablePlugins, BetterAuthConfig } from "../shared/config/config.types";
 // Note: ALWAYS_INCLUDED_SERVER_PLUGINS is currently empty (openAPI commented out)
 // Uncomment the import when re-enabling automatic plugins
 // import { SERVER_PLUGIN_FACTORIES, ALWAYS_INCLUDED_SERVER_PLUGINS } from './server.constants';
-import { SERVER_PLUGIN_FACTORIES } from './server.constants';
+import { SERVER_PLUGIN_FACTORIES } from "./server.constants";
 
 // ============================================================================
 // SERVER INSTANCE CREATION
@@ -37,7 +37,7 @@ import { SERVER_PLUGIN_FACTORIES } from './server.constants';
 /**
  * Tag for the AuthServer service.
  */
-export const AuthServerTag = Context.GenericTag<AuthServer>('@better-auth/AuthServer');
+export const AuthServerTag = Context.GenericTag<AuthServer>("@better-auth/AuthServer");
 
 /**
  * Creates a fully configured better-auth server instance from a BetterAuthConfig.
@@ -72,100 +72,100 @@ export const AuthServerTag = Context.GenericTag<AuthServer>('@better-auth/AuthSe
  * ```
  */
 export function createAuthServerInstance<
-	ServerPlugins extends readonly AvailablePlugins[] = [],
-	ClientPlugins extends readonly AvailablePlugins[] = ServerPlugins,
+  ServerPlugins extends readonly AvailablePlugins[] = [],
+  ClientPlugins extends readonly AvailablePlugins[] = ServerPlugins,
 >(
-	config: BetterAuthConfig<ServerPlugins, ClientPlugins>,
-	prismaClient: unknown // Type as unknown to avoid Prisma dependency in this file
+  config: BetterAuthConfig<ServerPlugins, ClientPlugins>,
+  prismaClient: unknown, // Type as unknown to avoid Prisma dependency in this file
 ): ReturnType<typeof betterAuth> {
-	// Collect enabled plugins
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const plugins: any[] = [];
+  // Collect enabled plugins
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const plugins: any[] = [];
 
-	// OpenAPI plugin commented out - uncomment when needed
-	// To re-enable:
-	// 1. Uncomment the openAPI import in server.constants.ts
-	// 2. Uncomment ALWAYS_INCLUDED_SERVER_PLUGINS.openAPI in server.constants.ts
-	// 3. Uncomment the line below
-	// plugins.push(ALWAYS_INCLUDED_SERVER_PLUGINS.openAPI());
+  // OpenAPI plugin commented out - uncomment when needed
+  // To re-enable:
+  // 1. Uncomment the openAPI import in server.constants.ts
+  // 2. Uncomment ALWAYS_INCLUDED_SERVER_PLUGINS.openAPI in server.constants.ts
+  // 3. Uncomment the line below
+  // plugins.push(ALWAYS_INCLUDED_SERVER_PLUGINS.openAPI());
 
-	// Add enabled server plugins
-	const enabledPlugins = config.enabledServerPlugins || ([] as readonly AvailablePlugins[]);
+  // Add enabled server plugins
+  const enabledPlugins = config.enabledServerPlugins || ([] as readonly AvailablePlugins[]);
 
-	for (const pluginName of enabledPlugins) {
-		const factory = SERVER_PLUGIN_FACTORIES[pluginName];
-		if (!factory) {
-			console.warn(`Unknown plugin: ${pluginName}`);
-			continue;
-		}
+  for (const pluginName of enabledPlugins) {
+    const factory = SERVER_PLUGIN_FACTORIES[pluginName];
+    if (!factory) {
+      console.warn(`Unknown plugin: ${pluginName}`);
+      continue;
+    }
 
-		try {
-			// Get plugin configuration from server.plugins
-			const pluginConfig = config.server.plugins?.[pluginName];
-			const plugin = factory(pluginConfig);
-			plugins.push(plugin);
-		} catch (error) {
-			console.error(`Failed to initialize plugin ${pluginName}:`, error);
-			// Don't throw - allow partial plugin initialization
-		}
-	}
+    try {
+      // Get plugin configuration from server.plugins
+      const pluginConfig = config.server.plugins?.[pluginName];
+      const plugin = factory(pluginConfig);
+      plugins.push(plugin);
+    } catch (error) {
+      console.error(`Failed to initialize plugin ${pluginName}:`, error);
+      // Don't throw - allow partial plugin initialization
+    }
+  }
 
-	// Build better-auth options
-	const authOptions: BetterAuthOptions = {
-		appName: config.server.appName || 'My Application',
-		baseURL: config.server.baseURL || 'http://localhost:3000',
-		secret: config.server.secret,
+  // Build better-auth options
+  const authOptions: BetterAuthOptions = {
+    appName: config.server.appName || "My Application",
+    baseURL: config.server.baseURL || "http://localhost:3000",
+    secret: config.server.secret,
 
-		// Database configuration with Prisma adapter
-		database: config.server.database
-			? config.server.database
-			: prismaAdapter(prismaClient as never, {
-					provider: 'postgresql', // This should be configurable
-				}),
+    // Database configuration with Prisma adapter
+    database: config.server.database
+      ? config.server.database
+      : prismaAdapter(prismaClient as never, {
+        provider: "postgresql", // This should be configurable
+      }),
 
-		// Email and password configuration
-		emailAndPassword: config.server.emailAndPassword
-			? {
-					enabled: config.server.emailAndPassword.enabled ?? true,
-					minPasswordLength: config.server.emailAndPassword.minPasswordLength,
-					requireEmailVerification: config.server.emailAndPassword.requireEmailVerification ?? false,
-					sendResetPassword: config.server.emailAndPassword.sendResetPassword,
-				}
-			: {
-					enabled: true,
-					minPasswordLength: 8,
-					requireEmailVerification: false,
-				},
+    // Email and password configuration
+    emailAndPassword: config.server.emailAndPassword
+      ? {
+        enabled: config.server.emailAndPassword.enabled ?? true,
+        minPasswordLength: config.server.emailAndPassword.minPasswordLength,
+        requireEmailVerification: config.server.emailAndPassword.requireEmailVerification ?? false,
+        sendResetPassword: config.server.emailAndPassword.sendResetPassword,
+      }
+      : {
+        enabled: true,
+        minPasswordLength: 8,
+        requireEmailVerification: false,
+      },
 
-		// Email verification
-		emailVerification: config.server.emailVerification,
+    // Email verification
+    emailVerification: config.server.emailVerification,
 
-		// OAuth social providers - cast to any to handle type mismatch
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		socialProviders: (config.server.socialProviders || []) as any,
+    // OAuth social providers - cast to any to handle type mismatch
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    socialProviders: (config.server.socialProviders || []) as any,
 
-		// Session configuration
-		session: {
-			expiresIn: config.server.session?.expiresIn || 60 * 60 * 24 * 7, // 7 days
-			updateAge: config.server.session?.updateAge || 60 * 60 * 24, // 1 day
-			freshAge: config.server.session?.freshAge || 60 * 10, // 10 minutes
-		},
+    // Session configuration
+    session: {
+      expiresIn: config.server.session?.expiresIn || 60 * 60 * 24 * 7, // 7 days
+      updateAge: config.server.session?.updateAge || 60 * 60 * 24, // 1 day
+      freshAge: config.server.session?.freshAge || 60 * 10, // 10 minutes
+    },
 
-		// Rate limiting
-		rateLimit: config.server.rateLimit || {
-			enabled: true,
-			window: 60,
-			max: 10,
-		},
+    // Rate limiting
+    rateLimit: config.server.rateLimit || {
+      enabled: true,
+      window: 60,
+      max: 10,
+    },
 
-		// Trusted origins for CORS
-		trustedOrigins: config.server.trustedOrigins || [],
+    // Trusted origins for CORS
+    trustedOrigins: config.server.trustedOrigins || [],
 
-		// Add all plugins
-		plugins,
-	};
+    // Add all plugins
+    plugins,
+  };
 
-	return betterAuth(authOptions);
+  return betterAuth(authOptions);
 }
 
 /**
@@ -175,11 +175,14 @@ export function createAuthServerInstance<
  * @param prismaClient - Prisma client instance for database operations
  * @returns Layer providing AuthServer
  */
-export const AuthServerLayer = <ServerPlugins extends readonly AvailablePlugins[] = [], ClientPlugins extends readonly AvailablePlugins[] = ServerPlugins>(
-	config: BetterAuthConfig<ServerPlugins, ClientPlugins>,
-	prismaClient: unknown
+export const AuthServerLayer = <
+  ServerPlugins extends readonly AvailablePlugins[] = [],
+  ClientPlugins extends readonly AvailablePlugins[] = ServerPlugins,
+>(
+  config: BetterAuthConfig<ServerPlugins, ClientPlugins>,
+  prismaClient: unknown,
 ) =>
-	Layer.effect(
-		AuthServerTag,
-		Effect.sync(() => createAuthServerInstance(config, prismaClient))
-	);
+  Layer.effect(
+    AuthServerTag,
+    Effect.sync(() => createAuthServerInstance(config, prismaClient)),
+  );

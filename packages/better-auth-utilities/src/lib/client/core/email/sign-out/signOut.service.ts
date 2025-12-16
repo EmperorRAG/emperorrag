@@ -1,6 +1,6 @@
-import * as Effect from 'effect/Effect';
-import type { signOutProps } from './signOut.types';
-import { EmailAuthApiError } from '../shared/email.error';
+import * as Effect from "effect/Effect";
+import { EmailAuthApiError } from "../shared/email.error";
+import type { signOutProps } from "./signOut.types";
 
 /**
  * Sign out the currently authenticated user using Better Auth.
@@ -34,14 +34,14 @@ import { EmailAuthApiError } from '../shared/email.error';
  * @returns Curried function accepting sign-out input and returning an Effect
  */
 export const signOutClient: signOutProps = (deps) => (input) => {
-	const { authClient } = deps;
+  const { authClient } = deps;
 
-	return Effect.tryPromise({
-		try: () => authClient.signOut(input),
-		catch: (error) => {
-			const message = error instanceof Error ? error.message : 'Sign out failed';
-			const status = error && typeof error === 'object' && 'status' in error ? (error.status as number) : undefined;
-			return new EmailAuthApiError(message, status, error);
-		},
-	});
+  return Effect.tryPromise({
+    try: () => authClient.signOut(input),
+    catch: (error) => {
+      const message = error instanceof Error ? error.message : "Sign out failed";
+      const status = error && typeof error === "object" && "status" in error ? (error.status as number) : undefined;
+      return new EmailAuthApiError(message, status, error);
+    },
+  });
 };

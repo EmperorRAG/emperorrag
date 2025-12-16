@@ -3,9 +3,9 @@
  * @description Type definitions for server-side sign-in email operation.
  */
 
-import type * as Effect from 'effect/Effect';
-import type { AuthServerError } from '../../../../errors/authServer.error';
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
  * Type helper to extract the signInEmail endpoint type from an AuthServer.
@@ -29,8 +29,8 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  * });
  * ```
  */
-export type AuthServerApiSignInEmailPropsFor<T extends AuthServerFor = AuthServerFor> =
-	'signInEmail' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['signInEmail'] : never;
+export type AuthServerApiSignInEmailPropsFor<T extends AuthServerFor = AuthServerFor> = "signInEmail" extends
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["signInEmail"] : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.signInEmail.
@@ -47,7 +47,9 @@ export type AuthServerApiSignInEmailPropsFor<T extends AuthServerFor = AuthServe
  * // { body: { email: string, password: string, rememberMe?: boolean, ... }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type AuthServerApiSignInEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiSignInEmailPropsFor<AuthServerFor>>[0];
+export type AuthServerApiSignInEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+  AuthServerApiSignInEmailPropsFor<AuthServerFor>
+>[0];
 
 /**
  * Type helper to extract the return type from auth.api.signInEmail.
@@ -64,7 +66,9 @@ export type AuthServerApiSignInEmailParamsFor<T extends AuthServerFor = AuthServ
  * // Promise<{ user: { id: string, email: string, ... }, session: { id: string, ... }, ... }>
  * ```
  */
-export type AuthServerApiSignInEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiSignInEmailPropsFor<AuthServerFor>>;
+export type AuthServerApiSignInEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+  AuthServerApiSignInEmailPropsFor<AuthServerFor>
+>;
 
 /**
  * Function signature for signInEmail server service.
@@ -105,9 +109,9 @@ export type AuthServerApiSignInEmailResultFor<T extends AuthServerFor = AuthServ
  * ```
  */
 export interface signInEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(
-		params: AuthServerApiSignInEmailParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiSignInEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+  (
+    params: AuthServerApiSignInEmailParamsFor<AuthServerFor>,
+  ): Effect.Effect<Awaited<AuthServerApiSignInEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**
@@ -123,15 +127,17 @@ export interface signInEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiSignInEmailParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiSignInEmailParamsFor = (value: unknown): value is AuthServerApiSignInEmailParamsFor<AuthServerFor> => {
-	if (typeof value !== 'object' || value === null) return false;
-	const obj = value as Record<string, unknown>;
+export const isAuthServerApiSignInEmailParamsFor = (
+  value: unknown,
+): value is AuthServerApiSignInEmailParamsFor<AuthServerFor> => {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
 
-	if (typeof obj.body !== 'object' || obj.body === null) return false;
-	const body = obj.body as Record<string, unknown>;
+  if (typeof obj.body !== "object" || obj.body === null) return false;
+  const body = obj.body as Record<string, unknown>;
 
-	if (typeof body.email !== 'string') return false;
-	if (typeof body.password !== 'string') return false;
+  if (typeof body.email !== "string") return false;
+  if (typeof body.password !== "string") return false;
 
-	return true;
+  return true;
 };

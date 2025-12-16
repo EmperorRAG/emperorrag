@@ -3,11 +3,14 @@
  * @description Server-side service for send verification email operation using Better Auth API.
  */
 
-import * as Effect from 'effect/Effect';
-import { mapApiError } from '../../../../pipeline/map-api-error/mapApiError';
-import { AuthServerTag } from '../../../server.service';
-import type { AuthServerFor } from '../../../server.types';
-import type { AuthServerApiSendVerificationEmailParamsFor, sendVerificationEmailPropsFor } from './sendVerificationEmail.types';
+import * as Effect from "effect/Effect";
+import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
+import { AuthServerTag } from "../../../server.service";
+import type { AuthServerFor } from "../../../server.types";
+import type {
+  AuthServerApiSendVerificationEmailParamsFor,
+  sendVerificationEmailPropsFor,
+} from "./sendVerificationEmail.types";
 
 /**
  * Send verification email using Better Auth server API.
@@ -104,5 +107,11 @@ import type { AuthServerApiSendVerificationEmailParamsFor, sendVerificationEmail
  * );
  * ```
  */
-export const sendVerificationEmailServerService: sendVerificationEmailPropsFor = (params: AuthServerApiSendVerificationEmailParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.sendVerificationEmail(params)).pipe(Effect.catchAll(mapApiError)));
+export const sendVerificationEmailServerService: sendVerificationEmailPropsFor = (
+  params: AuthServerApiSendVerificationEmailParamsFor<AuthServerFor>,
+) =>
+  Effect.flatMap(
+    AuthServerTag,
+    (authServer) =>
+      Effect.tryPromise(() => authServer.api.sendVerificationEmail(params)).pipe(Effect.catchAll(mapApiError)),
+  );

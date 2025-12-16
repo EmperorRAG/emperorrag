@@ -3,12 +3,12 @@
  * @description Barrel export for server-side update user module.
  */
 
-export { updateUserServerService } from './updateUser.service';
-export { updateUserServerController } from './updateUser.controller';
+export { updateUserServerController } from "./updateUser.controller";
+export { updateUserServerService } from "./updateUser.service";
 export {
-	isAuthServerApiUpdateUserParamsFor,
-	type AuthServerApiUpdateUserPropsFor,
-	type AuthServerApiUpdateUserParamsFor,
-	type AuthServerApiUpdateUserResultFor,
-	type updateUserPropsFor,
-} from './updateUser.types';
+  type AuthServerApiUpdateUserParamsFor,
+  type AuthServerApiUpdateUserPropsFor,
+  type AuthServerApiUpdateUserResultFor,
+  isAuthServerApiUpdateUserParamsFor,
+  type updateUserPropsFor,
+} from "./updateUser.types";

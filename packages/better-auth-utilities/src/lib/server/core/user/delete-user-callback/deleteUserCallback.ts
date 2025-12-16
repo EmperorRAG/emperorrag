@@ -3,12 +3,12 @@
  * @description Barrel export for server-side delete user callback module.
  */
 
-export { deleteUserCallbackServerService } from './deleteUserCallback.service';
-export { deleteUserCallbackServerController } from './deleteUserCallback.controller';
+export { deleteUserCallbackServerController } from "./deleteUserCallback.controller";
+export { deleteUserCallbackServerService } from "./deleteUserCallback.service";
 export {
-	isAuthServerApiDeleteUserCallbackParamsFor,
-	type AuthServerApiDeleteUserCallbackPropsFor,
-	type AuthServerApiDeleteUserCallbackParamsFor,
-	type AuthServerApiDeleteUserCallbackResultFor,
-	type deleteUserCallbackPropsFor,
-} from './deleteUserCallback.types';
+  type AuthServerApiDeleteUserCallbackParamsFor,
+  type AuthServerApiDeleteUserCallbackPropsFor,
+  type AuthServerApiDeleteUserCallbackResultFor,
+  type deleteUserCallbackPropsFor,
+  isAuthServerApiDeleteUserCallbackParamsFor,
+} from "./deleteUserCallback.types";

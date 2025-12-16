@@ -3,12 +3,12 @@
  * @description Barrel export for server-side link social account module.
  */
 
-export { linkSocialAccountServerService } from './linkSocialAccount.service';
-export { linkSocialAccountServerController } from './linkSocialAccount.controller';
+export { linkSocialAccountServerController } from "./linkSocialAccount.controller";
+export { linkSocialAccountServerService } from "./linkSocialAccount.service";
 export {
-	isAuthServerApiLinkSocialAccountParamsFor,
-	type AuthServerApiLinkSocialAccountPropsFor,
-	type AuthServerApiLinkSocialAccountParamsFor,
-	type AuthServerApiLinkSocialAccountResultFor,
-	type linkSocialAccountPropsFor,
-} from './linkSocialAccount.types';
+  type AuthServerApiLinkSocialAccountParamsFor,
+  type AuthServerApiLinkSocialAccountPropsFor,
+  type AuthServerApiLinkSocialAccountResultFor,
+  isAuthServerApiLinkSocialAccountParamsFor,
+  type linkSocialAccountPropsFor,
+} from "./linkSocialAccount.types";

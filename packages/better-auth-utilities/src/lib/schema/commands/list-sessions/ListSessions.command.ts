@@ -1,11 +1,11 @@
-import { Schema } from 'effect';
+import { Schema } from "effect";
 
-export class ListSessionsCommand extends Schema.TaggedClass<ListSessionsCommand>()('ListSessionsCommand', {}) {
-	static decode(input: unknown) {
-		return Schema.decodeUnknown(ListSessionsCommand)(input);
-	}
+export class ListSessionsCommand extends Schema.TaggedClass<ListSessionsCommand>()("ListSessionsCommand", {}) {
+  static decode(input: unknown) {
+    return Schema.decodeUnknown(ListSessionsCommand)(input);
+  }
 
-	static encode(value: ListSessionsCommand) {
-		return Schema.encode(ListSessionsCommand)(value);
-	}
+  static encode(value: ListSessionsCommand) {
+    return Schema.encode(ListSessionsCommand)(value);
+  }
 }

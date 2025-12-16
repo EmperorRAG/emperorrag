@@ -1,57 +1,57 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { setupTestEnv } from '../../../../test/setup-test-env';
-import { listUserAccountsServerService } from './listUserAccounts.service';
-import { AuthServerTag } from '../../../server.service';
-import * as Effect from 'effect/Effect';
+import * as Effect from "effect/Effect";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { setupTestEnv } from "../../../../test/setup-test-env";
+import { AuthServerTag } from "../../../server.service";
+import { listUserAccountsServerService } from "./listUserAccounts.service";
 
-describe('Server List User Accounts', () => {
-	let env: Awaited<ReturnType<typeof setupTestEnv>>;
+describe("Server List User Accounts", () => {
+  let env: Awaited<ReturnType<typeof setupTestEnv>>;
 
-	beforeAll(async () => {
-		env = await setupTestEnv();
-	});
+  beforeAll(async () => {
+    env = await setupTestEnv();
+  });
 
-	afterAll(async () => {
-		await env.cleanup();
-	});
+  afterAll(async () => {
+    await env.cleanup();
+  });
 
-	it('should list user accounts for authenticated user', async () => {
-		const { authServer } = env;
-		const email = 'list-accounts-test@example.com';
-		const password = 'password123';
-		const name = 'List Accounts Test';
+  it("should list user accounts for authenticated user", async () => {
+    const { authServer } = env;
+    const email = "list-accounts-test@example.com";
+    const password = "password123";
+    const name = "List Accounts Test";
 
-		// Create a user
-		await authServer.api.signUpEmail({
-			body: { email, password, name },
-		});
+    // Create a user
+    await authServer.api.signUpEmail({
+      body: { email, password, name },
+    });
 
-		// Sign in to get session cookie
-		const signInRes = await authServer.api.signInEmail({
-			body: { email, password },
-			asResponse: true,
-		});
+    // Sign in to get session cookie
+    const signInRes = await authServer.api.signInEmail({
+      body: { email, password },
+      asResponse: true,
+    });
 
-		const cookie = signInRes.headers.get('set-cookie');
-		expect(cookie).toBeDefined();
+    const cookie = signInRes.headers.get("set-cookie");
+    expect(cookie).toBeDefined();
 
-		const program = listUserAccountsServerService({
-			headers: new Headers({
-				cookie: cookie || '',
-			}),
-		});
+    const program = listUserAccountsServerService({
+      headers: new Headers({
+        cookie: cookie || "",
+      }),
+    });
 
-		const res = await Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer));
+    const res = await Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer));
 
-		expect(res).toBeDefined();
-		expect(Array.isArray(res)).toBe(true);
-	});
+    expect(res).toBeDefined();
+    expect(Array.isArray(res)).toBe(true);
+  });
 
-	it('should fail without authentication', async () => {
-		const { authServer } = env;
+  it("should fail without authentication", async () => {
+    const { authServer } = env;
 
-		const program = listUserAccountsServerService({});
+    const program = listUserAccountsServerService({});
 
-		await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
-	});
+    await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
+  });
 });

@@ -1,6 +1,6 @@
-import * as Effect from 'effect/Effect';
-import { mapApiError } from '../map-api-error/mapApiError';
-import type { HandleApiErrorProps } from './handleApiError.types';
+import * as Effect from "effect/Effect";
+import { mapApiError } from "../map-api-error/mapApiError";
+import type { HandleApiErrorProps } from "./handleApiError.types";
 
 /**
  * Wraps an Effect with proper API error mapping.

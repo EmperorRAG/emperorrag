@@ -3,11 +3,11 @@
  * @description Server-side service for unlink account operation using Better Auth API.
  */
 
-import * as Effect from 'effect/Effect';
-import { mapApiError } from '../../../../pipeline/map-api-error/mapApiError';
-import { AuthServerTag } from '../../../server.service';
-import type { AuthServerFor } from '../../../server.types';
-import type { AuthServerApiUnlinkAccountParamsFor, unlinkAccountPropsFor } from './unlinkAccount.types';
+import * as Effect from "effect/Effect";
+import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
+import { AuthServerTag } from "../../../server.service";
+import type { AuthServerFor } from "../../../server.types";
+import type { AuthServerApiUnlinkAccountParamsFor, unlinkAccountPropsFor } from "./unlinkAccount.types";
 
 /**
  * Unlink an OAuth/social account from the authenticated user using Better Auth server API.
@@ -104,5 +104,10 @@ import type { AuthServerApiUnlinkAccountParamsFor, unlinkAccountPropsFor } from 
  * );
  * ```
  */
-export const unlinkAccountServerService: unlinkAccountPropsFor = (params: AuthServerApiUnlinkAccountParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.unlinkAccount(params)).pipe(Effect.catchAll(mapApiError)));
+export const unlinkAccountServerService: unlinkAccountPropsFor = (
+  params: AuthServerApiUnlinkAccountParamsFor<AuthServerFor>,
+) =>
+  Effect.flatMap(
+    AuthServerTag,
+    (authServer) => Effect.tryPromise(() => authServer.api.unlinkAccount(params)).pipe(Effect.catchAll(mapApiError)),
+  );

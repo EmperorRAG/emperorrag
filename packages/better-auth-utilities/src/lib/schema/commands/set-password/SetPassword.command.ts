@@ -1,15 +1,15 @@
-import { Schema } from 'effect';
-import { PasswordSchema } from '../../password.schema';
+import { Schema } from "effect";
+import { PasswordSchema } from "../../password.schema";
 
-export class SetPasswordCommand extends Schema.TaggedClass<SetPasswordCommand>()('SetPasswordCommand', {
-	newPassword: PasswordSchema({ minLength: 8, maxLength: 100 }),
-	currentPassword: Schema.optional(PasswordSchema({ minLength: 1, maxLength: 100 })),
+export class SetPasswordCommand extends Schema.TaggedClass<SetPasswordCommand>()("SetPasswordCommand", {
+  newPassword: PasswordSchema({ minLength: 8, maxLength: 100 }),
+  currentPassword: Schema.optional(PasswordSchema({ minLength: 1, maxLength: 100 })),
 }) {
-	static decode(input: unknown) {
-		return Schema.decodeUnknown(SetPasswordCommand)(input);
-	}
+  static decode(input: unknown) {
+    return Schema.decodeUnknown(SetPasswordCommand)(input);
+  }
 
-	static encode(value: SetPasswordCommand) {
-		return Schema.encode(SetPasswordCommand)(value);
-	}
+  static encode(value: SetPasswordCommand) {
+    return Schema.encode(SetPasswordCommand)(value);
+  }
 }

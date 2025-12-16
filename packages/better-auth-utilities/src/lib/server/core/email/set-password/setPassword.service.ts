@@ -3,11 +3,11 @@
  * @description Server-side service for set password operation using Better Auth API.
  */
 
-import * as Effect from 'effect/Effect';
-import { mapApiError } from '../../../../pipeline/map-api-error/mapApiError';
-import { AuthServerTag } from '../../../server.service';
-import type { AuthServerFor } from '../../../server.types';
-import type { AuthServerApiSetPasswordParamsFor, setPasswordPropsFor } from './setPassword.types';
+import * as Effect from "effect/Effect";
+import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
+import { AuthServerTag } from "../../../server.service";
+import type { AuthServerFor } from "../../../server.types";
+import type { AuthServerApiSetPasswordParamsFor, setPasswordPropsFor } from "./setPassword.types";
 
 /**
  * Set user password via Better Auth server API.
@@ -21,5 +21,10 @@ import type { AuthServerApiSetPasswordParamsFor, setPasswordPropsFor } from './s
  * @param params - The set password parameters containing body with newPassword
  * @returns Effect that resolves to set password result or fails with AuthServerApiError
  */
-export const setPasswordServerService: setPasswordPropsFor = (params: AuthServerApiSetPasswordParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.setPassword(params)).pipe(Effect.catchAll(mapApiError)));
+export const setPasswordServerService: setPasswordPropsFor = (
+  params: AuthServerApiSetPasswordParamsFor<AuthServerFor>,
+) =>
+  Effect.flatMap(
+    AuthServerTag,
+    (authServer) => Effect.tryPromise(() => authServer.api.setPassword(params)).pipe(Effect.catchAll(mapApiError)),
+  );

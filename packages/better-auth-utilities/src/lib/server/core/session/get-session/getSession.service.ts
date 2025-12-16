@@ -4,10 +4,10 @@
  * Uses Context-based dependency injection to access the Better Auth server.
  */
 
-import * as Effect from 'effect/Effect';
-import { mapApiError } from '../../../../pipeline/map-api-error/mapApiError';
-import { AuthServerTag } from '../../../server.service';
-import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from './getSession.types';
+import * as Effect from "effect/Effect";
+import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
+import { AuthServerTag } from "../../../server.service";
+import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from "./getSession.types";
 
 /**
  * Server-side service for retrieving the current user session.
@@ -83,4 +83,7 @@ import type { AuthServerApiGetSessionParamsFor, getSessionPropsFor } from './get
  * ```
  */
 export const getSessionServerService: getSessionPropsFor = (params: AuthServerApiGetSessionParamsFor) =>
-	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.getSession(params)).pipe(Effect.catchAll(mapApiError)));
+  Effect.flatMap(
+    AuthServerTag,
+    (authServer) => Effect.tryPromise(() => authServer.api.getSession(params)).pipe(Effect.catchAll(mapApiError)),
+  );

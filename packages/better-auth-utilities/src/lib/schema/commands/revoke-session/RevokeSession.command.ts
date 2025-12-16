@@ -1,14 +1,14 @@
-import { Schema } from 'effect';
+import { Schema } from "effect";
 
-export class RevokeSessionCommand extends Schema.TaggedClass<RevokeSessionCommand>()('RevokeSessionCommand', {
-	token: Schema.optional(Schema.String),
-	id: Schema.optional(Schema.String),
+export class RevokeSessionCommand extends Schema.TaggedClass<RevokeSessionCommand>()("RevokeSessionCommand", {
+  token: Schema.optional(Schema.String),
+  id: Schema.optional(Schema.String),
 }) {
-	static decode(input: unknown) {
-		return Schema.decodeUnknown(RevokeSessionCommand)(input);
-	}
+  static decode(input: unknown) {
+    return Schema.decodeUnknown(RevokeSessionCommand)(input);
+  }
 
-	static encode(value: RevokeSessionCommand) {
-		return Schema.encode(RevokeSessionCommand)(value);
-	}
+  static encode(value: RevokeSessionCommand) {
+    return Schema.encode(RevokeSessionCommand)(value);
+  }
 }

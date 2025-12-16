@@ -1,27 +1,27 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { setupTestEnv } from '../../../../test/setup-test-env';
-import { deleteUserServerService } from './deleteUser.service';
-import { AuthServerTag } from '../../../server.service';
-import * as Effect from 'effect/Effect';
+import * as Effect from "effect/Effect";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { setupTestEnv } from "../../../../test/setup-test-env";
+import { AuthServerTag } from "../../../server.service";
+import { deleteUserServerService } from "./deleteUser.service";
 
-describe('Server Delete User', () => {
-	let env: Awaited<ReturnType<typeof setupTestEnv>>;
+describe("Server Delete User", () => {
+  let env: Awaited<ReturnType<typeof setupTestEnv>>;
 
-	beforeAll(async () => {
-		env = await setupTestEnv();
-	});
+  beforeAll(async () => {
+    env = await setupTestEnv();
+  });
 
-	afterAll(async () => {
-		await env.cleanup();
-	});
+  afterAll(async () => {
+    await env.cleanup();
+  });
 
-	it('should fail without authentication', async () => {
-		const { authServer } = env;
+  it("should fail without authentication", async () => {
+    const { authServer } = env;
 
-		const program = deleteUserServerService({
-			body: {},
-		});
+    const program = deleteUserServerService({
+      body: {},
+    });
 
-		await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
-	});
+    await expect(Effect.runPromise(Effect.provideService(program, AuthServerTag, authServer))).rejects.toThrow();
+  });
 });

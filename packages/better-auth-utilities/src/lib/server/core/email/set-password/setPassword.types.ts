@@ -3,9 +3,9 @@
  * @description Type definitions for server-side set password operation.
  */
 
-import type * as Effect from 'effect/Effect';
-import type { AuthServerError } from '../../../../errors/authServer.error';
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
  * Type helper to extract the setPassword endpoint type from an AuthServer.
@@ -16,8 +16,8 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiSetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> =
-	'setPassword' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['setPassword'] : never;
+export type AuthServerApiSetPasswordPropsFor<T extends AuthServerFor = AuthServerFor> = "setPassword" extends
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["setPassword"] : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.setPassword.
@@ -27,7 +27,9 @@ export type AuthServerApiSetPasswordPropsFor<T extends AuthServerFor = AuthServe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiSetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiSetPasswordPropsFor<AuthServerFor>>[0];
+export type AuthServerApiSetPasswordParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+  AuthServerApiSetPasswordPropsFor<AuthServerFor>
+>[0];
 
 /**
  * Type helper to extract the return type from auth.api.setPassword.
@@ -37,7 +39,9 @@ export type AuthServerApiSetPasswordParamsFor<T extends AuthServerFor = AuthServ
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiSetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiSetPasswordPropsFor<AuthServerFor>>;
+export type AuthServerApiSetPasswordResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+  AuthServerApiSetPasswordPropsFor<AuthServerFor>
+>;
 
 /**
  * Function signature for setPassword server service.
@@ -48,9 +52,9 @@ export type AuthServerApiSetPasswordResultFor<T extends AuthServerFor = AuthServ
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export interface setPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(
-		params: AuthServerApiSetPasswordParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiSetPasswordResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+  (
+    params: AuthServerApiSetPasswordParamsFor<AuthServerFor>,
+  ): Effect.Effect<Awaited<AuthServerApiSetPasswordResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**
@@ -65,14 +69,16 @@ export interface setPasswordPropsFor<T extends AuthServerFor = AuthServerFor> {
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiSetPasswordParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiSetPasswordParamsFor = (value: unknown): value is AuthServerApiSetPasswordParamsFor<AuthServerFor> => {
-	if (typeof value !== 'object' || value === null) return false;
-	const obj = value as Record<string, unknown>;
+export const isAuthServerApiSetPasswordParamsFor = (
+  value: unknown,
+): value is AuthServerApiSetPasswordParamsFor<AuthServerFor> => {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
 
-	if (typeof obj.body !== 'object' || obj.body === null) return false;
-	const body = obj.body as Record<string, unknown>;
+  if (typeof obj.body !== "object" || obj.body === null) return false;
+  const body = obj.body as Record<string, unknown>;
 
-	if (typeof body.newPassword !== 'string') return false;
+  if (typeof body.newPassword !== "string") return false;
 
-	return true;
+  return true;
 };

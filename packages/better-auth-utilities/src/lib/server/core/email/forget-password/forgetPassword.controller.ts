@@ -3,14 +3,18 @@
  * @description Controller for server-side forget password operation with validation.
  */
 
-import * as Effect from 'effect/Effect';
-import { PipelineContext } from '../../../../context/pipeline.context';
-import { AuthServerApiEndpoints } from '../../../../enums/authServerApiEndpoints.enum';
-import { validateInputEffect } from '../../../../pipeline/zod-input-validator/zodInputValidator';
-import { createAuthServerApiEndpointParamsSchema } from '../../../../pipeline/zod-schema-builder/zodSchemaBuilder';
-import type { AuthServerFor } from '../../../server.types';
-import { forgetPasswordServerService } from './forgetPassword.service';
-import { isAuthServerApiForgetPasswordParamsFor, type AuthServerApiForgetPasswordParamsFor, type forgetPasswordPropsFor } from './forgetPassword.types';
+import * as Effect from "effect/Effect";
+import { PipelineContext } from "../../../../context/pipeline.context";
+import { AuthServerApiEndpoints } from "../../../../enums/authServerApiEndpoints.enum";
+import { validateInputEffect } from "../../../../pipeline/zod-input-validator/zodInputValidator";
+import { createAuthServerApiEndpointParamsSchema } from "../../../../pipeline/zod-schema-builder/zodSchemaBuilder";
+import type { AuthServerFor } from "../../../server.types";
+import { forgetPasswordServerService } from "./forgetPassword.service";
+import {
+  type AuthServerApiForgetPasswordParamsFor,
+  type forgetPasswordPropsFor,
+  isAuthServerApiForgetPasswordParamsFor,
+} from "./forgetPassword.types";
 
 /**
  * Controller for forget password operation with input validation.
@@ -49,12 +53,16 @@ import { isAuthServerApiForgetPasswordParamsFor, type AuthServerApiForgetPasswor
  * );
  * ```
  */
-export const forgetPasswordServerController: forgetPasswordPropsFor = (params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>) =>
-	Effect.gen(function* () {
-		const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(isAuthServerApiForgetPasswordParamsFor)(params);
-		return yield* forgetPasswordServerService(validatedParams);
-	}).pipe(
-		Effect.provideService(PipelineContext, {
-			endpoint: AuthServerApiEndpoints.ForgetPassword(),
-		})
-	);
+export const forgetPasswordServerController: forgetPasswordPropsFor = (
+  params: AuthServerApiForgetPasswordParamsFor<AuthServerFor>,
+) =>
+  Effect.gen(function*() {
+    const validatedParams = yield* validateInputEffect(createAuthServerApiEndpointParamsSchema())(
+      isAuthServerApiForgetPasswordParamsFor,
+    )(params);
+    return yield* forgetPasswordServerService(validatedParams);
+  }).pipe(
+    Effect.provideService(PipelineContext, {
+      endpoint: AuthServerApiEndpoints.ForgetPassword(),
+    }),
+  );

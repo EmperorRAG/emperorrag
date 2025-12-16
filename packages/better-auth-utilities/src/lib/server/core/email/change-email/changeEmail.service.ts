@@ -3,11 +3,11 @@
  * @description Server-side service for change email operation using Better Auth API.
  */
 
-import * as Effect from 'effect/Effect';
-import { mapApiError } from '../../../../pipeline/map-api-error/mapApiError';
-import { AuthServerTag } from '../../../server.service';
-import type { AuthServerFor } from '../../../server.types';
-import type { AuthServerApiChangeEmailParamsFor, changeEmailPropsFor } from './changeEmail.types';
+import * as Effect from "effect/Effect";
+import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
+import { AuthServerTag } from "../../../server.service";
+import type { AuthServerFor } from "../../../server.types";
+import type { AuthServerApiChangeEmailParamsFor, changeEmailPropsFor } from "./changeEmail.types";
 
 /**
  * Change user email via Better Auth server API.
@@ -21,5 +21,10 @@ import type { AuthServerApiChangeEmailParamsFor, changeEmailPropsFor } from './c
  * @param params - The change email parameters containing body with newEmail
  * @returns Effect that resolves to change email result or fails with AuthServerApiError
  */
-export const changeEmailServerService: changeEmailPropsFor = (params: AuthServerApiChangeEmailParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.changeEmail(params)).pipe(Effect.catchAll(mapApiError)));
+export const changeEmailServerService: changeEmailPropsFor = (
+  params: AuthServerApiChangeEmailParamsFor<AuthServerFor>,
+) =>
+  Effect.flatMap(
+    AuthServerTag,
+    (authServer) => Effect.tryPromise(() => authServer.api.changeEmail(params)).pipe(Effect.catchAll(mapApiError)),
+  );

@@ -3,11 +3,11 @@
  * @description Server-side service for sign-out operation using Better Auth API.
  */
 
-import * as Effect from 'effect/Effect';
-import { mapApiError } from '../../../../pipeline/map-api-error/mapApiError';
-import { AuthServerTag } from '../../../server.service';
-import type { AuthServerFor } from '../../../server.types';
-import type { AuthServerApiSignOutParamsFor, signOutPropsFor } from './signOut.types';
+import * as Effect from "effect/Effect";
+import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
+import { AuthServerTag } from "../../../server.service";
+import type { AuthServerFor } from "../../../server.types";
+import type { AuthServerApiSignOutParamsFor, signOutPropsFor } from "./signOut.types";
 
 /**
  * Terminate the current user session using Better Auth server API.
@@ -79,4 +79,7 @@ import type { AuthServerApiSignOutParamsFor, signOutPropsFor } from './signOut.t
  * ```
  */
 export const signOutServerService: signOutPropsFor = (params: AuthServerApiSignOutParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.signOut(params)).pipe(Effect.catchAll(mapApiError)));
+  Effect.flatMap(
+    AuthServerTag,
+    (authServer) => Effect.tryPromise(() => authServer.api.signOut(params)).pipe(Effect.catchAll(mapApiError)),
+  );

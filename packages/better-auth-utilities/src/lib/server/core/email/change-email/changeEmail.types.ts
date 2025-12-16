@@ -3,9 +3,9 @@
  * @description Type definitions for server-side change email operation.
  */
 
-import type * as Effect from 'effect/Effect';
-import type { AuthServerError } from '../../../../errors/authServer.error';
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from '../../../server.types';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
  * Type helper to extract the changeEmail endpoint type from an AuthServer.
@@ -16,8 +16,8 @@ import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } fro
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiChangeEmailPropsFor<T extends AuthServerFor = AuthServerFor> =
-	'changeEmail' extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>['changeEmail'] : never;
+export type AuthServerApiChangeEmailPropsFor<T extends AuthServerFor = AuthServerFor> = "changeEmail" extends
+  AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["changeEmail"] : never;
 
 /**
  * Type helper to extract the input parameter type for auth.api.changeEmail.
@@ -27,7 +27,9 @@ export type AuthServerApiChangeEmailPropsFor<T extends AuthServerFor = AuthServe
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiChangeEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<AuthServerApiChangeEmailPropsFor<AuthServerFor>>[0];
+export type AuthServerApiChangeEmailParamsFor<T extends AuthServerFor = AuthServerFor> = Parameters<
+  AuthServerApiChangeEmailPropsFor<AuthServerFor>
+>[0];
 
 /**
  * Type helper to extract the return type from auth.api.changeEmail.
@@ -37,7 +39,9 @@ export type AuthServerApiChangeEmailParamsFor<T extends AuthServerFor = AuthServ
  *
  * @template T - The Better Auth server type with all plugin augmentations
  */
-export type AuthServerApiChangeEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<AuthServerApiChangeEmailPropsFor<AuthServerFor>>;
+export type AuthServerApiChangeEmailResultFor<T extends AuthServerFor = AuthServerFor> = ReturnType<
+  AuthServerApiChangeEmailPropsFor<AuthServerFor>
+>;
 
 /**
  * Function signature for changeEmail server service.
@@ -48,9 +52,9 @@ export type AuthServerApiChangeEmailResultFor<T extends AuthServerFor = AuthServ
  * @template T - The Better Auth server type with all plugin augmentations
  */
 export interface changeEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
-	(
-		params: AuthServerApiChangeEmailParamsFor<AuthServerFor>
-	): Effect.Effect<Awaited<AuthServerApiChangeEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
+  (
+    params: AuthServerApiChangeEmailParamsFor<AuthServerFor>,
+  ): Effect.Effect<Awaited<AuthServerApiChangeEmailResultFor<AuthServerFor>>, AuthServerError, AuthServerFor>;
 }
 
 /**
@@ -65,14 +69,16 @@ export interface changeEmailPropsFor<T extends AuthServerFor = AuthServerFor> {
  * @param value - The value to check
  * @returns True if value conforms to AuthServerApiChangeEmailParamsFor<AuthServerFor> structure
  */
-export const isAuthServerApiChangeEmailParamsFor = (value: unknown): value is AuthServerApiChangeEmailParamsFor<AuthServerFor> => {
-	if (typeof value !== 'object' || value === null) return false;
-	const obj = value as Record<string, unknown>;
+export const isAuthServerApiChangeEmailParamsFor = (
+  value: unknown,
+): value is AuthServerApiChangeEmailParamsFor<AuthServerFor> => {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
 
-	if (typeof obj.body !== 'object' || obj.body === null) return false;
-	const body = obj.body as Record<string, unknown>;
+  if (typeof obj.body !== "object" || obj.body === null) return false;
+  const body = obj.body as Record<string, unknown>;
 
-	if (typeof body.newEmail !== 'string') return false;
+  if (typeof body.newEmail !== "string") return false;
 
-	return true;
+  return true;
 };

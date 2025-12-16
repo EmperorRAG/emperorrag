@@ -5,14 +5,14 @@
  * the contract. This typically occurs when the auth client is missing.
  */
 export class OAuthAuthDependenciesError extends Error {
-	readonly _tag = 'OAuthAuthDependenciesError';
-	override readonly cause?: unknown;
+  readonly _tag = "OAuthAuthDependenciesError";
+  override readonly cause?: unknown;
 
-	constructor(message: string, cause?: unknown) {
-		super(message);
-		this.name = 'OAuthAuthDependenciesError';
-		this.cause = cause;
-	}
+  constructor(message: string, cause?: unknown) {
+    super(message);
+    this.name = "OAuthAuthDependenciesError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -22,14 +22,14 @@ export class OAuthAuthDependenciesError extends Error {
  * expected schema for the OAuth operation.
  */
 export class OAuthAuthInputError extends Error {
-	readonly _tag = 'OAuthAuthInputError';
-	override readonly cause?: unknown;
+  readonly _tag = "OAuthAuthInputError";
+  override readonly cause?: unknown;
 
-	constructor(message: string, cause?: unknown) {
-		super(message);
-		this.name = 'OAuthAuthInputError';
-		this.cause = cause;
-	}
+  constructor(message: string, cause?: unknown) {
+    super(message);
+    this.name = "OAuthAuthInputError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -39,18 +39,18 @@ export class OAuthAuthInputError extends Error {
  * The `status` property contains the HTTP status code when available.
  */
 export class OAuthAuthApiError extends Error {
-	readonly _tag = 'OAuthAuthApiError';
-	override readonly cause?: unknown;
+  readonly _tag = "OAuthAuthApiError";
+  override readonly cause?: unknown;
 
-	constructor(
-		message: string,
-		public readonly status?: number,
-		cause?: unknown
-	) {
-		super(message);
-		this.name = 'OAuthAuthApiError';
-		this.cause = cause;
-	}
+  constructor(
+    message: string,
+    public readonly status?: number,
+    cause?: unknown,
+  ) {
+    super(message);
+    this.name = "OAuthAuthApiError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -60,14 +60,14 @@ export class OAuthAuthApiError extends Error {
  * expected data fields.
  */
 export class OAuthAuthDataMissingError extends Error {
-	readonly _tag = 'OAuthAuthDataMissingError';
-	override readonly cause?: unknown;
+  readonly _tag = "OAuthAuthDataMissingError";
+  override readonly cause?: unknown;
 
-	constructor(message: string, cause?: unknown) {
-		super(message);
-		this.name = 'OAuthAuthDataMissingError';
-		this.cause = cause;
-	}
+  constructor(message: string, cause?: unknown) {
+    super(message);
+    this.name = "OAuthAuthDataMissingError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -76,4 +76,8 @@ export class OAuthAuthDataMissingError extends Error {
  * @description Discriminated union of all possible error types that can occur
  * during OAuth operations.
  */
-export type OAuthAuthError = OAuthAuthDependenciesError | OAuthAuthInputError | OAuthAuthApiError | OAuthAuthDataMissingError;
+export type OAuthAuthError =
+  | OAuthAuthDependenciesError
+  | OAuthAuthInputError
+  | OAuthAuthApiError
+  | OAuthAuthDataMissingError;

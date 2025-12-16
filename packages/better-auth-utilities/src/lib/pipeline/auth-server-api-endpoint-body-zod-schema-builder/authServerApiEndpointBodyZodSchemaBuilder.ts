@@ -1,9 +1,9 @@
-import * as Effect from 'effect/Effect';
-import * as Match from 'effect/Match';
-import { z } from 'zod';
-import { PipelineContext } from '../../context/pipeline.context';
-import { extractAuthServerConfig } from '../extract-auth-server-config/extractAuthServerConfig';
-import type { AuthServerApiEndpointBodyZodSchemaBuilderProps } from './authServerApiEndpointBodyZodSchemaBuilder.types';
+import * as Effect from "effect/Effect";
+import * as Match from "effect/Match";
+import { z } from "zod";
+import { PipelineContext } from "../../context/pipeline.context";
+import { extractAuthServerConfig } from "../extract-auth-server-config/extractAuthServerConfig";
+import type { AuthServerApiEndpointBodyZodSchemaBuilderProps } from "./authServerApiEndpointBodyZodSchemaBuilder.types";
 
 // =============================================================================
 // EMAIL SCHEMA PROPERTIES
@@ -15,7 +15,7 @@ import type { AuthServerApiEndpointBodyZodSchemaBuilderProps } from './authServe
  * @pure
  * @description Validates email format with a descriptive error message.
  */
-export const emailSchema = z.string().email('Invalid email format');
+export const emailSchema = z.string().email("Invalid email format");
 
 /**
  * Email field schema with required validation.
@@ -23,7 +23,7 @@ export const emailSchema = z.string().email('Invalid email format');
  * @pure
  * @description Validates email format and ensures non-empty value.
  */
-export const emailRequiredSchema = z.string().email('Invalid email format').min(1, 'Email is required');
+export const emailRequiredSchema = z.string().email("Invalid email format").min(1, "Email is required");
 
 /**
  * New email field schema.
@@ -31,7 +31,7 @@ export const emailRequiredSchema = z.string().email('Invalid email format').min(
  * @pure
  * @description Validates new email format for change email operations.
  */
-export const newEmailSchema = z.string().email('Invalid email format');
+export const newEmailSchema = z.string().email("Invalid email format");
 
 // =============================================================================
 // URL SCHEMA PROPERTIES
@@ -43,7 +43,7 @@ export const newEmailSchema = z.string().email('Invalid email format');
  * @pure
  * @description Validates callback URL format when provided.
  */
-export const callbackURLOptionalSchema = z.string().url('Invalid callback URL').optional();
+export const callbackURLOptionalSchema = z.string().url("Invalid callback URL").optional();
 
 /**
  * Optional redirect URL schema.
@@ -51,7 +51,7 @@ export const callbackURLOptionalSchema = z.string().url('Invalid callback URL').
  * @pure
  * @description Validates redirect URL format when provided.
  */
-export const redirectToOptionalSchema = z.string().url('Invalid redirect URL').optional();
+export const redirectToOptionalSchema = z.string().url("Invalid redirect URL").optional();
 
 /**
  * Optional error callback URL schema.
@@ -59,7 +59,7 @@ export const redirectToOptionalSchema = z.string().url('Invalid redirect URL').o
  * @pure
  * @description Validates error callback URL format when provided.
  */
-export const errorCallbackURLOptionalSchema = z.string().url('Invalid error callback URL').optional();
+export const errorCallbackURLOptionalSchema = z.string().url("Invalid error callback URL").optional();
 
 /**
  * Optional new user callback URL schema.
@@ -67,7 +67,7 @@ export const errorCallbackURLOptionalSchema = z.string().url('Invalid error call
  * @pure
  * @description Validates new user callback URL format when provided.
  */
-export const newUserCallbackURLOptionalSchema = z.string().url('Invalid new user callback URL').optional();
+export const newUserCallbackURLOptionalSchema = z.string().url("Invalid new user callback URL").optional();
 
 /**
  * Optional image URL schema.
@@ -75,7 +75,7 @@ export const newUserCallbackURLOptionalSchema = z.string().url('Invalid new user
  * @pure
  * @description Validates image URL format when provided.
  */
-export const imageURLOptionalSchema = z.string().url('Invalid image URL').optional();
+export const imageURLOptionalSchema = z.string().url("Invalid image URL").optional();
 
 /**
  * Optional nullable image URL schema.
@@ -83,7 +83,7 @@ export const imageURLOptionalSchema = z.string().url('Invalid image URL').option
  * @pure
  * @description Validates image URL format when provided, allows null to clear image.
  */
-export const imageURLNullableOptionalSchema = z.string().url('Invalid image URL').nullable().optional();
+export const imageURLNullableOptionalSchema = z.string().url("Invalid image URL").nullable().optional();
 
 // =============================================================================
 // TOKEN SCHEMA PROPERTIES
@@ -95,7 +95,7 @@ export const imageURLNullableOptionalSchema = z.string().url('Invalid image URL'
  * @pure
  * @description Validates that token is a non-empty string.
  */
-export const tokenRequiredSchema = z.string().min(1, 'Token is required');
+export const tokenRequiredSchema = z.string().min(1, "Token is required");
 
 /**
  * Required reset token schema.
@@ -103,7 +103,7 @@ export const tokenRequiredSchema = z.string().min(1, 'Token is required');
  * @pure
  * @description Validates that reset token is a non-empty string.
  */
-export const resetTokenRequiredSchema = z.string().min(1, 'Reset token is required');
+export const resetTokenRequiredSchema = z.string().min(1, "Reset token is required");
 
 /**
  * Required session token schema.
@@ -111,7 +111,7 @@ export const resetTokenRequiredSchema = z.string().min(1, 'Reset token is requir
  * @pure
  * @description Validates that session token is a non-empty string.
  */
-export const sessionTokenRequiredSchema = z.string().min(1, 'Session token is required');
+export const sessionTokenRequiredSchema = z.string().min(1, "Session token is required");
 
 /**
  * Optional token schema.
@@ -142,7 +142,7 @@ export const createPasswordSchema = (minLength: number, maxLength: number) => z.
  * @pure
  * @description Validates that current password is provided.
  */
-export const currentPasswordRequiredSchema = z.string().min(1, 'Current password is required');
+export const currentPasswordRequiredSchema = z.string().min(1, "Current password is required");
 
 /**
  * Optional password schema.
@@ -162,7 +162,7 @@ export const passwordOptionalSchema = z.string().optional();
  * @pure
  * @description Validates that provider is a non-empty string.
  */
-export const providerRequiredSchema = z.string().min(1, 'Provider is required');
+export const providerRequiredSchema = z.string().min(1, "Provider is required");
 
 /**
  * Required provider ID schema.
@@ -170,7 +170,7 @@ export const providerRequiredSchema = z.string().min(1, 'Provider is required');
  * @pure
  * @description Validates that provider ID is a non-empty string.
  */
-export const providerIdRequiredSchema = z.string().min(1, 'Provider ID is required');
+export const providerIdRequiredSchema = z.string().min(1, "Provider ID is required");
 
 // =============================================================================
 // USER PROFILE SCHEMA PROPERTIES
@@ -182,7 +182,7 @@ export const providerIdRequiredSchema = z.string().min(1, 'Provider ID is requir
  * @pure
  * @description Validates that name is a non-empty string.
  */
-export const nameRequiredSchema = z.string().min(1, 'Name is required');
+export const nameRequiredSchema = z.string().min(1, "Name is required");
 
 /**
  * Optional name schema (for updates).
@@ -190,7 +190,7 @@ export const nameRequiredSchema = z.string().min(1, 'Name is required');
  * @pure
  * @description Validates name format when provided.
  */
-export const nameOptionalSchema = z.string().min(1, 'Name cannot be empty').optional();
+export const nameOptionalSchema = z.string().min(1, "Name cannot be empty").optional();
 
 /**
  * Optional email schema (for updates).
@@ -198,7 +198,7 @@ export const nameOptionalSchema = z.string().min(1, 'Name cannot be empty').opti
  * @pure
  * @description Validates email format when provided.
  */
-export const emailOptionalSchema = z.string().email('Invalid email format').optional();
+export const emailOptionalSchema = z.string().email("Invalid email format").optional();
 
 // =============================================================================
 // BOOLEAN OPTION SCHEMA PROPERTIES
@@ -239,13 +239,13 @@ export const disableRedirectOptionalSchema = z.boolean().optional();
  * @description Validates OAuth callback query parameters.
  */
 export const oauthQueryParamsOptionalSchema = z
-	.object({
-		code: z.string().optional(),
-		state: z.string().optional(),
-		error: z.string().optional(),
-		error_description: z.string().optional(),
-	})
-	.optional();
+  .object({
+    code: z.string().optional(),
+    state: z.string().optional(),
+    error: z.string().optional(),
+    error_description: z.string().optional(),
+  })
+  .optional();
 
 /**
  * ID Token schema for OAuth.
@@ -254,14 +254,14 @@ export const oauthQueryParamsOptionalSchema = z
  * @description Validates ID token structure for OAuth authentication.
  */
 export const idTokenOptionalSchema = z
-	.object({
-		token: z.string(),
-		nonce: z.string().optional(),
-		accessToken: z.string().optional(),
-		refreshToken: z.string().optional(),
-		expiresAt: z.number().optional(),
-	})
-	.optional();
+  .object({
+    token: z.string(),
+    nonce: z.string().optional(),
+    accessToken: z.string().optional(),
+    refreshToken: z.string().optional(),
+    expiresAt: z.number().optional(),
+  })
+  .optional();
 
 // =============================================================================
 // COMMON BODY SCHEMAS
@@ -274,7 +274,7 @@ export const idTokenOptionalSchema = z
  * @description Body schema for email-only requests.
  */
 export const emailBodySchema = z.object({
-	email: emailSchema,
+  email: emailSchema,
 });
 
 /**
@@ -284,8 +284,8 @@ export const emailBodySchema = z.object({
  * @description Body schema for email requests with optional callback URL.
  */
 export const emailWithCallbackBodySchema = z.object({
-	email: emailSchema,
-	callbackURL: callbackURLOptionalSchema,
+  email: emailSchema,
+  callbackURL: callbackURLOptionalSchema,
 });
 
 /**
@@ -295,8 +295,8 @@ export const emailWithCallbackBodySchema = z.object({
  * @description Body schema for email requests with optional redirect URL.
  */
 export const emailWithRedirectBodySchema = z.object({
-	email: emailSchema,
-	redirectTo: redirectToOptionalSchema,
+  email: emailSchema,
+  redirectTo: redirectToOptionalSchema,
 });
 
 /**
@@ -306,8 +306,8 @@ export const emailWithRedirectBodySchema = z.object({
  * @description Body schema for required email with optional redirect URL.
  */
 export const emailRequiredWithRedirectBodySchema = z.object({
-	email: emailRequiredSchema,
-	redirectTo: redirectToOptionalSchema,
+  email: emailRequiredSchema,
+  redirectTo: redirectToOptionalSchema,
 });
 
 /**
@@ -317,8 +317,8 @@ export const emailRequiredWithRedirectBodySchema = z.object({
  * @description Body schema for change email requests.
  */
 export const newEmailBodySchema = z.object({
-	newEmail: newEmailSchema,
-	callbackURL: callbackURLOptionalSchema,
+  newEmail: newEmailSchema,
+  callbackURL: callbackURLOptionalSchema,
 });
 
 /**
@@ -328,7 +328,7 @@ export const newEmailBodySchema = z.object({
  * @description Body schema for provider-only requests.
  */
 export const providerBodySchema = z.object({
-	provider: providerRequiredSchema,
+  provider: providerRequiredSchema,
 });
 
 /**
@@ -338,8 +338,8 @@ export const providerBodySchema = z.object({
  * @description Body schema for provider requests with optional callback URL.
  */
 export const providerWithCallbackBodySchema = z.object({
-	provider: providerRequiredSchema,
-	callbackURL: callbackURLOptionalSchema,
+  provider: providerRequiredSchema,
+  callbackURL: callbackURLOptionalSchema,
 });
 
 /**
@@ -349,7 +349,7 @@ export const providerWithCallbackBodySchema = z.object({
  * @description Body schema for provider ID requests.
  */
 export const providerIdBodySchema = z.object({
-	providerId: providerIdRequiredSchema,
+  providerId: providerIdRequiredSchema,
 });
 
 /**
@@ -359,7 +359,7 @@ export const providerIdBodySchema = z.object({
  * @description Body schema for session token requests.
  */
 export const sessionTokenBodySchema = z.object({
-	token: sessionTokenRequiredSchema,
+  token: sessionTokenRequiredSchema,
 });
 
 /**
@@ -372,122 +372,115 @@ export const sessionTokenBodySchema = z.object({
  * @returns Effect that resolves to the generated Zod schema.
  */
 export const authServerApiEndpointBodyZodSchemaBuilder: AuthServerApiEndpointBodyZodSchemaBuilderProps = () =>
-	Effect.gen(function* () {
-		const { endpoint } = yield* PipelineContext;
-		const matcher = Match.value(endpoint);
+  Effect.gen(function*() {
+    const { endpoint } = yield* PipelineContext;
+    const matcher = Match.value(endpoint);
 
-		const group1 = matcher.pipe(
-			Match.tag('SignInEmail', () =>
-				Effect.gen(function* () {
-					const config = yield* extractAuthServerConfig('emailAndPassword');
-					const options = config?.emailAndPassword;
-					const minPasswordLength = options?.minPasswordLength ?? 8;
-					const maxPasswordLength = options?.maxPasswordLength ?? 32;
-					return z.object({
-						email: emailSchema,
-						password: createPasswordSchema(minPasswordLength, maxPasswordLength),
-					});
-				})
-			),
-			Match.tag('SignUpEmail', () =>
-				Effect.gen(function* () {
-					const config = yield* extractAuthServerConfig('emailAndPassword');
-					const options = config?.emailAndPassword;
-					const minPasswordLength = options?.minPasswordLength ?? 8;
-					const maxPasswordLength = options?.maxPasswordLength ?? 32;
-					return z.object({
-						email: emailSchema,
-						password: createPasswordSchema(minPasswordLength, maxPasswordLength),
-						name: nameOptionalSchema,
-						image: imageURLOptionalSchema,
-					});
-				})
-			),
-			Match.tag('SignInSocial', () =>
-				Effect.succeed(
-					z.object({
-						provider: providerRequiredSchema,
-						callbackURL: callbackURLOptionalSchema,
-					})
-				)
-			),
-			Match.tag('SignOut', () => Effect.succeed(z.object({}))),
-			Match.tag('GetSession', () => Effect.succeed(z.object({}))),
-			Match.tag('UpdateUser', () =>
-				Effect.succeed(
-					z.object({
-						name: nameOptionalSchema,
-						image: imageURLOptionalSchema,
-						firstName: z.string().optional(),
-						lastName: z.string().optional(),
-					})
-				)
-			),
-			Match.tag('SendVerificationEmail', () => Effect.succeed(emailWithCallbackBodySchema)),
-			Match.tag('ChangePassword', () =>
-				Effect.gen(function* () {
-					const config = yield* extractAuthServerConfig('emailAndPassword');
-					const options = config?.emailAndPassword;
-					const minPasswordLength = options?.minPasswordLength ?? 8;
-					const maxPasswordLength = options?.maxPasswordLength ?? 32;
-					return z.object({
-						currentPassword: currentPasswordRequiredSchema,
-						newPassword: createPasswordSchema(minPasswordLength, maxPasswordLength),
-						revokeOtherSessions: revokeOtherSessionsOptionalSchema,
-					});
-				})
-			),
-			Match.tag('ForgetPassword', () => Effect.succeed(emailWithRedirectBodySchema)),
-			Match.tag('ResetPassword', () =>
-				Effect.gen(function* () {
-					const config = yield* extractAuthServerConfig('emailAndPassword');
-					const options = config?.emailAndPassword;
-					const minPasswordLength = options?.minPasswordLength ?? 8;
-					const maxPasswordLength = options?.maxPasswordLength ?? 32;
-					return z.object({
-						newPassword: createPasswordSchema(minPasswordLength, maxPasswordLength),
-						token: tokenRequiredSchema,
-					});
-				})
-			)
-		);
+    const group1 = matcher.pipe(
+      Match.tag("SignInEmail", () =>
+        Effect.gen(function*() {
+          const config = yield* extractAuthServerConfig("emailAndPassword");
+          const options = config?.emailAndPassword;
+          const minPasswordLength = options?.minPasswordLength ?? 8;
+          const maxPasswordLength = options?.maxPasswordLength ?? 32;
+          return z.object({
+            email: emailSchema,
+            password: createPasswordSchema(minPasswordLength, maxPasswordLength),
+          });
+        })),
+      Match.tag("SignUpEmail", () =>
+        Effect.gen(function*() {
+          const config = yield* extractAuthServerConfig("emailAndPassword");
+          const options = config?.emailAndPassword;
+          const minPasswordLength = options?.minPasswordLength ?? 8;
+          const maxPasswordLength = options?.maxPasswordLength ?? 32;
+          return z.object({
+            email: emailSchema,
+            password: createPasswordSchema(minPasswordLength, maxPasswordLength),
+            name: nameOptionalSchema,
+            image: imageURLOptionalSchema,
+          });
+        })),
+      Match.tag("SignInSocial", () =>
+        Effect.succeed(
+          z.object({
+            provider: providerRequiredSchema,
+            callbackURL: callbackURLOptionalSchema,
+          }),
+        )),
+      Match.tag("SignOut", () => Effect.succeed(z.object({}))),
+      Match.tag("GetSession", () => Effect.succeed(z.object({}))),
+      Match.tag("UpdateUser", () =>
+        Effect.succeed(
+          z.object({
+            name: nameOptionalSchema,
+            image: imageURLOptionalSchema,
+            firstName: z.string().optional(),
+            lastName: z.string().optional(),
+          }),
+        )),
+      Match.tag("SendVerificationEmail", () => Effect.succeed(emailWithCallbackBodySchema)),
+      Match.tag("ChangePassword", () =>
+        Effect.gen(function*() {
+          const config = yield* extractAuthServerConfig("emailAndPassword");
+          const options = config?.emailAndPassword;
+          const minPasswordLength = options?.minPasswordLength ?? 8;
+          const maxPasswordLength = options?.maxPasswordLength ?? 32;
+          return z.object({
+            currentPassword: currentPasswordRequiredSchema,
+            newPassword: createPasswordSchema(minPasswordLength, maxPasswordLength),
+            revokeOtherSessions: revokeOtherSessionsOptionalSchema,
+          });
+        })),
+      Match.tag("ForgetPassword", () => Effect.succeed(emailWithRedirectBodySchema)),
+      Match.tag("ResetPassword", () =>
+        Effect.gen(function*() {
+          const config = yield* extractAuthServerConfig("emailAndPassword");
+          const options = config?.emailAndPassword;
+          const minPasswordLength = options?.minPasswordLength ?? 8;
+          const maxPasswordLength = options?.maxPasswordLength ?? 32;
+          return z.object({
+            newPassword: createPasswordSchema(minPasswordLength, maxPasswordLength),
+            token: tokenRequiredSchema,
+          });
+        })),
+    );
 
-		const group2 = group1.pipe(
-			Match.tag('ListUserAccounts', () => Effect.succeed(z.object({}))),
-			Match.tag('UnlinkAccount', () => Effect.succeed(providerIdBodySchema)),
-			Match.tag('CallbackOAuth', () => Effect.succeed(z.object({}))),
-			Match.tag('VerifyEmail', () => Effect.succeed(z.object({}))),
-			Match.tag('ChangeEmail', () => Effect.succeed(newEmailBodySchema)),
-			Match.tag('SetPassword', () =>
-				Effect.gen(function* () {
-					const config = yield* extractAuthServerConfig('emailAndPassword');
-					const options = config?.emailAndPassword;
-					const minPasswordLength = options?.minPasswordLength ?? 8;
-					const maxPasswordLength = options?.maxPasswordLength ?? 32;
-					return z.object({
-						newPassword: createPasswordSchema(minPasswordLength, maxPasswordLength),
-						token: tokenOptionalSchema,
-					});
-				})
-			),
-			Match.tag('DeleteUser', () => Effect.succeed(z.object({}))),
-			Match.tag('DeleteUserCallback', () => Effect.succeed(z.object({}))),
-			Match.tag('ForgetPasswordCallback', () => Effect.succeed(z.object({}))),
-			Match.tag('RequestPasswordReset', () => Effect.succeed(emailWithRedirectBodySchema)),
-			Match.tag('RequestPasswordResetCallback', () => Effect.succeed(z.object({})))
-		);
+    const group2 = group1.pipe(
+      Match.tag("ListUserAccounts", () => Effect.succeed(z.object({}))),
+      Match.tag("UnlinkAccount", () => Effect.succeed(providerIdBodySchema)),
+      Match.tag("CallbackOAuth", () => Effect.succeed(z.object({}))),
+      Match.tag("VerifyEmail", () => Effect.succeed(z.object({}))),
+      Match.tag("ChangeEmail", () => Effect.succeed(newEmailBodySchema)),
+      Match.tag("SetPassword", () =>
+        Effect.gen(function*() {
+          const config = yield* extractAuthServerConfig("emailAndPassword");
+          const options = config?.emailAndPassword;
+          const minPasswordLength = options?.minPasswordLength ?? 8;
+          const maxPasswordLength = options?.maxPasswordLength ?? 32;
+          return z.object({
+            newPassword: createPasswordSchema(minPasswordLength, maxPasswordLength),
+            token: tokenOptionalSchema,
+          });
+        })),
+      Match.tag("DeleteUser", () => Effect.succeed(z.object({}))),
+      Match.tag("DeleteUserCallback", () => Effect.succeed(z.object({}))),
+      Match.tag("ForgetPasswordCallback", () => Effect.succeed(z.object({}))),
+      Match.tag("RequestPasswordReset", () => Effect.succeed(emailWithRedirectBodySchema)),
+      Match.tag("RequestPasswordResetCallback", () => Effect.succeed(z.object({}))),
+    );
 
-		return yield* group2.pipe(
-			Match.tag('ListSessions', () => Effect.succeed(z.object({}))),
-			Match.tag('RevokeSession', () => Effect.succeed(sessionTokenBodySchema)),
-			Match.tag('RevokeSessions', () => Effect.succeed(z.object({}))),
-			Match.tag('RevokeOtherSessions', () => Effect.succeed(z.object({}))),
-			Match.tag('LinkSocialAccount', () => Effect.succeed(providerWithCallbackBodySchema)),
-			Match.tag('RefreshToken', () => Effect.succeed(z.object({}))),
-			Match.tag('GetAccessToken', () => Effect.succeed(z.object({}))),
-			Match.tag('AccountInfo', () => Effect.succeed(z.object({}))),
-			Match.tag('Ok', () => Effect.succeed(z.object({}))),
-			Match.tag('Error', () => Effect.succeed(z.object({}))),
-			Match.orElse(() => Effect.succeed(z.object({})))
-		);
-	});
+    return yield* group2.pipe(
+      Match.tag("ListSessions", () => Effect.succeed(z.object({}))),
+      Match.tag("RevokeSession", () => Effect.succeed(sessionTokenBodySchema)),
+      Match.tag("RevokeSessions", () => Effect.succeed(z.object({}))),
+      Match.tag("RevokeOtherSessions", () => Effect.succeed(z.object({}))),
+      Match.tag("LinkSocialAccount", () => Effect.succeed(providerWithCallbackBodySchema)),
+      Match.tag("RefreshToken", () => Effect.succeed(z.object({}))),
+      Match.tag("GetAccessToken", () => Effect.succeed(z.object({}))),
+      Match.tag("AccountInfo", () => Effect.succeed(z.object({}))),
+      Match.tag("Ok", () => Effect.succeed(z.object({}))),
+      Match.tag("Error", () => Effect.succeed(z.object({}))),
+      Match.orElse(() => Effect.succeed(z.object({}))),
+    );
+  });

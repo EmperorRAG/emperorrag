@@ -3,7 +3,12 @@
  * @description Barrel export for server-side sign-out module.
  */
 
-export { signOutServerService } from './signOut.service';
-export { signOutServerController } from './signOut.controller';
-export type { AuthServerApiSignOutPropsFor, AuthServerApiSignOutParamsFor, AuthServerApiSignOutResultFor, signOutPropsFor } from './signOut.types';
-export { isAuthServerApiSignOutParamsFor } from './signOut.types';
+export { signOutServerController } from "./signOut.controller";
+export { signOutServerService } from "./signOut.service";
+export type {
+  AuthServerApiSignOutParamsFor,
+  AuthServerApiSignOutPropsFor,
+  AuthServerApiSignOutResultFor,
+  signOutPropsFor,
+} from "./signOut.types";
+export { isAuthServerApiSignOutParamsFor } from "./signOut.types";

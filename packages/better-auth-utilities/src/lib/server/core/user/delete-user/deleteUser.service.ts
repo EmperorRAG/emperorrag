@@ -3,11 +3,11 @@
  * @description Server-side service for delete user operation using Better Auth API.
  */
 
-import * as Effect from 'effect/Effect';
-import { mapApiError } from '../../../../pipeline/map-api-error/mapApiError';
-import { AuthServerTag } from '../../../server.service';
-import type { AuthServerFor } from '../../../server.types';
-import type { AuthServerApiDeleteUserParamsFor, deleteUserPropsFor } from './deleteUser.types';
+import * as Effect from "effect/Effect";
+import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
+import { AuthServerTag } from "../../../server.service";
+import type { AuthServerFor } from "../../../server.types";
+import type { AuthServerApiDeleteUserParamsFor, deleteUserPropsFor } from "./deleteUser.types";
 
 /**
  * Delete user account via Better Auth server API.
@@ -22,4 +22,7 @@ import type { AuthServerApiDeleteUserParamsFor, deleteUserPropsFor } from './del
  * @returns Effect that resolves to delete user result or fails with AuthServerApiError
  */
 export const deleteUserServerService: deleteUserPropsFor = (params: AuthServerApiDeleteUserParamsFor<AuthServerFor>) =>
-	Effect.flatMap(AuthServerTag, (authServer) => Effect.tryPromise(() => authServer.api.deleteUser(params)).pipe(Effect.catchAll(mapApiError)));
+  Effect.flatMap(
+    AuthServerTag,
+    (authServer) => Effect.tryPromise(() => authServer.api.deleteUser(params)).pipe(Effect.catchAll(mapApiError)),
+  );

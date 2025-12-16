@@ -1,5 +1,5 @@
-import type { createAuthClient } from 'better-auth/client';
-import type { AuthClientFor } from '../../../client.types';
+import type { createAuthClient } from "better-auth/client";
+import type { AuthClientFor } from "../../../client.types";
 
 /**
  * Shared dependency type for email authentication operations.
@@ -14,6 +14,8 @@ import type { AuthClientFor } from '../../../client.types';
  * };
  * ```
  */
-export type EmailAuthClientDeps<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> = Readonly<{
-	authClient: T;
+export type EmailAuthClientDeps<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>,
+> = Readonly<{
+  authClient: T;
 }>;

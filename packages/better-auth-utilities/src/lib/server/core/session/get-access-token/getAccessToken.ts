@@ -3,12 +3,12 @@
  * @description Barrel export for server-side get access token module.
  */
 
-export { getAccessTokenServerService } from './getAccessToken.service';
-export { getAccessTokenServerController } from './getAccessToken.controller';
+export { getAccessTokenServerController } from "./getAccessToken.controller";
+export { getAccessTokenServerService } from "./getAccessToken.service";
 export {
-	isAuthServerApiGetAccessTokenParamsFor,
-	type AuthServerApiGetAccessTokenPropsFor,
-	type AuthServerApiGetAccessTokenParamsFor,
-	type AuthServerApiGetAccessTokenResultFor,
-	type getAccessTokenPropsFor,
-} from './getAccessToken.types';
+  type AuthServerApiGetAccessTokenParamsFor,
+  type AuthServerApiGetAccessTokenPropsFor,
+  type AuthServerApiGetAccessTokenResultFor,
+  type getAccessTokenPropsFor,
+  isAuthServerApiGetAccessTokenParamsFor,
+} from "./getAccessToken.types";

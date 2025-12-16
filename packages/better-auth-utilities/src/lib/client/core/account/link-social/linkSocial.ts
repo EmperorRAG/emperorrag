@@ -1,1 +1,1 @@
-export * from './linkSocial.service';
+export * from "./linkSocial.service";

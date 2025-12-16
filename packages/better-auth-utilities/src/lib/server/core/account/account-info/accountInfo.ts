@@ -3,12 +3,12 @@
  * @description Barrel export for server-side account info module.
  */
 
-export { accountInfoServerService } from './accountInfo.service';
-export { accountInfoServerController } from './accountInfo.controller';
+export { accountInfoServerController } from "./accountInfo.controller";
+export { accountInfoServerService } from "./accountInfo.service";
 export {
-	isAuthServerApiAccountInfoParamsFor,
-	type AuthServerApiAccountInfoPropsFor,
-	type AuthServerApiAccountInfoParamsFor,
-	type AuthServerApiAccountInfoResultFor,
-	type accountInfoPropsFor,
-} from './accountInfo.types';
+  type accountInfoPropsFor,
+  type AuthServerApiAccountInfoParamsFor,
+  type AuthServerApiAccountInfoPropsFor,
+  type AuthServerApiAccountInfoResultFor,
+  isAuthServerApiAccountInfoParamsFor,
+} from "./accountInfo.types";
