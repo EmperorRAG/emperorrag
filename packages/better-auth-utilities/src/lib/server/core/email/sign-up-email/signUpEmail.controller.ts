@@ -1,19 +1,11 @@
-import * as Effect from "effect/Effect";
-import { PipelineContext } from "../../../../context/pipeline.context";
-import { AuthServerApiEndpoints } from "../../../../enums/authServerApiEndpoints.enum";
-import { extractBodyStrict, extractSignUpCtxStrict } from "./signUpEmail.adapters";
-import { decodeSignUpEmailCommand } from "./signUpEmail.decoder";
-import { signUpEmailServerServiceFromCommandWithCtx } from "./signUpEmail.service";
+import { Effect, Schema } from "effect";
+import { pipe } from "effect/Function";
+import { SignUpEmailAuthServerParams } from "../../../../schema/params/sign-up-email-auth-server/SignUpEmailAuthServer.schema";
+import { signUpEmailServerService } from "./signUpEmail.service";
 
 export const signUpEmailServerController = (input: unknown) =>
-  Effect.gen(function*() {
-    const body = yield* extractBodyStrict(input);
-    const ctx = yield* extractSignUpCtxStrict(input);
-    const command = yield* decodeSignUpEmailCommand(body);
-
-    return yield* signUpEmailServerServiceFromCommandWithCtx(command, ctx);
-  }).pipe(
-    Effect.provideService(PipelineContext, {
-      endpoint: AuthServerApiEndpoints.SignUpEmail(),
-    }),
+  pipe(
+    input,
+    Schema.decodeUnknown(SignUpEmailAuthServerParams),
+    Effect.flatMap(signUpEmailServerService),
   );

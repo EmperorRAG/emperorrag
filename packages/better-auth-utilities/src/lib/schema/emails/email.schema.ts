@@ -1,4 +1,5 @@
 import { Schema } from "effect";
+import { pipe } from "effect/Function";
 
 export class Email extends Schema.TaggedClass<Email>()("Email", {
   value: Schema.String.pipe(
@@ -8,15 +9,15 @@ export class Email extends Schema.TaggedClass<Email>()("Email", {
   ),
 }) {
   static decode(input: unknown) {
-    return Schema.decodeUnknown(Email)(input);
+    return pipe(input, Schema.decodeUnknown(Email));
   }
 
   static encode(value: Email) {
-    return Schema.encode(Email)(value);
+    return pipe(value, Schema.encode(Email));
   }
 }
 
-export const EmailSchema = Schema.transform(
+/*export const EmailSchema = Schema.transform(
   Schema.String.pipe(
     Schema.compose(Schema.Trim),
     Schema.compose(Schema.Lowercase),
@@ -27,4 +28,4 @@ export const EmailSchema = Schema.transform(
     decode: (value) => new Email({ value }),
     encode: (email) => email.value,
   },
-);
+);*/
