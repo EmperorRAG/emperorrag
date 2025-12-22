@@ -1,4 +1,5 @@
 import { Schema } from "effect";
+import { pipe } from "effect/Function";
 import { SignUpEmailCommand } from "../../commands/sign-up-email/SignUpEmail.command";
 
 export class SignUpEmailAuthServerParams extends Schema.TaggedClass<SignUpEmailAuthServerParams>()(
@@ -11,10 +12,10 @@ export class SignUpEmailAuthServerParams extends Schema.TaggedClass<SignUpEmailA
   },
 ) {
   static decode(input: unknown) {
-    return Schema.decodeUnknown(SignUpEmailAuthServerParams)(input);
+    return pipe(input, Schema.decodeUnknown(SignUpEmailAuthServerParams));
   }
 
   static encode(value: SignUpEmailAuthServerParams) {
-    return Schema.encode(SignUpEmailAuthServerParams)(value);
+    return pipe(value, Schema.encode(SignUpEmailAuthServerParams));
   }
 }

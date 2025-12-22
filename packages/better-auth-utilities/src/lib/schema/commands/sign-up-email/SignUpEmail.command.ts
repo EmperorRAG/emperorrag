@@ -1,4 +1,5 @@
 import { Schema } from "effect";
+import { pipe } from "effect/Function";
 import { EmailSchema } from "../../emails/email.schema";
 import { ImageSchema } from "../../images/image.schema";
 import { NameSchema } from "../../names/name.schema";
@@ -19,10 +20,10 @@ export class SignUpEmailCommand extends Schema.TaggedClass<SignUpEmailCommand>()
   },
 ) {
   static decode(input: unknown) {
-    return Schema.decodeUnknown(SignUpEmailCommand)(input);
+    return pipe(input, Schema.decodeUnknown(SignUpEmailCommand));
   }
 
   static encode(value: SignUpEmailCommand) {
-    return Schema.encode(SignUpEmailCommand)(value);
+    return pipe(value, Schema.encode(SignUpEmailCommand));
   }
 }

@@ -1,11 +1,11 @@
 import { Effect, ParseResult, Schema } from "effect";
+import { SignUpEmailAndTransportParams } from "../../params/sign-up-email-and-transport/SignUpEmailAndTransport.schema";
 import { UnknownCommandWithTransportCommand } from "../../transport/UnknownWithTransport.command";
 import { SignUpEmailCommand } from "./SignUpEmail.command";
-import { SignUpEmailCommandWithTransportCommand } from "./SignUpEmailWithTransport.command";
 
 export const UnknownCommandWithTransportCommandToSignUpEmailCommandTransform = Schema.transformOrFail(
   UnknownCommandWithTransportCommand,
-  SignUpEmailCommandWithTransportCommand,
+  SignUpEmailAndTransportParams,
   {
     decode: (input) => {
       return Schema.decodeUnknown(SignUpEmailCommand)(input.command).pipe(
@@ -14,9 +14,9 @@ export const UnknownCommandWithTransportCommandToSignUpEmailCommandTransform = S
         ),
         Effect.map(
           (command) =>
-            new SignUpEmailCommandWithTransportCommand({
+            new SignUpEmailAndTransportParams({
               command,
-              ctx: input.context,
+              transport: input.transport,
             }),
         ),
       );
