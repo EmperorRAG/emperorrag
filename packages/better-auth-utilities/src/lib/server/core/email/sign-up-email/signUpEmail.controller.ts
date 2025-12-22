@@ -7,5 +7,6 @@ export const signUpEmailServerController = (input: unknown) =>
   pipe(
     input,
     Schema.decodeUnknown(SignUpEmailAuthServerParams),
+    Effect.flatMap(Schema.encode(SignUpEmailAuthServerParams)),
     Effect.flatMap(signUpEmailServerService),
   );

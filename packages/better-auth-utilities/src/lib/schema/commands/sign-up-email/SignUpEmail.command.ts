@@ -1,19 +1,19 @@
 import { Schema } from "effect";
 import { pipe } from "effect/Function";
-import { Email } from "../../emails/email.schema";
-import { Image } from "../../images/image.schema";
-import { Name } from "../../names/name.schema";
+import { EmailSchema } from "../../emails/email.schema";
+import { ImageSchema } from "../../images/image.schema";
+import { NameSchema } from "../../names/name.schema";
 import { PasswordSchema } from "../../passwords/password.schema";
-import { Url } from "../../urls/url.schema";
+import { UrlSchema } from "../../urls/url.schema";
 
 export class SignUpEmailCommand extends Schema.TaggedClass<SignUpEmailCommand>()(
   "SignUpEmailCommand",
   {
-    email: Email,
+    email: EmailSchema,
     password: PasswordSchema({ minLength: 8, maxLength: 100 }),
-    name: Name,
-    image: Schema.optional(Image),
-    callbackURL: Schema.optional(Url),
+    name: NameSchema,
+    image: Schema.optional(ImageSchema),
+    callbackURL: Schema.optional(UrlSchema),
     additionalFields: Schema.optional(
       Schema.Record({ key: Schema.String, value: Schema.Unknown }),
     ),
@@ -25,5 +25,9 @@ export class SignUpEmailCommand extends Schema.TaggedClass<SignUpEmailCommand>()
 
   static encode(value: SignUpEmailCommand) {
     return pipe(value, Schema.encode(SignUpEmailCommand));
+  }
+
+  toJSON() {
+    return Schema.encodeSync(SignUpEmailCommand)(this);
   }
 }

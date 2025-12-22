@@ -11,13 +11,17 @@ export class Name extends Schema.TaggedClass<Name>()("Name", {
   static encode(value: Name) {
     return pipe(value, Schema.encode(Name));
   }
+
+  toJSON() {
+    return Schema.encodeSync(Name)(this);
+  }
 }
 
-/*export const NameSchema = Schema.transform(
+export const NameSchema = Schema.transform(
   Schema.String.pipe(Schema.compose(Schema.Trim), Schema.minLength(1)),
   Name,
   {
     decode: (value) => new Name({ value }),
     encode: (name) => name.value,
   },
-);*/
+);

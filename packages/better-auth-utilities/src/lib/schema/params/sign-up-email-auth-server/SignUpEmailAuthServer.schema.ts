@@ -18,4 +18,8 @@ export class SignUpEmailAuthServerParams extends Schema.TaggedClass<SignUpEmailA
   static encode(value: SignUpEmailAuthServerParams) {
     return pipe(value, Schema.encode(SignUpEmailAuthServerParams));
   }
+
+  toJSON() {
+    return Schema.encodeSync(SignUpEmailAuthServerParams)(this);
+  }
 }

@@ -13,11 +13,11 @@ export class Image extends Schema.TaggedClass<Image>()("Image", {
   }
 }
 
-/*export const ImageSchema = Schema.transform(
+export const ImageSchema = Schema.transform(
   Schema.String.pipe(Schema.compose(Schema.Trim), Schema.minLength(1)),
   Image,
   {
     decode: (value) => new Image({ value }),
     encode: (image) => image.value,
   },
-);*/
+);

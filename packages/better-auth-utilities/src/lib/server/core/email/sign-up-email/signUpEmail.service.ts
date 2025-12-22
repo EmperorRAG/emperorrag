@@ -123,6 +123,7 @@ import type { AuthServerApiSignUpEmailParamsFor, SignUpEmailPropsFor } from "./s
  */
 // export const signUpEmailServerService: SignUpEmailPropsFor = (
 export const signUpEmailServerService = (
+  // params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>,
   params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>,
 ) =>
   Effect.flatMap(AuthServerTag, (authServer) =>

@@ -15,9 +15,13 @@ export class Email extends Schema.TaggedClass<Email>()("Email", {
   static encode(value: Email) {
     return pipe(value, Schema.encode(Email));
   }
+
+  toJSON() {
+    return Schema.encodeSync(Email)(this);
+  }
 }
 
-/*export const EmailSchema = Schema.transform(
+export const EmailSchema = Schema.transform(
   Schema.String.pipe(
     Schema.compose(Schema.Trim),
     Schema.compose(Schema.Lowercase),
@@ -28,4 +32,4 @@ export class Email extends Schema.TaggedClass<Email>()("Email", {
     decode: (value) => new Email({ value }),
     encode: (email) => email.value,
   },
-);*/
+);
