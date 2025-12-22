@@ -7,8 +7,6 @@ import * as Effect from "effect/Effect";
 import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
 import type { SignUpEmailAuthServerParams } from "../../../../schema/params/sign-up-email-auth-server/SignUpEmailAuthServer.schema";
 import { AuthServerTag } from "../../../server.service";
-import type { AuthServerFor } from "../../../server.types";
-import type { SignUpEmailPropsFor } from "./signUpEmail.types";
 
 /**
  * Register a new user via email and password using Better Auth server API.
@@ -122,9 +120,7 @@ import type { SignUpEmailPropsFor } from "./signUpEmail.types";
  * });
  * ```
  */
-// export const signUpEmailServerService: SignUpEmailPropsFor = (
 export const signUpEmailServerService = (
-  // params: AuthServerApiSignUpEmailParamsFor<AuthServerFor>,
   params: SignUpEmailAuthServerParams,
 ) =>
   Effect.flatMap(AuthServerTag, (authServer) =>
@@ -134,12 +130,18 @@ export const signUpEmailServerService = (
           email: params.body.email.value,
           name: params.body.name.value,
           password: params.body.password.value,
-          image: params.body.image?.value,
-          callbackURL: params.body.callbackURL?.value,
+          ...(params.body.image ? { image: params.body.image.value } : {}),
+          ...(params.body.callbackURL
+            ? { callbackURL: params.body.callbackURL.value }
+            : {}),
           ...params.body.additionalFields,
         },
-        headers: params.headers,
-        asResponse: params.asResponse,
-        returnHeaders: params.returnHeaders,
-      }),
+        ...(params.headers ? { headers: params.headers } : {}),
+        ...(params.asResponse !== undefined
+          ? { asResponse: params.asResponse }
+          : {}),
+        ...(params.returnHeaders !== undefined
+          ? { returnHeaders: params.returnHeaders }
+          : {}),
+      })
     ).pipe(Effect.catchAll(mapApiError)));
