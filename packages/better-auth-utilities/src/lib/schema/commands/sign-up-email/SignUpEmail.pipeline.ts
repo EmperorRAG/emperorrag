@@ -1,8 +1,8 @@
 import { Effect, ParseResult, Schema } from "effect";
 import { pipe } from "effect/Function";
+import { SignUpEmailAuthServerParams } from "../../params/sign-up-email-auth-server/SignUpEmailAuthServer.schema";
 import { SignUpEmailAuthServerParamsToCommandWithTransportCommandTransform } from "../../transport/SignUpEmailAuthServerParamsToCommandWithTransportCommand.transform";
 import { SignUpEmailCommand } from "./SignUpEmail.command";
-import { SignUpEmailAuthServerParams } from "./SignUpEmailAuthServer.params";
 import { UnknownCommandWithTransportCommandToSignUpEmailCommandTransform } from "./UnknownCommandWithTransportCommandToSignUpEmailCommand.transform";
 
 export class EmailAuthServerInputError extends Schema.TaggedError<EmailAuthServerInputError>()(
@@ -11,7 +11,7 @@ export class EmailAuthServerInputError extends Schema.TaggedError<EmailAuthServe
     message: Schema.String,
     cause: Schema.Unknown,
   },
-) {}
+) { }
 
 export const SignUpEmailAuthServerParamsToSignUpEmailCommand = (raw: unknown) =>
   pipe(

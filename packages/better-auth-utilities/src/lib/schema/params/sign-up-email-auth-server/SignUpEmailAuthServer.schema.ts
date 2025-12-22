@@ -1,5 +1,5 @@
 import { Schema } from "effect";
-import { SignUpEmailCommand } from "./SignUpEmail.command";
+import { SignUpEmailCommand } from "../../commands/sign-up-email/SignUpEmail.command";
 
 export class SignUpEmailAuthServerParams extends Schema.TaggedClass<SignUpEmailAuthServerParams>()(
   "SignUpEmailAuthServerParams",
