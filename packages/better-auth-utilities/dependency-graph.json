@@ -1,18 +1,12 @@
 {
-  "lib/client/client.constants.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
+  "lib/client/client.constants.ts": [],
   "lib/client/client.service.ts": [
-    "lib/client/client.constants.ts",
-    "lib/shared/config/config.types.ts"
+    "lib/client/client.constants.ts"
   ],
   "lib/client/client.spec.ts": [
     "lib/test/setup-test-env.ts"
   ],
   "lib/client/client.types.ts": [],
-  "lib/client/config/config.service.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
   "lib/client/core/account/link-social/linkSocial.schema.ts": [],
   "lib/client/core/account/link-social/linkSocial.service.ts": [
     "lib/client/core/account/link-social/linkSocial.types.ts",
@@ -246,6 +240,10 @@
     "lib/client/core/user/shared/user.error.ts",
     "lib/client/core/user/shared/user.types.ts"
   ],
+  "lib/configs/config.schema.spec.ts": [
+    "lib/configs/config.schema.ts"
+  ],
+  "lib/configs/config.schema.ts": [],
   "lib/context/pipeline.context.ts": [
     "lib/enums/authServerApiEndpoints.enum.ts",
     "lib/enums/operationCodes.enum.ts"
@@ -504,13 +502,6 @@
   "lib/schema/urls/url.schema.ts": [],
   "lib/schema/users/user.schema.ts": [],
   "lib/schema/verifications/verification.schema.ts": [],
-  "lib/server/config/config.schema.spec.ts": [
-    "lib/server/config/config.schema.ts"
-  ],
-  "lib/server/config/config.schema.ts": [],
-  "lib/server/config/config.service.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
   "lib/server/core/account/account-info/accountInfo.controller.ts": [
     "lib/context/pipeline.context.ts",
     "lib/enums/authServerApiEndpoints.enum.ts",
@@ -1350,39 +1341,15 @@
     "lib/errors/authServer.error.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/server.constants.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
+  "lib/server/server.constants.ts": [],
   "lib/server/server.service.ts": [
     "lib/server/server.constants.ts",
-    "lib/server/server.types.ts",
-    "lib/shared/config/config.types.ts"
+    "lib/server/server.types.ts"
   ],
   "lib/server/server.spec.ts": [
     "lib/test/setup-test-env.ts"
   ],
-  "lib/server/server.types.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
-  "lib/shared/config/config.constants.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
-  "lib/shared/config/config.service.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
-  "lib/shared/config/config.spec.ts": [
-    "lib/client/config/config.service.ts",
-    "lib/server/config/config.service.ts",
-    "lib/shared/config/config.constants.ts",
-    "lib/shared/config/config.service.ts",
-    "lib/shared/config/config.types.ts"
-  ],
-  "lib/shared/config/config.types.ts": [],
-  "lib/shared/config/config.utils.ts": [
-    "lib/server/server.types.ts",
-    "lib/shared/config/config.constants.ts",
-    "lib/shared/config/config.types.ts"
-  ],
+  "lib/server/server.types.ts": [],
   "lib/test/debug-devtools.ts": [
     "lib/pipeline/format-zod-error-message/formatZodErrorMessage.ts"
   ],
@@ -1398,7 +1365,6 @@
   ],
   "lib/test/setup-test-env.ts": [
     "lib/client/client.service.ts",
-    "lib/server/server.service.ts",
-    "lib/shared/config/config.types.ts"
+    "lib/server/server.service.ts"
   ]
 }
