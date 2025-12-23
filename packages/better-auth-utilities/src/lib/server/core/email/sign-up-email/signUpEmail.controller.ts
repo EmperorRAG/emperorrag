@@ -1,11 +1,11 @@
 import { Effect, Schema } from "effect";
 import { pipe } from "effect/Function";
-import { SignUpEmailAuthServerParams } from "../../../../schema/params/sign-up-email-auth-server/SignUpEmailAuthServer.schema";
 import { signUpEmailServerService } from "./signUpEmail.service";
+import { SignUpEmailServerParams } from "./SignUpEmail.types";
 
 export const signUpEmailServerController = (input: unknown) =>
   pipe(
     input,
-    Schema.decodeUnknown(SignUpEmailAuthServerParams),
+    Schema.decodeUnknown(SignUpEmailServerParams),
     Effect.flatMap(signUpEmailServerService),
   );

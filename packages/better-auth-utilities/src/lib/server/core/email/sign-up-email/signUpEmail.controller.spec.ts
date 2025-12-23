@@ -22,7 +22,7 @@ describe("Server Sign Up Email Controller", () => {
     const name = "Controller Sign Up";
 
     const rawInput = {
-      _tag: "SignUpEmailAuthServerParams",
+      _tag: "SignUpEmailServerParams",
       body: {
         _tag: "SignUpEmailCommand",
         email,
