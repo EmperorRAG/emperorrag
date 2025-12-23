@@ -1,12 +1,10 @@
-import { Schema } from "effect";
 import * as Effect from "effect/Effect";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { SignUpEmailAuthServerParams } from "../../../../schema/params/sign-up-email-auth-server/SignUpEmailAuthServer.schema";
 import { setupTestEnv } from "../../../../test/setup-test-env";
 import { AuthServerTag } from "../../../server.service";
-import { signUpEmailServerService } from "./signUpEmail.service";
+import { signUpEmailServerController } from "./signUpEmail.controller";
 
-describe("Server Sign Up Email", () => {
+describe("Server Sign Up Email Controller", () => {
   let env: Awaited<ReturnType<typeof setupTestEnv>>;
 
   beforeAll(async () => {
@@ -17,13 +15,13 @@ describe("Server Sign Up Email", () => {
     await env.cleanup();
   });
 
-  it("should sign up a user via server api", async () => {
+  it("should successfully decode input and call service", async () => {
     const { authServer } = env;
-    const email = "server-signup@example.com";
+    const email = "controller-signup@example.com";
     const password = "password123";
-    const name = "Server Sign Up";
+    const name = "Controller Sign Up";
 
-    const params = Schema.decodeSync(SignUpEmailAuthServerParams)({
+    const rawInput = {
       _tag: "SignUpEmailAuthServerParams",
       body: {
         _tag: "SignUpEmailCommand",
@@ -31,9 +29,9 @@ describe("Server Sign Up Email", () => {
         password,
         name,
       },
-    });
+    };
 
-    const program = signUpEmailServerService(params);
+    const program = signUpEmailServerController(rawInput);
 
     const res = await Effect.runPromise(
       Effect.provideService(program, AuthServerTag, authServer),
