@@ -1,4 +1,4 @@
-import * as Effect from "effect/Effect";
+import { Effect } from "effect";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { setupTestEnv } from "../../../../test/setup-test-env";
 import { AuthServerTag } from "../../../server.service";

@@ -3,7 +3,7 @@
  * @description Server-side service for sign-up email operation using Better Auth API.
  */
 
-import * as Effect from "effect/Effect";
+import { Effect } from "effect";
 import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
 import { AuthServerTag } from "../../../server.service";
 import type { SignUpEmailServerParams } from "./SignUpEmail.types";
