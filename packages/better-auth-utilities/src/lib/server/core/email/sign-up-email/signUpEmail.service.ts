@@ -6,7 +6,7 @@
 import { Effect } from "effect";
 import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
 import { AuthServerTag } from "../../../server.layer";
-import type { SignUpEmailServerParams } from "./SignUpEmail.types";
+import type { SignUpEmailServerParams } from "./signUpEmail.types";
 
 /**
  * Register a new user via email and password using Better Auth server API.

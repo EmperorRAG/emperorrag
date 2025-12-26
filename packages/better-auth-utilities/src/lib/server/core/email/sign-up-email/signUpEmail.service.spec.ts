@@ -3,7 +3,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { setupTestEnv } from "../../../../test/setup-test-env";
 import { AuthServerTag } from "../../../server.layer";
 import { signUpEmailServerService } from "./signUpEmail.service";
-import { SignUpEmailServerParams } from "./SignUpEmail.types";
+import { SignUpEmailServerParams } from "./signUpEmail.types";
 
 describe("Server Sign Up Email", () => {
   let env: Awaited<ReturnType<typeof setupTestEnv>>;

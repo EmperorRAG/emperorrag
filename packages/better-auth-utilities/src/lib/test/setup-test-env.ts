@@ -2,7 +2,7 @@ import { DevTools } from "@effect/experimental";
 import type { ClientOptions } from "better-auth";
 import { getMigrations } from "better-auth/db";
 import { toNodeHandler } from "better-auth/node";
-import * as Effect from "effect/Effect";
+import { Effect } from "effect";
 import { createServer } from "http";
 import { DatabaseSync } from "node:sqlite";
 import { createAuthClient } from "../client/client.service";
@@ -12,7 +12,7 @@ import type { ServerConfig } from "../shared/config/config.types";
 export const setupTestEnv = (options?: {
   serverConfig?: Partial<ServerConfig>;
 }) => {
-  const program = Effect.gen(function*() {
+  const program = Effect.gen(function* () {
     // 1. Create in-memory SQLite DB
     const db = yield* Effect.sync(() => new DatabaseSync(":memory:"));
 
