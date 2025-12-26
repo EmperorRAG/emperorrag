@@ -28,13 +28,14 @@ describe("createAuthServer", () => {
     cleanup = env.cleanup;
 
     // Verify we can sign up (implies email/password is enabled)
-    const signUpRes = await env.authClient.signUp.email({
-      email: "test@example.com",
-      password: "password123",
-      name: "Test User",
+    const signUpRes = await env.authServer.api.signUpEmail({
+      body: {
+        email: "test@example.com",
+        password: "password123",
+        name: "Test User",
+      },
     });
 
-    expect(signUpRes.data).toBeDefined();
-    expect(signUpRes.error).toBeNull();
+    expect(signUpRes).toBeDefined();
   });
 });

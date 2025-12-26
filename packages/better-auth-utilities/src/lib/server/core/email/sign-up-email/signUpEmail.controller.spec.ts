@@ -1,14 +1,14 @@
 import { Effect } from "effect";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { setupTestEnv } from "../../../../test/setup-test-env";
 import { AuthServerTag } from "../../../server.layer";
+import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
 import { signUpEmailServerController } from "./signUpEmail.controller";
 
 describe("Server Sign Up Email Controller", () => {
-  let env: Awaited<ReturnType<typeof setupTestEnv>>;
+  let env: Awaited<ReturnType<typeof setupServerTestEnvironment>>;
 
   beforeAll(async () => {
-    env = await setupTestEnv();
+    env = await setupServerTestEnvironment();
   });
 
   afterAll(async () => {

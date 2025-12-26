@@ -1,15 +1,15 @@
 import { Effect, Schema } from "effect";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { setupTestEnv } from "../../../../test/setup-test-env";
 import { AuthServerTag } from "../../../server.layer";
+import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
 import { signUpEmailServerService } from "./signUpEmail.service";
 import { SignUpEmailServerParams } from "./signUpEmail.types";
 
 describe("Server Sign Up Email", () => {
-  let env: Awaited<ReturnType<typeof setupTestEnv>>;
+  let env: Awaited<ReturnType<typeof setupServerTestEnvironment>>;
 
   beforeAll(async () => {
-    env = await setupTestEnv();
+    env = await setupServerTestEnvironment();
   });
 
   afterAll(async () => {
