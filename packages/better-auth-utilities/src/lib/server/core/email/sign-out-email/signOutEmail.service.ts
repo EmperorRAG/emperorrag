@@ -27,10 +27,6 @@ export const signOutEmailServerService = (params: SignOutEmailServerParams) =>
   Effect.flatMap(AuthServerTag, (authServer) =>
     Effect.tryPromise(() =>
       authServer.api.signOut({
-        body: {
-          // SignOut usually doesn't have body fields, but we pass the empty object or whatever is in the command
-          ...params.body,
-        },
         ...(params.headers ? { headers: params.headers } : {}),
         ...(params.asResponse !== undefined
           ? { asResponse: params.asResponse }

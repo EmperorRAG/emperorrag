@@ -29,9 +29,6 @@ describe("Server Sign Out Email Controller", () => {
       // Prepare test data
       const rawInput = {
         _tag: "SignOutEmailServerParams" as const,
-        body: {
-          _tag: "SignOutCommand" as const,
-        },
       };
 
       const program = signOutEmailServerController(rawInput);

@@ -1,7 +1,6 @@
 import { it } from "@effect/vitest";
 import { Effect, Schema } from "effect";
 import { describe, expect } from "vitest";
-import { SignOutCommand } from "../../../../schema/commands/sign-out/SignOut.command";
 import { SignOutEmailServerParams } from "./signOutEmail.types";
 
 /**
@@ -12,14 +11,7 @@ import { SignOutEmailServerParams } from "./signOutEmail.types";
  * 4. Must use `it.effect` and `Effect.gen` for testing.
  */
 describe("SignOutEmailServerParams", () => {
-  const validBodyRaw = {
-    _tag: "SignOutCommand" as const,
-  };
-
-  const validCommand = Schema.decodeSync(SignOutCommand)(validBodyRaw);
-
   const validParamsForConstructor = {
-    body: validCommand,
     headers: new Headers({ "x-test": "true" }),
     asResponse: true,
     returnHeaders: false,
@@ -27,7 +19,6 @@ describe("SignOutEmailServerParams", () => {
 
   const validParamsForDecode = {
     _tag: "SignOutEmailServerParams" as const,
-    body: validBodyRaw,
     headers: new Headers({ "x-test": "true" }),
     asResponse: true,
     returnHeaders: false,
@@ -37,7 +28,6 @@ describe("SignOutEmailServerParams", () => {
     Effect.sync(() => {
       const params = new SignOutEmailServerParams(validParamsForConstructor);
       expect(params).toBeInstanceOf(SignOutEmailServerParams);
-      expect(params.body).toBeInstanceOf(SignOutCommand);
     }));
 
   it.effect("should decode valid input", () =>
@@ -46,7 +36,6 @@ describe("SignOutEmailServerParams", () => {
         validParamsForDecode,
       );
       expect(decoded).toBeInstanceOf(SignOutEmailServerParams);
-      expect(decoded.body).toBeInstanceOf(SignOutCommand);
     }));
 
   it.effect("should encode to expected structure", () =>
@@ -56,9 +45,6 @@ describe("SignOutEmailServerParams", () => {
 
       expect(encoded).toEqual({
         _tag: "SignOutEmailServerParams",
-        body: {
-          _tag: "SignOutCommand",
-        },
         headers: expect.any(Headers),
         asResponse: true,
         returnHeaders: false,
