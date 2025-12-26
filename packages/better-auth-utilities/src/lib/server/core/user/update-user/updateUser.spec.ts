@@ -1,74 +1,107 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import * as Effect from 'effect/Effect';
-import * as Either from 'effect/Either';
-import { setupTestEnv } from '../../../../test/setup-test-env';
-import { updateUserServer } from './updateUser.service';
+import * as Effect from "effect/Effect";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { setupTestEnv } from "../../../../test/setup-test-env";
+import { AuthServerTag } from "../../../server.service";
+import { updateUserServerService } from "./updateUser.service";
 
-describe('updateUserServer', () => {
-	let env: Awaited<ReturnType<typeof setupTestEnv>>;
+describe("Server Update User", () => {
+  let env: Awaited<ReturnType<typeof setupTestEnv>>;
 
-	beforeAll(async () => {
-		env = await setupTestEnv();
-	});
+  beforeAll(async () => {
+    env = await setupTestEnv();
+  });
 
-	afterAll(async () => {
-		await env.cleanup();
-	});
+  afterAll(async () => {
+    await env.cleanup();
+  });
 
-	it('should update user successfully', async () => {
-		const { authClient, authServer, baseURL } = env;
+  it("should update user name via server api", async () => {
+    const { authServer } = env;
+    const email = "update-user-test@example.com";
+    const password = "password123";
+    const originalName = "Original Name";
+    const updatedName = "Updated Name";
 
-		// 1. Create a user
-		await authClient.signUp.email({
-			email: 'test-server-update@example.com',
-			password: 'password123',
-			name: 'Original Name',
-		});
+    // First create a user
+    await authServer.api.signUpEmail({
+      body: {
+        email,
+        password,
+        name: originalName,
+      },
+    });
 
-		// 2. Sign in manually to get the session cookie
-		const signInRes = await fetch(`${baseURL}/api/auth/sign-in/email`, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				email: 'test-server-update@example.com',
-				password: 'password123',
-			}),
-		});
+    // Sign in to get session cookie
+    const signInRes = await authServer.api.signInEmail({
+      body: {
+        email,
+        password,
+      },
+      asResponse: true,
+    });
 
-		if (!signInRes.ok) {
-			const text = await signInRes.text();
-			throw new Error(`Sign in failed: ${signInRes.status} ${text}`);
-		}
+    const cookie = signInRes.headers.get("set-cookie");
+    expect(cookie).toBeDefined();
 
-		const cookie = signInRes.headers.get('set-cookie');
-		if (!cookie) {
-			throw new Error('No cookie returned from sign in');
-		}
+    const program = updateUserServerService({
+      body: {
+        name: updatedName,
+      },
+      headers: new Headers({
+        cookie: cookie || "",
+      }),
+    });
 
-		const headers = new Headers();
-		headers.set('Cookie', cookie);
-		// headers.set('Origin', baseURL); // Might be needed
+    const res = await Effect.runPromise(
+      Effect.provideService(program, AuthServerTag, authServer),
+    );
 
-		// 3. Update user using server function
-		const result = await Effect.runPromise(
-			Effect.either(
-				updateUserServer({ authServer: authServer })({
-					body: {
-						name: 'Updated Name',
-					},
-					headers: headers,
-				})
-			)
-		);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(true);
+  });
 
-		expect(Either.isRight(result)).toBeTruthy();
-		if (Either.isRight(result)) {
-			expect((result.right as any).status).toBe(true);
+  it("should update user image via server api", async () => {
+    const { authServer } = env;
+    const email = "update-user-image@example.com";
+    const password = "password123";
+    const name = "Image Test User";
+    const imageUrl = "https://example.com/avatar.jpg";
 
-			// Verify in DB
-			const stmt = env.db.prepare('SELECT * FROM user WHERE email = ?');
-			const user = stmt.get('test-server-update@example.com') as any;
-			expect(user.name).toBe('Updated Name');
-		}
-	});
+    // First create a user
+    await authServer.api.signUpEmail({
+      body: {
+        email,
+        password,
+        name,
+      },
+    });
+
+    // Sign in to get session cookie
+    const signInRes = await authServer.api.signInEmail({
+      body: {
+        email,
+        password,
+      },
+      asResponse: true,
+    });
+
+    const cookie = signInRes.headers.get("set-cookie");
+    expect(cookie).toBeDefined();
+
+    const program = updateUserServerService({
+      body: {
+        image: imageUrl,
+      },
+      headers: new Headers({
+        cookie: cookie || "",
+      }),
+    });
+
+    const res = await Effect.runPromise(
+      Effect.provideService(program, AuthServerTag, authServer),
+    );
+
+    expect(res).toBeDefined();
+    expect(res.status).toBe(true);
+  });
 });

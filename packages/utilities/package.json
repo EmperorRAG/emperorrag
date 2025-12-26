@@ -1,61 +1,70 @@
 {
-	"name": "@emperorrag/utilities",
-	"version": "0.0.1",
-	"type": "module",
-	"main": "./dist/utilities.js",
-	"module": "./dist/utilities.js",
-	"types": "./dist/utilities.d.ts",
-	"exports": {
-		"./package.json": "./package.json",
-		".": {
-			"@emperorrag/source": "./src/utilities.ts",
-			"types": "./dist/utilities.d.ts",
-			"import": "./dist/utilities.js",
-			"default": "./dist/utilities.js"
-		},
-		"./helper-functions": {
-			"@emperorrag/source": "./src/lib/helper-functions/helperFunctions.ts",
-			"types": "./dist/lib/helper-functions/helperFunctions.d.ts",
-			"import": "./dist/lib/helper-functions/helperFunctions.js",
-			"default": "./dist/lib/helper-functions/helperFunctions.js"
-		},
-		"./types": {
-			"@emperorrag/source": "./src/lib/types/types.ts",
-			"types": "./dist/lib/types/types.d.ts",
-			"import": "./dist/lib/types/types.js",
-			"default": "./dist/lib/types/types.js"
-		},
-		"./object-utils": {
-			"@emperorrag/source": "./src/lib/helper-functions/object.utils.ts",
-			"types": "./dist/lib/helper-functions/object.utils.d.ts",
-			"import": "./dist/lib/helper-functions/object.utils.js",
-			"default": "./dist/lib/helper-functions/object.utils.js"
-		}
-	},
-	"files": [
-		"dist",
-		"!**/*.tsbuildinfo"
-	],
-	"nx": {
-		"name": "utilities",
-		"tags": [
-			"utilities",
-			"library",
-			"common",
-			"shared",
-			"packages",
-			"typescript"
-		]
-	},
-	"dependencies": {
-		"effect": "^3.18.4"
-	},
-	"devDependencies": {
-		"tslib": "^2.3.0",
-		"vite-plugin-dts": "^4.5.4",
-		"vite": "^7.0.0",
-		"vitest": "^3.0.0",
-		"@nx/vite": "21.6.5",
-		"nx": "21.6.5"
-	}
+  "name": "@emperorrag/utilities",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "clean:dist": "npx rimraf dist",
+    "clean:node_modules": "npx rimraf node_modules",
+    "clean:out-tsc": "npx rimraf out-tsc",
+    "clean:all": "npm run clean:dist && npm run clean:node_modules && npm run clean:out-tsc",
+    "tsc:list-files": "tsc --project tsconfig.json --listFiles",
+    "tsc:list-files:lib": "tsc --project tsconfig.lib.json --listFiles",
+    "tsc:list-files:spec": "tsc --project tsconfig.spec.json --listFiles"
+  },
+  "main": "./dist/utilities.js",
+  "module": "./dist/utilities.js",
+  "types": "./dist/utilities.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "@emperorrag/source": "./src/utilities.ts",
+      "types": "./dist/utilities.d.ts",
+      "import": "./dist/utilities.js",
+      "default": "./dist/utilities.js"
+    },
+    "./helper-functions": {
+      "@emperorrag/source": "./src/lib/helper-functions/helperFunctions.ts",
+      "types": "./dist/lib/helper-functions/helperFunctions.d.ts",
+      "import": "./dist/lib/helper-functions/helperFunctions.js",
+      "default": "./dist/lib/helper-functions/helperFunctions.js"
+    },
+    "./types": {
+      "@emperorrag/source": "./src/lib/types/types.ts",
+      "types": "./dist/lib/types/types.d.ts",
+      "import": "./dist/lib/types/types.js",
+      "default": "./dist/lib/types/types.js"
+    },
+    "./object-utils": {
+      "@emperorrag/source": "./src/lib/helper-functions/object.utils.ts",
+      "types": "./dist/lib/helper-functions/object.utils.d.ts",
+      "import": "./dist/lib/helper-functions/object.utils.js",
+      "default": "./dist/lib/helper-functions/object.utils.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!**/*.tsbuildinfo"
+  ],
+  "nx": {
+    "name": "utilities",
+    "tags": [
+      "utilities",
+      "library",
+      "common",
+      "shared",
+      "packages",
+      "typescript"
+    ]
+  },
+  "dependencies": {
+    "effect": "^3.18.4"
+  },
+  "devDependencies": {
+    "tslib": "^2.3.0",
+    "vite-plugin-dts": "^4.5.4",
+    "vite": "^7.0.0",
+    "vitest": "^3.0.0",
+    "@nx/vite": "21.6.5",
+    "nx": "21.6.5"
+  }
 }

@@ -1,1 +1,1 @@
-export * from './unlinkAccount.service';
+export * from "./unlinkAccount.service";

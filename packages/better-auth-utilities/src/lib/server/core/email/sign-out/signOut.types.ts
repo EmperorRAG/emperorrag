@@ -3,124 +3,136 @@
  * @description Type definitions for server-side sign-out operation.
  */
 
-import type { betterAuth } from 'better-auth';
-import type { AuthServerFor } from '../../../server.types';
-import type { EmailAuthServerError } from '../shared/email.error';
-import type { EmailAuthServerDeps } from '../shared/email.types';
-import type * as Effect from 'effect/Effect';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
- * Type helper to extract the signOut method type from auth.api.
+ * Type helper to extract the signOut endpoint type from an AuthServer.
  *
  * @pure
- * @description Extracts the signOut method from Better Auth server API.
- * Sign-out typically does not require body parameters.
- *
- * @template T - The Better Auth server type with all plugin augmentations
- */
-export type AuthServerSignOutFor<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = T extends infer S
-	? S extends { api: { signOut: infer M } }
-		? M
-		: never
-	: never;
-
-/**
- * Type helper to extract the headers parameter type for auth.api.signOut.
- *
- * @pure
- * @description Server sign-out requires Headers to access session cookies for termination.
- * Without headers, the server cannot identify which session to invalidate.
- *
- * @example
- * ```typescript
- * import { headers } from 'next/headers';
- *
- * const requestHeaders: SignOutServerHeaders = await headers();
- * ```
- */
-export type SignOutServerHeaders = Headers;
-
-/**
- * Type helper for the complete parameter structure accepted by signOut service.
- *
- * @pure
- * @description Unlike sign-in/sign-up, signOut does not require a body parameter.
- * Only headers are needed to identify the session cookie.
- *
- * @template T - The Better Auth server type with all plugin augmentations
- *
- * @remarks
- * - headers: Required Headers for accessing session cookies
- * - asResponse: Optional flag to return full Response object
- * - returnHeaders: Optional flag to include response headers in result
- *
- * @example
- * ```typescript
- * const params: SignOutServerParams<typeof authServer> = {
- *   headers: await headers()
- * };
- * ```
- */
-export type SignOutServerParams<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = {
-	headers: SignOutServerHeaders;
-	asResponse?: boolean;
-	returnHeaders?: boolean;
-};
-
-/**
- * Type helper to extract the result type from auth.api.signOut.
- *
- * @pure
- * @description Extracts the resolved Promise return type from the server API method.
- * Typically returns success confirmation or void.
+ * @description Returns the type of the `signOut` method from the server API. This method terminates
+ * user sessions by invalidating session cookies and clearing authentication state.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @example
  * ```typescript
- * type Result = SignOutServerResult<typeof authServer>;
- * // { success: true } | void
+ * type SignOutMethod = AuthServerApiSignOutPropsFor<typeof authServer>;
+ * // (args: { headers: Headers, ... }) => Promise<{ success: boolean }>
+ *
+ * // Usage in implementation
+ * const signOut: AuthServerApiSignOutPropsFor = authServer.api.signOut;
+ * await signOut({ headers: request.headers });
  * ```
  */
-export type SignOutServerResult<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = Awaited<
-	ReturnType<AuthServerSignOutFor<T>>
->;
+export type AuthServerApiSignOutPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "signOut" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["signOut"]
+  : never;
+
+/**
+ * Type helper to extract the input parameter type for auth.api.signOut.
+ *
+ * @pure
+ * @description Extracts the first parameter type from the signOut method.
+ * Requires headers for session cookie access; body is not needed for sign-out.
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @example
+ * ```typescript
+ * type Input = AuthServerApiSignOutParamsFor<typeof authServer>;
+ * // { headers: Headers, asResponse?: boolean, returnHeaders?: boolean }
+ * ```
+ */
+export type AuthServerApiSignOutParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiSignOutPropsFor<T>>[0];
+
+/**
+ * Type helper to extract the return type from auth.api.signOut.
+ *
+ * @pure
+ * @description Extracts the Promise return type from the server API method.
+ * Typically returns success confirmation or void upon session termination.
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @example
+ * ```typescript
+ * type Result = AuthServerApiSignOutResultFor<typeof authServer>;
+ * // Promise<{ success: boolean } | void>
+ * ```
+ */
+export type AuthServerApiSignOutResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiSignOutPropsFor<T>>;
 
 /**
  * Function signature for signOut server service.
  *
  * @pure
- * @description Curried function accepting dependencies first, then parameters, returning an Effect.
- * Follows the same pattern as other email operations for consistency.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerFor context.
+ * Dependencies are accessed through Effect's context layer rather than curried function arguments.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @remarks
- * **Currying Stages:**
- * 1. Accept dependencies (authServer) → Return function accepting params
- * 2. Accept params (headers) → Return Effect
- * 3. Effect executes lazily when run
+ * **Context-Based Dependency Injection:**
+ * - Dependencies (authServer) are provided via Effect's context layer (AuthServerFor)
+ * - Function accepts only the API parameters directly
+ * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
- * - EmailAuthServerApiError: API call failures (e.g., invalid session, expired token)
- * - Other EmailAuthServerError types from validation layers (if using controller)
+ * - AuthServerApiError: API call failures with HTTP status codes
+ * - Other AuthServerError types from validation layers (if using controller)
  *
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
- * import { signOutServer } from './signOut.service';
+ * import { signOutServerService } from './signOut.service';
  *
- * const program = Effect.gen(function* () {
- *   yield* signOutServer({ authServer })({
- *     headers: requestHeaders
- *   });
- *
- *   console.log('User signed out successfully');
+ * const program = signOutServerService({
+ *   headers: requestHeaders
  * });
  *
- * await Effect.runPromise(program);
+ * // Provide context and run
+ * await Effect.runPromise(
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
+ * );
  * ```
  */
-export interface signOutServerProps<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> {
-	(deps: EmailAuthServerDeps<T>): (params: SignOutServerParams<T>) => Effect.Effect<SignOutServerResult<T>, EmailAuthServerError>;
+export interface signOutPropsFor<T extends AuthServerFor = AuthServerFor> {
+  (
+    params: AuthServerApiSignOutParamsFor<T>,
+  ): Effect.Effect<
+    Awaited<AuthServerApiSignOutResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
+
+/**
+ * Type guard for validating AuthServerApiSignOutParamsFor.
+ *
+ * @pure
+ * @description Narrows an unknown value to AuthServerApiSignOutParamsFor<T> by checking
+ * the required structural properties. Use after Zod validation to provide type narrowing
+ * without casting.
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @param value - The value to check
+ * @returns True if value conforms to AuthServerApiSignOutParamsFor<T> structure
+ */
+export const isAuthServerApiSignOutParamsFor = (
+  value: unknown,
+): value is AuthServerApiSignOutParamsFor<T> => {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
+
+  if (!(obj.headers instanceof Headers)) return false;
+
+  return true;
+};

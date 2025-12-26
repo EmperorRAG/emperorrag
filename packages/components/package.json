@@ -2,6 +2,16 @@
   "name": "@emperorrag/components",
   "version": "0.0.1",
   "type": "module",
+  "scripts": {
+    "clean:dist": "npx rimraf dist",
+    "clean:node_modules": "npx rimraf node_modules",
+    "clean:out-tsc": "npx rimraf out-tsc",
+    "clean:all": "npm run clean:dist && npm run clean:node_modules && npm run clean:out-tsc",
+    "tsc:list-files": "tsc --project tsconfig.json --listFiles",
+    "tsc:list-files:lib": "tsc --project tsconfig.lib.json --listFiles",
+    "tsc:list-files:spec": "tsc --project tsconfig.spec.json --listFiles",
+    "tsc:list-files:storybook": "tsc --project tsconfig.storybook.json --listFiles"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",

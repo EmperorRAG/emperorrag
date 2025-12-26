@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Schema for list accounts input.
@@ -6,7 +6,7 @@ import { z } from 'zod';
  * @description Validates the input for the listAccounts operation.
  */
 export const listAccountsSchema = z.object({
-	headers: z.record(z.string(), z.string()).optional(),
+  headers: z.record(z.string(), z.string()).optional(),
 });
 
 export type ListAccountsSchema = z.infer<typeof listAccountsSchema>;

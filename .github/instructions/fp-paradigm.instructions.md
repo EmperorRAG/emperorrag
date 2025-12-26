@@ -1,6 +1,6 @@
 ---
-description: 'Functional Programming paradigm guidelines for TypeScript using Effect-TS'
-applyTo: '**/*.ts'
+description: "Functional Programming paradigm guidelines for TypeScript using Effect-TS"
+applyTo: "**/*.ts"
 ---
 
 # Functional Programming Paradigm with Effect-TS
@@ -58,12 +58,12 @@ All exported functions MUST be defined as nameless arrow functions and exported 
 ```typescript
 // ✅ CORRECT: Nameless arrow function with const export
 export const functionName = (param: Type): ReturnType => {
-	// implementation
+  // implementation
 };
 
 // ❌ AVOID: `function` declarations for exports
 export function functionName(param: Type): ReturnType {
-	// implementation
+  // implementation
 }
 ```
 
@@ -72,16 +72,17 @@ export function functionName(param: Type): ReturnType {
 Use `pipe` to create clear, sequential data pipelines.
 
 ```typescript
-import { pipe } from 'effect';
-import { map } from 'effect/Array';
-import { getAllFunctionValues, getFunctionLabelValue } from './function.utils';
+import { pipe } from "effect/Function";
+import * as Array from "effect/Array";
+import { getAllFunctionValues, getFunctionLabelValue } from "./function.utils";
 
 /**
  * @pure
  * @description Maps all function values to their string labels.
  * @composition Composes `getAllFunctionValues` with `map(getFunctionLabelValue)`.
  */
-export const getAllFunctionLabelValues = (): string[] => pipe(getAllFunctionValues(), map(getFunctionLabelValue));
+export const getAllFunctionLabelValues = (): string[] =>
+  pipe(getAllFunctionValues(), Array.map(getFunctionLabelValue));
 ```
 
 ### `Match` for Pattern Matching
@@ -89,25 +90,33 @@ export const getAllFunctionLabelValues = (): string[] => pipe(getAllFunctionValu
 Use `Match` to replace imperative conditional blocks.
 
 ```typescript
-import { Match } from 'effect';
-import { isNull, isBigInt, isSymbol, isString, isNumber, isBoolean, isUndefined } from './primitive.utils';
-import { getTypeOf } from './primitive.utils';
+import * as Match from "effect/Match";
+import {
+  isNull,
+  isBigInt,
+  isSymbol,
+  isString,
+  isNumber,
+  isBoolean,
+  isUndefined,
+} from "./primitive.utils";
+import { getTypeOf } from "./primitive.utils";
 
 /**
  * @pure
  * @description Gets the string label for a primitive value using pattern matching.
  */
 export const getPrimitiveLabelValue = (value: unknown): string =>
-	Match.value(value).pipe(
-		Match.when(isNull, () => 'null'),
-		Match.when(isBigInt, () => 'bigint'),
-		Match.when(isSymbol, () => 'symbol'),
-		Match.when(isString, () => 'string'),
-		Match.when(isNumber, () => 'number'),
-		Match.when(isBoolean, () => 'boolean'),
-		Match.when(isUndefined, () => 'undefined'),
-		Match.orElse(getTypeOf)
-	);
+  Match.value(value).pipe(
+    Match.when(isNull, () => "null"),
+    Match.when(isBigInt, () => "bigint"),
+    Match.when(isSymbol, () => "symbol"),
+    Match.when(isString, () => "string"),
+    Match.when(isNumber, () => "number"),
+    Match.when(isBoolean, () => "boolean"),
+    Match.when(isUndefined, () => "undefined"),
+    Match.orElse(getTypeOf),
+  );
 ```
 
 ### `Effect` for Side Effects
@@ -115,21 +124,22 @@ export const getPrimitiveLabelValue = (value: unknown): string =>
 Wrap impure operations in an `Effect` to make them declarative and composable.
 
 ```typescript
-import * as Effect from 'effect/Effect';
+import * as Effect from "effect/Effect";
 
 // Impure function
 const log = (message: string): void => {
-	console.log(message);
+  console.log(message);
 };
 
 // Wrapped in an Effect
-const logEffect = (message: string): Effect.Effect<void> => Effect.sync(() => log(message));
+const logEffect = (message: string): Effect.Effect<void> =>
+  Effect.sync(() => log(message));
 
 // Usage in a pipeline
 const program = pipe(
-	logEffect('Starting...'),
-	Effect.flatMap(() => Effect.succeed(42)),
-	Effect.flatMap((n) => logEffect(`The answer is ${n}.`))
+  logEffect("Starting..."),
+  Effect.flatMap(() => Effect.succeed(42)),
+  Effect.flatMap((n) => logEffect(`The answer is ${n}.`)),
 );
 ```
 
@@ -138,19 +148,19 @@ const program = pipe(
 Use `Option` to safely handle potentially missing values.
 
 ```typescript
-import { Option } from 'effect';
+import * as Option from "effect/Option";
 
 const findUser = (id: number): Option.Option<{ id: number; name: string }> => {
-	if (id === 1) {
-		return Option.some({ id: 1, name: 'Alice' });
-	}
-	return Option.none();
+  if (id === 1) {
+    return Option.some({ id: 1, name: "Alice" });
+  }
+  return Option.none();
 };
 
 const userName = pipe(
-	findUser(1),
-	Option.map((user) => user.name),
-	Option.getOrElse(() => 'User not found')
+  findUser(1),
+  Option.map((user) => user.name),
+  Option.getOrElse(() => "User not found"),
 );
 // => 'Alice'
 ```
@@ -160,17 +170,17 @@ const userName = pipe(
 Use `Either` for synchronous functions that can fail.
 
 ```typescript
-import { Either } from 'effect';
+import * as Either from "effect/Either";
 
 const parseNumber = (s: string): Either.Either<Error, number> => {
-	const n = parseFloat(s);
-	return isNaN(n) ? Either.left(new Error('Invalid number')) : Either.right(n);
+  const n = parseFloat(s);
+  return isNaN(n) ? Either.left(new Error("Invalid number")) : Either.right(n);
 };
 
 const result = pipe(
-	parseNumber('123'),
-	Either.map((n) => n * 2),
-	Either.getOrElse((e) => e.message)
+  parseNumber("123"),
+  Either.map((n) => n * 2),
+  Either.getOrElse((e) => e.message),
 );
 // => 246
 ```
@@ -180,17 +190,17 @@ const result = pipe(
 Use `Schema` to parse and validate data structures.
 
 ```typescript
-import { Schema } from '@effect/schema';
+import { Schema } from "@effect/schema";
 
 const User = Schema.struct({
-	id: Schema.number,
-	name: Schema.string,
+  id: Schema.number,
+  name: Schema.string,
 });
 
-const result = Schema.decode(User)({ id: 1, name: 'Bob' });
+const result = Schema.decode(User)({ id: 1, name: "Bob" });
 // => Effect.succeed({ id: 1, name: 'Bob' })
 
-const errorResult = Schema.decode(User)({ id: '1', name: 'Bob' });
+const errorResult = Schema.decode(User)({ id: "1", name: "Bob" });
 // => Effect.fail(...)
 ```
 
@@ -252,8 +262,8 @@ You MUST use this JSDoc template for functions returning an `Effect`.
 ```typescript
 // BAD: Mutates the input array.
 const addItem = (arr: T[], item: T) => {
-	arr.push(item);
-	return arr;
+  arr.push(item);
+  return arr;
 };
 
 // GOOD: Returns a new array, preserving immutability.
@@ -265,22 +275,22 @@ const addItem = <T>(arr: T[], item: T): T[] => [...arr, item];
 ```typescript
 // BAD: Imperative if-else pyramid.
 const getLabel = (value: unknown): string => {
-	if (isNull(value)) {
-		return 'null';
-	} else if (isString(value)) {
-		return 'string';
-	} else {
-		return 'unknown';
-	}
+  if (isNull(value)) {
+    return "null";
+  } else if (isString(value)) {
+    return "string";
+  } else {
+    return "unknown";
+  }
 };
 
 // GOOD: Declarative pattern matching with `Match`.
 const getLabel = (value: unknown): string =>
-	Match.value(value).pipe(
-		Match.when(isNull, () => 'null'),
-		Match.when(isString, () => 'string'),
-		Match.orElse(() => 'unknown')
-	);
+  Match.value(value).pipe(
+    Match.when(isNull, () => "null"),
+    Match.when(isString, () => "string"),
+    Match.orElse(() => "unknown"),
+  );
 ```
 
 ### ❌ Imperative Loops
@@ -289,11 +299,11 @@ const getLabel = (value: unknown): string =>
 // BAD: Imperative `for` loop.
 const labels = [];
 for (let i = 0; i < values.length; i++) {
-	labels.push(getLabel(values[i]));
+  labels.push(getLabel(values[i]));
 }
 
 // GOOD: Declarative `map` operation, preferably within a `pipe`.
-import { map } from 'effect/Array';
+import { map } from "effect/Array";
 const labels = pipe(values, map(getLabel));
 ```
 
@@ -302,13 +312,13 @@ const labels = pipe(values, map(getLabel));
 ```typescript
 // BAD: Returning null for missing values.
 const findUser = (id: number): User | null => {
-	// ...
+  // ...
 };
 
 // GOOD: Returning an Option.
-import { Option } from 'effect';
+import * as Option from "effect/Option";
 const findUser = (id: number): Option.Option<User> => {
-	// ...
+  // ...
 };
 ```
 
@@ -317,16 +327,16 @@ const findUser = (id: number): Option.Option<User> => {
 ```typescript
 // BAD: Throwing an error.
 const parse = (json: string): MyType => {
-	if (!isValid(json)) {
-		throw new Error('Invalid JSON');
-	}
-	return JSON.parse(json);
+  if (!isValid(json)) {
+    throw new Error("Invalid JSON");
+  }
+  return JSON.parse(json);
 };
 
 // GOOD: Returning an Either or Effect.
-import { Either } from 'effect';
+import * as Either from "effect/Either";
 const parse = (json: string): Either.Either<Error, MyType> => {
-	// ...
+  // ...
 };
 ```
 

@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Zod schema for validating UpdateUserInput payloads.
@@ -8,12 +8,12 @@ import { z } from 'zod';
  * This schema provides a baseline validation.
  */
 export const updateUserSchema = z.object({
-	name: z.string().optional(),
-	image: z.string().url().optional(),
-	fetchOptions: z
-		.object({
-			onSuccess: z.function().optional(),
-			onError: z.function().optional(),
-		})
-		.optional(),
+  name: z.string().optional(),
+  image: z.string().url().optional(),
+  fetchOptions: z
+    .object({
+      onSuccess: z.function().optional(),
+      onError: z.function().optional(),
+    })
+    .optional(),
 });

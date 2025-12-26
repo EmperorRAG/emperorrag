@@ -26,6 +26,7 @@
     "redhat.vscode-xml",
     "vitest.explorer",
     "github.vscode-github-actions",
-    "jordaneckowitz.indexify"
+    "jordaneckowitz.indexify",
+    "dbaeumer.vscode-eslint"
   ]
 }

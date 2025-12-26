@@ -3,7 +3,12 @@
  * @description Barrel export for server-side reset password module.
  */
 
-export { resetPasswordServer } from './resetPassword.service';
-
-// Controller exports (when implemented)
-// export { resetPasswordServerController } from './resetPassword.controller';
+export { resetPasswordServerController } from "./resetPassword.controller";
+export { resetPasswordServerService } from "./resetPassword.service";
+export type {
+  AuthServerApiResetPasswordParamsFor,
+  AuthServerApiResetPasswordPropsFor,
+  AuthServerApiResetPasswordResultFor,
+  resetPasswordPropsFor,
+} from "./resetPassword.types";
+export { isAuthServerApiResetPasswordParamsFor } from "./resetPassword.types";

@@ -1,8 +1,8 @@
-import type { createAuthClient } from 'better-auth/client';
-import type { AuthClientFor } from '../../../client.types';
-import type { EmailAuthError } from '../shared/email.error';
-import type { EmailAuthClientDeps } from '../shared/email.types';
-import type * as Effect from 'effect/Effect';
+import type { createAuthClient } from "better-auth/client";
+import type * as Effect from "effect/Effect";
+import type { AuthClientFor } from "../../../client.types";
+import type { EmailAuthError } from "../shared/email.error";
+import type { EmailAuthClientDeps } from "../shared/email.types";
 
 /**
  * Type helper to extract the input parameter type for sendVerificationEmail.
@@ -16,8 +16,11 @@ import type * as Effect from 'effect/Effect';
  * // { email: string, callbackURL?: string, fetchOptions?: {...} }
  * ```
  */
-export type SendVerificationEmailInput<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> =
-	Parameters<T['sendVerificationEmail']>[0];
+export type SendVerificationEmailInput<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
+> = Parameters<T["sendVerificationEmail"]>[0];
 
 /**
  * Type helper to extract the result type from sendVerificationEmail.
@@ -31,8 +34,11 @@ export type SendVerificationEmailInput<T extends AuthClientFor<ReturnType<typeof
  * // Promise<{ success: boolean, message?: string }>
  * ```
  */
-export type SendVerificationEmailResult<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> =
-	ReturnType<T['sendVerificationEmail']>;
+export type SendVerificationEmailResult<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
+> = ReturnType<T["sendVerificationEmail"]>;
 
 /**
  * Function signature for sendVerificationEmail service.
@@ -49,6 +55,14 @@ export type SendVerificationEmailResult<T extends AuthClientFor<ReturnType<typeo
  *   });
  * ```
  */
-export interface sendVerificationEmailProps<T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<ReturnType<typeof createAuthClient>>> {
-	(deps: EmailAuthClientDeps<T>): (input: SendVerificationEmailInput<T>) => Effect.Effect<Awaited<SendVerificationEmailResult<T>>, EmailAuthError>;
+export interface sendVerificationEmailProps<
+  T extends AuthClientFor<ReturnType<typeof createAuthClient>> = AuthClientFor<
+    ReturnType<typeof createAuthClient>
+  >,
+> {
+  (
+    deps: EmailAuthClientDeps<T>,
+  ): (
+    input: SendVerificationEmailInput<T>,
+  ) => Effect.Effect<Awaited<SendVerificationEmailResult<T>>, EmailAuthError>;
 }

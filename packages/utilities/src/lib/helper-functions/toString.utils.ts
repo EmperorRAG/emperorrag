@@ -1,8 +1,9 @@
-import { pipe, Match } from 'effect';
-import { map } from 'effect/Array';
-import { isValueArrayOfStringable } from '../types/array/array.types.js';
-import { isValueObject } from '../types/object/object.types.js';
-import type { Stringable } from '../types/stringable/stringable.types.js';
+import { pipe } from "effect/Function";
+import * as Match from "effect/Match";
+import { map } from "effect/Array";
+import { isValueArrayOfStringable } from "../types/array/array.types.js";
+import { isValueObject } from "../types/object/object.types.js";
+import type { Stringable } from "../types/stringable/stringable.types.js";
 
 /**
  * Converts a single Stringable value to its string representation using pattern matching.
@@ -23,18 +24,18 @@ import type { Stringable } from '../types/stringable/stringable.types.js';
  * - Ensures all other types are stringified safely.
  */
 const stringifyValue = (value: Stringable): string =>
-	pipe(
-		Match.value(value),
-		Match.when(
-			(v: Stringable): v is object =>
-				isValueObject(v) &&
-				typeof v.toString === 'function' &&
-				v.toString !== Object.prototype.toString,
-			(v) => String(v)
-		),
-		Match.when(isValueObject, (v) => JSON.stringify(v)),
-		Match.orElse((v) => String(v))
-	);
+  pipe(
+    Match.value(value),
+    Match.when(
+      (v: Stringable): v is object =>
+        isValueObject(v) &&
+        typeof v.toString === "function" &&
+        v.toString !== Object.prototype.toString,
+      (v) => String(v),
+    ),
+    Match.when(isValueObject, (v) => JSON.stringify(v)),
+    Match.orElse((v) => String(v)),
+  );
 
 /**
  * Converts an array of Stringable values to an array of strings.
@@ -65,10 +66,14 @@ export function toString(value: readonly Stringable[]): string[];
  * toString(42); // => "42"
  */
 export function toString(value: Stringable): string;
-export function toString(value: Stringable | readonly Stringable[]): string | string[] {
-	return pipe(
-		Match.value(value),
-		Match.when(isValueArrayOfStringable, (arr) => pipe(arr, map(stringifyValue))),
-		Match.orElse(stringifyValue)
-	);
+export function toString(
+  value: Stringable | readonly Stringable[],
+): string | string[] {
+  return pipe(
+    Match.value(value),
+    Match.when(isValueArrayOfStringable, (arr) =>
+      pipe(arr, map(stringifyValue)),
+    ),
+    Match.orElse(stringifyValue),
+  );
 }

@@ -1,8 +1,10 @@
-import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
-import { PrismaClient } from '../../../better-auth-db/prisma/generated/client/index.js';
+import { Injectable, OnModuleDestroy, OnModuleInit } from "@nestjs/common";
 
 @Injectable()
-export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
+export class PrismaService
+  extends PrismaClient
+  implements OnModuleInit, OnModuleDestroy
+{
   async onModuleInit() {
     await this.$connect();
   }

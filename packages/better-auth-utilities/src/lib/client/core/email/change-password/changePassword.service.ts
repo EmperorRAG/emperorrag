@@ -1,6 +1,6 @@
-import * as Effect from 'effect/Effect';
-import type { changePasswordProps } from './changePassword.types';
-import { EmailAuthApiError } from '../shared/email.error';
+import * as Effect from "effect/Effect";
+import { EmailAuthApiError } from "../shared/email.error";
+import type { changePasswordProps } from "./changePassword.types";
 
 /**
  * Change the password for the currently authenticated user using Better Auth.
@@ -36,14 +36,16 @@ import { EmailAuthApiError } from '../shared/email.error';
  * @returns Curried function accepting change password input and returning an Effect
  */
 export const changePasswordClient: changePasswordProps = (deps) => (input) => {
-	const { authClient } = deps;
+  const { authClient } = deps;
 
-	return Effect.tryPromise({
-		try: () => authClient.changePassword(input),
-		catch: (error) => {
-			const message = error instanceof Error ? error.message : 'Change password failed';
-			const status = error && typeof error === 'object' && 'status' in error ? (error.status as number) : undefined;
-			return new EmailAuthApiError(message, status, error);
-		},
-	});
+  return Effect.tryPromise({
+    try: () => authClient.changePassword(input),
+    catch: (error) => {
+      const message = error instanceof Error ? error.message : "Change password failed";
+      const status = error && typeof error === "object" && "status" in error
+        ? (error.status as number)
+        : undefined;
+      return new EmailAuthApiError(message, status, error);
+    },
+  });
 };

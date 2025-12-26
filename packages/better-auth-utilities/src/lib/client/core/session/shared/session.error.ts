@@ -5,14 +5,14 @@
  * the contract. This typically occurs when the auth client is missing.
  */
 export class SessionAuthDependenciesError extends Error {
-	readonly _tag = 'SessionAuthDependenciesError';
-	override readonly cause?: unknown;
+  readonly _tag = "SessionAuthDependenciesError";
+  override readonly cause?: unknown;
 
-	constructor(message: string, cause?: unknown) {
-		super(message);
-		this.name = 'SessionAuthDependenciesError';
-		this.cause = cause;
-	}
+  constructor(message: string, cause?: unknown) {
+    super(message);
+    this.name = "SessionAuthDependenciesError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -22,14 +22,14 @@ export class SessionAuthDependenciesError extends Error {
  * expected schema for the session operation.
  */
 export class SessionAuthInputError extends Error {
-	readonly _tag = 'SessionAuthInputError';
-	override readonly cause?: unknown;
+  readonly _tag = "SessionAuthInputError";
+  override readonly cause?: unknown;
 
-	constructor(message: string, cause?: unknown) {
-		super(message);
-		this.name = 'SessionAuthInputError';
-		this.cause = cause;
-	}
+  constructor(message: string, cause?: unknown) {
+    super(message);
+    this.name = "SessionAuthInputError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -39,18 +39,18 @@ export class SessionAuthInputError extends Error {
  * The `status` property contains the HTTP status code when available.
  */
 export class SessionAuthApiError extends Error {
-	readonly _tag = 'SessionAuthApiError';
-	override readonly cause?: unknown;
+  readonly _tag = "SessionAuthApiError";
+  override readonly cause?: unknown;
 
-	constructor(
-		message: string,
-		public readonly status?: number,
-		cause?: unknown
-	) {
-		super(message);
-		this.name = 'SessionAuthApiError';
-		this.cause = cause;
-	}
+  constructor(
+    message: string,
+    public readonly status?: number,
+    cause?: unknown,
+  ) {
+    super(message);
+    this.name = "SessionAuthApiError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -60,14 +60,14 @@ export class SessionAuthApiError extends Error {
  * expected data fields.
  */
 export class SessionAuthDataMissingError extends Error {
-	readonly _tag = 'SessionAuthDataMissingError';
-	override readonly cause?: unknown;
+  readonly _tag = "SessionAuthDataMissingError";
+  override readonly cause?: unknown;
 
-	constructor(message: string, cause?: unknown) {
-		super(message);
-		this.name = 'SessionAuthDataMissingError';
-		this.cause = cause;
-	}
+  constructor(message: string, cause?: unknown) {
+    super(message);
+    this.name = "SessionAuthDataMissingError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -76,4 +76,8 @@ export class SessionAuthDataMissingError extends Error {
  * @description Discriminated union of all possible error types that can occur
  * during session operations.
  */
-export type SessionAuthError = SessionAuthDependenciesError | SessionAuthInputError | SessionAuthApiError | SessionAuthDataMissingError;
+export type SessionAuthError =
+  | SessionAuthDependenciesError
+  | SessionAuthInputError
+  | SessionAuthApiError
+  | SessionAuthDataMissingError;

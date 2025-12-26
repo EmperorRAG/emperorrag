@@ -1,171 +1,180 @@
 {
-	"name": "@emperorrag/better-auth-nest-js-microservice",
-	"version": "0.0.1",
-	"private": false,
-	"nx": {
-		"name": "better-auth-nest-js-microservice",
-		"targets": {
-			"build": {
-				"executor": "nx:run-commands",
-				"options": {
-					"command": "webpack-cli build",
-					"args": [
-						"--node-env=production"
-					],
-					"cwd": "apps/better-auth-nest-js-microservice"
-				},
-				"configurations": {
-					"development": {
-						"args": [
-							"--node-env=development"
-						]
-					}
-				}
-			},
-			"admin-on-startup": {
-				"executor": "nx:run-commands",
-				"cache": false,
-				"options": {
-					"command": "pnpm exec ts-node --project apps/better-auth-nest-js-microservice/tsconfig.app.json --esm apps/better-auth-nest-js-microservice/src/scripts/on-startup.ts",
-					"cwd": "."
-				}
-			},
-			"prune-lockfile": {
-				"dependsOn": [
-					"build"
-				],
-				"cache": true,
-				"executor": "@nx/js:prune-lockfile",
-				"outputs": [
-					"{workspaceRoot}/apps/better-auth-nest-js-microservice/dist/package.json",
-					"{workspaceRoot}/apps/better-auth-nest-js-microservice/dist/pnpm-lock.yaml"
-				],
-				"options": {
-					"buildTarget": "build"
-				}
-			},
-			"copy-workspace-modules": {
-				"dependsOn": [
-					"build"
-				],
-				"cache": true,
-				"outputs": [
-					"{workspaceRoot}/apps/better-auth-nest-js-microservice/dist/workspace_modules"
-				],
-				"executor": "@nx/js:copy-workspace-modules",
-				"options": {
-					"buildTarget": "build"
-				}
-			},
-			"prune": {
-				"dependsOn": [
-					"prune-lockfile",
-					"copy-workspace-modules"
-				],
-				"executor": "nx:noop"
-			},
-			"serve": {
-				"continuous": true,
-				"executor": "@nx/js:node",
-				"defaultConfiguration": "development",
-				"dependsOn": [
-					"build",
-					"admin-on-startup"
-				],
-				"options": {
-					"buildTarget": "better-auth-nest-js-microservice:build",
-					"runBuildTargetDependencies": false
-				},
-				"configurations": {
-					"development": {
-						"buildTarget": "better-auth-nest-js-microservice:build:development"
-					},
-					"production": {
-						"buildTarget": "better-auth-nest-js-microservice:build:production"
-					}
-				}
-			},
-			"prisma-generate": {
-				"executor": "nx:run-commands",
-				"cache": false,
-				"options": {
-					"command": "pnpm exec prisma generate --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
-					"cwd": "."
-				}
-			},
-			"prisma-migrate": {
-				"executor": "nx:run-commands",
-				"cache": false,
-				"options": {
-					"command": "pnpm exec prisma migrate dev --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
-					"cwd": "."
-				}
-			},
-			"prisma-migrate-deploy": {
-				"executor": "nx:run-commands",
-				"cache": false,
-				"options": {
-					"command": "pnpm exec prisma migrate deploy --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
-					"cwd": "."
-				}
-			},
-			"prisma-studio": {
-				"executor": "nx:run-commands",
-				"cache": false,
-				"options": {
-					"command": "pnpm exec prisma studio --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
-					"cwd": "."
-				}
-			},
-			"prisma-push": {
-				"executor": "nx:run-commands",
-				"cache": false,
-				"options": {
-					"command": "pnpm exec prisma db push --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
-					"cwd": "."
-				}
-			},
-			"prisma-reset": {
-				"executor": "nx:run-commands",
-				"cache": false,
-				"options": {
-					"command": "pnpm exec prisma migrate reset --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma --force",
-					"cwd": "."
-				}
-			},
-			"prisma-validate": {
-				"executor": "nx:run-commands",
-				"cache": false,
-				"options": {
-					"command": "pnpm exec prisma validate --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
-					"cwd": "."
-				}
-			},
-			"test": {
-				"options": {
-					"passWithNoTests": true
-				}
-			}
-		},
-		"tags": [
-			"app better-auth nest-js microservice"
-		]
-	},
-	"dependencies": {
-		"@nestjs/common": "^11.0.0",
-		"@nestjs/core": "^11.0.0",
-		"@nestjs/platform-express": "^11.0.0",
-		"reflect-metadata": "^0.2.2",
-		"rxjs": "^7.8.0",
-		"prisma": "^6.17.1",
-		"effect": "^3.18.4",
-		"@thallesp/nestjs-better-auth": "^2.1.0",
-		"better-auth": "^1.3.27",
-		"class-transformer": "^0.5.1",
-		"class-validator": "^0.14.2"
-	},
-	"devDependencies": {
-		"@nestjs/testing": "^11.0.0",
-		"tslib": "^2.3.0"
-	}
+  "dependencies": {
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/platform-express": "^11.0.0",
+    "@thallesp/nestjs-better-auth": "^2.1.0",
+    "better-auth": "^1.3.27",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "effect": "^3.18.4",
+    "prisma": "^6.17.1",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.0"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "^11.0.0",
+    "tslib": "^2.3.0"
+  },
+  "name": "@emperorrag/better-auth-nest-js-microservice",
+  "nx": {
+    "name": "better-auth-nest-js-microservice",
+    "tags": [
+      "app better-auth nest-js microservice"
+    ],
+    "targets": {
+      "admin-on-startup": {
+        "cache": false,
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "pnpm exec ts-node --project apps/better-auth-nest-js-microservice/tsconfig.app.json --esm apps/better-auth-nest-js-microservice/src/scripts/on-startup.ts",
+          "cwd": "."
+        }
+      },
+      "build": {
+        "configurations": {
+          "development": {
+            "args": [
+              "--node-env=development"
+            ]
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "args": [
+            "--node-env=production"
+          ],
+          "command": "webpack-cli build",
+          "cwd": "apps/better-auth-nest-js-microservice"
+        }
+      },
+      "copy-workspace-modules": {
+        "cache": true,
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "@nx/js:copy-workspace-modules",
+        "options": {
+          "buildTarget": "build"
+        },
+        "outputs": [
+          "{workspaceRoot}/apps/better-auth-nest-js-microservice/dist/workspace_modules"
+        ]
+      },
+      "prisma-generate": {
+        "cache": false,
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "pnpm exec prisma generate --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
+          "cwd": "."
+        }
+      },
+      "prisma-migrate": {
+        "cache": false,
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "pnpm exec prisma migrate dev --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
+          "cwd": "."
+        }
+      },
+      "prisma-migrate-deploy": {
+        "cache": false,
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "pnpm exec prisma migrate deploy --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
+          "cwd": "."
+        }
+      },
+      "prisma-push": {
+        "cache": false,
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "pnpm exec prisma db push --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
+          "cwd": "."
+        }
+      },
+      "prisma-reset": {
+        "cache": false,
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "pnpm exec prisma migrate reset --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma --force",
+          "cwd": "."
+        }
+      },
+      "prisma-studio": {
+        "cache": false,
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "pnpm exec prisma studio --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
+          "cwd": "."
+        }
+      },
+      "prisma-validate": {
+        "cache": false,
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "pnpm exec prisma validate --schema=apps/better-auth-nest-js-microservice/better-auth-db/prisma/schema.prisma",
+          "cwd": "."
+        }
+      },
+      "prune": {
+        "dependsOn": [
+          "prune-lockfile",
+          "copy-workspace-modules"
+        ],
+        "executor": "nx:noop"
+      },
+      "prune-lockfile": {
+        "cache": true,
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "@nx/js:prune-lockfile",
+        "options": {
+          "buildTarget": "build"
+        },
+        "outputs": [
+          "{workspaceRoot}/apps/better-auth-nest-js-microservice/dist/package.json",
+          "{workspaceRoot}/apps/better-auth-nest-js-microservice/dist/pnpm-lock.yaml"
+        ]
+      },
+      "serve": {
+        "configurations": {
+          "development": {
+            "buildTarget": "better-auth-nest-js-microservice:build:development"
+          },
+          "production": {
+            "buildTarget": "better-auth-nest-js-microservice:build:production"
+          }
+        },
+        "continuous": true,
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build",
+          "admin-on-startup"
+        ],
+        "executor": "@nx/js:node",
+        "options": {
+          "buildTarget": "better-auth-nest-js-microservice:build",
+          "runBuildTargetDependencies": false
+        }
+      },
+      "test": {
+        "options": {
+          "passWithNoTests": true
+        }
+      }
+    }
+  },
+  "private": false,
+  "scripts": {
+    "clean:dist": "npx rimraf dist",
+    "clean:node_modules": "npx rimraf node_modules",
+    "clean:out-tsc": "npx rimraf out-tsc",
+    "clean:all": "npm run clean:dist && npm run clean:node_modules && npm run clean:out-tsc",
+    "tsc:list-files": "tsc --project tsconfig.json --listFiles",
+    "tsc:list-files:app": "tsc --project tsconfig.app.json --listFiles",
+    "tsc:list-files:spec": "tsc --project tsconfig.spec.json --listFiles"
+  },
+  "version": "0.0.1"
 }

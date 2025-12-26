@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Zod schema for validating SignInEmailInput payloads.
@@ -20,14 +20,14 @@ import { z } from 'zod';
  * ```
  */
 export const signInEmailInputSchema = z.object({
-	email: z.string().email(),
-	password: z.string().min(1),
-	rememberMe: z.boolean().optional(),
-	callbackURL: z.string().url().optional(),
-	fetchOptions: z
-		.object({
-			onSuccess: z.function().optional(),
-			onError: z.function().optional(),
-		})
-		.optional(),
+  email: z.string().email(),
+  password: z.string().min(1),
+  rememberMe: z.boolean().optional(),
+  callbackURL: z.string().url().optional(),
+  fetchOptions: z
+    .object({
+      onSuccess: z.function().optional(),
+      onError: z.function().optional(),
+    })
+    .optional(),
 });

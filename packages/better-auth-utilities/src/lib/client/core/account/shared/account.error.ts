@@ -5,14 +5,14 @@
  * the contract. This typically occurs when the auth client is missing.
  */
 export class AccountAuthDependenciesError extends Error {
-	readonly _tag = 'AccountAuthDependenciesError';
-	override readonly cause?: unknown;
+  readonly _tag = "AccountAuthDependenciesError";
+  override readonly cause?: unknown;
 
-	constructor(message: string, cause?: unknown) {
-		super(message);
-		this.name = 'AccountAuthDependenciesError';
-		this.cause = cause;
-	}
+  constructor(message: string, cause?: unknown) {
+    super(message);
+    this.name = "AccountAuthDependenciesError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -22,14 +22,14 @@ export class AccountAuthDependenciesError extends Error {
  * expected schema for the account operation.
  */
 export class AccountAuthInputError extends Error {
-	readonly _tag = 'AccountAuthInputError';
-	override readonly cause?: unknown;
+  readonly _tag = "AccountAuthInputError";
+  override readonly cause?: unknown;
 
-	constructor(message: string, cause?: unknown) {
-		super(message);
-		this.name = 'AccountAuthInputError';
-		this.cause = cause;
-	}
+  constructor(message: string, cause?: unknown) {
+    super(message);
+    this.name = "AccountAuthInputError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -39,18 +39,18 @@ export class AccountAuthInputError extends Error {
  * The `status` property contains the HTTP status code when available.
  */
 export class AccountAuthApiError extends Error {
-	readonly _tag = 'AccountAuthApiError';
-	override readonly cause?: unknown;
+  readonly _tag = "AccountAuthApiError";
+  override readonly cause?: unknown;
 
-	constructor(
-		message: string,
-		public readonly status?: number,
-		cause?: unknown
-	) {
-		super(message);
-		this.name = 'AccountAuthApiError';
-		this.cause = cause;
-	}
+  constructor(
+    message: string,
+    public readonly status?: number,
+    cause?: unknown,
+  ) {
+    super(message);
+    this.name = "AccountAuthApiError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -60,14 +60,14 @@ export class AccountAuthApiError extends Error {
  * expected data fields.
  */
 export class AccountAuthDataMissingError extends Error {
-	readonly _tag = 'AccountAuthDataMissingError';
-	override readonly cause?: unknown;
+  readonly _tag = "AccountAuthDataMissingError";
+  override readonly cause?: unknown;
 
-	constructor(message: string, cause?: unknown) {
-		super(message);
-		this.name = 'AccountAuthDataMissingError';
-		this.cause = cause;
-	}
+  constructor(message: string, cause?: unknown) {
+    super(message);
+    this.name = "AccountAuthDataMissingError";
+    this.cause = cause;
+  }
 }
 
 /**
@@ -76,4 +76,8 @@ export class AccountAuthDataMissingError extends Error {
  * @description Discriminated union of all possible error types that can occur
  * during account operations.
  */
-export type AccountAuthError = AccountAuthDependenciesError | AccountAuthInputError | AccountAuthApiError | AccountAuthDataMissingError;
+export type AccountAuthError =
+  | AccountAuthDependenciesError
+  | AccountAuthInputError
+  | AccountAuthApiError
+  | AccountAuthDataMissingError;

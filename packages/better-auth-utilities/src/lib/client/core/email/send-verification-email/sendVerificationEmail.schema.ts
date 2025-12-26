@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Zod schema for validating SendVerificationEmailInput payloads.
@@ -19,12 +19,12 @@ import { z } from 'zod';
  * ```
  */
 export const sendVerificationEmailInputSchema = z.object({
-	email: z.string().email('Invalid email format'),
-	callbackURL: z.string().url('Invalid callback URL').optional(),
-	fetchOptions: z
-		.object({
-			onSuccess: z.function().optional(),
-			onError: z.function().optional(),
-		})
-		.optional(),
+  email: z.string().email("Invalid email format"),
+  callbackURL: z.string().url("Invalid callback URL").optional(),
+  fetchOptions: z
+    .object({
+      onSuccess: z.function().optional(),
+      onError: z.function().optional(),
+    })
+    .optional(),
 });

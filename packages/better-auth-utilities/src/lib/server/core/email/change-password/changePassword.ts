@@ -3,7 +3,12 @@
  * @description Barrel export for server-side change password module.
  */
 
-export { changePasswordServer } from './changePassword.service';
-
-// Controller exports (when implemented)
-// export { changePasswordServerController } from './changePassword.controller';
+export { changePasswordServerController } from "./changePassword.controller";
+export { changePasswordServerService } from "./changePassword.service";
+export type {
+  AuthServerApiChangePasswordParamsFor,
+  AuthServerApiChangePasswordPropsFor,
+  AuthServerApiChangePasswordResultFor,
+  changePasswordPropsFor,
+} from "./changePassword.types";
+export { isAuthServerApiChangePasswordParamsFor } from "./changePassword.types";

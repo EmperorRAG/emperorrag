@@ -3,146 +3,147 @@
  * @description Type definitions for server-side send verification email operation.
  */
 
-import type { betterAuth } from 'better-auth';
-import type { AuthServerFor } from '../../../server.types';
-import type { EmailAuthServerError } from '../shared/email.error';
-import type { EmailAuthServerDeps } from '../shared/email.types';
-import type * as Effect from 'effect/Effect';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
- * Type helper to extract the sendVerificationEmail method type from auth.api.
+ * Type helper to extract the sendVerificationEmail endpoint type from an AuthServer.
  *
  * @pure
- * @description Extracts the sendVerificationEmail method from Better Auth server API.
- * Send verification email triggers email confirmation workflow.
- *
- * @template T - The Better Auth server type with all plugin augmentations
- */
-export type AuthServerSendVerificationEmailFor<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> =
-	T extends infer S ? (S extends { api: { sendVerificationEmail: infer M } } ? M : never) : never;
-
-/**
- * Type helper to extract the body parameter type for auth.api.sendVerificationEmail.
- *
- * @pure
- * @description Extracts the 'body' property type from the first parameter of sendVerificationEmail.
- * Includes email address and optional callback URL.
+ * @description Returns the type of the `sendVerificationEmail` method from the server API. This method
+ * triggers email verification workflow for existing users, sending a verification email with a secure token.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @example
  * ```typescript
- * type Body = SendVerificationEmailServerInput<typeof authServer>;
- * // { email: string, callbackURL?: string }
+ * type SendVerificationMethod = AuthServerApiSendVerificationEmailPropsFor<typeof authServer>;
+ * // (args: { body: { email: string, callbackURL?: string }, headers?: Headers, ... }) => Promise<...>
+ *
+ * // Usage in implementation
+ * const sendVerification: AuthServerApiSendVerificationEmailPropsFor = authServer.api.sendVerificationEmail;
+ * const result = await sendVerification({
+ *   body: { email: 'user@example.com', callbackURL: 'https://example.com/verify' },
+ *   headers: request.headers
+ * });
  * ```
  */
-export type SendVerificationEmailServerInput<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> =
-	Parameters<AuthServerSendVerificationEmailFor<T>>[0] extends { body: infer B } ? B : never;
+export type AuthServerApiSendVerificationEmailPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "sendVerificationEmail" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["sendVerificationEmail"]
+  : never;
 
 /**
- * Type helper to extract the headers parameter type for auth.api.sendVerificationEmail.
+ * Type helper to extract the input parameter type for auth.api.sendVerificationEmail.
  *
  * @pure
- * @description Server operations may accept Headers for request context.
- *
- * @example
- * ```typescript
- * import { headers } from 'next/headers';
- *
- * const requestHeaders: SendVerificationEmailServerHeaders = await headers();
- * ```
- */
-export type SendVerificationEmailServerHeaders = Headers;
-
-/**
- * Type helper for the complete parameter structure accepted by sendVerificationEmail service.
- *
- * @pure
- * @description Combines body, headers, and Better Auth server options into a single type.
- *
- * @template T - The Better Auth server type with all plugin augmentations
- *
- * @remarks
- * - body: Required verification email data (email, callbackURL)
- * - headers: Optional Headers for request context
- * - asResponse: Optional flag to return full Response object instead of parsed data
- * - returnHeaders: Optional flag to include response headers in result
- *
- * @example
- * ```typescript
- * const params: SendVerificationEmailServerParams<typeof authServer> = {
- *   body: {
- *     email: 'user@example.com',
- *     callbackURL: 'https://example.com/verify'
- *   },
- *   headers: await headers()
- * };
- * ```
- */
-export type SendVerificationEmailServerParams<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = {
-	body: SendVerificationEmailServerInput<T>;
-	headers?: SendVerificationEmailServerHeaders;
-	asResponse?: boolean;
-	returnHeaders?: boolean;
-};
-
-/**
- * Type helper to extract the result type from auth.api.sendVerificationEmail.
- *
- * @pure
- * @description Extracts the resolved Promise return type from the server API method.
- * Typically returns success confirmation.
+ * @description Extracts the first parameter type from the sendVerificationEmail method.
+ * Includes email address, optional callback URL, headers, and request options.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @example
  * ```typescript
- * type Result = SendVerificationEmailServerResult<typeof authServer>;
- * // { success: true, ... }
+ * type Input = AuthServerApiSendVerificationEmailParamsFor<typeof authServer>;
+ * // { body: { email: string, callbackURL?: string }, headers?: Headers, asResponse?: boolean, ... }
  * ```
  */
-export type SendVerificationEmailServerResult<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = Awaited<
-	ReturnType<AuthServerSendVerificationEmailFor<T>>
->;
+export type AuthServerApiSendVerificationEmailParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiSendVerificationEmailPropsFor<T>>[0];
+
+/**
+ * Type helper to extract the return type from auth.api.sendVerificationEmail.
+ *
+ * @pure
+ * @description Extracts the Promise return type from the server API method.
+ * The Promise resolves to a success confirmation.
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @example
+ * ```typescript
+ * type Result = AuthServerApiSendVerificationEmailResultFor<typeof authServer>;
+ * // Promise<{ status: boolean }>
+ * ```
+ */
+export type AuthServerApiSendVerificationEmailResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiSendVerificationEmailPropsFor<T>>;
 
 /**
  * Function signature for sendVerificationEmail server service.
  *
  * @pure
- * @description Curried function accepting dependencies first, then parameters, returning an Effect.
- * Follows the same pattern as other email operations for consistency.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerForFor context.
+ * Dependencies are accessed through Effect's context layer rather than curried function arguments.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @remarks
- * **Currying Stages:**
- * 1. Accept dependencies (authServer) → Return function accepting params
- * 2. Accept params (body, headers) → Return Effect
- * 3. Effect executes lazily when run
+ * **Context-Based Dependency Injection:**
+ * - Dependencies (authServer) are provided via Effect's context layer (AuthServerFor)
+ * - Function accepts only the API parameters directly
+ * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
- * - EmailAuthServerApiError: API call failures (e.g., email not found, already verified)
- * - Other EmailAuthServerError types from validation layers (if using controller)
+ * - AuthServerApiError: API call failures with HTTP status codes
+ * - Other AuthServerError types from validation layers (if using controller)
  *
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
- * import { sendVerificationEmailServer } from './sendVerificationEmail.service';
+ * import { sendVerificationEmailServerService } from './sendVerificationEmail.service';
  *
- * const program = Effect.gen(function* () {
- *   yield* sendVerificationEmailServer({ authServer })({
- *     body: {
- *       email: 'user@example.com',
- *       callbackURL: 'https://example.com/verify'
- *     }
- *   });
- *
- *   console.log('Verification email sent successfully');
+ * const program = sendVerificationEmailServerService({
+ *   body: {
+ *     email: 'user@example.com',
+ *     callbackURL: 'https://example.com/verify-success'
+ *   }
  * });
  *
- * await Effect.runPromise(program);
+ * // Provide context and run
+ * await Effect.runPromise(
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
+ * );
  * ```
  */
-export interface sendVerificationEmailServerProps<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> {
-	(deps: EmailAuthServerDeps<T>): (params: SendVerificationEmailServerParams<T>) => Effect.Effect<SendVerificationEmailServerResult<T>, EmailAuthServerError>;
+export interface SendVerificationEmailPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> {
+  (
+    params: AuthServerApiSendVerificationEmailParamsFor<T>,
+  ): Effect.Effect<
+    Awaited<AuthServerApiSendVerificationEmailResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
+
+/**
+ * Type guard for validating AuthServerApiSendVerificationEmailParamsFor.
+ *
+ * @pure
+ * @description Narrows an unknown value to AuthServerApiSendVerificationEmailParamsFor<T> by checking
+ * the required structural properties. Use after Zod validation to provide type narrowing
+ * without casting.
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @param value - The value to check
+ * @returns True if value conforms to AuthServerApiSendVerificationEmailParamsFor<T> structure
+ */
+export const isAuthServerApiSendVerificationEmailParamsFor = (
+  value: unknown,
+): value is AuthServerApiSendVerificationEmailParamsFor<T> => {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
+
+  if (typeof obj.body !== "object" || obj.body === null) return false;
+  const body = obj.body as Record<string, unknown>;
+
+  if (typeof body.email !== "string") return false;
+
+  return true;
+};

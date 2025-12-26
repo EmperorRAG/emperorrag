@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Zod schema for validating ResetPasswordInput payloads.
@@ -20,13 +20,13 @@ import { z } from 'zod';
  * ```
  */
 export const resetPasswordInputSchema = z.object({
-	newPassword: z.string().min(8, 'Password must be at least 8 characters'),
-	token: z.string().optional(),
-	callbackURL: z.string().url('Invalid callback URL').optional(),
-	fetchOptions: z
-		.object({
-			onSuccess: z.function().optional(),
-			onError: z.function().optional(),
-		})
-		.optional(),
+  newPassword: z.string().min(8, "Password must be at least 8 characters"),
+  token: z.string().optional(),
+  callbackURL: z.string().url("Invalid callback URL").optional(),
+  fetchOptions: z
+    .object({
+      onSuccess: z.function().optional(),
+      onError: z.function().optional(),
+    })
+    .optional(),
 });

@@ -1,4 +1,5 @@
-import { pipe, Match } from 'effect';
+import { pipe } from "effect/Function";
+import * as Match from "effect/Match";
 
 /**
  * Checks if a value is a non-null object.
@@ -18,11 +19,11 @@ import { pipe, Match } from 'effect';
  * isValueObject('string'); // => false
  */
 export const isValueObject = (value: unknown): value is object =>
-	pipe(
-		Match.value(value),
-		Match.when(
-			(v: unknown): v is object => typeof v === 'object' && v !== null,
-			() => true
-		),
-		Match.orElse(() => false)
-	);
+  pipe(
+    Match.value(value),
+    Match.when(
+      (v: unknown): v is object => typeof v === "object" && v !== null,
+      () => true,
+    ),
+    Match.orElse(() => false),
+  );

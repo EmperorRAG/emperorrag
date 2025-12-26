@@ -1,6 +1,6 @@
-import * as Effect from 'effect/Effect';
-import type { sendVerificationEmailProps } from './sendVerificationEmail.types';
-import { EmailAuthApiError } from '../shared/email.error';
+import * as Effect from "effect/Effect";
+import { EmailAuthApiError } from "../shared/email.error";
+import type { sendVerificationEmailProps } from "./sendVerificationEmail.types";
 
 /**
  * Send a verification email to the specified email address using Better Auth.
@@ -35,14 +35,18 @@ import { EmailAuthApiError } from '../shared/email.error';
  * @returns Curried function accepting send verification input and returning an Effect
  */
 export const sendVerificationEmailClient: sendVerificationEmailProps = (deps) => (input) => {
-	const { authClient } = deps;
+  const { authClient } = deps;
 
-	return Effect.tryPromise({
-		try: () => authClient.sendVerificationEmail(input),
-		catch: (error) => {
-			const message = error instanceof Error ? error.message : 'Send verification email failed';
-			const status = error && typeof error === 'object' && 'status' in error ? (error.status as number) : undefined;
-			return new EmailAuthApiError(message, status, error);
-		},
-	});
+  return Effect.tryPromise({
+    try: () => authClient.sendVerificationEmail(input),
+    catch: (error) => {
+      const message = error instanceof Error
+        ? error.message
+        : "Send verification email failed";
+      const status = error && typeof error === "object" && "status" in error
+        ? (error.status as number)
+        : undefined;
+      return new EmailAuthApiError(message, status, error);
+    },
+  });
 };

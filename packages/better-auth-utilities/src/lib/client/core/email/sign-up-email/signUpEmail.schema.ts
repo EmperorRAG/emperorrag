@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Zod schema for validating SignUpEmailInput payloads.
@@ -21,15 +21,15 @@ import { z } from 'zod';
  * ```
  */
 export const signUpEmailInputSchema = z.object({
-	name: z.string().min(1, 'Name is required'),
-	email: z.string().email('Invalid email format'),
-	password: z.string().min(1, 'Password is required'),
-	image: z.string().url('Invalid image URL').optional(),
-	callbackURL: z.string().url('Invalid callback URL').optional(),
-	fetchOptions: z
-		.object({
-			onSuccess: z.function().optional(),
-			onError: z.function().optional(),
-		})
-		.optional(),
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email format"),
+  password: z.string().min(1, "Password is required"),
+  image: z.string().url("Invalid image URL").optional(),
+  callbackURL: z.string().url("Invalid callback URL").optional(),
+  fetchOptions: z
+    .object({
+      onSuccess: z.function().optional(),
+      onError: z.function().optional(),
+    })
+    .optional(),
 });

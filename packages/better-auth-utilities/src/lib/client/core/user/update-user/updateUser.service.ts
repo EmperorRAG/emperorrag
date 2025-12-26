@@ -1,6 +1,6 @@
-import * as Effect from 'effect/Effect';
-import { UserAuthApiError } from '../shared/user.error';
-import type { UpdateUserProps } from './updateUser.types';
+import * as Effect from "effect/Effect";
+import { UserAuthApiError } from "../shared/user.error";
+import type { UpdateUserProps } from "./updateUser.types";
 
 /**
  * Update user details.
@@ -12,21 +12,26 @@ import type { UpdateUserProps } from './updateUser.types';
  * @returns Curried function accepting input and returning an Effect
  */
 export const updateUserClient: UpdateUserProps = (deps) => (input) => {
-	const { authClient } = deps;
+  const { authClient } = deps;
 
-	return Effect.tryPromise({
-		try: async () => {
-			const result = await (authClient.updateUser as any)(input);
-			if (result?.error) {
-				throw result.error;
-			}
-			return result;
-		},
-		catch: (error) => {
-			const message = (error as any)?.message || (error instanceof Error ? error.message : 'Update user failed');
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const status = error && typeof error === 'object' && 'status' in error ? ((error as any).status as number) : undefined;
-			return new UserAuthApiError(message, status, error);
-		},
-	});
+  return Effect.tryPromise({
+    try: async () => {
+      const result = await (
+        authClient.updateUser as unknown as (
+          input: unknown,
+        ) => Promise<{ error?: unknown }>
+      )(input);
+      if (result?.error) {
+        throw result.error;
+      }
+      return result;
+    },
+    catch: (error) => {
+      const errObj = error as { message?: string; status?: number };
+      const message = errObj?.message
+        || (error instanceof Error ? error.message : "Update user failed");
+      const status = errObj?.status;
+      return new UserAuthApiError(message, status, error);
+    },
+  });
 };

@@ -1,6 +1,6 @@
-import * as Effect from 'effect/Effect';
-import type { signInEmailProps } from './signInEmail.types';
-import { EmailAuthApiError } from '../shared/email.error';
+import * as Effect from "effect/Effect";
+import { EmailAuthApiError } from "../shared/email.error";
+import type { signInEmailProps } from "./signInEmail.types";
 
 /**
  * Sign in a user via email and password using Better Auth.
@@ -36,14 +36,16 @@ import { EmailAuthApiError } from '../shared/email.error';
  * @returns Curried function accepting sign-in input and returning an Effect
  */
 export const signInEmailClient: signInEmailProps = (deps) => (input) => {
-	const { authClient } = deps;
+  const { authClient } = deps;
 
-	return Effect.tryPromise({
-		try: () => authClient.signIn.email(input),
-		catch: (error) => {
-			const message = error instanceof Error ? error.message : 'Sign in failed';
-			const status = error && typeof error === 'object' && 'status' in error ? (error.status as number) : undefined;
-			return new EmailAuthApiError(message, status, error);
-		},
-	});
+  return Effect.tryPromise({
+    try: () => authClient.signIn.email(input),
+    catch: (error) => {
+      const message = error instanceof Error ? error.message : "Sign in failed";
+      const status = error && typeof error === "object" && "status" in error
+        ? (error.status as number)
+        : undefined;
+      return new EmailAuthApiError(message, status, error);
+    },
+  });
 };

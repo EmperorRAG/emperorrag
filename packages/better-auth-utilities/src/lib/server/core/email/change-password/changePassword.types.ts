@@ -3,154 +3,154 @@
  * @description Type definitions for server-side change password operation.
  */
 
-import type { betterAuth } from 'better-auth';
-import type { AuthServerFor } from '../../../server.types';
-import type { EmailAuthServerError } from '../shared/email.error';
-import type { EmailAuthServerDeps } from '../shared/email.types';
-import type * as Effect from 'effect/Effect';
+import type * as Effect from "effect/Effect";
+import type { AuthServerError } from "../../../../errors/authServer.error";
+import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../../../server.types";
 
 /**
- * Type helper to extract the changePassword method type from auth.api.
+ * Type helper to extract the changePassword endpoint type from an AuthServer.
  *
  * @pure
- * @description Extracts the changePassword method from Better Auth server API.
- * Change password requires current password verification before setting new password.
- *
- * @template T - The Better Auth server type with all plugin augmentations
- */
-export type AuthServerChangePasswordFor<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> =
-	T extends infer S ? (S extends { api: { changePassword: infer M } } ? M : never) : never;
-
-/**
- * Type helper to extract the body parameter type for auth.api.changePassword.
- *
- * @pure
- * @description Extracts the 'body' property type from the first parameter of changePassword.
- * Includes current password, new password, and optional session revocation flag.
+ * @description Returns the type of the `changePassword` method from the server API. This method
+ * changes the user's password after verifying the current password.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @example
  * ```typescript
- * type Body = ChangePasswordServerInput<typeof authServer>;
- * // { currentPassword: string, newPassword: string, revokeOtherSessions?: boolean }
+ * type ChangePasswordMethod = AuthServerApiChangePasswordPropsFor<typeof authServer>;
+ * // (args: { body: { currentPassword: string, newPassword: string, ... }, headers: Headers, ... }) => Promise<...>
+ *
+ * // Usage in implementation
+ * const changePassword: AuthServerApiChangePasswordPropsFor = authServer.api.changePassword;
+ * const result = await changePassword({
+ *   body: { currentPassword: 'oldPassword', newPassword: 'newSecurePassword123' },
+ *   headers: request.headers
+ * });
  * ```
  */
-export type ChangePasswordServerInput<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = Parameters<
-	AuthServerChangePasswordFor<T>
->[0] extends { body: infer B }
-	? B
-	: never;
+export type AuthServerApiChangePasswordPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = "changePassword" extends AuthServerApiEndpointKeyFor<T> ? AuthServerApiFor<T>["changePassword"]
+  : never;
 
 /**
- * Type helper to extract the headers parameter type for auth.api.changePassword.
+ * Type helper to extract the input parameter type for auth.api.changePassword.
  *
  * @pure
- * @description Server operations accept Headers for session identification and management.
- * Required to identify which user is changing their password.
- *
- * @example
- * ```typescript
- * import { headers } from 'next/headers';
- *
- * const requestHeaders: ChangePasswordServerHeaders = await headers();
- * ```
- */
-export type ChangePasswordServerHeaders = Headers;
-
-/**
- * Type helper for the complete parameter structure accepted by changePassword service.
- *
- * @pure
- * @description Combines body, headers, and Better Auth server options into a single type.
- *
- * @template T - The Better Auth server type with all plugin augmentations
- *
- * @remarks
- * - body: Required password change data (currentPassword, newPassword, revokeOtherSessions)
- * - headers: Required Headers for session identification
- * - asResponse: Optional flag to return full Response object instead of parsed data
- * - returnHeaders: Optional flag to include response headers in result
- *
- * @example
- * ```typescript
- * const params: ChangePasswordServerParams<typeof authServer> = {
- *   body: {
- *     currentPassword: 'oldPassword123',
- *     newPassword: 'newSecurePassword456',
- *     revokeOtherSessions: true
- *   },
- *   headers: await headers()
- * };
- * ```
- */
-export type ChangePasswordServerParams<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = {
-	body: ChangePasswordServerInput<T>;
-	headers: ChangePasswordServerHeaders;
-	asResponse?: boolean;
-	returnHeaders?: boolean;
-};
-
-/**
- * Type helper to extract the result type from auth.api.changePassword.
- *
- * @pure
- * @description Extracts the resolved Promise return type from the server API method.
- * Typically returns success confirmation and updated session information.
+ * @description Extracts the first parameter type from the changePassword method.
+ * Includes current password, new password, headers (required), and request options.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @example
  * ```typescript
- * type Result = ChangePasswordServerResult<typeof authServer>;
- * // { success: true, session: { id: string, ... }, ... }
+ * type Input = AuthServerApiChangePasswordParamsFor<typeof authServer>;
+ * // { body: { currentPassword: string, newPassword: string, revokeOtherSessions?: boolean }, headers: Headers, ... }
  * ```
  */
-export type ChangePasswordServerResult<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> = Awaited<
-	ReturnType<AuthServerChangePasswordFor<T>>
->;
+export type AuthServerApiChangePasswordParamsFor<
+  T extends AuthServerFor = AuthServerFor,
+> = Parameters<AuthServerApiChangePasswordPropsFor<T>>[0];
+
+/**
+ * Type helper to extract the return type from auth.api.changePassword.
+ *
+ * @pure
+ * @description Extracts the Promise return type from the server API method.
+ * The Promise resolves to success confirmation and updated session information.
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @example
+ * ```typescript
+ * type Result = AuthServerApiChangePasswordResultFor<typeof authServer>;
+ * // Promise<{ status: boolean, session?: { id: string, ... } }>
+ * ```
+ */
+export type AuthServerApiChangePasswordResultFor<
+  T extends AuthServerFor = AuthServerFor,
+> = ReturnType<AuthServerApiChangePasswordPropsFor<T>>;
 
 /**
  * Function signature for changePassword server service.
  *
  * @pure
- * @description Curried function accepting dependencies first, then parameters, returning an Effect.
- * Follows the same pattern as other email operations for consistency.
+ * @description Function accepting input parameters, returning an Effect that requires AuthServerFor context.
+ * Dependencies are accessed through Effect's context layer rather than curried function arguments.
  *
  * @template T - The Better Auth server type with all plugin augmentations
  *
  * @remarks
- * **Currying Stages:**
- * 1. Accept dependencies (authServer) → Return function accepting params
- * 2. Accept params (body, headers) → Return Effect
- * 3. Effect executes lazily when run
+ * **Context-Based Dependency Injection:**
+ * - Dependencies (authServer) are provided via Effect's context layer (AuthServerFor)
+ * - Function accepts only the API parameters directly
+ * - Effect executes lazily when run with provided context
  *
  * **Error Channel:**
- * - EmailAuthServerApiError: API call failures (e.g., incorrect current password, weak new password)
- * - Other EmailAuthServerError types from validation layers (if using controller)
+ * - AuthServerApiError: API call failures with HTTP status codes
+ * - Other AuthServerError types from validation layers (if using controller)
  *
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
- * import { changePasswordServer } from './changePassword.service';
+ * import { changePasswordServerService } from './changePassword.service';
+ * import { AuthServerTag } from '../../../server.service';
  *
- * const program = Effect.gen(function* () {
- *   const result = yield* changePasswordServer({ authServer })({
- *     body: {
- *       currentPassword: 'oldPassword123',
- *       newPassword: 'newSecurePassword456',
- *       revokeOtherSessions: true
- *     },
- *     headers: requestHeaders
- *   });
- *
- *   console.log('Password changed successfully');
- *   return result;
+ * const program = changePasswordServerService({
+ *   body: {
+ *     currentPassword: 'oldPassword123',
+ *     newPassword: 'newSecurePassword456',
+ *     revokeOtherSessions: true
+ *   },
+ *   headers: requestHeaders
  * });
  *
- * await Effect.runPromise(program);
+ * // Provide context and run
+ * await Effect.runPromise(
+ *   program.pipe(Effect.provideService(AuthServerTag, authServer))
+ * );
  * ```
  */
-export interface changePasswordServerProps<T extends AuthServerFor<ReturnType<typeof betterAuth>> = AuthServerFor<ReturnType<typeof betterAuth>>> {
-	(deps: EmailAuthServerDeps<T>): (params: ChangePasswordServerParams<T>) => Effect.Effect<ChangePasswordServerResult<T>, EmailAuthServerError>;
+export interface ChangePasswordPropsFor<
+  T extends AuthServerFor = AuthServerFor,
+> {
+  (
+    params: AuthServerApiChangePasswordParamsFor<T>,
+  ): Effect.Effect<
+    Awaited<AuthServerApiChangePasswordResultFor<T>>,
+    AuthServerError,
+    T
+  >;
 }
+
+/**
+ * Type guard for validating AuthServerApiChangePasswordParamsFor.
+ *
+ * @pure
+ * @description Narrows an unknown value to AuthServerApiChangePasswordParamsFor<T> by checking
+ * the required structural properties. Use after Zod validation to provide type narrowing
+ * without casting.
+ *
+ * @template T - The Better Auth server type with all plugin augmentations
+ *
+ * @param value - The value to check
+ * @returns True if value conforms to AuthServerApiChangePasswordParamsFor<T> structure
+ */
+export const isAuthServerApiChangePasswordParamsFor = (
+  value: unknown,
+): value is AuthServerApiChangePasswordParamsFor<T> => {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
+
+  if (typeof obj.body !== "object" || obj.body === null) return false;
+  const body = obj.body as Record<string, unknown>;
+
+  if (typeof body.currentPassword !== "string") return false;
+  if (typeof body.newPassword !== "string") return false;
+
+  // headers is required for changePassword
+  if (!(obj.headers instanceof Headers)) return false;
+
+  return true;
+};

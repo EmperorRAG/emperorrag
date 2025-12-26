@@ -1,0 +1,2024 @@
+{
+  "apps/better-auth-nest-js-microservice-e2e/jest.config.ts": [],
+  "apps/better-auth-nest-js-microservice-e2e/src/better-auth-nest-js-microservice/better-auth-nest-js-microservice.spec.ts": [],
+  "apps/better-auth-nest-js-microservice-e2e/src/support/global-setup.ts": [],
+  "apps/better-auth-nest-js-microservice-e2e/src/support/global-teardown.ts": [],
+  "apps/better-auth-nest-js-microservice-e2e/src/support/test-setup.ts": [],
+  "apps/better-auth-nest-js-microservice/jest.config.ts": [],
+  "apps/better-auth-nest-js-microservice/src/app/app.controller.spec.ts": [
+    "apps/better-auth-nest-js-microservice/src/app/app.controller.ts",
+    "apps/better-auth-nest-js-microservice/src/app/app.service.ts"
+  ],
+  "apps/better-auth-nest-js-microservice/src/app/app.controller.ts": [
+    "apps/better-auth-nest-js-microservice/src/app/app.service.ts"
+  ],
+  "apps/better-auth-nest-js-microservice/src/app/app.module.ts": [
+    "apps/better-auth-nest-js-microservice/src/app/app.controller.ts",
+    "apps/better-auth-nest-js-microservice/src/app/app.service.ts",
+    "apps/better-auth-nest-js-microservice/src/app/auth/auth.module.ts",
+    "apps/better-auth-nest-js-microservice/src/app/health/health.module.ts",
+    "apps/better-auth-nest-js-microservice/src/app/middleware/logging.middleware.ts",
+    "apps/better-auth-nest-js-microservice/src/app/prisma/prisma.module.ts"
+  ],
+  "apps/better-auth-nest-js-microservice/src/app/app.service.spec.ts": [
+    "apps/better-auth-nest-js-microservice/src/app/app.service.ts"
+  ],
+  "apps/better-auth-nest-js-microservice/src/app/app.service.ts": [],
+  "apps/better-auth-nest-js-microservice/src/app/auth/auth.module.ts": [
+    "apps/better-auth-nest-js-microservice/src/lib/auth.ts"
+  ],
+  "apps/better-auth-nest-js-microservice/src/app/health/health.controller.ts": [
+    "apps/better-auth-nest-js-microservice/src/app/prisma/prisma.service.ts"
+  ],
+  "apps/better-auth-nest-js-microservice/src/app/health/health.module.ts": [
+    "apps/better-auth-nest-js-microservice/src/app/health/health.controller.ts"
+  ],
+  "apps/better-auth-nest-js-microservice/src/app/middleware/logging.middleware.ts": [],
+  "apps/better-auth-nest-js-microservice/src/app/prisma/prisma.module.ts": [
+    "apps/better-auth-nest-js-microservice/src/app/prisma/prisma.service.ts"
+  ],
+  "apps/better-auth-nest-js-microservice/src/app/prisma/prisma.service.ts": [],
+  "apps/better-auth-nest-js-microservice/src/lib/auth.ts": [],
+  "apps/better-auth-nest-js-microservice/src/main.ts": [
+    "apps/better-auth-nest-js-microservice/src/app/app.module.ts"
+  ],
+  "apps/better-auth-nest-js-microservice/src/scripts/on-startup.ts": [],
+  "apps/better-auth-next-js-frontend-e2e/playwright.config.ts": [],
+  "apps/better-auth-next-js-frontend-e2e/src/example.spec.ts": [],
+  "apps/better-auth-next-js-frontend/.next/types/app/admin/page.ts": [
+    "apps/better-auth-next-js-frontend/src/app/admin/page.tsx"
+  ],
+  "apps/better-auth-next-js-frontend/.next/types/app/api/hello/route.ts": [
+    "apps/better-auth-next-js-frontend/src/app/api/hello/route.ts"
+  ],
+  "apps/better-auth-next-js-frontend/.next/types/app/layout.ts": [
+    "apps/better-auth-next-js-frontend/src/app/layout.tsx"
+  ],
+  "apps/better-auth-next-js-frontend/.next/types/app/page.ts": [
+    "apps/better-auth-next-js-frontend/src/app/page.tsx"
+  ],
+  "apps/better-auth-next-js-frontend/.next/types/cache-life.d.ts": [],
+  "apps/better-auth-next-js-frontend/index.d.ts": [],
+  "apps/better-auth-next-js-frontend/next-env.d.ts": [],
+  "apps/better-auth-next-js-frontend/src/app/admin/page.module.css": [],
+  "apps/better-auth-next-js-frontend/src/app/admin/page.tsx": [
+    "apps/better-auth-next-js-frontend/src/app/admin/page.module.css",
+    "packages/components/src/index.ts"
+  ],
+  "apps/better-auth-next-js-frontend/src/app/api/hello/route.ts": [],
+  "apps/better-auth-next-js-frontend/src/app/global.css": [],
+  "apps/better-auth-next-js-frontend/src/app/layout.tsx": [
+    "apps/better-auth-next-js-frontend/src/app/global.css"
+  ],
+  "apps/better-auth-next-js-frontend/src/app/page.module.css": [],
+  "apps/better-auth-next-js-frontend/src/app/page.tsx": [
+    "apps/better-auth-next-js-frontend/src/app/page.module.css"
+  ],
+  "apps/better-auth-next-js-frontend/src/types/emperorrag-components.d.ts": [],
+  "apps/ts-analyzer-next-e2e/playwright.config.ts": [],
+  "apps/ts-analyzer-next-e2e/src/example.spec.ts": [],
+  "apps/ts-analyzer-next/.next/types/app/api/analyze/route.ts": [
+    "apps/ts-analyzer-next/src/app/api/analyze/route.ts"
+  ],
+  "apps/ts-analyzer-next/.next/types/app/layout.ts": [
+    "apps/ts-analyzer-next/src/app/layout.tsx"
+  ],
+  "apps/ts-analyzer-next/.next/types/app/page.ts": [
+    "apps/ts-analyzer-next/src/app/page.tsx"
+  ],
+  "apps/ts-analyzer-next/.next/types/cache-life.d.ts": [],
+  "apps/ts-analyzer-next/index.d.ts": [],
+  "apps/ts-analyzer-next/next-env.d.ts": [],
+  "apps/ts-analyzer-next/src/app/api/analyze/route.ts": [
+    "apps/ts-analyzer-next/src/lib/analyzerCli.ts"
+  ],
+  "apps/ts-analyzer-next/src/app/layout.tsx": [
+    "apps/ts-analyzer-next/src/styles/theme.css"
+  ],
+  "apps/ts-analyzer-next/src/app/page.tsx": [
+    "apps/ts-analyzer-next/src/components/AnalyzerFeature/index.ts"
+  ],
+  "apps/ts-analyzer-next/src/components/AnalyzerFeature/AnalyzerFeature.module.css": [],
+  "apps/ts-analyzer-next/src/components/AnalyzerFeature/AnalyzerFeature.tsx": [
+    "apps/ts-analyzer-next/src/components/AnalyzerFeature/AnalyzerFeature.module.css",
+    "apps/ts-analyzer-next/src/components/ErrorBanner/index.ts",
+    "apps/ts-analyzer-next/src/components/Header/index.ts",
+    "apps/ts-analyzer-next/src/components/JsonViewer/index.ts",
+    "apps/ts-analyzer-next/src/components/ResultsTable/index.ts",
+    "apps/ts-analyzer-next/src/components/RunAnalyzerForm/index.ts",
+    "apps/ts-analyzer-next/src/hooks/useAnalyzer.ts"
+  ],
+  "apps/ts-analyzer-next/src/components/AnalyzerFeature/index.ts": [
+    "apps/ts-analyzer-next/src/components/AnalyzerFeature/AnalyzerFeature.tsx"
+  ],
+  "apps/ts-analyzer-next/src/components/Button/Button.module.css": [],
+  "apps/ts-analyzer-next/src/components/Button/Button.tsx": [
+    "apps/ts-analyzer-next/src/components/Button/Button.module.css"
+  ],
+  "apps/ts-analyzer-next/src/components/Button/index.ts": [
+    "apps/ts-analyzer-next/src/components/Button/Button.tsx"
+  ],
+  "apps/ts-analyzer-next/src/components/ErrorBanner/ErrorBanner.module.css": [],
+  "apps/ts-analyzer-next/src/components/ErrorBanner/ErrorBanner.tsx": [
+    "apps/ts-analyzer-next/src/components/ErrorBanner/ErrorBanner.module.css"
+  ],
+  "apps/ts-analyzer-next/src/components/ErrorBanner/index.ts": [
+    "apps/ts-analyzer-next/src/components/ErrorBanner/ErrorBanner.tsx"
+  ],
+  "apps/ts-analyzer-next/src/components/Header/Header.module.css": [],
+  "apps/ts-analyzer-next/src/components/Header/Header.tsx": [
+    "apps/ts-analyzer-next/src/components/Header/Header.module.css"
+  ],
+  "apps/ts-analyzer-next/src/components/Header/index.ts": [
+    "apps/ts-analyzer-next/src/components/Header/Header.tsx"
+  ],
+  "apps/ts-analyzer-next/src/components/JsonViewer/JsonViewer.module.css": [],
+  "apps/ts-analyzer-next/src/components/JsonViewer/JsonViewer.tsx": [
+    "apps/ts-analyzer-next/src/components/Button/index.ts",
+    "apps/ts-analyzer-next/src/components/JsonViewer/JsonViewer.module.css"
+  ],
+  "apps/ts-analyzer-next/src/components/JsonViewer/index.ts": [
+    "apps/ts-analyzer-next/src/components/JsonViewer/JsonViewer.tsx"
+  ],
+  "apps/ts-analyzer-next/src/components/ResultsTable/ResultsTable.module.css": [],
+  "apps/ts-analyzer-next/src/components/ResultsTable/ResultsTable.tsx": [
+    "apps/ts-analyzer-next/src/components/ResultsTable/ResultsTable.module.css",
+    "apps/ts-analyzer-next/src/lib/types/index.ts"
+  ],
+  "apps/ts-analyzer-next/src/components/ResultsTable/index.ts": [
+    "apps/ts-analyzer-next/src/components/ResultsTable/ResultsTable.tsx"
+  ],
+  "apps/ts-analyzer-next/src/components/RunAnalyzerForm/RunAnalyzerForm.module.css": [],
+  "apps/ts-analyzer-next/src/components/RunAnalyzerForm/RunAnalyzerForm.tsx": [
+    "apps/ts-analyzer-next/src/components/Button/index.ts",
+    "apps/ts-analyzer-next/src/components/RunAnalyzerForm/RunAnalyzerForm.module.css"
+  ],
+  "apps/ts-analyzer-next/src/components/RunAnalyzerForm/index.ts": [
+    "apps/ts-analyzer-next/src/components/RunAnalyzerForm/RunAnalyzerForm.tsx"
+  ],
+  "apps/ts-analyzer-next/src/components/Spinner/Spinner.module.css": [],
+  "apps/ts-analyzer-next/src/components/Spinner/Spinner.tsx": [
+    "apps/ts-analyzer-next/src/components/Spinner/Spinner.module.css"
+  ],
+  "apps/ts-analyzer-next/src/components/Spinner/index.ts": [
+    "apps/ts-analyzer-next/src/components/Spinner/Spinner.tsx"
+  ],
+  "apps/ts-analyzer-next/src/hooks/useAnalyzer.ts": [
+    "apps/ts-analyzer-next/src/lib/types/index.ts"
+  ],
+  "apps/ts-analyzer-next/src/lib/analyzerCli.ts": [
+    "apps/ts-analyzer-next/src/lib/types/index.ts"
+  ],
+  "apps/ts-analyzer-next/src/lib/types/index.ts": [],
+  "apps/ts-analyzer-next/src/styles/theme.css": [],
+  "packages/better-auth-utilities/externalize-packages.ts": [],
+  "packages/better-auth-utilities/externals.json": [],
+  "packages/better-auth-utilities/src/lib/client/client.constants.ts": [
+    "packages/better-auth-utilities/src/lib/shared/config/config.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/client.service.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.constants.ts",
+    "packages/better-auth-utilities/src/lib/shared/config/config.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/client.spec.ts": [
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/client.types.ts": [],
+  "packages/better-auth-utilities/src/lib/client/config/config.service.ts": [
+    "packages/better-auth-utilities/src/lib/shared/config/config.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/account/link-social/linkSocial.schema.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/account/link-social/linkSocial.service.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/account/link-social/linkSocial.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/account/shared/account.error.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/account/link-social/linkSocial.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/account/link-social/linkSocial.service.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/account/link-social/linkSocial.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/account/shared/account.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/account/shared/account.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/account/list-accounts/listAccounts.schema.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/account/list-accounts/listAccounts.service.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/account/list-accounts/listAccounts.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/account/shared/account.error.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/account/list-accounts/listAccounts.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/account/list-accounts/listAccounts.service.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/account/list-accounts/listAccounts.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/account/shared/account.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/account/shared/account.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/account/shared/account.error.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/account/shared/account.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/account/unlink-account/unlinkAccount.schema.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/account/unlink-account/unlinkAccount.service.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/account/shared/account.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/account/unlink-account/unlinkAccount.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/account/unlink-account/unlinkAccount.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/account/unlink-account/unlinkAccount.service.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/account/unlink-account/unlinkAccount.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/account/shared/account.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/account/shared/account.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/change-password/changePassword.controller.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/change-password/changePassword.schema.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/change-password/changePassword.service.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/change-password/changePassword.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/change-password/changePassword.spec.ts": [
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/change-password/changePassword.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/change-password/changePassword.service.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/change-password/changePassword.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/change-password/changePassword.utils.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/request-password-reset/requestPasswordReset.controller.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/request-password-reset/requestPasswordReset.schema.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/request-password-reset/requestPasswordReset.service.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/request-password-reset/requestPasswordReset.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/request-password-reset/requestPasswordReset.spec.ts": [
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/request-password-reset/requestPasswordReset.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/request-password-reset/requestPasswordReset.service.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/request-password-reset/requestPasswordReset.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/request-password-reset/requestPasswordReset.utils.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/reset-password/resetPassword.controller.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/reset-password/resetPassword.schema.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/reset-password/resetPassword.service.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/reset-password/resetPassword.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/reset-password/resetPassword.spec.ts": [
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/reset-password/resetPassword.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/reset-password/resetPassword.service.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/reset-password/resetPassword.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/reset-password/resetPassword.utils.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/send-verification-email/sendVerificationEmail.controller.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/send-verification-email/sendVerificationEmail.schema.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/send-verification-email/sendVerificationEmail.service.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/send-verification-email/sendVerificationEmail.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/send-verification-email/sendVerificationEmail.spec.ts": [
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/send-verification-email/sendVerificationEmail.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/send-verification-email/sendVerificationEmail.service.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/send-verification-email/sendVerificationEmail.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/send-verification-email/sendVerificationEmail.utils.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/shared/email.schema.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/shared/email.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-in-email/signInEmail.controller.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-in-email/signInEmail.schema.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-in-email/signInEmail.service.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/sign-in-email/signInEmail.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-in-email/signInEmail.spec.ts": [
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-in-email/signInEmail.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/sign-in-email/signInEmail.service.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-in-email/signInEmail.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-in-email/signInEmail.utils.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-out/signOut.controller.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-out/signOut.schema.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-out/signOut.service.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/sign-out/signOut.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-out/signOut.spec.ts": [
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-out/signOut.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/sign-out/signOut.service.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-out/signOut.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-out/signOut.utils.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-up-email/signUpEmail.controller.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-up-email/signUpEmail.schema.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-up-email/signUpEmail.service.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/sign-up-email/signUpEmail.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-up-email/signUpEmail.spec.ts": [
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-up-email/signUpEmail.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/sign-up-email/signUpEmail.service.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-up-email/signUpEmail.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/email/shared/email.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/email/sign-up-email/signUpEmail.utils.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/oauth/shared/oauth.error.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/oauth/shared/oauth.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/oauth/sign-in/signIn.schema.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/oauth/sign-in/signIn.service.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/oauth/shared/oauth.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/oauth/sign-in/signIn.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/oauth/sign-in/signIn.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/oauth/sign-in/signIn.service.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/oauth/sign-in/signIn.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/oauth/shared/oauth.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/oauth/shared/oauth.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/session/get-session/getSession.schema.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/session/get-session/getSession.service.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/session/get-session/getSession.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/session/shared/session.error.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/session/get-session/getSession.spec.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/session/get-session/getSession.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/session/get-session/getSession.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/session/get-session/getSession.service.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/session/get-session/getSession.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/session/shared/session.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/session/shared/session.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/session/shared/session.error.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/session/shared/session.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/user/shared/user.error.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/user/shared/user.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/user/update-user/updateUser.schema.ts": [],
+  "packages/better-auth-utilities/src/lib/client/core/user/update-user/updateUser.service.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/user/shared/user.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/user/update-user/updateUser.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/user/update-user/updateUser.spec.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/user/update-user/updateUser.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/user/update-user/updateUser.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/user/update-user/updateUser.service.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/client/core/user/update-user/updateUser.types.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.types.ts",
+    "packages/better-auth-utilities/src/lib/client/core/user/shared/user.error.ts",
+    "packages/better-auth-utilities/src/lib/client/core/user/shared/user.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/context/pipeline.context.ts": [
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/enums/operationCodes.enum.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts": [],
+  "packages/better-auth-utilities/src/lib/enums/operationCodes.enum.ts": [],
+  "packages/better-auth-utilities/src/lib/errors/authServer.error.ts": [
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.types.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/extract-auth-server-config/extractAuthServerConfig.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.types.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-api-error/createAuthServerApiError.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-api-error/createAuthServerApiError.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-api-error/createAuthServerApiError.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-auth-server-error-descriptor/createAuthServerAuthServerErrorDescriptor.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-data-missing-error-descriptor/createAuthServerDataMissingErrorDescriptor.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-dependency-error-descriptor/createAuthServerDependencyErrorDescriptor.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-input-error/createAuthServerInputError.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-input-error/createAuthServerInputError.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-input-error/createAuthServerInputError.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-invalid-credentials-error-descriptor/createAuthServerInvalidCredentialsErrorDescriptor.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-invalid-input-error-descriptor/createAuthServerInvalidInputErrorDescriptor.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-session-error-descriptor/createAuthServerSessionErrorDescriptor.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-user-already-exists-error-descriptor/createAuthServerUserAlreadyExistsErrorDescriptor.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/describe-error/describeError.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-auth-server-error-descriptor/createAuthServerAuthServerErrorDescriptor.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-data-missing-error-descriptor/createAuthServerDataMissingErrorDescriptor.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-dependency-error-descriptor/createAuthServerDependencyErrorDescriptor.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-invalid-credentials-error-descriptor/createAuthServerInvalidCredentialsErrorDescriptor.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-invalid-input-error-descriptor/createAuthServerInvalidInputErrorDescriptor.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-session-error-descriptor/createAuthServerSessionErrorDescriptor.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-user-already-exists-error-descriptor/createAuthServerUserAlreadyExistsErrorDescriptor.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/describe-error/describeError.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/extract-auth-server-config/extractAuthServerConfig.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/extract-auth-server-config/extractAuthServerConfig.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/extract-auth-server-config/extractAuthServerConfig.types.ts": [
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/format-zod-error-message/formatZodErrorMessage.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/format-zod-error-message/formatZodErrorMessage.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/format-zod-error-message/formatZodErrorMessage.types.ts": [],
+  "packages/better-auth-utilities/src/lib/pipeline/handle-api-error/handleApiError.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/handle-api-error/handleApiError.types.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/handle-api-error/handleApiError.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/handle-error/handleError.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/describe-error/describeError.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/describe-error/describeError.types.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/handle-error/handleError.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/handle-error/handleError.types.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/handle-input-error/handleInputError.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/operationCodes.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/handle-input-error/handleInputError.types.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/map-input-error/mapInputError.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/handle-input-error/handleInputError.types.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/is-zod-error/isZodError.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/is-zod-error/isZodError.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/is-zod-error/isZodError.types.ts": [],
+  "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-api-error/createAuthServerApiError.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/map-input-error/mapInputError.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/create-auth-server-input-error/createAuthServerInputError.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/format-zod-error-message/formatZodErrorMessage.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/map-input-error/mapInputError.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/map-input-error/mapInputError.types.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/enums/operationCodes.enum.ts",
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/parse-with-schema/parseWithSchema.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/parse-with-schema/parseWithSchema.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/parse-with-schema/parseWithSchema.types.ts": [],
+  "packages/better-auth-utilities/src/lib/pipeline/validate-with-type-guard/validateWithTypeGuard.ts": [],
+  "packages/better-auth-utilities/src/lib/pipeline/validate-with-type-guard/validateWithTypeGuard.types.ts": [],
+  "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/handle-input-error/handleInputError.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/parse-with-schema/parseWithSchema.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/validate-with-type-guard/validateWithTypeGuard.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.types.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.types.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/schema/email.schema.ts": [],
+  "packages/better-auth-utilities/src/lib/schema/password.schema.ts": [],
+  "packages/better-auth-utilities/src/lib/server/config/config.service.ts": [
+    "packages/better-auth-utilities/src/lib/shared/config/config.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/account/account-info/accountInfo.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/account/account-info/accountInfo.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/account/account-info/accountInfo.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/account/account-info/accountInfo.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/account/account-info/accountInfo.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/account/account-info/accountInfo.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/account/account-info/accountInfo.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/account/account-info/accountInfo.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/account/account-info/accountInfo.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/account/account-info/accountInfo.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/account/account-info/accountInfo.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/account/account-info/accountInfo.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/account/list-user-accounts/listUserAccounts.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/account/list-user-accounts/listUserAccounts.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/account/list-user-accounts/listUserAccounts.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/account/list-user-accounts/listUserAccounts.service.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/account/list-user-accounts/listUserAccounts.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/account/list-user-accounts/listUserAccounts.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/account/list-user-accounts/listUserAccounts.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/account/list-user-accounts/listUserAccounts.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/account/list-user-accounts/listUserAccounts.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/account/list-user-accounts/listUserAccounts.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/account/list-user-accounts/listUserAccounts.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/account/list-user-accounts/listUserAccounts.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/account/unlink-account/unlinkAccount.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/account/unlink-account/unlinkAccount.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/account/unlink-account/unlinkAccount.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/account/unlink-account/unlinkAccount.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/account/unlink-account/unlinkAccount.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/account/unlink-account/unlinkAccount.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/account/unlink-account/unlinkAccount.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/account/unlink-account/unlinkAccount.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/account/unlink-account/unlinkAccount.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/account/unlink-account/unlinkAccount.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/account/unlink-account/unlinkAccount.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/change-email/changeEmail.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/change-email/changeEmail.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/change-email/changeEmail.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/change-email/changeEmail.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/change-email/changeEmail.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/change-email/changeEmail.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/change-email/changeEmail.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/change-email/changeEmail.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/change-email/changeEmail.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/change-email/changeEmail.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/change-email/changeEmail.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/change-email/changeEmail.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/change-password/changePassword.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/change-password/changePassword.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/change-password/changePassword.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/change-password/changePassword.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/change-password/changePassword.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/change-password/changePassword.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/change-password/changePassword.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/change-password/changePassword.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/change-password/changePassword.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/change-password/changePassword.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/change-password/changePassword.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/change-password/changePassword.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/forget-password-callback/forgetPasswordCallback.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/forget-password-callback/forgetPasswordCallback.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/forget-password-callback/forgetPasswordCallback.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/forget-password-callback/forgetPasswordCallback.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/forget-password-callback/forgetPasswordCallback.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/forget-password-callback/forgetPasswordCallback.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/forget-password-callback/forgetPasswordCallback.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/forget-password-callback/forgetPasswordCallback.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/forget-password/forgetPassword.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/forget-password/forgetPassword.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/forget-password/forgetPassword.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/forget-password/forgetPassword.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/forget-password/forgetPassword.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/forget-password/forgetPassword.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/forget-password/forgetPassword.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/forget-password/forgetPassword.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/forget-password/forgetPassword.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/forget-password/forgetPassword.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/forget-password/forgetPassword.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/forget-password/forgetPassword.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset/requestPasswordReset.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset/requestPasswordReset.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset/requestPasswordReset.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset/requestPasswordReset.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset/requestPasswordReset.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset/requestPasswordReset.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset/requestPasswordReset.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset/requestPasswordReset.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset/requestPasswordReset.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset/requestPasswordReset.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset/requestPasswordReset.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/request-password-reset/requestPasswordReset.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/reset-password/resetPassword.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/reset-password/resetPassword.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/reset-password/resetPassword.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/reset-password/resetPassword.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/reset-password/resetPassword.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/reset-password/resetPassword.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/reset-password/resetPassword.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/reset-password/resetPassword.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/reset-password/resetPassword.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/reset-password/resetPassword.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/reset-password/resetPassword.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/reset-password/resetPassword.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/send-verification-email/sendVerificationEmail.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/send-verification-email/sendVerificationEmail.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/send-verification-email/sendVerificationEmail.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/send-verification-email/sendVerificationEmail.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/set-password/setPassword.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/set-password/setPassword.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/set-password/setPassword.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/set-password/setPassword.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/set-password/setPassword.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/set-password/setPassword.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/set-password/setPassword.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/set-password/setPassword.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/set-password/setPassword.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/set-password/setPassword.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/set-password/setPassword.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/set-password/setPassword.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/sign-in-email/signInEmail.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-in-email/signInEmail.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-in-email/signInEmail.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/sign-in-email/signInEmail.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-in-email/signInEmail.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/sign-in-email/signInEmail.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-in-email/signInEmail.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/sign-in-email/signInEmail.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-in-email/signInEmail.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-in-email/signInEmail.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-in-email/signInEmail.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/sign-in-email/signInEmail.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/sign-out/signOut.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-out/signOut.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-out/signOut.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/sign-out/signOut.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-out/signOut.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/sign-out/signOut.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-out/signOut.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/sign-out/signOut.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-out/signOut.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-out/signOut.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-out/signOut.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/sign-out/signOut.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/sign-up-email/signUpEmail.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-up-email/signUpEmail.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-up-email/signUpEmail.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/sign-up-email/signUpEmail.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-up-email/signUpEmail.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/sign-up-email/signUpEmail.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-up-email/signUpEmail.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/sign-up-email/signUpEmail.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-up-email/signUpEmail.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-up-email/signUpEmail.service.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/sign-up-email/signUpEmail.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/verify-email/verifyEmail.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/verify-email/verifyEmail.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/verify-email/verifyEmail.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/verify-email/verifyEmail.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/verify-email/verifyEmail.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/verify-email/verifyEmail.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/verify-email/verifyEmail.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/verify-email/verifyEmail.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/verify-email/verifyEmail.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/verify-email/verifyEmail.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/email/verify-email/verifyEmail.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/email/verify-email/verifyEmail.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/oauth/callback-oauth/callbackOAuth.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/oauth/callback-oauth/callbackOAuth.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/oauth/callback-oauth/callbackOAuth.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/oauth/callback-oauth/callbackOAuth.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/oauth/callback-oauth/callbackOAuth.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/oauth/callback-oauth/callbackOAuth.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/oauth/callback-oauth/callbackOAuth.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/oauth/callback-oauth/callbackOAuth.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/oauth/link-social-account/linkSocialAccount.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/oauth/link-social-account/linkSocialAccount.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/oauth/link-social-account/linkSocialAccount.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/oauth/link-social-account/linkSocialAccount.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/oauth/link-social-account/linkSocialAccount.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/oauth/link-social-account/linkSocialAccount.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/oauth/link-social-account/linkSocialAccount.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/oauth/link-social-account/linkSocialAccount.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/oauth/sign-in-social/signInSocial.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/oauth/sign-in-social/signInSocial.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/oauth/sign-in-social/signInSocial.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/oauth/sign-in-social/signInSocial.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/oauth/sign-in-social/signInSocial.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/oauth/sign-in-social/signInSocial.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/oauth/sign-in-social/signInSocial.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/oauth/sign-in-social/signInSocial.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/oauth/sign-in-social/signInSocial.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/oauth/sign-in-social/signInSocial.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/oauth/sign-in-social/signInSocial.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/oauth/sign-in-social/signInSocial.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/get-access-token/getAccessToken.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/get-access-token/getAccessToken.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/get-access-token/getAccessToken.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/get-access-token/getAccessToken.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/get-access-token/getAccessToken.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/get-access-token/getAccessToken.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/session/get-access-token/getAccessToken.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/get-access-token/getAccessToken.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/session/get-access-token/getAccessToken.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/get-access-token/getAccessToken.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/get-access-token/getAccessToken.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/get-access-token/getAccessToken.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/get-session/getSession.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/get-session/getSession.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/get-session/getSession.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/get-session/getSession.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/get-session/getSession.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/get-session/getSession.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/session/get-session/getSession.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/get-session/getSession.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/session/get-session/getSession.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/get-session/getSession.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/get-session/getSession.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/get-session/getSession.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/list-sessions/listSessions.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/list-sessions/listSessions.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/list-sessions/listSessions.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/list-sessions/listSessions.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/list-sessions/listSessions.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/list-sessions/listSessions.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/session/list-sessions/listSessions.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/list-sessions/listSessions.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/session/list-sessions/listSessions.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/list-sessions/listSessions.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/list-sessions/listSessions.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/list-sessions/listSessions.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/refresh-token/refreshToken.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/refresh-token/refreshToken.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/refresh-token/refreshToken.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/refresh-token/refreshToken.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/refresh-token/refreshToken.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/refresh-token/refreshToken.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/session/refresh-token/refreshToken.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/refresh-token/refreshToken.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/session/refresh-token/refreshToken.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/refresh-token/refreshToken.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/refresh-token/refreshToken.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/refresh-token/refreshToken.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/revoke-session/revokeSession.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-session/revokeSession.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-session/revokeSession.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/revoke-session/revokeSession.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-session/revokeSession.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/revoke-session/revokeSession.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-session/revokeSession.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/revoke-session/revokeSession.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-session/revokeSession.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-session/revokeSession.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-session/revokeSession.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/revoke-session/revokeSession.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/revoke-sessions/revokeSessions.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-sessions/revokeSessions.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-sessions/revokeSessions.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/revoke-sessions/revokeSessions.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-sessions/revokeSessions.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/revoke-sessions/revokeSessions.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-sessions/revokeSessions.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/revoke-sessions/revokeSessions.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-sessions/revokeSessions.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-sessions/revokeSessions.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/session/revoke-sessions/revokeSessions.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/session/revoke-sessions/revokeSessions.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/user/delete-user-callback/deleteUserCallback.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/user/delete-user-callback/deleteUserCallback.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/user/delete-user-callback/deleteUserCallback.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/user/delete-user-callback/deleteUserCallback.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/user/delete-user-callback/deleteUserCallback.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/user/delete-user-callback/deleteUserCallback.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/user/delete-user-callback/deleteUserCallback.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/user/delete-user-callback/deleteUserCallback.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/user/delete-user-callback/deleteUserCallback.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/user/delete-user-callback/deleteUserCallback.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/user/delete-user-callback/deleteUserCallback.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/user/delete-user-callback/deleteUserCallback.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/user/delete-user/deleteUser.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/user/delete-user/deleteUser.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/user/delete-user/deleteUser.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/user/delete-user/deleteUser.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/user/delete-user/deleteUser.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/user/delete-user/deleteUser.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/user/delete-user/deleteUser.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/user/delete-user/deleteUser.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/user/delete-user/deleteUser.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/user/delete-user/deleteUser.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/user/delete-user/deleteUser.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/user/delete-user/deleteUser.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/user/update-user/updateUser.controller.ts": [
+    "packages/better-auth-utilities/src/lib/context/pipeline.context.ts",
+    "packages/better-auth-utilities/src/lib/enums/authServerApiEndpoints.enum.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "packages/better-auth-utilities/src/lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "packages/better-auth-utilities/src/lib/server/core/user/update-user/updateUser.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/user/update-user/updateUser.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/user/update-user/updateUser.service.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/map-api-error/mapApiError.ts",
+    "packages/better-auth-utilities/src/lib/server/core/user/update-user/updateUser.types.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/user/update-user/updateUser.spec.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/user/update-user/updateUser.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/user/update-user/updateUser.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/user/update-user/updateUser.controller.ts",
+    "packages/better-auth-utilities/src/lib/server/core/user/update-user/updateUser.service.ts",
+    "packages/better-auth-utilities/src/lib/server/core/user/update-user/updateUser.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/core/user/update-user/updateUser.types.ts": [
+    "packages/better-auth-utilities/src/lib/errors/authServer.error.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/server.constants.ts": [
+    "packages/better-auth-utilities/src/lib/shared/config/config.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/server.service.ts": [
+    "packages/better-auth-utilities/src/lib/server/server.constants.ts",
+    "packages/better-auth-utilities/src/lib/server/server.types.ts",
+    "packages/better-auth-utilities/src/lib/shared/config/config.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/server.spec.ts": [
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/server/server.types.ts": [
+    "packages/better-auth-utilities/src/lib/shared/config/config.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/shared/config/config.constants.ts": [
+    "packages/better-auth-utilities/src/lib/shared/config/config.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/shared/config/config.service.ts": [
+    "packages/better-auth-utilities/src/lib/shared/config/config.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/shared/config/config.spec.ts": [
+    "packages/better-auth-utilities/src/lib/client/config/config.service.ts",
+    "packages/better-auth-utilities/src/lib/server/config/config.service.ts",
+    "packages/better-auth-utilities/src/lib/shared/config/config.constants.ts",
+    "packages/better-auth-utilities/src/lib/shared/config/config.service.ts",
+    "packages/better-auth-utilities/src/lib/shared/config/config.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/shared/config/config.types.ts": [],
+  "packages/better-auth-utilities/src/lib/shared/config/config.utils.ts": [
+    "packages/better-auth-utilities/src/lib/server/server.types.ts",
+    "packages/better-auth-utilities/src/lib/shared/config/config.constants.ts",
+    "packages/better-auth-utilities/src/lib/shared/config/config.types.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/test/debug-devtools.ts": [
+    "packages/better-auth-utilities/src/lib/pipeline/format-zod-error-message/formatZodErrorMessage.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/test/integration.spec.ts": [
+    "packages/better-auth-utilities/src/lib/test/setup-test-env.ts"
+  ],
+  "packages/better-auth-utilities/src/lib/test/setup-test-env.ts": [
+    "packages/better-auth-utilities/src/lib/client/client.service.ts",
+    "packages/better-auth-utilities/src/lib/server/server.service.ts",
+    "packages/better-auth-utilities/src/lib/shared/config/config.types.ts"
+  ],
+  "packages/better-auth-utilities/vite.config.ts": [
+    "packages/better-auth-utilities/externalize-packages.ts",
+    "packages/better-auth-utilities/externals.json"
+  ],
+  "packages/better-auth-utilities/vitest.config.ts": [],
+  "packages/components/.storybook/main.ts": [],
+  "packages/components/.storybook/preview.ts": [],
+  "packages/components/src/index.ts": [
+    "packages/components/src/lib/components.ts"
+  ],
+  "packages/components/src/lib/components.ts": [
+    "packages/components/src/lib/datagrid/datagrid.tsx",
+    "packages/components/src/lib/datagrid/datagrid.types.ts"
+  ],
+  "packages/components/src/lib/datagrid/datagrid.helpers.ts": [
+    "packages/components/src/lib/datagrid/datagrid.types.ts"
+  ],
+  "packages/components/src/lib/datagrid/datagrid.module.css": [],
+  "packages/components/src/lib/datagrid/datagrid.tsx": [
+    "packages/components/src/lib/datagrid/datagrid.helpers.ts",
+    "packages/components/src/lib/datagrid/datagrid.module.css",
+    "packages/components/src/lib/datagrid/datagrid.types.ts"
+  ],
+  "packages/components/src/lib/datagrid/datagrid.types.ts": [],
+  "packages/components/src/lib/datagrid/index.ts": [
+    "packages/components/src/lib/datagrid/datagrid.helpers.ts",
+    "packages/components/src/lib/datagrid/datagrid.tsx",
+    "packages/components/src/lib/datagrid/datagrid.types.ts"
+  ],
+  "packages/components/vite.config.ts": [],
+  "packages/components/vitest.config.ts": [],
+  "packages/prisma/better-auth-db/externalize-packages.ts": [],
+  "packages/prisma/better-auth-db/externals.json": [],
+  "packages/prisma/better-auth-db/prisma/generated/client/client.d.ts": [
+    "packages/prisma/better-auth-db/prisma/generated/client/index.d.ts"
+  ],
+  "packages/prisma/better-auth-db/prisma/generated/client/default.d.ts": [
+    "packages/prisma/better-auth-db/prisma/generated/client/index.d.ts"
+  ],
+  "packages/prisma/better-auth-db/prisma/generated/client/edge.d.ts": [
+    "packages/prisma/better-auth-db/prisma/generated/client/default.d.ts"
+  ],
+  "packages/prisma/better-auth-db/prisma/generated/client/index.d.ts": [
+    "packages/prisma/better-auth-db/prisma/generated/client/runtime/library.d.ts"
+  ],
+  "packages/prisma/better-auth-db/prisma/generated/client/runtime/index-browser.d.ts": [],
+  "packages/prisma/better-auth-db/prisma/generated/client/runtime/library.d.ts": [],
+  "packages/prisma/better-auth-db/prisma/generated/client/wasm.d.ts": [
+    "packages/prisma/better-auth-db/prisma/generated/client/default.d.ts"
+  ],
+  "packages/prisma/better-auth-db/src/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/prisma-better-auth-db.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/.vitest-placeholder.spec.ts": [],
+  "packages/prisma/better-auth-db/src/lib/client/client.ts": [
+    "packages/prisma/better-auth-db/src/lib/config/config.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/client/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/client/client.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/config/config.ts": [],
+  "packages/prisma/better-auth-db/src/lib/config/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/config/config.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/account/client/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/account/client/link-social/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/account/client/list-accounts/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/account/client/unlink-account/index.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/account/client/link-social/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/account/client/link-social/linkSocial.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/account/client/link-social/linkSocial.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/account/link-social/linkSocial.ts",
+    "packages/prisma/better-auth-db/src/lib/client/client.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/account/client/list-accounts/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/account/client/list-accounts/listAccounts.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/account/client/list-accounts/listAccounts.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/account/list-accounts/listAccounts.ts",
+    "packages/prisma/better-auth-db/src/lib/client/client.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/account/client/unlink-account/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/account/client/unlink-account/unlinkAccount.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/account/client/unlink-account/unlinkAccount.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/account/unlink-account/unlinkAccount.ts",
+    "packages/prisma/better-auth-db/src/lib/client/client.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/account/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/account/client/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/account/server/index.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/account/server/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/account/server/list-accounts/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/account/server/unlink-account/index.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/account/server/list-accounts/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/account/server/list-accounts/listAccounts.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/account/server/list-accounts/listAccounts.ts": [
+    "packages/prisma/better-auth-db/src/lib/server/server.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/account/server/unlink-account/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/account/server/unlink-account/unlinkAccount.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/account/server/unlink-account/unlinkAccount.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/account/unlink-account/unlinkAccount.ts",
+    "packages/prisma/better-auth-db/src/lib/server/server.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/client/change-password/changePassword.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/change-password/changePassword.ts",
+    "packages/prisma/better-auth-db/src/lib/client/client.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/client/change-password/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/client/change-password/changePassword.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/client/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/client/change-password/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/email/client/request-password-reset/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/email/client/reset-password/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/email/client/send-verification-email/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/email/client/sign-in-email/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/email/client/sign-out/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/email/client/sign-up-email/index.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/client/request-password-reset/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/client/request-password-reset/requestPasswordReset.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/client/request-password-reset/requestPasswordReset.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/request-password-reset/requestPasswordReset.ts",
+    "packages/prisma/better-auth-db/src/lib/client/client.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/client/reset-password/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/client/reset-password/resetPassword.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/client/reset-password/resetPassword.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/reset-password/resetPassword.ts",
+    "packages/prisma/better-auth-db/src/lib/client/client.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/client/send-verification-email/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/client/send-verification-email/sendVerificationEmail.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/client/send-verification-email/sendVerificationEmail.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/send-verification-email/sendVerificationEmail.ts",
+    "packages/prisma/better-auth-db/src/lib/client/client.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/client/sign-in-email/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/client/sign-in-email/signInEmail.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/client/sign-in-email/signInEmail.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/sign-in-email/signInEmail.ts",
+    "packages/prisma/better-auth-db/src/lib/client/client.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/client/sign-out/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/client/sign-out/signOut.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/client/sign-out/signOut.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/sign-out/signOut.ts",
+    "packages/prisma/better-auth-db/src/lib/client/client.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/client/sign-up-email/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/client/sign-up-email/signUpEmail.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/client/sign-up-email/signUpEmail.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/email/sign-up-email/signUpEmail.ts",
+    "packages/prisma/better-auth-db/src/lib/client/client.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/client/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/email/server/index.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/server/change-password/changePassword.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/change-password/changePassword.ts",
+    "packages/prisma/better-auth-db/src/lib/server/server.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/server/change-password/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/server/change-password/changePassword.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/server/forget-password/forgetPassword.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/forget-password/forgetPassword.ts",
+    "packages/prisma/better-auth-db/src/lib/server/server.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/server/forget-password/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/server/forget-password/forgetPassword.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/server/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/server/change-password/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/email/server/forget-password/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/email/server/reset-password/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/email/server/send-verification-email/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/email/server/sign-in-email/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/email/server/sign-out/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/email/server/sign-up-email/index.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/server/reset-password/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/server/reset-password/resetPassword.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/server/reset-password/resetPassword.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/reset-password/resetPassword.ts",
+    "packages/prisma/better-auth-db/src/lib/server/server.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/server/send-verification-email/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/server/send-verification-email/sendVerificationEmail.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/server/send-verification-email/sendVerificationEmail.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/send-verification-email/sendVerificationEmail.ts",
+    "packages/prisma/better-auth-db/src/lib/server/server.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/server/sign-in-email/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/server/sign-in-email/signInEmail.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/server/sign-in-email/signInEmail.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-in-email/signInEmail.ts",
+    "packages/prisma/better-auth-db/src/lib/server/server.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/server/sign-out/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/server/sign-out/signOut.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/server/sign-out/signOut.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-out/signOut.ts",
+    "packages/prisma/better-auth-db/src/lib/server/server.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/server/sign-up-email/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/email/server/sign-up-email/signUpEmail.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/email/server/sign-up-email/signUpEmail.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/email/sign-up-email/signUpEmail.ts",
+    "packages/prisma/better-auth-db/src/lib/server/server.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/account/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/email/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/oauth/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/session/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/user/index.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/oauth/client/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/oauth/client/sign-in/index.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/oauth/client/sign-in/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/oauth/client/sign-in/signIn.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/oauth/client/sign-in/signIn.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/oauth/sign-in/signIn.ts",
+    "packages/prisma/better-auth-db/src/lib/client/client.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/oauth/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/oauth/client/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/oauth/server/index.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/oauth/server/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/oauth/server/sign-in/index.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/oauth/server/sign-in/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/oauth/server/sign-in/signIn.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/oauth/server/sign-in/signIn.ts": [
+    "packages/prisma/better-auth-db/src/lib/server/server.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/session/client/get-session/getSession.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/session/get-session/getSession.ts",
+    "packages/prisma/better-auth-db/src/lib/client/client.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/session/client/get-session/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/session/client/get-session/getSession.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/session/client/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/session/client/get-session/index.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/session/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/session/client/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/session/server/index.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/session/server/get-session/getSession.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/session/get-session/getSession.ts",
+    "packages/prisma/better-auth-db/src/lib/server/server.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/session/server/get-session/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/session/server/get-session/getSession.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/session/server/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/session/server/get-session/index.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/user/client/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/user/client/update-user/index.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/user/client/update-user/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/user/client/update-user/updateUser.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/user/client/update-user/updateUser.ts": [
+    "packages/better-auth-utilities/src/lib/client/core/user/update-user/updateUser.ts",
+    "packages/prisma/better-auth-db/src/lib/client/client.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/user/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/user/client/index.ts",
+    "packages/prisma/better-auth-db/src/lib/core/user/server/index.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/user/server/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/user/server/update-user/index.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/user/server/update-user/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/core/user/server/update-user/updateUser.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/core/user/server/update-user/updateUser.ts": [
+    "packages/better-auth-utilities/src/lib/server/core/user/update-user/updateUser.ts",
+    "packages/prisma/better-auth-db/src/lib/server/server.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/prisma-better-auth-db.ts": [
+    "packages/prisma/better-auth-db/src/lib/client/client.ts",
+    "packages/prisma/better-auth-db/src/lib/config/config.ts",
+    "packages/prisma/better-auth-db/src/lib/server/server.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/server/index.ts": [
+    "packages/prisma/better-auth-db/src/lib/server/server.ts"
+  ],
+  "packages/prisma/better-auth-db/src/lib/server/server.ts": [
+    "packages/prisma/better-auth-db/prisma/generated/client/index.d.ts",
+    "packages/prisma/better-auth-db/src/lib/config/config.ts"
+  ],
+  "packages/prisma/better-auth-db/vite.config.ts": [
+    "packages/prisma/better-auth-db/externalize-packages.ts",
+    "packages/prisma/better-auth-db/externals.json"
+  ],
+  "packages/prisma/better-auth-db/vitest.config.ts": [],
+  "packages/tsserver-analyzer/src/cli.ts": [
+    "packages/tsserver-analyzer/src/lib/tsserver-analyzer.module.ts",
+    "packages/tsserver-analyzer/src/lib/tsserver-analyzer.ts"
+  ],
+  "packages/tsserver-analyzer/src/index.ts": [
+    "packages/tsserver-analyzer/src/lib/tsserver-analyzer.module.ts",
+    "packages/tsserver-analyzer/src/lib/tsserver-analyzer.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/config/config.service.ts": [],
+  "packages/tsserver-analyzer/src/lib/core/discovery/log-finder.service.ts": [],
+  "packages/tsserver-analyzer/src/lib/core/index.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/index.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/core/reporting/console-reporter.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.types.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/core/runner/analysis-runner.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/parser/trace-parser.service.ts",
+    "packages/tsserver-analyzer/src/lib/tsserver-analyzer.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/core/trace/analyzer/enrichment/enrichment.utils.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.types.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.utils.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/parser/trace-parser.types.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/core/trace/analyzer/handlers/internal.handler.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/enrichment/enrichment.utils.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/state/state.utils.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/stats/stats.utils.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.types.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.utils.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/parser/trace-parser.types.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/core/trace/analyzer/handlers/request.handler.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.types.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/parser/trace-parser.types.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/core/trace/analyzer/handlers/response.handler.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/stats/stats.utils.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.types.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.utils.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/parser/trace-parser.types.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/core/trace/analyzer/index.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/core/trace/analyzer/state/state.utils.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.types.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.utils.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/parser/trace-parser.types.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/core/trace/analyzer/stats/stats.utils.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.types.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.service.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/handlers/internal.handler.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/handlers/request.handler.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/handlers/response.handler.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/state/state.utils.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.types.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/parser/trace-parser.types.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.service.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.types.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.utils.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.types.ts": [],
+  "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.utils.ts": [],
+  "packages/tsserver-analyzer/src/lib/core/trace/index.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/index.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/parser/index.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/core/trace/parser/index.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/parser/trace-parser.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/core/trace/parser/trace-parser.service.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/parser/trace-parser.types.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/core/trace/parser/trace-parser.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/parser/trace-parser.service.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/parser/trace-parser.types.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/core/trace/parser/trace-parser.types.ts": [],
+  "packages/tsserver-analyzer/src/lib/tsserver-analyzer.module.ts": [
+    "packages/tsserver-analyzer/src/lib/config/config.service.ts",
+    "packages/tsserver-analyzer/src/lib/core/discovery/log-finder.service.ts",
+    "packages/tsserver-analyzer/src/lib/core/reporting/console-reporter.ts",
+    "packages/tsserver-analyzer/src/lib/core/runner/analysis-runner.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/tsserver-analyzer.spec.ts": [
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.service.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/parser/trace-parser.types.ts"
+  ],
+  "packages/tsserver-analyzer/src/lib/tsserver-analyzer.ts": [
+    "packages/tsserver-analyzer/src/lib/core/index.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.service.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/analyzer/trace-analyzer.types.ts",
+    "packages/tsserver-analyzer/src/lib/core/trace/parser/trace-parser.types.ts"
+  ],
+  "packages/tsserver-analyzer/vite.config.ts": [],
+  "packages/tsserver-analyzer/vitest.config.ts": [],
+  "packages/utilities/externalize-packages.ts": [],
+  "packages/utilities/externals.json": [],
+  "packages/utilities/src/lib/helper-functions/fromArray.utils.ts": [],
+  "packages/utilities/src/lib/helper-functions/function.utils.ts": [
+    "packages/utilities/src/lib/types/function.types.ts"
+  ],
+  "packages/utilities/src/lib/helper-functions/helperFunctions.ts": [
+    "packages/utilities/src/lib/helper-functions/fromArray.utils.ts",
+    "packages/utilities/src/lib/helper-functions/function.utils.ts",
+    "packages/utilities/src/lib/helper-functions/mergeObjects.utils.ts",
+    "packages/utilities/src/lib/helper-functions/object.utils.ts",
+    "packages/utilities/src/lib/helper-functions/primitive.utils.ts",
+    "packages/utilities/src/lib/helper-functions/runTableTest.utils.ts",
+    "packages/utilities/src/lib/helper-functions/toArray.utils.ts",
+    "packages/utilities/src/lib/helper-functions/toObjects.utils.ts",
+    "packages/utilities/src/lib/helper-functions/toString.utils.ts"
+  ],
+  "packages/utilities/src/lib/helper-functions/mergeObjects.utils.ts": [],
+  "packages/utilities/src/lib/helper-functions/object.utils.ts": [
+    "packages/utilities/src/lib/types/object.types.ts"
+  ],
+  "packages/utilities/src/lib/helper-functions/primitive.utils.ts": [
+    "packages/utilities/src/lib/types/primitive.types.ts"
+  ],
+  "packages/utilities/src/lib/helper-functions/runTableTest.utils.ts": [],
+  "packages/utilities/src/lib/helper-functions/toArray.utils.ts": [],
+  "packages/utilities/src/lib/helper-functions/toObjects.utils.ts": [],
+  "packages/utilities/src/lib/helper-functions/toString.utils.ts": [
+    "packages/utilities/src/lib/types/array/array.types.ts",
+    "packages/utilities/src/lib/types/object/object.types.ts",
+    "packages/utilities/src/lib/types/stringable/stringable.types.ts"
+  ],
+  "packages/utilities/src/lib/types/array/array.types.ts": [
+    "packages/utilities/src/lib/types/object.types.ts",
+    "packages/utilities/src/lib/types/primitive.types.ts",
+    "packages/utilities/src/lib/types/stringable/stringable.types.ts"
+  ],
+  "packages/utilities/src/lib/types/boolean/boolean.types.ts": [
+    "packages/utilities/src/lib/types/primitive.types.ts"
+  ],
+  "packages/utilities/src/lib/types/composite/composite.types.ts": [
+    "packages/utilities/src/lib/types/number/number.types.ts",
+    "packages/utilities/src/lib/types/string/string.types.ts"
+  ],
+  "packages/utilities/src/lib/types/function.types.ts": [],
+  "packages/utilities/src/lib/types/number/number.types.ts": [
+    "packages/utilities/src/lib/types/primitive.types.ts"
+  ],
+  "packages/utilities/src/lib/types/object.types.ts": [
+    "packages/utilities/src/lib/types/object/object.types.ts"
+  ],
+  "packages/utilities/src/lib/types/object/object.types.ts": [],
+  "packages/utilities/src/lib/types/primitive.types.ts": [],
+  "packages/utilities/src/lib/types/record/record.types.ts": [
+    "packages/utilities/src/lib/types/array/array.types.ts",
+    "packages/utilities/src/lib/types/object/object.types.ts"
+  ],
+  "packages/utilities/src/lib/types/string/string.types.ts": [
+    "packages/utilities/src/lib/types/primitive.types.ts"
+  ],
+  "packages/utilities/src/lib/types/stringable/stringable.fixtures.ts": [
+    "packages/utilities/src/lib/helper-functions/function.utils.ts",
+    "packages/utilities/src/lib/helper-functions/mergeObjects.utils.ts",
+    "packages/utilities/src/lib/helper-functions/object.utils.ts",
+    "packages/utilities/src/lib/helper-functions/primitive.utils.ts",
+    "packages/utilities/src/lib/helper-functions/toObjects.utils.ts",
+    "packages/utilities/src/lib/types/test.types.ts"
+  ],
+  "packages/utilities/src/lib/types/stringable/stringable.types.spec.ts": [
+    "packages/utilities/src/lib/helper-functions/runTableTest.utils.ts",
+    "packages/utilities/src/lib/types/stringable/stringable.fixtures.ts",
+    "packages/utilities/src/lib/types/stringable/stringable.types.ts"
+  ],
+  "packages/utilities/src/lib/types/stringable/stringable.types.ts": [
+    "packages/utilities/src/lib/types/function.types.ts",
+    "packages/utilities/src/lib/types/object/object.types.ts",
+    "packages/utilities/src/lib/types/primitive.types.ts"
+  ],
+  "packages/utilities/src/lib/types/test.types.ts": [],
+  "packages/utilities/src/lib/types/types.ts": [
+    "packages/utilities/src/lib/types/array/array.types.ts",
+    "packages/utilities/src/lib/types/boolean/boolean.types.ts",
+    "packages/utilities/src/lib/types/composite/composite.types.ts",
+    "packages/utilities/src/lib/types/function.types.ts",
+    "packages/utilities/src/lib/types/number/number.types.ts",
+    "packages/utilities/src/lib/types/object.types.ts",
+    "packages/utilities/src/lib/types/object/object.types.ts",
+    "packages/utilities/src/lib/types/primitive.types.ts",
+    "packages/utilities/src/lib/types/record/record.types.ts",
+    "packages/utilities/src/lib/types/string/string.types.ts",
+    "packages/utilities/src/lib/types/stringable/stringable.types.ts",
+    "packages/utilities/src/lib/types/test.types.ts"
+  ],
+  "packages/utilities/src/utilities.ts": [
+    "packages/utilities/src/lib/helper-functions/fromArray.utils.ts",
+    "packages/utilities/src/lib/helper-functions/function.utils.ts",
+    "packages/utilities/src/lib/helper-functions/mergeObjects.utils.ts",
+    "packages/utilities/src/lib/helper-functions/object.utils.ts",
+    "packages/utilities/src/lib/helper-functions/primitive.utils.ts",
+    "packages/utilities/src/lib/helper-functions/runTableTest.utils.ts",
+    "packages/utilities/src/lib/helper-functions/toArray.utils.ts",
+    "packages/utilities/src/lib/helper-functions/toObjects.utils.ts",
+    "packages/utilities/src/lib/helper-functions/toString.utils.ts",
+    "packages/utilities/src/lib/types/array/array.types.ts",
+    "packages/utilities/src/lib/types/boolean/boolean.types.ts",
+    "packages/utilities/src/lib/types/composite/composite.types.ts",
+    "packages/utilities/src/lib/types/function.types.ts",
+    "packages/utilities/src/lib/types/number/number.types.ts",
+    "packages/utilities/src/lib/types/object.types.ts",
+    "packages/utilities/src/lib/types/object/object.types.ts",
+    "packages/utilities/src/lib/types/primitive.types.ts",
+    "packages/utilities/src/lib/types/record/record.types.ts",
+    "packages/utilities/src/lib/types/string/string.types.ts",
+    "packages/utilities/src/lib/types/stringable/stringable.fixtures.ts",
+    "packages/utilities/src/lib/types/stringable/stringable.types.ts",
+    "packages/utilities/src/lib/types/test.types.ts"
+  ],
+  "packages/utilities/vite.config.ts": [
+    "packages/utilities/externalize-packages.ts",
+    "packages/utilities/externals.json"
+  ],
+  "packages/utilities/vitest.config.ts": []
+}

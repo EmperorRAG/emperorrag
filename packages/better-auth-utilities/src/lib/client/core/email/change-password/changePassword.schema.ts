@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Zod schema for validating ChangePasswordInput payloads.
@@ -20,13 +20,13 @@ import { z } from 'zod';
  * ```
  */
 export const changePasswordInputSchema = z.object({
-	newPassword: z.string().min(8, 'New password must be at least 8 characters'),
-	currentPassword: z.string().min(1, 'Current password is required'),
-	revokeOtherSessions: z.boolean().optional(),
-	fetchOptions: z
-		.object({
-			onSuccess: z.function().optional(),
-			onError: z.function().optional(),
-		})
-		.optional(),
+  newPassword: z.string().min(8, "New password must be at least 8 characters"),
+  currentPassword: z.string().min(1, "Current password is required"),
+  revokeOtherSessions: z.boolean().optional(),
+  fetchOptions: z
+    .object({
+      onSuccess: z.function().optional(),
+      onError: z.function().optional(),
+    })
+    .optional(),
 });

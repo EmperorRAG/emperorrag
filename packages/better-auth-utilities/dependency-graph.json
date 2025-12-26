@@ -1,27 +1,14 @@
 {
-  "lib/client/client.constants.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
+  "lib/client/client.constants.ts": [],
   "lib/client/client.service.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "lib/client/client.constants.ts",
-    "lib/shared/config/config.types.ts"
+    "lib/client/client.constants.ts"
   ],
   "lib/client/client.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
-  "lib/client/client.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts"
-  ],
-  "lib/client/config/config.service.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
-  "lib/client/core/account/link-social/linkSocial.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/client.types.ts": [],
+  "lib/client/core/account/link-social/linkSocial.schema.ts": [],
   "lib/client/core/account/link-social/linkSocial.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/account/link-social/linkSocial.types.ts",
     "lib/client/core/account/shared/account.error.ts"
   ],
@@ -29,17 +16,12 @@
     "lib/client/core/account/link-social/linkSocial.service.ts"
   ],
   "lib/client/core/account/link-social/linkSocial.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/account/shared/account.error.ts",
     "lib/client/core/account/shared/account.types.ts"
   ],
-  "lib/client/core/account/list-accounts/listAccounts.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/account/list-accounts/listAccounts.schema.ts": [],
   "lib/client/core/account/list-accounts/listAccounts.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/account/list-accounts/listAccounts.types.ts",
     "lib/client/core/account/shared/account.error.ts"
   ],
@@ -47,22 +29,16 @@
     "lib/client/core/account/list-accounts/listAccounts.service.ts"
   ],
   "lib/client/core/account/list-accounts/listAccounts.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/account/shared/account.error.ts",
     "lib/client/core/account/shared/account.types.ts"
   ],
   "lib/client/core/account/shared/account.error.ts": [],
   "lib/client/core/account/shared/account.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
     "lib/client/client.types.ts"
   ],
-  "lib/client/core/account/unlink-account/unlinkAccount.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/account/unlink-account/unlinkAccount.schema.ts": [],
   "lib/client/core/account/unlink-account/unlinkAccount.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/account/shared/account.error.ts",
     "lib/client/core/account/unlink-account/unlinkAccount.types.ts"
   ],
@@ -70,183 +46,136 @@
     "lib/client/core/account/unlink-account/unlinkAccount.service.ts"
   ],
   "lib/client/core/account/unlink-account/unlinkAccount.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/account/shared/account.error.ts",
     "lib/client/core/account/shared/account.types.ts"
   ],
   "lib/client/core/email/change-password/changePassword.controller.ts": [],
-  "lib/client/core/email/change-password/changePassword.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/email/change-password/changePassword.schema.ts": [],
   "lib/client/core/email/change-password/changePassword.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/email/change-password/changePassword.types.ts",
     "lib/client/core/email/shared/email.error.ts"
   ],
   "lib/client/core/email/change-password/changePassword.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/client/core/email/change-password/changePassword.ts": [
     "lib/client/core/email/change-password/changePassword.service.ts"
   ],
   "lib/client/core/email/change-password/changePassword.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
   ],
   "lib/client/core/email/change-password/changePassword.utils.ts": [],
   "lib/client/core/email/request-password-reset/requestPasswordReset.controller.ts": [],
-  "lib/client/core/email/request-password-reset/requestPasswordReset.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/email/request-password-reset/requestPasswordReset.schema.ts": [],
   "lib/client/core/email/request-password-reset/requestPasswordReset.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/email/request-password-reset/requestPasswordReset.types.ts",
     "lib/client/core/email/shared/email.error.ts"
   ],
   "lib/client/core/email/request-password-reset/requestPasswordReset.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/client/core/email/request-password-reset/requestPasswordReset.ts": [
     "lib/client/core/email/request-password-reset/requestPasswordReset.service.ts"
   ],
   "lib/client/core/email/request-password-reset/requestPasswordReset.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
   ],
   "lib/client/core/email/request-password-reset/requestPasswordReset.utils.ts": [],
   "lib/client/core/email/reset-password/resetPassword.controller.ts": [],
-  "lib/client/core/email/reset-password/resetPassword.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/email/reset-password/resetPassword.schema.ts": [],
   "lib/client/core/email/reset-password/resetPassword.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/email/reset-password/resetPassword.types.ts",
     "lib/client/core/email/shared/email.error.ts"
   ],
   "lib/client/core/email/reset-password/resetPassword.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/client/core/email/reset-password/resetPassword.ts": [
     "lib/client/core/email/reset-password/resetPassword.service.ts"
   ],
   "lib/client/core/email/reset-password/resetPassword.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
   ],
   "lib/client/core/email/reset-password/resetPassword.utils.ts": [],
   "lib/client/core/email/send-verification-email/sendVerificationEmail.controller.ts": [],
-  "lib/client/core/email/send-verification-email/sendVerificationEmail.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/email/send-verification-email/sendVerificationEmail.schema.ts": [],
   "lib/client/core/email/send-verification-email/sendVerificationEmail.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/email/send-verification-email/sendVerificationEmail.types.ts",
     "lib/client/core/email/shared/email.error.ts"
   ],
   "lib/client/core/email/send-verification-email/sendVerificationEmail.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/client/core/email/send-verification-email/sendVerificationEmail.ts": [
     "lib/client/core/email/send-verification-email/sendVerificationEmail.service.ts"
   ],
   "lib/client/core/email/send-verification-email/sendVerificationEmail.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
   ],
   "lib/client/core/email/send-verification-email/sendVerificationEmail.utils.ts": [],
   "lib/client/core/email/shared/email.error.ts": [],
-  "lib/client/core/email/shared/email.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/email/shared/email.schema.ts": [],
   "lib/client/core/email/shared/email.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
     "lib/client/client.types.ts"
   ],
   "lib/client/core/email/sign-in-email/signInEmail.controller.ts": [],
-  "lib/client/core/email/sign-in-email/signInEmail.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/email/sign-in-email/signInEmail.schema.ts": [],
   "lib/client/core/email/sign-in-email/signInEmail.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/sign-in-email/signInEmail.types.ts"
   ],
   "lib/client/core/email/sign-in-email/signInEmail.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/client/core/email/sign-in-email/signInEmail.ts": [
     "lib/client/core/email/sign-in-email/signInEmail.service.ts"
   ],
   "lib/client/core/email/sign-in-email/signInEmail.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
   ],
   "lib/client/core/email/sign-in-email/signInEmail.utils.ts": [],
   "lib/client/core/email/sign-out/signOut.controller.ts": [],
-  "lib/client/core/email/sign-out/signOut.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/email/sign-out/signOut.schema.ts": [],
   "lib/client/core/email/sign-out/signOut.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/sign-out/signOut.types.ts"
   ],
   "lib/client/core/email/sign-out/signOut.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/client/core/email/sign-out/signOut.ts": [
     "lib/client/core/email/sign-out/signOut.service.ts"
   ],
   "lib/client/core/email/sign-out/signOut.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
   ],
   "lib/client/core/email/sign-out/signOut.utils.ts": [],
   "lib/client/core/email/sign-up-email/signUpEmail.controller.ts": [],
-  "lib/client/core/email/sign-up-email/signUpEmail.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/email/sign-up-email/signUpEmail.schema.ts": [],
   "lib/client/core/email/sign-up-email/signUpEmail.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/sign-up-email/signUpEmail.types.ts"
   ],
   "lib/client/core/email/sign-up-email/signUpEmail.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/client/core/email/sign-up-email/signUpEmail.ts": [
     "lib/client/core/email/sign-up-email/signUpEmail.service.ts"
   ],
   "lib/client/core/email/sign-up-email/signUpEmail.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/email/shared/email.error.ts",
     "lib/client/core/email/shared/email.types.ts"
@@ -254,14 +183,10 @@
   "lib/client/core/email/sign-up-email/signUpEmail.utils.ts": [],
   "lib/client/core/oauth/shared/oauth.error.ts": [],
   "lib/client/core/oauth/shared/oauth.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
     "lib/client/client.types.ts"
   ],
-  "lib/client/core/oauth/sign-in/signIn.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/oauth/sign-in/signIn.schema.ts": [],
   "lib/client/core/oauth/sign-in/signIn.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/oauth/shared/oauth.error.ts",
     "lib/client/core/oauth/sign-in/signIn.types.ts"
   ],
@@ -269,24 +194,16 @@
     "lib/client/core/oauth/sign-in/signIn.service.ts"
   ],
   "lib/client/core/oauth/sign-in/signIn.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/oauth/shared/oauth.error.ts",
     "lib/client/core/oauth/shared/oauth.types.ts"
   ],
-  "lib/client/core/session/get-session/getSession.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/session/get-session/getSession.schema.ts": [],
   "lib/client/core/session/get-session/getSession.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/session/get-session/getSession.types.ts",
     "lib/client/core/session/shared/session.error.ts"
   ],
   "lib/client/core/session/get-session/getSession.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/effect/dist/dts/Either.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/client/core/session/get-session/getSession.service.ts",
     "lib/test/setup-test-env.ts"
   ],
@@ -294,34 +211,24 @@
     "lib/client/core/session/get-session/getSession.service.ts"
   ],
   "lib/client/core/session/get-session/getSession.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/session/shared/session.error.ts",
     "lib/client/core/session/shared/session.types.ts"
   ],
   "lib/client/core/session/shared/session.error.ts": [],
   "lib/client/core/session/shared/session.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
     "lib/client/client.types.ts"
   ],
   "lib/client/core/user/shared/user.error.ts": [],
   "lib/client/core/user/shared/user.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
     "lib/client/client.types.ts"
   ],
-  "lib/client/core/user/update-user/updateUser.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
+  "lib/client/core/user/update-user/updateUser.schema.ts": [],
   "lib/client/core/user/update-user/updateUser.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/core/user/shared/user.error.ts",
     "lib/client/core/user/update-user/updateUser.types.ts"
   ],
   "lib/client/core/user/update-user/updateUser.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/effect/dist/dts/Either.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/client/core/user/update-user/updateUser.service.ts",
     "lib/test/setup-test-env.ts"
   ],
@@ -329,351 +236,1135 @@
     "lib/client/core/user/update-user/updateUser.service.ts"
   ],
   "lib/client/core/user/update-user/updateUser.types.ts": [
-    "../../../node_modules/better-auth/dist/client/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
     "lib/client/client.types.ts",
     "lib/client/core/user/shared/user.error.ts",
     "lib/client/core/user/shared/user.types.ts"
   ],
-  "lib/server/config/config.service.ts": [
-    "lib/shared/config/config.types.ts"
+  "lib/configs/config.schema.spec.ts": [
+    "lib/configs/config.schema.ts"
   ],
-  "lib/server/core/account/list-accounts/listAccounts.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
+  "lib/configs/config.schema.ts": [],
+  "lib/context/pipeline.context.ts": [
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/enums/operationCodes.enum.ts"
   ],
-  "lib/server/core/account/list-accounts/listAccounts.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/account/list-accounts/listAccounts.types.ts",
-    "lib/server/core/account/shared/account.error.ts"
-  ],
-  "lib/server/core/account/list-accounts/listAccounts.ts": [
-    "lib/server/core/account/list-accounts/listAccounts.service.ts"
-  ],
-  "lib/server/core/account/list-accounts/listAccounts.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/account/shared/account.error.ts",
-    "lib/server/core/account/shared/account.types.ts",
+  "lib/enums/authServerApiEndpoints.enum.ts": [],
+  "lib/enums/operationCodes.enum.ts": [],
+  "lib/errors/authServer.error.ts": [
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/account/shared/account.error.ts": [],
-  "lib/server/core/account/shared/account.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
+  "lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.types.ts",
+    "lib/pipeline/extract-auth-server-config/extractAuthServerConfig.ts"
+  ],
+  "lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.types.ts": [
+    "lib/context/pipeline.context.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/account/unlink-account/unlinkAccount.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
+  "lib/pipeline/create-auth-server-api-error/createAuthServerApiError.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/pipeline/create-auth-server-api-error/createAuthServerApiError.types.ts"
+  ],
+  "lib/pipeline/create-auth-server-api-error/createAuthServerApiError.types.ts": [
+    "lib/errors/authServer.error.ts"
+  ],
+  "lib/pipeline/create-auth-server-auth-server-error-descriptor/createAuthServerAuthServerErrorDescriptor.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "lib/pipeline/create-auth-server-data-missing-error-descriptor/createAuthServerDataMissingErrorDescriptor.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "lib/pipeline/create-auth-server-dependency-error-descriptor/createAuthServerDependencyErrorDescriptor.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "lib/pipeline/create-auth-server-input-error/createAuthServerInputError.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/pipeline/create-auth-server-input-error/createAuthServerInputError.types.ts"
+  ],
+  "lib/pipeline/create-auth-server-input-error/createAuthServerInputError.types.ts": [
+    "lib/errors/authServer.error.ts"
+  ],
+  "lib/pipeline/create-auth-server-invalid-credentials-error-descriptor/createAuthServerInvalidCredentialsErrorDescriptor.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "lib/pipeline/create-auth-server-invalid-input-error-descriptor/createAuthServerInvalidInputErrorDescriptor.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "lib/pipeline/create-auth-server-session-error-descriptor/createAuthServerSessionErrorDescriptor.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "lib/pipeline/create-auth-server-user-already-exists-error-descriptor/createAuthServerUserAlreadyExistsErrorDescriptor.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "lib/pipeline/describe-error/describeError.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/pipeline/create-auth-server-auth-server-error-descriptor/createAuthServerAuthServerErrorDescriptor.ts",
+    "lib/pipeline/create-auth-server-data-missing-error-descriptor/createAuthServerDataMissingErrorDescriptor.ts",
+    "lib/pipeline/create-auth-server-dependency-error-descriptor/createAuthServerDependencyErrorDescriptor.ts",
+    "lib/pipeline/create-auth-server-invalid-credentials-error-descriptor/createAuthServerInvalidCredentialsErrorDescriptor.ts",
+    "lib/pipeline/create-auth-server-invalid-input-error-descriptor/createAuthServerInvalidInputErrorDescriptor.ts",
+    "lib/pipeline/create-auth-server-session-error-descriptor/createAuthServerSessionErrorDescriptor.ts",
+    "lib/pipeline/create-auth-server-user-already-exists-error-descriptor/createAuthServerUserAlreadyExistsErrorDescriptor.ts",
+    "lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "lib/pipeline/describe-error/describeError.types.ts": [
+    "lib/errors/authServer.error.ts"
+  ],
+  "lib/pipeline/extract-auth-server-config/extractAuthServerConfig.ts": [
+    "lib/pipeline/extract-auth-server-config/extractAuthServerConfig.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/pipeline/extract-auth-server-config/extractAuthServerConfig.types.ts": [
+    "lib/enums/authServerApiEndpoints.enum.ts"
+  ],
+  "lib/pipeline/format-zod-error-message/formatZodErrorMessage.ts": [
+    "lib/pipeline/format-zod-error-message/formatZodErrorMessage.types.ts"
+  ],
+  "lib/pipeline/format-zod-error-message/formatZodErrorMessage.types.ts": [],
+  "lib/pipeline/handle-api-error/handleApiError.ts": [
+    "lib/pipeline/handle-api-error/handleApiError.types.ts",
+    "lib/pipeline/map-api-error/mapApiError.ts"
+  ],
+  "lib/pipeline/handle-api-error/handleApiError.types.ts": [
+    "lib/errors/authServer.error.ts"
+  ],
+  "lib/pipeline/handle-error/handleError.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/pipeline/describe-error/describeError.ts",
+    "lib/pipeline/describe-error/describeError.types.ts",
+    "lib/pipeline/handle-error/handleError.types.ts"
+  ],
+  "lib/pipeline/handle-error/handleError.types.ts": [
+    "lib/pipeline/describe-error/describeError.types.ts"
+  ],
+  "lib/pipeline/handle-input-error/handleInputError.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/operationCodes.enum.ts",
+    "lib/pipeline/handle-input-error/handleInputError.types.ts",
+    "lib/pipeline/map-input-error/mapInputError.ts"
+  ],
+  "lib/pipeline/handle-input-error/handleInputError.types.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/errors/authServer.error.ts"
+  ],
+  "lib/pipeline/is-zod-error/isZodError.ts": [
+    "lib/pipeline/is-zod-error/isZodError.types.ts"
+  ],
+  "lib/pipeline/is-zod-error/isZodError.types.ts": [],
+  "lib/pipeline/map-api-error/mapApiError.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/pipeline/create-auth-server-api-error/createAuthServerApiError.ts",
+    "lib/pipeline/map-api-error/mapApiError.types.ts"
+  ],
+  "lib/pipeline/map-api-error/mapApiError.types.ts": [
+    "lib/errors/authServer.error.ts"
+  ],
+  "lib/pipeline/map-input-error/mapInputError.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/errors/authServer.error.ts",
+    "lib/pipeline/create-auth-server-input-error/createAuthServerInputError.ts",
+    "lib/pipeline/format-zod-error-message/formatZodErrorMessage.ts",
+    "lib/pipeline/map-input-error/mapInputError.types.ts"
+  ],
+  "lib/pipeline/map-input-error/mapInputError.types.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/enums/operationCodes.enum.ts",
+    "lib/errors/authServer.error.ts"
+  ],
+  "lib/pipeline/parse-with-schema/parseWithSchema.ts": [
+    "lib/pipeline/parse-with-schema/parseWithSchema.types.ts"
+  ],
+  "lib/pipeline/parse-with-schema/parseWithSchema.types.ts": [],
+  "lib/pipeline/validate-with-type-guard/validateWithTypeGuard.ts": [],
+  "lib/pipeline/validate-with-type-guard/validateWithTypeGuard.types.ts": [],
+  "lib/pipeline/zod-input-validator/zodInputValidator.ts": [
+    "lib/pipeline/handle-input-error/handleInputError.ts",
+    "lib/pipeline/parse-with-schema/parseWithSchema.ts",
+    "lib/pipeline/validate-with-type-guard/validateWithTypeGuard.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.types.ts"
+  ],
+  "lib/pipeline/zod-input-validator/zodInputValidator.types.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/errors/authServer.error.ts"
+  ],
+  "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/pipeline/auth-server-api-endpoint-body-zod-schema-builder/authServerApiEndpointBodyZodSchemaBuilder.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.types.ts"
+  ],
+  "lib/pipeline/zod-schema-builder/zodSchemaBuilder.types.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/policy/extract/extractPolicy.ts": [
+    "lib/server/server.types.ts"
+  ],
+  "lib/schema/accounts/account.schema.ts": [],
+  "lib/schema/additional-fields.schema.ts": [
+    "lib/server/server.types.ts"
+  ],
+  "lib/schema/commands/account-info/AccountInfo.command.ts": [],
+  "lib/schema/commands/callback-oauth/CallbackOAuth.command.ts": [],
+  "lib/schema/commands/change-email/ChangeEmail.command.ts": [
+    "lib/schema/emails/email.schema.ts",
+    "lib/schema/urls/url.schema.ts"
+  ],
+  "lib/schema/commands/change-password/ChangePassword.command.ts": [
+    "lib/schema/passwords/password.schema.ts"
+  ],
+  "lib/schema/commands/delete-user-callback/DeleteUserCallback.command.ts": [],
+  "lib/schema/commands/delete-user/DeleteUser.command.ts": [
+    "lib/schema/passwords/password.schema.ts",
+    "lib/schema/urls/url.schema.ts"
+  ],
+  "lib/schema/commands/forget-password-callback/ForgetPasswordCallback.command.ts": [],
+  "lib/schema/commands/forget-password/ForgetPassword.command.ts": [
+    "lib/schema/emails/email.schema.ts",
+    "lib/schema/urls/url.schema.ts"
+  ],
+  "lib/schema/commands/get-access-token/GetAccessToken.command.ts": [],
+  "lib/schema/commands/get-session/GetSession.command.ts": [],
+  "lib/schema/commands/link-social-account/LinkSocialAccount.command.ts": [
+    "lib/schema/urls/url.schema.ts"
+  ],
+  "lib/schema/commands/list-sessions/ListSessions.command.ts": [],
+  "lib/schema/commands/list-user-accounts/ListUserAccounts.command.ts": [],
+  "lib/schema/commands/refresh-token/RefreshToken.command.ts": [],
+  "lib/schema/commands/request-password-reset-callback/RequestPasswordResetCallback.command.ts": [],
+  "lib/schema/commands/request-password-reset/RequestPasswordReset.command.ts": [
+    "lib/schema/emails/email.schema.ts",
+    "lib/schema/urls/url.schema.ts"
+  ],
+  "lib/schema/commands/reset-password/ResetPassword.command.ts": [
+    "lib/schema/passwords/password.schema.ts"
+  ],
+  "lib/schema/commands/revoke-other-sessions/RevokeOtherSessions.command.ts": [],
+  "lib/schema/commands/revoke-session/RevokeSession.command.ts": [],
+  "lib/schema/commands/revoke-sessions/RevokeSessions.command.ts": [],
+  "lib/schema/commands/send-verification-email/SendVerificationEmail.command.ts": [
+    "lib/schema/emails/email.schema.ts",
+    "lib/schema/urls/url.schema.ts"
+  ],
+  "lib/schema/commands/set-password/SetPassword.command.ts": [
+    "lib/schema/passwords/password.schema.ts"
+  ],
+  "lib/schema/commands/sign-in-email/SignInEmail.command.ts": [
+    "lib/schema/emails/email.schema.ts",
+    "lib/schema/passwords/password.schema.ts",
+    "lib/schema/urls/url.schema.ts"
+  ],
+  "lib/schema/commands/sign-in-social/SignInSocial.command.ts": [
+    "lib/schema/urls/url.schema.ts"
+  ],
+  "lib/schema/commands/sign-out/SignOut.command.ts": [],
+  "lib/schema/commands/sign-up-email/SignUpEmail.command.ts": [
+    "lib/schema/emails/email.schema.ts",
+    "lib/schema/images/image.schema.ts",
+    "lib/schema/names/name.schema.ts",
+    "lib/schema/passwords/password.schema.ts",
+    "lib/schema/urls/url.schema.ts"
+  ],
+  "lib/schema/commands/unlink-account/UnlinkAccount.command.ts": [],
+  "lib/schema/commands/update-user/UpdateUser.command.ts": [
+    "lib/schema/images/image.schema.ts"
+  ],
+  "lib/schema/commands/verify-email/VerifyEmail.command.ts": [
+    "lib/schema/urls/url.schema.ts"
+  ],
+  "lib/schema/emails/email.schema.ts": [],
+  "lib/schema/images/image.schema.ts": [],
+  "lib/schema/names/name.schema.ts": [],
+  "lib/schema/params/sign-up-email-and-transport/SignUpEmailAndTransport.schema.ts": [
+    "lib/schema/commands/sign-up-email/SignUpEmail.command.ts",
+    "lib/schema/transport/Transport.command.ts"
+  ],
+  "lib/schema/passwords/password.schema.ts": [],
+  "lib/schema/sessions/session.schema.ts": [],
+  "lib/schema/transport/SignUpEmailAuthServerParamsToCommandWithTransportCommand.transform.ts": [
+    "lib/schema/commands/sign-up-email/SignUpEmail.command.ts",
+    "lib/schema/transport/Transport.command.ts",
+    "lib/schema/transport/UnknownWithTransport.command.ts"
+  ],
+  "lib/schema/transport/Transport.command.ts": [],
+  "lib/schema/transport/UnknownWithTransport.command.ts": [
+    "lib/schema/transport/Transport.command.ts"
+  ],
+  "lib/schema/urls/url.schema.ts": [],
+  "lib/schema/users/user.schema.ts": [],
+  "lib/schema/verifications/verification.schema.ts": [],
+  "lib/server/core/account/account-info/accountInfo.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/account/account-info/accountInfo.service.ts",
+    "lib/server/core/account/account-info/accountInfo.types.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/account/account-info/accountInfo.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/account/account-info/accountInfo.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/account/account-info/accountInfo.spec.ts": [
+    "lib/server/core/account/account-info/accountInfo.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/account/account-info/accountInfo.ts": [
+    "lib/server/core/account/account-info/accountInfo.controller.ts",
+    "lib/server/core/account/account-info/accountInfo.service.ts",
+    "lib/server/core/account/account-info/accountInfo.types.ts"
+  ],
+  "lib/server/core/account/account-info/accountInfo.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/account/list-user-accounts/listUserAccounts.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/errors/authServer.error.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/account/list-user-accounts/listUserAccounts.service.ts",
+    "lib/server/core/account/list-user-accounts/listUserAccounts.types.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/account/list-user-accounts/listUserAccounts.service.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/account/list-user-accounts/listUserAccounts.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/account/list-user-accounts/listUserAccounts.spec.ts": [
+    "lib/server/core/account/list-user-accounts/listUserAccounts.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/account/list-user-accounts/listUserAccounts.ts": [
+    "lib/server/core/account/list-user-accounts/listUserAccounts.controller.ts",
+    "lib/server/core/account/list-user-accounts/listUserAccounts.service.ts",
+    "lib/server/core/account/list-user-accounts/listUserAccounts.types.ts"
+  ],
+  "lib/server/core/account/list-user-accounts/listUserAccounts.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/account/unlink-account/unlinkAccount.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/account/unlink-account/unlinkAccount.service.ts",
+    "lib/server/core/account/unlink-account/unlinkAccount.types.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/account/unlink-account/unlinkAccount.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/account/shared/account.error.ts",
-    "lib/server/core/account/unlink-account/unlinkAccount.types.ts"
-  ],
-  "lib/server/core/account/unlink-account/unlinkAccount.ts": [
-    "lib/server/core/account/unlink-account/unlinkAccount.service.ts"
-  ],
-  "lib/server/core/account/unlink-account/unlinkAccount.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/account/shared/account.error.ts",
-    "lib/server/core/account/shared/account.types.ts",
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/account/unlink-account/unlinkAccount.types.ts",
+    "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/email/change-password/changePassword.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
+  "lib/server/core/account/unlink-account/unlinkAccount.spec.ts": [
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/account/unlink-account/unlinkAccount.ts": [
+    "lib/server/core/account/unlink-account/unlinkAccount.controller.ts",
+    "lib/server/core/account/unlink-account/unlinkAccount.service.ts",
+    "lib/server/core/account/unlink-account/unlinkAccount.types.ts"
+  ],
+  "lib/server/core/account/unlink-account/unlinkAccount.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/email/change-email/changeEmail.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/email/change-email/changeEmail.service.ts",
+    "lib/server/core/email/change-email/changeEmail.types.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/email/change-email/changeEmail.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/email/change-email/changeEmail.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/email/change-email/changeEmail.spec.ts": [
+    "lib/server/core/email/change-email/changeEmail.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/email/change-email/changeEmail.ts": [
+    "lib/server/core/email/change-email/changeEmail.controller.ts",
+    "lib/server/core/email/change-email/changeEmail.service.ts",
+    "lib/server/core/email/change-email/changeEmail.types.ts"
+  ],
+  "lib/server/core/email/change-email/changeEmail.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/email/change-password/changePassword.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/email/change-password/changePassword.service.ts",
+    "lib/server/core/email/change-password/changePassword.types.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/email/change-password/changePassword.service.ts": [
-    "../../../node_modules/better-auth/dist/api/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
+    "lib/pipeline/map-api-error/mapApiError.ts",
     "lib/server/core/email/change-password/changePassword.types.ts",
-    "lib/server/core/email/shared/email.error.ts"
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/email/change-password/changePassword.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
+    "lib/server/core/email/change-password/changePassword.service.ts",
+    "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/server/core/email/change-password/changePassword.ts": [
-    "lib/server/core/email/change-password/changePassword.service.ts"
+    "lib/server/core/email/change-password/changePassword.controller.ts",
+    "lib/server/core/email/change-password/changePassword.service.ts",
+    "lib/server/core/email/change-password/changePassword.types.ts"
   ],
   "lib/server/core/email/change-password/changePassword.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
-    "lib/server/core/email/shared/email.types.ts",
+    "lib/errors/authServer.error.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/email/forget-password/forgetPassword.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
+  "lib/server/core/email/forget-password-callback/forgetPasswordCallback.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/email/forget-password-callback/forgetPasswordCallback.service.ts",
+    "lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/email/forget-password-callback/forgetPasswordCallback.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/email/forget-password-callback/forgetPasswordCallback.spec.ts": [
+    "lib/server/core/email/forget-password-callback/forgetPasswordCallback.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/email/forget-password-callback/forgetPasswordCallback.ts": [
+    "lib/server/core/email/forget-password-callback/forgetPasswordCallback.controller.ts",
+    "lib/server/core/email/forget-password-callback/forgetPasswordCallback.service.ts",
+    "lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts"
+  ],
+  "lib/server/core/email/forget-password-callback/forgetPasswordCallback.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/email/forget-password/forgetPassword.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/email/forget-password/forgetPassword.service.ts",
+    "lib/server/core/email/forget-password/forgetPassword.types.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/email/forget-password/forgetPassword.service.ts": [
-    "../../../node_modules/better-auth/dist/api/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
+    "lib/pipeline/map-api-error/mapApiError.ts",
     "lib/server/core/email/forget-password/forgetPassword.types.ts",
-    "lib/server/core/email/shared/email.error.ts"
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/email/forget-password/forgetPassword.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
+    "lib/server/core/email/forget-password/forgetPassword.service.ts",
+    "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/server/core/email/forget-password/forgetPassword.ts": [
-    "lib/server/core/email/forget-password/forgetPassword.service.ts"
+    "lib/server/core/email/forget-password/forgetPassword.controller.ts",
+    "lib/server/core/email/forget-password/forgetPassword.service.ts",
+    "lib/server/core/email/forget-password/forgetPassword.types.ts"
   ],
   "lib/server/core/email/forget-password/forgetPassword.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
-    "lib/server/core/email/shared/email.types.ts",
+    "lib/errors/authServer.error.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/email/reset-password/resetPassword.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
+  "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.service.ts",
+    "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.spec.ts": [
+    "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.ts": [
+    "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.controller.ts",
+    "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.service.ts",
+    "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts"
+  ],
+  "lib/server/core/email/request-password-reset-callback/requestPasswordResetCallback.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/email/request-password-reset/requestPasswordReset.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/email/request-password-reset/requestPasswordReset.service.ts",
+    "lib/server/core/email/request-password-reset/requestPasswordReset.types.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/email/request-password-reset/requestPasswordReset.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/email/request-password-reset/requestPasswordReset.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/email/request-password-reset/requestPasswordReset.spec.ts": [
+    "lib/server/core/email/request-password-reset/requestPasswordReset.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/email/request-password-reset/requestPasswordReset.ts": [
+    "lib/server/core/email/request-password-reset/requestPasswordReset.controller.ts",
+    "lib/server/core/email/request-password-reset/requestPasswordReset.service.ts",
+    "lib/server/core/email/request-password-reset/requestPasswordReset.types.ts"
+  ],
+  "lib/server/core/email/request-password-reset/requestPasswordReset.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/email/reset-password/resetPassword.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/email/reset-password/resetPassword.service.ts",
+    "lib/server/core/email/reset-password/resetPassword.types.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/email/reset-password/resetPassword.service.ts": [
-    "../../../node_modules/better-auth/dist/api/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
+    "lib/pipeline/map-api-error/mapApiError.ts",
     "lib/server/core/email/reset-password/resetPassword.types.ts",
-    "lib/server/core/email/shared/email.error.ts"
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/email/reset-password/resetPassword.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
+    "lib/server/core/email/reset-password/resetPassword.service.ts",
+    "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/server/core/email/reset-password/resetPassword.ts": [
-    "lib/server/core/email/reset-password/resetPassword.service.ts"
+    "lib/server/core/email/reset-password/resetPassword.controller.ts",
+    "lib/server/core/email/reset-password/resetPassword.service.ts",
+    "lib/server/core/email/reset-password/resetPassword.types.ts"
   ],
   "lib/server/core/email/reset-password/resetPassword.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
-    "lib/server/core/email/shared/email.types.ts",
+    "lib/errors/authServer.error.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/email/send-verification-email/sendVerificationEmail.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
+  "lib/server/core/email/send-verification-email/sendVerificationEmail.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts",
+    "lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts": [
-    "../../../node_modules/better-auth/dist/api/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
+    "lib/pipeline/map-api-error/mapApiError.ts",
     "lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts",
-    "lib/server/core/email/shared/email.error.ts"
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
+    "lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts",
+    "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.ts": [
-    "lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts"
+    "lib/server/core/email/send-verification-email/sendVerificationEmail.controller.ts",
+    "lib/server/core/email/send-verification-email/sendVerificationEmail.service.ts",
+    "lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts"
   ],
   "lib/server/core/email/send-verification-email/sendVerificationEmail.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
-    "lib/server/core/email/shared/email.types.ts",
+    "lib/errors/authServer.error.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/email/shared/email.error.ts": [],
-  "lib/server/core/email/shared/email.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
-  ],
-  "lib/server/core/email/shared/email.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
+  "lib/server/core/email/set-password/setPassword.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/email/set-password/setPassword.service.ts",
+    "lib/server/core/email/set-password/setPassword.types.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/email/sign-in-email/signInEmail.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
+  "lib/server/core/email/set-password/setPassword.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/email/set-password/setPassword.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/email/set-password/setPassword.spec.ts": [
+    "lib/server/core/email/set-password/setPassword.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/email/set-password/setPassword.ts": [
+    "lib/server/core/email/set-password/setPassword.controller.ts",
+    "lib/server/core/email/set-password/setPassword.service.ts",
+    "lib/server/core/email/set-password/setPassword.types.ts"
+  ],
+  "lib/server/core/email/set-password/setPassword.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/email/sign-in-email/signInEmail.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/email/sign-in-email/signInEmail.service.ts",
+    "lib/server/core/email/sign-in-email/signInEmail.types.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-in-email/signInEmail.service.ts": [
-    "../../../node_modules/better-auth/dist/api/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
-    "lib/server/core/email/sign-in-email/signInEmail.types.ts"
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/email/sign-in-email/signInEmail.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-in-email/signInEmail.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
+    "lib/server/core/email/sign-in-email/signInEmail.service.ts",
+    "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/server/core/email/sign-in-email/signInEmail.ts": [
-    "lib/server/core/email/sign-in-email/signInEmail.service.ts"
+    "lib/server/core/email/sign-in-email/signInEmail.controller.ts",
+    "lib/server/core/email/sign-in-email/signInEmail.service.ts",
+    "lib/server/core/email/sign-in-email/signInEmail.types.ts"
   ],
   "lib/server/core/email/sign-in-email/signInEmail.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
-    "lib/server/core/email/shared/email.types.ts",
+    "lib/errors/authServer.error.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/email/sign-out/signOut.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
+  "lib/server/core/email/sign-out/signOut.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/email/sign-out/signOut.service.ts",
+    "lib/server/core/email/sign-out/signOut.types.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-out/signOut.service.ts": [
-    "../../../node_modules/better-auth/dist/api/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
-    "lib/server/core/email/sign-out/signOut.types.ts"
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/email/sign-out/signOut.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/email/sign-out/signOut.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
+    "lib/server/core/email/sign-out/signOut.service.ts",
+    "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/server/core/email/sign-out/signOut.ts": [
-    "lib/server/core/email/sign-out/signOut.service.ts"
+    "lib/server/core/email/sign-out/signOut.controller.ts",
+    "lib/server/core/email/sign-out/signOut.service.ts",
+    "lib/server/core/email/sign-out/signOut.types.ts"
   ],
   "lib/server/core/email/sign-out/signOut.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
-    "lib/server/core/email/shared/email.types.ts",
+    "lib/errors/authServer.error.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/email/sign-up-email/signUpEmail.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
+  "lib/server/core/email/sign-up-email/SignUpEmail.types.ts": [
+    "lib/schema/commands/sign-up-email/SignUpEmail.command.ts"
   ],
-  "lib/server/core/email/sign-up-email/signUpEmail.service.ts": [
-    "../../../node_modules/better-auth/dist/api/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
-    "lib/server/core/email/sign-up-email/signUpEmail.types.ts"
-  ],
-  "lib/server/core/email/sign-up-email/signUpEmail.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
+  "lib/server/core/email/sign-up-email/signUpEmail.controller.spec.ts": [
+    "lib/server/core/email/sign-up-email/signUpEmail.controller.ts",
+    "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
   ],
-  "lib/server/core/email/sign-up-email/signUpEmail.ts": [
+  "lib/server/core/email/sign-up-email/signUpEmail.controller.ts": [
+    "lib/server/core/email/sign-up-email/SignUpEmail.types.ts",
     "lib/server/core/email/sign-up-email/signUpEmail.service.ts"
   ],
-  "lib/server/core/email/sign-up-email/signUpEmail.types.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/email/shared/email.error.ts",
-    "lib/server/core/email/shared/email.types.ts",
+  "lib/server/core/email/sign-up-email/signUpEmail.service.spec.ts": [
+    "lib/server/core/email/sign-up-email/SignUpEmail.types.ts",
+    "lib/server/core/email/sign-up-email/signUpEmail.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/email/sign-up-email/signUpEmail.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/email/sign-up-email/SignUpEmail.types.ts",
+    "lib/server/server.service.ts"
+  ],
+  "lib/server/core/email/sign-up-email/signUpEmail.ts": [
+    "lib/server/core/email/sign-up-email/signUpEmail.controller.ts",
+    "lib/server/core/email/sign-up-email/signUpEmail.service.ts"
+  ],
+  "lib/server/core/email/verify-email/verifyEmail.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/email/verify-email/verifyEmail.service.ts",
+    "lib/server/core/email/verify-email/verifyEmail.types.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/oauth/shared/oauth.error.ts": [],
-  "lib/server/core/oauth/shared/oauth.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
+  "lib/server/core/email/verify-email/verifyEmail.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/email/verify-email/verifyEmail.types.ts",
+    "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/oauth/sign-in/signIn.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
+  "lib/server/core/email/verify-email/verifyEmail.spec.ts": [
+    "lib/server/core/email/verify-email/verifyEmail.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
   ],
-  "lib/server/core/oauth/sign-in/signIn.service.ts": [
-    "../../../node_modules/better-auth/dist/api/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/oauth/shared/oauth.error.ts",
-    "lib/server/core/oauth/sign-in/signIn.types.ts"
+  "lib/server/core/email/verify-email/verifyEmail.ts": [
+    "lib/server/core/email/verify-email/verifyEmail.controller.ts",
+    "lib/server/core/email/verify-email/verifyEmail.service.ts",
+    "lib/server/core/email/verify-email/verifyEmail.types.ts"
   ],
-  "lib/server/core/oauth/sign-in/signIn.ts": [
-    "lib/server/core/oauth/sign-in/signIn.service.ts"
-  ],
-  "lib/server/core/oauth/sign-in/signIn.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/oauth/shared/oauth.error.ts",
-    "lib/server/core/oauth/shared/oauth.types.ts",
+  "lib/server/core/email/verify-email/verifyEmail.types.ts": [
+    "lib/errors/authServer.error.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/session/get-session/getSession.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
+  "lib/server/core/oauth/callback-oauth/callbackOAuth.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/oauth/callback-oauth/callbackOAuth.service.ts",
+    "lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/oauth/callback-oauth/callbackOAuth.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/oauth/callback-oauth/callbackOAuth.spec.ts": [
+    "lib/server/core/oauth/callback-oauth/callbackOAuth.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/oauth/callback-oauth/callbackOAuth.ts": [
+    "lib/server/core/oauth/callback-oauth/callbackOAuth.controller.ts",
+    "lib/server/core/oauth/callback-oauth/callbackOAuth.service.ts",
+    "lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts"
+  ],
+  "lib/server/core/oauth/callback-oauth/callbackOAuth.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/oauth/link-social-account/linkSocialAccount.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/oauth/link-social-account/linkSocialAccount.service.ts",
+    "lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/oauth/link-social-account/linkSocialAccount.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/oauth/link-social-account/linkSocialAccount.spec.ts": [
+    "lib/server/core/oauth/link-social-account/linkSocialAccount.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/oauth/link-social-account/linkSocialAccount.ts": [
+    "lib/server/core/oauth/link-social-account/linkSocialAccount.controller.ts",
+    "lib/server/core/oauth/link-social-account/linkSocialAccount.service.ts",
+    "lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts"
+  ],
+  "lib/server/core/oauth/link-social-account/linkSocialAccount.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/oauth/sign-in-social/signInSocial.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/oauth/sign-in-social/signInSocial.service.ts",
+    "lib/server/core/oauth/sign-in-social/signInSocial.types.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/oauth/sign-in-social/signInSocial.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/oauth/sign-in-social/signInSocial.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/oauth/sign-in-social/signInSocial.spec.ts": [
+    "lib/server/core/oauth/sign-in-social/signInSocial.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/oauth/sign-in-social/signInSocial.ts": [
+    "lib/server/core/oauth/sign-in-social/signInSocial.controller.ts",
+    "lib/server/core/oauth/sign-in-social/signInSocial.service.ts",
+    "lib/server/core/oauth/sign-in-social/signInSocial.types.ts"
+  ],
+  "lib/server/core/oauth/sign-in-social/signInSocial.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/session/get-access-token/getAccessToken.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/session/get-access-token/getAccessToken.service.ts",
+    "lib/server/core/session/get-access-token/getAccessToken.types.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/session/get-access-token/getAccessToken.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/session/get-access-token/getAccessToken.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/session/get-access-token/getAccessToken.spec.ts": [
+    "lib/server/core/session/get-access-token/getAccessToken.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/session/get-access-token/getAccessToken.ts": [
+    "lib/server/core/session/get-access-token/getAccessToken.controller.ts",
+    "lib/server/core/session/get-access-token/getAccessToken.service.ts",
+    "lib/server/core/session/get-access-token/getAccessToken.types.ts"
+  ],
+  "lib/server/core/session/get-access-token/getAccessToken.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/session/get-session/getSession.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/session/get-session/getSession.service.ts",
+    "lib/server/core/session/get-session/getSession.types.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/session/get-session/getSession.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
+    "lib/pipeline/map-api-error/mapApiError.ts",
     "lib/server/core/session/get-session/getSession.types.ts",
-    "lib/server/core/session/shared/session.error.ts"
+    "lib/server/server.service.ts"
   ],
   "lib/server/core/session/get-session/getSession.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/effect/dist/dts/Either.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/session/get-session/getSession.service.ts",
+    "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/server/core/session/get-session/getSession.ts": [
-    "lib/server/core/session/get-session/getSession.service.ts"
+    "lib/server/core/session/get-session/getSession.controller.ts",
+    "lib/server/core/session/get-session/getSession.service.ts",
+    "lib/server/core/session/get-session/getSession.types.ts"
   ],
   "lib/server/core/session/get-session/getSession.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/session/shared/session.error.ts",
-    "lib/server/core/session/shared/session.types.ts",
+    "lib/errors/authServer.error.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/session/shared/session.error.ts": [],
-  "lib/server/core/session/shared/session.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
+  "lib/server/core/session/list-sessions/listSessions.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/session/list-sessions/listSessions.service.ts",
+    "lib/server/core/session/list-sessions/listSessions.types.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/user/shared/user.error.ts": [],
-  "lib/server/core/user/shared/user.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
+  "lib/server/core/session/list-sessions/listSessions.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/session/list-sessions/listSessions.types.ts",
+    "lib/server/server.service.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/core/user/update-user/updateUser.schema.ts": [
-    "../../../node_modules/zod/index.d.cts"
+  "lib/server/core/session/list-sessions/listSessions.spec.ts": [
+    "lib/server/core/session/list-sessions/listSessions.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/session/list-sessions/listSessions.ts": [
+    "lib/server/core/session/list-sessions/listSessions.controller.ts",
+    "lib/server/core/session/list-sessions/listSessions.service.ts",
+    "lib/server/core/session/list-sessions/listSessions.types.ts"
+  ],
+  "lib/server/core/session/list-sessions/listSessions.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/session/refresh-token/refreshToken.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/session/refresh-token/refreshToken.service.ts",
+    "lib/server/core/session/refresh-token/refreshToken.types.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/session/refresh-token/refreshToken.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/session/refresh-token/refreshToken.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/session/refresh-token/refreshToken.spec.ts": [
+    "lib/server/core/session/refresh-token/refreshToken.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/session/refresh-token/refreshToken.ts": [
+    "lib/server/core/session/refresh-token/refreshToken.controller.ts",
+    "lib/server/core/session/refresh-token/refreshToken.service.ts",
+    "lib/server/core/session/refresh-token/refreshToken.types.ts"
+  ],
+  "lib/server/core/session/refresh-token/refreshToken.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.service.ts",
+    "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.spec.ts": [
+    "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.ts": [
+    "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.controller.ts",
+    "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.service.ts",
+    "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts"
+  ],
+  "lib/server/core/session/revoke-other-sessions/revokeOtherSessions.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/session/revoke-session/revokeSession.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/session/revoke-session/revokeSession.service.ts",
+    "lib/server/core/session/revoke-session/revokeSession.types.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/session/revoke-session/revokeSession.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/session/revoke-session/revokeSession.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/session/revoke-session/revokeSession.spec.ts": [
+    "lib/server/core/session/revoke-session/revokeSession.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/session/revoke-session/revokeSession.ts": [
+    "lib/server/core/session/revoke-session/revokeSession.controller.ts",
+    "lib/server/core/session/revoke-session/revokeSession.service.ts",
+    "lib/server/core/session/revoke-session/revokeSession.types.ts"
+  ],
+  "lib/server/core/session/revoke-session/revokeSession.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/session/revoke-sessions/revokeSessions.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/session/revoke-sessions/revokeSessions.service.ts",
+    "lib/server/core/session/revoke-sessions/revokeSessions.types.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/session/revoke-sessions/revokeSessions.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/session/revoke-sessions/revokeSessions.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/session/revoke-sessions/revokeSessions.spec.ts": [
+    "lib/server/core/session/revoke-sessions/revokeSessions.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/session/revoke-sessions/revokeSessions.ts": [
+    "lib/server/core/session/revoke-sessions/revokeSessions.controller.ts",
+    "lib/server/core/session/revoke-sessions/revokeSessions.service.ts",
+    "lib/server/core/session/revoke-sessions/revokeSessions.types.ts"
+  ],
+  "lib/server/core/session/revoke-sessions/revokeSessions.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/user/delete-user-callback/deleteUserCallback.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/user/delete-user-callback/deleteUserCallback.service.ts",
+    "lib/server/core/user/delete-user-callback/deleteUserCallback.types.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/user/delete-user-callback/deleteUserCallback.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/user/delete-user-callback/deleteUserCallback.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/user/delete-user-callback/deleteUserCallback.spec.ts": [
+    "lib/server/core/user/delete-user-callback/deleteUserCallback.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/user/delete-user-callback/deleteUserCallback.ts": [
+    "lib/server/core/user/delete-user-callback/deleteUserCallback.controller.ts",
+    "lib/server/core/user/delete-user-callback/deleteUserCallback.service.ts",
+    "lib/server/core/user/delete-user-callback/deleteUserCallback.types.ts"
+  ],
+  "lib/server/core/user/delete-user-callback/deleteUserCallback.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/user/delete-user/deleteUser.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/user/delete-user/deleteUser.service.ts",
+    "lib/server/core/user/delete-user/deleteUser.types.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/user/delete-user/deleteUser.service.ts": [
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/user/delete-user/deleteUser.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/user/delete-user/deleteUser.spec.ts": [
+    "lib/server/core/user/delete-user/deleteUser.service.ts",
+    "lib/server/server.service.ts",
+    "lib/test/setup-test-env.ts"
+  ],
+  "lib/server/core/user/delete-user/deleteUser.ts": [
+    "lib/server/core/user/delete-user/deleteUser.controller.ts",
+    "lib/server/core/user/delete-user/deleteUser.service.ts",
+    "lib/server/core/user/delete-user/deleteUser.types.ts"
+  ],
+  "lib/server/core/user/delete-user/deleteUser.types.ts": [
+    "lib/errors/authServer.error.ts",
+    "lib/server/server.types.ts"
+  ],
+  "lib/server/core/user/update-user/updateUser.controller.ts": [
+    "lib/context/pipeline.context.ts",
+    "lib/enums/authServerApiEndpoints.enum.ts",
+    "lib/pipeline/zod-input-validator/zodInputValidator.ts",
+    "lib/pipeline/zod-schema-builder/zodSchemaBuilder.ts",
+    "lib/server/core/user/update-user/updateUser.service.ts",
+    "lib/server/core/user/update-user/updateUser.types.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/user/update-user/updateUser.service.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/user/shared/user.error.ts",
-    "lib/server/core/user/update-user/updateUser.types.ts"
+    "lib/pipeline/map-api-error/mapApiError.ts",
+    "lib/server/core/user/update-user/updateUser.types.ts",
+    "lib/server/server.service.ts",
+    "lib/server/server.types.ts"
   ],
   "lib/server/core/user/update-user/updateUser.spec.ts": [
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "../../../node_modules/effect/dist/dts/Either.d.ts",
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/server/core/user/update-user/updateUser.service.ts",
+    "lib/server/server.service.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/server/core/user/update-user/updateUser.ts": [
-    "lib/server/core/user/update-user/updateUser.service.ts"
+    "lib/server/core/user/update-user/updateUser.controller.ts",
+    "lib/server/core/user/update-user/updateUser.service.ts",
+    "lib/server/core/user/update-user/updateUser.types.ts"
   ],
   "lib/server/core/user/update-user/updateUser.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/effect/dist/dts/Effect.d.ts",
-    "lib/server/core/user/shared/user.error.ts",
-    "lib/server/core/user/shared/user.types.ts",
+    "lib/errors/authServer.error.ts",
     "lib/server/server.types.ts"
   ],
-  "lib/server/server.constants.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
+  "lib/server/server.constants.ts": [],
   "lib/server/server.service.ts": [
-    "../../../node_modules/better-auth/dist/adapters/prisma-adapter/index.d.ts",
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "../../../node_modules/better-auth/dist/types/index.d.ts",
     "lib/server/server.constants.ts",
-    "lib/shared/config/config.types.ts"
+    "lib/server/server.types.ts"
   ],
   "lib/server/server.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
-  "lib/server/server.types.ts": [
-    "../../../node_modules/better-auth/dist/index.d.ts",
-    "lib/shared/config/config.types.ts"
+  "lib/server/server.types.ts": [],
+  "lib/test/debug-devtools.ts": [
+    "lib/pipeline/format-zod-error-message/formatZodErrorMessage.ts"
   ],
-  "lib/shared/config/config.constants.ts": [
-    "lib/shared/config/config.types.ts"
+  "lib/test/effectTestHarness.ts": [],
+  "lib/test/example.browser.spec.ts": [
+    "lib/test/effectTestHarness.ts"
   ],
-  "lib/shared/config/config.service.ts": [
-    "lib/shared/config/config.types.ts"
-  ],
-  "lib/shared/config/config.spec.ts": [
-    "lib/client/config/config.service.ts",
-    "lib/server/config/config.service.ts",
-    "lib/shared/config/config.constants.ts",
-    "lib/shared/config/config.service.ts",
-    "lib/shared/config/config.types.ts"
-  ],
-  "lib/shared/config/config.types.ts": [
-    "../../../node_modules/better-auth/dist/types/index.d.ts"
+  "lib/test/example.node.spec.ts": [
+    "lib/test/effectTestHarness.ts"
   ],
   "lib/test/integration.spec.ts": [
-    "../../../node_modules/vitest/dist/index.d.ts",
     "lib/test/setup-test-env.ts"
   ],
   "lib/test/setup-test-env.ts": [
-    "../../../node_modules/better-auth/dist/db/index.d.ts",
-    "../../../node_modules/better-auth/dist/integrations/node.d.ts",
     "lib/client/client.service.ts",
-    "lib/server/server.service.ts",
-    "lib/shared/config/config.types.ts"
+    "lib/server/server.service.ts"
   ]
 }

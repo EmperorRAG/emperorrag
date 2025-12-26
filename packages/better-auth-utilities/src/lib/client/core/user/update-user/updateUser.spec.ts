@@ -1,90 +1,90 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import * as Effect from 'effect/Effect';
-import * as Either from 'effect/Either';
-import { updateUserClient } from './updateUser.service';
-import { setupTestEnv } from '../../../../test/setup-test-env';
+import * as Effect from "effect/Effect";
+import * as Either from "effect/Either";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { setupTestEnv } from "../../../../test/setup-test-env";
+import { updateUserClient } from "./updateUser.service";
 
-describe('updateUser', () => {
-	let env: Awaited<ReturnType<typeof setupTestEnv>>;
+describe("updateUser", () => {
+  let env: Awaited<ReturnType<typeof setupTestEnv>>;
 
-	beforeAll(async () => {
-		env = await setupTestEnv();
-	});
+  beforeAll(async () => {
+    env = await setupTestEnv();
+  });
 
-	afterAll(async () => {
-		await env.cleanup();
-	});
+  afterAll(async () => {
+    await env.cleanup();
+  });
 
-	it('should update user name successfully', async () => {
-		const { authClient, baseURL } = env;
-		const newName = 'Updated Name';
+  it("should update user name successfully", async () => {
+    const { authClient, baseURL } = env;
+    const newName = "Updated Name";
 
-		// 1. Sign up a user
-		await authClient.signUp.email({
-			email: 'test-update-client@example.com',
-			password: 'password123',
-			name: 'Original Name',
-		});
+    // 1. Sign up a user
+    await authClient.signUp.email({
+      email: "test-update-client@example.com",
+      password: "password123",
+      name: "Original Name",
+    });
 
-		// 2. Sign in manually to get the session cookie (Node environment workaround)
-		const signInRes = await fetch(`${baseURL}/api/auth/sign-in/email`, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				email: 'test-update-client@example.com',
-				password: 'password123',
-			}),
-		});
-		const cookie = signInRes.headers.get('set-cookie');
+    // 2. Sign in manually to get the session cookie (Node environment workaround)
+    const signInRes = await fetch(`${baseURL}/api/auth/sign-in/email`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: "test-update-client@example.com",
+        password: "password123",
+      }),
+    });
+    const cookie = signInRes.headers.get("set-cookie");
 
-		// 3. Update user
-		const result = await Effect.runPromise(
-			Effect.either(
-				updateUserClient({ authClient })({
-					name: newName,
-					fetchOptions: {
-						headers: {
-							Cookie: cookie || '',
-						},
-					},
-				} as any)
-			)
-		);
+    // 3. Update user
+    const result = await Effect.runPromise(
+      Effect.either(
+        updateUserClient({ authClient })({
+          name: newName,
+          fetchOptions: {
+            headers: {
+              Cookie: cookie || "",
+            },
+          },
+        } as unknown),
+      ),
+    );
 
-		if (Either.isLeft(result)) {
-			console.error('Update User Client Error:', result.left);
-		}
-		expect(Either.isRight(result)).toBeTruthy();
-		if (Either.isRight(result)) {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const data = (result.right as any).data;
-			expect(data).toBeDefined();
-			expect(data.status).toBe(true);
+    if (Either.isLeft(result)) {
+      console.error("Update User Client Error:", result.left);
+    }
+    expect(Either.isRight(result)).toBeTruthy();
+    if (Either.isRight(result)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const data = (result.right as any).data;
+      expect(data).toBeDefined();
+      expect(data.status).toBe(true);
 
-			// Verify update by getting session
-			const session = await authClient.getSession({
-				fetchOptions: {
-					headers: {
-						Cookie: cookie || '',
-					},
-				},
-			});
-			expect(session.data?.user.name).toBe(newName);
-		}
-	});
+      // Verify update by getting session
+      const session = await authClient.getSession({
+        fetchOptions: {
+          headers: {
+            Cookie: cookie || "",
+          },
+        },
+      });
+      expect(session.data?.user.name).toBe(newName);
+    }
+  });
 
-	it('should fail without authentication', async () => {
-		const { authClient } = env;
-		const newName = 'Updated Name';
+  it("should fail without authentication", async () => {
+    const { authClient } = env;
+    const newName = "Updated Name";
 
-		const result = await Effect.runPromise(
-			Effect.either(
-				updateUserClient({ authClient })({
-					name: newName,
-				} as any)
-			)
-		);
+    const result = await Effect.runPromise(
+      Effect.either(
+        updateUserClient({ authClient })({
+          name: newName,
+        } as unknown),
+      ),
+    );
 
-		expect(Either.isLeft(result)).toBeTruthy();
-	});
+    expect(Either.isLeft(result)).toBeTruthy();
+  });
 });

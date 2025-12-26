@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Zod schema for validating SignOutInput payloads.
@@ -18,13 +18,13 @@ import { z } from 'zod';
  * ```
  */
 export const signOutInputSchema = z
-	.object({
-		callbackURL: z.string().url('Invalid callback URL').optional(),
-		fetchOptions: z
-			.object({
-				onSuccess: z.function().optional(),
-				onError: z.function().optional(),
-			})
-			.optional(),
-	})
-	.optional();
+  .object({
+    callbackURL: z.string().url("Invalid callback URL").optional(),
+    fetchOptions: z
+      .object({
+        onSuccess: z.function().optional(),
+        onError: z.function().optional(),
+      })
+      .optional(),
+  })
+  .optional();

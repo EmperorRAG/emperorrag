@@ -17,7 +17,8 @@
  *
  * @example
  * ```typescript
- * import { Effect, pipe } from 'effect';
+ * import * as Effect from 'effect/Effect';
+ * import { pipe } from 'effect/Function';
  * import { signOutInputSchema } from './signOut.schema';
  * import { signOut } from './signOut.service';
  *

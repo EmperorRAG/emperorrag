@@ -1,11 +1,21 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "defaultBase": "master",
+  "generators": {
+    "@nx/next": {
+      "application": {
+        "linter": "none",
+        "style": "css"
+      }
+    },
+    "@nx/react": {
+      "library": {
+        "unitTestRunner": "vitest"
+      }
+    }
+  },
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
@@ -15,86 +25,46 @@
       "!{projectRoot}/test-setup.[jt]s",
       "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
       "!{projectRoot}/.storybook/**/*",
-      "!{projectRoot}/tsconfig.storybook.json"
+      "!{projectRoot}/tsconfig.storybook.json",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/eslint.config.mjs"
     ],
-    "sharedGlobals": [
-      "{workspaceRoot}/.github/workflows/ci.yml"
-    ]
+    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
   "nxCloudId": "68f27910d4c1a465750f0832",
   "plugins": [
     {
-      "plugin": "@nx/js/typescript",
       "options": {
+        "build": {
+          "buildDepsName": "build-deps",
+          "configName": "tsconfig.lib.json",
+          "targetName": "build",
+          "watchDepsName": "watch-deps"
+        },
         "typecheck": {
           "targetName": "typecheck"
-        },
-        "build": {
-          "targetName": "build",
-          "configName": "tsconfig.lib.json",
-          "buildDepsName": "build-deps",
-          "watchDepsName": "watch-deps"
         }
-      }
-    },
-    {
-      "plugin": "@nx/vite/plugin",
-      "options": {
-        "buildTargetName": "build",
-        "testTargetName": "test",
-        "serveTargetName": "serve",
-        "devTargetName": "dev",
-        "previewTargetName": "preview",
-        "serveStaticTargetName": "serve-static",
-        "typecheckTargetName": "typecheck",
-        "buildDepsTargetName": "build-deps",
-        "watchDepsTargetName": "watch-deps"
-      }
-    },
-    {
-      "plugin": "@nx/webpack/plugin",
-      "options": {
-        "buildTargetName": "build",
-        "serveTargetName": "serve",
-        "previewTargetName": "preview",
-        "buildDepsTargetName": "build-deps",
-        "watchDepsTargetName": "watch-deps",
-        "serveStaticTargetName": "serve-static"
-      }
-    },
-    {
-      "plugin": "@nx/jest/plugin",
-      "options": {
-        "targetName": "test"
       },
-      "exclude": [
-        "apps/better-auth-nest-js-microservice-e2e/**/*"
-      ]
+      "plugin": "@nx/js/typescript"
     },
     {
-      "plugin": "@nx/storybook/plugin",
       "options": {
-        "serveStorybookTargetName": "storybook",
-        "buildStorybookTargetName": "build-storybook",
-        "testStorybookTargetName": "test-storybook",
-        "staticStorybookTargetName": "static-storybook"
-      }
-    },
-    {
-      "plugin": "@nx/next/plugin",
-      "options": {
-        "startTargetName": "start",
+        "buildDepsTargetName": "build-deps",
         "buildTargetName": "build",
         "devTargetName": "dev",
+        "previewTargetName": "preview",
         "serveStaticTargetName": "serve-static",
-        "buildDepsTargetName": "build-deps",
+        "serveTargetName": "serve",
+        "testTargetName": "test",
+        "typecheckTargetName": "typecheck",
         "watchDepsTargetName": "watch-deps"
-      }
+      },
+      "plugin": "@nx/vite/plugin"
     },
     {
-      "plugin": "@nx/playwright/plugin",
+      "plugin": "@nx/eslint/plugin",
       "options": {
-        "targetName": "e2e"
+        "targetName": "lint"
       }
     }
   ],
@@ -105,22 +75,7 @@
   },
   "targetDefaults": {
     "test": {
-      "dependsOn": [
-        "^build"
-      ]
-    }
-  },
-  "generators": {
-    "@nx/react": {
-      "library": {
-        "unitTestRunner": "vitest"
-      }
-    },
-    "@nx/next": {
-      "application": {
-        "style": "css",
-        "linter": "none"
-      }
+      "dependsOn": ["^build"]
     }
   }
 }

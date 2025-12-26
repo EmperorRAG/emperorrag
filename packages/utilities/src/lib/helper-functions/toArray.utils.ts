@@ -1,5 +1,5 @@
-import { pipe } from 'effect';
-import { of } from 'effect/Array';
+import { pipe } from "effect/Function";
+import { of } from "effect/Array";
 
 /**
  * Wraps a value in an array.

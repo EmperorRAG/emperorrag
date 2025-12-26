@@ -1,6 +1,11 @@
-import { pipe, Match } from 'effect';
-import { map } from 'effect/Array';
-import { isArrowFunction, isNamedFunction, AnyFunction } from '../types/function.types.js';
+import { pipe } from "effect/Function";
+import * as Match from "effect/Match";
+import { map } from "effect/Array";
+import {
+  isArrowFunction,
+  isNamedFunction,
+  AnyFunction,
+} from "../types/function.types.js";
 
 /**
  * Returns a string label describing the function value's type.
@@ -19,12 +24,12 @@ import { isArrowFunction, isNamedFunction, AnyFunction } from '../types/function
  * getFunctionLabelValue(function namedFunc() {}); // 'named function'
  */
 export const getFunctionLabelValue = (fn: AnyFunction): string =>
-	pipe(
-		Match.value(fn),
-		Match.when(isArrowFunction, () => 'arrow function'),
-		Match.when(isNamedFunction, () => 'named function'),
-		Match.orElse(() => 'function')
-	);
+  pipe(
+    Match.value(fn),
+    Match.when(isArrowFunction, () => "arrow function"),
+    Match.when(isNamedFunction, () => "named function"),
+    Match.orElse(() => "function"),
+  );
 
 /**
  * Returns the expected value (boolean) for a given function value for stringability tests.
@@ -43,12 +48,12 @@ export const getFunctionLabelValue = (fn: AnyFunction): string =>
  * getFunctionExpectedValue(function namedFunc() {}); // true
  */
 export const getFunctionExpectedValue = (fn: AnyFunction): boolean =>
-	pipe(
-		Match.value(fn),
-		Match.when(isArrowFunction, () => true),
-		Match.when(isNamedFunction, () => true),
-		Match.orElse(() => false)
-	);
+  pipe(
+    Match.value(fn),
+    Match.when(isArrowFunction, () => true),
+    Match.when(isNamedFunction, () => true),
+    Match.orElse(() => false),
+  );
 
 /**
  * Returns an array of representative function values.
@@ -63,12 +68,12 @@ export const getFunctionExpectedValue = (fn: AnyFunction): boolean =>
  * // => [() => {}, function namedFunc() {}]
  */
 export const getAllFunctionValues = (): AnyFunction[] => [
-	() => {
-		/* empty */
-	}, // arrow function
-	function namedFunc() {
-		/* empty */
-	}, // named function
+  () => {
+    /* empty */
+  }, // arrow function
+  function namedFunc() {
+    /* empty */
+  }, // named function
 ];
 
 /**
@@ -87,7 +92,7 @@ export const getAllFunctionValues = (): AnyFunction[] => [
  * // => ['arrow function', 'named function']
  */
 export const getAllFunctionLabelValues = (): string[] =>
-	pipe(getAllFunctionValues(), map(getFunctionLabelValue));
+  pipe(getAllFunctionValues(), map(getFunctionLabelValue));
 
 /**
  * Maps all function values to their expected boolean values for stringability tests.
@@ -105,4 +110,4 @@ export const getAllFunctionLabelValues = (): string[] =>
  * // => [true, true]
  */
 export const getAllFunctionExpectedValues = (): boolean[] =>
-	pipe(getAllFunctionValues(), map(getFunctionExpectedValue));
+  pipe(getAllFunctionValues(), map(getFunctionExpectedValue));
