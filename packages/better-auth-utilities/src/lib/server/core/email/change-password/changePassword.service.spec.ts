@@ -3,7 +3,7 @@ import { Effect, Schema } from "effect";
 import { afterAll, beforeAll, describe, expect } from "vitest";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
-import { changePasswordService } from "./changePassword.service";
+import { changePasswordServerService } from "./changePassword.service";
 import { ChangePasswordServerParams } from "./changePassword.types";
 
 /**
@@ -44,7 +44,7 @@ describe("Server Change Password Service", () => {
         },
       });
 
-      const program = changePasswordService(params);
+      const program = changePasswordServerService(params);
 
       const res = yield* Effect.provideService(
         program,

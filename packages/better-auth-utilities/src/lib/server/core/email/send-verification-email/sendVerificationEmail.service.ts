@@ -12,7 +12,7 @@ import type { SendVerificationEmailServerParams } from "./sendVerificationEmail.
  * Send a verification email to a user using Better Auth server API.
  *
  * Acceptance Criteria:
- * 1. Must export a function named `sendVerificationEmailService`.
+ * 1. Must export a function named `sendVerificationEmailServerService`.
  * 2. Must be a pure function (marked with @pure if applicable, though Effect functions are generally pure descriptions).
  * 3. Must use `AuthServerTag` to access the Better Auth server instance.
  * 4. Must call the corresponding `authServer.api.sendVerificationEmail` function.
@@ -23,7 +23,7 @@ import type { SendVerificationEmailServerParams } from "./sendVerificationEmail.
  * @param params - The parameters for the operation.
  * @returns An Effect that resolves to the response, requiring `AuthServerTag`.
  */
-export const sendVerificationEmailService = (
+export const sendVerificationEmailServerService = (
   params: SendVerificationEmailServerParams,
 ) =>
   Effect.flatMap(AuthServerTag, (authServer) =>
@@ -31,8 +31,9 @@ export const sendVerificationEmailService = (
       authServer.api.sendVerificationEmail({
         body: {
           email: params.body.email.value,
-          // Assuming SendVerificationEmailCommand has email.
-          ...params.body,
+          ...(params.body.callbackURL
+            ? { callbackURL: params.body.callbackURL.value }
+            : {}),
         },
         ...(params.headers ? { headers: params.headers } : {}),
         ...(params.asResponse !== undefined

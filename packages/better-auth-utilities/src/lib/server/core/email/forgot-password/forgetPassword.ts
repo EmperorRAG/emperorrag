@@ -7,5 +7,5 @@
  * 2. Must export the service.
  */
 
-export { forgetPasswordController } from "./forgetPassword.controller";
-export { forgetPasswordService } from "./forgetPassword.service";
+export { forgetPasswordServerController } from "./forgetPassword.controller";
+export { forgetPasswordServerService } from "./forgetPassword.service";

@@ -12,7 +12,7 @@ import type { ChangeEmailServerParams } from "./changeEmail.types";
  * Initiate change email flow using Better Auth server API.
  *
  * Acceptance Criteria:
- * 1. Must export a function named `changeEmailService`.
+ * 1. Must export a function named `changeEmailServerService`.
  * 2. Must be a pure function (marked with @pure if applicable, though Effect functions are generally pure descriptions).
  * 3. Must use `AuthServerTag` to access the Better Auth server instance.
  * 4. Must call the corresponding `authServer.api.changeEmail` function.
@@ -23,14 +23,15 @@ import type { ChangeEmailServerParams } from "./changeEmail.types";
  * @param params - The parameters for the operation.
  * @returns An Effect that resolves to the response, requiring `AuthServerTag`.
  */
-export const changeEmailService = (params: ChangeEmailServerParams) =>
+export const changeEmailServerService = (params: ChangeEmailServerParams) =>
   Effect.flatMap(AuthServerTag, (authServer) =>
     Effect.tryPromise(() =>
       authServer.api.changeEmail({
         body: {
-          newEmail: params.body.newEmail,
-          // Assuming ChangeEmailCommand has newEmail.
-          ...params.body,
+          newEmail: params.body.newEmail.value,
+          ...(params.body.callbackURL
+            ? { callbackURL: params.body.callbackURL.value }
+            : {}),
         },
         ...(params.headers ? { headers: params.headers } : {}),
         ...(params.asResponse !== undefined

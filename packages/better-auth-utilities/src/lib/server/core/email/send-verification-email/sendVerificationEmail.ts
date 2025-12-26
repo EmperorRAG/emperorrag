@@ -7,5 +7,5 @@
  * 2. Must export the service.
  */
 
-export { sendVerificationEmailController } from "./sendVerificationEmail.controller";
-export { sendVerificationEmailService } from "./sendVerificationEmail.service";
+export { sendVerificationEmailServerController } from "./sendVerificationEmail.controller";
+export { sendVerificationEmailServerService } from "./sendVerificationEmail.service";

@@ -3,7 +3,7 @@ import { Effect } from "effect";
 import { afterAll, beforeAll, describe, expect } from "vitest";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
-import { verifyEmailController } from "./verifyEmail.controller";
+import { verifyEmailServerController } from "./verifyEmail.controller";
 
 /**
  * Acceptance Criteria for Controller Tests:
@@ -39,7 +39,7 @@ describe("Server Verify Email Controller", () => {
         },
       };
 
-      const program = verifyEmailController(rawInput);
+      const program = verifyEmailServerController(rawInput);
 
       const res = yield* Effect.provideService(
         program,

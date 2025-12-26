@@ -3,7 +3,7 @@ import { Effect, Schema } from "effect";
 import { afterAll, beforeAll, describe, expect } from "vitest";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
-import { requestPasswordResetService } from "./requestPasswordReset.service";
+import { requestPasswordResetServerService } from "./requestPasswordReset.service";
 import { RequestPasswordResetServerParams } from "./requestPasswordReset.types";
 
 /**
@@ -41,7 +41,7 @@ describe("Server Request Password Reset Service", () => {
         },
       });
 
-      const program = requestPasswordResetService(params);
+      const program = requestPasswordResetServerService(params);
 
       const res = yield* Effect.provideService(
         program,

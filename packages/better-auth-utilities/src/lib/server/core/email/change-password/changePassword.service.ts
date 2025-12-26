@@ -12,7 +12,7 @@ import type { ChangePasswordServerParams } from "./changePassword.types";
  * Initiate change password flow using Better Auth server API.
  *
  * Acceptance Criteria:
- * 1. Must export a function named `changePasswordService`.
+ * 1. Must export a function named `changePasswordServerService`.
  * 2. Must be a pure function (marked with @pure if applicable, though Effect functions are generally pure descriptions).
  * 3. Must use `AuthServerTag` to access the Better Auth server instance.
  * 4. Must call the corresponding `authServer.api.changePassword` function.
@@ -23,16 +23,16 @@ import type { ChangePasswordServerParams } from "./changePassword.types";
  * @param params - The parameters for the operation.
  * @returns An Effect that resolves to the response, requiring `AuthServerTag`.
  */
-export const changePasswordService = (params: ChangePasswordServerParams) =>
+export const changePasswordServerService = (params: ChangePasswordServerParams) =>
   Effect.flatMap(AuthServerTag, (authServer) =>
     Effect.tryPromise(() =>
       authServer.api.changePassword({
         body: {
-          newPassword: params.body.newPassword,
-          currentPassword: params.body.currentPassword,
-          revokeOtherSessions: params.body.revokeOtherSessions,
-          // Assuming ChangePasswordCommand has these fields.
-          ...params.body,
+          newPassword: params.body.newPassword.value,
+          currentPassword: params.body.currentPassword.value,
+          ...(params.body.revokeOtherSessions
+            ? { revokeOtherSessions: params.body.revokeOtherSessions }
+            : {}),
         },
         ...(params.headers ? { headers: params.headers } : {}),
         ...(params.asResponse !== undefined

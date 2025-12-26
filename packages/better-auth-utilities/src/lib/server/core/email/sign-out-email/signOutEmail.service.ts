@@ -12,7 +12,7 @@ import type { SignOutEmailServerParams } from "./signOutEmail.types";
  * Sign out a user using Better Auth server API.
  *
  * Acceptance Criteria:
- * 1. Must export a function named `signOutEmailService`.
+ * 1. Must export a function named `signOutEmailServerService`.
  * 2. Must be a pure function (marked with @pure if applicable, though Effect functions are generally pure descriptions).
  * 3. Must use `AuthServerTag` to access the Better Auth server instance.
  * 4. Must call the corresponding `authServer.api.signOut` function.
@@ -23,7 +23,7 @@ import type { SignOutEmailServerParams } from "./signOutEmail.types";
  * @param params - The parameters for the operation.
  * @returns An Effect that resolves to the response, requiring `AuthServerTag`.
  */
-export const signOutEmailService = (params: SignOutEmailServerParams) =>
+export const signOutEmailServerService = (params: SignOutEmailServerParams) =>
   Effect.flatMap(AuthServerTag, (authServer) =>
     Effect.tryPromise(() =>
       authServer.api.signOut({

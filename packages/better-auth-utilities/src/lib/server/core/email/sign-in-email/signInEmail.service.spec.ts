@@ -3,7 +3,7 @@ import { Effect, Schema } from "effect";
 import { afterAll, beforeAll, describe, expect } from "vitest";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
-import { signInEmailService } from "./signInEmail.service";
+import { signInEmailServerService } from "./signInEmail.service";
 import { SignInEmailServerParams } from "./signInEmail.types";
 
 /**
@@ -43,7 +43,7 @@ describe("Server Sign In Email Service", () => {
         },
       });
 
-      const program = signInEmailService(params);
+      const program = signInEmailServerService(params);
 
       // Note: In a real test, we might need to sign up first or mock the authServer response.
       // Assuming authServer mock handles this or we just check if it's called.

@@ -3,7 +3,7 @@ import { Effect, Schema } from "effect";
 import { afterAll, beforeAll, describe, expect } from "vitest";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
-import { forgetPasswordService } from "./forgetPassword.service";
+import { forgetPasswordServerService } from "./forgetPassword.service";
 import { ForgetPasswordServerParams } from "./forgetPassword.types";
 
 /**
@@ -41,7 +41,7 @@ describe("Server Forget Password Service", () => {
         },
       });
 
-      const program = forgetPasswordService(params);
+      const program = forgetPasswordServerService(params);
 
       const res = yield* Effect.provideService(
         program,

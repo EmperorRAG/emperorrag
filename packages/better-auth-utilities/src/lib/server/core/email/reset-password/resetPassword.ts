@@ -7,5 +7,5 @@
  * 2. Must export the service.
  */
 
-export { resetPasswordController } from "./resetPassword.controller";
-export { resetPasswordService } from "./resetPassword.service";
+export { resetPasswordServerController } from "./resetPassword.controller";
+export { resetPasswordServerService } from "./resetPassword.service";

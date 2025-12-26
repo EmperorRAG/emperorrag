@@ -12,7 +12,7 @@ import type { RequestPasswordResetServerParams } from "./requestPasswordReset.ty
  * Initiate request password reset flow using Better Auth server API.
  *
  * Acceptance Criteria:
- * 1. Must export a function named `requestPasswordResetService`.
+ * 1. Must export a function named `requestPasswordResetServerService`.
  * 2. Must be a pure function (marked with @pure if applicable, though Effect functions are generally pure descriptions).
  * 3. Must use `AuthServerTag` to access the Better Auth server instance.
  * 4. Must call the corresponding `authServer.api.forgetPassword` function (aliased to request password reset).
@@ -23,7 +23,7 @@ import type { RequestPasswordResetServerParams } from "./requestPasswordReset.ty
  * @param params - The parameters for the operation.
  * @returns An Effect that resolves to the response, requiring `AuthServerTag`.
  */
-export const requestPasswordResetService = (
+export const requestPasswordResetServerService = (
   params: RequestPasswordResetServerParams,
 ) =>
   Effect.flatMap(AuthServerTag, (authServer) =>
@@ -31,8 +31,9 @@ export const requestPasswordResetService = (
       authServer.api.forgetPassword({
         body: {
           email: params.body.email.value,
-          // Assuming RequestPasswordResetCommand has email.
-          ...params.body,
+          ...(params.body.redirectTo
+            ? { redirectTo: params.body.redirectTo.value }
+            : {}),
         },
         ...(params.headers ? { headers: params.headers } : {}),
         ...(params.asResponse !== undefined

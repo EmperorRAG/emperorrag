@@ -7,5 +7,5 @@
  * 2. Must export the service.
  */
 
-export { signOutEmailController } from "./signOutEmail.controller";
-export { signOutEmailService } from "./signOutEmail.service";
+export { signOutEmailServerController } from "./signOutEmail.controller";
+export { signOutEmailServerService } from "./signOutEmail.service";

@@ -7,5 +7,5 @@
  * 2. Must export the service.
  */
 
-export { changeEmailController } from "./changeEmail.controller";
-export { changeEmailService } from "./changeEmail.service";
+export { changeEmailServerController } from "./changeEmail.controller";
+export { changeEmailServerService } from "./changeEmail.service";

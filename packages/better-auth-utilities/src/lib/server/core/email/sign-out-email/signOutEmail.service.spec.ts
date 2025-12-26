@@ -3,7 +3,7 @@ import { Effect, Schema } from "effect";
 import { afterAll, beforeAll, describe, expect } from "vitest";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
-import { signOutEmailService } from "./signOutEmail.service";
+import { signOutEmailServerService } from "./signOutEmail.service";
 import { SignOutEmailServerParams } from "./signOutEmail.types";
 
 /**
@@ -38,7 +38,7 @@ describe("Server Sign Out Email Service", () => {
         },
       });
 
-      const program = signOutEmailService(params);
+      const program = signOutEmailServerService(params);
 
       const res = yield* Effect.provideService(
         program,

@@ -3,7 +3,7 @@ import { Effect } from "effect";
 import { afterAll, beforeAll, describe, expect } from "vitest";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
-import { resetPasswordController } from "./resetPassword.controller";
+import { resetPasswordServerController } from "./resetPassword.controller";
 
 /**
  * Acceptance Criteria for Controller Tests:
@@ -39,7 +39,7 @@ describe("Server Reset Password Controller", () => {
         },
       };
 
-      const program = resetPasswordController(rawInput);
+      const program = resetPasswordServerController(rawInput);
 
       const res = yield* Effect.provideService(
         program,

@@ -3,7 +3,7 @@ import { Effect } from "effect";
 import { afterAll, beforeAll, describe, expect } from "vitest";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
-import { signOutEmailController } from "./signOutEmail.controller";
+import { signOutEmailServerController } from "./signOutEmail.controller";
 
 /**
  * Acceptance Criteria for Controller Tests:
@@ -34,7 +34,7 @@ describe("Server Sign Out Email Controller", () => {
         },
       };
 
-      const program = signOutEmailController(rawInput);
+      const program = signOutEmailServerController(rawInput);
 
       const res = yield* Effect.provideService(
         program,

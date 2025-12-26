@@ -3,7 +3,7 @@ import { Effect, Schema } from "effect";
 import { afterAll, beforeAll, describe, expect } from "vitest";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
-import { resetPasswordService } from "./resetPassword.service";
+import { resetPasswordServerService } from "./resetPassword.service";
 import { ResetPasswordServerParams } from "./resetPassword.types";
 
 /**
@@ -43,7 +43,7 @@ describe("Server Reset Password Service", () => {
         },
       });
 
-      const program = resetPasswordService(params);
+      const program = resetPasswordServerService(params);
 
       const res = yield* Effect.provideService(
         program,

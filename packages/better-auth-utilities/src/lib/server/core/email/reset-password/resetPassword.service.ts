@@ -12,7 +12,7 @@ import type { ResetPasswordServerParams } from "./resetPassword.types";
  * Reset a user's password using Better Auth server API.
  *
  * Acceptance Criteria:
- * 1. Must export a function named `resetPasswordService`.
+ * 1. Must export a function named `resetPasswordServerService`.
  * 2. Must be a pure function (marked with @pure if applicable, though Effect functions are generally pure descriptions).
  * 3. Must use `AuthServerTag` to access the Better Auth server instance.
  * 4. Must call the corresponding `authServer.api.resetPassword` function.
@@ -23,16 +23,13 @@ import type { ResetPasswordServerParams } from "./resetPassword.types";
  * @param params - The parameters for the operation.
  * @returns An Effect that resolves to the response, requiring `AuthServerTag`.
  */
-export const resetPasswordService = (params: ResetPasswordServerParams) =>
+export const resetPasswordServerService = (params: ResetPasswordServerParams) =>
   Effect.flatMap(AuthServerTag, (authServer) =>
     Effect.tryPromise(() =>
       authServer.api.resetPassword({
         body: {
           newPassword: params.body.newPassword.value,
-          // Assuming ResetPasswordCommand has newPassword and token.
-          // Better Auth resetPassword usually takes newPassword and token (often in body or query, but usually body for resetPassword).
-          // Let's assume ResetPasswordCommand has the fields.
-          ...params.body,
+          token: params.body.token,
         },
         ...(params.headers ? { headers: params.headers } : {}),
         ...(params.asResponse !== undefined

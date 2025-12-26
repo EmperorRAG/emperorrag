@@ -3,7 +3,7 @@ import { Effect, Schema } from "effect";
 import { afterAll, beforeAll, describe, expect } from "vitest";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
-import { verifyEmailService } from "./verifyEmail.service";
+import { verifyEmailServerService } from "./verifyEmail.service";
 import { VerifyEmailServerParams } from "./verifyEmail.types";
 
 /**
@@ -43,7 +43,7 @@ describe("Server Verify Email Service", () => {
         },
       });
 
-      const program = verifyEmailService(params);
+      const program = verifyEmailServerService(params);
 
       const res = yield* Effect.provideService(
         program,

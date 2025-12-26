@@ -12,7 +12,7 @@ import type { SetPasswordServerParams } from "./setPassword.types";
  * Set a user's password using Better Auth server API.
  *
  * Acceptance Criteria:
- * 1. Must export a function named `setPasswordService`.
+ * 1. Must export a function named `setPasswordServerService`.
  * 2. Must be a pure function (marked with @pure if applicable, though Effect functions are generally pure descriptions).
  * 3. Must use `AuthServerTag` to access the Better Auth server instance.
  * 4. Must call the corresponding `authServer.api.setPassword` function.
@@ -23,18 +23,15 @@ import type { SetPasswordServerParams } from "./setPassword.types";
  * @param params - The parameters for the operation.
  * @returns An Effect that resolves to the response, requiring `AuthServerTag`.
  */
-export const setPasswordService = (params: SetPasswordServerParams) =>
+export const setPasswordServerService = (params: SetPasswordServerParams) =>
   Effect.flatMap(AuthServerTag, (authServer) =>
     Effect.tryPromise(() =>
       authServer.api.setPassword({
         body: {
           newPassword: params.body.newPassword.value,
-          // Assuming SetPasswordCommand has newPassword.
-          // Also might need currentPassword if it's a change, but setPassword usually implies setting it when it's not set or via token?
-          // Wait, setPassword usually requires a session or token.
-          // If it's setting password for the first time (e.g. after social login), it might just need newPassword and session.
-          // Let's assume SetPasswordCommand has the fields.
-          ...params.body,
+          ...(params.body.currentPassword
+            ? { currentPassword: params.body.currentPassword.value }
+            : {}),
         },
         ...(params.headers ? { headers: params.headers } : {}),
         ...(params.asResponse !== undefined

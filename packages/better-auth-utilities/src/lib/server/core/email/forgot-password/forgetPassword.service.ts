@@ -12,7 +12,7 @@ import type { ForgetPasswordServerParams } from "./forgetPassword.types";
  * Initiate forget password flow using Better Auth server API.
  *
  * Acceptance Criteria:
- * 1. Must export a function named `forgetPasswordService`.
+ * 1. Must export a function named `forgetPasswordServerService`.
  * 2. Must be a pure function (marked with @pure if applicable, though Effect functions are generally pure descriptions).
  * 3. Must use `AuthServerTag` to access the Better Auth server instance.
  * 4. Must call the corresponding `authServer.api.forgetPassword` function.
@@ -23,14 +23,15 @@ import type { ForgetPasswordServerParams } from "./forgetPassword.types";
  * @param params - The parameters for the operation.
  * @returns An Effect that resolves to the response, requiring `AuthServerTag`.
  */
-export const forgetPasswordService = (params: ForgetPasswordServerParams) =>
+export const forgetPasswordServerService = (params: ForgetPasswordServerParams) =>
   Effect.flatMap(AuthServerTag, (authServer) =>
     Effect.tryPromise(() =>
       authServer.api.forgetPassword({
         body: {
           email: params.body.email.value,
-          // Assuming ForgetPasswordCommand has email.
-          ...params.body,
+          ...(params.body.redirectTo
+            ? { redirectTo: params.body.redirectTo.value }
+            : {}),
         },
         ...(params.headers ? { headers: params.headers } : {}),
         ...(params.asResponse !== undefined

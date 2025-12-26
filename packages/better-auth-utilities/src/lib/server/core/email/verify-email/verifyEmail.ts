@@ -7,5 +7,5 @@
  * 2. Must export the service.
  */
 
-export { verifyEmailController } from "./verifyEmail.controller";
-export { verifyEmailService } from "./verifyEmail.service";
+export { verifyEmailServerController } from "./verifyEmail.controller";
+export { verifyEmailServerService } from "./verifyEmail.service";

@@ -12,7 +12,7 @@ import type { SignInEmailServerParams } from "./signInEmail.types";
  * Sign in a user via email and password using Better Auth server API.
  *
  * Acceptance Criteria:
- * 1. Must export a function named `signInEmailService`.
+ * 1. Must export a function named `signInEmailServerService`.
  * 2. Must be a pure function (marked with @pure if applicable, though Effect functions are generally pure descriptions).
  * 3. Must use `AuthServerTag` to access the Better Auth server instance.
  * 4. Must call the corresponding `authServer.api.signInEmail` function.
@@ -23,7 +23,7 @@ import type { SignInEmailServerParams } from "./signInEmail.types";
  * @param params - The parameters for the operation.
  * @returns An Effect that resolves to the response, requiring `AuthServerTag`.
  */
-export const signInEmailService = (params: SignInEmailServerParams) =>
+export const signInEmailServerService = (params: SignInEmailServerParams) =>
   Effect.flatMap(AuthServerTag, (authServer) =>
     Effect.tryPromise(() =>
       authServer.api.signInEmail({
