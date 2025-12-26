@@ -23,9 +23,9 @@ describe("Server Sign Up Email", () => {
     const name = "Server Sign Up";
 
     const params = Schema.decodeSync(SignUpEmailServerParams)({
-      _tag: "SignUpEmailServerParams",
+      _tag: "SignUpEmailServerParams" as const,
       body: {
-        _tag: "SignUpEmailCommand",
+        _tag: "SignUpEmailCommand" as const,
         email,
         password,
         name,
