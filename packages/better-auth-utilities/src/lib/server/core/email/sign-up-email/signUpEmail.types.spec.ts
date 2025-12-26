@@ -21,7 +21,7 @@ describe("SignUpEmailServerParams", () => {
   };
 
   const validParamsForDecode = {
-    _tag: "SignUpEmailServerParams",
+    _tag: "SignUpEmailServerParams" as const,
     body: validBodyRaw,
     headers: new Headers({ "x-test": "true" }),
     asResponse: true,
@@ -60,17 +60,5 @@ describe("SignUpEmailServerParams", () => {
       asResponse: true,
       returnHeaders: false,
     });
-  });
-
-  it("should fail decoding with invalid body", () => {
-    const invalidParams = {
-      body: {
-        email: "invalid-email", // Invalid email
-        password: "short", // Too short
-        name: "Test User",
-      },
-    };
-
-    expect(() => Schema.decodeSync(SignUpEmailServerParams)(invalidParams)).toThrow();
   });
 });

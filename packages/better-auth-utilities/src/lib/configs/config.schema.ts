@@ -388,5 +388,5 @@ export class BetterAuthOptions extends Schema.TaggedClass<BetterAuthOptions>()(
   }
 }
 
-export const BetterAuthOptionsSchema = BetterAuthOptions;
-export type BetterAuthOptionsSchemaType = typeof BetterAuthOptionsSchema.Type;
+// export const BetterAuthOptionsSchema = BetterAuthOptions;
+export type BetterAuthOptionsType = typeof BetterAuthOptions.Type;
