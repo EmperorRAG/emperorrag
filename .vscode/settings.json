@@ -31,6 +31,18 @@
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true
   },
+  "[typescript]": {
+    "editor.formatOnSave": false
+  },
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": false
+  },
   /*"[typescript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},*/
@@ -111,7 +123,8 @@
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.sortJSON": "always",
-    "source.sortImports": "explicit"
+    "source.sortImports": "explicit",
+    "source.fixAll.eslint": "explicit"
   },
   "editor.codeLensFontFamily": "Fira Code, monospace",
   "editor.colorDecorators": true,
@@ -340,5 +353,6 @@
   "workbench.editor.pinnedTabsOnSeparateRow": true,
   "workbench.editor.showTabIndex": true,
   "workbench.editor.wrapTabs": true,
-  "yaml.format.printWidth": 300
+  "yaml.format.printWidth": 300,
+  "files.eol": "\n"
 }

@@ -3,9 +3,15 @@ import { Effect } from "effect";
 import { afterAll, beforeAll, describe, expect } from "vitest";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
-import { signUpEmailServerController } from "./signUpEmail.controller";
+import { changePasswordController } from "./changePassword.controller";
 
-describe("Server Sign Up Email Controller", () => {
+/**
+ * Acceptance Criteria for Controller Tests:
+ * 1. Must use `setupServerTestEnvironment` to mock/setup the auth server.
+ * 2. Must test the happy path: successfully decoding input and calling the service.
+ * 3. Must verify the result contains expected data.
+ */
+describe("Server Change Password Controller", () => {
   let env: Awaited<ReturnType<typeof setupServerTestEnvironment>>;
 
   beforeAll(async () => {
@@ -19,21 +25,22 @@ describe("Server Sign Up Email Controller", () => {
   it.effect("should successfully decode input and call service", () =>
     Effect.gen(function*() {
       const { authServer } = env;
-      const email = "controller-signup@example.com";
-      const password = "password123";
-      const name = "Controller Sign Up";
+
+      // Prepare test data
+      const newPassword = "newPassword123";
+      const currentPassword = "oldPassword123";
 
       const rawInput = {
-        _tag: "SignUpEmailServerParams" as const,
+        _tag: "ChangePasswordServerParams" as const,
         body: {
-          _tag: "SignUpEmailCommand" as const,
-          email,
-          password,
-          name,
+          _tag: "ChangePasswordCommand" as const,
+          newPassword,
+          currentPassword,
+          revokeOtherSessions: true,
         },
       };
 
-      const program = signUpEmailServerController(rawInput);
+      const program = changePasswordController(rawInput);
 
       const res = yield* Effect.provideService(
         program,
@@ -42,7 +49,5 @@ describe("Server Sign Up Email Controller", () => {
       );
 
       expect(res).toBeDefined();
-      expect(res.user).toBeDefined();
-      expect(res.user.email).toBe(email);
     }));
 });

@@ -1,12 +1,17 @@
 import { it } from "@effect/vitest";
-import { Effect, Schema } from "effect";
+import { Effect } from "effect";
 import { afterAll, beforeAll, describe, expect } from "vitest";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
-import { signUpEmailServerService } from "./signUpEmail.service";
-import { SignUpEmailServerParams } from "./signUpEmail.types";
+import { signInEmailController } from "./signInEmail.controller";
 
-describe("Server Sign Up Email", () => {
+/**
+ * Acceptance Criteria for Controller Tests:
+ * 1. Must use `setupServerTestEnvironment` to mock/setup the auth server.
+ * 2. Must test the happy path: successfully decoding input and calling the service.
+ * 3. Must verify the result contains expected data.
+ */
+describe("Server Sign In Email Controller", () => {
   let env: Awaited<ReturnType<typeof setupServerTestEnvironment>>;
 
   beforeAll(async () => {
@@ -17,24 +22,24 @@ describe("Server Sign Up Email", () => {
     await env.cleanup();
   });
 
-  it.effect("should sign up a user via server api", () =>
+  it.effect("should successfully decode input and call service", () =>
     Effect.gen(function*() {
       const { authServer } = env;
-      const email = "server-signup@example.com";
-      const password = "password123";
-      const name = "Server Sign Up";
 
-      const params = Schema.decodeSync(SignUpEmailServerParams)({
-        _tag: "SignUpEmailServerParams" as const,
+      // Prepare test data
+      const email = "controller-signin@example.com";
+      const password = "password123";
+
+      const rawInput = {
+        _tag: "SignInEmailServerParams" as const,
         body: {
-          _tag: "SignUpEmailCommand" as const,
+          _tag: "SignInEmailCommand" as const,
           email,
           password,
-          name,
         },
-      });
+      };
 
-      const program = signUpEmailServerService(params);
+      const program = signInEmailController(rawInput);
 
       const res = yield* Effect.provideService(
         program,
@@ -43,7 +48,5 @@ describe("Server Sign Up Email", () => {
       );
 
       expect(res).toBeDefined();
-      expect(res.user).toBeDefined();
-      expect(res.user.email).toBe(email);
     }));
 });

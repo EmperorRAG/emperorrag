@@ -41,7 +41,9 @@ describe("SignUpEmailServerParams", () => {
 
   it.effect("should decode valid input", () =>
     Effect.gen(function*() {
-      const decoded = yield* Schema.decode(SignUpEmailServerParams)(validParamsForDecode);
+      const decoded = yield* Schema.decode(SignUpEmailServerParams)(
+        validParamsForDecode,
+      );
       expect(decoded).toBeInstanceOf(SignUpEmailServerParams);
       expect(decoded.body).toBeInstanceOf(SignUpEmailCommand);
       expect(decoded.body.email.value).toBe(validBodyRaw.email);

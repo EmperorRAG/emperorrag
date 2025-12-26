@@ -59,9 +59,7 @@ import type { SignUpEmailServerParams } from "./signUpEmail.types";
  * });
  * ```
  */
-export const signUpEmailServerService = (
-  params: SignUpEmailServerParams,
-) =>
+export const signUpEmailServerService = (params: SignUpEmailServerParams) =>
   Effect.flatMap(AuthServerTag, (authServer) =>
     Effect.tryPromise(() =>
       authServer.api.signUpEmail({
