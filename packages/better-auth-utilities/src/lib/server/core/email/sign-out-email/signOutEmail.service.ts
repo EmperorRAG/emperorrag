@@ -27,7 +27,7 @@ export const signOutEmailServerService = (params: SignOutEmailServerParams) =>
   Effect.flatMap(AuthServerTag, (authServer) =>
     Effect.tryPromise(() =>
       authServer.api.signOut({
-        ...(params.headers ? { headers: params.headers } : {}),
+        headers: params.headers ?? new Headers(),
         ...(params.asResponse !== undefined
           ? { asResponse: params.asResponse }
           : {}),
