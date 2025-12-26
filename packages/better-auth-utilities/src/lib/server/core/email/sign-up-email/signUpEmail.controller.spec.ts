@@ -1,5 +1,6 @@
+import { it } from "@effect/vitest";
 import { Effect } from "effect";
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect } from "vitest";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
 import { signUpEmailServerController } from "./signUpEmail.controller";
@@ -15,30 +16,29 @@ describe("Server Sign Up Email Controller", () => {
     await env.cleanup();
   });
 
-  it("should successfully decode input and call service", async () => {
-    const { authServer } = env;
-    const email = "controller-signup@example.com";
-    const password = "password123";
-    const name = "Controller Sign Up";
+  it.effect("should successfully decode input and call service", () =>
+    Effect.gen(function*() {
+      const { authServer } = env;
+      const email = "controller-signup@example.com";
+      const password = "password123";
+      const name = "Controller Sign Up";
 
-    const rawInput = {
-      _tag: "SignUpEmailServerParams" as const,
-      body: {
-        _tag: "SignUpEmailCommand" as const,
-        email,
-        password,
-        name,
-      },
-    };
+      const rawInput = {
+        _tag: "SignUpEmailServerParams" as const,
+        body: {
+          _tag: "SignUpEmailCommand" as const,
+          email,
+          password,
+          name,
+        },
+      };
 
-    const program = signUpEmailServerController(rawInput);
+      const program = signUpEmailServerController(rawInput);
 
-    const res = await Effect.runPromise(
-      Effect.provideService(program, AuthServerTag, authServer),
-    );
+      const res = yield* Effect.provideService(program, AuthServerTag, authServer);
 
-    expect(res).toBeDefined();
-    expect(res.user).toBeDefined();
-    expect(res.user.email).toBe(email);
-  });
+      expect(res).toBeDefined();
+      expect(res.user).toBeDefined();
+      expect(res.user.email).toBe(email);
+    }));
 });
