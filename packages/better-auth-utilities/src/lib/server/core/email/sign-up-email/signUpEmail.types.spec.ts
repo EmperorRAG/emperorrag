@@ -40,7 +40,7 @@ describe("SignUpEmailServerParams", () => {
     }));
 
   it.effect("should decode valid input", () =>
-    Effect.gen(function* () {
+    Effect.gen(function*() {
       const decoded = yield* Schema.decode(SignUpEmailServerParams)(validParamsForDecode);
       expect(decoded).toBeInstanceOf(SignUpEmailServerParams);
       expect(decoded.body).toBeInstanceOf(SignUpEmailCommand);
@@ -48,7 +48,7 @@ describe("SignUpEmailServerParams", () => {
     }));
 
   it.effect("should encode to expected structure", () =>
-    Effect.gen(function* () {
+    Effect.gen(function*() {
       const params = new SignUpEmailServerParams(validParamsForConstructor);
       const encoded = yield* Schema.encode(SignUpEmailServerParams)(params);
 
