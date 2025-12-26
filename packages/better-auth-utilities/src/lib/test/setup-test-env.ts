@@ -1,5 +1,5 @@
 import { DevTools } from "@effect/experimental";
-import { ClientOptions } from "better-auth";
+import type { ClientOptions } from "better-auth";
 import { getMigrations } from "better-auth/db";
 import { toNodeHandler } from "better-auth/node";
 import * as Effect from "effect/Effect";
