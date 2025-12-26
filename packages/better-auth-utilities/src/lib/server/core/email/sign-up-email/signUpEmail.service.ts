@@ -17,11 +17,8 @@ import type { SignUpEmailServerParams } from "./signUpEmail.types";
  * and initial session in a single operation.
  *
  * @remarks
- * **Functional Programming Pattern:**
- * - Curried function: `(deps) => (params) => Effect`
- * - Stage 1: Inject dependencies (authServer)
- * - Stage 2: Accept operation parameters (body, headers)
- * - Stage 3: Return lazy Effect (executed when run)
+ * **Dependency Injection:**
+ * - Uses `AuthServerTag` to access the Better Auth server instance from the context.
  *
  * **Registration Process:**
  * - Validates email uniqueness (throws error if exists)
@@ -36,86 +33,28 @@ import type { SignUpEmailServerParams } from "./signUpEmail.types";
  * - Status codes extracted and preserved in AuthServerApiError
  * - Error cause chain maintained for debugging
  *
- * @template T - The Better Auth server type with all plugin augmentations
- *
- * @param deps - Dependencies bundle containing Better Auth server instance
- * @returns Curried function accepting params and returning an Effect
+ * @param params - The parameters for the sign-up operation, including body fields wrapped in value objects.
+ * @returns An Effect that resolves to the sign-up response, requiring `AuthServerTag` in the context.
  *
  * @example
  * ```typescript
  * import * as Effect from 'effect/Effect';
  * import { headers } from 'next/headers';
- * import { signUpEmailServer } from './signUpEmail.service';
+ * import { signUpEmailServerService } from './signUpEmail.service';
  *
  * // Create the registration program
  * const program = Effect.gen(function* () {
- *   const result = yield* signUpEmailServer({ authServer })({
+ *   const result = yield* signUpEmailServerService({
  *     body: {
- *       name: 'Alice Johnson',
- *       email: 'alice@example.com',
- *       password: 'securePassword123',
- *       image: 'https://example.com/avatars/alice.jpg'
+ *       name: { value: 'Alice Johnson' },
+ *       email: { value: 'alice@example.com' },
+ *       password: { value: 'securePassword123' },
+ *       image: { value: 'https://example.com/avatars/alice.jpg' }
  *     },
  *     headers: await headers()
  *   });
  *
  *   console.log('User registered:', result.user.email);
- *   console.log('User ID:', result.user.id);
- *   console.log('Session created:', result.session.id);
- *   return result;
- * });
- *
- * // Execute the Effect
- * const result = await Effect.runPromise(program);
- * ```
- *
- * @example
- * ```typescript
- * // Handle duplicate email error
- * import * as Effect from 'effect/Effect';
- *
- * const program = signUpEmailServer({ authServer })({
- *   body: {
- *     name: 'Bob Smith',
- *     email: 'existing@example.com',
- *     password: 'password'
- *   },
- *   headers: requestHeaders
- * });
- *
- * const handled = Effect.catchTag(program, 'AuthServerApiError', (error) => {
- *   if (error.status === 409) {
- *     console.error('Email already registered');
- *     return Effect.fail(new Error('Please use a different email'));
- *   }
- *   return Effect.fail(error);
- * });
- *
- * await Effect.runPromise(handled);
- * ```
- *
- * @example
- * ```typescript
- * // Registration with post-signup actions
- * import * as Effect from 'effect/Effect';
- *
- * const registerAndWelcome = Effect.gen(function* () {
- *   // Register user
- *   const result = yield* signUpEmailServer({ authServer })({
- *     body: {
- *       name: 'Carol White',
- *       email: 'carol@example.com',
- *       password: 'securePassword123'
- *     },
- *     headers: requestHeaders
- *   });
- *
- *   // Send welcome email
- *   yield* sendWelcomeEmail(result.user.email);
- *
- *   // Create default user preferences
- *   yield* createUserPreferences(result.user.id);
- *
  *   return result;
  * });
  * ```

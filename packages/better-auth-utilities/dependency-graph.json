@@ -1,6 +1,9 @@
 {
   "lib/client/client.spec.ts": [
-    "lib/test/setup-test-env.ts"
+    "lib/client/test/setupClientTestEnvironment.ts"
+  ],
+  "lib/client/test/setupClientTestEnvironment.ts": [
+    "lib/server/test/setupServerTestEnvironment.ts"
   ],
   "lib/configs/config.layer.ts": [
     "lib/configs/config.schema.ts"
@@ -260,7 +263,7 @@
   "lib/server/core/email/sign-up-email/signUpEmail.controller.spec.ts": [
     "lib/server/core/email/sign-up-email/signUpEmail.controller.ts",
     "lib/server/server.layer.ts",
-    "lib/test/setup-test-env.ts"
+    "lib/server/test/setupServerTestEnvironment.ts"
   ],
   "lib/server/core/email/sign-up-email/signUpEmail.controller.ts": [
     "lib/server/core/email/sign-up-email/signUpEmail.service.ts",
@@ -270,7 +273,7 @@
     "lib/server/core/email/sign-up-email/signUpEmail.service.ts",
     "lib/server/core/email/sign-up-email/signUpEmail.types.ts",
     "lib/server/server.layer.ts",
-    "lib/test/setup-test-env.ts"
+    "lib/server/test/setupServerTestEnvironment.ts"
   ],
   "lib/server/core/email/sign-up-email/signUpEmail.service.ts": [
     "lib/pipeline/map-api-error/mapApiError.ts",
@@ -289,17 +292,14 @@
     "lib/configs/config.schema.ts"
   ],
   "lib/server/server.spec.ts": [
-    "lib/test/setup-test-env.ts"
+    "lib/server/test/setupServerTestEnvironment.ts"
   ],
+  "lib/server/test/setupServerTestEnvironment.ts": [],
   "lib/test/effectTestHarness.ts": [],
   "lib/test/example.browser.spec.ts": [
     "lib/test/effectTestHarness.ts"
   ],
   "lib/test/example.node.spec.ts": [
     "lib/test/effectTestHarness.ts"
-  ],
-  "lib/test/integration.spec.ts": [
-    "lib/test/setup-test-env.ts"
-  ],
-  "lib/test/setup-test-env.ts": []
+  ]
 }
