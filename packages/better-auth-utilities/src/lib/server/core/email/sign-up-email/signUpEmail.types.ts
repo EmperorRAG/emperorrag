@@ -2,6 +2,9 @@ import { Schema } from "effect";
 import { pipe } from "effect/Function";
 import { SignUpEmailCommand } from "../../../../schema/commands/sign-up-email/SignUpEmail.command";
 
+/**
+ * Represents the parameters for the sign-up email server operation.
+ */
 export class SignUpEmailServerParams extends Schema.TaggedClass<SignUpEmailServerParams>()(
   "SignUpEmailServerParams",
   {
