@@ -5,7 +5,7 @@
 
 import { Effect } from "effect";
 import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
-import { AuthServerTag } from "../../../server.service";
+import { AuthServerTag } from "../../../server.layer";
 import type { SignUpEmailServerParams } from "./SignUpEmail.types";
 
 /**

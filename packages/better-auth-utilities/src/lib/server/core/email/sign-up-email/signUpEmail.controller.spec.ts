@@ -1,7 +1,7 @@
 import { Effect } from "effect";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { setupTestEnv } from "../../../../test/setup-test-env";
-import { AuthServerTag } from "../../../server.service";
+import { AuthServerTag } from "../../../server.layer";
 import { signUpEmailServerController } from "./signUpEmail.controller";
 
 describe("Server Sign Up Email Controller", () => {
