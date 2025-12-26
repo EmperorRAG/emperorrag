@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { setupTestEnv } from "../test/setup-test-env";
+import { setupServerTestEnvironment } from "../server/test/setupServerTestEnvironment";
 
 describe("createAuthServer", () => {
   let cleanup: () => Promise<void>;
@@ -9,7 +9,7 @@ describe("createAuthServer", () => {
   });
 
   it("should create a functional auth server instance", async () => {
-    const env = await setupTestEnv();
+    const env = await setupServerTestEnvironment();
     cleanup = env.cleanup;
 
     expect(env.authServer).toBeDefined();
@@ -17,7 +17,7 @@ describe("createAuthServer", () => {
   });
 
   it("should configure email and password auth correctly", async () => {
-    const env = await setupTestEnv({
+    const env = await setupServerTestEnvironment({
       serverConfig: {
         emailAndPassword: {
           enabled: true,

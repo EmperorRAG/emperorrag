@@ -1,41 +1,31 @@
 import { DevTools } from "@effect/experimental";
-import type { ClientOptions } from "better-auth";
+import type { BetterAuthOptions } from "better-auth";
+import { betterAuth } from "better-auth";
 import { getMigrations } from "better-auth/db";
 import { toNodeHandler } from "better-auth/node";
 import { Effect } from "effect";
 import { createServer } from "http";
 import { DatabaseSync } from "node:sqlite";
-import { createAuthClient } from "../client/client.service";
-import { createAuthServerInstance } from "../server/server.service";
-import type { ServerConfig } from "../shared/config/config.types";
 
-export const setupTestEnv = (options?: {
-  serverConfig?: Partial<ServerConfig>;
+export const setupServerTestEnvironment = (options?: {
+  serverConfig?: Partial<BetterAuthOptions>;
 }) => {
-  const program = Effect.gen(function* () {
+  const program = Effect.gen(function*() {
     // 1. Create in-memory SQLite DB
     const db = yield* Effect.sync(() => new DatabaseSync(":memory:"));
 
     // 2. Create Auth Server
     const authServer = yield* Effect.sync(() =>
-      createAuthServerInstance(
-        {
-          server: {
-            secret: "test-secret-123",
-            baseURL: "http://localhost:0", // Port 0 for random free port
-            database: db,
-            emailAndPassword: {
-              enabled: true,
-            },
-            ...options?.serverConfig,
-          },
-          client: {
-            // Client config will be updated with actual URL later
-          },
+      betterAuth({
+        secret: "test-secret-123",
+        baseURL: "http://localhost:0", // Port 0 for random free port
+        database: db,
+        emailAndPassword: {
+          enabled: true,
         },
-        undefined,
-      )
-    ); // No prisma client
+        ...options?.serverConfig,
+      })
+    );
 
     // 3. Run Migrations
     const { runMigrations } = yield* Effect.tryPromise(() => getMigrations(authServer.options));
@@ -59,21 +49,8 @@ export const setupTestEnv = (options?: {
     const port = typeof address === "object" && address ? address.port : 0;
     const baseURL = `http://localhost:${port}`;
 
-    // 6. Create Auth Client
-    const authClient = yield* Effect.sync(() =>
-      createAuthClient({
-        server: {
-          secret: "test-secret-123", // Required by type but unused by client
-        },
-        client: {
-          baseURL,
-        },
-      } as unknown as ClientOptions)
-    );
-
     return {
       authServer,
-      authClient,
       db,
       server,
       baseURL,
@@ -87,6 +64,9 @@ export const setupTestEnv = (options?: {
   const DevToolsLive = DevTools.layer();
 
   return Effect.runPromise(
-    program.pipe(Effect.withSpan("setupTestEnv"), Effect.provide(DevToolsLive)),
+    program.pipe(
+      Effect.withSpan("setupServerTestEnvironment"),
+      Effect.provide(DevToolsLive),
+    ),
   );
 };
