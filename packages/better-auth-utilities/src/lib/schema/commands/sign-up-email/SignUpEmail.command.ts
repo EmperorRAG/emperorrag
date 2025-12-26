@@ -26,8 +26,4 @@ export class SignUpEmailCommand extends Schema.TaggedClass<SignUpEmailCommand>()
   static encode(value: SignUpEmailCommand) {
     return pipe(value, Schema.encode(SignUpEmailCommand));
   }
-
-  toJSON() {
-    return Schema.encodeSync(SignUpEmailCommand)(this);
-  }
 }

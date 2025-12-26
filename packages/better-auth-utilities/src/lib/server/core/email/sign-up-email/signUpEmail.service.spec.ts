@@ -1,15 +1,15 @@
 import { Effect, Schema } from "effect";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { setupTestEnv } from "../../../../test/setup-test-env";
 import { AuthServerTag } from "../../../server.layer";
+import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
 import { signUpEmailServerService } from "./signUpEmail.service";
-import { SignUpEmailServerParams } from "./SignUpEmail.types";
+import { SignUpEmailServerParams } from "./signUpEmail.types";
 
 describe("Server Sign Up Email", () => {
-  let env: Awaited<ReturnType<typeof setupTestEnv>>;
+  let env: Awaited<ReturnType<typeof setupServerTestEnvironment>>;
 
   beforeAll(async () => {
-    env = await setupTestEnv();
+    env = await setupServerTestEnvironment();
   });
 
   afterAll(async () => {
@@ -23,9 +23,9 @@ describe("Server Sign Up Email", () => {
     const name = "Server Sign Up";
 
     const params = Schema.decodeSync(SignUpEmailServerParams)({
-      _tag: "SignUpEmailServerParams",
+      _tag: "SignUpEmailServerParams" as const,
       body: {
-        _tag: "SignUpEmailCommand",
+        _tag: "SignUpEmailCommand" as const,
         email,
         password,
         name,

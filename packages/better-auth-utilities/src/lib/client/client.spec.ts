@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { setupTestEnv } from "../test/setup-test-env";
+import { setupClientTestEnvironment } from "./test/setupClientTestEnvironment";
 
 describe("createAuthClient", () => {
   let cleanup: () => Promise<void>;
@@ -9,7 +9,7 @@ describe("createAuthClient", () => {
   });
 
   it("should create a functional auth client instance", async () => {
-    const env = await setupTestEnv();
+    const env = await setupClientTestEnvironment();
     cleanup = env.cleanup;
 
     expect(env.authClient).toBeDefined();
@@ -18,7 +18,7 @@ describe("createAuthClient", () => {
   });
 
   it("should be able to communicate with the server", async () => {
-    const env = await setupTestEnv();
+    const env = await setupClientTestEnvironment();
     cleanup = env.cleanup;
 
     // Try a simple operation like getting session (should be null initially)
