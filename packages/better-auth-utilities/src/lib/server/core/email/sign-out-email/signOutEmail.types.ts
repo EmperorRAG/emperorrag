@@ -1,6 +1,5 @@
 import { Schema } from "effect";
 import { pipe } from "effect/Function";
-import { SignOutCommand } from "../../../../schema/commands/sign-out/SignOut.command";
 
 /**
  * Represents the parameters for the sign-out email server operation.
@@ -15,7 +14,6 @@ import { SignOutCommand } from "../../../../schema/commands/sign-out/SignOut.com
 export class SignOutEmailServerParams extends Schema.TaggedClass<SignOutEmailServerParams>()(
   "SignOutEmailServerParams",
   {
-    body: SignOutCommand,
     headers: Schema.optional(Schema.instanceOf(Headers)),
     asResponse: Schema.optional(Schema.Boolean),
     returnHeaders: Schema.optional(Schema.Boolean),

@@ -33,9 +33,6 @@ describe("Server Sign Out Email Service", () => {
       // Prepare test data
       const params = Schema.decodeSync(SignOutEmailServerParams)({
         _tag: "SignOutEmailServerParams" as const,
-        body: {
-          _tag: "SignOutCommand" as const,
-        },
       });
 
       const program = signOutEmailServerService(params);
