@@ -1,6 +1,4 @@
 import * as Effect from "effect/Effect";
-import { PipelineContext } from "../../context/pipeline.context";
-import { OperationCodes } from "../../enums/operationCodes.enum";
 import { mapInputError } from "../map-input-error/mapInputError";
 import type { HandleInputErrorProps } from "./handleInputError.types";
 
@@ -9,17 +7,9 @@ import type { HandleInputErrorProps } from "./handleInputError.types";
  *
  * @pure
  * @description Wraps schema creation in an Effect that maps any errors to
- * AuthServerInputError with 'schema_creation' source for traceability.
+ * InputError.
  */
 
-export const handleInputError: HandleInputErrorProps = <T, R = never>(
-  effect: Effect.Effect<T, unknown, R>,
-) =>
-  Effect.catchAll(effect, (error) =>
-    Effect.flatMap(PipelineContext, (context) =>
-      mapInputError(error).pipe(
-        Effect.provideService(PipelineContext, {
-          ...context,
-          operationCode: OperationCodes.SchemaCreation(),
-        }),
-      )));
+export const handleInputError: HandleInputErrorProps = (
+  effect,
+) => Effect.catchAll(effect, mapInputError);

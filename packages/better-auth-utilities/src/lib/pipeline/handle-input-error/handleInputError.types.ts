@@ -1,9 +1,8 @@
 import type * as Effect from "effect/Effect";
-import type { PipelineContext } from "../../context/pipeline.context";
-import type { AuthServerInputError } from "../../errors/authServer.error";
+import type { InputError } from "../../errors/input.error";
 
 export interface HandleInputErrorProps {
-  <T, R = never>(
-    effect: Effect.Effect<T, unknown, R>,
-  ): Effect.Effect<T, AuthServerInputError, R | PipelineContext>;
+  <A, R = never>(
+    effect: Effect.Effect<A, unknown, R>,
+  ): Effect.Effect<A, InputError, R>;
 }
