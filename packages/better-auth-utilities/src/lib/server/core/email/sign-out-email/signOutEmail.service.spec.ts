@@ -1,7 +1,11 @@
 import { it } from "@effect/vitest";
+import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
+import * as Exit from "effect/Exit";
+import * as Option from "effect/Option";
 import * as Schema from "effect/Schema";
 import { afterAll, beforeAll, describe, expect } from "vitest";
+import { ApiError } from "../../../../errors/api.error";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
 import { signOutEmailServerService } from "./signOutEmail.service";
@@ -33,7 +37,7 @@ describe("Server Sign Out Email Service", () => {
 
       // Prepare test data
       const params = Schema.decodeSync(SignOutEmailServerParams)({
-        _tag: "SignOutEmailServerParams" as const,
+        _tag: "SignOutEmailServerParams",
       });
 
       const program = signOutEmailServerService(params);
@@ -45,5 +49,37 @@ describe("Server Sign Out Email Service", () => {
       );
 
       expect(res).toBeDefined();
+    }));
+
+  it.effect("should handle 'Failed to get session' error", () =>
+    Effect.gen(function*() {
+      const { authServer } = env;
+
+      // Prepare test data
+      const params = Schema.decodeSync(SignOutEmailServerParams)({
+        _tag: "SignOutEmailServerParams",
+      });
+
+      const program = signOutEmailServerService(params);
+
+      const result = yield* Effect.exit(
+        Effect.provideService(program, AuthServerTag, authServer),
+      );
+
+      if (Exit.isSuccess(result)) {
+        expect.fail("Expected failure");
+      }
+
+      const cause = result.cause;
+      const failureOption = Cause.failureOption(cause);
+
+      if (Option.isNone(failureOption)) {
+        expect.fail("Expected failure option to be Some");
+      }
+
+      const error = failureOption.value;
+
+      expect(error).toBeInstanceOf(ApiError);
+      expect(error.message).toBe("Failed to get session");
     }));
 });
