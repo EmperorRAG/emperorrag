@@ -7,6 +7,8 @@ import * as Schema from "effect/Schema";
 import { ApiError } from "../../../../errors/api.error";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
+import { signInEmailServerController } from "../sign-in-email/signInEmail.controller";
+import { signUpEmailServerController } from "../sign-up-email/signUpEmail.controller";
 import { signOutEmailServerService } from "./signOutEmail.service";
 import { SignOutEmailServerParams } from "./signOutEmail.types";
 
@@ -34,9 +36,54 @@ describe("Server Sign Out Email Service", () => {
     Effect.gen(function*() {
       const { authServer } = env;
 
-      // Prepare test data
+      const email = "server-signout@example.com";
+      const password = "password123";
+      const name = "Server Signout User";
+
+      // 1. Sign Up
+      const signUpInput = {
+        _tag: "SignUpEmailServerParams",
+        body: {
+          _tag: "SignUpEmailCommand",
+          email,
+          password,
+          name,
+        },
+      };
+
+      yield* Effect.provideService(
+        signUpEmailServerController(signUpInput),
+        AuthServerTag,
+        authServer,
+      );
+
+      // 2. Sign In to get headers
+      const signInInput = {
+        _tag: "SignInEmailServerParams",
+        body: {
+          _tag: "SignInEmailCommand",
+          email,
+          password,
+        },
+        asResponse: true,
+      };
+
+      const signInRes = (yield* Effect.provideService(
+        signInEmailServerController(signInInput),
+        AuthServerTag,
+        authServer,
+      )) as Response;
+
+      const headers = new Headers();
+      const setCookie = signInRes.headers.get("set-cookie");
+      if (setCookie) {
+        headers.set("cookie", setCookie);
+      }
+
+      // 3. Sign Out
       const params = Schema.decodeSync(SignOutEmailServerParams)({
         _tag: "SignOutEmailServerParams",
+        headers,
       });
 
       const program = signOutEmailServerService(params);
