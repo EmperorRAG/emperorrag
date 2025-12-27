@@ -1,6 +1,6 @@
 import type * as Effect from "effect/Effect";
-import type { AuthServerInputError } from "../../errors/authServer.error";
+import type { InputError } from "../../errors/input.error";
 
 export interface MapInputErrorProps {
-  (error: unknown): Effect.Effect<never, AuthServerInputError>;
+  (error: unknown): Effect.Effect<never, InputError>;
 }
