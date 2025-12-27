@@ -4,7 +4,6 @@
  */
 
 import * as Data from "effect/Data";
-import type { AuthServerApiEndpointKeyFor, AuthServerApiFor, AuthServerFor } from "../server/server.types";
 
 /**
  * Error thrown when server dependencies validation fails.
@@ -87,18 +86,3 @@ export type AuthServerError =
   | AuthServerApiError
   | AuthServerDataMissingError
   | AuthServerSessionError;
-
-/**
- * Type helper to extract the error endpoint type from an AuthServer.
- *
- * @pure
- * @description Returns the type of the `error` utility method from the server API.
- *
- * @example
- * ```typescript
- * type ErrorMethod = AuthServerErrorFor<typeof authServer>;
- * ```
- */
-export type AuthServerErrorFor<T extends AuthServerFor = AuthServerFor> = "error" extends AuthServerApiEndpointKeyFor<T>
-  ? AuthServerApiFor<T>["error"]
-  : never;
