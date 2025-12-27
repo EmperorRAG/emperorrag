@@ -1,7 +1,6 @@
-import { it } from "@effect/vitest";
+import { describe, expect, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import * as Schema from "effect/Schema";
-import { describe, expect } from "vitest";
 import { SignInEmailCommand } from "../../../../schema/commands/sign-in-email/SignInEmail.command";
 import { SignInEmailServerParams } from "./signInEmail.types";
 
