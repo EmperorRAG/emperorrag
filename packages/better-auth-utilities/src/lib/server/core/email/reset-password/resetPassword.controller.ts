@@ -1,5 +1,6 @@
-import { Effect, Schema } from "effect";
+import * as Effect from "effect/Effect";
 import { pipe } from "effect/Function";
+import * as Schema from "effect/Schema";
 import { resetPasswordServerService } from "./resetPassword.service";
 import { ResetPasswordServerParams } from "./resetPassword.types";
 

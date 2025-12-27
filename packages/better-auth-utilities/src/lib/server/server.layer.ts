@@ -1,6 +1,8 @@
 // authServer.layer.ts
 import { betterAuth } from "better-auth"; // <-- adjust to your actual import
-import { Context, Effect, Layer } from "effect";
+import * as Context from "effect/Context";
+import * as Effect from "effect/Effect";
+import * as Layer from "effect/Layer";
 import { BetterAuthOptionsLive, BetterAuthOptionsTag } from "../configs/config.layer";
 import { BetterAuthOptions } from "../configs/config.schema";
 

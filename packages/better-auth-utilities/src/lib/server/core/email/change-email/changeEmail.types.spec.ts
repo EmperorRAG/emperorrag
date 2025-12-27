@@ -1,5 +1,6 @@
 import { it } from "@effect/vitest";
-import { Effect, Schema } from "effect";
+import * as Effect from "effect/Effect";
+import * as Schema from "effect/Schema";
 import { describe, expect } from "vitest";
 import { ChangeEmailCommand } from "../../../../schema/commands/change-email/ChangeEmail.command";
 import { ChangeEmailServerParams } from "./changeEmail.types";

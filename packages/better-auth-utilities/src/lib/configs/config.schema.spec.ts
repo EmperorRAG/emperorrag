@@ -1,4 +1,6 @@
-import { Arbitrary, FastCheck, Schema } from "effect";
+import * as Arbitrary from "effect/Arbitrary";
+import * as FastCheck from "effect/FastCheck";
+import * as Schema from "effect/Schema";
 import { describe, it } from "vitest";
 import { BetterAuthOptions } from "./config.schema";
 

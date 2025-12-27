@@ -1,5 +1,6 @@
-import { Effect, Schema } from "effect";
+import * as Effect from "effect/Effect";
 import { pipe } from "effect/Function";
+import * as Schema from "effect/Schema";
 import { verifyEmailServerService } from "./verifyEmail.service";
 import { VerifyEmailServerParams } from "./verifyEmail.types";
 

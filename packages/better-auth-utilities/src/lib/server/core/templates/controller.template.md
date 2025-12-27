@@ -1,7 +1,8 @@
 # Template for controller of server-side module
 
 ```typescript
-import { Effect, Schema } from "effect";
+import * as Effect from "effect/Effect";
+import * as Schema from "effect/Schema";
 import { pipe } from "effect/Function";
 import { {{camelCase}}Service } from "./{{camelCase}}.service";
 import { {{PascalCase}}Params } from "./{{camelCase}}.types";

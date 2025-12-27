@@ -2,7 +2,8 @@
 
 ```typescript
 import { it } from "@effect/vitest";
-import { Effect, Schema } from "effect";
+import * as Effect from "effect/Effect";
+import * as Schema from "effect/Schema";
 import { afterAll, beforeAll, describe, expect } from "vitest";
 import { AuthServerTag } from "../../../server.layer"; // Adjust path
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment"; // Adjust path
