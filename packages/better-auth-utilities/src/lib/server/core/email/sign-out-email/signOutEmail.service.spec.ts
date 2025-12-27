@@ -68,11 +68,15 @@ describe("Server Sign Out Email Service", () => {
         asResponse: true,
       };
 
-      const signInRes = (yield* Effect.provideService(
+      const signInRes = yield* Effect.provideService(
         signInEmailServerController(signInInput),
         AuthServerTag,
         authServer,
-      )) as Response;
+      );
+
+      if (!(signInRes instanceof Response)) {
+        expect.fail("Expected Response object");
+      }
 
       const headers = new Headers();
       const setCookie = signInRes.headers.get("set-cookie");
