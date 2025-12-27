@@ -7,6 +7,7 @@ import * as Schema from "effect/Schema";
 import { ApiError } from "../../../../errors/api.error";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
+import { signUpEmailServerController } from "../sign-up-email/signUpEmail.controller";
 import { signInEmailServerService } from "./signInEmail.service";
 import { SignInEmailServerParams } from "./signInEmail.types";
 
@@ -37,7 +38,26 @@ describe("Server Sign In Email Service", () => {
       // Prepare test data
       const email = "server-signin@example.com";
       const password = "password123";
+      const name = "Server Signin User";
 
+      // 1. Sign Up first
+      const signUpInput = {
+        _tag: "SignUpEmailServerParams",
+        body: {
+          _tag: "SignUpEmailCommand",
+          email,
+          password,
+          name,
+        },
+      };
+
+      yield* Effect.provideService(
+        signUpEmailServerController(signUpInput),
+        AuthServerTag,
+        authServer,
+      );
+
+      // 2. Sign In
       const params = Schema.decodeSync(SignInEmailServerParams)({
         _tag: "SignInEmailServerParams",
         body: {
@@ -49,9 +69,6 @@ describe("Server Sign In Email Service", () => {
 
       const program = signInEmailServerService(params);
 
-      // Note: In a real test, we might need to sign up first or mock the authServer response.
-      // Assuming authServer mock handles this or we just check if it's called.
-      // For now, we just run it.
       const res = yield* Effect.provideService(
         program,
         AuthServerTag,
