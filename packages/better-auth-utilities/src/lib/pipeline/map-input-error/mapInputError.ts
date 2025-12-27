@@ -2,7 +2,7 @@ import * as Array from "effect/Array";
 import * as Effect from "effect/Effect";
 import { pipe } from "effect/Function";
 import * as Match from "effect/Match";
-import type { z } from "zod";
+import { ZodError } from "zod";
 import { PipelineContext } from "../../context/pipeline.context";
 import { AuthServerInputError } from "../../errors/authServer.error";
 import { createAuthServerInputError } from "../create-auth-server-input-error/createAuthServerInputError";
@@ -28,8 +28,7 @@ export const mapInputError: MapInputErrorProps = (error) =>
     }
 
     return yield* Match.value(error as unknown).pipe(
-      Match.tag("ZodError", (err) => {
-        const zodError = err as unknown as z.ZodError;
+      Match.when(Match.instanceOf(ZodError), (zodError) => {
         return pipe(
           formatZodErrorMessage(zodError),
           Effect.flatMap((message) =>
