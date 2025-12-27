@@ -18,4 +18,5 @@ export const signUpEmailServerController = (input: unknown) =>
     input,
     Schema.decodeUnknown(SignUpEmailServerParams),
     Effect.flatMap(signUpEmailServerService),
+    Effect.withSpan("signUpEmailServerController"),
   );

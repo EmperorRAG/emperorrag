@@ -81,4 +81,7 @@ export const signUpEmailServerService = (params: SignUpEmailServerParams) =>
           ? { returnHeaders: params.returnHeaders }
           : {}),
       })
-    ).pipe(Effect.catchAll(mapApiError)));
+    ).pipe(
+      Effect.catchAll(mapApiError),
+      Effect.withSpan("signUpEmailServerService"),
+    ));

@@ -5,9 +5,13 @@ import * as Match from "effect/Match";
 import { ApiError } from "../../errors/api.error";
 import type { MapApiErrorProps } from "./mapApiError.types";
 
-export const mapApiError: MapApiErrorProps = (error) =>
-  pipe(
-    Match.value(error as unknown),
+export const mapApiError: MapApiErrorProps = (error) => {
+  const errorToMap = (error as { _tag?: string; error?: unknown })?._tag === "UnknownException"
+    ? (error as { error: unknown }).error
+    : error;
+
+  return pipe(
+    Match.value(errorToMap),
     Match.when(Match.instanceOf(APIError), (apiError) => {
       const status = typeof apiError.status === "number"
         ? apiError.status
@@ -31,3 +35,4 @@ export const mapApiError: MapApiErrorProps = (error) =>
     ),
     Effect.fail,
   );
+};
