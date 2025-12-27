@@ -3,7 +3,7 @@
  * @description Server-side service for sign-in email operation using Better Auth API.
  */
 
-import { Effect } from "effect";
+import * as Effect from "effect/Effect";
 import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
 import { AuthServerTag } from "../../../server.layer";
 import type { SignInEmailServerParams } from "./signInEmail.types";

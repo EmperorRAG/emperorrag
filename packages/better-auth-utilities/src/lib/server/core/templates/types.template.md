@@ -1,7 +1,7 @@
 # Template for types of server-side module
 
 ```typescript
-import { Schema } from "effect";
+import * as Schema from "effect/Schema";
 import { pipe } from "effect/Function";
 // Import the specific Command schema if it exists, or define the body schema here
 // import { {{PascalCase}}Command } from "../../../../schema/commands/{{kebabCase}}/{{PascalCase}}.command";

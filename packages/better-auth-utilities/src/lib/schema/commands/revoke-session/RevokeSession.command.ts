@@ -1,4 +1,4 @@
-import { Schema } from "effect";
+import * as Schema from "effect/Schema";
 
 export class RevokeSessionCommand extends Schema.TaggedClass<RevokeSessionCommand>()(
   "RevokeSessionCommand",

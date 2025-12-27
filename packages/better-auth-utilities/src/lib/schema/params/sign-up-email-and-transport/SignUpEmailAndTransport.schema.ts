@@ -1,5 +1,5 @@
-import { Schema } from "effect";
 import { pipe } from "effect/Function";
+import * as Schema from "effect/Schema";
 import { SignUpEmailCommand } from "../../commands/sign-up-email/SignUpEmail.command";
 import { TransportCommand } from "../../transport/Transport.command";
 

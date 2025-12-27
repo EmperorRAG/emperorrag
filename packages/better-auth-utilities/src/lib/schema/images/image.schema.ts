@@ -1,5 +1,5 @@
-import { Schema } from "effect";
 import { pipe } from "effect/Function";
+import * as Schema from "effect/Schema";
 
 export class Image extends Schema.TaggedClass<Image>()("Image", {
   value: Schema.String.pipe(Schema.compose(Schema.Trim), Schema.minLength(1)),

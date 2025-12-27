@@ -1,7 +1,7 @@
 import { DevTools } from "@effect/experimental";
 import type { BetterAuthOptions, ClientOptions } from "better-auth";
 import { createAuthClient } from "better-auth/client";
-import { Effect } from "effect";
+import * as Effect from "effect/Effect";
 import { setupServerTestEnvironment } from "../../server/test/setupServerTestEnvironment";
 
 export const setupClientTestEnvironment = (options?: {

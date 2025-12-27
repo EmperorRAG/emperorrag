@@ -6,7 +6,7 @@
  * @description Server-side service for {{humanReadable}} operation using Better Auth API.
  */
 
-import { Effect } from "effect";
+import * as Effect from "effect/Effect";
 import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError"; // Adjust path as needed
 import { AuthServerTag } from "../../../server.layer"; // Adjust path as needed
 import type { {{PascalCase}}Params } from "./{{camelCase}}.types";

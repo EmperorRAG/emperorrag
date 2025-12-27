@@ -1,5 +1,5 @@
-import { Schema } from "effect";
 import { pipe } from "effect/Function";
+import * as Schema from "effect/Schema";
 import { ChangePasswordCommand } from "../../../../schema/commands/change-password/ChangePassword.command";
 
 /**

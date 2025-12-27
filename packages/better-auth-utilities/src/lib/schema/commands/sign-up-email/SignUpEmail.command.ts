@@ -1,5 +1,5 @@
-import { Schema } from "effect";
 import { pipe } from "effect/Function";
+import * as Schema from "effect/Schema";
 import { EmailSchema } from "../../emails/email.schema";
 import { ImageSchema } from "../../images/image.schema";
 import { NameSchema } from "../../names/name.schema";

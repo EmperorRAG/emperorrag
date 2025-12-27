@@ -1,5 +1,5 @@
-import { Schema } from "effect";
 import { pipe } from "effect/Function";
+import * as Schema from "effect/Schema";
 import { SignInEmailCommand } from "../../../../schema/commands/sign-in-email/SignInEmail.command";
 
 /**

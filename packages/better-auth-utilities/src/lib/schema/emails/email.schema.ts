@@ -1,5 +1,5 @@
-import { Schema } from "effect";
 import { pipe } from "effect/Function";
+import * as Schema from "effect/Schema";
 
 export class Email extends Schema.TaggedClass<Email>()("Email", {
   value: Schema.String.pipe(

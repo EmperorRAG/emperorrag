@@ -2,7 +2,7 @@
 
 ```typescript
 import { it } from "@effect/vitest";
-import { Effect } from "effect";
+import * as Effect from "effect/Effect";
 import { afterAll, beforeAll, describe, expect } from "vitest";
 import { AuthServerTag } from "../../../server.layer"; // Adjust path
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment"; // Adjust path

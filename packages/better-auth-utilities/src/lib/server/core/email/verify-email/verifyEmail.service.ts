@@ -3,7 +3,7 @@
  * @description Server-side service for verify email operation using Better Auth API.
  */
 
-import { Effect } from "effect";
+import * as Effect from "effect/Effect";
 import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
 import { AuthServerTag } from "../../../server.layer";
 import type { VerifyEmailServerParams } from "./verifyEmail.types";

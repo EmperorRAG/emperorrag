@@ -1,5 +1,5 @@
-import { Schema } from "effect";
 import { pipe } from "effect/Function";
+import * as Schema from "effect/Schema";
 import { SendVerificationEmailCommand } from "../../../../schema/commands/send-verification-email/SendVerificationEmail.command";
 
 /**
