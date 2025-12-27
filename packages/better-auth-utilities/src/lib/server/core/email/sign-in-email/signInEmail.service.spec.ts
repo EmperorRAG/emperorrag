@@ -1,6 +1,10 @@
 import { afterAll, beforeAll, describe, expect, it } from "@effect/vitest";
+import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
+import * as Exit from "effect/Exit";
+import * as Option from "effect/Option";
 import * as Schema from "effect/Schema";
+import { ApiError } from "../../../../errors/api.error";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
 import { signInEmailServerService } from "./signInEmail.service";
@@ -35,9 +39,9 @@ describe("Server Sign In Email Service", () => {
       const password = "password123";
 
       const params = Schema.decodeSync(SignInEmailServerParams)({
-        _tag: "SignInEmailServerParams" as const,
+        _tag: "SignInEmailServerParams",
         body: {
-          _tag: "SignInEmailCommand" as const,
+          _tag: "SignInEmailCommand",
           email,
           password,
         },
@@ -55,5 +59,45 @@ describe("Server Sign In Email Service", () => {
       );
 
       expect(res).toBeDefined();
+    }));
+
+  it.effect("should handle 'Invalid email or password' error", () =>
+    Effect.gen(function*() {
+      const { authServer } = env;
+
+      // Prepare test data
+      const email = "wrong-email@example.com";
+      const password = "wrong-password";
+
+      const params = Schema.decodeSync(SignInEmailServerParams)({
+        _tag: "SignInEmailServerParams",
+        body: {
+          _tag: "SignInEmailCommand",
+          email,
+          password,
+        },
+      });
+
+      const program = signInEmailServerService(params);
+
+      const result = yield* Effect.exit(
+        Effect.provideService(program, AuthServerTag, authServer),
+      );
+
+      if (Exit.isSuccess(result)) {
+        expect.fail("Expected failure");
+      }
+
+      const cause = result.cause;
+      const failureOption = Cause.failureOption(cause);
+
+      if (Option.isNone(failureOption)) {
+        expect.fail("Expected failure option to be Some");
+      }
+
+      const error = failureOption.value;
+
+      expect(error).toBeInstanceOf(ApiError);
+      expect(error.message).toBe("Invalid email or password");
     }));
 });
