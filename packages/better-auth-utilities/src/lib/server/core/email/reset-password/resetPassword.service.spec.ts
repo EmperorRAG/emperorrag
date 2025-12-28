@@ -45,72 +45,73 @@ describe("Server Reset Password Service", () => {
     await env.cleanup();
   });
 
-  it("should perform reset password via server api", async () => {
-    const { authServer } = env;
+  it.effect("should perform reset password via server api", () =>
+    Effect.gen(function*() {
+      const { authServer } = env;
 
-    // 1. Sign Up
-    const email = "reset-service@example.com";
-    const password = "password123";
-    const name = "Reset Service User";
+      // 1. Sign Up
+      const email = "reset-service@example.com";
+      const password = "password123";
+      const name = "Reset Service User";
 
-    await authServer.api.signUpEmail({
-      body: {
-        email,
-        password,
-        name,
-      },
-    });
-
-    // 2. Forget Password (to generate token)
-    await authServer.api.forgetPassword({
-      body: {
-        email,
-        redirectTo: "/reset-password",
-      },
-    });
-
-    // Wait for token to be captured
-    await new Promise((resolve) => setTimeout(resolve, 100));
-
-    if (!capturedToken) {
-      throw new Error("Token was not captured");
-    }
-
-    // 3. Reset Password
-    await Effect.runPromise(
-      Effect.gen(function*() {
-        const newPassword = "newPassword123";
-        const params = Schema.decodeSync(ResetPasswordServerParams)({
-          _tag: "ResetPasswordServerParams" as const,
+      yield* Effect.tryPromise(() =>
+        authServer.api.signUpEmail({
           body: {
-            _tag: "ResetPasswordCommand" as const,
-            newPassword,
-            token: capturedToken,
+            email,
+            password,
+            name,
           },
-        });
+        })
+      );
 
-        const result = yield* Effect.provideService(
-          resetPasswordServerService(params),
-          AuthServerTag,
-          authServer,
-        );
+      // 2. Forget Password (to generate token)
+      yield* Effect.tryPromise(() =>
+        authServer.api.forgetPassword({
+          body: {
+            email,
+            redirectTo: "/reset-password",
+          },
+        })
+      );
 
-        // Verify password change by signing in with new password
-        const signInRes = yield* Effect.tryPromise(() =>
-          authServer.api.signInEmail({
-            body: {
-              email,
-              password: newPassword,
-            },
-          })
-        );
+      // Wait for token to be captured
+      yield* Effect.promise(() => new Promise((resolve) => setTimeout(resolve, 100)));
 
-        expect(signInRes).toBeDefined();
-        expect(signInRes.user).toBeDefined();
-        expect(signInRes.user.email).toBe(email);
-      }),
-    );
-  }, 10000);
+      if (!capturedToken) {
+        throw new Error("Token was not captured");
+      }
+
+      // 3. Reset Password
+      const newPassword = "newPassword123";
+      const params = Schema.decodeSync(ResetPasswordServerParams)({
+        _tag: "ResetPasswordServerParams" as const,
+        body: {
+          _tag: "ResetPasswordCommand" as const,
+          newPassword,
+          token: capturedToken,
+        },
+      });
+
+      const result = yield* Effect.provideService(
+        resetPasswordServerService(params),
+        AuthServerTag,
+        authServer,
+      );
+
+      // Verify password change by signing in with new password
+      const signInRes = yield* Effect.tryPromise(() =>
+        authServer.api.signInEmail({
+          body: {
+            email,
+            password: newPassword,
+          },
+        })
+      );
+
+      expect(signInRes).toBeDefined();
+      expect(signInRes.user).toBeDefined();
+      expect(signInRes.user.email).toBe(email);
+    }), 10000);
 
   it.effect("should handle ApiError when token is invalid", () =>
     Effect.gen(function*() {

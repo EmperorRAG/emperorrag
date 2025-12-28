@@ -40,70 +40,75 @@ describe("Server Reset Password Controller", () => {
     await env.cleanup();
   });
 
-  it("should successfully decode input and call service", async () => {
-    const { authServer } = env;
+  it.effect("should successfully decode input and call service", () =>
+    Effect.gen(function*() {
+      const { authServer } = env;
 
-    // 1. Sign Up
-    const email = "reset-controller@example.com";
-    const password = "password123";
-    const name = "Reset Controller User";
+      // 1. Sign Up
+      const email = "reset-controller@example.com";
+      const password = "password123";
+      const name = "Reset Controller User";
 
-    await authServer.api.signUpEmail({
-      body: {
-        email,
-        password,
-        name,
-      },
-    });
+      console.log("Signing up...");
+      yield* Effect.tryPromise(() =>
+        authServer.api.signUpEmail({
+          body: {
+            email,
+            password,
+            name,
+          },
+        })
+      );
 
-    // 2. Forget Password
-    await authServer.api.forgetPassword({
-      body: {
-        email,
-        redirectTo: "/reset-password",
-      },
-    });
+      // 2. Forget Password
+      console.log("Forgetting password...");
+      yield* Effect.tryPromise(() =>
+        authServer.api.forgetPassword({
+          body: {
+            email,
+            redirectTo: "/reset-password",
+          },
+        })
+      );
 
-    await new Promise((resolve) => setTimeout(resolve, 100));
+      console.log("Waiting for token...");
+      yield* Effect.promise(() => new Promise((resolve) => setTimeout(resolve, 100)));
 
-    if (!capturedToken) {
-      throw new Error("Token was not captured");
-    }
+      if (!capturedToken) {
+        throw new Error("Token was not captured");
+      }
+      console.log("Token captured:", capturedToken);
 
-    // 3. Reset Password
-    const newPassword = "newPassword123";
-    const rawInput = {
-      _tag: "ResetPasswordServerParams" as const,
-      body: {
-        _tag: "ResetPasswordCommand" as const,
-        newPassword,
-        token: capturedToken,
-      },
-    };
+      // 3. Reset Password
+      const newPassword = "newPassword123";
+      const rawInput = {
+        _tag: "ResetPasswordServerParams" as const,
+        body: {
+          _tag: "ResetPasswordCommand" as const,
+          newPassword,
+          token: capturedToken,
+        },
+      };
 
-    await Effect.runPromise(
-      Effect.gen(function*() {
-        const res = yield* Effect.provideService(
-          resetPasswordServerController(rawInput),
-          AuthServerTag,
-          authServer,
-        );
+      const res = yield* Effect.provideService(
+        resetPasswordServerController(rawInput),
+        AuthServerTag,
+        authServer,
+      );
 
-        // Verify password change by signing in
-        const signInRes = yield* Effect.tryPromise(() =>
-          authServer.api.signInEmail({
-            body: {
-              email,
-              password: newPassword,
-            },
-          })
-        );
+      // Verify password change by signing in
+      const signInRes = yield* Effect.tryPromise(() =>
+        authServer.api.signInEmail({
+          body: {
+            email,
+            password: newPassword,
+          },
+        })
+      );
 
-        expect(signInRes).toBeDefined();
-        expect(signInRes.user).toBeDefined();
-      }),
-    );
-  }, 10000);
+      expect(signInRes).toBeDefined();
+      expect(signInRes.user).toBeDefined();
+    }), 10000);
 
   it.effect("should handle invalid input (InputError)", () =>
     Effect.gen(function*() {
