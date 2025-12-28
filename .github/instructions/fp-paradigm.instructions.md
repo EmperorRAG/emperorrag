@@ -190,7 +190,7 @@ const result = pipe(
 Use `Schema` to parse and validate data structures.
 
 ```typescript
-import { Schema } from "@effect/schema";
+import * as Schema from "effect/Schema";
 
 const User = Schema.struct({
   id: Schema.number,
