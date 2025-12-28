@@ -34,7 +34,9 @@ describe("Server Reset Password Service", () => {
         },
         emailVerification: {
           sendOnSignUp: false,
-          sendVerificationEmail: async () => {},
+          sendVerificationEmail: async () => {
+            // Mock implementation
+          },
         },
       },
     });

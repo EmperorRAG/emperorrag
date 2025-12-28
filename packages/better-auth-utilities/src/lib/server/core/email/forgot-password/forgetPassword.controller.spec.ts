@@ -29,9 +29,10 @@ describe("Server Forget Password Controller", () => {
           },
         },
         emailVerification: {
-          enabled: true,
           sendOnSignUp: false,
-          sendVerificationEmail: async () => {},
+          sendVerificationEmail: async () => {
+            // Mock implementation
+          },
         },
       },
     });

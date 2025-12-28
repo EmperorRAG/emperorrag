@@ -29,7 +29,9 @@ describe("Server Reset Password Controller", () => {
         },
         emailVerification: {
           sendOnSignUp: false,
-          sendVerificationEmail: async () => {},
+          sendVerificationEmail: async () => {
+            // Mock implementation
+          },
         },
       },
     });
