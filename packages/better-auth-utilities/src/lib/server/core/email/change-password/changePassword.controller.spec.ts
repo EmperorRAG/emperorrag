@@ -1,5 +1,9 @@
 import { afterAll, beforeAll, describe, expect, it } from "@effect/vitest";
+import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
+import * as Exit from "effect/Exit";
+import * as Option from "effect/Option";
+import { InputError } from "../../../../errors/input.error";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
 import { changePasswordServerController } from "./changePassword.controller";
@@ -25,9 +29,27 @@ describe("Server Change Password Controller", () => {
     Effect.gen(function*() {
       const { authServer } = env;
 
-      // Prepare test data
+      // 1. Sign Up to get session
+      const email = "change-password-controller@example.com";
+      const currentPassword = "password123";
       const newPassword = "newPassword123";
-      const currentPassword = "oldPassword123";
+
+      const signUpRes = yield* Effect.tryPromise(() =>
+        authServer.api.signUpEmail({
+          body: {
+            email,
+            password: currentPassword,
+            name: "Change Password User",
+          },
+          asResponse: true,
+        })
+      );
+
+      const cookie = signUpRes.headers.get("set-cookie");
+      const headers = new Headers();
+      if (cookie) {
+        headers.append("cookie", cookie);
+      }
 
       const rawInput = {
         _tag: "ChangePasswordServerParams" as const,
@@ -37,6 +59,7 @@ describe("Server Change Password Controller", () => {
           currentPassword,
           revokeOtherSessions: true,
         },
+        headers,
       };
 
       const program = changePasswordServerController(rawInput);
@@ -48,5 +71,35 @@ describe("Server Change Password Controller", () => {
       );
 
       expect(res).toBeDefined();
+    }));
+
+  it.effect("should handle invalid input", () =>
+    Effect.gen(function*() {
+      const { authServer } = env;
+
+      const rawInput = {
+        _tag: "InvalidTag",
+      };
+
+      const program = changePasswordServerController(rawInput);
+
+      const result = yield* Effect.exit(
+        Effect.provideService(program, AuthServerTag, authServer),
+      );
+
+      if (Exit.isSuccess(result)) {
+        expect.fail("Expected failure");
+      }
+
+      const cause = result.cause;
+      const failureOption = Cause.failureOption(cause);
+
+      if (Option.isNone(failureOption)) {
+        expect.fail("Expected failure option to be Some");
+      }
+
+      const error = failureOption.value;
+
+      expect(error).toBeInstanceOf(InputError);
     }));
 });
