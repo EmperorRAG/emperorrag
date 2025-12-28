@@ -33,7 +33,6 @@ describe("Server Reset Password Service", () => {
           },
         },
         emailVerification: {
-          enabled: true,
           sendOnSignUp: false,
           sendVerificationEmail: async () => {},
         },
@@ -92,7 +91,7 @@ describe("Server Reset Password Service", () => {
         },
       });
 
-      const result = yield* Effect.provideService(
+      yield* Effect.provideService(
         resetPasswordServerService(params),
         AuthServerTag,
         authServer,

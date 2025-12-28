@@ -28,7 +28,6 @@ describe("Server Reset Password Controller", () => {
           },
         },
         emailVerification: {
-          enabled: true,
           sendOnSignUp: false,
           sendVerificationEmail: async () => {},
         },
@@ -90,7 +89,7 @@ describe("Server Reset Password Controller", () => {
         },
       };
 
-      const res = yield* Effect.provideService(
+      yield* Effect.provideService(
         resetPasswordServerController(rawInput),
         AuthServerTag,
         authServer,
