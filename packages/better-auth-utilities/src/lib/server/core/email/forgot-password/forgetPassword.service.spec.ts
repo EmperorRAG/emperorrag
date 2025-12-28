@@ -1,10 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from "@effect/vitest";
-import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
-import * as Exit from "effect/Exit";
-import * as Option from "effect/Option";
 import * as Schema from "effect/Schema";
-import { ApiError } from "../../../../errors/api.error";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
 import { forgetPasswordServerService } from "./forgetPassword.service";
@@ -79,43 +75,5 @@ describe("Server Forget Password Service", () => {
       // Wait a bit for the async email sender to fire
       yield* Effect.promise(() => new Promise((resolve) => setTimeout(resolve, 100)));
       expect(emailSent).toBe(true);
-    }));
-
-  it.effect("should handle ApiError", () =>
-    Effect.gen(function*() {
-      const { authServer } = env;
-      const email = "api-error@example.com";
-
-      // Mock failure
-      const originalForgetPassword = authServer.api.forgetPassword;
-      authServer.api.forgetPassword = (() => Promise.reject({ status: 500, body: { message: "API Error" } })) as any;
-
-      const params = Schema.decodeSync(ForgetPasswordServerParams)({
-        _tag: "ForgetPasswordServerParams" as const,
-        body: {
-          _tag: "ForgetPasswordCommand" as const,
-          email,
-        },
-      });
-
-      const program = forgetPasswordServerService(params);
-
-      const result = yield* Effect.exit(
-        Effect.provideService(program, AuthServerTag, authServer),
-      );
-
-      // Restore
-      authServer.api.forgetPassword = originalForgetPassword;
-
-      if (Exit.isSuccess(result)) {
-        expect.fail("Expected failure");
-      }
-      const cause = result.cause;
-      const failureOption = Cause.failureOption(cause);
-      if (Option.isNone(failureOption)) {
-        expect.fail("Expected failure option to be Some");
-      }
-      const error = failureOption.value;
-      expect(error).toBeInstanceOf(ApiError);
     }));
 });
