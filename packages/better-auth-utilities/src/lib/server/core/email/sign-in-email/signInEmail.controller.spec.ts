@@ -1,7 +1,12 @@
 import { afterAll, beforeAll, describe, expect, it } from "@effect/vitest";
+import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
+import * as Exit from "effect/Exit";
+import * as Option from "effect/Option";
+import { InputError } from "../../../../errors/input.error";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
+import { signUpEmailServerController } from "../sign-up-email/signUpEmail.controller";
 import { signInEmailServerController } from "./signInEmail.controller";
 
 /**
@@ -28,7 +33,26 @@ describe("Server Sign In Email Controller", () => {
       // Prepare test data
       const email = "controller-signin@example.com";
       const password = "password123";
+      const name = "Controller Sign In User";
 
+      // 1. Sign Up
+      const signUpInput = {
+        _tag: "SignUpEmailServerParams",
+        body: {
+          _tag: "SignUpEmailCommand",
+          email,
+          password,
+          name,
+        },
+      };
+
+      yield* Effect.provideService(
+        signUpEmailServerController(signUpInput),
+        AuthServerTag,
+        authServer,
+      );
+
+      // 2. Sign In
       const rawInput = {
         _tag: "SignInEmailServerParams" as const,
         body: {
@@ -47,5 +71,36 @@ describe("Server Sign In Email Controller", () => {
       );
 
       expect(res).toBeDefined();
+    }));
+
+  it.effect("should handle invalid input", () =>
+    Effect.gen(function*() {
+      const { authServer } = env;
+
+      // Prepare invalid test data
+      const rawInput = {
+        _tag: "InvalidTag",
+      };
+
+      const program = signInEmailServerController(rawInput);
+
+      const result = yield* Effect.exit(
+        Effect.provideService(program, AuthServerTag, authServer),
+      );
+
+      if (Exit.isSuccess(result)) {
+        expect.fail("Expected failure");
+      }
+
+      const cause = result.cause;
+      const failureOption = Cause.failureOption(cause);
+
+      if (Option.isNone(failureOption)) {
+        expect.fail("Expected failure option to be Some");
+      }
+
+      const error = failureOption.value;
+
+      expect(error).toBeInstanceOf(InputError);
     }));
 });

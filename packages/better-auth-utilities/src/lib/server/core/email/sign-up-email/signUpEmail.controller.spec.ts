@@ -1,5 +1,9 @@
 import { afterAll, beforeAll, describe, expect, it } from "@effect/vitest";
+import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
+import * as Exit from "effect/Exit";
+import * as Option from "effect/Option";
+import { InputError } from "../../../../errors/input.error";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
 import { signUpEmailServerController } from "./signUpEmail.controller";
@@ -43,5 +47,36 @@ describe("Server Sign Up Email Controller", () => {
       expect(res).toBeDefined();
       expect(res.user).toBeDefined();
       expect(res.user.email).toBe(email);
+    }));
+
+  it.effect("should handle invalid input", () =>
+    Effect.gen(function*() {
+      const { authServer } = env;
+
+      // Prepare invalid test data
+      const rawInput = {
+        _tag: "InvalidTag",
+      };
+
+      const program = signUpEmailServerController(rawInput);
+
+      const result = yield* Effect.exit(
+        Effect.provideService(program, AuthServerTag, authServer),
+      );
+
+      if (Exit.isSuccess(result)) {
+        expect.fail("Expected failure");
+      }
+
+      const cause = result.cause;
+      const failureOption = Cause.failureOption(cause);
+
+      if (Option.isNone(failureOption)) {
+        expect.fail("Expected failure option to be Some");
+      }
+
+      const error = failureOption.value;
+
+      expect(error).toBeInstanceOf(InputError);
     }));
 });
