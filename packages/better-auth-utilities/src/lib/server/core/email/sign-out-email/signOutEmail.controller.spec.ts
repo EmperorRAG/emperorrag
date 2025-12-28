@@ -2,6 +2,8 @@ import { afterAll, beforeAll, describe, expect, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
+import { signInEmailServerController } from "../sign-in-email/signInEmail.controller";
+import { signUpEmailServerController } from "../sign-up-email/signUpEmail.controller";
 import { signOutEmailServerController } from "./signOutEmail.controller";
 
 /**
@@ -25,9 +27,59 @@ describe("Server Sign Out Email Controller", () => {
     Effect.gen(function*() {
       const { authServer } = env;
 
+      const email = "controller-signout@example.com";
+      const password = "password123";
+      const name = "Controller Signout User";
+
+      // 1. Sign Up
+      const signUpInput = {
+        _tag: "SignUpEmailServerParams",
+        body: {
+          _tag: "SignUpEmailCommand",
+          email,
+          password,
+          name,
+        },
+      };
+
+      yield* Effect.provideService(
+        signUpEmailServerController(signUpInput),
+        AuthServerTag,
+        authServer,
+      );
+
+      // 2. Sign In to get headers
+      const signInInput = {
+        _tag: "SignInEmailServerParams",
+        body: {
+          _tag: "SignInEmailCommand",
+          email,
+          password,
+        },
+        asResponse: true,
+      };
+
+      const signInRes = yield* Effect.provideService(
+        signInEmailServerController(signInInput),
+        AuthServerTag,
+        authServer,
+      );
+
+      if (!(signInRes instanceof Response)) {
+        expect.fail("Expected Response object");
+      }
+
+      const headers = new Headers();
+      const setCookie = signInRes.headers.get("set-cookie");
+      if (setCookie) {
+        headers.set("cookie", setCookie);
+      }
+
+      // 3. Sign Out
       // Prepare test data
       const rawInput = {
         _tag: "SignOutEmailServerParams" as const,
+        headers,
       };
 
       const program = signOutEmailServerController(rawInput);
