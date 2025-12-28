@@ -32,7 +32,13 @@ describe("Server Set Password Service", () => {
     await env.cleanup();
   });
 
-  it.effect("should perform set password via server api", () =>
+  /*
+   * TODO: This test requires tooling to create a user without a password and sign them in without a password.
+   * Currently, the `signUpEmailServerController` enforces password creation, and `signInEmailServerController` requires a password.
+   * We need a way to seed a passwordless user (e.g., via OAuth mock or direct DB insertion with valid session generation)
+   * to properly test the happy path of `setPassword`.
+   */
+  it.effect.skip("should perform set password via server api", () =>
     Effect.gen(function*() {
       const { authServer } = env;
 
@@ -41,7 +47,7 @@ describe("Server Set Password Service", () => {
       const name = "Server Set Password User";
       const newPassword = "newPassword123";
 
-      // 1. Sign Up
+      // 1. Sign Up (creates user + password)
       const signUpInput = {
         _tag: "SignUpEmailServerParams",
         body: {
@@ -58,7 +64,7 @@ describe("Server Set Password Service", () => {
         authServer,
       );
 
-      // 2. Sign In to get headers
+      // 2. Sign In (creates valid session)
       const signInInput = {
         _tag: "SignInEmailServerParams",
         body: {
@@ -97,31 +103,15 @@ describe("Server Set Password Service", () => {
 
       const program = setPasswordServerService(params);
 
-      // We expect this to fail because the user already has a password
       const result = yield* Effect.exit(
         Effect.provideService(program, AuthServerTag, authServer),
       );
 
-      if (Exit.isSuccess(result)) {
-        // If it somehow succeeded, great!
-        expect(result.value).toBeDefined();
-      } else {
-        // If it failed, check if it's the expected "user already has a password" error
-        const cause = result.cause;
-        const failureOption = Cause.failureOption(cause);
-        if (Option.isSome(failureOption)) {
-          const error = failureOption.value;
-          if (error instanceof ApiError && error.message === "user already has a password") {
-            // This confirms the service called the API and got a domain-specific error
-            expect(true).toBe(true);
-          } else {
-            // Re-raise other errors
-            yield* error;
-          }
-        } else {
-          expect.fail("Unknown failure");
-        }
+      if (Exit.isFailure(result)) {
+        expect.fail(`Set Password failed: ${Cause.pretty(result.cause)}`);
       }
+
+      expect(result.value).toBeDefined();
     }));
 
   it.effect("should handle 'Failed to get session' error", () =>
