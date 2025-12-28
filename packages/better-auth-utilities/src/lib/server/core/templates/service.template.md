@@ -1,5 +1,7 @@
 # Template for service of server-side module
 
+> **Note:** The `{{camelCase}}` and `{{PascalCase}}` placeholders must include the "Server" suffix (e.g., `signInServer`, `SignInServer`).
+
 ```typescript
 /**
  * @file libs/better-auth-utilities/src/lib/server/core/{{path}}/{{camelCase}}/{{camelCase}}.service.ts

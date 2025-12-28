@@ -1,5 +1,7 @@
 # Template for controller of server-side module
 
+> **Note:** The `{{camelCase}}` and `{{PascalCase}}` placeholders must include the "Server" suffix (e.g., `signInServer`, `SignInServer`).
+
 ```typescript
 import * as Effect from "effect/Effect";
 import * as Schema from "effect/Schema";

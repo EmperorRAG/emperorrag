@@ -1,5 +1,7 @@
 # Template for types of server-side module
 
+> **Note:** The `{{camelCase}}` and `{{PascalCase}}` placeholders must include the "Server" suffix (e.g., `signInServer`, `SignInServer`).
+
 ```typescript
 import * as Schema from "effect/Schema";
 import { pipe } from "effect/Function";
