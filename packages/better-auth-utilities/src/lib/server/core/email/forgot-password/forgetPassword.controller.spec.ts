@@ -92,7 +92,7 @@ describe("Server Forget Password Controller", () => {
       expect(res).toBeDefined();
 
       // Wait a bit for the async email sender to fire
-      yield* Effect.sleep("100 millis");
+      yield* Effect.promise(() => new Promise((resolve) => setTimeout(resolve, 100)));
       expect(emailSent).toBe(true);
     }), 10000);
 
