@@ -12,7 +12,7 @@ import type { MapInputErrorProps } from "./mapInputError.types";
  * @description Converts various input validation error types (ParseError, Error)
  * into a standardized InputError.
  */
-export const mapInputError: MapInputErrorProps = (error: unknown) =>
+export const mapInputError: MapInputErrorProps = (error) =>
   pipe(
     Match.value(error),
     Match.when(ParseResult.isParseError, (parseError) =>

@@ -1,7 +1,7 @@
 import * as Effect from "effect/Effect";
 import { pipe } from "effect/Function";
 import * as Schema from "effect/Schema";
-import { InputError } from "../../../../errors/input.error";
+import { mapInputError } from "../../../../pipeline/map-input-error/mapInputError";
 import { signOutEmailServerService } from "./signOutEmail.service";
 import { SignOutEmailServerParams } from "./signOutEmail.types";
 
@@ -22,8 +22,6 @@ export const signOutEmailServerController = (input: unknown) =>
   pipe(
     input,
     Schema.decodeUnknown(SignOutEmailServerParams),
-    Effect.mapError(
-      (cause) => new InputError({ message: "Invalid input", cause }),
-    ),
+    Effect.catchAll(mapInputError),
     Effect.flatMap(signOutEmailServerService),
   );
