@@ -1,6 +1,7 @@
 import * as Effect from "effect/Effect";
 import { pipe } from "effect/Function";
 import * as Schema from "effect/Schema";
+import { mapInputError } from "../../../../pipeline/map-input-error/mapInputError";
 import { sendVerificationEmailServerService } from "./sendVerificationEmail.service";
 import { SendVerificationEmailServerParams } from "./sendVerificationEmail.types";
 
@@ -21,5 +22,6 @@ export const sendVerificationEmailServerController = (input: unknown) =>
   pipe(
     input,
     Schema.decodeUnknown(SendVerificationEmailServerParams),
+    Effect.catchAll(mapInputError),
     Effect.flatMap(sendVerificationEmailServerService),
   );

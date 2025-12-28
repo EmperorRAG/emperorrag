@@ -1,6 +1,7 @@
 import * as Effect from "effect/Effect";
 import { pipe } from "effect/Function";
 import * as Schema from "effect/Schema";
+import { mapInputError } from "../../../../pipeline/map-input-error/mapInputError";
 import { signUpEmailServerService } from "./signUpEmail.service";
 import { SignUpEmailServerParams } from "./signUpEmail.types";
 
@@ -17,6 +18,7 @@ export const signUpEmailServerController = (input: unknown) =>
   pipe(
     input,
     Schema.decodeUnknown(SignUpEmailServerParams),
+    Effect.catchAll(mapInputError),
     Effect.flatMap(signUpEmailServerService),
     Effect.withSpan("signUpEmailServerController"),
   );

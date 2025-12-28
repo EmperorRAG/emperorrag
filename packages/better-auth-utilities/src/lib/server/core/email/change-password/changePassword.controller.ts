@@ -1,6 +1,7 @@
 import * as Effect from "effect/Effect";
 import { pipe } from "effect/Function";
 import * as Schema from "effect/Schema";
+import { mapInputError } from "../../../../pipeline/map-input-error/mapInputError";
 import { changePasswordServerService } from "./changePassword.service";
 import { ChangePasswordServerParams } from "./changePassword.types";
 
@@ -21,5 +22,6 @@ export const changePasswordServerController = (input: unknown) =>
   pipe(
     input,
     Schema.decodeUnknown(ChangePasswordServerParams),
+    Effect.catchAll(mapInputError),
     Effect.flatMap(changePasswordServerService),
   );

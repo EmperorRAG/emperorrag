@@ -1,6 +1,7 @@
 import * as Effect from "effect/Effect";
 import { pipe } from "effect/Function";
 import * as Schema from "effect/Schema";
+import { mapInputError } from "../../../../pipeline/map-input-error/mapInputError";
 import { forgetPasswordServerService } from "./forgetPassword.service";
 import { ForgetPasswordServerParams } from "./forgetPassword.types";
 
@@ -21,5 +22,6 @@ export const forgetPasswordServerController = (input: unknown) =>
   pipe(
     input,
     Schema.decodeUnknown(ForgetPasswordServerParams),
+    Effect.catchAll(mapInputError),
     Effect.flatMap(forgetPasswordServerService),
   );
