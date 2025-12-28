@@ -19,7 +19,16 @@ describe("Server Forget Password Service", () => {
   let env: Awaited<ReturnType<typeof setupServerTestEnvironment>>;
 
   beforeAll(async () => {
-    env = await setupServerTestEnvironment();
+    env = await setupServerTestEnvironment({
+      serverConfig: {
+        emailAndPassword: {
+          enabled: true,
+          sendResetPassword: async () => {
+            // Mock email sending
+          },
+        },
+      },
+    });
   });
 
   afterAll(async () => {
