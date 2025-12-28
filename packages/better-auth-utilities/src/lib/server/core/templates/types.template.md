@@ -1,7 +1,5 @@
 # Template for types of server-side module
 
-> **Note:** The `{{camelCase}}` and `{{PascalCase}}` placeholders must include the "Server" suffix (e.g., `signInServer`, `SignInServer`).
-
 ```typescript
 import * as Schema from "effect/Schema";
 import { pipe } from "effect/Function";
@@ -12,14 +10,14 @@ import { pipe } from "effect/Function";
  * Represents the parameters for the {{humanReadable}} server operation.
  *
  * Acceptance Criteria:
- * 1. Must export a class named `{{PascalCase}}Params`.
- * 2. Must extend `Schema.TaggedClass<{{PascalCase}}Params>()`.
+ * 1. Must export a class named `{{PascalCase}}ServerParams`.
+ * 2. Must extend `Schema.TaggedClass<{{PascalCase}}ServerParams>()`.
  * 3. Must define a `body` property using the appropriate Command schema or structure.
  * 4. Must include optional `headers`, `asResponse`, and `returnHeaders` if supported by the API.
  * 5. Must provide static `decode` and `encode` methods.
  */
-export class {{PascalCase}}Params extends Schema.TaggedClass<{{PascalCase}}Params>()(
-  "{{PascalCase}}Params",
+export class {{PascalCase}}ServerParams extends Schema.TaggedClass<{{PascalCase}}ServerParams>()(
+  "{{PascalCase}}ServerParams",
   {
     body: Schema.Any, // Replace with specific Command schema: {{PascalCase}}Command
     headers: Schema.optional(Schema.instanceOf(Headers)),
@@ -28,11 +26,11 @@ export class {{PascalCase}}Params extends Schema.TaggedClass<{{PascalCase}}Param
   },
 ) {
   static decode(input: unknown) {
-    return pipe(input, Schema.decodeUnknown({{PascalCase}}Params));
+    return pipe(input, Schema.decodeUnknown({{PascalCase}}ServerParams));
   }
 
-  static encode(value: {{PascalCase}}Params) {
-    return pipe(value, Schema.encode({{PascalCase}}Params));
+  static encode(value: {{PascalCase}}ServerParams) {
+    return pipe(value, Schema.encode({{PascalCase}}ServerParams));
   }
 }
 ```

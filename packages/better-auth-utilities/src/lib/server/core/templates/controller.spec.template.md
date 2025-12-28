@@ -1,14 +1,15 @@
 # Template for controller tests of server-side module
 
-> **Note:** The `{{camelCase}}` and `{{PascalCase}}` placeholders must include the "Server" suffix (e.g., `signInServer`, `SignInServer`).
-
 ```typescript
-import { it } from "@effect/vitest";
+import { afterAll, beforeAll, describe, expect, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import { afterAll, beforeAll, describe, expect } from "vitest";
+import * as Exit from "effect/Exit";
+import * as Cause from "effect/Cause";
+import * as Option from "effect/Option";
 import { AuthServerTag } from "../../../server.layer"; // Adjust path
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment"; // Adjust path
-import { {{camelCase}}Controller } from "./{{camelCase}}.controller";
+import { {{camelCase}}ServerController } from "./{{camelCase}}.controller";
+import { InputError } from "../../../../errors/input.error"; // Adjust path
 
 /**
  * Acceptance Criteria for Controller Tests:
@@ -33,19 +34,48 @@ describe("Server {{PascalCase}} Controller", () => {
 
       // Prepare test data
       const rawInput = {
-        _tag: "{{PascalCase}}Params" as const,
+        _tag: "{{PascalCase}}ServerParams" as const,
         body: {
           // _tag: "{{PascalCase}}Command" as const,
           // ... required fields
         },
       };
 
-      const program = {{camelCase}}Controller(rawInput);
+      const program = {{camelCase}}ServerController(rawInput);
 
       const res = yield* Effect.provideService(program, AuthServerTag, authServer);
 
       expect(res).toBeDefined();
       // Add specific assertions
+    }));
+
+  it.effect("should handle invalid input", () =>
+    Effect.gen(function*() {
+      const { authServer } = env;
+
+      const rawInput = {
+        _tag: "InvalidTag",
+      };
+
+      const program = {{camelCase}}ServerController(rawInput);
+
+      const result = yield* Effect.exit(
+        Effect.provideService(program, AuthServerTag, authServer),
+      );
+
+      if (Exit.isSuccess(result)) {
+        expect.fail("Expected failure");
+      }
+
+      const cause = result.cause;
+      const failureOption = Cause.failureOption(cause);
+
+      if (Option.isNone(failureOption)) {
+        expect.fail("Expected failure option to be Some");
+      }
+
+      const error = failureOption.value;
+      expect(error).toBeInstanceOf(InputError);
     }));
 });
 ```

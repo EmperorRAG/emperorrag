@@ -1,7 +1,5 @@
 # Template for barrel export of server-side module
 
-> **Note:** The `{{camelCase}}` and `{{PascalCase}}` placeholders must include the "Server" suffix (e.g., `signInServer`, `SignInServer`).
-
 ```typescript
 /**
  * @file libs/better-auth-utilities/src/lib/server/core/{{path}}/{{camelCase}}/{{camelCase}}.ts
@@ -12,6 +10,6 @@
  * 2. Must export the service.
  */
 
-export { {{camelCase}}Controller } from "./{{camelCase}}.controller";
-export { {{camelCase}}Service } from "./{{camelCase}}.service";
+export { {{camelCase}}ServerController } from "./{{camelCase}}.controller";
+export { {{camelCase}}ServerService } from "./{{camelCase}}.service";
 ```
