@@ -13,11 +13,14 @@ export const mapApiError: MapApiErrorProps = (error) => {
   return pipe(
     Match.value(errorToMap),
     Match.when(Match.instanceOf(APIError), (apiError) => {
-      const status = typeof apiError.status === "number"
-        ? apiError.status
-        : parseInt(apiError.status as string, 10) || undefined;
+      const message = typeof apiError.message === "string" && apiError.message.length > 0
+        ? apiError.message
+        : (apiError.status as string) || "API Error occurred";
+      const status = typeof apiError.statusCode === "number"
+        ? apiError.statusCode
+        : parseInt(apiError.statusCode as string, 10) || undefined;
       return new ApiError({
-        message: apiError.message,
+        message,
         status,
         cause: apiError,
       });
