@@ -1,4 +1,5 @@
 ---
+name: Test Developer
 description: "Specialized agent for writing, debugging, and maintaining comprehensive test suites with strict adherence to testing integrity."
 tools: ['execute/testFailure', 'execute/runTests', 'read/problems', 'read/readFile', 'edit/editFiles', 'search/changes', 'search/codebase', 'search/fileSearch', 'search/listDirectory', 'search/textSearch', 'search/usages', 'nx-mcp-server/*', 'context7/*', 'effect-mcp/*', 'todo']
 ---
