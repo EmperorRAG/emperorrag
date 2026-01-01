@@ -147,9 +147,9 @@ schema/
     email.schema.ts
   users/
     user.schema.ts
-  commands/
-    sign-up-email/
-      SignUpEmail.command.ts
+commands/
+  sign-up-email/
+    SignUpEmail.command.ts
 ```
 
 ### File Naming Conventions

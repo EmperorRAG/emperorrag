@@ -10,7 +10,7 @@ Guidance for AI collaborators working inside the Emperorrag Nx monorepo.
 ## General Instructions
 
 - Operate from the Nx root unless a project-level `AGENTS.md` redirects you elsewhere; start with `AGENTS.md` and `llms.md` for navigation.
-- Keep documentation in TSDoc blocks or Markdown with front matter.
+- Keep documentation in TSDoc comment blocks or Markdown with front matter.
 - Prefer existing helpers over reimplementation—shared logic belongs in `packages/better-auth-utilities` or `packages/utilities`.
 
 ## Project standards (TypeScript)
