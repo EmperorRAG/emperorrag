@@ -154,6 +154,136 @@ const errorResult = Schema.decode(User)({ id: "1", name: "Bob" });
 // => Effect.fail(...)
 ```
 
+### Schema.TaggedClass for Domain Entities
+
+Use `Schema.TaggedClass` to define domain entities with automatic encoding/decoding:
+
+```typescript
+import * as Schema from "effect/Schema";
+
+export class User extends Schema.TaggedClass<User>()("User", {
+  id: Schema.String,
+  name: Schema.String,
+  email: Schema.String,
+  createdAt: Schema.Date,
+}) {
+  static decode(input: unknown) {
+    return Schema.decodeUnknown(User)(input);
+  }
+
+  static encode(value: User) {
+    return Schema.encode(User)(value);
+  }
+}
+```
+
+### Schema.TaggedError for Domain Errors
+
+Use `Schema.TaggedError` to define typed error classes:
+
+```typescript
+import * as Schema from "effect/Schema";
+
+export class ApiError extends Schema.TaggedError<ApiError>()(
+  "ApiError",
+  {
+    message: Schema.String,
+    status: Schema.optional(Schema.Number),
+    cause: Schema.optional(Schema.Unknown),
+  },
+) {
+  static decode(input: unknown) {
+    return Schema.decodeUnknown(ApiError)(input);
+  }
+
+  static encode(value: ApiError) {
+    return Schema.encode(ApiError)(value);
+  }
+}
+```
+
+### Schema.transform for Bidirectional Transforms
+
+Use `Schema.transform` to create value object wrappers with bidirectional encoding:
+
+```typescript
+import * as Schema from "effect/Schema";
+
+export class Email extends Schema.TaggedClass<Email>()("Email", {
+  value: Schema.String.pipe(
+    Schema.compose(Schema.Trim),
+    Schema.compose(Schema.Lowercase),
+    Schema.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
+  ),
+}) {}
+
+export const EmailSchema = Schema.transform(
+  Schema.String.pipe(
+    Schema.compose(Schema.Trim),
+    Schema.compose(Schema.Lowercase),
+    Schema.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
+  ),
+  Email,
+  {
+    decode: (value) => new Email({ value }),
+    encode: (email) => email.value,
+  },
+);
+```
+
+## Effect Constructors
+
+### Effect.sync for Synchronous Side Effects
+
+Use `Effect.sync` to wrap synchronous operations that perform side effects:
+
+```typescript
+import * as Effect from "effect/Effect";
+
+const db = yield* Effect.sync(() => new DatabaseSync(":memory:"));
+```
+
+### Effect.tryPromise for Async Operations
+
+Use `Effect.tryPromise` to convert promises into effects with error handling:
+
+```typescript
+import * as Effect from "effect/Effect";
+
+const { runMigrations } = yield* Effect.tryPromise(() => getMigrations(options));
+yield* Effect.tryPromise(() => runMigrations());
+```
+
+### Effect.async for Callback-Based APIs
+
+Use `Effect.async` to convert callback-based APIs into effects:
+
+```typescript
+import * as Effect from "effect/Effect";
+
+yield* Effect.async<void, Error>((resume) => {
+  server.listen(0, () => resume(Effect.void));
+  server.on("error", (err) => resume(Effect.fail(err)));
+});
+```
+
+## Observability
+
+### Effect.withSpan for Tracing
+
+Use `Effect.withSpan` to add tracing spans to effect pipelines:
+
+```typescript
+import * as Effect from "effect/Effect";
+
+return Effect.runPromise(
+  program.pipe(
+    Effect.withSpan("setupServerTestEnvironment"),
+    Effect.provide(DevToolsLive),
+  ),
+);
+```
+
 ## Effect Type Conventions
 
 ### Generic Type Parameters
