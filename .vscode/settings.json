@@ -106,6 +106,7 @@
   },
   "chat.mcp.gallery.enabled": true,
   "chat.promptFilesLocations": {
+    ".github/prompts/sdlc": true,
     ".github/prompts/personal": true,
     ".github/prompts/roles/product-manager/acceptance-criteria": true,
     ".github/prompts/roles/product-manager/epic": true,
