@@ -7,7 +7,11 @@
     "clean:node_modules": "npx rimraf node_modules",
     "clean:out-tsc": "npx rimraf out-tsc",
     "clean:all": "npm run clean:dist && npm run clean:node_modules && npm run clean:out-tsc",
-    "tsc:list-files": "tsc --project tsconfig.json --listFiles"
+    "tsc:list-files-only": "tsc --project tsconfig.json --listFilesOnly > tsc-list-files-only.txt",
+    "tsc:show-config": "tsc --project tsconfig.json --showConfig > tsc-show-config.txt",
+    "tsc:extended-diagnostics": "tsc --project tsconfig.json --extendedDiagnostics > tsc-extended-diagnostics.txt",
+    "tsc:explain-files": "tsc --project tsconfig.json --explainFiles > tsc-explain-files.txt",
+    "tsc:trace-resolution": "tsc --project tsconfig.json --traceResolution > tsc-trace-resolution.txt"
   },
   "nx": {
     "implicitDependencies": [

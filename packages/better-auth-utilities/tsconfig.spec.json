@@ -11,7 +11,11 @@
     ],
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "lib": ["es2022", "dom"]
+    "lib": [
+      "es2022",
+      "dom",
+      "dom.iterable"
+    ]
   },
   "include": [
     "./vite.config.ts",
@@ -26,6 +30,7 @@
     "./src/**/*.spec.js",
     "./src/**/*.test.jsx",
     "./src/**/*.spec.jsx",
+    "./src/**/test/**/*.ts",
     "./externalize-packages.ts",
     "./externals.json"
   ],

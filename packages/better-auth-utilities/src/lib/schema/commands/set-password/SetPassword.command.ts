@@ -1,4 +1,4 @@
-import { Schema } from "effect";
+import * as Schema from "effect/Schema";
 import { PasswordSchema } from "../../passwords/password.schema";
 
 export class SetPasswordCommand extends Schema.TaggedClass<SetPasswordCommand>()(

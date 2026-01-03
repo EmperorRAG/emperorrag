@@ -1,4 +1,4 @@
-import { Schema } from "effect";
+import * as Schema from "effect/Schema";
 import { EmailSchema } from "../../emails/email.schema";
 import { PasswordSchema } from "../../passwords/password.schema";
 import { UrlSchema } from "../../urls/url.schema";
@@ -9,6 +9,7 @@ export class SignInEmailCommand extends Schema.TaggedClass<SignInEmailCommand>()
     email: EmailSchema,
     password: PasswordSchema({ minLength: 8, maxLength: 100 }),
     callbackURL: Schema.optional(UrlSchema),
+    rememberMe: Schema.optional(Schema.Boolean),
   },
 ) {
   static decode(input: unknown) {

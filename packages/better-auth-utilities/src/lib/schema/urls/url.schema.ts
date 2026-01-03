@@ -1,5 +1,5 @@
-import { Schema } from "effect";
 import { pipe } from "effect/Function";
+import * as Schema from "effect/Schema";
 
 export class Url extends Schema.TaggedClass<Url>()("Url", {
   value: Schema.String.pipe(Schema.compose(Schema.Trim), Schema.minLength(1)),

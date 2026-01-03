@@ -1,4 +1,4 @@
-import { Schema } from "effect";
+import * as Schema from "effect/Schema";
 
 export class AccountInfoCommand extends Schema.TaggedClass<AccountInfoCommand>()(
   "AccountInfoCommand",

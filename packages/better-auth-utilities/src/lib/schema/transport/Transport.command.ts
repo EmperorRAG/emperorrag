@@ -1,4 +1,4 @@
-import { Schema } from "effect";
+import * as Schema from "effect/Schema";
 
 export class TransportCommand extends Schema.TaggedClass<TransportCommand>()(
   "TransportCommandCtx",

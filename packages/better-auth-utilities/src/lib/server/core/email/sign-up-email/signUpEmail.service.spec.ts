@@ -1,6 +1,6 @@
-import { it } from "@effect/vitest";
-import { Effect, Schema } from "effect";
-import { afterAll, beforeAll, describe, expect } from "vitest";
+import { afterAll, beforeAll, describe, expect, it } from "@effect/vitest";
+import * as Effect from "effect/Effect";
+import * as Schema from "effect/Schema";
 import { AuthServerTag } from "../../../server.layer";
 import { setupServerTestEnvironment } from "../../../test/setupServerTestEnvironment";
 import { signUpEmailServerService } from "./signUpEmail.service";
@@ -36,7 +36,11 @@ describe("Server Sign Up Email", () => {
 
       const program = signUpEmailServerService(params);
 
-      const res = yield* Effect.provideService(program, AuthServerTag, authServer);
+      const res = yield* Effect.provideService(
+        program,
+        AuthServerTag,
+        authServer,
+      );
 
       expect(res).toBeDefined();
       expect(res.user).toBeDefined();

@@ -6,16 +6,16 @@
  * @description Server-side service for {{humanReadable}} operation using Better Auth API.
  */
 
-import { Effect } from "effect";
+import * as Effect from "effect/Effect";
 import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError"; // Adjust path as needed
 import { AuthServerTag } from "../../../server.layer"; // Adjust path as needed
-import type { {{PascalCase}}Params } from "./{{camelCase}}.types";
+import type { {{PascalCase}}ServerParams } from "./{{camelCase}}.types";
 
 /**
  * {{Description of operation}}.
  *
  * Acceptance Criteria:
- * 1. Must export a function named `{{camelCase}}Service`.
+ * 1. Must export a function named `{{camelCase}}ServerService`.
  * 2. Must be a pure function (marked with @pure if applicable, though Effect functions are generally pure descriptions).
  * 3. Must use `AuthServerTag` to access the Better Auth server instance.
  * 4. Must call the corresponding `authServer.api.{{methodName}}` function.
@@ -26,8 +26,8 @@ import type { {{PascalCase}}Params } from "./{{camelCase}}.types";
  * @param params - The parameters for the operation.
  * @returns An Effect that resolves to the response, requiring `AuthServerTag`.
  */
-export const {{camelCase}}Service = (
-  params: {{PascalCase}}Params,
+export const {{camelCase}}ServerService = (
+  params: {{PascalCase}}ServerParams,
 ) =>
   Effect.flatMap(AuthServerTag, (authServer) =>
     Effect.tryPromise(() =>

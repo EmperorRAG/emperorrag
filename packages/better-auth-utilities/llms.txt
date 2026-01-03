@@ -1,0 +1,53 @@
+# better-auth-utilities
+
+> Effect-TS utility library for Better Auth, providing type-safe schemas, error types, configuration layers, and pipeline utilities for authentication workflows.
+
+This library wraps the Better Auth SDK with Effect-TS patterns including Schema-based validation, tagged errors, and dependency injection via Context and Layer. It exposes both server and client entry points for authentication operations.
+
+## Documentation
+
+- [README](README.md): Project overview and build instructions
+
+## Configuration
+
+- [Config Schema](src/lib/configs/config.schema.ts): Effect Schema definitions for BetterAuthOptions including database, session, user, account, and authentication settings
+- [Config Layer](src/lib/configs/config.layer.ts): Effect Layer providing BetterAuthOptions via dependency injection
+- [Server Layer](src/lib/server/server.layer.ts): Effect Layer constructing the Better Auth server instance with AuthServerTag
+
+## Errors
+
+- [API Error](src/lib/errors/api.error.ts): Tagged error for API-level failures with status codes
+- [Input Error](src/lib/errors/input.error.ts): Tagged error for input validation failures
+- [Session Error](src/lib/errors/session.error.ts): Tagged error for session-related failures
+- [Data Missing Error](src/lib/errors/dataMissing.error.ts): Tagged error for missing data conditions
+- [Dependency Error](src/lib/errors/dependency.error.ts): Tagged error for dependency resolution failures
+
+## Pipeline
+
+- [Handle API Error](src/lib/pipeline/handle-api-error/handleApiError.ts): Effect wrapper that maps errors to ApiError
+- [Map API Error](src/lib/pipeline/map-api-error/mapApiError.ts): Pattern matching to convert various errors to ApiError
+- [Handle Input Error](src/lib/pipeline/handle-input-error/handleInputError.ts): Effect wrapper that maps errors to InputError
+- [Map Input Error](src/lib/pipeline/map-input-error/mapInputError.ts): Pattern matching to convert parse errors to InputError
+
+## Schema
+
+- [User Schema](src/lib/schema/users/user.schema.ts): Effect Schema for User entity
+- [Session Schema](src/lib/schema/sessions/session.schema.ts): Effect Schema for Session entity
+- [Account Schema](src/lib/schema/accounts/account.schema.ts): Effect Schema for Account entity
+- [Email Schema](src/lib/schema/emails/email.schema.ts): Effect Schema for validated email addresses
+- [Password Schema](src/lib/schema/passwords/password.schema.ts): Effect Schema factory for password validation with configurable policy
+- [Name Schema](src/lib/schema/names/name.schema.ts): Effect Schema for validated names
+- [URL Schema](src/lib/schema/urls/url.schema.ts): Effect Schema for validated URLs
+
+## Commands
+
+- [SignUpEmail Command](src/lib/schema/commands/sign-up-email/SignUpEmail.command.ts): Schema for email sign-up requests
+- [SignInEmail Command](src/lib/schema/commands/sign-in-email/SignInEmail.command.ts): Schema for email sign-in requests
+- [Transport Command](src/lib/schema/transport/Transport.command.ts): Schema for request transport options
+
+## Optional
+
+- [Package Configuration](package.json): npm package configuration with exports map
+- [TypeScript Config](tsconfig.json): TypeScript compiler configuration
+- [Vite Config](vite.config.ts): Vite build configuration
+- [Vitest Config](vitest.config.ts): Vitest test configuration

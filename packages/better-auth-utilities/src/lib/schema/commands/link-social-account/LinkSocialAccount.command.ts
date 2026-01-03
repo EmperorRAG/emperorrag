@@ -1,4 +1,4 @@
-import { Schema } from "effect";
+import * as Schema from "effect/Schema";
 import { UrlSchema } from "../../urls/url.schema";
 
 export class LinkSocialAccountCommand extends Schema.TaggedClass<LinkSocialAccountCommand>()(

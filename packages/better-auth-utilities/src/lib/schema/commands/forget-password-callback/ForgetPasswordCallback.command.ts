@@ -1,4 +1,4 @@
-import { Schema } from "effect";
+import * as Schema from "effect/Schema";
 
 export class ForgetPasswordCallbackCommand extends Schema.TaggedClass<ForgetPasswordCallbackCommand>()(
   "ForgetPasswordCallbackCommand",

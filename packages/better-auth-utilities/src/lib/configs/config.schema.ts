@@ -1,4 +1,5 @@
-import { FastCheck, Schema } from "effect";
+import * as FastCheck from "effect/FastCheck";
+import * as Schema from "effect/Schema";
 
 /**
  * @description Schema for Better Auth database configuration

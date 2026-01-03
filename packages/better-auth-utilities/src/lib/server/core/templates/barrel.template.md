@@ -10,6 +10,6 @@
  * 2. Must export the service.
  */
 
-export { {{camelCase}}Controller } from "./{{camelCase}}.controller";
-export { {{camelCase}}Service } from "./{{camelCase}}.service";
+export { {{camelCase}}ServerController } from "./{{camelCase}}.controller";
+export { {{camelCase}}ServerService } from "./{{camelCase}}.service";
 ```

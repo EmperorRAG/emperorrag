@@ -172,9 +172,21 @@
     "clean:node_modules": "npx rimraf node_modules",
     "clean:out-tsc": "npx rimraf out-tsc",
     "clean:all": "npm run clean:dist && npm run clean:node_modules && npm run clean:out-tsc",
-    "tsc:list-files": "tsc --project tsconfig.json --listFiles",
-    "tsc:list-files:app": "tsc --project tsconfig.app.json --listFiles",
-    "tsc:list-files:spec": "tsc --project tsconfig.spec.json --listFiles"
+    "tsc:list-files-only": "tsc --project tsconfig.json --listFilesOnly > tsc-list-files-only.txt",
+    "tsc:list-files-only:app": "tsc --project tsconfig.app.json --listFilesOnly > tsc-list-files-only-app.txt",
+    "tsc:list-files-only:spec": "tsc --project tsconfig.spec.json --listFilesOnly > tsc-list-files-only-spec.txt",
+    "tsc:show-config": "tsc --project tsconfig.json --showConfig > tsc-show-config.txt",
+    "tsc:show-config:app": "tsc --project tsconfig.app.json --showConfig > tsc-show-config-app.txt",
+    "tsc:show-config:spec": "tsc --project tsconfig.spec.json --showConfig > tsc-show-config-spec.txt",
+    "tsc:extended-diagnostics": "tsc --project tsconfig.json --extendedDiagnostics > tsc-extended-diagnostics.txt",
+    "tsc:extended-diagnostics:app": "tsc --project tsconfig.app.json --extendedDiagnostics > tsc-extended-diagnostics-app.txt",
+    "tsc:extended-diagnostics:spec": "tsc --project tsconfig.spec.json --extendedDiagnostics > tsc-extended-diagnostics-spec.txt",
+    "tsc:explain-files": "tsc --project tsconfig.json --explainFiles > tsc-explain-files.txt",
+    "tsc:explain-files:app": "tsc --project tsconfig.app.json --explainFiles > tsc-explain-files-app.txt",
+    "tsc:explain-files:spec": "tsc --project tsconfig.spec.json --explainFiles > tsc-explain-files-spec.txt",
+    "tsc:trace-resolution": "tsc --project tsconfig.json --traceResolution > tsc-trace-resolution.txt",
+    "tsc:trace-resolution:app": "tsc --project tsconfig.app.json --traceResolution > tsc-trace-resolution-app.txt",
+    "tsc:trace-resolution:spec": "tsc --project tsconfig.spec.json --traceResolution > tsc-trace-resolution-spec.txt"
   },
   "version": "0.0.1"
 }

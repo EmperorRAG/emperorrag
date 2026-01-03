@@ -3,7 +3,7 @@
  * @description Server-side service for sign-up email operation using Better Auth API.
  */
 
-import { Effect } from "effect";
+import * as Effect from "effect/Effect";
 import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
 import { AuthServerTag } from "../../../server.layer";
 import type { SignUpEmailServerParams } from "./signUpEmail.types";
@@ -59,9 +59,7 @@ import type { SignUpEmailServerParams } from "./signUpEmail.types";
  * });
  * ```
  */
-export const signUpEmailServerService = (
-  params: SignUpEmailServerParams,
-) =>
+export const signUpEmailServerService = (params: SignUpEmailServerParams) =>
   Effect.flatMap(AuthServerTag, (authServer) =>
     Effect.tryPromise(() =>
       authServer.api.signUpEmail({
@@ -83,4 +81,7 @@ export const signUpEmailServerService = (
           ? { returnHeaders: params.returnHeaders }
           : {}),
       })
-    ).pipe(Effect.catchAll(mapApiError)));
+    ).pipe(
+      Effect.catchAll(mapApiError),
+      Effect.withSpan("signUpEmailServerService"),
+    ));

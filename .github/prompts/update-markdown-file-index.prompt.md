@@ -1,7 +1,22 @@
 ---
 mode: 'agent'
 description: 'Update a markdown file section with an index/table of files from a specified folder.'
-tools: ['changes', 'codebase', 'edit/editFiles', 'extensions', 'fetch', 'findTestFiles', 'githubRepo', 'openSimpleBrowser', 'problems', 'runCommands', 'runTasks', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI']
+tools:
+  [
+    'search/textSearch',
+    'search/codebase',
+    'search/usages',
+    'search/changes',
+    'search/fileSearch',
+    'search/listDirectory',
+    'web/fetch',
+    'read/problems',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'execute/runTests',
+    'execute/testFailure',
+    'github/*',
+  ]
 ---
 # Update Markdown File Index
 

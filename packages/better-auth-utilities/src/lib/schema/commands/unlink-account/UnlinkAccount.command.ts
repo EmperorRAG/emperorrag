@@ -1,4 +1,4 @@
-import { Schema } from "effect";
+import * as Schema from "effect/Schema";
 
 export class UnlinkAccountCommand extends Schema.TaggedClass<UnlinkAccountCommand>()(
   "UnlinkAccountCommand",

@@ -3,8 +3,7 @@
     "@effect/experimental": "^0.57.11",
     "@effect/platform-node": "^0.103.0",
     "better-auth": "^1.3.27",
-    "effect": "^3.19.11",
-    "zod": "^4.1.12"
+    "effect": "^3.19.11"
   },
   "devDependencies": {
     "@effect/language-service": "^0.62.1",
@@ -511,9 +510,21 @@
     "generate-graph-with-only-spec-files": "madge --extensions ts --json src/**/*.spec.ts > dependency-graph-with-only-spec-files.json && madge --extensions ts --image dependency-graph-with-only-spec-files.svg src/**/*.spec.ts",
     "generate-graph-without-spec-files": "madge --extensions ts --exclude '\\.spec\\.ts$' --json src > dependency-graph-without-spec-files.json && madge --extensions ts --exclude '\\.spec\\.ts$' --image dependency-graph-without-spec-files.svg src",
     "generate-graphs": "npm run generate-graph && npm run generate-graph-without-spec-files && npm run generate-graph-with-only-spec-files",
-    "tsc:list-files": "tsc --project tsconfig.json --listFiles",
-    "tsc:list-files:lib": "tsc --project tsconfig.lib.json --listFiles",
-    "tsc:list-files:spec": "tsc --project tsconfig.spec.json --listFiles"
+    "tsc:explain-files": "tsc --project tsconfig.json --explainFiles > tsc-explain-files.txt",
+    "tsc:explain-files:lib": "tsc --project tsconfig.lib.json --explainFiles > tsc-explain-files-lib.txt",
+    "tsc:explain-files:spec": "tsc --project tsconfig.spec.json --explainFiles > tsc-explain-files-spec.txt",
+    "tsc:extended-diagnostics": "tsc --project tsconfig.json --extendedDiagnostics > tsc-extended-diagnostics.txt",
+    "tsc:extended-diagnostics:lib": "tsc --project tsconfig.lib.json --extendedDiagnostics > tsc-extended-diagnostics-lib.txt",
+    "tsc:extended-diagnostics:spec": "tsc --project tsconfig.spec.json --extendedDiagnostics > tsc-extended-diagnostics-spec.txt",
+    "tsc:list-files-only": "tsc --project tsconfig.json --listFilesOnly > tsc-list-files-only.txt",
+    "tsc:list-files-only:lib": "tsc --project tsconfig.lib.json --listFilesOnly > tsc-list-files-only-lib.txt",
+    "tsc:list-files-only:spec": "tsc --project tsconfig.spec.json --listFilesOnly > tsc-list-files-only-spec.txt",
+    "tsc:show-config": "tsc --project tsconfig.json --showConfig > tsc-show-config.txt",
+    "tsc:show-config:lib": "tsc --project tsconfig.lib.json --showConfig > tsc-show-config-lib.txt",
+    "tsc:show-config:spec": "tsc --project tsconfig.spec.json --showConfig > tsc-show-config-spec.txt",
+    "tsc:trace-resolution": "tsc --project tsconfig.json --traceResolution > tsc-trace-resolution.txt",
+    "tsc:trace-resolution:lib": "tsc --project tsconfig.lib.json --traceResolution > tsc-trace-resolution-lib.txt",
+    "tsc:trace-resolution:spec": "tsc --project tsconfig.spec.json --traceResolution > tsc-trace-resolution-spec.txt"
   },
   "sideEffects": false,
   "type": "module",

@@ -2,22 +2,40 @@ import { APIError } from "better-auth";
 import * as Effect from "effect/Effect";
 import { pipe } from "effect/Function";
 import * as Match from "effect/Match";
-import { AuthServerApiError } from "../../errors/authServer.error";
-import { createAuthServerApiError } from "../create-auth-server-api-error/createAuthServerApiError";
+import { ApiError } from "../../errors/api.error";
 import type { MapApiErrorProps } from "./mapApiError.types";
 
-export const mapApiError: MapApiErrorProps = (error) =>
-  pipe(
-    Match.value(error as unknown),
-    Match.tag("APIError", (err) => {
-      const apiError = err as unknown as APIError;
-      const status = typeof apiError.status === "number"
-        ? apiError.status
-        : parseInt(apiError.status as string, 10) || undefined;
-      return createAuthServerApiError(status)(apiError)(apiError.message);
+export const mapApiError: MapApiErrorProps = (error) => {
+  const errorToMap = (error as { _tag?: string; error?: unknown })?._tag === "UnknownException"
+    ? (error as { error: unknown }).error
+    : error;
+
+  return pipe(
+    Match.value(errorToMap),
+    Match.when(Match.instanceOf(APIError), (apiError) => {
+      const message = typeof apiError.message === "string" && apiError.message.length > 0
+        ? apiError.message
+        : (apiError.status as string) || "API Error occurred";
+      const status = typeof apiError.statusCode === "number"
+        ? apiError.statusCode
+        : parseInt(apiError.statusCode as string, 10) || undefined;
+      return new ApiError({
+        message,
+        status,
+        cause: apiError,
+      });
     }),
-    Match.when(Match.instanceOf(Error), (err) => createAuthServerApiError(undefined)(err)(err.message)),
-    Match.orElse((err) => createAuthServerApiError(undefined)(err)("Unknown auth server error")),
-    (effect) => effect as Effect.Effect<AuthServerApiError>,
-    Effect.flatMap(Effect.fail),
+    Match.when(Match.instanceOf(Error), (err) =>
+      new ApiError({
+        message: err.message,
+        cause: err,
+      })),
+    Match.orElse((err) =>
+      new ApiError({
+        message: "Unknown auth server error",
+        cause: err,
+      })
+    ),
+    Effect.fail,
   );
+};

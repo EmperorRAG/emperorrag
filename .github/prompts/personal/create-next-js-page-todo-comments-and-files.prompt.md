@@ -1,7 +1,16 @@
 ---
 description: 'Scaffold files, signatures, and TODOs from a Next.js plan'
 mode: 'agent'
-tools: ['edit', 'search', 'Nx Mcp Server/*', 'context7/*', 'fetch', 'githubRepo']
+tools:
+  [
+    'search/textSearch',
+    'search/codebase',
+    'web/fetch',
+    'edit/editFiles',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
+  ]
 ---
 
 # Create Next.js Page TODO Scaffolding

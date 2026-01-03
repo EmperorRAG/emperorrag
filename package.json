@@ -162,17 +162,73 @@
           "parallel": false
         }
       },
-      "tsc:list-files": {
+      "tsc:list-files-only": {
         "executor": "nx:run-commands",
         "options": {
-          "command": "npx tsc --project tsconfig.json --listFiles",
+          "command": "npx tsc --project tsconfig.json --listFilesOnly > tsc-list-files-only.txt",
           "parallel": false
         }
       },
-      "tsc:list-files:base": {
+      "tsc:list-files-only:base": {
         "executor": "nx:run-commands",
         "options": {
-          "command": "npx tsc --project tsconfig.base.json --listFiles",
+          "command": "npx tsc --project tsconfig.base.json --listFilesOnly > tsc-list-files-only-base.txt",
+          "parallel": false
+        }
+      },
+      "tsc:show-config": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx tsc --project tsconfig.json --showConfig > tsc-show-config.txt",
+          "parallel": false
+        }
+      },
+      "tsc:show-config:base": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx tsc --project tsconfig.base.json --showConfig > tsc-show-config-base.txt",
+          "parallel": false
+        }
+      },
+      "tsc:extended-diagnostics": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx tsc --project tsconfig.json --extendedDiagnostics > tsc-extended-diagnostics.txt",
+          "parallel": false
+        }
+      },
+      "tsc:extended-diagnostics:base": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx tsc --project tsconfig.base.json --extendedDiagnostics > tsc-extended-diagnostics-base.txt",
+          "parallel": false
+        }
+      },
+      "tsc:explain-files": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx tsc --project tsconfig.json --explainFiles > tsc-explain-files.txt",
+          "parallel": false
+        }
+      },
+      "tsc:explain-files:base": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx tsc --project tsconfig.base.json --explainFiles > tsc-explain-files-base.txt",
+          "parallel": false
+        }
+      },
+      "tsc:trace-resolution": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx tsc --project tsconfig.json --traceResolution > tsc-trace-resolution.txt",
+          "parallel": false
+        }
+      },
+      "tsc:trace-resolution:base": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx tsc --project tsconfig.base.json --traceResolution > tsc-trace-resolution-base.txt",
           "parallel": false
         }
       }

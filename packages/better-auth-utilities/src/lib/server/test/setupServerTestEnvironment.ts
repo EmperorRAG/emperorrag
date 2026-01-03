@@ -3,7 +3,7 @@ import type { BetterAuthOptions } from "better-auth";
 import { betterAuth } from "better-auth";
 import { getMigrations } from "better-auth/db";
 import { toNodeHandler } from "better-auth/node";
-import { Effect } from "effect";
+import * as Effect from "effect/Effect";
 import { createServer } from "http";
 import { DatabaseSync } from "node:sqlite";
 

@@ -1,6 +1,6 @@
-import { it } from "@effect/vitest";
-import { Effect, Schema } from "effect";
-import { describe, expect } from "vitest";
+import { describe, expect, it } from "@effect/vitest";
+import * as Effect from "effect/Effect";
+import * as Schema from "effect/Schema";
 import { SignUpEmailCommand } from "../../../../schema/commands/sign-up-email/SignUpEmail.command";
 import { SignUpEmailServerParams } from "./signUpEmail.types";
 
@@ -41,7 +41,9 @@ describe("SignUpEmailServerParams", () => {
 
   it.effect("should decode valid input", () =>
     Effect.gen(function*() {
-      const decoded = yield* Schema.decode(SignUpEmailServerParams)(validParamsForDecode);
+      const decoded = yield* Schema.decode(SignUpEmailServerParams)(
+        validParamsForDecode,
+      );
       expect(decoded).toBeInstanceOf(SignUpEmailServerParams);
       expect(decoded.body).toBeInstanceOf(SignUpEmailCommand);
       expect(decoded.body.email.value).toBe(validBodyRaw.email);
