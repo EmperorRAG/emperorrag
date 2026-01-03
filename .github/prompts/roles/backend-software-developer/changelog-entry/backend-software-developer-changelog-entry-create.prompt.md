@@ -1,7 +1,7 @@
 ---
 description: 'Create a changelog entry for a release or feature'
 agent: 'Backend Software Developer'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Create Changelog Entry

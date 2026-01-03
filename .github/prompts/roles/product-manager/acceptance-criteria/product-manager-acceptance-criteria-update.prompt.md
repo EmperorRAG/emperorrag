@@ -1,7 +1,7 @@
 ---
 description: 'Update existing acceptance criteria based on feedback or scope changes'
 agent: 'Product Manager'
-tools: ['search', 'fetch', 'githubRepo', 'codebase']
+tools: ['search/textSearch', 'web/fetch', 'github/*', 'search/codebase']
 ---
 
 # Update Acceptance Criteria

@@ -1,7 +1,7 @@
 ---
 description: 'Create a Requirements Traceability Matrix linking requirements to tests'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*']
 ---
 
 # Create Requirements Traceability Matrix (RTM)

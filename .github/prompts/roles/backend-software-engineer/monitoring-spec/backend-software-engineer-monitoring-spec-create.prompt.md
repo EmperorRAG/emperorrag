@@ -1,7 +1,7 @@
 ---
 description: 'Create a monitoring and alerting specification for a service'
 agent: 'Backend Software Engineer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*']
 ---
 
 # Create Monitoring and Alerting Specification

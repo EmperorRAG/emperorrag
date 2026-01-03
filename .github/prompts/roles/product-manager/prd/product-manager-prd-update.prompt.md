@@ -1,7 +1,7 @@
 ---
 description: 'Update an existing PRD based on feedback, scope changes, or new requirements'
 agent: 'Product Manager'
-tools: ['search', 'fetch', 'githubRepo', 'changes', 'codebase']
+tools: ['search/textSearch', 'web/fetch', 'github/*', 'search/changes', 'search/codebase']
 ---
 
 # Update Product Requirements Document (PRD)

@@ -3,12 +3,14 @@ name: Discovery Orchestrator
 description: 'Orchestrates the Discovery stage of the SDLC, creating product vision and roadmap artefacts in sequence'
 tools:
   [
-    'search',
-    'fetch',
-    'githubRepo',
-    'editFiles',
-    'createFile',
-    'runTerminal',
+    'search/textSearch',
+    'search/codebase',
+    'web/fetch',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'github/*',
+    'context7/*',
+    'cognitionai/deepwiki/*',
   ]
 handoffs:
   - label: '1. Create Product Vision'

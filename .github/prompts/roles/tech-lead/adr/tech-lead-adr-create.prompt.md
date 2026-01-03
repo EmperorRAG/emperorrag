@@ -1,7 +1,7 @@
 ---
 description: 'Create an Architecture Decision Record (ADR) capturing a significant technical decision'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*']
 ---
 
 # Create Architecture Decision Record (ADR)

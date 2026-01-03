@@ -1,7 +1,7 @@
 ---
 description: 'Contribute requirements validation to a Requirements Traceability Matrix'
 agent: 'Product Manager'
-tools: ['search', 'codebase', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*']
 ---
 
 # Contribute to RTM (Product Manager)

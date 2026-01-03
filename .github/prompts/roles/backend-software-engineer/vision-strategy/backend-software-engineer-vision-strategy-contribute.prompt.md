@@ -1,7 +1,7 @@
 ---
 description: 'Contribute backend architecture perspective to vision and strategy'
 agent: 'Backend Software Engineer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*']
 ---
 
 # Contribute to Vision/Strategy (Backend Software Engineer)

@@ -1,7 +1,7 @@
 ---
 description: 'Create a service design specification for a backend component'
 agent: 'Backend Software Engineer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Create Service Design Specification

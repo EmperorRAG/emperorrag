@@ -1,7 +1,7 @@
 ---
 description: 'Create a test strategy defining overall testing approach for a project or feature'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Create Test Strategy

@@ -1,7 +1,7 @@
 ---
 description: 'Contribute acceptance criteria input to test cases'
 agent: 'Product Manager'
-tools: ['search', 'codebase', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*']
 ---
 
 # Contribute to Test Cases (Product Manager)

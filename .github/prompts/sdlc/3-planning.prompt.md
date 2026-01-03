@@ -3,11 +3,14 @@ description: 'Planning Stage - Create epics, user stories, and requirements trac
 agent: 'Planning Orchestrator'
 tools:
   [
-    'search',
-    'fetch',
-    'githubRepo',
-    'editFiles',
-    'createFile',
+    'search/textSearch',
+    'search/codebase',
+    'web/fetch',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'github/*',
+    'context7/*',
+    'nx-mcp-server/*',
   ]
 ---
 

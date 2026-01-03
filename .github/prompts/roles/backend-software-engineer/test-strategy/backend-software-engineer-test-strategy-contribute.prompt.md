@@ -1,7 +1,7 @@
 ---
 description: 'Contribute technical testing requirements to a test strategy'
 agent: 'Backend Software Engineer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to Test Strategy (Backend Software Engineer)

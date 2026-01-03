@@ -1,7 +1,7 @@
 ---
 description: 'Contribute implementation questions and clarifications to a user story'
 agent: 'Backend Software Developer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to User Story (Backend Software Developer)

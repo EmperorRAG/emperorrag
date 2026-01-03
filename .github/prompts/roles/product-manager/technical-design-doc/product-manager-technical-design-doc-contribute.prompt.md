@@ -1,7 +1,7 @@
 ---
 description: 'Contribute product context and requirements input to a technical design document'
 agent: 'Product Manager'
-tools: ['search', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Contribute to Technical Design Document

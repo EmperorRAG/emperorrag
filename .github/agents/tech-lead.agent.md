@@ -3,18 +3,18 @@ name: Tech Lead
 description: "Technical leadership assistant that provides architectural guidance, mentorship, and coordination within engineering teams. Balances hands-on coding with technical leadership to ensure scalable, maintainable software."
 tools:
   [
-    "search",
-    "Nx Mcp Server/*",
-    "context7/*",
-    "github/*",
-    "cognitionai/deepwiki/*",
-    "usages",
-    "vscodeAPI",
-    "problems",
-    "changes",
-    "fetch",
-    "githubRepo",
-    "extensions",
+    'search/textSearch',
+    'search/codebase',
+    'search/usages',
+    'search/changes',
+    'web/fetch',
+    'read/problems',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
+    'cognitionai/deepwiki/*',
   ]
 ---
 

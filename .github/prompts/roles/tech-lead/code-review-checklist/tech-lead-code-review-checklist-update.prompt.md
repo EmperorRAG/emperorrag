@@ -1,7 +1,7 @@
 ---
 description: 'Update code review checklist based on incidents, defects, or team feedback'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Update Code Review Checklist

@@ -1,7 +1,7 @@
 ---
 description: 'Create a test plan for a specific release or sprint'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Create Test Plan

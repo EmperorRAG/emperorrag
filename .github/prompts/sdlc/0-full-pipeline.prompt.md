@@ -3,17 +3,20 @@ description: 'Complete SDLC Pipeline - Automates all 8 stages from Discovery thr
 agent: 'Discovery Orchestrator'
 tools:
   [
-    'search',
-    'fetch',
-    'githubRepo',
-    'editFiles',
-    'createFile',
-    'runTerminal',
-    'codebase',
-    'usages',
-    'runTests',
-    'problems',
-    'changes',
+    'search/textSearch',
+    'search/codebase',
+    'search/usages',
+    'search/changes',
+    'web/fetch',
+    'read/problems',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'execute/runTests',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
+    'effect-mcp/*',
+    'cognitionai/deepwiki/*',
   ]
 ---
 

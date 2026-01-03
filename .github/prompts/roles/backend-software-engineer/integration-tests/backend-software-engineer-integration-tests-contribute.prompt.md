@@ -1,7 +1,7 @@
 ---
 description: 'Contribute review and feedback to integration tests'
 agent: 'Backend Software Engineer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'changes', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'search/changes', 'read/problems']
 ---
 
 # Contribute to Integration Tests (Backend Software Engineer)

@@ -1,7 +1,7 @@
 ---
 description: 'Update monitoring specification based on operational experience'
 agent: 'Backend Software Engineer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Update Monitoring Specification

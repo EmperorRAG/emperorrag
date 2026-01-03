@@ -1,7 +1,7 @@
 ---
 description: 'Update a post-release review with additional findings or action updates'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Update Post-Release Review

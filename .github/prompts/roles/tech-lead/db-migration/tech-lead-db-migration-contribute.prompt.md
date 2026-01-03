@@ -1,7 +1,7 @@
 ---
 description: 'Contribute review and risk assessment to a database migration'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'changes', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'search/changes', 'read/problems']
 ---
 
 # Contribute to DB Migration (Tech Lead)

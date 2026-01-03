@@ -1,7 +1,7 @@
 ---
 description: 'Create an operational runbook with step-by-step procedures for common tasks and incidents'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*']
 ---
 
 # Create Operational Runbook

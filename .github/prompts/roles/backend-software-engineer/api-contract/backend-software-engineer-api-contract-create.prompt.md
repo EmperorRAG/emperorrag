@@ -1,7 +1,7 @@
 ---
 description: 'Create an API contract defining endpoints, schemas, and behavior'
 agent: 'Backend Software Engineer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Create API Contract

@@ -1,7 +1,7 @@
 ---
 description: 'Create a post-release review capturing product and business outcomes'
 agent: 'Product Manager'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Create Post-Release Review

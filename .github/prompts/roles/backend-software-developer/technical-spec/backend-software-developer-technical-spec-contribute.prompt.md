@@ -1,7 +1,7 @@
 ---
 description: 'Contribute implementation feedback to a technical specification'
 agent: 'Backend Software Developer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to Technical Spec (Backend Software Developer)

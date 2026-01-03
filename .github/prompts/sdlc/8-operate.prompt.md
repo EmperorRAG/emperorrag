@@ -3,14 +3,16 @@ description: 'Operate Stage - Create runbook, monitoring configuration, and post
 agent: 'Operate Orchestrator'
 tools:
   [
-    'search',
-    'fetch',
-    'githubRepo',
-    'codebase',
-    'editFiles',
-    'createFile',
-    'runTerminal',
-    'problems',
+    'search/textSearch',
+    'search/codebase',
+    'web/fetch',
+    'read/problems',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
+    'cognitionai/deepwiki/*',
   ]
 ---
 

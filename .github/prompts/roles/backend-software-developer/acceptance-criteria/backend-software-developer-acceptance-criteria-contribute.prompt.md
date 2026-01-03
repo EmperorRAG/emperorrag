@@ -1,7 +1,7 @@
 ---
 description: 'Contribute implementation perspective to acceptance criteria'
 agent: 'Backend Software Developer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to Acceptance Criteria (Backend Software Developer)

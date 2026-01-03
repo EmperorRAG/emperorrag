@@ -1,7 +1,7 @@
 ---
 description: 'Update an existing technical design document based on feedback or changes'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'changes', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'search/changes', 'read/problems']
 ---
 
 # Update Technical Design Document

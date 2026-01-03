@@ -3,16 +3,15 @@ name: Product Manager
 description: "Strategic product planning assistant that bridges business goals, customer needs, and engineering execution. Helps define what should be built and why, prioritizes work, and ensures cross-functional alignment."
 tools:
   [
-    "search",
-    "Nx Mcp Server/*",
-    "context7/*",
-    "github/*",
-    "cognitionai/deepwiki/*",
-    "usages",
-    "problems",
-    "changes",
-    "fetch",
-    "githubRepo",
+    'search/textSearch',
+    'search/codebase',
+    'search/usages',
+    'search/changes',
+    'web/fetch',
+    'read/problems',
+    'github/*',
+    'context7/*',
+    'cognitionai/deepwiki/*',
   ]
 ---
 

@@ -1,7 +1,7 @@
 ---
 description: 'Contribute quality metrics and testing learnings to a post-release review'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Contribute to Post-Release Review (Quality Assurance Tester)

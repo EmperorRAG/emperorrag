@@ -1,7 +1,7 @@
 ---
 description: 'Contribute business context and risk assessment to a test execution report'
 agent: 'Product Manager'
-tools: ['search', 'codebase', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*']
 ---
 
 # Contribute to Test Execution Report (Product Manager)

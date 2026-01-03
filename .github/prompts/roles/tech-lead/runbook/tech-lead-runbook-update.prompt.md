@@ -1,7 +1,7 @@
 ---
 description: 'Update an existing runbook based on system changes or incident learnings'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Update Operational Runbook

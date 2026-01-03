@@ -1,7 +1,7 @@
 ---
 description: 'Create a Product Requirements Document (PRD) that defines scope, requirements, and success criteria'
 agent: 'Product Manager'
-tools: ['search', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Create Product Requirements Document (PRD)

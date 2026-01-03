@@ -1,7 +1,7 @@
 ---
 description: 'Contribute backend story breakdown to an epic'
 agent: 'Backend Software Engineer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to Epic (Backend Software Engineer)

@@ -3,21 +3,20 @@ name: Quality Assurance Tester
 description: "Quality assurance assistant that ensures software meets quality standards through test design, execution, and defect reporting. Focuses on detecting defects early and validating that software satisfies requirements."
 tools:
   [
-    "search",
-    "Nx Mcp Server/*",
-    "context7/*",
-    "github/*",
-    "cognitionai/deepwiki/*",
-    "usages",
-    "vscodeAPI",
-    "problems",
-    "changes",
-    "fetch",
-    "githubRepo",
-    "extensions",
-    "terminalLastCommand",
-    "runTests",
-    "findTestFiles",
+    'search/textSearch',
+    'search/codebase',
+    'search/usages',
+    'search/changes',
+    'search/fileSearch',
+    'web/fetch',
+    'read/problems',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'execute/runTests',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
+    'effect-mcp/*',
   ]
 ---
 

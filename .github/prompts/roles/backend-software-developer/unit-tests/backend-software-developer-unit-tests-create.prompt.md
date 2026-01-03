@@ -1,7 +1,7 @@
 ---
 description: 'Create unit tests for a component or function'
 agent: 'Backend Software Developer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Create Unit Tests

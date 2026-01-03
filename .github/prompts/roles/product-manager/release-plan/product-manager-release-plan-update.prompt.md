@@ -1,7 +1,7 @@
 ---
 description: 'Update an existing release plan based on scope changes or new risks'
 agent: 'Product Manager'
-tools: ['search', 'fetch', 'githubRepo', 'changes', 'codebase']
+tools: ['search/textSearch', 'web/fetch', 'github/*', 'search/changes', 'search/codebase']
 ---
 
 # Update Release Plan

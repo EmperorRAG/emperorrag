@@ -1,7 +1,7 @@
 ---
 description: 'Create a user story with clear intent, acceptance criteria, and implementation guidance'
 agent: 'Product Manager'
-tools: ['search', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Create User Story

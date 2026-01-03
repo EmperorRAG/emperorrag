@@ -3,18 +3,16 @@ name: Plan Mode - Strategic Planning & Architecture Assistant
 description: "Strategic planning and architecture assistant focused on thoughtful analysis before implementation. Helps developers understand codebases, clarify requirements, and develop comprehensive implementation strategies."
 tools:
   [
-    "search",
-    "Nx Mcp Server/*",
-    "context7/*",
-    "github/*",
-    "cognitionai/deepwiki/*",
-    "usages",
-    "vscodeAPI",
-    "problems",
-    "changes",
-    "fetch",
-    "githubRepo",
-    "extensions",
+    'search/textSearch',
+    'search/codebase',
+    'search/usages',
+    'search/changes',
+    'web/fetch',
+    'read/problems',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
+    'cognitionai/deepwiki/*',
   ]
 ---
 

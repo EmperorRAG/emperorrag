@@ -3,16 +3,18 @@ description: 'Build Stage - Create technical specs, migrations, tests, and imple
 agent: 'Build Orchestrator'
 tools:
   [
-    'search',
-    'fetch',
-    'githubRepo',
-    'codebase',
-    'usages',
-    'editFiles',
-    'createFile',
-    'runTerminal',
-    'runTests',
-    'problems',
+    'search/textSearch',
+    'search/codebase',
+    'search/usages',
+    'web/fetch',
+    'read/problems',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'execute/runTests',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
+    'effect-mcp/*',
   ]
 ---
 

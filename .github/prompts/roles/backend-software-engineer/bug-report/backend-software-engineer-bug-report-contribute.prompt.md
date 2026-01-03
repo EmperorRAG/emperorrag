@@ -1,7 +1,7 @@
 ---
 description: 'Contribute root cause analysis to a bug report'
 agent: 'Backend Software Engineer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'changes', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'search/changes', 'read/problems']
 ---
 
 # Contribute to Bug Report (Backend Software Engineer)

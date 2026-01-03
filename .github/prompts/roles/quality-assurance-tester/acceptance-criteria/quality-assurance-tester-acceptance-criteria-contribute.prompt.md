@@ -1,7 +1,7 @@
 ---
 description: 'Contribute testability review to acceptance criteria'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to Acceptance Criteria (Quality Assurance Tester)

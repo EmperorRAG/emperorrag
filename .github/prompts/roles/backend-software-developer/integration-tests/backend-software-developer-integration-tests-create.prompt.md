@@ -1,7 +1,7 @@
 ---
 description: 'Create integration tests for API endpoints or service interactions'
 agent: 'Backend Software Developer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Create Integration Tests

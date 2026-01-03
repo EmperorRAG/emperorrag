@@ -1,7 +1,7 @@
 ---
 description: 'Update the Requirements Traceability Matrix with new requirements or tests'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Update Requirements Traceability Matrix

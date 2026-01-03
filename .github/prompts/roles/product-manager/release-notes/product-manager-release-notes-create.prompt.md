@@ -1,7 +1,7 @@
 ---
 description: 'Create release notes that communicate what shipped and why it matters'
 agent: 'Product Manager'
-tools: ['search', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Create Release Notes

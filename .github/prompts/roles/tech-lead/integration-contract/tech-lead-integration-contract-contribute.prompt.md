@@ -1,7 +1,7 @@
 ---
 description: 'Contribute architectural review to an integration contract'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to Integration Contract (Tech Lead)

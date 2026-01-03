@@ -1,7 +1,7 @@
 ---
 description: 'Contribute implementation experience to an ADR'
 agent: 'Backend Software Engineer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*']
 ---
 
 # Contribute to ADR (Backend Software Engineer)

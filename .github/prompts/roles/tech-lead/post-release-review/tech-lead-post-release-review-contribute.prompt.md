@@ -1,7 +1,7 @@
 ---
 description: 'Contribute technical analysis and process improvements to a post-release review'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Contribute to Post-Release Review (Tech Lead)

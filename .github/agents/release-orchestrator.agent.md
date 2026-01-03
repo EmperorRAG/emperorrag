@@ -3,13 +3,15 @@ name: Release Orchestrator
 description: 'Orchestrates the Release stage of the SDLC, creating release plan, QA sign-off, release notes, and changelog'
 tools:
   [
-    'search',
-    'fetch',
-    'githubRepo',
-    'editFiles',
-    'createFile',
-    'runTerminal',
-    'changes',
+    'search/textSearch',
+    'search/codebase',
+    'search/changes',
+    'web/fetch',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
   ]
 handoffs:
   - label: '1. Create Release Plan'

@@ -1,7 +1,7 @@
 ---
 description: 'Contribute code review to a pull request'
 agent: 'Backend Software Engineer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'changes', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'search/changes', 'read/problems']
 ---
 
 # Contribute to Pull Request (Backend Software Engineer)

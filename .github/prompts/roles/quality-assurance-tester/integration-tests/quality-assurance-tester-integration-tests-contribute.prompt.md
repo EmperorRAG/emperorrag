@@ -1,7 +1,7 @@
 ---
 description: 'Contribute test scenario review to integration tests'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to Integration Tests (Quality Assurance Tester)

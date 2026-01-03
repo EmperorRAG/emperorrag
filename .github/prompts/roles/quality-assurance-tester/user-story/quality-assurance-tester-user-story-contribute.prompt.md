@@ -1,7 +1,7 @@
 ---
 description: 'Contribute testability review and test scenario identification to a user story'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to User Story (Quality Assurance Tester)

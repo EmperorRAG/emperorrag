@@ -3,12 +3,13 @@ name: Definition Orchestrator
 description: 'Orchestrates the Definition stage of the SDLC, creating PRD, acceptance criteria, and test strategy'
 tools:
   [
-    'search',
-    'fetch',
-    'githubRepo',
-    'editFiles',
-    'createFile',
-    'runTerminal',
+    'search/textSearch',
+    'search/codebase',
+    'web/fetch',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'github/*',
+    'context7/*',
   ]
 handoffs:
   - label: '1. Create PRD'

@@ -1,7 +1,7 @@
 ---
 description: 'Update a changelog entry with additional changes'
 agent: 'Backend Software Developer'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Update Changelog Entry

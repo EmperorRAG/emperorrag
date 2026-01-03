@@ -1,7 +1,7 @@
 ---
 description: 'Contribute testing perspective to an API contract'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to API Contract (Quality Assurance Tester)

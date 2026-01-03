@@ -1,7 +1,7 @@
 ---
 description: 'Contribute operational procedures and troubleshooting steps to a runbook'
 agent: 'Backend Software Developer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*']
 ---
 
 # Contribute to Runbook (Backend Software Developer)

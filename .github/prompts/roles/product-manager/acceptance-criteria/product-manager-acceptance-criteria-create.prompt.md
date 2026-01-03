@@ -1,7 +1,7 @@
 ---
 description: 'Create detailed acceptance criteria for a user story or feature'
 agent: 'Product Manager'
-tools: ['search', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'web/fetch', 'github/*']
 ---
 
 # Create Acceptance Criteria

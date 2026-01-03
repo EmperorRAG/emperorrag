@@ -1,7 +1,7 @@
 ---
 description: 'Create a product vision and strategy document that aligns stakeholders on measurable outcomes'
 agent: 'Product Manager'
-tools: ['search', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Create Product Vision & Strategy

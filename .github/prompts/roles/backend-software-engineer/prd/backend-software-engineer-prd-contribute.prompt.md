@@ -1,7 +1,7 @@
 ---
 description: 'Contribute backend technical perspective to a PRD'
 agent: 'Backend Software Engineer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to PRD (Backend Software Engineer)

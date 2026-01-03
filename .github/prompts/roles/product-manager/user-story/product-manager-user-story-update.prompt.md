@@ -1,7 +1,7 @@
 ---
 description: 'Update an existing user story based on refinement feedback or scope changes'
 agent: 'Product Manager'
-tools: ['search', 'fetch', 'githubRepo', 'changes', 'codebase']
+tools: ['search/textSearch', 'web/fetch', 'github/*', 'search/changes', 'search/codebase']
 ---
 
 # Update User Story

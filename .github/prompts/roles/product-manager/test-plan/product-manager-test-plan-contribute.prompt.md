@@ -1,7 +1,7 @@
 ---
 description: 'Contribute requirements context and priorities to a test plan'
 agent: 'Product Manager'
-tools: ['search', 'codebase', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*']
 ---
 
 # Contribute to Test Plan (Product Manager)

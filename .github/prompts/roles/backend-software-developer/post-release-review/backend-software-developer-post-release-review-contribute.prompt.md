@@ -1,7 +1,7 @@
 ---
 description: 'Contribute implementation learnings to a post-release review'
 agent: 'Backend Software Developer'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Contribute to Post-Release Review (Backend Software Developer)

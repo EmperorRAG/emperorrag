@@ -1,7 +1,7 @@
 ---
 description: 'Contribute component-level details to architecture diagrams'
 agent: 'Backend Software Engineer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*']
 ---
 
 # Contribute to Architecture Diagrams (Backend Software Engineer)

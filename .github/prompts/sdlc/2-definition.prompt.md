@@ -3,11 +3,13 @@ description: 'Definition Stage - Create PRD, acceptance criteria, and test strat
 agent: 'Definition Orchestrator'
 tools:
   [
-    'search',
-    'fetch',
-    'githubRepo',
-    'editFiles',
-    'createFile',
+    'search/textSearch',
+    'search/codebase',
+    'web/fetch',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'github/*',
+    'context7/*',
   ]
 ---
 

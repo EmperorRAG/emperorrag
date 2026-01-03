@@ -3,12 +3,14 @@ name: Planning Orchestrator
 description: 'Orchestrates the Planning stage of the SDLC, creating epics, user stories, and requirements traceability'
 tools:
   [
-    'search',
-    'fetch',
-    'githubRepo',
-    'editFiles',
-    'createFile',
-    'runTerminal',
+    'search/textSearch',
+    'search/codebase',
+    'web/fetch',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'github/*',
+    'context7/*',
+    'nx-mcp-server/*',
   ]
 handoffs:
   - label: '1. Create Epic Definitions'

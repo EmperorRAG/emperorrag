@@ -1,7 +1,7 @@
 ---
 description: 'Contribute implementation details to a technical design document'
 agent: 'Backend Software Engineer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to Technical Design Document (Backend Software Engineer)

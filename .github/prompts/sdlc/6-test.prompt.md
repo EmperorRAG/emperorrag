@@ -3,17 +3,19 @@ description: 'Test Stage - Create test plans, test cases, execution reports, and
 agent: 'Test Orchestrator'
 tools:
   [
-    'search',
-    'fetch',
-    'githubRepo',
-    'codebase',
-    'usages',
-    'editFiles',
-    'createFile',
-    'runTerminal',
-    'runTests',
-    'findTestFiles',
-    'problems',
+    'search/textSearch',
+    'search/codebase',
+    'search/usages',
+    'search/fileSearch',
+    'web/fetch',
+    'read/problems',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'execute/runTests',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
+    'effect-mcp/*',
   ]
 ---
 

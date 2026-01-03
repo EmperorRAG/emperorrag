@@ -1,7 +1,7 @@
 ---
 description: 'Create a code review checklist defining quality criteria for code reviews'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*']
 ---
 
 # Create Code Review Checklist

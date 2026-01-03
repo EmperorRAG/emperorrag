@@ -1,7 +1,7 @@
 ---
 description: 'Contribute technical context and acceptance criteria refinement to a user story'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to User Story (Tech Lead)

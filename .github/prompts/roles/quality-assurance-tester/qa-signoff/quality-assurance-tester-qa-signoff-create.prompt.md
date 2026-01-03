@@ -1,7 +1,7 @@
 ---
 description: 'Create a QA signoff document for release approval'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes', 'read/problems']
 ---
 
 # Create QA Signoff

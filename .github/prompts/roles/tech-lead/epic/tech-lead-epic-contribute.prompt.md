@@ -1,7 +1,7 @@
 ---
 description: 'Contribute technical breakdown and dependencies to an epic'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to Epic (Tech Lead)

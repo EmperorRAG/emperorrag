@@ -1,7 +1,7 @@
 ---
 description: 'Contribute technical feasibility and architecture perspective to product vision'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*']
 ---
 
 # Contribute to Product Vision (Tech Lead)

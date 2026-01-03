@@ -3,20 +3,20 @@ name: Backend Software Engineer
 description: "Backend engineering assistant specialized in designing, implementing, and maintaining server-side systems. Focuses on business logic, API endpoints, data storage, and integration layers with emphasis on scalability and performance."
 tools:
   [
-    "search",
-    "Nx Mcp Server/*",
-    "context7/*",
-    "github/*",
-    "cognitionai/deepwiki/*",
-    "usages",
-    "vscodeAPI",
-    "problems",
-    "changes",
-    "fetch",
-    "githubRepo",
-    "extensions",
-    "terminalLastCommand",
-    "runTests",
+    'search/textSearch',
+    'search/codebase',
+    'search/usages',
+    'search/changes',
+    'web/fetch',
+    'read/problems',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'execute/runTests',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
+    'effect-mcp/*',
+    'cognitionai/deepwiki/*',
   ]
 ---
 

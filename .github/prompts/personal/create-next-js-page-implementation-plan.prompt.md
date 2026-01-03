@@ -1,7 +1,16 @@
 ---
 description: 'Generate a reusable implementation plan for a Next.js page'
 mode: 'agent'
-tools: ['edit', 'search', 'Nx Mcp Server/*', 'context7/*', 'fetch', 'githubRepo']
+tools:
+  [
+    'search/textSearch',
+    'search/codebase',
+    'web/fetch',
+    'edit/editFiles',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
+  ]
 ---
 
 # Create Next.js Page Implementation Plan

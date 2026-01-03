@@ -1,7 +1,7 @@
 ---
 description: 'Update an existing product vision and strategy based on new learnings or market changes'
 agent: 'Product Manager'
-tools: ['search', 'fetch', 'githubRepo', 'changes', 'codebase']
+tools: ['search/textSearch', 'web/fetch', 'github/*', 'search/changes', 'search/codebase']
 ---
 
 # Update Product Vision & Strategy

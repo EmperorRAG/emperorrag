@@ -1,7 +1,7 @@
 ---
 description: 'Contribute technical dependencies and capacity assessment to product roadmap'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*']
 ---
 
 # Contribute to Product Roadmap (Tech Lead)

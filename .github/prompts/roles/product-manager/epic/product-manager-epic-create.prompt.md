@@ -1,7 +1,7 @@
 ---
 description: 'Create an epic definition with clear scope, success criteria, and story breakdown'
 agent: 'Product Manager'
-tools: ['search', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Create Epic Definition

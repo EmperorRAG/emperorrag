@@ -1,7 +1,7 @@
 ---
 description: 'Contribute implementation feedback to a data model design'
 agent: 'Backend Software Developer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to Data Model (Backend Software Developer)

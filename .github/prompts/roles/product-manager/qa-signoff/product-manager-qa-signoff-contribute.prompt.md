@@ -1,7 +1,7 @@
 ---
 description: 'Contribute business risk acceptance and release decision to QA signoff'
 agent: 'Product Manager'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Contribute to QA Signoff (Product Manager)

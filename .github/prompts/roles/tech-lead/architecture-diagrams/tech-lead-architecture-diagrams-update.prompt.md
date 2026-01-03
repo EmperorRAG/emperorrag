@@ -1,7 +1,7 @@
 ---
 description: 'Update existing architecture diagrams to reflect system changes'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Update Architecture Diagrams

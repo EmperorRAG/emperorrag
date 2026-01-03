@@ -1,7 +1,7 @@
 ---
 description: 'Contribute engineering best practices to a code review checklist'
 agent: 'Backend Software Engineer'
-tools: ['search', 'codebase', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*']
 ---
 
 # Contribute to Code Review Checklist (Backend Software Engineer)

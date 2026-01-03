@@ -1,7 +1,7 @@
 ---
 description: 'Contribute technical risk assessment and approval to QA signoff'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes', 'read/problems']
 ---
 
 # Contribute to QA Signoff (Tech Lead)

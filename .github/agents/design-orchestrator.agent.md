@@ -3,14 +3,16 @@ name: Design Orchestrator
 description: 'Orchestrates the Design stage of the SDLC, creating technical design, architecture, contracts, and specifications'
 tools:
   [
-    'search',
-    'fetch',
-    'githubRepo',
-    'codebase',
-    'usages',
-    'editFiles',
-    'createFile',
-    'runTerminal',
+    'search/textSearch',
+    'search/codebase',
+    'search/usages',
+    'web/fetch',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
+    'cognitionai/deepwiki/*',
   ]
 handoffs:
   - label: '1. Create Technical Design Doc'

@@ -1,7 +1,7 @@
 ---
 description: 'Update existing release notes with corrections or additional information'
 agent: 'Product Manager'
-tools: ['search', 'fetch', 'githubRepo', 'changes', 'codebase']
+tools: ['search/textSearch', 'web/fetch', 'github/*', 'search/changes', 'search/codebase']
 ---
 
 # Update Release Notes

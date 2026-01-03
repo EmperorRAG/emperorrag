@@ -1,7 +1,7 @@
 ---
 description: 'Contribute technical risk assessment to a test execution report'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes', 'read/problems']
 ---
 
 # Contribute to Test Execution Report (Tech Lead)

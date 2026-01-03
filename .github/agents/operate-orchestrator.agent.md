@@ -3,14 +3,16 @@ name: Operate Orchestrator
 description: 'Orchestrates the Operate stage of the SDLC, creating runbooks, monitoring configuration, and post-release review'
 tools:
   [
-    'search',
-    'fetch',
-    'githubRepo',
-    'codebase',
-    'editFiles',
-    'createFile',
-    'runTerminal',
-    'problems',
+    'search/textSearch',
+    'search/codebase',
+    'web/fetch',
+    'read/problems',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
+    'cognitionai/deepwiki/*',
   ]
 handoffs:
   - label: '1. Create Runbook'

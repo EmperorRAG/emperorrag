@@ -3,14 +3,17 @@ description: 'Design Stage - Create technical design, architecture, contracts, a
 agent: 'Design Orchestrator'
 tools:
   [
-    'search',
-    'fetch',
-    'githubRepo',
-    'codebase',
-    'usages',
-    'editFiles',
-    'createFile',
-    'problems',
+    'search/textSearch',
+    'search/codebase',
+    'search/usages',
+    'web/fetch',
+    'read/problems',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
+    'cognitionai/deepwiki/*',
   ]
 ---
 

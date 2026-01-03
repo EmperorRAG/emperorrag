@@ -1,7 +1,7 @@
 ---
 description: 'Create architecture diagrams (context, container, component) for system documentation'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*']
 ---
 
 # Create Architecture Diagrams

@@ -3,11 +3,14 @@ description: 'Discovery Stage - Create product vision and roadmap to establish s
 agent: 'Discovery Orchestrator'
 tools:
   [
-    'search',
-    'fetch',
-    'githubRepo',
-    'editFiles',
-    'createFile',
+    'search/textSearch',
+    'search/codebase',
+    'web/fetch',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'github/*',
+    'context7/*',
+    'cognitionai/deepwiki/*',
   ]
 ---
 

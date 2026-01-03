@@ -3,13 +3,15 @@ description: 'Release Stage - Create release plan, QA sign-off, release notes, a
 agent: 'Release Orchestrator'
 tools:
   [
-    'search',
-    'fetch',
-    'githubRepo',
-    'editFiles',
-    'createFile',
-    'runTerminal',
-    'changes',
+    'search/textSearch',
+    'search/codebase',
+    'search/changes',
+    'web/fetch',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
   ]
 ---
 

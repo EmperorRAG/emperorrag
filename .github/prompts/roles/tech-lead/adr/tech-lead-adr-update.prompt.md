@@ -1,7 +1,7 @@
 ---
 description: 'Update an existing ADR status or add supplementary information'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Update Architecture Decision Record (ADR)

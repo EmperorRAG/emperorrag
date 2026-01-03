@@ -1,7 +1,7 @@
 ---
 description: 'Create a test execution report summarizing testing activities and results'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Create Test Execution Report

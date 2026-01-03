@@ -1,7 +1,7 @@
 ---
 description: 'Contribute testing requirements to a technical design document'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to Technical Design Document (Quality Assurance Tester)

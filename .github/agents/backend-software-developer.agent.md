@@ -3,20 +3,19 @@ name: Backend Software Developer
 description: "Backend development assistant focused on building server-side logic, services, and database access. Converts functional requirements into reliable backend code with emphasis on execution, debugging, and feature delivery."
 tools:
   [
-    "search",
-    "Nx Mcp Server/*",
-    "context7/*",
-    "github/*",
-    "cognitionai/deepwiki/*",
-    "usages",
-    "vscodeAPI",
-    "problems",
-    "changes",
-    "fetch",
-    "githubRepo",
-    "extensions",
-    "terminalLastCommand",
-    "runTests",
+    'search/textSearch',
+    'search/codebase',
+    'search/usages',
+    'search/changes',
+    'web/fetch',
+    'read/problems',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'execute/runTests',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
+    'effect-mcp/*',
   ]
 ---
 

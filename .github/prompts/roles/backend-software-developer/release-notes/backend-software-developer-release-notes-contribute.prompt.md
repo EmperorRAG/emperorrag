@@ -1,7 +1,7 @@
 ---
 description: 'Contribute technical details to release notes'
 agent: 'Backend Software Developer'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Contribute to Release Notes (Backend Software Developer)

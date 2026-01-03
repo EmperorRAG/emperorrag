@@ -1,7 +1,7 @@
 ---
 description: 'Contribute review and feedback to an API contract'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to API Contract (Tech Lead)

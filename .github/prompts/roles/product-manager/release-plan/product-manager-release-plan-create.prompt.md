@@ -1,7 +1,7 @@
 ---
 description: 'Create a release plan with scope, rollout strategy, and risk mitigation'
 agent: 'Product Manager'
-tools: ['search', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Create Release Plan

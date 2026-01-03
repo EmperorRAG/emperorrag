@@ -1,7 +1,7 @@
 ---
 description: 'Contribute technical feasibility and constraints to a PRD'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to PRD (Tech Lead)

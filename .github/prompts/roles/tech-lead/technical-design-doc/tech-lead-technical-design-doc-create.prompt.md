@@ -1,7 +1,7 @@
 ---
 description: 'Create a technical design document defining system structure, components, and key design decisions'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'changes', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'search/changes', 'read/problems']
 ---
 
 # Create Technical Design Document

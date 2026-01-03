@@ -1,7 +1,7 @@
 ---
 description: 'Update a QA signoff based on new information or condition resolution'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes', 'read/problems']
 ---
 
 # Update QA Signoff

@@ -1,7 +1,7 @@
 ---
 description: 'Contribute testing-focused items to a code review checklist'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*']
 ---
 
 # Contribute to Code Review Checklist (Quality Assurance Tester)

@@ -1,7 +1,7 @@
 ---
 description: 'Contribute implementation metrics and logging details to a monitoring specification'
 agent: 'Backend Software Developer'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to Monitoring Spec (Backend Software Developer)

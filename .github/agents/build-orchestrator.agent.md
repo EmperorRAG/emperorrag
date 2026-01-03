@@ -3,16 +3,18 @@ name: Build Orchestrator
 description: 'Orchestrates the Build stage of the SDLC, creating technical specs, migrations, tests, and code implementation'
 tools:
   [
-    'search',
-    'fetch',
-    'githubRepo',
-    'codebase',
-    'usages',
-    'editFiles',
-    'createFile',
-    'runTerminal',
-    'runTests',
-    'problems',
+    'search/textSearch',
+    'search/codebase',
+    'search/usages',
+    'web/fetch',
+    'read/problems',
+    'edit/editFiles',
+    'execute/runInTerminal',
+    'execute/runTests',
+    'github/*',
+    'nx-mcp-server/*',
+    'context7/*',
+    'effect-mcp/*',
   ]
 handoffs:
   - label: '1. Create Technical Spec'

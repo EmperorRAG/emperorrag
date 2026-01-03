@@ -1,7 +1,7 @@
 ---
 description: 'Update a test execution report with additional results'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Update Test Execution Report

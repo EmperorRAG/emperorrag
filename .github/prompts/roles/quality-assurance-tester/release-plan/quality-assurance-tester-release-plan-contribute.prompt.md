@@ -1,7 +1,7 @@
 ---
 description: 'Contribute testing readiness and risk assessment to a release plan'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes', 'read/problems']
 ---
 
 # Contribute to Release Plan (Quality Assurance Tester)

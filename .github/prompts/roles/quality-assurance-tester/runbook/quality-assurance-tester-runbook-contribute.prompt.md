@@ -1,7 +1,7 @@
 ---
 description: 'Contribute testing verification steps to a runbook'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*']
 ---
 
 # Contribute to Runbook (Quality Assurance Tester)

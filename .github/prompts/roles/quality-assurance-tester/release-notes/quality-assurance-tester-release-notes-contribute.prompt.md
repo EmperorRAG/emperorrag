@@ -1,7 +1,7 @@
 ---
 description: 'Contribute known issues and testing observations to release notes'
 agent: 'Quality Assurance Tester'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Contribute to Release Notes (Quality Assurance Tester)

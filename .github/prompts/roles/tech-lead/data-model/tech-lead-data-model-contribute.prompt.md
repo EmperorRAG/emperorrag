@@ -1,7 +1,7 @@
 ---
 description: 'Contribute architectural review to a data model design'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'usages', 'fetch', 'githubRepo', 'problems']
+tools: ['search/textSearch', 'search/codebase', 'search/usages', 'web/fetch', 'github/*', 'read/problems']
 ---
 
 # Contribute to Data Model (Tech Lead)

@@ -1,7 +1,7 @@
 ---
 description: 'Contribute product priorities and risk context to a test strategy'
 agent: 'Product Manager'
-tools: ['search', 'fetch', 'githubRepo']
+tools: ['search/textSearch', 'web/fetch', 'github/*']
 ---
 
 # Contribute to Test Strategy

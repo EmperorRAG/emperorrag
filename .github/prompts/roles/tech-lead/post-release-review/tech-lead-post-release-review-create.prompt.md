@@ -1,7 +1,7 @@
 ---
 description: 'Create a post-release review capturing learnings and improvements'
 agent: 'Tech Lead'
-tools: ['search', 'codebase', 'fetch', 'githubRepo', 'changes']
+tools: ['search/textSearch', 'search/codebase', 'web/fetch', 'github/*', 'search/changes']
 ---
 
 # Create Post-Release Review
