@@ -1,0 +1,220 @@
+name: User Story
+description: Express work from the user's perspective with clear intent and testable acceptance criteria
+title: "[Story]: "
+labels: ["type:user-story"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Story Statement
+        Complete the user story format below. All three parts are required.
+
+  - type: input
+    id: user_role
+    attributes:
+      label: "As a..."
+      description: User role or persona who will benefit from this feature
+      placeholder: "e.g., authenticated user, admin, first-time visitor"
+    validations:
+      required: true
+
+  - type: input
+    id: goal
+    attributes:
+      label: "I want..."
+      description: The goal or capability the user wants to achieve
+      placeholder: "e.g., to reset my password via email"
+    validations:
+      required: true
+
+  - type: input
+    id: benefit
+    attributes:
+      label: "So that..."
+      description: The benefit or value the user gains
+      placeholder: "e.g., I can regain access to my account without contacting support"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Description
+        Provide context to help developers understand this story.
+
+  - type: textarea
+    id: background_context
+    attributes:
+      label: Background Context
+      description: Background information and context for this story
+      placeholder: |
+        Explain why this story is needed. What problem does it solve?
+        What user pain point or business need does it address?
+    validations:
+      required: false
+
+  - type: textarea
+    id: user_journey_context
+    attributes:
+      label: User Journey Context
+      description: Where does this fit in the user's overall journey?
+      placeholder: |
+        - Precedes: [what the user did before]
+        - Follows: [what the user does after]
+        - Part of: [larger workflow or feature]
+    validations:
+      required: false
+
+  - type: textarea
+    id: design_references
+    attributes:
+      label: Design References
+      description: Links to mockups, designs, or prototypes
+      placeholder: |
+        - [Figma mockup](https://figma.com/...)
+        - [Design spec](https://...)
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Acceptance Criteria
+        Define testable scenarios using Gherkin format (Given/When/Then).
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Testable scenarios that define when this story is complete
+      placeholder: |
+        ### Scenario 1: Happy Path
+        ```gherkin
+        Given [initial context/state]
+        When [action or trigger]
+        Then [expected outcome]
+        And [additional outcome if needed]
+        ```
+
+        ### Scenario 2: Alternative Path
+        ```gherkin
+        Given [context]
+        When [action]
+        Then [expected result]
+        ```
+
+        ### Scenario 3: Error Handling
+        ```gherkin
+        Given [error-inducing context]
+        When [action that triggers error]
+        Then [expected error handling]
+        ```
+      render: markdown
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Edge Cases
+        Document boundary conditions and unusual scenarios.
+
+  - type: textarea
+    id: edge_cases
+    attributes:
+      label: Edge Cases
+      description: Edge cases and their expected behavior
+      placeholder: |
+        | Edge Case | Expected Behavior |
+        |-----------|-------------------|
+        | [Edge case 1] | [Behavior] |
+        | [Edge case 2] | [Behavior] |
+      render: markdown
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Technical Notes
+        Implementation hints and integration points.
+
+  - type: textarea
+    id: technical_notes
+    attributes:
+      label: Technical Notes
+      description: Known technical considerations, constraints, or integration points
+      placeholder: |
+        - Known technical consideration 1
+        - Integration point 1
+        - API dependency: [service/endpoint]
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Dependencies
+        Identify blocking or dependent work items.
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Other stories, tasks, or external dependencies
+      placeholder: |
+        | Dependency | Type | Status |
+        |------------|------|--------|
+        | #123 | Blocked by | In Progress |
+        | External API | Requires | Available |
+      render: markdown
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Completion Checklist
+        Track progress and confirm quality criteria.
+
+  - type: checkboxes
+    id: definition_of_done
+    attributes:
+      label: Definition of Done
+      description: Check items as they are completed during implementation
+      options:
+        - label: Code complete and peer reviewed
+          required: false
+        - label: Unit tests written and passing
+          required: false
+        - label: Integration tests passing
+          required: false
+        - label: Documentation updated
+          required: false
+        - label: Acceptance criteria validated by QA
+          required: false
+        - label: Product Owner acceptance
+          required: false
+
+  - type: checkboxes
+    id: quality_criteria
+    attributes:
+      label: Quality Criteria (Pre-Development)
+      description: Confirm before starting development
+      options:
+        - label: Story has clear user intent
+          required: false
+        - label: Acceptance criteria are testable
+          required: false
+        - label: Story is estimable by the team
+          required: false
+        - label: Edge cases captured
+          required: false
+        - label: Dependencies identified
+          required: false
