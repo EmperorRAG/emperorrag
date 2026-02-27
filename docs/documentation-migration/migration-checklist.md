@@ -43,7 +43,7 @@ Migration from SDLC stage-based structure to hybrid GitHub approach.
 
 ### PR Template
 
-- [ ] Create/update `.github/PULL_REQUEST_TEMPLATE.md` with code review checklist
+- [X] Create/update `.github/PULL_REQUEST_TEMPLATE.md` with code review checklist
 
 ### Release Configuration
 
