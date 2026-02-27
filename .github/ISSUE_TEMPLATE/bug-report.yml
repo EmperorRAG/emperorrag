@@ -1,0 +1,346 @@
+name: Bug Report
+description: Document a defect with reproduction steps, expected vs actual behavior, and severity classification
+title: "[Bug]: "
+labels: ["type:bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Bug Summary
+        Provide a clear, concise description of the bug.
+
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: One-sentence description of the bug
+      placeholder: "e.g., Login button unresponsive after entering invalid credentials twice"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Classification
+        Help us prioritize and categorize this bug.
+
+        | Severity | Definition | Response Time |
+        |----------|------------|---------------|
+        | Critical | System unusable, data loss, security breach | Immediate |
+        | High | Major feature broken, no workaround | Within 24 hours |
+        | Medium | Feature impaired, workaround available | Within 1 week |
+        | Low | Minor issue, cosmetic | As scheduled |
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severe is this bug?
+      options:
+        - Critical - System unusable, data loss, security breach
+        - High - Major feature broken, no workaround
+        - Medium - Feature impaired, workaround available
+        - Low - Minor issue, cosmetic
+      default: 2
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: Business priority for fixing this bug
+      options:
+        - P0 - Fix immediately
+        - P1 - Fix in current sprint
+        - P2 - Fix in next sprint
+        - P3 - Fix when time permits
+      default: 1
+    validations:
+      required: true
+
+  - type: dropdown
+    id: bug_type
+    attributes:
+      label: Bug Type
+      description: Category of the bug
+      options:
+        - Functional - Feature not working as expected
+        - UI - Visual or layout issue
+        - Performance - Slow response or high resource usage
+        - Security - Vulnerability or access control issue
+        - Data - Incorrect data or data corruption
+        - Other
+      default: 0
+    validations:
+      required: false
+
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      description: Module or area of the application affected
+      placeholder: "e.g., Authentication, Dashboard, API Gateway"
+    validations:
+      required: false
+
+  - type: input
+    id: found_in
+    attributes:
+      label: Found In
+      description: Version, build number, or environment where bug was discovered
+      placeholder: "e.g., v2.3.1, build #456, commit abc1234"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Environment
+        Where did you encounter this bug?
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      description: Deployment environment where bug occurred
+      options:
+        - Development
+        - Staging
+        - Production
+        - Local
+    validations:
+      required: false
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      description: OS where bug was observed
+      options:
+        - Windows 11
+        - Windows 10
+        - macOS 14 (Sonoma)
+        - macOS 13 (Ventura)
+        - Ubuntu 22.04
+        - Ubuntu 20.04
+        - iOS
+        - Android
+        - Other
+    validations:
+      required: false
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      description: Browser where bug was observed (if web application)
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Opera
+        - Mobile Safari
+        - Chrome Mobile
+        - Not applicable
+        - Other
+    validations:
+      required: false
+
+  - type: dropdown
+    id: device
+    attributes:
+      label: Device Type
+      description: Type of device where bug occurred
+      options:
+        - Desktop
+        - Laptop
+        - Tablet
+        - Mobile
+        - Server
+    validations:
+      required: false
+
+  - type: input
+    id: user_role
+    attributes:
+      label: User Role
+      description: User role/permissions when bug occurred
+      placeholder: "e.g., Admin, Standard User, Guest"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Description
+        Explain what you expected vs what actually happened.
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected Behavior
+      description: What should happen according to requirements or design?
+      placeholder: |
+        Describe what you expected to happen.
+        Reference requirements or design specs if available.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happens? Be specific.
+      placeholder: |
+        Describe exactly what happens instead.
+        Include any error messages displayed to the user.
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: How does this bug affect users, system, or business?
+      placeholder: |
+        - User impact: [e.g., Users cannot complete checkout]
+        - Business impact: [e.g., Lost revenue, customer complaints]
+        - Scope: [e.g., Affects all users / specific user segment]
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Steps to Reproduce
+        Help us reproduce the bug consistently.
+
+  - type: textarea
+    id: preconditions
+    attributes:
+      label: Preconditions
+      description: Setup required before reproducing the bug
+      placeholder: |
+        - User is logged in as [role]
+        - Specific data exists: [describe data]
+        - Feature flag enabled: [flag name]
+        - Browser cache cleared
+    validations:
+      required: false
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Numbered steps to consistently reproduce the bug
+      placeholder: |
+        1. Navigate to [URL/page]
+        2. Click on [element]
+        3. Enter [data] in [field]
+        4. Click [button]
+        5. Observe [bug manifestation]
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Evidence
+        Attach screenshots, logs, or error messages.
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots / Video
+      description: Drag and drop images or paste links to screen recordings
+      placeholder: |
+        Drag and drop screenshots here, or paste links to videos.
+
+        Tip: You can paste images directly from clipboard.
+    validations:
+      required: false
+
+  - type: textarea
+    id: error_messages
+    attributes:
+      label: Error Messages
+      description: Console errors or error messages displayed to user
+      placeholder: |
+        Paste any error messages here.
+        Include browser console errors if applicable.
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Relevant log entries from server or application logs
+      placeholder: |
+        Paste relevant log entries here.
+        Include timestamps if available.
+      render: shell
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Additional Information
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Workaround
+      description: Temporary workaround if one exists
+      placeholder: |
+        Describe any temporary workaround users can use until the bug is fixed.
+    validations:
+      required: false
+
+  - type: textarea
+    id: related_items
+    attributes:
+      label: Related Items
+      description: Links to related stories, test cases, bugs, or PRs
+      placeholder: |
+        - Related Story: #123
+        - Related Test Case: TC-456
+        - Related Bug: #789
+        - Regression from PR: #101
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Submission Checklist
+
+  - type: checkboxes
+    id: quality_checklist
+    attributes:
+      label: Quality Checklist
+      description: Confirm your bug report is complete
+      options:
+        - label: Clear, descriptive title provided
+          required: false
+        - label: Reproducible steps included
+          required: false
+        - label: Expected vs actual behavior stated
+          required: false
+        - label: Severity and priority assigned
+          required: false
+        - label: Environment details included
+          required: false
+        - label: Evidence attached (screenshots/logs) if applicable
+          required: false

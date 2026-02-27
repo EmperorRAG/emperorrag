@@ -1,0 +1,172 @@
+name: Task
+description: Technical work item such as infrastructure, refactoring, documentation, or DevOps work
+title: "[Task]: "
+labels: ["type:task"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Task Description
+        Describe the technical work that needs to be done.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What needs to be done? Be specific about the work involved.
+      placeholder: |
+        Describe the task in detail.
+        Include what changes are needed and where.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: task_type
+    attributes:
+      label: Task Type
+      description: Category of technical work
+      options:
+        - Infrastructure - CI/CD, build system, tooling
+        - Refactoring - Code cleanup, restructuring
+        - Technical Debt - Addressing known issues or shortcuts
+        - Documentation - Docs, comments, README updates
+        - Research/Spike - Investigation or proof of concept
+        - DevOps - Deployment, monitoring, configuration
+        - Dependency Update - Package upgrades, security patches
+        - Chore - Routine maintenance
+        - Other
+      default: 0
+    validations:
+      required: false
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why is this task needed? What problem does it solve?
+      placeholder: |
+        - Current issue: [describe the problem]
+        - Benefit of completing: [what improves]
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Implementation Details
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: How do we know when this task is complete?
+      placeholder: |
+        - [ ] Criterion 1
+        - [ ] Criterion 2
+        - [ ] Criterion 3
+    validations:
+      required: false
+
+  - type: textarea
+    id: technical_approach
+    attributes:
+      label: Technical Approach
+      description: Implementation notes, approach, or considerations
+      placeholder: |
+        - Approach: [describe how to implement]
+        - Files affected: [list key files]
+        - Considerations: [gotchas, edge cases]
+    validations:
+      required: false
+
+  - type: input
+    id: affected_components
+    attributes:
+      label: Affected Components
+      description: Modules, packages, or areas of the codebase impacted
+      placeholder: "e.g., packages/utilities, apps/better-auth-nest-js-microservice"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Planning
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: Business priority for this task
+      options:
+        - P0 - Critical, do immediately
+        - P1 - High, current sprint
+        - P2 - Medium, next sprint
+        - P3 - Low, backlog
+      default: 2
+    validations:
+      required: false
+
+  - type: dropdown
+    id: size_estimate
+    attributes:
+      label: Size Estimate
+      description: Rough effort estimate (t-shirt sizing)
+      options:
+        - XS - Less than 1 hour
+        - S - 1-4 hours
+        - M - 1-2 days
+        - L - 3-5 days
+        - XL - More than 1 week
+      default: 1
+    validations:
+      required: false
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Tasks, PRs, or external factors this depends on or blocks
+      placeholder: |
+        - Blocked by: #123
+        - Blocks: #456
+        - Requires: [external dependency]
+    validations:
+      required: false
+
+  - type: textarea
+    id: related_items
+    attributes:
+      label: Related Items
+      description: Links to related epics, stories, PRs, or documentation
+      placeholder: |
+        - Parent Epic: #100
+        - Related Story: #200
+        - Reference: [link to docs or resources]
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Completion Checklist
+
+  - type: checkboxes
+    id: definition_of_done
+    attributes:
+      label: Definition of Done
+      description: Check items as they are completed
+      options:
+        - label: Implementation complete
+          required: false
+        - label: Tests written/updated and passing
+          required: false
+        - label: Documentation updated (if applicable)
+          required: false
+        - label: Code reviewed and approved
+          required: false
+        - label: CI pipeline passing
+          required: false

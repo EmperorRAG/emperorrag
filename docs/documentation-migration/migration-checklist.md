@@ -37,8 +37,8 @@ Migration from SDLC stage-based structure to hybrid GitHub approach.
 
 - [X] Create `.github/ISSUE_TEMPLATE/epic.yml` (auto-applies `type:epic` label)
 - [X] Create `.github/ISSUE_TEMPLATE/user-story.yml` (auto-applies `type:user-story` label)
-- [ ] Create `.github/ISSUE_TEMPLATE/bug-report.yml` (auto-applies `type:bug` label)
-- [ ] Create `.github/ISSUE_TEMPLATE/task.yml` (auto-applies `type:task` label)
+- [X] Create `.github/ISSUE_TEMPLATE/bug-report.yml` (auto-applies `type:bug` label)
+- [X] Create `.github/ISSUE_TEMPLATE/task.yml` (auto-applies `type:task` label)
 - [ ] Create `.github/ISSUE_TEMPLATE/config.yml` (optional: disable blank issues)
 
 ### PR Template
