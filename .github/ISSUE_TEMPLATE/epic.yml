@@ -1,0 +1,253 @@
+name: Epic
+description: Large body of work that can be broken down into user stories and represents a significant business initiative
+title: "[Epic]: "
+labels: ["type:epic"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Epic Summary
+        Define the high-level business context for this epic.
+
+  - type: textarea
+    id: business_objective
+    attributes:
+      label: Business Objective
+      description: High-level description of what this epic aims to achieve
+      placeholder: |
+        Describe the primary business goal this epic addresses.
+        What problem does it solve? What opportunity does it capture?
+    validations:
+      required: true
+
+  - type: textarea
+    id: strategic_alignment
+    attributes:
+      label: Strategic Alignment
+      description: How this epic aligns with product vision and business goals
+      placeholder: |
+        - Supports product vision by...
+        - Aligns with Q1 OKR...
+        - Enables future capability...
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Scope
+        Define clear boundaries for what is and isn't included in this epic.
+
+  - type: textarea
+    id: in_scope
+    attributes:
+      label: In Scope
+      description: Features and capabilities included in this epic
+      placeholder: |
+        - Feature/capability 1
+        - Feature/capability 2
+        - Feature/capability 3
+    validations:
+      required: true
+
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: Out of Scope
+      description: Explicitly excluded items to prevent scope creep
+      placeholder: |
+        - Explicitly excluded item 1
+        - Explicitly excluded item 2
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Success Metrics
+        Define measurable outcomes to evaluate epic completion.
+
+  - type: textarea
+    id: success_metrics
+    attributes:
+      label: Success Metrics
+      description: KPIs and targets for measuring success
+      placeholder: |
+        | Metric | Current State | Target | Measurement Method |
+        |--------|---------------|--------|-------------------|
+        | [KPI 1] | [Baseline] | [Goal] | [How measured] |
+        | [KPI 2] | [Baseline] | [Goal] | [How measured] |
+      render: markdown
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## User Stories
+        Link or list user stories by priority. Use sub-issues to link stories after creation.
+
+  - type: textarea
+    id: user_stories_p0
+    attributes:
+      label: "Must Have (P0)"
+      description: Critical stories required for epic completion
+      placeholder: |
+        | Story ID | Title | Points | Status |
+        |----------|-------|--------|--------|
+        | #123 | [Story title] | [Est] | [Status] |
+      render: markdown
+    validations:
+      required: false
+
+  - type: textarea
+    id: user_stories_p1
+    attributes:
+      label: "Should Have (P1)"
+      description: Important stories that should be included if possible
+      placeholder: |
+        | Story ID | Title | Points | Status |
+        |----------|-------|--------|--------|
+        | #124 | [Story title] | [Est] | [Status] |
+      render: markdown
+    validations:
+      required: false
+
+  - type: textarea
+    id: user_stories_p2
+    attributes:
+      label: "Nice to Have (P2)"
+      description: Optional stories that add value but aren't critical
+      placeholder: |
+        | Story ID | Title | Points | Status |
+        |----------|-------|--------|--------|
+        | #125 | [Story title] | [Est] | [Status] |
+      render: markdown
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Dependencies
+        Identify blocking or dependent work items.
+
+  - type: textarea
+    id: internal_dependencies
+    attributes:
+      label: Internal Dependencies
+      description: Dependencies within your team or organization
+      placeholder: |
+        | Dependency | Owner | Impact | Status |
+        |------------|-------|--------|--------|
+        | [Dependency] | [Team/Person] | [Impact description] | [Status] |
+      render: markdown
+    validations:
+      required: false
+
+  - type: textarea
+    id: external_dependencies
+    attributes:
+      label: External Dependencies
+      description: Dependencies on external teams, vendors, or services
+      placeholder: |
+        | Dependency | Owner | Impact | Status |
+        |------------|-------|--------|--------|
+        | [Dependency] | [Team/Person] | [Impact description] | [Status] |
+      render: markdown
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Timeline
+        Key milestones and target dates.
+
+  - type: textarea
+    id: timeline
+    attributes:
+      label: Timeline / Milestones
+      description: Major milestones and their target completion dates
+      placeholder: |
+        | Milestone | Target Date | Status |
+        |-----------|-------------|--------|
+        | [Milestone 1] | [Date] | [Status] |
+        | [Milestone 2] | [Date] | [Status] |
+      render: markdown
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Risks and Mitigations
+        Identify potential risks and mitigation strategies.
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks and Mitigations
+      description: Known risks with probability, impact, and mitigation plans
+      placeholder: |
+        | Risk | Probability | Impact | Mitigation |
+        |------|-------------|--------|------------|
+        | [Risk 1] | [H/M/L] | [H/M/L] | [Strategy] |
+        | [Risk 2] | [H/M/L] | [H/M/L] | [Strategy] |
+      render: markdown
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Stakeholders
+        Key people involved in this epic.
+
+  - type: textarea
+    id: stakeholders
+    attributes:
+      label: Stakeholders
+      description: People responsible for or involved in this epic
+      placeholder: |
+        | Role | Name | Responsibility |
+        |------|------|----------------|
+        | Product Owner | [Name] | [Responsibility] |
+        | Tech Lead | [Name] | [Responsibility] |
+        | Design Lead | [Name] | [Responsibility] |
+      render: markdown
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Quality Checklist
+        Confirm the epic meets minimum quality criteria before starting work.
+
+  - type: checkboxes
+    id: quality_checklist
+    attributes:
+      label: Quality Criteria
+      description: Check items as they are completed
+      options:
+        - label: Clear business objective defined
+          required: false
+        - label: Scope boundaries established
+          required: false
+        - label: Success metrics are measurable
+          required: false
+        - label: User stories identified and prioritized
+          required: false
+        - label: Dependencies mapped
+          required: false
+        - label: Risks assessed with mitigations
+          required: false
