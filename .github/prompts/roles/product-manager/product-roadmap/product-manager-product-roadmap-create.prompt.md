@@ -1,7 +1,7 @@
 ---
 description: 'Create a product roadmap with prioritized outcomes, features, and milestones'
 agent: 'Product Manager'
-tools: ['search/textSearch', 'web/fetch', 'github/*', 'search/changes']
+tools: ['search/changes', 'search/textSearch', 'web/fetch']
 ---
 
 # Create Product Roadmap

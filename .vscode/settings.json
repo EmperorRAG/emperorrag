@@ -210,7 +210,9 @@
     ".github/prompts/roles/quality-assurance-tester/user-story": true
   },
   "chat.sendElementsToChat.enabled": false,
-  "chat.useCloudButtonV2": true,
+  "chat.useAgentSkills": true,
+  "chat.useHooks": true,
+  "chat.useAgentsMdFile": true,
   "chat.useNestedAgentsMdFiles": true,
   "diffEditor.codeLens": true,
   "editor.aiStats.enabled": true,

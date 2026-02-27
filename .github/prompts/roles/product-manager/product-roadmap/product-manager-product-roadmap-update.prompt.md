@@ -1,7 +1,7 @@
 ---
 description: 'Update an existing product roadmap based on new priorities, learnings, or constraints'
 agent: 'Product Manager'
-tools: ['search/textSearch', 'web/fetch', 'github/*', 'search/changes', 'search/codebase']
+tools: ['search/changes', 'search/codebase', 'search/textSearch', 'web/fetch']
 ---
 
 # Update Product Roadmap
