@@ -1,0 +1,42 @@
+changelog:
+  exclude:
+    labels:
+      - type:epic
+      - status:blocked
+    authors:
+      - dependabot[bot]
+      - renovate[bot]
+
+  categories:
+    - title: "💥 Breaking Changes"
+      labels:
+        - change:breaking
+
+    - title: "🔒 Security"
+      labels:
+        - change:security
+
+    - title: "🚀 New Features"
+      labels:
+        - type:feature
+        - type:user-story
+
+    - title: "🐛 Bug Fixes"
+      labels:
+        - type:bug
+
+    - title: "♻️ Improvements"
+      labels:
+        - change:refactoring
+
+    - title: "📝 Documentation"
+      labels:
+        - change:documentation
+
+    - title: "📦 Dependencies"
+      labels:
+        - change:dependencies
+
+    - title: "⚙️ Other Changes"
+      labels:
+        - "*"
