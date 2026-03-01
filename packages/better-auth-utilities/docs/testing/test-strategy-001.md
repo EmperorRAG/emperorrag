@@ -6,8 +6,8 @@
 - **Author**: QA Lead
 - **Approved By**: Tech Lead
 - **Last Updated**: 2026-01-03
-- **PRD Reference**: [Product Requirements Document](prd.md)
-- **Acceptance Criteria**: [Acceptance Criteria](acceptance-criteria.md)
+- **PRD Reference**: [Product Requirements Document](../prd/prd-001.md)
+- **Acceptance Criteria**: [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-001.md)
 
 ---
 

@@ -3,7 +3,7 @@
 ## Overview
 
 - **Product**: Better Auth Utilities
-- **Vision Reference**: [Product Vision](product-vision.md)
+- **Vision Reference**: [Product Vision](../vision/product-vision.md)
 - **Owner**: Product Manager
 - **Last Updated**: 2026-01-03
 - **Roadmap Period**: Q1-Q4 2026
@@ -249,9 +249,9 @@ The following capabilities are already implemented as of January 2026:
 
 ## Related Documentation
 
-- [Product Vision](product-vision.md)
-- [PRD](../2-definition/prd.md) (planned)
-- [Technical Design Doc](../4-design/technical-design-doc.md) (planned)
+- [Product Vision](../vision/product-vision.md)
+- [PRD](../prd/prd-001.md) (planned)
+- [Technical Design Doc](../design/technical-design-doc-001.md) (planned)
 
 ---
 

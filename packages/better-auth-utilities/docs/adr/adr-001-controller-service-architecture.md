@@ -43,11 +43,13 @@ We need to implement 16 server-side operations for the Better Auth Utilities lib
 
 **Description:**
 Each operation has three files:
+
 - `*.controller.ts` - Input validation, error mapping, delegation
 - `*.service.ts` - Better Auth API call, response transformation
 - `*.types.ts` - ServerParams schema definition
 
 **Pros:**
+
 - ✅ Consistent with existing 11 Email operations
 - ✅ Clear separation of validation and API concerns
 - ✅ Each layer independently testable
@@ -55,6 +57,7 @@ Each operation has three files:
 - ✅ Type-safe boundaries with Schema validation
 
 **Cons:**
+
 - ❌ More files per operation (6 including tests)
 - ❌ Slight overhead for simple pass-through operations
 - ❌ Requires understanding multiple abstractions
@@ -65,11 +68,13 @@ Each operation has three files:
 Combine controller and service into a single function per operation.
 
 **Pros:**
+
 - ✅ Fewer files (2 per operation)
 - ✅ Simpler mental model
 - ✅ Less boilerplate
 
 **Cons:**
+
 - ❌ Inconsistent with existing Email domain
 - ❌ Mixed concerns (validation + API)
 - ❌ Harder to test validation separately
@@ -81,11 +86,13 @@ Combine controller and service into a single function per operation.
 Use Effect-TS class patterns with methods for each operation.
 
 **Pros:**
+
 - ✅ Familiar to OOP developers
 - ✅ Groups related operations
 - ✅ Easier to share state/dependencies
 
 **Cons:**
+
 - ❌ Diverges from functional Effect-TS patterns
 - ❌ Inconsistent with existing implementation
 - ❌ Harder to tree-shake
@@ -107,10 +114,11 @@ Use Effect-TS class patterns with methods for each operation.
    - Integration tests with real Better Auth server
 
 3. **Traceability**: Dual `Effect.withSpan` calls provide:
+
    ```typescript
    // Controller span wraps entire operation
    Effect.withSpan("signInSocialServerController")
-   
+
    // Service span isolates API call
    Effect.withSpan("signInSocialServerService")
    ```
@@ -268,8 +276,8 @@ export class {Operation}ServerParams extends Schema.TaggedClass<{Operation}Serve
 
 ## Related Decisions
 
-- **TDD**: [Technical Design Document](../technical-design-doc.md)
-- **API Contract**: [API Contract](../api-contract.md)
+- **TDD**: [Technical Design Document](../design/technical-design-doc-001.md)
+- **API Contract**: [API Contract](../api/api-contract-001.md)
 
 ---
 
@@ -278,5 +286,5 @@ export class {Operation}ServerParams extends Schema.TaggedClass<{Operation}Serve
 - [Effect-TS Context and Layer](https://effect.website/docs/requirements-management/services)
 - [Better Auth API Reference](https://www.better-auth.com/docs/api-reference)
 - Email domain reference: `src/lib/server/core/email/`
-- PRD: [Product Requirements Document](../../2-definition/prd.md)
-- Acceptance Criteria: [Acceptance Criteria](../../2-definition/acceptance-criteria.md)
+- PRD: [Product Requirements Document](../prd/prd-001.md)
+- Acceptance Criteria: [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-001.md)

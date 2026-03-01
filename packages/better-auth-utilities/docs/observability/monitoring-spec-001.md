@@ -4,8 +4,8 @@
 
 - **Service Name**: Better Auth Utilities
 - **Purpose**: Type-safe Effect-TS wrappers for Better Auth SDK
-- **Related Design**: [Technical Design Document](technical-design-doc.md)
-- **Test Strategy**: [Test Strategy](../2-definition/test-strategy.md)
+- **Related Design**: [Technical Design Document](../design/technical-design-doc-001.md)
+- **Test Strategy**: [Test Strategy](../testing/test-strategy-001.md)
 - **Monitoring Tooling**: Effect Tracing, Consumer-provided telemetry
 
 ---
@@ -33,7 +33,7 @@ Recommended SLOs for consumer applications using this library:
 
 ### NFR Alignment
 
-Per [Acceptance Criteria](../2-definition/acceptance-criteria.md):
+Per [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-001.md):
 
 | NFR | Monitoring Approach |
 |-----|---------------------|
@@ -145,6 +145,7 @@ Recommended buckets: `[0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5]`
 | `bau_error_total` | Counter | `error_type`, `operation` | Error count by type |
 
 Error types (from `src/lib/errors/`):
+
 - `InputError` - Schema validation failure
 - `ApiError` - Better Auth API failure
 - `SessionError` - Session-related failure
@@ -181,16 +182,16 @@ const withMetrics = <A, E, R>(
 ) =>
   Effect.gen(function* () {
     const startTime = Date.now();
-    
+
     yield* Effect.annotateCurrentSpan("operation", operation);
-    
+
     try {
       const result = yield* effect;
       recordMetric("bau_operation_total", { operation, status: "success" });
       recordDuration("bau_operation_duration_seconds", operation, Date.now() - startTime);
       return result;
     } catch (error) {
-      const errorType = error instanceof InputError ? "InputError" : 
+      const errorType = error instanceof InputError ? "InputError" :
                         error instanceof ApiError ? "ApiError" : "Unknown";
       recordMetric("bau_operation_total", { operation, status: "error", error_type: errorType });
       throw error;
@@ -261,7 +262,7 @@ groups:
         annotations:
           summary: "High error rate in Better Auth operations"
           description: "Error rate is {{ $value | humanizePercentage }} over 5 minutes"
-      
+
       - alert: AuthLatencySpike
         expr: |
           histogram_quantile(0.99, sum(rate(bau_operation_duration_seconds_bucket[5m])) by (le)) > 2
@@ -365,20 +366,24 @@ const program = signInSocialServerController(input).pipe(
 ### Epic-Specific Dashboards
 
 **E-001 OAuth Dashboard:**
+
 - OAuth sign-in attempts by provider
 - Callback success rate
 - Provider error rates
 
 **E-002 Session Dashboard:**
+
 - Active sessions gauge
 - Session revocation rate
 - Token refresh frequency
 
 **E-003 Account Dashboard:**
+
 - Account linking/unlinking rate
 - Provider distribution
 
 **E-004 User Dashboard:**
+
 - Profile update rate
 - User deletion trend
 
@@ -397,10 +402,10 @@ import { AuthServerTag } from "@emperorrag/better-auth-utilities";
 const healthCheck = Effect.gen(function* () {
   // Verify AuthServerTag is available
   const authServer = yield* AuthServerTag;
-  
+
   // Verify database connectivity via Better Auth
   // (Better Auth handles this internally)
-  
+
   return { status: "ready" };
 }).pipe(
   Effect.timeout(Duration.seconds(5)),

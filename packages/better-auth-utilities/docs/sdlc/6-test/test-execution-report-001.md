@@ -154,7 +154,7 @@ Test execution will begin once Phase 1 implementation is complete.
 | Medium | 0 | - |
 | Low | 0 | - |
 
-**Open Defects**: See [bug-reports.md](./bug-reports.md) for detailed bug tracking.
+**Open Defects**: See [bug-reports-001.md](./bug-reports-001.md) for detailed bug tracking.
 
 ---
 

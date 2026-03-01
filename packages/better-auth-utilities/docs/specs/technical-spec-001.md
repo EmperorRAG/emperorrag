@@ -118,7 +118,7 @@ class {Operation}ServerParams extends Schema.TaggedClass<{Operation}ServerParams
 ### Output Interface (Effect Pattern)
 
 ```typescript
-type OperationController = (input: unknown) => 
+type OperationController = (input: unknown) =>
   Effect.Effect<Response, InputError | ApiError, AuthServerTag>
 ```
 
@@ -323,8 +323,8 @@ export class {Operation}ServerParams extends Schema.TaggedClass<{Operation}Serve
 
 ## References
 
-- [Technical Design Document](../4-design/technical-design-doc.md)
-- [API Contract](../4-design/api-contract.md)
-- [ADR-001: Controller-Service Architecture](../4-design/adrs/adr-001-controller-service-architecture.md)
-- [User Stories](../3-planning/user-stories.md)
-- [PRD](../2-definition/prd.md)
+- [Technical Design Document](../design/technical-design-doc-001.md)
+- [API Contract](../api/api-contract-001.md)
+- [ADR-001: Controller-Service Architecture](../adr/adr-001-controller-service-architecture.md)
+- [User Stories](../sdlc/3-planning/user-stories-001.md)
+- [PRD](../prd/prd-001.md)

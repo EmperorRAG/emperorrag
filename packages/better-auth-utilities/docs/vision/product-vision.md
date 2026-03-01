@@ -298,7 +298,7 @@ src/lib/
 
 ## Related Documentation
 
-- [Product Roadmap](product-roadmap.md)
+- [Product Roadmap](../roadmap/product-roadmap.md)
 
 ---
 

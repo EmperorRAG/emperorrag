@@ -2,9 +2,9 @@
 
 ## Overview
 
-- **Epics Reference**: [Epics](epics.md)
-- **PRD Reference**: [Product Requirements Document](../2-definition/prd.md)
-- **Acceptance Criteria**: [Acceptance Criteria](../2-definition/acceptance-criteria.md)
+- **Epics Reference**: [Epics](epics-001.md)
+- **PRD Reference**: [Product Requirements Document](../../prd/prd-001.md)
+- **Acceptance Criteria**: [Acceptance Criteria](../../acceptance-criteria/acceptance-criteria-001.md)
 - **Owner**: Product Manager
 - **Last Updated**: 2026-01-03
 

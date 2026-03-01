@@ -5,8 +5,8 @@
 - **Story ID**: BAU-P1
 - **Story Title**: Complete Server Operations & Documentation
 - **Epic**: Better Auth Utilities Phase 1
-- **PRD Reference**: [Product Requirements Document](prd.md)
-- **Vision Reference**: [Product Vision](../1-discovery/product-vision.md)
+- **PRD Reference**: [Product Requirements Document](../prd/prd-001.md)
+- **Vision Reference**: [Product Vision](../vision/product-vision.md)
 
 ---
 

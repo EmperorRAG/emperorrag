@@ -161,19 +161,19 @@ This test plan defines the overall testing approach for Better Auth Utilities Ph
 ## Deliverables
 
 - [x] Test Plan (this document)
-- [ ] Test Cases (test-cases.md)
-- [ ] RTM Update (rtm-update.md)
-- [ ] Test Execution Report (test-execution-report.md)
-- [ ] Bug Reports (bug-reports.md)
+- [ ] Test Cases (test-cases-001.md)
+- [ ] RTM Update (../traceability/rtm-001.md)
+- [ ] Test Execution Report (../sdlc/6-test/test-execution-report-001.md)
+- [ ] Bug Reports (../sdlc/6-test/bug-reports-001.md)
 
 ---
 
 ## References
 
-- [Test Strategy](../2-definition/test-strategy.md)
-- [Acceptance Criteria](../2-definition/acceptance-criteria.md)
-- [User Stories](../3-planning/user-stories.md)
-- [RTM](../3-planning/rtm.md)
-- [Technical Spec](../5-build/technical-spec.md)
-- [Unit Tests Spec](../5-build/unit-tests.md)
-- [Integration Tests Spec](../5-build/integration-tests.md)
+- [Test Strategy](test-strategy-001.md)
+- [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-001.md)
+- [User Stories](../sdlc/3-planning/user-stories-001.md)
+- [RTM](../traceability/rtm-001.md)
+- [Technical Spec](../specs/technical-spec-001.md)
+- [Unit Tests Spec](../sdlc/5-build/unit-tests-001.md)
+- [Integration Tests Spec](../sdlc/5-build/integration-tests-001.md)

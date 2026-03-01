@@ -22,6 +22,7 @@ Better Auth Utilities - Phase 1: Server Operations Implementation
 The Better Auth SDK uses traditional async/await patterns with thrown exceptions, making it incompatible with Effect-TS's typed error channels, composable pipelines, and dependency injection patterns. Currently, only the Email domain (11 operations) has full controller/service implementation. This TDD defines the technical approach for implementing the remaining 16 operations across OAuth, Session, Account, and User domains.
 
 **Goals:**
+
 1. Implement 16 server operations following the established Email domain pattern
 2. Maintain consistent architecture across all domains
 3. Achieve ≥80% test coverage (per PRD)
@@ -29,13 +30,13 @@ The Better Auth SDK uses traditional async/await patterns with thrown exceptions
 
 ### Link to PRD and Related Documents
 
-- [Product Requirements Document](../2-definition/prd.md)
-- [Product Vision](../1-discovery/product-vision.md)
-- [Product Roadmap](../1-discovery/product-roadmap.md)
-- [User Stories](../3-planning/user-stories.md)
-- [Epics](../3-planning/epics.md)
-- [Acceptance Criteria](../2-definition/acceptance-criteria.md)
-- [Test Strategy](../2-definition/test-strategy.md)
+- [Product Requirements Document](../prd/prd-001.md)
+- [Product Vision](../vision/product-vision.md)
+- [Product Roadmap](../roadmap/product-roadmap.md)
+- [User Stories](../sdlc/3-planning/user-stories-001.md)
+- [Epics](../sdlc/3-planning/epics-001.md)
+- [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-001.md)
+- [Test Strategy](../testing/test-strategy-001.md)
 
 ---
 
@@ -189,6 +190,7 @@ src/lib/
 **Responsibility**: Input validation, error mapping, service delegation
 
 **Pattern** (from `signUpEmail.controller.ts`):
+
 ```typescript
 import * as Effect from "effect/Effect";
 import { pipe } from "effect/Function";
@@ -208,6 +210,7 @@ export const {operation}ServerController = (input: unknown) =>
 ```
 
 **Interfaces**:
+
 - Input: `unknown`
 - Output: `Effect.Effect<Response, InputError | ApiError, AuthServerTag>`
 
@@ -216,6 +219,7 @@ export const {operation}ServerController = (input: unknown) =>
 **Responsibility**: Better Auth API calls, response transformation
 
 **Pattern** (from `signUpEmail.service.ts`):
+
 ```typescript
 import * as Effect from "effect/Effect";
 import { mapApiError } from "../../../../pipeline/map-api-error/mapApiError";
@@ -246,6 +250,7 @@ export const {operation}ServerService = (params: {Operation}ServerParams) =>
 **Responsibility**: ServerParams schema definition
 
 **Pattern** (from `signUpEmail.types.ts`):
+
 ```typescript
 import { pipe } from "effect/Function";
 import * as Schema from "effect/Schema";
@@ -379,7 +384,7 @@ Consumer receives Effect.Effect<never, ApiError, never>
 
 ## Testing Strategy
 
-Per [Test Strategy](../2-definition/test-strategy.md):
+Per [Test Strategy](../testing/test-strategy-001.md):
 
 ### Unit Tests
 
@@ -485,7 +490,7 @@ No migration required - new functionality extends existing library.
 
 ## Non-Functional Requirements
 
-Per [PRD](../2-definition/prd.md) and [Acceptance Criteria](../2-definition/acceptance-criteria.md):
+Per [PRD](../prd/prd-001.md) and [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-001.md):
 
 | Requirement | Target | Verification |
 |-------------|--------|--------------|
@@ -499,7 +504,7 @@ Per [PRD](../2-definition/prd.md) and [Acceptance Criteria](../2-definition/acce
 
 ## Related ADRs
 
-- [ADR-001: Controller-Service Architecture Pattern](adrs/adr-001-controller-service-architecture.md)
+- [ADR-001: Controller-Service Architecture Pattern](../adr/adr-001-controller-service-architecture.md)
 
 ---
 

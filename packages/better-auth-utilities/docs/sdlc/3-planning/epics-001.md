@@ -2,9 +2,9 @@
 
 ## Overview
 
-- **PRD Reference**: [Product Requirements Document](../2-definition/prd.md)
-- **Vision Reference**: [Product Vision](../1-discovery/product-vision.md)
-- **Roadmap Reference**: [Product Roadmap](../1-discovery/product-roadmap.md)
+- **PRD Reference**: [Product Requirements Document](../../prd/prd-001.md)
+- **Vision Reference**: [Product Vision](../../vision/product-vision.md)
+- **Roadmap Reference**: [Product Roadmap](../../roadmap/product-roadmap.md)
 - **Owner**: Product Manager
 - **Last Updated**: 2026-01-03
 
