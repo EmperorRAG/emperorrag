@@ -62,15 +62,15 @@ Migration from SDLC stage-based structure to hybrid GitHub approach.
 
 ### Create Workspace `/docs/` Directories
 
-- [ ] Create `docs/adr/` for cross-project architectural decisions
-- [ ] Create `docs/architecture/` for system-wide architecture
-- [ ] Create `docs/testing/` for organization-wide test strategy
+- [X] Create `docs/adr/` for cross-project architectural decisions
+- [X] Create `docs/architecture/` for system-wide architecture
+- [X] Create `docs/testing/` for organization-wide test strategy
 
 ### Populate Workspace Docs
 
-- [ ] Add `docs/testing/test-strategy.md` (workspace-level)
-- [ ] Add initial workspace ADRs if applicable
-- [ ] Add `docs/architecture/system-overview.md`
+- [X] Add `docs/testing/test-strategy.md` (workspace-level)
+- [X] Add initial workspace ADRs if applicable
+- [X] Add `docs/architecture/system-overview.md`
 
 ---
 
