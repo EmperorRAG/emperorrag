@@ -1,10 +1,10 @@
-# User Stories: Better Auth Utilities Phase 1
+# User Stories: Better Auth Utilities Epic E-001
 
 ## Overview
 
-- **Epics Reference**: [Epics](epics-001.md)
-- **PRD Reference**: [Product Requirements Document](../../prd/prd-001.md)
-- **Acceptance Criteria**: [Acceptance Criteria](../../acceptance-criteria/acceptance-criteria-001.md)
+- **Features Reference**: [Features](features-E-001.md)
+- **PRD Reference**: [Product Requirements Document](../../prd/prd-E-001.md)
+- **Acceptance Criteria**: [Acceptance Criteria](../../acceptance-criteria/acceptance-criteria-E-001.md)
 - **Owner**: Product Manager
 - **Last Updated**: 2026-01-03
 
@@ -12,30 +12,30 @@
 
 ## Story Summary
 
-| Story ID | Epic | Title | Priority | Points | Status |
-|----------|------|-------|----------|--------|--------|
-| US-001 | E-001 | Sign-In Social Operation | P0 | 3 | ⬜ Not Started |
-| US-002 | E-001 | OAuth Callback Operation | P0 | 5 | ⬜ Not Started |
-| US-003 | E-001 | Link Social Account Operation | P0 | 3 | ⬜ Not Started |
-| US-004 | E-002 | Get Session Operation | P0 | 3 | ⬜ Not Started |
-| US-005 | E-002 | List Sessions Operation | P0 | 3 | ⬜ Not Started |
-| US-006 | E-002 | Refresh Token Operation | P0 | 3 | ⬜ Not Started |
-| US-007 | E-002 | Get Access Token Operation | P0 | 2 | ⬜ Not Started |
-| US-008 | E-002 | Revoke Session Operation | P0 | 3 | ⬜ Not Started |
-| US-009 | E-002 | Revoke All Sessions Operation | P0 | 3 | ⬜ Not Started |
-| US-010 | E-002 | Revoke Other Sessions Operation | P0 | 3 | ⬜ Not Started |
-| US-011 | E-003 | Account Info Operation | P0 | 2 | ⬜ Not Started |
-| US-012 | E-003 | List User Accounts Operation | P0 | 3 | ⬜ Not Started |
-| US-013 | E-003 | Unlink Account Operation | P0 | 3 | ⬜ Not Started |
-| US-014 | E-004 | Update User Operation | P0 | 3 | ⬜ Not Started |
-| US-015 | E-004 | Delete User Operation | P0 | 5 | ⬜ Not Started |
-| US-016 | E-004 | Delete User Callback Operation | P0 | 3 | ⬜ Not Started |
-| US-017 | E-005 | Controller TSDoc Documentation | P1 | 5 | ⬜ Not Started |
-| US-018 | E-005 | Service and Error TSDoc Documentation | P1 | 5 | ⬜ Not Started |
-| US-019 | E-006 | OAuth Domain Tests | P1 | 5 | ⬜ Not Started |
-| US-020 | E-006 | Session Domain Tests | P1 | 8 | ⬜ Not Started |
-| US-021 | E-006 | Account Domain Tests | P1 | 5 | ⬜ Not Started |
-| US-022 | E-006 | User Domain Tests | P1 | 5 | ⬜ Not Started |
+| Story ID | Feature | Title | Priority | Points | Status |
+|----------|---------|-------|----------|--------|--------|
+| US-001 | F-002 | Sign-In Social Operation | P0 | 3 | ⬜ Not Started |
+| US-002 | F-002 | OAuth Callback Operation | P0 | 5 | ⬜ Not Started |
+| US-003 | F-002 | Link Social Account Operation | P0 | 3 | ⬜ Not Started |
+| US-004 | F-003 | Get Session Operation | P0 | 3 | ⬜ Not Started |
+| US-005 | F-003 | List Sessions Operation | P0 | 3 | ⬜ Not Started |
+| US-006 | F-003 | Refresh Token Operation | P0 | 3 | ⬜ Not Started |
+| US-007 | F-003 | Get Access Token Operation | P0 | 2 | ⬜ Not Started |
+| US-008 | F-003 | Revoke Session Operation | P0 | 3 | ⬜ Not Started |
+| US-009 | F-003 | Revoke All Sessions Operation | P0 | 3 | ⬜ Not Started |
+| US-010 | F-003 | Revoke Other Sessions Operation | P0 | 3 | ⬜ Not Started |
+| US-011 | F-004 | Account Info Operation | P0 | 2 | ⬜ Not Started |
+| US-012 | F-004 | List User Accounts Operation | P0 | 3 | ⬜ Not Started |
+| US-013 | F-004 | Unlink Account Operation | P0 | 3 | ⬜ Not Started |
+| US-014 | F-005 | Update User Operation | P0 | 3 | ⬜ Not Started |
+| US-015 | F-005 | Delete User Operation | P0 | 5 | ⬜ Not Started |
+| US-016 | F-005 | Delete User Callback Operation | P0 | 3 | ⬜ Not Started |
+| US-017 | F-006 | Controller TSDoc Documentation | P1 | 5 | ⬜ Not Started |
+| US-018 | F-006 | Service and Error TSDoc Documentation | P1 | 5 | ⬜ Not Started |
+| US-019 | F-007 | OAuth Domain Tests | P1 | 5 | ⬜ Not Started |
+| US-020 | F-007 | Session Domain Tests | P1 | 8 | ⬜ Not Started |
+| US-021 | F-007 | Account Domain Tests | P1 | 5 | ⬜ Not Started |
+| US-022 | F-007 | User Domain Tests | P1 | 5 | ⬜ Not Started |
 
 **Total Story Points**: 79
 

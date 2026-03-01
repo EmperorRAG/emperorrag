@@ -1,4 +1,4 @@
-# Test Cases: Better Auth Utilities Phase 1
+# Test Cases: Better Auth Utilities Epic E-001
 
 ## Metadata
 
@@ -9,7 +9,7 @@
 
 ---
 
-## Test Suite: OAuth Domain (E-001)
+## Test Suite: OAuth Domain (F-002)
 
 ### TC-001: Sign-In Social with Valid Provider
 
@@ -207,7 +207,7 @@ Effect fails with `ApiError { _tag: "ApiError", status: 401 }`
 
 ---
 
-## Test Suite: Session Domain (E-002)
+## Test Suite: Session Domain (F-003)
 
 ### TC-007: Get Session for Authenticated User
 
@@ -494,7 +494,7 @@ Effect succeeds, current session preserved, others revoked
 
 ---
 
-## Test Suite: Account Domain (E-003)
+## Test Suite: Account Domain (F-004)
 
 ### TC-016: Get Account Info
 
@@ -625,7 +625,7 @@ Effect fails with `ApiError { status: 404 }`
 
 ---
 
-## Test Suite: User Domain (E-004)
+## Test Suite: User Domain (F-005)
 
 ### TC-020: Update User Name
 

@@ -1,9 +1,9 @@
-# Bug Reports: Better Auth Utilities Phase 1
+# Bug Reports: Better Auth Utilities Epic E-001
 
 ## Metadata
 
 - **Project**: Better Auth Utilities
-- **Phase**: Phase 1 - Core Operations
+- **Epic**: Epic E-001 - Core Operations
 - **Version**: 1.0
 - **Last Updated**: 2026-01-04
 - **Status**: Pre-Execution (Template)
@@ -12,7 +12,7 @@
 
 ## Bug Tracking Overview
 
-This document tracks defects discovered during Phase 1 testing. Bug reports follow a standardized format for Effect-TS library development.
+This document tracks defects discovered during Epic E-001 testing. Bug reports follow a standardized format for Effect-TS library development.
 
 **Current Status**: ⏳ Awaiting Test Execution
 

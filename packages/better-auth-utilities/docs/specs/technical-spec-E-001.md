@@ -1,4 +1,4 @@
-# Technical Specification: Better Auth Utilities Phase 1
+# Technical Specification: Better Auth Utilities Epic E-001
 
 ## Metadata
 
@@ -27,7 +27,7 @@ Define detailed implementation requirements and constraints for 16 server operat
 
 ### Out of Scope
 
-- Client-side operations (Phase 2)
+- Client-side operations (Epic E-002)
 - Database schema changes (managed by Better Auth SDK)
 - OAuth provider configuration
 - Session storage implementation
@@ -194,7 +194,7 @@ type OperationController = (input: unknown) =>
 
 ## Operation Details
 
-### OAuth Domain (E-001)
+### OAuth Domain (F-002)
 
 | Operation | Controller | Service | Command Fields |
 |-----------|------------|---------|----------------|
@@ -202,7 +202,7 @@ type OperationController = (input: unknown) =>
 | US-002 | callbackOAuthServerController | callbackOAuthServerService | state?, code?, error? |
 | US-003 | linkSocialAccountServerController | linkSocialAccountServerService | provider, callbackURL? |
 
-### Session Domain (E-002)
+### Session Domain (F-003)
 
 | Operation | Controller | Service | Command Fields |
 |-----------|------------|---------|----------------|
@@ -214,7 +214,7 @@ type OperationController = (input: unknown) =>
 | US-009 | revokeSessionsServerController | revokeSessionsServerService | sessionToken?, sessionIds? |
 | US-010 | revokeOtherSessionsServerController | revokeOtherSessionsServerService | {} (empty) |
 
-### Account Domain (E-003)
+### Account Domain (F-004)
 
 | Operation | Controller | Service | Command Fields |
 |-----------|------------|---------|----------------|
@@ -222,7 +222,7 @@ type OperationController = (input: unknown) =>
 | US-012 | listUserAccountsServerController | listUserAccountsServerService | {} (empty) |
 | US-013 | unlinkAccountServerController | unlinkAccountServerService | providerId |
 
-### User Domain (E-004)
+### User Domain (F-005)
 
 | Operation | Controller | Service | Command Fields |
 |-----------|------------|---------|----------------|
@@ -323,8 +323,8 @@ export class {Operation}ServerParams extends Schema.TaggedClass<{Operation}Serve
 
 ## References
 
-- [Technical Design Document](../design/technical-design-doc-001.md)
-- [API Contract](../api/api-contract-001.md)
+- [Technical Design Document](../design/technical-design-doc-E-001.md)
+- [API Contract](../api/api-contract-E-001.md)
 - [ADR-001: Controller-Service Architecture](../adr/adr-001-controller-service-architecture.md)
-- [User Stories](../sdlc/3-planning/user-stories-001.md)
-- [PRD](../prd/prd-001.md)
+- [User Stories](../sdlc/3-planning/user-stories-E-001.md)
+- [PRD](../prd/prd-E-001.md)

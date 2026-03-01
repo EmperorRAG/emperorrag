@@ -43,7 +43,7 @@ const BetterAuthOptionsLive = Layer.succeed(BetterAuthOptionsTag, {
 
 ## Endpoints Used
 
-### OAuth Operations (E-001)
+### OAuth Operations (F-002)
 
 #### `authServer.api.signInSocial` (US-001)
 
@@ -107,7 +107,7 @@ const BetterAuthOptionsLive = Layer.succeed(BetterAuthOptionsTag, {
 
 ---
 
-### Session Operations (E-002)
+### Session Operations (F-003)
 
 #### `authServer.api.getSession` (US-004)
 
@@ -200,7 +200,7 @@ const BetterAuthOptionsLive = Layer.succeed(BetterAuthOptionsTag, {
 
 ---
 
-### Account Operations (E-003)
+### Account Operations (F-004)
 
 #### `authServer.api.getAccountInfo` (US-011)
 
@@ -230,7 +230,7 @@ const BetterAuthOptionsLive = Layer.succeed(BetterAuthOptionsTag, {
 
 ---
 
-### User Operations (E-004)
+### User Operations (F-005)
 
 #### `authServer.api.updateUser` (US-014)
 
@@ -443,24 +443,24 @@ await cleanup();
 
 ## Traceability
 
-| User Story | Endpoint | Epic |
+| User Story | Endpoint | Feature |
 |------------|----------|------|
-| US-001 | signInSocial | E-001 |
-| US-002 | callbackOAuth | E-001 |
-| US-003 | linkSocialAccount | E-001 |
-| US-004 | getSession | E-002 |
-| US-005 | listSessions | E-002 |
-| US-006 | refreshToken | E-002 |
-| US-007 | getAccessToken | E-002 |
-| US-008 | revokeSession | E-002 |
-| US-009 | revokeSessions | E-002 |
-| US-010 | revokeOtherSessions | E-002 |
-| US-011 | getAccountInfo | E-003 |
-| US-012 | listUserAccounts | E-003 |
-| US-013 | unlinkAccount | E-003 |
-| US-014 | updateUser | E-004 |
-| US-015 | deleteUser | E-004 |
-| US-016 | deleteUserCallback | E-004 |
+| US-001 | signInSocial | F-002 |
+| US-002 | callbackOAuth | F-002 |
+| US-003 | linkSocialAccount | F-002 |
+| US-004 | getSession | F-003 |
+| US-005 | listSessions | F-003 |
+| US-006 | refreshToken | F-003 |
+| US-007 | getAccessToken | F-003 |
+| US-008 | revokeSession | F-003 |
+| US-009 | revokeSessions | F-003 |
+| US-010 | revokeOtherSessions | F-003 |
+| US-011 | getAccountInfo | F-004 |
+| US-012 | listUserAccounts | F-004 |
+| US-013 | unlinkAccount | F-004 |
+| US-014 | updateUser | F-005 |
+| US-015 | deleteUser | F-005 |
+| US-016 | deleteUserCallback | F-005 |
 
 ---
 

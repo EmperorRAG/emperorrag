@@ -35,20 +35,20 @@
 gantt
     title Better Auth Utilities Roadmap 2026
     dateFormat  YYYY-MM-DD
-    section Phase 1
+    section Epic E-001
     SDLC Documentation     :a1, 2026-01-01, 30d
     OAuth Server Ops       :a2, 2026-01-15, 45d
     Session Server Ops     :a3, 2026-01-15, 45d
     Account/User Server Ops:a4, 2026-02-01, 30d
     Test Coverage          :a5, 2026-02-15, 45d
-    section Phase 2
+    section Epic E-002
     Client Email Ops       :b1, 2026-04-01, 30d
     Client Full Parity     :b2, 2026-04-15, 45d
     Integration Tests      :b3, 2026-05-15, 30d
-    section Phase 3
+    section Epic E-003
     MFA Support            :c1, 2026-07-01, 45d
     OAuth Expansion        :c2, 2026-08-01, 45d
-    section Phase 4
+    section Epic E-004
     NestJS Integration     :d1, 2026-10-01, 30d
     Next.js Integration    :d2, 2026-10-15, 45d
     npm Publication        :d3, 2026-12-01, 15d
@@ -64,22 +64,22 @@ Catch up documentation with implementation and complete server-side operation co
 
 | Initiative | Description | Status | Priority |
 |------------|-------------|--------|----------|
-| P1.1 Complete SDLC Documentation | Create all SDLC artefacts (PRD, TDD, test plans) | 🟡 In Progress | P0 |
-| P1.2 OAuth Server Operations | Add controller/service for sign-in-social, callback, link-social-account | 🔵 Not Started | P0 |
-| P1.3 Session Server Operations | Add controller/service for get-session, list-sessions, refresh, revoke | 🔵 Not Started | P0 |
-| P1.4 Account Server Operations | Add controller/service for account-info, list-user-accounts, unlink-account | 🔵 Not Started | P0 |
-| P1.5 User Server Operations | Add controller/service for update-user, delete-user | 🔵 Not Started | P0 |
-| P1.6 API Documentation | Ensure all public exports have complete TSDoc comments | 🔵 Not Started | P1 |
-| P1.7 Unit Test Coverage | Achieve ≥80% test coverage across all modules | 🔵 Not Started | P1 |
+| F-001 Complete SDLC Documentation | Create all SDLC artefacts (PRD, TDD, test plans) | 🟡 In Progress | P0 |
+| F-002 OAuth Server Operations | Add controller/service for sign-in-social, callback, link-social-account | 🔵 Not Started | P0 |
+| F-003 Session Server Operations | Add controller/service for get-session, list-sessions, refresh, revoke | 🔵 Not Started | P0 |
+| F-004 Account Server Operations | Add controller/service for account-info, list-user-accounts, unlink-account | 🔵 Not Started | P0 |
+| F-005 User Server Operations | Add controller/service for update-user, delete-user | 🔵 Not Started | P0 |
+| F-006 API Documentation | Ensure all public exports have complete TSDoc comments | 🔵 Not Started | P1 |
+| F-007 Unit Test Coverage | Achieve ≥80% test coverage across all modules | 🔵 Not Started | P1 |
 
 ### Key Milestones
 
 | Milestone | Target Date | Owner | Status |
 |-----------|-------------|-------|--------|
-| M1.1 SDLC Documentation Complete | 2026-01-31 | Product Manager | 🟡 In Progress |
-| M1.2 All Server Domains Implemented | 2026-02-28 | Backend Engineer | ⬜ Not Started |
-| M1.3 Test Coverage Target (≥80%) | 2026-03-15 | Backend Engineer | ⬜ Not Started |
-| M1.4 Phase 1 Sign-off | 2026-03-31 | Tech Lead | ⬜ Not Started |
+| M-001 SDLC Documentation Complete | 2026-01-31 | Product Manager | 🟡 In Progress |
+| M-002 All Server Domains Implemented | 2026-02-28 | Backend Engineer | ⬜ Not Started |
+| M-003 Test Coverage Target (≥80%) | 2026-03-15 | Backend Engineer | ⬜ Not Started |
+| M-004 Epic E-001 Sign-off | 2026-03-31 | Tech Lead | ⬜ Not Started |
 
 ---
 
@@ -91,17 +91,17 @@ Bring client-side utilities to feature parity with server-side and enhance testi
 
 | Initiative | Description | Dependencies | Effort |
 |------------|-------------|--------------|--------|
-| P2.1 Client Email Operations | sign-in, sign-up, sign-out, verification for client | Server ops stable | L |
-| P2.2 Client Session Operations | get-session, refresh for client | Server ops stable | M |
-| P2.3 Client Account Operations | link-social, list-accounts, unlink for client | Server ops stable | M |
-| P2.4 Client User Operations | update-user for client | Server ops stable | S |
-| P2.5 Integration Test Suite | End-to-end tests against test auth server | Phase 1 complete | L |
-| P2.6 Property-Based Testing | Add FastCheck generators for schema testing | Schemas stable | M |
+| F-008 Client Email Operations | sign-in, sign-up, sign-out, verification for client | Server ops stable | L |
+| F-009 Client Session Operations | get-session, refresh for client | Server ops stable | M |
+| F-010 Client Account Operations | link-social, list-accounts, unlink for client | Server ops stable | M |
+| F-011 Client User Operations | update-user for client | Server ops stable | S |
+| F-012 Integration Test Suite | End-to-end tests against test auth server | Epic E-001 complete | L |
+| F-013 Property-Based Testing | Add FastCheck generators for schema testing | Schemas stable | M |
 
 ### Prerequisites
 
-- [ ] All server domains implemented (P1.2-P1.5)
-- [ ] Test coverage at ≥80% (P1.7)
+- [ ] All server domains implemented (F-002-F-005)
+- [ ] Test coverage at ≥80% (F-007)
 - [ ] setupServerTestEnvironment validated
 
 ---
@@ -112,14 +112,14 @@ Bring client-side utilities to feature parity with server-side and enhance testi
 
 | Initiative | Description | Confidence | Rationale |
 |------------|-------------|------------|------------|
-| P3.1 Multi-Factor Authentication | Support MFA flows with Effect patterns | Medium | Better Auth MFA plugin dependency |
-| P3.2 OAuth Provider Expansion | Add utilities for additional OAuth providers | High | Community request, straightforward |
-| P3.3 Session Caching Layer | Optional Effect-based session cache | Low | Architecture decision pending |
-| P3.4 Audit Logging | Effect-based audit logging for auth events | Medium | Security compliance requirement |
-| P4.1 NestJS Microservice Integration | Tight integration with `better-auth-nest-js-microservice` | High | Core ecosystem need |
-| P4.2 Next.js Frontend Integration | Client utilities for `better-auth-next-js-frontend` | High | Core ecosystem need |
-| P4.3 npm Package Publication | Publish to npm registry | High | Required for external adoption |
-| P4.4 Migration Guide | Guide for adopting from raw Better Auth | Medium | Developer experience |
+| F-014 Multi-Factor Authentication | Support MFA flows with Effect patterns | Medium | Better Auth MFA plugin dependency |
+| F-015 OAuth Provider Expansion | Add utilities for additional OAuth providers | High | Community request, straightforward |
+| F-016 Session Caching Layer | Optional Effect-based session cache | Low | Architecture decision pending |
+| F-017 Audit Logging | Effect-based audit logging for auth events | Medium | Security compliance requirement |
+| F-018 NestJS Microservice Integration | Tight integration with `better-auth-nest-js-microservice` | High | Core ecosystem need |
+| F-019 Next.js Frontend Integration | Client utilities for `better-auth-next-js-frontend` | High | Core ecosystem need |
+| F-020 npm Package Publication | Publish to npm registry | High | Required for external adoption |
+| F-021 Migration Guide | Guide for adopting from raw Better Auth | Medium | Developer experience |
 
 *Note: Initiatives in this section are subject to change based on learning and market conditions.*
 
@@ -140,9 +140,9 @@ Bring client-side utilities to feature parity with server-side and enhance testi
 
 | Initiative | Depends On | Team | Status |
 |------------|------------|------|--------|
-| P4.1 NestJS Integration | Microservice architecture stable | Backend | 🟡 Tentative |
-| P4.2 Next.js Integration | Frontend architecture finalized | Frontend | 🟡 Tentative |
-| P4.3 npm Publication | Registry access configured | DevOps | 🔵 Not Started |
+| F-018 NestJS Integration | Microservice architecture stable | Backend | 🟡 Tentative |
+| F-019 Next.js Integration | Frontend architecture finalized | Frontend | 🟡 Tentative |
+| F-020 npm Publication | Registry access configured | DevOps | 🔵 Not Started |
 
 ---
 
@@ -243,15 +243,15 @@ The following capabilities are already implemented as of January 2026:
 | Date | Change | Reason |
 |------|--------|--------|
 | 2026-01-03 | Initial roadmap created | Document existing implementation and plan completion |
-| 2026-01-03 | Added P1.2-P1.5 server domain initiatives | Server coverage incomplete, only Email domain implemented |
+| 2026-01-03 | Added F-002-F-005 server domain initiatives | Server coverage incomplete, only Email domain implemented |
 
 ---
 
 ## Related Documentation
 
 - [Product Vision](../vision/product-vision.md)
-- [PRD](../prd/prd-001.md) (planned)
-- [Technical Design Doc](../design/technical-design-doc-001.md) (planned)
+- [PRD](../prd/prd-E-001.md) (planned)
+- [Technical Design Doc](../design/technical-design-doc-E-001.md) (planned)
 
 ---
 

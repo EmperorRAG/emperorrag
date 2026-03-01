@@ -1,11 +1,11 @@
-# Acceptance Criteria: Better Auth Utilities Phase 1
+# Acceptance Criteria: Better Auth Utilities Epic E-001
 
 ## Story Reference
 
-- **Story ID**: BAU-P1
+- **Story ID**: BAU-E-001
 - **Story Title**: Complete Server Operations & Documentation
-- **Epic**: Better Auth Utilities Phase 1
-- **PRD Reference**: [Product Requirements Document](../prd/prd-001.md)
+- **Epic**: Better Auth Utilities Epic E-001
+- **PRD Reference**: [Product Requirements Document](../prd/prd-E-001.md)
 - **Vision Reference**: [Product Vision](../vision/product-vision.md)
 
 ---
@@ -237,7 +237,7 @@ Feature: User Management
 ## Dependencies
 
 - AuthServerLive layer must be configured with valid Better Auth options
-- Command schemas must be stable (no schema changes during Phase 1)
+- Command schemas must be stable (no schema changes during Epic E-001)
 - Pipeline utilities (mapApiError, handleApiError) must be available
 - Existing tagged error types (ApiError, InputError) must be sufficient
 

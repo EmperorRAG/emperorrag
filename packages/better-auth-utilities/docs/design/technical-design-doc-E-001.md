@@ -1,4 +1,4 @@
-# Technical Design Document: Better Auth Utilities Phase 1
+# Technical Design Document: Better Auth Utilities Epic E-001
 
 ## Document Info
 
@@ -15,7 +15,7 @@
 
 ### Feature/System Name
 
-Better Auth Utilities - Phase 1: Server Operations Implementation
+Better Auth Utilities - Epic E-001: Server Operations Implementation
 
 ### Problem Statement and Goals
 
@@ -30,13 +30,13 @@ The Better Auth SDK uses traditional async/await patterns with thrown exceptions
 
 ### Link to PRD and Related Documents
 
-- [Product Requirements Document](../prd/prd-001.md)
+- [Product Requirements Document](../prd/prd-E-001.md)
 - [Product Vision](../vision/product-vision.md)
 - [Product Roadmap](../roadmap/product-roadmap.md)
-- [User Stories](../sdlc/3-planning/user-stories-001.md)
-- [Epics](../sdlc/3-planning/epics-001.md)
-- [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-001.md)
-- [Test Strategy](../testing/test-strategy-001.md)
+- [User Stories](../sdlc/3-planning/user-stories-E-001.md)
+- [Features](../sdlc/3-planning/features-E-001.md)
+- [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-E-001.md)
+- [Test Strategy](../testing/test-strategy-E-001.md)
 
 ---
 
@@ -73,10 +73,10 @@ The `better-auth-utilities` library already has:
    - Reference pattern for new implementations
 
 6. **Pending Domains (16 operations)**
-   - OAuth (E-001): 3 operations (US-001, US-002, US-003)
-   - Session (E-002): 7 operations (US-004 through US-010)
-   - Account (E-003): 3 operations (US-011, US-012, US-013)
-   - User (E-004): 3 operations (US-014, US-015, US-016)
+   - OAuth (F-002): 3 operations (US-001, US-002, US-003)
+   - Session (F-003): 7 operations (US-004 through US-010)
+   - Account (F-004): 3 operations (US-011, US-012, US-013)
+   - User (F-005): 3 operations (US-014, US-015, US-016)
 
 ### Relevant Existing Components
 
@@ -332,9 +332,9 @@ Consumer receives Effect.Effect<never, ApiError, never>
 
 ## API Design
 
-### Operations by Epic
+### Operations by Feature
 
-#### E-001: OAuth Operations (US-001, US-002, US-003)
+#### F-002: OAuth Operations (US-001, US-002, US-003)
 
 | Operation | Controller | Service | Better Auth Method |
 |-----------|------------|---------|-------------------|
@@ -342,7 +342,7 @@ Consumer receives Effect.Effect<never, ApiError, never>
 | Callback OAuth | callbackOAuthServerController | callbackOAuthServerService | api.callbackOAuth |
 | Link Social Account | linkSocialAccountServerController | linkSocialAccountServerService | api.linkSocialAccount |
 
-#### E-002: Session Operations (US-004 through US-010)
+#### F-003: Session Operations (US-004 through US-010)
 
 | Operation | Controller | Service | Better Auth Method |
 |-----------|------------|---------|-------------------|
@@ -354,7 +354,7 @@ Consumer receives Effect.Effect<never, ApiError, never>
 | Revoke Sessions | revokeSessionsServerController | revokeSessionsServerService | api.revokeSessions |
 | Revoke Other Sessions | revokeOtherSessionsServerController | revokeOtherSessionsServerService | api.revokeOtherSessions |
 
-#### E-003: Account Operations (US-011, US-012, US-013)
+#### F-004: Account Operations (US-011, US-012, US-013)
 
 | Operation | Controller | Service | Better Auth Method |
 |-----------|------------|---------|-------------------|
@@ -362,7 +362,7 @@ Consumer receives Effect.Effect<never, ApiError, never>
 | List User Accounts | listUserAccountsServerController | listUserAccountsServerService | api.listUserAccounts |
 | Unlink Account | unlinkAccountServerController | unlinkAccountServerService | api.unlinkAccount |
 
-#### E-004: User Operations (US-014, US-015, US-016)
+#### F-005: User Operations (US-014, US-015, US-016)
 
 | Operation | Controller | Service | Better Auth Method |
 |-----------|------------|---------|-------------------|
@@ -384,7 +384,7 @@ Consumer receives Effect.Effect<never, ApiError, never>
 
 ## Testing Strategy
 
-Per [Test Strategy](../testing/test-strategy-001.md):
+Per [Test Strategy](../testing/test-strategy-E-001.md):
 
 ### Unit Tests
 
@@ -406,7 +406,7 @@ Per [Test Strategy](../testing/test-strategy-001.md):
 
 ## Implementation Plan
 
-### Phase 1: OAuth Domain (E-001) - Week 1
+### Feature F-002: OAuth Domain - Week 1
 
 | Task | User Story | Story Points | Priority |
 |------|------------|--------------|----------|
@@ -415,7 +415,7 @@ Per [Test Strategy](../testing/test-strategy-001.md):
 | link-social-account controller/service/types | US-003 | 3 | P0 |
 | OAuth domain tests | US-019 | 5 | P1 |
 
-### Phase 2: Session Domain (E-002) - Week 2
+### Feature F-003: Session Domain - Week 2
 
 | Task | User Story | Story Points | Priority |
 |------|------------|--------------|----------|
@@ -428,7 +428,7 @@ Per [Test Strategy](../testing/test-strategy-001.md):
 | revoke-other-sessions controller/service/types | US-010 | 3 | P0 |
 | Session domain tests | US-020 | 8 | P1 |
 
-### Phase 3: Account Domain (E-003) - Week 3
+### Feature F-004: Account Domain - Week 3
 
 | Task | User Story | Story Points | Priority |
 |------|------------|--------------|----------|
@@ -437,7 +437,7 @@ Per [Test Strategy](../testing/test-strategy-001.md):
 | unlink-account controller/service/types | US-013 | 3 | P0 |
 | Account domain tests | US-021 | 5 | P1 |
 
-### Phase 4: User Domain (E-004) - Week 4
+### Feature F-005: User Domain - Week 4
 
 | Task | User Story | Story Points | Priority |
 |------|------------|--------------|----------|
@@ -446,7 +446,7 @@ Per [Test Strategy](../testing/test-strategy-001.md):
 | delete-user-callback controller/service/types | US-016 | 3 | P0 |
 | User domain tests | US-022 | 5 | P1 |
 
-### Phase 5: Documentation (E-005) - Week 4
+### Feature F-006: Documentation - Week 4
 
 | Task | User Story | Story Points | Priority |
 |------|------------|--------------|----------|
@@ -459,7 +459,7 @@ Per [Test Strategy](../testing/test-strategy-001.md):
 
 1. **Alpha**: Internal testing with NestJS microservice
 2. **Beta**: Integration with Next.js frontend
-3. **GA**: Publish to npm (Phase 1 complete)
+3. **GA**: Publish to npm (Epic E-001 complete)
 
 ### Feature Flags
 
@@ -490,7 +490,7 @@ No migration required - new functionality extends existing library.
 
 ## Non-Functional Requirements
 
-Per [PRD](../prd/prd-001.md) and [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-001.md):
+Per [PRD](../prd/prd-E-001.md) and [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-E-001.md):
 
 | Requirement | Target | Verification |
 |-------------|--------|--------------|

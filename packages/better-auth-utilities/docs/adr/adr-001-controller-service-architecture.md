@@ -276,8 +276,8 @@ export class {Operation}ServerParams extends Schema.TaggedClass<{Operation}Serve
 
 ## Related Decisions
 
-- **TDD**: [Technical Design Document](../design/technical-design-doc-001.md)
-- **API Contract**: [API Contract](../api/api-contract-001.md)
+- **TDD**: [Technical Design Document](../design/technical-design-doc-E-001.md)
+- **API Contract**: [API Contract](../api/api-contract-E-001.md)
 
 ---
 
@@ -286,5 +286,5 @@ export class {Operation}ServerParams extends Schema.TaggedClass<{Operation}Serve
 - [Effect-TS Context and Layer](https://effect.website/docs/requirements-management/services)
 - [Better Auth API Reference](https://www.better-auth.com/docs/api-reference)
 - Email domain reference: `src/lib/server/core/email/`
-- PRD: [Product Requirements Document](../prd/prd-001.md)
-- Acceptance Criteria: [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-001.md)
+- PRD: [Product Requirements Document](../prd/prd-E-001.md)
+- Acceptance Criteria: [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-E-001.md)

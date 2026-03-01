@@ -1,9 +1,9 @@
-# Pull Request: Better Auth Utilities Phase 1
+# Pull Request: Better Auth Utilities Epic E-001
 
 ## Metadata
 
 - **PR Title**: feat(better-auth-utilities): implement 16 server operations with Effect-TS
-- **Branch**: feature/phase1-server-operations
+- **Branch**: feature/epic-e-001-server-operations
 - **Base Branch**: main
 - **Linked Issue**: None (greenfield implementation)
 
@@ -11,16 +11,16 @@
 
 ## Description
 
-Implements Phase 1 server operations for better-auth-utilities package covering OAuth, Session, Account, and User Management domains using Effect-TS patterns.
+Implements Epic E-001 server operations for better-auth-utilities package covering OAuth, Session, Account, and User Management domains using Effect-TS patterns.
 
 ### Summary of Changes
 
 | Domain | Operations | Files Added |
 |--------|------------|-------------|
-| OAuth (E-001) | signInSocial, callbackOAuth, linkSocialAccount | 9 files |
-| Session (E-002) | getSession, listSessions, refreshToken, getAccessToken, revokeSession, revokeSessions, revokeOtherSessions | 21 files |
-| Account (E-003) | accountInfo, listUserAccounts, unlinkAccount | 9 files |
-| User (E-004) | updateUser, deleteUser, deleteUserCallback | 9 files |
+| OAuth (F-002) | signInSocial, callbackOAuth, linkSocialAccount | 9 files |
+| Session (F-003) | getSession, listSessions, refreshToken, getAccessToken, revokeSession, revokeSessions, revokeOtherSessions | 21 files |
+| Account (F-004) | accountInfo, listUserAccounts, unlinkAccount | 9 files |
+| User (F-005) | updateUser, deleteUser, deleteUserCallback | 9 files |
 | Total | 16 operations | 48 files |
 
 ---
@@ -30,6 +30,7 @@ Implements Phase 1 server operations for better-auth-utilities package covering 
 ### Approach
 
 Each operation follows the Controller-Service-Types pattern per ADR-001:
+
 - **Types**: Schema-based params with `Schema.instanceOf(Headers)` for auth
 - **Service**: Effect.flatMap(AuthServerTag) → Effect.tryPromise → mapApiError
 - **Controller**: Schema.decodeUnknown → mapInputError → service call → Effect.withSpan

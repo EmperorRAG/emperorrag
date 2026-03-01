@@ -4,7 +4,7 @@
 
 ### Feature/Initiative Name
 
-Better Auth Utilities - Phase 1: Server Operations & Documentation
+Better Auth Utilities - Epic E-001: Server Operations & Documentation
 
 ### Vision Reference
 
@@ -18,7 +18,7 @@ Currently, only the Email domain (11 operations) has full controller/service imp
 
 ### Strategic Alignment
 
-This initiative directly supports the annual theme of establishing Better Auth Utilities as the standard Effect-TS authentication library for the Emperorrag ecosystem. Completing Phase 1 will:
+This initiative directly supports the annual theme of establishing Better Auth Utilities as the standard Effect-TS authentication library for the Emperorrag ecosystem. Completing Epic E-001 will:
 
 - Enable consistent auth patterns across NestJS microservice and Next.js frontend
 - Reduce boilerplate and maintenance burden for consuming applications
@@ -30,13 +30,13 @@ This PRD covers the following initiatives from the [Product Roadmap](../roadmap/
 
 | Initiative ID | Description |
 |---------------|-------------|
-| P1.1 | Complete SDLC Documentation |
-| P1.2 | OAuth Server Operations |
-| P1.3 | Session Server Operations |
-| P1.4 | Account Server Operations |
-| P1.5 | User Server Operations |
-| P1.6 | API Documentation |
-| P1.7 | Unit Test Coverage |
+| F-001 | Complete SDLC Documentation |
+| F-002 | OAuth Server Operations |
+| F-003 | Session Server Operations |
+| F-004 | Account Server Operations |
+| F-005 | User Server Operations |
+| F-006 | API Documentation |
+| F-007 | Unit Test Coverage |
 
 ---
 
@@ -133,12 +133,12 @@ This PRD covers the following initiatives from the [Product Roadmap](../roadmap/
 
 ### Out of Scope
 
-- Client-side operations (Phase 2)
-- Multi-factor authentication support (Phase 3)
-- OAuth provider expansion (Phase 3)
-- Integration tests against real auth server (Phase 2)
-- npm publication (Phase 4)
-- NestJS/Next.js integration guides (Phase 4)
+- Client-side operations (Epic E-002)
+- Multi-factor authentication support (Epic E-003)
+- OAuth provider expansion (Epic E-003)
+- Integration tests against real auth server (Epic E-002)
+- npm publication (Epic E-004)
+- NestJS/Next.js integration guides (Epic E-004)
 
 ### Future Considerations
 
@@ -161,7 +161,7 @@ This PRD covers the following initiatives from the [Product Roadmap](../roadmap/
 
 ### Business Constraints
 
-- Q1 2026 timeline for Phase 1 completion
+- Q1 2026 timeline for Epic E-001 completion
 - Limited to existing tagged error types (no new error classes unless needed)
 - Must not introduce breaking changes to existing Email domain API
 

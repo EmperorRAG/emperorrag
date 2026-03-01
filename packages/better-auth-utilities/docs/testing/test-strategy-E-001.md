@@ -6,8 +6,8 @@
 - **Author**: QA Lead
 - **Approved By**: Tech Lead
 - **Last Updated**: 2026-01-03
-- **PRD Reference**: [Product Requirements Document](../prd/prd-001.md)
-- **Acceptance Criteria**: [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-001.md)
+- **PRD Reference**: [Product Requirements Document](../prd/prd-E-001.md)
+- **Acceptance Criteria**: [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-E-001.md)
 
 ---
 
@@ -30,10 +30,10 @@ Define the overall testing approach, methodologies, and standards for the Better
 
 ### Out of Scope
 
-- Client-side operations (Phase 2)
-- Integration tests against real Better Auth server (Phase 2)
-- Performance benchmarking (Phase 3)
-- Security penetration testing (Phase 3)
+- Client-side operations (Epic E-002)
+- Integration tests against real Better Auth server (Epic E-002)
+- Performance benchmarking (Epic E-003)
+- Security penetration testing (Epic E-003)
 
 ---
 
@@ -126,7 +126,7 @@ Define the overall testing approach, methodologies, and standards for the Better
 - API contracts match documentation
 - Error messages are developer-friendly
 
-### Property-Based Testing (Phase 2)
+### Property-Based Testing (Epic E-002)
 
 | Aspect | Standard |
 |--------|----------|
@@ -163,7 +163,7 @@ Define the overall testing approach, methodologies, and standards for the Better
 |-------------|---------|------|--------|
 | Local | Unit/Integration tests | In-memory SQLite via setupServerTestEnvironment | Developers |
 | CI (GitHub Actions) | Automated tests | In-memory SQLite via setupServerTestEnvironment | Automated |
-| Integration (Phase 2) | E2E flows | Persistent test database | QA/Developers |
+| Integration (Epic E-002) | E2E flows | Persistent test database | QA/Developers |
 
 ### Test Setup Utility
 
@@ -275,7 +275,7 @@ const makeSignUpEmailCommand = (overrides?: Partial<SignUpEmailCommandParams>) =
 | Coverage | Vitest V8 provider |
 | Type Checking | TypeScript (tsc --build) |
 | Schema Testing | Effect/Schema decode/encode |
-| Property Testing | fast-check (Phase 2) |
+| Property Testing | fast-check (Epic E-002) |
 | CI/CD | GitHub Actions |
 
 ---

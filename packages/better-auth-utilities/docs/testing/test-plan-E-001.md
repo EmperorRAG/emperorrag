@@ -1,4 +1,4 @@
-# Test Plan: Better Auth Utilities Phase 1
+# Test Plan: Better Auth Utilities Epic E-001
 
 ## Document Info
 
@@ -11,7 +11,7 @@
 
 ## Executive Summary
 
-This test plan defines the overall testing approach for Better Auth Utilities Phase 1, covering 16 server operations across OAuth, Session, Account, and User domains. Testing focuses on validating Effect-TS patterns, Schema validation, typed error channels, and Better Auth SDK integration.
+This test plan defines the overall testing approach for Better Auth Utilities Epic E-001, covering 16 server operations across OAuth, Session, Account, and User domains. Testing focuses on validating Effect-TS patterns, Schema validation, typed error channels, and Better Auth SDK integration.
 
 ---
 
@@ -30,10 +30,10 @@ This test plan defines the overall testing approach for Better Auth Utilities Ph
 
 ### Out of Scope
 
-- Client-side operations (Phase 2)
+- Client-side operations (Epic E-002)
 - Real OAuth provider integration (mocked in tests)
-- Performance benchmarking (Phase 3)
-- Security penetration testing (Phase 3)
+- Performance benchmarking (Epic E-003)
+- Security penetration testing (Epic E-003)
 - UI testing (library, no UI)
 
 ---
@@ -161,19 +161,19 @@ This test plan defines the overall testing approach for Better Auth Utilities Ph
 ## Deliverables
 
 - [x] Test Plan (this document)
-- [ ] Test Cases (test-cases-001.md)
-- [ ] RTM Update (../traceability/rtm-001.md)
-- [ ] Test Execution Report (../sdlc/6-test/test-execution-report-001.md)
-- [ ] Bug Reports (../sdlc/6-test/bug-reports-001.md)
+- [ ] Test Cases (test-cases-E-001.md)
+- [ ] RTM Update (../traceability/rtm-E-001.md)
+- [ ] Test Execution Report (../sdlc/6-test/test-execution-report-E-001.md)
+- [ ] Bug Reports (../sdlc/6-test/bug-reports-E-001.md)
 
 ---
 
 ## References
 
-- [Test Strategy](test-strategy-001.md)
-- [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-001.md)
-- [User Stories](../sdlc/3-planning/user-stories-001.md)
-- [RTM](../traceability/rtm-001.md)
-- [Technical Spec](../specs/technical-spec-001.md)
-- [Unit Tests Spec](../sdlc/5-build/unit-tests-001.md)
-- [Integration Tests Spec](../sdlc/5-build/integration-tests-001.md)
+- [Test Strategy](test-strategy-E-001.md)
+- [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-E-001.md)
+- [User Stories](../sdlc/3-planning/user-stories-E-001.md)
+- [RTM](../traceability/rtm-E-001.md)
+- [Technical Spec](../specs/technical-spec-E-001.md)
+- [Unit Tests Spec](../sdlc/5-build/unit-tests-E-001.md)
+- [Integration Tests Spec](../sdlc/5-build/integration-tests-E-001.md)

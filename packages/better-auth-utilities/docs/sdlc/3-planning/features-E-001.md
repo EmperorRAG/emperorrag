@@ -1,8 +1,8 @@
-# Epics: Better Auth Utilities Phase 1
+# Features: Better Auth Utilities Epic E-001
 
 ## Overview
 
-- **PRD Reference**: [Product Requirements Document](../../prd/prd-001.md)
+- **PRD Reference**: [Product Requirements Document](../../prd/prd-E-001.md)
 - **Vision Reference**: [Product Vision](../../vision/product-vision.md)
 - **Roadmap Reference**: [Product Roadmap](../../roadmap/product-roadmap.md)
 - **Owner**: Product Manager
@@ -10,24 +10,24 @@
 
 ---
 
-## Epic Summary
+## Feature Summary
 
-| Epic ID | Title | Priority | Size | Status | Stories |
-|---------|-------|----------|------|--------|---------|
-| E-001 | OAuth Server Operations | P0 | M | ⬜ Not Started | 3 |
-| E-002 | Session Server Operations | P0 | L | ⬜ Not Started | 7 |
-| E-003 | Account Server Operations | P0 | M | ⬜ Not Started | 3 |
-| E-004 | User Server Operations | P0 | S | ⬜ Not Started | 3 |
-| E-005 | API Documentation | P1 | M | ⬜ Not Started | 2 |
-| E-006 | Unit Test Coverage | P1 | L | ⬜ Not Started | 4 |
+| Feature ID | Title | Priority | Size | Status | Stories |
+|------------|-------|----------|------|--------|---------|
+| F-002 | OAuth Server Operations | P0 | M | ⬜ Not Started | 3 |
+| F-003 | Session Server Operations | P0 | L | ⬜ Not Started | 7 |
+| F-004 | Account Server Operations | P0 | M | ⬜ Not Started | 3 |
+| F-005 | User Server Operations | P0 | S | ⬜ Not Started | 3 |
+| F-006 | API Documentation | P1 | M | ⬜ Not Started | 2 |
+| F-007 | Unit Test Coverage | P1 | L | ⬜ Not Started | 4 |
 
 **Size Legend**: XS (<1 day), S (1-2 days), M (3-5 days), L (1-2 weeks), XL (2+ weeks)
 
 ---
 
-# Epic E-001: OAuth Server Operations
+# Feature F-002: OAuth Server Operations
 
-## Epic Summary
+## Feature Summary
 
 ### Business Objective
 
@@ -35,7 +35,7 @@ Implement Effect-wrapped server operations for OAuth authentication flows, enabl
 
 ### Strategic Alignment
 
-Supports P1.2 (OAuth Server Operations) from the roadmap. Essential for applications requiring social authentication (GitHub, Google, etc.) with Effect-TS integration.
+Supports F-002 (OAuth Server Operations) from the roadmap. Essential for applications requiring social authentication (GitHub, Google, etc.) with Effect-TS integration.
 
 ---
 
@@ -49,9 +49,9 @@ Supports P1.2 (OAuth Server Operations) from the roadmap. Essential for applicat
 
 ### Out of Scope
 
-- Client-side OAuth operations (Phase 2)
+- Client-side OAuth operations (Epic E-002)
 - Additional OAuth provider configuration
-- OAuth token refresh (covered in Session epic)
+- OAuth token refresh (covered in Session feature)
 
 ---
 
@@ -126,9 +126,9 @@ Supports P1.2 (OAuth Server Operations) from the roadmap. Essential for applicat
 
 ---
 
-# Epic E-002: Session Server Operations
+# Feature F-003: Session Server Operations
 
-## Epic Summary
+## Feature Summary
 
 ### Business Objective
 
@@ -136,7 +136,7 @@ Implement Effect-wrapped server operations for session management, enabling Type
 
 ### Strategic Alignment
 
-Supports P1.3 (Session Server Operations) from the roadmap. Critical for any application requiring session management, token refresh, and secure logout functionality.
+Supports F-003 (Session Server Operations) from the roadmap. Critical for any application requiring session management, token refresh, and secure logout functionality.
 
 ---
 
@@ -154,7 +154,7 @@ Supports P1.3 (Session Server Operations) from the roadmap. Critical for any app
 
 ### Out of Scope
 
-- Session caching layer (Phase 3)
+- Session caching layer (Epic E-003)
 - Session metadata extension (pending open question resolution)
 
 ---
@@ -221,9 +221,9 @@ Supports P1.3 (Session Server Operations) from the roadmap. Critical for any app
 
 ---
 
-# Epic E-003: Account Server Operations
+# Feature F-004: Account Server Operations
 
-## Epic Summary
+## Feature Summary
 
 ### Business Objective
 
@@ -231,7 +231,7 @@ Implement Effect-wrapped server operations for account management, enabling Type
 
 ### Strategic Alignment
 
-Supports P1.4 (Account Server Operations) from the roadmap. Required for multi-provider authentication scenarios where users link multiple social accounts.
+Supports F-004 (Account Server Operations) from the roadmap. Required for multi-provider authentication scenarios where users link multiple social accounts.
 
 ---
 
@@ -294,9 +294,9 @@ Supports P1.4 (Account Server Operations) from the roadmap. Required for multi-p
 
 ---
 
-# Epic E-004: User Server Operations
+# Feature F-005: User Server Operations
 
-## Epic Summary
+## Feature Summary
 
 ### Business Objective
 
@@ -304,7 +304,7 @@ Implement Effect-wrapped server operations for user profile management, enabling
 
 ### Strategic Alignment
 
-Supports P1.5 (User Server Operations) from the roadmap. Essential for user settings and GDPR-compliant account deletion.
+Supports F-005 (User Server Operations) from the roadmap. Essential for user settings and GDPR-compliant account deletion.
 
 ---
 
@@ -367,9 +367,9 @@ Supports P1.5 (User Server Operations) from the roadmap. Essential for user sett
 
 ---
 
-# Epic E-005: API Documentation
+# Feature F-006: API Documentation
 
-## Epic Summary
+## Feature Summary
 
 ### Business Objective
 
@@ -377,7 +377,7 @@ Provide comprehensive TSDoc documentation for all public exports, enabling devel
 
 ### Strategic Alignment
 
-Supports P1.6 (API Documentation) from the roadmap. Critical for developer experience and adoption.
+Supports F-006 (API Documentation) from the roadmap. Critical for developer experience and adoption.
 
 ---
 
@@ -427,9 +427,9 @@ Supports P1.6 (API Documentation) from the roadmap. Critical for developer exper
 
 ---
 
-# Epic E-006: Unit Test Coverage
+# Feature F-007: Unit Test Coverage
 
-## Epic Summary
+## Feature Summary
 
 ### Business Objective
 
@@ -437,7 +437,7 @@ Achieve ≥80% line coverage across all modules, ensuring reliability and enabli
 
 ### Strategic Alignment
 
-Supports P1.7 (Unit Test Coverage) from the roadmap. Required for production quality.
+Supports F-007 (Unit Test Coverage) from the roadmap. Required for production quality.
 
 ---
 
@@ -453,9 +453,9 @@ Supports P1.7 (Unit Test Coverage) from the roadmap. Required for production qua
 
 ### Out of Scope
 
-- Integration tests against real auth server (Phase 2)
-- Property-based testing (Phase 2)
-- Performance benchmarks (Phase 3)
+- Integration tests against real auth server (Epic E-002)
+- Property-based testing (Epic E-002)
+- Performance benchmarks (Epic E-003)
 
 ---
 
@@ -494,4 +494,4 @@ Supports P1.7 (Unit Test Coverage) from the roadmap. Required for production qua
 
 | Date | Version | Author | Changes |
 |------|---------|--------|---------|
-| 2026-01-03 | 1.0 | Product Manager | Initial epic definitions |
+| 2026-01-03 | 1.0 | Product Manager | Initial feature definitions |

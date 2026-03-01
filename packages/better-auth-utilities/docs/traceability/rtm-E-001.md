@@ -1,14 +1,14 @@
-# Requirements Traceability Matrix: Better Auth Utilities Phase 1
+# Requirements Traceability Matrix: Better Auth Utilities Epic E-001
 
 ## Overview
 
 - **Project**: Better Auth Utilities
-- **Version**: Phase 1 (Q1 2026)
+- **Version**: Epic E-001 (Q1 2026)
 - **Owner**: QA Lead
 - **Last Updated**: 2026-01-03
-- **PRD Reference**: [Product Requirements Document](../prd/prd-001.md)
-- **Acceptance Criteria**: [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-001.md)
-- **Test Strategy**: [Test Strategy](../testing/test-strategy-001.md)
+- **PRD Reference**: [Product Requirements Document](../prd/prd-E-001.md)
+- **Acceptance Criteria**: [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-E-001.md)
+- **Test Strategy**: [Test Strategy](../testing/test-strategy-E-001.md)
 
 ---
 
@@ -29,27 +29,27 @@
 
 ### Functional Requirements
 
-| Req ID | Requirement | Priority | Epic | User Stories | Test Cases | Status |
-|--------|-------------|----------|------|--------------|------------|--------|
-| FR-001 | Implement OAuth server operations (sign-in-social, callback-oauth, link-social-account) | Must-Have | E-001 | US-001, US-002, US-003 | TC-OAuth-* | ⬜ Not Started |
-| FR-002 | Implement Session server operations (get-session, list-sessions, revoke-session, revoke-sessions, revoke-other-sessions, refresh-token, get-access-token) | Must-Have | E-002 | US-004, US-005, US-006, US-007, US-008, US-009, US-010 | TC-Session-* | ⬜ Not Started |
-| FR-003 | Implement Account server operations (account-info, list-user-accounts, unlink-account) | Must-Have | E-003 | US-011, US-012, US-013 | TC-Account-* | ⬜ Not Started |
-| FR-004 | Implement User server operations (update-user, delete-user, delete-user-callback) | Must-Have | E-004 | US-014, US-015, US-016 | TC-User-* | ⬜ Not Started |
-| FR-005 | Each operation must have controller (input validation) and service (API call) layers | Must-Have | E-001, E-002, E-003, E-004 | US-001–US-016 | TC-Architecture-* | ⬜ Not Started |
-| FR-006 | Each operation must return typed `Effect<Success, Error, Dependencies>` | Must-Have | E-001, E-002, E-003, E-004 | US-001–US-016 | TC-TypeSafety-* | ⬜ Not Started |
-| FR-007 | All operations must support optional `headers`, `asResponse`, `returnHeaders` params | Should-Have | E-001, E-002, E-003, E-004 | US-001–US-016 | TC-Params-* | ⬜ Not Started |
-| FR-008 | Add TSDoc documentation to all public exports | Should-Have | E-005 | US-017, US-018 | TC-Docs-* | ⬜ Not Started |
-| FR-009 | Create barrel exports (index.ts) for each domain | Should-Have | E-001, E-002, E-003, E-004 | US-001–US-016 | TC-Exports-* | ⬜ Not Started |
-| FR-010 | Add `@pure` annotations to service functions | Nice-to-Have | E-005 | US-018 | TC-Annotations-* | ⬜ Not Started |
+| Req ID | Requirement | Priority | Feature | User Stories | Test Cases | Status |
+|--------|-------------|----------|---------|--------------|------------|--------|
+| FR-001 | Implement OAuth server operations (sign-in-social, callback-oauth, link-social-account) | Must-Have | F-002 | US-001, US-002, US-003 | TC-OAuth-* | ⬜ Not Started |
+| FR-002 | Implement Session server operations (get-session, list-sessions, revoke-session, revoke-sessions, revoke-other-sessions, refresh-token, get-access-token) | Must-Have | F-003 | US-004, US-005, US-006, US-007, US-008, US-009, US-010 | TC-Session-* | ⬜ Not Started |
+| FR-003 | Implement Account server operations (account-info, list-user-accounts, unlink-account) | Must-Have | F-004 | US-011, US-012, US-013 | TC-Account-* | ⬜ Not Started |
+| FR-004 | Implement User server operations (update-user, delete-user, delete-user-callback) | Must-Have | F-005 | US-014, US-015, US-016 | TC-User-* | ⬜ Not Started |
+| FR-005 | Each operation must have controller (input validation) and service (API call) layers | Must-Have | F-002, F-003, F-004, F-005 | US-001–US-016 | TC-Architecture-* | ⬜ Not Started |
+| FR-006 | Each operation must return typed `Effect<Success, Error, Dependencies>` | Must-Have | F-002, F-003, F-004, F-005 | US-001–US-016 | TC-TypeSafety-* | ⬜ Not Started |
+| FR-007 | All operations must support optional `headers`, `asResponse`, `returnHeaders` params | Should-Have | F-002, F-003, F-004, F-005 | US-001–US-016 | TC-Params-* | ⬜ Not Started |
+| FR-008 | Add TSDoc documentation to all public exports | Should-Have | F-006 | US-017, US-018 | TC-Docs-* | ⬜ Not Started |
+| FR-009 | Create barrel exports (index.ts) for each domain | Should-Have | F-002, F-003, F-004, F-005 | US-001–US-016 | TC-Exports-* | ⬜ Not Started |
+| FR-010 | Add `@pure` annotations to service functions | Nice-to-Have | F-006 | US-018 | TC-Annotations-* | ⬜ Not Started |
 
 ### Non-Functional Requirements
 
-| Req ID | Requirement | Category | Epic | User Stories | Test Cases | Status |
-|--------|-------------|----------|------|--------------|------------|--------|
-| NFR-001 | Operations should add minimal overhead (<5ms) beyond Better Auth API calls | Performance | E-006 | US-019–US-022 | TC-Perf-* | ⬜ Not Started |
+| Req ID | Requirement | Category | Feature | User Stories | Test Cases | Status |
+|--------|-------------|----------|---------|--------------|------------|--------|
+| NFR-001 | Operations should add minimal overhead (<5ms) beyond Better Auth API calls | Performance | F-007 | US-019–US-022 | TC-Perf-* | ⬜ Not Started |
 | NFR-002 | No secrets/credentials logged or exposed in error messages | Security | All | US-001–US-016 | TC-Security-* | ⬜ Not Started |
 | NFR-003 | Stateless design; no shared mutable state between operations | Scalability | All | US-001–US-016 | TC-Stateless-* | ⬜ Not Started |
-| NFR-004 | All operations must be testable with mocked `AuthServerTag` | Testability | E-006 | US-019–US-022 | TC-Mock-* | ⬜ Not Started |
+| NFR-004 | All operations must be testable with mocked `AuthServerTag` | Testability | F-007 | US-019–US-022 | TC-Mock-* | ⬜ Not Started |
 | NFR-005 | Must work with Better Auth SDK >=1.0.0, Effect >=3.0.0 | Compatibility | All | All | TC-Compat-* | ⬜ Not Started |
 
 ---
@@ -110,16 +110,16 @@
 
 ---
 
-## Epic to Requirement Mapping
+## Feature to Requirement Mapping
 
-| Epic ID | Epic Title | Requirements Covered | User Stories | Priority |
-|---------|------------|---------------------|--------------|----------|
-| E-001 | OAuth Server Operations | FR-001, FR-005, FR-006, FR-007, FR-009 | US-001, US-002, US-003 | P0 |
-| E-002 | Session Server Operations | FR-002, FR-005, FR-006, FR-007, FR-009 | US-004–US-010 | P0 |
-| E-003 | Account Server Operations | FR-003, FR-005, FR-006, FR-007, FR-009 | US-011, US-012, US-013 | P0 |
-| E-004 | User Server Operations | FR-004, FR-005, FR-006, FR-007, FR-009 | US-014, US-015, US-016 | P0 |
-| E-005 | API Documentation | FR-008, FR-010 | US-017, US-018 | P1 |
-| E-006 | Unit Test Coverage | NFR-001, NFR-004 | US-019–US-022 | P1 |
+| Feature ID | Feature Title | Requirements Covered | User Stories | Priority |
+|------------|---------------|---------------------|--------------|----------|
+| F-002 | OAuth Server Operations | FR-001, FR-005, FR-006, FR-007, FR-009 | US-001, US-002, US-003 | P0 |
+| F-003 | Session Server Operations | FR-002, FR-005, FR-006, FR-007, FR-009 | US-004–US-010 | P0 |
+| F-004 | Account Server Operations | FR-003, FR-005, FR-006, FR-007, FR-009 | US-011, US-012, US-013 | P0 |
+| F-005 | User Server Operations | FR-004, FR-005, FR-006, FR-007, FR-009 | US-014, US-015, US-016 | P0 |
+| F-006 | API Documentation | FR-008, FR-010 | US-017, US-018 | P1 |
+| F-007 | Unit Test Coverage | NFR-001, NFR-004 | US-019–US-022 | P1 |
 
 ---
 
@@ -177,9 +177,9 @@
 
 | Gap ID | Description | Risk | Remediation | Owner | Status |
 |--------|-------------|------|-------------|-------|--------|
-| GAP-001 | Integration tests deferred to Phase 2 | Medium | Risk accepted - unit tests cover core functionality | Tech Lead | ⬜ Accepted |
-| GAP-002 | Property-based testing deferred to Phase 2 | Low | Risk accepted - edge cases covered in unit tests | QA Lead | ⬜ Accepted |
-| GAP-003 | Performance benchmarking deferred to Phase 3 | Low | Risk accepted - <5ms overhead is architectural | Tech Lead | ⬜ Accepted |
+| GAP-001 | Integration tests deferred to Epic E-002 | Medium | Risk accepted - unit tests cover core functionality | Tech Lead | ⬜ Accepted |
+| GAP-002 | Property-based testing deferred to Epic E-002 | Low | Risk accepted - edge cases covered in unit tests | QA Lead | ⬜ Accepted |
+| GAP-003 | Performance benchmarking deferred to Epic E-003 | Low | Risk accepted - <5ms overhead is architectural | Tech Lead | ⬜ Accepted |
 
 ---
 
@@ -247,7 +247,7 @@
 
 **Design Reference**: Technical Design Document §2.1
 
-**Implementation Status**: ⬜ Pending Phase 1
+**Implementation Status**: ⬜ Pending Epic E-001
 
 **Source Files**:
 
@@ -283,7 +283,7 @@
 
 **Design Reference**: Technical Design Document §2.2
 
-**Implementation Status**: ⬜ Pending Phase 1
+**Implementation Status**: ⬜ Pending Epic E-001
 
 **Source Files**:
 
@@ -317,7 +317,7 @@
 
 **Design Reference**: Technical Design Document §2.3
 
-**Implementation Status**: ⬜ Pending Phase 1
+**Implementation Status**: ⬜ Pending Epic E-001
 
 **Source Files**:
 
@@ -342,7 +342,7 @@
 
 **Design Reference**: Technical Design Document §2.4
 
-**Implementation Status**: ⬜ Pending Phase 1
+**Implementation Status**: ⬜ Pending Epic E-001
 
 **Source Files**:
 
@@ -380,7 +380,7 @@
 
 | Gap ID | Description | Impact | Remediation | Owner | Due Date |
 |--------|-------------|--------|-------------|-------|----------|
-| GAP-001 | OAuth/Session/Account/User domains not implemented | High | Phase 1 implementation | Backend Dev | Sprint 1 |
+| GAP-001 | OAuth/Session/Account/User domains not implemented | High | Epic E-001 implementation | Backend Dev | Sprint 1 |
 | GAP-002 | Integration tests require database setup | Medium | setupServerTestEnvironment | QA | Sprint 1 |
 | GAP-003 | E2E tests depend on auth server mock | Medium | Add mock layer factory | Backend Dev | Sprint 1 |
 
@@ -426,10 +426,10 @@
 
 ## Related Documentation
 
-- [Product Requirements Document](../prd/prd-001.md)
-- [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-001.md)
-- [Test Strategy](../testing/test-strategy-001.md)
-- [Epics](../sdlc/3-planning/epics-001.md)
-- [User Stories](../sdlc/3-planning/user-stories-001.md)
+- [Product Requirements Document](../prd/prd-E-001.md)
+- [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-E-001.md)
+- [Test Strategy](../testing/test-strategy-E-001.md)
+- [Features](../sdlc/3-planning/features-E-001.md)
+- [User Stories](../sdlc/3-planning/user-stories-E-001.md)
 - [Product Vision](../vision/product-vision.md)
 - [Product Roadmap](../roadmap/product-roadmap.md)

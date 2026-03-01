@@ -4,8 +4,8 @@
 
 - **Service Name**: Better Auth Utilities
 - **Purpose**: Type-safe Effect-TS wrappers for Better Auth SDK
-- **Related Design**: [Technical Design Document](../design/technical-design-doc-001.md)
-- **Test Strategy**: [Test Strategy](../testing/test-strategy-001.md)
+- **Related Design**: [Technical Design Document](../design/technical-design-doc-E-001.md)
+- **Test Strategy**: [Test Strategy](../testing/test-strategy-E-001.md)
 - **Monitoring Tooling**: Effect Tracing, Consumer-provided telemetry
 
 ---
@@ -33,7 +33,7 @@ Recommended SLOs for consumer applications using this library:
 
 ### NFR Alignment
 
-Per [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-001.md):
+Per [Acceptance Criteria](../acceptance-criteria/acceptance-criteria-E-001.md):
 
 | NFR | Monitoring Approach |
 |-----|---------------------|
@@ -152,18 +152,18 @@ Error types (from `src/lib/errors/`):
 - `DataMissingError` - Expected data not found
 - `DependenciesError` - Layer dependency failure
 
-### Business Metrics by Epic
+### Business Metrics by Feature
 
-| Metric Name | Type | Labels | Epic | Description |
+| Metric Name | Type | Labels | Feature | Description |
 |-------------|------|--------|------|-------------|
-| `bau_oauth_signins_total` | Counter | `provider`, `success` | E-001 | OAuth sign-in attempts |
-| `bau_oauth_callbacks_total` | Counter | `provider`, `success` | E-001 | OAuth callback processing |
-| `bau_sessions_active` | Gauge | - | E-002 | Current active sessions |
-| `bau_sessions_revoked_total` | Counter | `scope` | E-002 | Revoked sessions (single/all/others) |
-| `bau_accounts_linked_total` | Counter | `provider` | E-003 | OAuth accounts linked |
-| `bau_accounts_unlinked_total` | Counter | `provider` | E-003 | OAuth accounts unlinked |
-| `bau_users_updated_total` | Counter | - | E-004 | User profile updates |
-| `bau_users_deleted_total` | Counter | - | E-004 | User deletions |
+| `bau_oauth_signins_total` | Counter | `provider`, `success` | F-002 | OAuth sign-in attempts |
+| `bau_oauth_callbacks_total` | Counter | `provider`, `success` | F-002 | OAuth callback processing |
+| `bau_sessions_active` | Gauge | - | F-003 | Current active sessions |
+| `bau_sessions_revoked_total` | Counter | `scope` | F-003 | Revoked sessions (single/all/others) |
+| `bau_accounts_linked_total` | Counter | `provider` | F-004 | OAuth accounts linked |
+| `bau_accounts_unlinked_total` | Counter | `provider` | F-004 | OAuth accounts unlinked |
+| `bau_users_updated_total` | Counter | - | F-005 | User profile updates |
+| `bau_users_deleted_total` | Counter | - | F-005 | User deletions |
 
 ---
 
@@ -231,20 +231,20 @@ const program = signInSocialServerController(input).pipe(
 
 ### Critical Alerts
 
-| Alert | Condition | Severity | Epic | Runbook |
+| Alert | Condition | Severity | Feature | Runbook |
 |-------|-----------|----------|------|---------|
 | High Error Rate | `bau_error_total / bau_operation_total > 5%` for 5m | Critical | All | Check Better Auth SDK status |
 | API Latency Spike | `p99(bau_operation_duration_seconds) > 2s` for 5m | Critical | All | Check database/network |
-| OAuth Provider Down | `bau_error_total{error_type="ApiError", operation=~"signInSocial|callbackOAuth"} > 10` for 1m | Critical | E-001 | Check OAuth provider status |
+| OAuth Provider Down | `bau_error_total{error_type="ApiError", operation=~"signInSocial|callbackOAuth"} > 10` for 1m | Critical | F-002 | Check OAuth provider status |
 
 ### Warning Alerts
 
-| Alert | Condition | Severity | Epic | Runbook |
+| Alert | Condition | Severity | Feature | Runbook |
 |-------|-----------|----------|------|---------|
 | Elevated Input Errors | `bau_error_total{error_type="InputError"} > 50` for 5m | Warning | All | Review client validation |
-| Session Errors Rising | `bau_error_total{error_type="SessionError"} > 20` for 5m | Warning | E-002 | Check session config |
+| Session Errors Rising | `bau_error_total{error_type="SessionError"} > 20` for 5m | Warning | F-003 | Check session config |
 | Slow Operations | `p95(bau_operation_duration_seconds) > 1s` for 10m | Warning | All | Review query performance |
-| High Unlink Rate | `rate(bau_accounts_unlinked_total[1h]) > 10` | Warning | E-003 | Monitor user behavior |
+| High Unlink Rate | `rate(bau_accounts_unlinked_total[1h]) > 10` | Warning | F-004 | Monitor user behavior |
 
 ### Alert Configuration (Example)
 
@@ -360,29 +360,29 @@ const program = signInSocialServerController(input).pipe(
 4. **Errors by Type** - Stacked bar chart
    - Query: `sum(rate(bau_error_total[5m])) by (error_type)`
 
-5. **Operations by Epic** - Table grouped by E-001, E-002, E-003, E-004
+5. **Operations by Feature** - Table grouped by F-002, F-003, F-004, F-005
    - Query: `topk(10, sum(rate(bau_operation_total[5m])) by (operation))`
 
-### Epic-Specific Dashboards
+### Feature-Specific Dashboards
 
-**E-001 OAuth Dashboard:**
+**F-002 OAuth Dashboard:**
 
 - OAuth sign-in attempts by provider
 - Callback success rate
 - Provider error rates
 
-**E-002 Session Dashboard:**
+**F-003 Session Dashboard:**
 
 - Active sessions gauge
 - Session revocation rate
 - Token refresh frequency
 
-**E-003 Account Dashboard:**
+**F-004 Account Dashboard:**
 
 - Account linking/unlinking rate
 - Provider distribution
 
-**E-004 User Dashboard:**
+**F-005 User Dashboard:**
 
 - Profile update rate
 - User deletion trend
@@ -434,12 +434,12 @@ const livenessCheck = Effect.succeed({ status: "alive" });
 
 ## Traceability
 
-| Epic | Operations | Recommended Metrics |
+| Feature | Operations | Recommended Metrics |
 |------|------------|---------------------|
-| E-001 | US-001, US-002, US-003 | OAuth sign-ins, callbacks, links |
-| E-002 | US-004–US-010 | Sessions active, revoked |
-| E-003 | US-011, US-012, US-013 | Accounts linked/unlinked |
-| E-004 | US-014, US-015, US-016 | Users updated/deleted |
+| F-002 | US-001, US-002, US-003 | OAuth sign-ins, callbacks, links |
+| F-003 | US-004–US-010 | Sessions active, revoked |
+| F-004 | US-011, US-012, US-013 | Accounts linked/unlinked |
+| F-005 | US-014, US-015, US-016 | Users updated/deleted |
 
 ---
 

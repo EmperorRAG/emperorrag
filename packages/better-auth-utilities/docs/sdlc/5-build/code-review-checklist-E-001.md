@@ -1,4 +1,4 @@
-# Code Review Checklist: Better Auth Utilities Phase 1
+# Code Review Checklist: Better Auth Utilities Epic E-001
 
 ## Overview
 
@@ -13,7 +13,7 @@
 
 ## Purpose
 
-This checklist ensures consistent code review quality for Phase 1 server operations implementation.
+This checklist ensures consistent code review quality for Epic E-001 server operations implementation.
 
 ---
 

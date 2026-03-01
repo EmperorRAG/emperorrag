@@ -1,4 +1,4 @@
-# Unit Tests: Better Auth Utilities Phase 1
+# Unit Tests: Better Auth Utilities Epic E-001
 
 ## Test Coverage Goals
 
@@ -22,7 +22,7 @@
 
 ## Test Suites
 
-### OAuth Domain (E-001)
+### OAuth Domain (F-002)
 
 #### US-001: signInSocialServerController
 
@@ -89,7 +89,7 @@
 
 ---
 
-### Session Domain (E-002)
+### Session Domain (F-003)
 
 #### US-004: getSessionServerController
 
@@ -181,7 +181,7 @@
 
 ---
 
-### Account Domain (E-003)
+### Account Domain (F-004)
 
 #### US-011: accountInfoServerController
 
@@ -222,7 +222,7 @@
 
 ---
 
-### User Domain (E-004)
+### User Domain (F-005)
 
 #### US-014: updateUserServerController
 

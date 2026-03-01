@@ -1,4 +1,4 @@
-# Integration Tests: Better Auth Utilities Phase 1
+# Integration Tests: Better Auth Utilities Epic E-001
 
 ## Test Environment
 
@@ -13,7 +13,7 @@
 
 ## Test Suites
 
-### OAuth Domain (E-001)
+### OAuth Domain (F-002)
 
 #### signInSocial → callbackOAuth Flow
 
@@ -31,7 +31,7 @@
 | should handle provider error in callback | Error callback | ApiError with details |
 | should reject link for unauthenticated | No session | ApiError 401 |
 
-### Session Domain (E-002)
+### Session Domain (F-003)
 
 #### Session Lifecycle Flow
 
@@ -53,7 +53,7 @@
 | should return null for no session | No auth | Null result |
 | should fail refresh for expired | Expired → Refresh | ApiError 401 |
 
-### Account Domain (E-003)
+### Account Domain (F-004)
 
 #### Account Management Flow
 
@@ -71,7 +71,7 @@
 |------|------|----------|
 | should fail unlink for nonexistent | Unlink invalid | ApiError 404 |
 
-### User Domain (E-004)
+### User Domain (F-005)
 
 #### User Profile Flow
 

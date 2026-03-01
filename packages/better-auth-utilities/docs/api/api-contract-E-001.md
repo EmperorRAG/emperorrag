@@ -49,7 +49,7 @@ class {Operation}ServerParams extends Schema.TaggedClass<{Operation}ServerParams
 
 ---
 
-## OAuth Domain (E-001)
+## OAuth Domain (F-002)
 
 ### US-001: Sign-In Social Operation
 
@@ -197,7 +197,7 @@ interface LinkSocialAccountServerParams {
 
 ---
 
-## Session Domain (E-002)
+## Session Domain (F-003)
 
 ### US-004: Get Session Operation
 
@@ -456,7 +456,7 @@ interface RevokeOtherSessionsServerParams {
 
 ---
 
-## Account Domain (E-003)
+## Account Domain (F-004)
 
 ### US-011: Account Info Operation
 
@@ -564,7 +564,7 @@ interface UnlinkAccountServerParams {
 
 ---
 
-## User Domain (E-004)
+## User Domain (F-005)
 
 ### US-014: Update User Operation
 
@@ -749,24 +749,24 @@ interface Account {
 
 ## Traceability
 
-| User Story | Operation | Epic |
+| User Story | Operation | Feature |
 |------------|-----------|------|
-| US-001 | signInSocialServerController | E-001 |
-| US-002 | callbackOAuthServerController | E-001 |
-| US-003 | linkSocialAccountServerController | E-001 |
-| US-004 | getSessionServerController | E-002 |
-| US-005 | listSessionsServerController | E-002 |
-| US-006 | refreshTokenServerController | E-002 |
-| US-007 | getAccessTokenServerController | E-002 |
-| US-008 | revokeSessionServerController | E-002 |
-| US-009 | revokeSessionsServerController | E-002 |
-| US-010 | revokeOtherSessionsServerController | E-002 |
-| US-011 | accountInfoServerController | E-003 |
-| US-012 | listUserAccountsServerController | E-003 |
-| US-013 | unlinkAccountServerController | E-003 |
-| US-014 | updateUserServerController | E-004 |
-| US-015 | deleteUserServerController | E-004 |
-| US-016 | deleteUserCallbackServerController | E-004 |
+| US-001 | signInSocialServerController | F-002 |
+| US-002 | callbackOAuthServerController | F-002 |
+| US-003 | linkSocialAccountServerController | F-002 |
+| US-004 | getSessionServerController | F-003 |
+| US-005 | listSessionsServerController | F-003 |
+| US-006 | refreshTokenServerController | F-003 |
+| US-007 | getAccessTokenServerController | F-003 |
+| US-008 | revokeSessionServerController | F-003 |
+| US-009 | revokeSessionsServerController | F-003 |
+| US-010 | revokeOtherSessionsServerController | F-003 |
+| US-011 | accountInfoServerController | F-004 |
+| US-012 | listUserAccountsServerController | F-004 |
+| US-013 | unlinkAccountServerController | F-004 |
+| US-014 | updateUserServerController | F-005 |
+| US-015 | deleteUserServerController | F-005 |
+| US-016 | deleteUserCallbackServerController | F-005 |
 
 ---
 

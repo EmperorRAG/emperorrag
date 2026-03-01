@@ -3,7 +3,7 @@
 ## Overview
 
 - **System Name**: Better Auth Utilities
-- **Design Doc Reference**: [Technical Design Document](../design/technical-design-doc-001.md)
+- **Design Doc Reference**: [Technical Design Document](../design/technical-design-doc-E-001.md)
 - **Author**: Tech Lead
 - **Last Updated**: 2026-01-03
 
@@ -99,10 +99,10 @@ C4Component
 
         Component_Ext(email, "Email Domain", "11 operations - COMPLETE", "Reference implementation")
 
-        Component(oauth, "OAuth Domain (E-001)", "3 operations", "US-001, US-002, US-003")
-        Component(session, "Session Domain (E-002)", "7 operations", "US-004 through US-010")
-        Component(account, "Account Domain (E-003)", "3 operations", "US-011, US-012, US-013")
-        Component(user, "User Domain (E-004)", "3 operations", "US-014, US-015, US-016")
+        Component(oauth, "OAuth Domain (F-002)", "3 operations", "US-001, US-002, US-003")
+        Component(session, "Session Domain (F-003)", "7 operations", "US-004 through US-010")
+        Component(account, "Account Domain (F-004)", "3 operations", "US-011, US-012, US-013")
+        Component(user, "User Domain (F-005)", "3 operations", "US-014, US-015, US-016")
     }
 
     Container_Boundary(shared, "Shared Infrastructure") {
@@ -317,12 +317,12 @@ src/lib/
     ├── server.layer.ts               # AuthServerTag, AuthServerLive, AuthLive
     └── core/
         ├── email/                    # ✅ Complete (reference)
-        ├── oauth/                    # ��� E-001: To Implement
+        ├── oauth/                    # ��� F-002: To Implement
         │   ├── sign-in-social/       # US-001
         │   ├── callback-oauth/       # US-002
         │   ├── link-social-account/  # US-003
         │   └── index.ts
-        ├── session/                  # ��� E-002: To Implement
+        ├── session/                  # ��� F-003: To Implement
         │   ├── get-session/          # US-004
         │   ├── list-sessions/        # US-005
         │   ├── refresh-token/        # US-006
@@ -331,12 +331,12 @@ src/lib/
         │   ├── revoke-sessions/      # US-009
         │   ├── revoke-other-sessions/# US-010
         │   └── index.ts
-        ├── account/                  # ��� E-003: To Implement
+        ├── account/                  # ��� F-004: To Implement
         │   ├── account-info/         # US-011
         │   ├── list-user-accounts/   # US-012
         │   ├── unlink-account/       # US-013
         │   └── index.ts
-        └── user/                     # ��� E-004: To Implement
+        └── user/                     # ��� F-005: To Implement
             ├── update-user/          # US-014
             ├── delete-user/          # US-015
             ├── delete-user-callback/ # US-016
@@ -350,7 +350,7 @@ src/lib/
 | Symbol | Meaning |
 |--------|---------|
 | ✅ | Complete/Implemented |
-| ��� | To be implemented (Phase 1) |
+| ��� | To be implemented (Epic E-001) |
 | ⬜ | Future phase |
 | `Schema.TaggedClass` | Effect Schema validated class |
 | `Schema.TaggedError` | Effect Schema error with _tag |
@@ -362,12 +362,12 @@ src/lib/
 
 ## Traceability
 
-| Epic | Operations | User Stories |
+| Feature | Operations | User Stories |
 |------|------------|--------------|
-| E-001 | OAuth | US-001, US-002, US-003 |
-| E-002 | Session | US-004, US-005, US-006, US-007, US-008, US-009, US-010 |
-| E-003 | Account | US-011, US-012, US-013 |
-| E-004 | User | US-014, US-015, US-016 |
+| F-002 | OAuth | US-001, US-002, US-003 |
+| F-003 | Session | US-004, US-005, US-006, US-007, US-008, US-009, US-010 |
+| F-004 | Account | US-011, US-012, US-013 |
+| F-005 | User | US-014, US-015, US-016 |
 
 ---
 
@@ -389,9 +389,9 @@ src/lib/
 
 ### Future Evolution
 
-- Phase 2: Client-side operations will mirror server structure
-- Phase 3: Session caching layer may add intermediary
-- Phase 4: MFA operations will add new domain
+- Epic E-002: Client-side operations will mirror server structure
+- Epic E-003: Session caching layer may add intermediary
+- Epic E-004: MFA operations will add new domain
 
 ---
 
