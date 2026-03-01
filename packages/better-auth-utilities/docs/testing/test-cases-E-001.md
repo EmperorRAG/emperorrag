@@ -18,16 +18,19 @@
 **User Story**: US-001
 
 **Preconditions**:
+
 - AuthServerTag layer available
 - GitHub provider configured in BetterAuthOptions
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | provider | "github" |
 | disableRedirect | true |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create SignInSocialServerParams with provider="github" | Params created with _tag |
@@ -39,6 +42,7 @@
 Effect succeeds with `{ url: string, redirect: false }`
 
 **Postconditions**:
+
 - No state changes (OAuth not completed yet)
 - Effect can be safely discarded
 
@@ -51,14 +55,17 @@ Effect succeeds with `{ url: string, redirect: false }`
 **User Story**: US-001
 
 **Preconditions**:
+
 - AuthServerTag layer available
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | body | { _tag: "SignInSocialCommand" } |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create params without provider field | Params incomplete |
@@ -70,6 +77,7 @@ Effect succeeds with `{ url: string, redirect: false }`
 Effect fails with `InputError { _tag: "InputError", message: "..." }`
 
 **Postconditions**:
+
 - No session created
 - No external API calls made
 
@@ -82,16 +90,19 @@ Effect fails with `InputError { _tag: "InputError", message: "..." }`
 **User Story**: US-002
 
 **Preconditions**:
+
 - OAuth flow initiated via sign-in-social
 - Valid authorization code available from provider
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | code | "valid-auth-code" |
 | state | "csrf-state" |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create CallbackOAuthServerParams | Params with code and state |
@@ -103,6 +114,7 @@ Effect fails with `InputError { _tag: "InputError", message: "..." }`
 Effect succeeds with `{ user: User, session: Session }`
 
 **Postconditions**:
+
 - User created or retrieved in database
 - Session created with valid token
 - Session cookie can be extracted from response headers
@@ -116,16 +128,19 @@ Effect succeeds with `{ user: User, session: Session }`
 **User Story**: US-002
 
 **Preconditions**:
+
 - OAuth flow initiated
 - Provider returns error in callback
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | error | "access_denied" |
 | state | "csrf-state" |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create params with error field | Params indicate error |
@@ -137,6 +152,7 @@ Effect succeeds with `{ user: User, session: Session }`
 Effect fails with `ApiError { _tag: "ApiError", message: "...", status: 401 }`
 
 **Postconditions**:
+
 - No user created
 - No session created
 
@@ -149,16 +165,19 @@ Effect fails with `ApiError { _tag: "ApiError", message: "...", status: 401 }`
 **User Story**: US-003
 
 **Preconditions**:
+
 - User authenticated (session cookie in headers)
 - Google provider configured
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | provider | "google" |
 | headers | Headers with session cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create LinkSocialAccountServerParams | Params with headers |
@@ -170,6 +189,7 @@ Effect fails with `ApiError { _tag: "ApiError", message: "...", status: 401 }`
 Effect succeeds with OAuth redirect URL for linking
 
 **Postconditions**:
+
 - Account linking initiated
 - Awaiting OAuth callback to complete
 
@@ -182,15 +202,18 @@ Effect succeeds with OAuth redirect URL for linking
 **User Story**: US-003
 
 **Preconditions**:
+
 - No session cookie in headers
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | provider | "google" |
 | headers | new Headers() |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create params without session | Empty headers |
@@ -202,6 +225,7 @@ Effect succeeds with OAuth redirect URL for linking
 Effect fails with `ApiError { _tag: "ApiError", status: 401 }`
 
 **Postconditions**:
+
 - No account linked
 - No state changes
 
@@ -216,14 +240,17 @@ Effect fails with `ApiError { _tag: "ApiError", status: 401 }`
 **User Story**: US-004
 
 **Preconditions**:
+
 - User signed up with valid session
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | headers | Headers with session cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Sign up user and capture cookie | Session established |
@@ -235,6 +262,7 @@ Effect fails with `ApiError { _tag: "ApiError", status: 401 }`
 Effect succeeds with `{ user: User, session: Session }`
 
 **Postconditions**:
+
 - Session remains valid
 - No state changes
 
@@ -247,14 +275,17 @@ Effect succeeds with `{ user: User, session: Session }`
 **User Story**: US-004
 
 **Preconditions**:
+
 - No session cookie
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | headers | new Headers() |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create params with empty headers | No auth |
@@ -266,6 +297,7 @@ Effect succeeds with `{ user: User, session: Session }`
 Effect succeeds with `null` (no session exists)
 
 **Postconditions**:
+
 - No error thrown
 - No state changes
 
@@ -278,14 +310,17 @@ Effect succeeds with `null` (no session exists)
 **User Story**: US-005
 
 **Preconditions**:
+
 - User with one or more sessions
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | headers | Headers with session cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create session | Session exists |
@@ -297,6 +332,7 @@ Effect succeeds with `null` (no session exists)
 Effect succeeds with `Session[]` containing current sessions
 
 **Postconditions**:
+
 - Sessions remain valid
 - No state changes
 
@@ -309,14 +345,17 @@ Effect succeeds with `Session[]` containing current sessions
 **User Story**: US-006
 
 **Preconditions**:
+
 - Valid session exists
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | headers | Headers with session cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create params with session | Valid session |
@@ -328,6 +367,7 @@ Effect succeeds with `Session[]` containing current sessions
 Effect succeeds with refreshed session data
 
 **Postconditions**:
+
 - Session token updated
 - Previous token may be invalidated
 
@@ -340,14 +380,17 @@ Effect succeeds with refreshed session data
 **User Story**: US-006
 
 **Preconditions**:
+
 - Session has expired
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | headers | Headers with expired cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create params with expired session | Expired auth |
@@ -359,6 +402,7 @@ Effect succeeds with refreshed session data
 Effect fails with `ApiError { status: 401 }`
 
 **Postconditions**:
+
 - No new session created
 - Expired session remains expired
 
@@ -371,14 +415,17 @@ Effect fails with `ApiError { status: 401 }`
 **User Story**: US-007
 
 **Preconditions**:
+
 - Valid session exists
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | headers | Headers with session cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create GetAccessTokenServerParams | Params with headers |
@@ -390,6 +437,7 @@ Effect fails with `ApiError { status: 401 }`
 Effect succeeds with `{ accessToken: string }`
 
 **Postconditions**:
+
 - Access token can be used for subsequent requests
 - Session remains valid
 
@@ -402,16 +450,19 @@ Effect succeeds with `{ accessToken: string }`
 **User Story**: US-008
 
 **Preconditions**:
+
 - Multiple sessions exist
 - Target session ID known
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | id | "session-id-to-revoke" |
 | headers | Headers with session cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create params with session ID | Target specified |
@@ -424,6 +475,7 @@ Effect succeeds with `{ accessToken: string }`
 Effect succeeds with `{ success: true }`
 
 **Postconditions**:
+
 - Target session deleted from database
 - Other sessions remain valid
 - Current session may be invalidated if self-revoke
@@ -437,14 +489,17 @@ Effect succeeds with `{ success: true }`
 **User Story**: US-009
 
 **Preconditions**:
+
 - Multiple sessions exist
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | headers | Headers with session cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create multiple sessions | Sessions exist |
@@ -457,6 +512,7 @@ Effect succeeds with `{ success: true }`
 Effect succeeds with `{ success: true }`
 
 **Postconditions**:
+
 - All sessions for user deleted
 - User must re-authenticate
 
@@ -469,14 +525,17 @@ Effect succeeds with `{ success: true }`
 **User Story**: US-010
 
 **Preconditions**:
+
 - Multiple sessions exist for user
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | headers | Headers with current session |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create 3 sessions | Multiple sessions |
@@ -489,6 +548,7 @@ Effect succeeds with `{ success: true }`
 Effect succeeds, current session preserved, others revoked
 
 **Postconditions**:
+
 - Current session remains valid
 - Other sessions deleted
 
@@ -503,14 +563,17 @@ Effect succeeds, current session preserved, others revoked
 **User Story**: US-011
 
 **Preconditions**:
+
 - User authenticated
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | headers | Headers with session cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create AccountInfoServerParams | Params with headers |
@@ -522,6 +585,7 @@ Effect succeeds, current session preserved, others revoked
 Effect succeeds with account information
 
 **Postconditions**:
+
 - No state changes
 - Read-only operation
 
@@ -534,14 +598,17 @@ Effect succeeds with account information
 **User Story**: US-012
 
 **Preconditions**:
+
 - User with one or more linked accounts
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | headers | Headers with session cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Link OAuth provider | Account linked |
@@ -553,6 +620,7 @@ Effect succeeds with account information
 Effect succeeds with `Account[]`
 
 **Postconditions**:
+
 - No state changes
 - Read-only operation
 
@@ -565,16 +633,19 @@ Effect succeeds with `Account[]`
 **User Story**: US-013
 
 **Preconditions**:
+
 - User has linked OAuth account
 - User has password (can still login after unlink)
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | providerId | "github" |
 | headers | Headers with session cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Verify account exists | Account linked |
@@ -587,6 +658,7 @@ Effect succeeds with `Account[]`
 Effect succeeds with `{ success: true }`
 
 **Postconditions**:
+
 - Account record deleted
 - User can no longer sign in with that provider
 - User can still sign in via other methods
@@ -600,15 +672,18 @@ Effect succeeds with `{ success: true }`
 **User Story**: US-013
 
 **Preconditions**:
+
 - Provider not linked to user
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | providerId | "nonexistent-provider" |
 | headers | Headers with session cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create params with invalid provider | Provider doesn't exist |
@@ -620,6 +695,7 @@ Effect succeeds with `{ success: true }`
 Effect fails with `ApiError { status: 404 }`
 
 **Postconditions**:
+
 - No state changes
 - Other accounts remain linked
 
@@ -634,15 +710,18 @@ Effect fails with `ApiError { status: 404 }`
 **User Story**: US-014
 
 **Preconditions**:
+
 - User authenticated
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | name | "New Display Name" |
 | headers | Headers with session cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create UpdateUserServerParams | Params with name |
@@ -655,6 +734,7 @@ Effect fails with `ApiError { status: 404 }`
 Effect succeeds with updated user
 
 **Postconditions**:
+
 - User record updated in database
 - Session remains valid
 
@@ -667,15 +747,18 @@ Effect succeeds with updated user
 **User Story**: US-014
 
 **Preconditions**:
+
 - User authenticated
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
-| image | "https://example.com/avatar.png" |
+| image | "<https://example.com/avatar.png>" |
 | headers | Headers with session cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create params with image URL | Valid image URL |
@@ -688,6 +771,7 @@ Effect succeeds with updated user
 Effect succeeds with updated user image
 
 **Postconditions**:
+
 - User image field updated
 - Previous image URL replaced
 
@@ -700,15 +784,18 @@ Effect succeeds with updated user image
 **User Story**: US-014
 
 **Preconditions**:
+
 - User authenticated
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | name | "" (empty string) |
 | headers | Headers with session cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create params with empty name | Invalid name |
@@ -720,6 +807,7 @@ Effect succeeds with updated user image
 Effect fails with validation error
 
 **Postconditions**:
+
 - User name unchanged
 - Session remains valid
 
@@ -732,16 +820,19 @@ Effect fails with validation error
 **User Story**: US-015
 
 **Preconditions**:
+
 - User authenticated
 - User has password set
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | password | "userPassword123" |
 | headers | Headers with session cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create DeleteUserServerParams | Params with password |
@@ -754,6 +845,7 @@ Effect fails with validation error
 Effect succeeds with deletion initiated
 
 **Postconditions**:
+
 - Deletion token generated (if callbackURL provided)
 - Or user immediately deleted
 
@@ -766,15 +858,18 @@ Effect succeeds with deletion initiated
 **User Story**: US-015
 
 **Preconditions**:
+
 - User authenticated
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | password | "wrongPassword" |
 | headers | Headers with session cookie |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create params with wrong password | Invalid credentials |
@@ -786,6 +881,7 @@ Effect succeeds with deletion initiated
 Effect fails with `ApiError { status: 401 }`
 
 **Postconditions**:
+
 - User account unchanged
 - Session remains valid
 
@@ -798,14 +894,17 @@ Effect fails with `ApiError { status: 401 }`
 **User Story**: US-016
 
 **Preconditions**:
+
 - Delete initiated, token received
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | token | "valid-delete-token" |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Initiate delete, capture token | Token received |
@@ -818,6 +917,7 @@ Effect fails with `ApiError { status: 401 }`
 Effect succeeds with `{ success: true }`, user permanently deleted
 
 **Postconditions**:
+
 - User record deleted
 - All user sessions invalidated
 - All linked accounts removed
@@ -831,14 +931,17 @@ Effect succeeds with `{ success: true }`, user permanently deleted
 **User Story**: US-016
 
 **Preconditions**:
+
 - Invalid or expired token
 
 **Test Data**:
+
 | Variable | Value |
 |----------|-------|
 | token | "invalid-token" |
 
 **Steps**:
+
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Create params with invalid token | Bad token |
@@ -850,6 +953,7 @@ Effect succeeds with `{ success: true }`, user permanently deleted
 Effect fails with `ApiError { status: 400 }`
 
 **Postconditions**:
+
 - User account unchanged
 - Token consumed (if applicable)
 
@@ -997,4 +1101,8 @@ describe("OAuth Integration", () => {
 | FR-005 (Controller-Service Pattern) | All TC-* | ✅ Covered |
 | FR-006 (Typed Effect Returns) | All TC-* | ✅ Covered |
 | FR-007 (Headers Support) | TC-001, TC-005, TC-007 | ✅ Covered |
-| NFR-002 (80% Coverage) | All TC-* | ⏳ Pending |
+| NFR-001 (Performance) | All TC-* | Code Review |
+| NFR-002 (Security) | All TC-* | Code Review |
+| NFR-003 (Scalability) | All TC-* | Code Review |
+| NFR-004 (Testability) | All TC-* | ✅ Covered |
+| NFR-005 (Compatibility) | All TC-* | CI Verification |

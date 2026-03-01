@@ -40,36 +40,26 @@ Define detailed implementation requirements and constraints for 16 server operat
 
 | ID | Requirement | Priority | Notes |
 |----|-------------|----------|-------|
-| FR-001 | Implement OAuth sign-in-social operation | P0 | US-001 |
-| FR-002 | Implement OAuth callback operation | P0 | US-002 |
-| FR-003 | Implement link social account operation | P0 | US-003 |
-| FR-004 | Implement get session operation | P0 | US-004 |
-| FR-005 | Implement list sessions operation | P0 | US-005 |
-| FR-006 | Implement refresh token operation | P0 | US-006 |
-| FR-007 | Implement get access token operation | P0 | US-007 |
-| FR-008 | Implement revoke session operation | P0 | US-008 |
-| FR-009 | Implement revoke all sessions operation | P0 | US-009 |
-| FR-010 | Implement revoke other sessions operation | P0 | US-010 |
-| FR-011 | Implement account info operation | P0 | US-011 |
-| FR-012 | Implement list user accounts operation | P0 | US-012 |
-| FR-013 | Implement unlink account operation | P0 | US-013 |
-| FR-014 | Implement update user operation | P0 | US-014 |
-| FR-015 | Implement delete user operation | P0 | US-015 |
-| FR-016 | Implement delete user callback operation | P0 | US-016 |
-| FR-017 | Each operation follows Controller-Service-Types pattern | P0 | ADR-001 |
-| FR-018 | Each operation returns typed Effect | P0 | Type safety |
+| FR-001 | Implement OAuth server operations (sign-in-social, callback-oauth, link-social-account) | P0 | US-001, US-002, US-003 |
+| FR-002 | Implement Session server operations (get-session, list-sessions, revoke-session, revoke-sessions, revoke-other-sessions, refresh-token, get-access-token) | P0 | US-004–US-010 |
+| FR-003 | Implement Account server operations (account-info, list-user-accounts, unlink-account) | P0 | US-011, US-012, US-013 |
+| FR-004 | Implement User server operations (update-user, delete-user, delete-user-callback) | P0 | US-014, US-015, US-016 |
+| FR-005 | Each operation must have controller (input validation) and service (API call) layers | P0 | ADR-001 |
+| FR-006 | Each operation must return typed `Effect<Success, Error, Dependencies>` | P0 | Type safety |
+| FR-007 | All operations must support optional `headers`, `asResponse`, `returnHeaders` params | P1 | Consistency with Email domain |
+| FR-008 | Add TSDoc documentation to all public exports | P1 | Developer experience |
+| FR-009 | Create barrel exports (index.ts) for each domain | P1 | Clean import paths |
+| FR-010 | Add `@pure` annotations to service functions | P2 | FP documentation convention |
 
 ### Non-Functional Requirements
 
 | ID | Category | Requirement | Target |
 |----|----------|-------------|--------|
-| NFR-001 | Performance | Operation overhead | <5ms |
-| NFR-002 | Performance | Memory per operation | <1KB |
-| NFR-003 | Security | No credentials in logs | 100% |
-| NFR-004 | Security | Sensitive fields excluded from errors | 100% |
-| NFR-005 | Testability | Line coverage | >=80% |
-| NFR-006 | Type Safety | No any types | 100% |
-| NFR-007 | Type Safety | TypeScript strict mode | Pass |
+| NFR-001 | Performance | Operations add minimal overhead beyond Better Auth API calls | <5ms |
+| NFR-002 | Security | No secrets/credentials logged or exposed in error messages | 100% |
+| NFR-003 | Scalability | Stateless design; no shared mutable state between operations | 100% |
+| NFR-004 | Testability | All operations must be testable with mocked `AuthServerTag` | 100% |
+| NFR-005 | Compatibility | Must work with Better Auth SDK >=1.0.0, Effect >=3.0.0 | Pass |
 
 ---
 
