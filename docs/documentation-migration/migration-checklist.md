@@ -51,10 +51,10 @@ Migration from SDLC stage-based structure to hybrid GitHub approach.
 
 ### GitHub Projects
 
-- [ ] Create project board with Roadmap view for planning
-- [ ] Configure iteration fields for sprints
-- [ ] Set up custom fields (priority, size, etc.)
-- [ ] Add custom "Type" single-select field (Epic, User Story, Bug, Task) as alternative categorization
+- [X] Create project board with Roadmap view for planning
+- [X] Configure iteration fields for sprints
+- [X] Set up custom fields (priority, size, etc.)
+- [X] Add custom "Type" single-select field (Epic, User Story, Bug, Task) as alternative categorization
 
 ---
 
