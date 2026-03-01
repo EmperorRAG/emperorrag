@@ -80,21 +80,21 @@ Migration from SDLC stage-based structure to hybrid GitHub approach.
 
 For each project (apps/packages), create type-based structure:
 
-- [ ] `docs/adr/`
-- [ ] `docs/api/`
-- [ ] `docs/architecture/`
-- [ ] `docs/data/`
-- [ ] `docs/design/`
-- [ ] `docs/migrations/`
-- [ ] `docs/observability/`
-- [ ] `docs/prd/`
-- [ ] `docs/releases/`
-- [ ] `docs/roadmap/`
-- [ ] `docs/runbooks/`
-- [ ] `docs/specs/`
-- [ ] `docs/testing/`
-- [ ] `docs/traceability/`
-- [ ] `docs/vision/`
+- [X] `docs/adr/`
+- [X] `docs/api/`
+- [X] `docs/architecture/`
+- [X] `docs/data/`
+- [X] `docs/design/`
+- [X] `docs/migrations/`
+- [X] `docs/observability/`
+- [X] `docs/prd/`
+- [X] `docs/releases/`
+- [X] `docs/roadmap/`
+- [X] `docs/runbooks/`
+- [X] `docs/specs/`
+- [X] `docs/testing/`
+- [X] `docs/traceability/`
+- [X] `docs/vision/`
 
 ---
 
