@@ -149,22 +149,6 @@ These targets are specific to this feature and must meet or exceed the initiativ
 
 ---
 
-## Acceptance Criteria Outline
-
-- [ ] All four pipeline utility modules defined (mapApiError, mapInputError, handleApiError, handleInputError)
-- [ ] mapApiError unwraps UnknownException wrappers from Effect.tryPromise before pattern matching
-- [ ] mapApiError extracts HTTP status code from Better Auth SDK APIError instances into the ApiError status field
-- [ ] mapInputError formats parse errors via ParseResult.TreeFormatter.formatErrorSync for human-readable messages
-- [ ] Both map utilities carry the original error as the cause field on the produced error instance
-- [ ] Both map utilities implement three-branch Match pattern (SDK-specific or parse-specific, generic Error, fallback)
-- [ ] Handle utilities delegate entirely to their corresponding map utility via Effect.catchAll
-- [ ] Each utility has a companion types file with a named interface for the function signature
-- [ ] No domain-specific logic in any pipeline utility module
-
-*Detailed acceptance criteria are maintained in a separate [Acceptance Criteria document](link).*
-
----
-
 ## User Stories
 
 | Story ID | Title | Priority | Status |
@@ -191,6 +175,10 @@ These targets are specific to this feature and must meet or exceed the initiativ
 - [FRD: Tagged Error Hierarchy](frd-I-002-errors.md)
 - [FRD: Configuration and Server Layers](frd-I-002-layers.md)
 - [FRD: Schema Foundation](frd-I-002-schemas.md)
+- [FRD: Email Authentication](frd-I-002-auth.md)
+- [FRD: Email Verification](frd-I-002-verify.md)
+- [FRD: Password Management](frd-I-002-password.md)
+- [FRD: Email Change](frd-I-002-email-change.md)
 
 ---
 

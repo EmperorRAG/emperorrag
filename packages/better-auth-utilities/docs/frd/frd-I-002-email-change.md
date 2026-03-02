@@ -151,21 +151,6 @@ These targets are specific to this feature and must meet or exceed the initiativ
 
 ---
 
-## Acceptance Criteria Outline
-
-- [ ] Controller decodes raw input through ChangeEmailServerParams via Schema.decodeUnknown
-- [ ] Controller maps decode failures to InputError via mapInputError
-- [ ] Service resolves AuthServerTag from Effect Context
-- [ ] Service calls authServer.api.changeEmail via Effect.tryPromise
-- [ ] Service maps SDK failures to ApiError via mapApiError
-- [ ] Service extracts .value from branded newEmail and conditionally spreads .value from optional branded callbackURL
-- [ ] Both controller and service annotated with Effect.withSpan
-- [ ] Operation has a controller spec, service spec, and types spec
-
-*Detailed acceptance criteria are maintained in a separate [Acceptance Criteria document](link).*
-
----
-
 ## User Stories
 
 | Story ID | Title | Priority | Status |

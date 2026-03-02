@@ -168,23 +168,6 @@ These targets are specific to this feature and must meet or exceed the initiativ
 
 ---
 
-## Acceptance Criteria Outline
-
-- [ ] Both controllers decode raw input through their respective ServerParams schema via Schema.decodeUnknown
-- [ ] Both controllers map decode failures to InputError via mapInputError
-- [ ] Both services resolve AuthServerTag from Effect Context
-- [ ] verify-email service passes token and callbackURL via the SDK's query parameter (not body)
-- [ ] send-verification-email service passes email and callbackURL via the SDK's body parameter
-- [ ] verify-email passes token as a plain string; send-verification-email extracts .value from branded EmailSchema
-- [ ] Both services map SDK failures to ApiError via mapApiError
-- [ ] Both operations annotated with Effect.withSpan on both controller and service
-- [ ] Each operation has a controller spec, service spec, and types spec
-- [ ] Each operation resides in its own directory under the email directory with a barrel export file
-
-*Detailed acceptance criteria are maintained in a separate [Acceptance Criteria document](link).*
-
----
-
 ## User Stories
 
 | Story ID | Title | Priority | Status |
@@ -213,8 +196,8 @@ These targets are specific to this feature and must meet or exceed the initiativ
 - [FRD: Schema Foundation](frd-I-002-schemas.md)
 - [FRD: Pipeline Utilities](frd-I-002-pipeline.md)
 - [FRD: Email Authentication](frd-I-002-auth.md)
-- FRD: Password Management (frd-I-002-password.md) — to be created
-- FRD: Email Change (frd-I-002-email-change.md) — to be created
+- [FRD: Password Management](frd-I-002-password.md)
+- [FRD: Email Change](frd-I-002-email-change.md)
 
 ---
 

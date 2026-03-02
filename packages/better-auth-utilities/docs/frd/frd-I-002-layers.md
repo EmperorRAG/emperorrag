@@ -140,24 +140,6 @@ These targets are specific to this feature and must meet or exceed the initiativ
 
 ---
 
-## Acceptance Criteria Outline
-
-- [ ] All 11 sub-schema classes defined as TaggedClass with static decode and encode methods
-- [ ] BetterAuthOptions root schema composes all 11 sub-schemas with correct field types
-- [ ] SocialProviderOptions requires client ID and client secret fields
-- [ ] All function-typed fields annotated with FastCheck arbitraries
-- [ ] BetterAuthOptionsTag and AuthServerTag defined as Effect Context Tags with correct type parameters
-- [ ] BetterAuthOptionsLive Layer constructs and decodes configuration, providing it via BetterAuthOptionsTag
-- [ ] AuthServerLive Layer resolves config from Context, encodes to plain object, and constructs Better Auth server
-- [ ] AuthLive convenience Layer composes config and server layers into a single self-contained Layer
-- [ ] Schema round-trip property holds: decode then encode produces a valid SDK-compatible object
-- [ ] Operations can resolve AuthServerTag from Effect Context without knowing layer construction details
-- [ ] Test environment can bypass production layers via direct Effect.provideService with a test-constructed server
-
-*Detailed acceptance criteria are maintained in a separate [Acceptance Criteria document](link).*
-
----
-
 ## User Stories
 
 | Story ID | Title | Priority | Status |
@@ -183,7 +165,12 @@ These targets are specific to this feature and must meet or exceed the initiativ
 - [Parent IRD: I-002 Email Server Operations](../ird/ird-I-002.md)
 - [ADR-001: Controller-Service Architecture](../adr/adr-001-controller-service-architecture.md)
 - [FRD: Tagged Error Hierarchy](frd-I-002-errors.md)
-- FRD: Pipeline Utilities (frd-I-002-pipeline.md) — to be created
+- [FRD: Schema Foundation](frd-I-002-schemas.md)
+- [FRD: Pipeline Utilities](frd-I-002-pipeline.md)
+- [FRD: Email Authentication](frd-I-002-auth.md)
+- [FRD: Email Verification](frd-I-002-verify.md)
+- [FRD: Password Management](frd-I-002-password.md)
+- [FRD: Email Change](frd-I-002-email-change.md)
 
 ---
 

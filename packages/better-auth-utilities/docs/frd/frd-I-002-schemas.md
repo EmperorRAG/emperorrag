@@ -164,24 +164,6 @@ These targets are specific to this feature and must meet or exceed the initiativ
 
 ---
 
-## Acceptance Criteria Outline
-
-- [ ] All 11 field schema categories defined as TaggedClass with static decode and encode methods
-- [ ] All 11 email command schemas defined as TaggedClass with static decode and encode methods
-- [ ] PasswordSchema implemented as a factory function accepting minimum and maximum length parameters
-- [ ] Value object field schemas (email, password, name, URL, image) use Schema transform to produce branded types from plain strings
-- [ ] Entity field schemas (account, session, user, verification) use structured definitions without value object transforms
-- [ ] TransportCommandSchema uses tag TransportCommandCtx
-- [ ] Each command schema references at least one field schema via composition
-- [ ] Schema decode rejects invalid inputs with descriptive parse failure messages
-- [ ] Schema encode produces plain JavaScript objects compatible with the Better Auth SDK
-- [ ] Each schema resides in its own file under the appropriate directory (field-schemas or command-schemas)
-- [ ] No schema contains business logic, side effects, or layer dependencies
-
-*Detailed acceptance criteria are maintained in a separate [Acceptance Criteria document](link).*
-
----
-
 ## User Stories
 
 | Story ID | Title | Priority | Status |
@@ -208,7 +190,11 @@ These targets are specific to this feature and must meet or exceed the initiativ
 - [ADR-001: Controller-Service Architecture](../adr/adr-001-controller-service-architecture.md)
 - [FRD: Tagged Error Hierarchy](frd-I-002-errors.md)
 - [FRD: Configuration and Server Layers](frd-I-002-layers.md)
-- FRD: Pipeline Utilities (frd-I-002-pipeline.md) — to be created
+- [FRD: Pipeline Utilities](frd-I-002-pipeline.md)
+- [FRD: Email Authentication](frd-I-002-auth.md)
+- [FRD: Email Verification](frd-I-002-verify.md)
+- [FRD: Password Management](frd-I-002-password.md)
+- [FRD: Email Change](frd-I-002-email-change.md)
 
 ---
 

@@ -178,25 +178,6 @@ These targets are specific to this feature and must meet or exceed the initiativ
 
 ---
 
-## Acceptance Criteria Outline
-
-- [ ] All three controllers decode raw input through their respective ServerParams schema via Schema.decodeUnknown
-- [ ] All three controllers map decode failures to InputError via mapInputError
-- [ ] All three services resolve AuthServerTag from Effect Context
-- [ ] All three services call the correct SDK method (signUpEmail, signInEmail, signOut)
-- [ ] All three services map SDK failures to ApiError via mapApiError
-- [ ] Sign-up service extracts .value from branded fields (email, password, name) and conditionally spreads optional branded fields (image, callbackURL)
-- [ ] Sign-in service extracts .value from email and password, passes rememberMe as a plain boolean
-- [ ] Sign-out ServerParams has no body field; sign-out service defaults headers to an empty Headers instance when not provided
-- [ ] All three operations annotated with Effect.withSpan on both controller and service
-- [ ] Each operation has a controller spec, service spec, and types spec
-- [ ] Each operation resides in its own directory under the email directory with a barrel export file
-- [ ] No operation contains infrastructure logic (error definitions, layer construction, schema definitions)
-
-*Detailed acceptance criteria are maintained in a separate [Acceptance Criteria document](link).*
-
----
-
 ## User Stories
 
 | Story ID | Title | Priority | Status |
@@ -225,9 +206,9 @@ These targets are specific to this feature and must meet or exceed the initiativ
 - [FRD: Configuration and Server Layers](frd-I-002-layers.md)
 - [FRD: Schema Foundation](frd-I-002-schemas.md)
 - [FRD: Pipeline Utilities](frd-I-002-pipeline.md)
-- FRD: Email Verification (frd-I-002-verify.md) — to be created
-- FRD: Password Management (frd-I-002-password.md) — to be created
-- FRD: Email Change (frd-I-002-email-change.md) — to be created
+- [FRD: Email Verification](frd-I-002-verify.md)
+- [FRD: Password Management](frd-I-002-password.md)
+- [FRD: Email Change](frd-I-002-email-change.md)
 
 ---
 

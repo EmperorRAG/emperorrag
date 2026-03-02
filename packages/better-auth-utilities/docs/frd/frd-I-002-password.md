@@ -199,27 +199,6 @@ These targets are specific to this feature and must meet or exceed the initiativ
 
 ---
 
-## Acceptance Criteria Outline
-
-- [ ] All five controllers decode raw input through their respective ServerParams schema via Schema.decodeUnknown
-- [ ] All five controllers map decode failures to InputError via mapInputError
-- [ ] All five services resolve AuthServerTag from Effect Context
-- [ ] All five services call the correct SDK method (changePassword, forgetPassword, forgetPasswordCallback, resetPassword, setPassword)
-- [ ] All five services map SDK failures to ApiError via mapApiError
-- [ ] change-password service extracts .value from both currentPassword and newPassword, conditionally spreads revokeOtherSessions
-- [ ] forgot-password service extracts .value from branded email and optional redirectTo
-- [ ] forget-password-callback service passes token as a plain string (not branded)
-- [ ] reset-password service passes token as a plain string and extracts .value from branded newPassword
-- [ ] set-password service extracts .value from newPassword and conditionally spreads optional branded currentPassword
-- [ ] Password policies enforce minLength 1 for current passwords and minLength 8 for new passwords
-- [ ] All five operations annotated with Effect.withSpan on both controller and service
-- [ ] Each operation has a controller spec, service spec, and types spec
-- [ ] Each operation resides in its own directory under the email directory with a barrel export file
-
-*Detailed acceptance criteria are maintained in a separate [Acceptance Criteria document](link).*
-
----
-
 ## User Stories
 
 | Story ID | Title | Priority | Status |
@@ -251,7 +230,7 @@ These targets are specific to this feature and must meet or exceed the initiativ
 - [FRD: Pipeline Utilities](frd-I-002-pipeline.md)
 - [FRD: Email Authentication](frd-I-002-auth.md)
 - [FRD: Email Verification](frd-I-002-verify.md)
-- FRD: Email Change (frd-I-002-email-change.md) — to be created
+- [FRD: Email Change](frd-I-002-email-change.md)
 
 ---
 

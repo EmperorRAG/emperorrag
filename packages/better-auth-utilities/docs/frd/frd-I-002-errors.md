@@ -126,22 +126,6 @@ These targets are specific to this feature and must meet or exceed the initiativ
 
 ---
 
-## Acceptance Criteria Outline
-
-- [ ] All five error classes defined with correct tag values (InputError, ApiError, SessionError, DataMissingError, DependenciesError)
-- [ ] Each class extends Effect Schema TaggedError
-- [ ] Each class has static decode and encode methods
-- [ ] ApiError includes optional status (number) field for HTTP status codes
-- [ ] All four non-ApiError classes share the same shape: required message (string) and optional cause (unknown)
-- [ ] No domain-specific logic in any error class
-- [ ] Error classes can be instantiated with a message string and optional cause
-- [ ] Errors are usable in Effect Match pipelines for exhaustive pattern matching on the tag field
-- [ ] Each error class resides in its own file under the errors directory
-
-*Detailed acceptance criteria are maintained in a separate [Acceptance Criteria document](link).*
-
----
-
 ## User Stories
 
 | Story ID | Title | Priority | Status |
@@ -167,7 +151,13 @@ These targets are specific to this feature and must meet or exceed the initiativ
 
 - [Parent IRD: I-002 Email Server Operations](../ird/ird-I-002.md)
 - [ADR-001: Controller-Service Architecture](../adr/adr-001-controller-service-architecture.md)
-- FRD: Pipeline Utilities (../frd/frd-I-002-pipeline.md) — to be created
+- [FRD: Configuration and Server Layers](frd-I-002-layers.md)
+- [FRD: Schema Foundation](frd-I-002-schemas.md)
+- [FRD: Pipeline Utilities](frd-I-002-pipeline.md)
+- [FRD: Email Authentication](frd-I-002-auth.md)
+- [FRD: Email Verification](frd-I-002-verify.md)
+- [FRD: Password Management](frd-I-002-password.md)
+- [FRD: Email Change](frd-I-002-email-change.md)
 
 ---
 

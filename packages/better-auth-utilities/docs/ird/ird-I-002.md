@@ -95,23 +95,23 @@ Each item below becomes a separate Feature Requirements Document (FRD). Features
 
 Phase A features are cross-cutting — they serve all five server domains (I-002 through I-006), but ownership lives in I-002 since it is the first domain initiative and no separate infrastructure initiative exists. Infrastructure must not contain email-specific logic; it must be designed for reuse by all subsequent domain initiatives.
 
-| # | Feature Cluster | Components | Future FRD |
+| # | Feature | Components | FRD |
 |---|----------------|------------|------------|
-| 1 | Tagged Error Hierarchy | Five Effect tagged error classes (InputError, ApiError, SessionError, DataMissingError, DependenciesError) with structured metadata including status codes, causes, and messages | frd-I-002-errors.md |
-| 2 | Configuration and Server Layers | BetterAuthOptions Schema with FastCheck arbitraries, BetterAuthOptionsLive Config Layer, AuthServerLive Server Layer — composable Effect Layer stack from configuration through server instance | frd-I-002-layers.md |
-| 3 | Schema Foundation | 11 email-related command schemas plus 11 field schema categories (accounts, emails, images, names, params, passwords, sessions, transport, urls, users, verifications) — tagged parameter classes with decode and encode capabilities; remaining domain command schemas ship with their respective initiatives (I-003 through I-006) | frd-I-002-schemas.md |
-| 4 | Pipeline Utilities | Four composable error transformation utilities (handle-api-error, handle-input-error, map-api-error, map-input-error) for controller pipelines | frd-I-002-pipeline.md |
+| 1 | Tagged Error Hierarchy | Five Effect tagged error classes (InputError, ApiError, SessionError, DataMissingError, DependenciesError) with structured metadata including status codes, causes, and messages | [frd-I-002-errors.md](../frd/frd-I-002-errors.md) |
+| 2 | Configuration and Server Layers | BetterAuthOptions Schema with FastCheck arbitraries, BetterAuthOptionsLive Config Layer, AuthServerLive Server Layer — composable Effect Layer stack from configuration through server instance | [frd-I-002-layers.md](../frd/frd-I-002-layers.md) |
+| 3 | Schema Foundation | 11 email-related command schemas plus 11 field schema categories (accounts, emails, images, names, params, passwords, sessions, transport, urls, users, verifications) — tagged parameter classes with decode and encode capabilities; remaining domain command schemas ship with their respective initiatives (I-003 through I-006) | [frd-I-002-schemas.md](../frd/frd-I-002-schemas.md) |
+| 4 | Pipeline Utilities | Four composable error transformation utilities (handle-api-error, handle-input-error, map-api-error, map-input-error) for controller pipelines | [frd-I-002-pipeline.md](../frd/frd-I-002-pipeline.md) |
 
 #### Phase B: Email Operations
 
 Phase B features depend on Phase A infrastructure being complete. Each operation requires three artefacts: a controller (input validation and error mapping), a service (Effect operation against the auth server), and types (input/output type definitions).
 
-| # | Feature Cluster | Operations | Future FRD |
+| # | Feature | Operations | FRD |
 |---|----------------|------------|------------|
-| 5 | Email Authentication | sign-up-email, sign-in-email, sign-out-email | frd-I-002-auth.md |
-| 6 | Email Verification | verify-email, send-verification-email | frd-I-002-verify.md |
-| 7 | Password Management | change-password, reset-password, set-password, forgot-password, forget-password-callback | frd-I-002-password.md |
-| 8 | Email Change | change-email | frd-I-002-email-change.md |
+| 5 | Email Authentication | sign-up-email, sign-in-email, sign-out-email | [frd-I-002-auth.md](../frd/frd-I-002-auth.md) |
+| 6 | Email Verification | verify-email, send-verification-email | [frd-I-002-verify.md](../frd/frd-I-002-verify.md) |
+| 7 | Password Management | change-password, reset-password, set-password, forgot-password, forget-password-callback | [frd-I-002-password.md](../frd/frd-I-002-password.md) |
+| 8 | Email Change | change-email | [frd-I-002-email-change.md](../frd/frd-I-002-email-change.md) |
 
 ### Out of Scope
 
@@ -242,14 +242,14 @@ The following initiatives depend on I-002 deliverables:
 - [Product Vision](../vision/v0-product-vision.md)
 - [Product Roadmap](../roadmap/v0-product-roadmap.md)
 - [ADR-001: Controller-Service Architecture](../adr/adr-001-controller-service-architecture.md)
-- FRD: Tagged Error Hierarchy (../frd/frd-I-002-errors.md) — to be created
-- FRD: Configuration and Server Layers (../frd/frd-I-002-layers.md) — to be created
-- FRD: Schema Foundation (../frd/frd-I-002-schemas.md) — to be created
-- FRD: Pipeline Utilities (../frd/frd-I-002-pipeline.md) — to be created
-- FRD: Email Authentication (../frd/frd-I-002-auth.md) — to be created
-- FRD: Email Verification (../frd/frd-I-002-verify.md) — to be created
-- FRD: Password Management (../frd/frd-I-002-password.md) — to be created
-- FRD: Email Change (../frd/frd-I-002-email-change.md) — to be created
+- [FRD: Tagged Error Hierarchy](../frd/frd-I-002-errors.md)
+- [FRD: Configuration and Server Layers](../frd/frd-I-002-layers.md)
+- [FRD: Schema Foundation](../frd/frd-I-002-schemas.md)
+- [FRD: Pipeline Utilities](../frd/frd-I-002-pipeline.md)
+- [FRD: Email Authentication](../frd/frd-I-002-auth.md)
+- [FRD: Email Verification](../frd/frd-I-002-verify.md)
+- [FRD: Password Management](../frd/frd-I-002-password.md)
+- [FRD: Email Change](../frd/frd-I-002-email-change.md)
 
 ---
 
