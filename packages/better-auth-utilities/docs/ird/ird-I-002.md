@@ -46,7 +46,7 @@ This initiative maps to Roadmap Theme T-001 (Documentation and Server Coverage) 
 | Foundation layers implemented | 0/2 | 2/2 | Config Layer and Server Layer operational |
 | Tagged error classes implemented | 0/5 | 5/5 | Count of tagged error classes |
 | Pipeline utilities implemented | 0/4 | 4/4 | Count of pipeline utility modules |
-| Command schemas defined | 0/29 | 29/29 | Count of validated command schemas |
+| Email command schemas defined | 0/11 | 11/11 | Count of validated email command schemas |
 | Field schema categories defined | 0/11 | 11/11 | Count of field schema modules |
 | Test environment helper operational | No | Yes | Can bootstrap test auth server |
 | Email operations implemented | 0/11 | 11/11 | Count of operations with controller, service, and types |
@@ -99,7 +99,7 @@ Phase A features are cross-cutting — they serve all five server domains (I-002
 |---|----------------|------------|------------|
 | 1 | Tagged Error Hierarchy | Five Effect tagged error classes (InputError, ApiError, SessionError, DataMissingError, DependenciesError) with structured metadata including status codes, causes, and messages | frd-I-002-errors.md |
 | 2 | Configuration and Server Layers | BetterAuthOptions Schema with FastCheck arbitraries, BetterAuthOptionsLive Config Layer, AuthServerLive Server Layer — composable Effect Layer stack from configuration through server instance | frd-I-002-layers.md |
-| 3 | Schema Foundation | 29 command schemas across all domains plus 11 field schema categories (accounts, emails, images, names, params, passwords, sessions, transport, urls, users, verifications) — tagged parameter classes with decode and encode capabilities | frd-I-002-schemas.md |
+| 3 | Schema Foundation | 11 email-related command schemas plus 11 field schema categories (accounts, emails, images, names, params, passwords, sessions, transport, urls, users, verifications) — tagged parameter classes with decode and encode capabilities; remaining domain command schemas ship with their respective initiatives (I-003 through I-006) | frd-I-002-schemas.md |
 | 4 | Pipeline Utilities | Four composable error transformation utilities (handle-api-error, handle-input-error, map-api-error, map-input-error) for controller pipelines | frd-I-002-pipeline.md |
 
 #### Phase B: Email Operations
@@ -110,7 +110,7 @@ Phase B features depend on Phase A infrastructure being complete. Each operation
 |---|----------------|------------|------------|
 | 5 | Email Authentication | sign-up-email, sign-in-email, sign-out-email | frd-I-002-auth.md |
 | 6 | Email Verification | verify-email, send-verification-email | frd-I-002-verify.md |
-| 7 | Password Management | change-password, reset-password, request-password-reset, set-password, forgot-password | frd-I-002-password.md |
+| 7 | Password Management | change-password, reset-password, set-password, forgot-password, forget-password-callback | frd-I-002-password.md |
 | 8 | Email Change | change-email | frd-I-002-email-change.md |
 
 ### Out of Scope
@@ -217,11 +217,11 @@ The following initiatives depend on I-002 deliverables:
 |------|-------------|--------|------------|-------|
 | Better Auth SDK email API breaking changes | Medium | High | Pin version, monitor releases, maintain test matrix | Backend Engineer |
 | Infrastructure design does not generalize to non-email domains | Medium | High | Review schema, layer, and pipeline design against OAuth and Session domain requirements before finalizing | Tech Lead |
-| Controller-service pattern does not scale to complex email flows (e.g., multi-step password reset) | Low | Medium | Validate pattern with forgot-password and request-password-reset chain early | Tech Lead |
+| Controller-service pattern does not scale to complex email flows (e.g., multi-step password reset) | Low | Medium | Validate pattern with the forgot-password, forget-password-callback, and reset-password chain early | Tech Lead |
 | Schema validation rejects valid edge-case inputs | Medium | Medium | Manual edge-case tests in Q1; property-based testing deferred to I-014 | Backend Engineer |
 | Single-engineer bottleneck delays Q1 delivery | Medium | High | Prioritize email domain first (largest), use established patterns to accelerate remaining domains | Product Manager |
 | Test environment helper insufficient for email-specific scenarios | Low | Medium | Extend test environment helper if needed; file issue early | Backend Engineer |
-| Command schema coverage is incomplete (29 schemas may miss edge cases) | Low | Medium | Cross-reference Better Auth SDK API surface; add missing schemas incrementally | Backend Engineer |
+| Email command schema coverage is incomplete (11 schemas may miss edge cases) | Low | Medium | Cross-reference Better Auth SDK API surface for email operations; add missing schemas incrementally | Backend Engineer |
 
 ---
 
@@ -229,11 +229,11 @@ The following initiatives depend on I-002 deliverables:
 
 | Question | Owner | Due Date | Resolution |
 |----------|-------|----------|------------|
-| Should infrastructure features (errors, layers, schemas, pipeline) be versioned independently from email operations? | Tech Lead | 2026-03-10 | Pending |
-| Should all 29 command schemas ship with I-002, or only email-related schemas with remaining schemas delivered by their respective domain initiatives? | Product Manager | 2026-03-10 | Pending |
-| Should forgot-password and request-password-reset share a single FRD or remain in the Password Management cluster? | Product Manager | 2026-03-15 | Pending |
-| Does send-verification-email require server-side email transport configuration in the test environment? | Backend Engineer | 2026-03-10 | Pending |
-| Should each operation's types be re-exported from a top-level email barrel, or only from individual operation modules? | Tech Lead | 2026-03-10 | Pending |
+| Should infrastructure features (errors, layers, schemas, pipeline) be versioned independently from email operations? | Tech Lead | 2026-03-02 | Resolved — no; better-auth-utilities is a single npm package, so infrastructure and email operations ship together under one package version; independent versioning would require splitting into multiple packages, adding complexity for no practical benefit at this stage |
+| Should all 27 command schemas ship with I-002, or only email-related schemas with remaining schemas delivered by their respective domain initiatives? | Product Manager | 2026-03-02 | Resolved — only the 11 email-related command schemas ship with I-002; remaining domain schemas are delivered by their respective initiatives (I-003 through I-006) |
+| Should forgot-password and request-password-reset share a single FRD or remain in the Password Management cluster? | Product Manager | 2026-03-02 | Resolved — request-password-reset was a duplicate of forgot-password (both called the same SDK method); only forgot-password is retained |
+| Does send-verification-email require server-side email transport configuration in the test environment? | Backend Engineer | 2026-03-02 | Resolved — no real email transport is needed; tests inject a no-op mock via the emailVerification.sendVerificationEmail config callback, which satisfies the Better Auth contract without SMTP or any third-party provider |
+| Should each operation's types be re-exported from a top-level email barrel, or only from individual operation modules? | Tech Lead | 2026-03-02 | Resolved — types are internal implementation details; each types file is consumed only by its sibling controller via relative import and is not re-exported from any barrel or package export path |
 
 ---
 
