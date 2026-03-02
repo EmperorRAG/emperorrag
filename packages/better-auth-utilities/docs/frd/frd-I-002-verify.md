@@ -64,36 +64,53 @@ A developer triggers an email verification flow through one of two paths. In the
 
 ### Verify Email Operation
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-001 | Define verifyEmailServerController as a function that accepts unknown input, decodes through VerifyEmailServerParams via Schema.decodeUnknown, maps decode failures via mapInputError, delegates to verifyEmailServerService via Effect.flatMap, and annotates with Effect.withSpan | Must-Have | Primary entry point for email verification |
-| FR-002 | Define verifyEmailServerService as a function that accepts typed VerifyEmailServerParams, resolves AuthServerTag from Effect Context, calls authServer.api.verifyEmail via Effect.tryPromise, maps SDK failures via mapApiError, and annotates with Effect.withSpan | Must-Have | SDK interaction layer for token verification |
-| FR-003 | Define VerifyEmailServerParams as a TaggedClass Schema with required body (VerifyEmailCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for verify-email |
-| FR-004 | The verify-email service must pass token and callbackURL via the SDK's query parameter (not body), since the Better Auth verifyEmail method expects query-based parameters | Must-Have | SDK API surface requirement unique to this operation |
-| FR-005 | The verify-email service must pass token as a plain string (not a branded value object), since verification tokens are opaque system-generated values that do not require domain-level validation or transformation | Must-Have | Token is Schema.String, not a branded field schema |
-| FR-006 | The verify-email service must extract .value from the optional branded callbackURL field (UrlSchema) when present, using conditional spread | Must-Have | Branded value extraction for SDK compatibility |
-| FR-007 | The verify-email command schema (VerifyEmailCommand) composes a plain Schema.String for token and an optional UrlSchema for callbackURL | Must-Have | Schema composition defined in frd-I-002-schemas.md; listed here for traceability |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-001 | U | The system shall define verifyEmailServerController as a function that accepts unknown input | Must-Have | Primary entry point for email verification |
+| FR-002 | E | When the controller receives input, the system shall decode it through VerifyEmailServerParams via Schema.decodeUnknown | Must-Have | Schema boundary validation |
+| FR-003 | UB | If schema decode fails, the system shall map the decode failure to InputError via mapInputError | Must-Have | Typed error for validation failures |
+| FR-004 | E | When decode succeeds, the system shall delegate the typed params to verifyEmailServerService via Effect.flatMap | Must-Have | Controller-to-service handoff |
+| FR-005 | U | The system shall annotate the verifyEmailServerController Effect pipeline with Effect.withSpan | Must-Have | Observability span for the controller |
+| FR-006 | U | The system shall define verifyEmailServerService as a function that accepts typed VerifyEmailServerParams | Must-Have | SDK interaction layer for token verification |
+| FR-007 | E | When the service executes, the system shall resolve AuthServerTag from Effect Context | Must-Have | Dependency injection for the auth server |
+| FR-008 | E | When the auth server is resolved, the system shall call authServer.api.verifyEmail via Effect.tryPromise | Must-Have | SDK call for email verification |
+| FR-009 | UB | If the SDK call fails, the system shall map the failure to ApiError via mapApiError | Must-Have | Typed error for SDK failures |
+| FR-010 | U | The system shall annotate the verifyEmailServerService Effect pipeline with Effect.withSpan | Must-Have | Observability span for the service |
+| FR-011 | U | The system shall define VerifyEmailServerParams as a TaggedClass Schema with required body (VerifyEmailCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for verify-email |
+| FR-012 | E | When building the SDK call payload, the system shall pass token and callbackURL via the SDK's query parameter (not body) | Must-Have | SDK API surface requirement unique to this operation |
+| FR-013 | U | The system shall pass token as a plain string (not a branded value object), since verification tokens are opaque system-generated values | Must-Have | Token is Schema.String, not a branded field schema |
+| FR-014 | E | When the optional branded callbackURL field (UrlSchema) is present, the system shall extract .value using conditional spread | Must-Have | Branded value extraction for SDK compatibility |
+| FR-015 | U | The system shall compose the verify-email command schema (VerifyEmailCommand) from a plain Schema.String for token and an optional UrlSchema for callbackURL | Must-Have | Schema composition defined in frd-I-002-schemas.md; listed here for traceability |
 
 ### Send Verification Email Operation
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-008 | Define sendVerificationEmailServerController as a function that accepts unknown input, decodes through SendVerificationEmailServerParams via Schema.decodeUnknown, maps decode failures via mapInputError, delegates to sendVerificationEmailServerService via Effect.flatMap, and annotates with Effect.withSpan | Must-Have | Primary entry point for triggering verification email delivery |
-| FR-009 | Define sendVerificationEmailServerService as a function that accepts typed SendVerificationEmailServerParams, resolves AuthServerTag from Effect Context, calls authServer.api.sendVerificationEmail via Effect.tryPromise, maps SDK failures via mapApiError, and annotates with Effect.withSpan | Must-Have | SDK interaction layer for sending verification email |
-| FR-010 | Define SendVerificationEmailServerParams as a TaggedClass Schema with required body (SendVerificationEmailCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for send-verification-email |
-| FR-011 | The send-verification-email service must pass email and callbackURL via the SDK's body parameter (standard pattern), extracting .value from branded field schema instances | Must-Have | Standard body-based SDK parameter passing |
-| FR-012 | The send-verification-email command schema (SendVerificationEmailCommand) composes EmailSchema and optional UrlSchema | Must-Have | Schema composition defined in frd-I-002-schemas.md; listed here for traceability |
-| FR-013 | The send-verification-email operation must not implement email transport; the Better Auth emailVerification.sendVerificationEmail config callback is the extension point that consuming applications or test environments use to handle email delivery | Must-Have | Email transport is an application-level concern, not a library concern |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-016 | U | The system shall define sendVerificationEmailServerController as a function that accepts unknown input | Must-Have | Primary entry point for triggering verification email delivery |
+| FR-017 | E | When the controller receives input, the system shall decode it through SendVerificationEmailServerParams via Schema.decodeUnknown | Must-Have | Schema boundary validation |
+| FR-018 | UB | If schema decode fails, the system shall map the decode failure to InputError via mapInputError | Must-Have | Typed error for validation failures |
+| FR-019 | E | When decode succeeds, the system shall delegate the typed params to sendVerificationEmailServerService via Effect.flatMap | Must-Have | Controller-to-service handoff |
+| FR-020 | U | The system shall annotate the sendVerificationEmailServerController Effect pipeline with Effect.withSpan | Must-Have | Observability span for the controller |
+| FR-021 | U | The system shall define sendVerificationEmailServerService as a function that accepts typed SendVerificationEmailServerParams | Must-Have | SDK interaction layer for sending verification email |
+| FR-022 | E | When the service executes, the system shall resolve AuthServerTag from Effect Context | Must-Have | Dependency injection for the auth server |
+| FR-023 | E | When the auth server is resolved, the system shall call authServer.api.sendVerificationEmail via Effect.tryPromise | Must-Have | SDK call for sending verification email |
+| FR-024 | UB | If the SDK call fails, the system shall map the failure to ApiError via mapApiError | Must-Have | Typed error for SDK failures |
+| FR-025 | U | The system shall annotate the sendVerificationEmailServerService Effect pipeline with Effect.withSpan | Must-Have | Observability span for the service |
+| FR-026 | U | The system shall define SendVerificationEmailServerParams as a TaggedClass Schema with required body (SendVerificationEmailCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for send-verification-email |
+| FR-027 | E | When building the SDK call payload, the system shall pass email and callbackURL via the SDK's body parameter (standard pattern), extracting .value from branded field schema instances | Must-Have | Standard body-based SDK parameter passing |
+| FR-028 | U | The system shall compose the send-verification-email command schema (SendVerificationEmailCommand) from EmailSchema and optional UrlSchema | Must-Have | Schema composition defined in frd-I-002-schemas.md; listed here for traceability |
+| FR-029 | U | The system shall not implement email transport; the Better Auth emailVerification.sendVerificationEmail config callback is the extension point for email delivery | Must-Have | Email transport is an application-level concern, not a library concern |
 
 ### Cross-Cutting Requirements
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-014 | Each operation must follow the controller-service-types three-file pattern per ADR-001 | Must-Have | Architectural consistency across all operations |
-| FR-015 | Each operation must reside in its own directory under the email directory, with a barrel file re-exporting controller and service | Must-Have | One directory per operation for discoverability and isolation |
-| FR-016 | Controllers must produce InputError (via mapInputError) when schema decode fails and ApiError (via service and mapApiError) when the SDK call fails | Must-Have | Typed error channel with two distinct error types per operation |
-| FR-017 | Services must resolve the auth server exclusively through AuthServerTag from Effect Context, never constructing or importing the server directly | Must-Have | Dependency injection via Effect Context for testability |
-| FR-018 | Both operations must annotate controller and service with Effect.withSpan for observability and debugging traceability | Must-Have | Dual spans per ADR-001 |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-030 | U | The system shall follow the controller-service-types three-file pattern per ADR-001 for each operation | Must-Have | Architectural consistency across all operations |
+| FR-031 | U | The system shall place each operation in its own directory under the email directory, with a barrel file re-exporting controller and service | Must-Have | One directory per operation for discoverability and isolation |
+| FR-032 | UB | If schema decode fails, the controller shall produce InputError via mapInputError | Must-Have | Typed error channel — validation failures |
+| FR-033 | UB | If the SDK call fails, the service shall produce ApiError via mapApiError | Must-Have | Typed error channel — SDK failures |
+| FR-034 | U | The system shall resolve the auth server exclusively through AuthServerTag from Effect Context in services, never constructing or importing the server directly | Must-Have | Dependency injection via Effect Context for testability |
+| FR-035 | U | The system shall annotate both controller and service with Effect.withSpan for both operations for observability and debugging traceability | Must-Have | Dual spans per ADR-001 |
 
 ---
 
@@ -101,14 +118,20 @@ A developer triggers an email verification flow through one of two paths. In the
 
 These targets are specific to this feature and must meet or exceed the initiative-wide baselines defined in the parent IRD.
 
-| Category | Requirement |
-|----------|-------------|
-| Type Safety | Branded types for email and URL fields; plain string for verification token; tagged errors in the error channel; zero escape-hatch types |
-| Performance | Operations must complete within Better Auth SDK response time plus no more than 50ms overhead for Schema decode/encode and Effect pipeline composition |
-| Testability | Each operation testable in isolation via in-memory test environment; verify-email tests capture tokens via the emailVerification config callback; send-verification-email tests use a no-op callback; no real email transport required |
-| Compatibility | Must be compatible with Better Auth SDK verifyEmail (query-based) and sendVerificationEmail (body-based) methods at the pinned version |
-| Documentation | All controller and service exports must have TSDoc comments with pure annotation and description |
-| Observability | Both controller and service functions must include Effect.withSpan annotations for distributed tracing support |
+| ID | Category | EARS Type | Requirement | Priority |
+|----|----------|-----------|-------------|----------|
+| NFR-001 | Type Safety | U | The system shall use branded types for email and URL fields | Must-Have |
+| NFR-002 | Type Safety | U | The system shall use plain string for the verification token | Must-Have |
+| NFR-003 | Type Safety | U | The system shall place tagged errors in the Effect error channel | Must-Have |
+| NFR-004 | Type Safety | U | The system shall not use escape-hatch types in email verification operations | Must-Have |
+| NFR-005 | Performance | U | The system shall complete operations within Better Auth SDK response time plus no more than 50 ms overhead for Schema decode/encode and Effect pipeline composition | Must-Have |
+| NFR-006 | Testability | U | The system shall support testing each operation in isolation via in-memory test environment | Must-Have |
+| NFR-007 | Testability | U | The system shall support capturing verification tokens via the emailVerification config callback in verify-email tests | Must-Have |
+| NFR-008 | Testability | U | The system shall support send-verification-email tests using a no-op callback without real email transport | Must-Have |
+| NFR-009 | Compatibility | U | The system shall be compatible with Better Auth SDK verifyEmail (query-based) method at the pinned version | Must-Have |
+| NFR-010 | Compatibility | U | The system shall be compatible with Better Auth SDK sendVerificationEmail (body-based) method at the pinned version | Must-Have |
+| NFR-011 | Documentation | U | The system shall include TSDoc comments with pure annotation and description on all controller and service exports | Must-Have |
+| NFR-012 | Observability | U | The system shall include Effect.withSpan annotations on both controller and service functions for distributed tracing support | Must-Have |
 
 ---
 

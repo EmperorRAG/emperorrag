@@ -67,63 +67,106 @@ A developer manages passwords through one of two paths. In the first path, an au
 
 ### Change Password Operation
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-001 | Define changePasswordServerController as a function that accepts unknown input, decodes through ChangePasswordServerParams via Schema.decodeUnknown, maps decode failures via mapInputError, delegates to changePasswordServerService via Effect.flatMap, and annotates with Effect.withSpan | Must-Have | Primary entry point for password change |
-| FR-002 | Define changePasswordServerService as a function that accepts typed ChangePasswordServerParams, resolves AuthServerTag from Effect Context, calls authServer.api.changePassword via Effect.tryPromise, maps SDK failures via mapApiError, and annotates with Effect.withSpan | Must-Have | SDK interaction layer for password change |
-| FR-003 | Define ChangePasswordServerParams as a TaggedClass Schema with required body (ChangePasswordCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for change-password |
-| FR-004 | The change-password service must extract .value from both branded password fields (currentPassword and newPassword) and conditionally spread the plain boolean revokeOtherSessions only when present | Must-Have | Branded value extraction and optional field handling |
-| FR-005 | The change-password command schema composes two PasswordSchema instances with different policies (currentPassword with minLength 1, newPassword with minLength 8) and an optional plain boolean revokeOtherSessions | Must-Have | Schema composition defined in frd-I-002-schemas.md; listed here for traceability |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-001 | U | The system shall define changePasswordServerController as a function that accepts unknown input | Must-Have | Primary entry point for password change |
+| FR-002 | E | When the controller receives input, the system shall decode it through ChangePasswordServerParams via Schema.decodeUnknown | Must-Have | Schema boundary validation |
+| FR-003 | UB | If schema decode fails, the system shall map the decode failure to InputError via mapInputError | Must-Have | Typed error for validation failures |
+| FR-004 | E | When decode succeeds, the system shall delegate the typed params to changePasswordServerService via Effect.flatMap | Must-Have | Controller-to-service handoff |
+| FR-005 | U | The system shall annotate the changePasswordServerController Effect pipeline with Effect.withSpan | Must-Have | Observability span for the controller |
+| FR-006 | U | The system shall define changePasswordServerService as a function that accepts typed ChangePasswordServerParams | Must-Have | SDK interaction layer for password change |
+| FR-007 | E | When the service executes, the system shall resolve AuthServerTag from Effect Context | Must-Have | Dependency injection for the auth server |
+| FR-008 | E | When the auth server is resolved, the system shall call authServer.api.changePassword via Effect.tryPromise | Must-Have | SDK call for password change |
+| FR-009 | UB | If the SDK call fails, the system shall map the failure to ApiError via mapApiError | Must-Have | Typed error for SDK failures |
+| FR-010 | U | The system shall annotate the changePasswordServerService Effect pipeline with Effect.withSpan | Must-Have | Observability span for the service |
+| FR-011 | U | The system shall define ChangePasswordServerParams as a TaggedClass Schema with required body (ChangePasswordCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for change-password |
+| FR-012 | E | When building the SDK call payload, the system shall extract .value from both branded password fields (currentPassword and newPassword) | Must-Have | Branded value extraction |
+| FR-013 | E | When the optional plain boolean revokeOtherSessions is present, the system shall conditionally spread it into the SDK call payload | Must-Have | Optional field handling |
+| FR-014 | U | The system shall compose the change-password command schema from two PasswordSchema instances with different policies (currentPassword with minLength 1, newPassword with minLength 8) and an optional plain boolean revokeOtherSessions | Must-Have | Schema composition defined in frd-I-002-schemas.md; listed here for traceability |
 
 ### Forgot Password Operation
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-006 | Define forgetPasswordServerController as a function that accepts unknown input, decodes through ForgetPasswordServerParams via Schema.decodeUnknown, maps decode failures via mapInputError, delegates to forgetPasswordServerService via Effect.flatMap, and annotates with Effect.withSpan | Must-Have | Primary entry point for initiating password reset |
-| FR-007 | Define forgetPasswordServerService as a function that accepts typed ForgetPasswordServerParams, resolves AuthServerTag from Effect Context, calls authServer.api.forgetPassword via Effect.tryPromise, extracts .value from branded email and optional redirectTo URL, maps SDK failures via mapApiError, and annotates with Effect.withSpan | Must-Have | SDK interaction layer for password reset initiation |
-| FR-008 | Define ForgetPasswordServerParams as a TaggedClass Schema with required body (ForgetPasswordCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for forgot-password |
-| FR-009 | The forgot-password service must pass email and redirectTo via the SDK body parameter, extracting .value from branded EmailSchema and optional UrlSchema instances | Must-Have | Branded value extraction for SDK compatibility |
-| FR-010 | The forgot-password operation initiates the multi-step password reset flow; the SDK triggers the sendResetPassword config callback with a token that is delivered to the user via email; no token is returned to the caller | Must-Have | Token is externally delivered, not returned in the response |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-015 | U | The system shall define forgetPasswordServerController as a function that accepts unknown input | Must-Have | Primary entry point for initiating password reset |
+| FR-016 | E | When the controller receives input, the system shall decode it through ForgetPasswordServerParams via Schema.decodeUnknown | Must-Have | Schema boundary validation |
+| FR-017 | UB | If schema decode fails, the system shall map the decode failure to InputError via mapInputError | Must-Have | Typed error for validation failures |
+| FR-018 | E | When decode succeeds, the system shall delegate the typed params to forgetPasswordServerService via Effect.flatMap | Must-Have | Controller-to-service handoff |
+| FR-019 | U | The system shall annotate the forgetPasswordServerController Effect pipeline with Effect.withSpan | Must-Have | Observability span for the controller |
+| FR-020 | U | The system shall define forgetPasswordServerService as a function that accepts typed ForgetPasswordServerParams | Must-Have | SDK interaction layer for password reset initiation |
+| FR-021 | E | When the service executes, the system shall resolve AuthServerTag from Effect Context | Must-Have | Dependency injection for the auth server |
+| FR-022 | E | When the auth server is resolved, the system shall call authServer.api.forgetPassword via Effect.tryPromise | Must-Have | SDK call for password reset initiation |
+| FR-023 | UB | If the SDK call fails, the system shall map the failure to ApiError via mapApiError | Must-Have | Typed error for SDK failures |
+| FR-024 | U | The system shall annotate the forgetPasswordServerService Effect pipeline with Effect.withSpan | Must-Have | Observability span for the service |
+| FR-025 | U | The system shall define ForgetPasswordServerParams as a TaggedClass Schema with required body (ForgetPasswordCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for forgot-password |
+| FR-026 | E | When building the SDK call payload, the system shall pass email and redirectTo via the SDK body parameter, extracting .value from branded EmailSchema and optional UrlSchema instances | Must-Have | Branded value extraction for SDK compatibility |
+| FR-027 | U | The system shall not return a token to the caller from the forgot-password operation; the SDK triggers the sendResetPassword config callback with a token that is delivered to the user via email | Must-Have | Token is externally delivered, not returned in the response |
 
 ### Forget Password Callback Operation
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-011 | Define forgetPasswordCallbackServerController as a function that accepts unknown input, decodes through ForgetPasswordCallbackServerParams via Schema.decodeUnknown, maps decode failures via mapInputError, delegates to forgetPasswordCallbackServerService via Effect.flatMap, and annotates with Effect.withSpan | Must-Have | Primary entry point for token validation in the reset flow |
-| FR-012 | Define forgetPasswordCallbackServerService as a function that accepts typed ForgetPasswordCallbackServerParams, resolves AuthServerTag from Effect Context, calls authServer.api.forgetPasswordCallback via Effect.tryPromise, passes token as a plain string, maps SDK failures via mapApiError, and annotates with Effect.withSpan | Must-Have | SDK interaction layer for reset token validation |
-| FR-013 | Define ForgetPasswordCallbackServerParams as a TaggedClass Schema with required body (ForgetPasswordCallbackCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for forget-password-callback |
-| FR-014 | The forget-password-callback token is a plain Schema.String (not a branded value object), since tokens are opaque system-generated values that do not require domain-level validation or transformation | Must-Have | Consistent with token handling in verify-email and reset-password |
-| FR-015 | The forget-password-callback command schema contains only a token field (plain Schema.String), making it the minimal command in the password management cluster | Must-Have | Schema composition defined in frd-I-002-schemas.md; listed here for traceability |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-028 | U | The system shall define forgetPasswordCallbackServerController as a function that accepts unknown input | Must-Have | Primary entry point for token validation in the reset flow |
+| FR-029 | E | When the controller receives input, the system shall decode it through ForgetPasswordCallbackServerParams via Schema.decodeUnknown | Must-Have | Schema boundary validation |
+| FR-030 | UB | If schema decode fails, the system shall map the decode failure to InputError via mapInputError | Must-Have | Typed error for validation failures |
+| FR-031 | E | When decode succeeds, the system shall delegate the typed params to forgetPasswordCallbackServerService via Effect.flatMap | Must-Have | Controller-to-service handoff |
+| FR-032 | U | The system shall annotate the forgetPasswordCallbackServerController Effect pipeline with Effect.withSpan | Must-Have | Observability span for the controller |
+| FR-033 | U | The system shall define forgetPasswordCallbackServerService as a function that accepts typed ForgetPasswordCallbackServerParams | Must-Have | SDK interaction layer for reset token validation |
+| FR-034 | E | When the service executes, the system shall resolve AuthServerTag from Effect Context | Must-Have | Dependency injection for the auth server |
+| FR-035 | E | When the auth server is resolved, the system shall call authServer.api.forgetPasswordCallback via Effect.tryPromise, passing token as a plain string | Must-Have | SDK call for reset token validation |
+| FR-036 | UB | If the SDK call fails, the system shall map the failure to ApiError via mapApiError | Must-Have | Typed error for SDK failures |
+| FR-037 | U | The system shall annotate the forgetPasswordCallbackServerService Effect pipeline with Effect.withSpan | Must-Have | Observability span for the service |
+| FR-038 | U | The system shall define ForgetPasswordCallbackServerParams as a TaggedClass Schema with required body (ForgetPasswordCallbackCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for forget-password-callback |
+| FR-039 | U | The system shall treat the forget-password-callback token as a plain Schema.String (not a branded value object), since tokens are opaque system-generated values | Must-Have | Consistent with token handling in verify-email and reset-password |
+| FR-040 | U | The system shall compose the forget-password-callback command schema with only a token field (plain Schema.String), making it the minimal command in the password management cluster | Must-Have | Schema composition defined in frd-I-002-schemas.md; listed here for traceability |
 
 ### Reset Password Operation
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-016 | Define resetPasswordServerController as a function that accepts unknown input, decodes through ResetPasswordServerParams via Schema.decodeUnknown, maps decode failures via mapInputError, delegates to resetPasswordServerService via Effect.flatMap, and annotates with Effect.withSpan | Must-Have | Primary entry point for completing password reset |
-| FR-017 | Define resetPasswordServerService as a function that accepts typed ResetPasswordServerParams, resolves AuthServerTag from Effect Context, calls authServer.api.resetPassword via Effect.tryPromise, extracts .value from branded newPassword and passes token as plain string, maps SDK failures via mapApiError, and annotates with Effect.withSpan | Must-Have | SDK interaction layer for completing password reset |
-| FR-018 | Define ResetPasswordServerParams as a TaggedClass Schema with required body (ResetPasswordCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for reset-password |
-| FR-019 | The reset-password service must pass token as a plain string and extract .value from the branded newPassword field (PasswordSchema) for the SDK call | Must-Have | Mixed branded and plain field handling |
-| FR-020 | The reset-password operation completes the multi-step password reset flow by consuming the token generated in the forgot-password step; the token connects the steps externally via email delivery, not through shared in-memory state | Must-Have | Stateless multi-step flow design |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-041 | U | The system shall define resetPasswordServerController as a function that accepts unknown input | Must-Have | Primary entry point for completing password reset |
+| FR-042 | E | When the controller receives input, the system shall decode it through ResetPasswordServerParams via Schema.decodeUnknown | Must-Have | Schema boundary validation |
+| FR-043 | UB | If schema decode fails, the system shall map the decode failure to InputError via mapInputError | Must-Have | Typed error for validation failures |
+| FR-044 | E | When decode succeeds, the system shall delegate the typed params to resetPasswordServerService via Effect.flatMap | Must-Have | Controller-to-service handoff |
+| FR-045 | U | The system shall annotate the resetPasswordServerController Effect pipeline with Effect.withSpan | Must-Have | Observability span for the controller |
+| FR-046 | U | The system shall define resetPasswordServerService as a function that accepts typed ResetPasswordServerParams | Must-Have | SDK interaction layer for completing password reset |
+| FR-047 | E | When the service executes, the system shall resolve AuthServerTag from Effect Context | Must-Have | Dependency injection for the auth server |
+| FR-048 | E | When the auth server is resolved, the system shall call authServer.api.resetPassword via Effect.tryPromise | Must-Have | SDK call for completing password reset |
+| FR-049 | UB | If the SDK call fails, the system shall map the failure to ApiError via mapApiError | Must-Have | Typed error for SDK failures |
+| FR-050 | U | The system shall annotate the resetPasswordServerService Effect pipeline with Effect.withSpan | Must-Have | Observability span for the service |
+| FR-051 | U | The system shall define ResetPasswordServerParams as a TaggedClass Schema with required body (ResetPasswordCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for reset-password |
+| FR-052 | E | When building the SDK call payload, the system shall pass token as a plain string and extract .value from the branded newPassword field (PasswordSchema) | Must-Have | Mixed branded and plain field handling |
+| FR-053 | U | The system shall complete the multi-step password reset flow by consuming the token generated in the forgot-password step; the token connects the steps externally via email delivery, not through shared in-memory state | Must-Have | Stateless multi-step flow design |
 
 ### Set Password Operation
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-021 | Define setPasswordServerController as a function that accepts unknown input, decodes through SetPasswordServerParams via Schema.decodeUnknown, maps decode failures via mapInputError, delegates to setPasswordServerService via Effect.flatMap, and annotates with Effect.withSpan | Must-Have | Primary entry point for establishing a password on passwordless accounts |
-| FR-022 | Define setPasswordServerService as a function that accepts typed SetPasswordServerParams, resolves AuthServerTag from Effect Context, calls authServer.api.setPassword via Effect.tryPromise, extracts .value from branded newPassword and optional branded currentPassword, maps SDK failures via mapApiError, and annotates with Effect.withSpan | Must-Have | SDK interaction layer for setting a password |
-| FR-023 | Define SetPasswordServerParams as a TaggedClass Schema with required body (SetPasswordCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for set-password |
-| FR-024 | The set-password service must conditionally spread the optional branded currentPassword field, extracting .value when present | Must-Have | Optional branded field handling |
-| FR-025 | The set-password command schema composes two PasswordSchema instances with different policies (newPassword with minLength 8, currentPassword optional with minLength 1), following the same password policy split as change-password | Must-Have | Schema composition defined in frd-I-002-schemas.md; listed here for traceability |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-054 | U | The system shall define setPasswordServerController as a function that accepts unknown input | Must-Have | Primary entry point for establishing a password on passwordless accounts |
+| FR-055 | E | When the controller receives input, the system shall decode it through SetPasswordServerParams via Schema.decodeUnknown | Must-Have | Schema boundary validation |
+| FR-056 | UB | If schema decode fails, the system shall map the decode failure to InputError via mapInputError | Must-Have | Typed error for validation failures |
+| FR-057 | E | When decode succeeds, the system shall delegate the typed params to setPasswordServerService via Effect.flatMap | Must-Have | Controller-to-service handoff |
+| FR-058 | U | The system shall annotate the setPasswordServerController Effect pipeline with Effect.withSpan | Must-Have | Observability span for the controller |
+| FR-059 | U | The system shall define setPasswordServerService as a function that accepts typed SetPasswordServerParams | Must-Have | SDK interaction layer for setting a password |
+| FR-060 | E | When the service executes, the system shall resolve AuthServerTag from Effect Context | Must-Have | Dependency injection for the auth server |
+| FR-061 | E | When the auth server is resolved, the system shall call authServer.api.setPassword via Effect.tryPromise | Must-Have | SDK call for setting a password |
+| FR-062 | UB | If the SDK call fails, the system shall map the failure to ApiError via mapApiError | Must-Have | Typed error for SDK failures |
+| FR-063 | U | The system shall annotate the setPasswordServerService Effect pipeline with Effect.withSpan | Must-Have | Observability span for the service |
+| FR-064 | U | The system shall define SetPasswordServerParams as a TaggedClass Schema with required body (SetPasswordCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for set-password |
+| FR-065 | E | When building the SDK call payload, the system shall extract .value from the branded newPassword field | Must-Have | Branded value extraction |
+| FR-066 | E | When the optional branded currentPassword field is present, the system shall conditionally spread it into the SDK call payload, extracting .value | Must-Have | Optional branded field handling |
+| FR-067 | U | The system shall compose the set-password command schema from two PasswordSchema instances with different policies (newPassword with minLength 8, currentPassword optional with minLength 1), following the same password policy split as change-password | Must-Have | Schema composition defined in frd-I-002-schemas.md; listed here for traceability |
 
 ### Cross-Cutting Requirements
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-026 | Each operation must follow the controller-service-types three-file pattern per ADR-001 | Must-Have | Architectural consistency across all operations |
-| FR-027 | Each operation must reside in its own directory under the email directory, with a barrel file re-exporting controller and service | Must-Have | One directory per operation for discoverability and isolation |
-| FR-028 | Controllers must produce InputError (via mapInputError) when schema decode fails and ApiError (via service and mapApiError) when the SDK call fails | Must-Have | Typed error channel with two distinct error types per operation |
-| FR-029 | Services must resolve the auth server exclusively through AuthServerTag from Effect Context, never constructing or importing the server directly | Must-Have | Dependency injection via Effect Context for testability |
-| FR-030 | All five operations must annotate both controller and service with Effect.withSpan for observability and debugging traceability | Must-Have | Dual spans per ADR-001 |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-068 | U | The system shall follow the controller-service-types three-file pattern per ADR-001 for each operation | Must-Have | Architectural consistency across all operations |
+| FR-069 | U | The system shall place each operation in its own directory under the email directory, with a barrel file re-exporting controller and service | Must-Have | One directory per operation for discoverability and isolation |
+| FR-070 | UB | If schema decode fails, the controller shall produce InputError via mapInputError | Must-Have | Typed error channel — validation failures |
+| FR-071 | UB | If the SDK call fails, the service shall produce ApiError via mapApiError | Must-Have | Typed error channel — SDK failures |
+| FR-072 | U | The system shall resolve the auth server exclusively through AuthServerTag from Effect Context in services, never constructing or importing the server directly | Must-Have | Dependency injection via Effect Context for testability |
+| FR-073 | U | The system shall annotate both controller and service with Effect.withSpan for all five operations for observability and debugging traceability | Must-Have | Dual spans per ADR-001 |
 
 ---
 
@@ -131,14 +174,19 @@ A developer manages passwords through one of two paths. In the first path, an au
 
 These targets are specific to this feature and must meet or exceed the initiative-wide baselines defined in the parent IRD.
 
-| Category | Requirement |
-|----------|-------------|
-| Type Safety | Branded Password types with configurable length policies; plain string for reset tokens; tagged errors in the error channel; zero escape-hatch types |
-| Performance | Operations must complete within Better Auth SDK response time plus no more than 50ms overhead for Schema decode/encode and Effect pipeline composition |
-| Testability | Each operation testable in isolation via in-memory test environment; multi-step reset flow testable by capturing tokens via the sendResetPassword config callback; set-password requires a passwordless user fixture (e.g., OAuth-originated account) for full happy-path testing |
-| Compatibility | Must be compatible with Better Auth SDK password methods (changePassword, forgetPassword, forgetPasswordCallback, resetPassword, setPassword) at the pinned version |
-| Documentation | All controller and service exports must have TSDoc comments with pure annotation and description |
-| Observability | Both controller and service functions must include Effect.withSpan annotations for distributed tracing support |
+| ID | Category | EARS Type | Requirement | Priority |
+|----|----------|-----------|-------------|----------|
+| NFR-001 | Type Safety | U | The system shall use branded Password types with configurable length policies | Must-Have |
+| NFR-002 | Type Safety | U | The system shall use plain string for reset tokens | Must-Have |
+| NFR-003 | Type Safety | U | The system shall place tagged errors in the Effect error channel | Must-Have |
+| NFR-004 | Type Safety | U | The system shall not use escape-hatch types in password management operations | Must-Have |
+| NFR-005 | Performance | U | The system shall complete operations within Better Auth SDK response time plus no more than 50 ms overhead for Schema decode/encode and Effect pipeline composition | Must-Have |
+| NFR-006 | Testability | U | The system shall support testing each operation in isolation via in-memory test environment | Must-Have |
+| NFR-007 | Testability | U | The system shall support multi-step reset flow testing by capturing tokens via the sendResetPassword config callback | Must-Have |
+| NFR-008 | Testability | U | The system shall support set-password testing with a passwordless user fixture (e.g., OAuth-originated account) for full happy-path coverage | Must-Have |
+| NFR-009 | Compatibility | U | The system shall be compatible with Better Auth SDK password methods (changePassword, forgetPassword, forgetPasswordCallback, resetPassword, setPassword) at the pinned version | Must-Have |
+| NFR-010 | Documentation | U | The system shall include TSDoc comments with pure annotation and description on all controller and service exports | Must-Have |
+| NFR-011 | Observability | U | The system shall include Effect.withSpan annotations on both controller and service functions for distributed tracing support | Must-Have |
 
 ---
 

@@ -63,23 +63,33 @@ A developer changes a user's email address by calling the change-email controlle
 
 ### Change Email Operation
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-001 | Define changeEmailServerController as a function that accepts unknown input, decodes through ChangeEmailServerParams via Schema.decodeUnknown, maps decode failures via mapInputError, delegates to changeEmailServerService via Effect.flatMap, and annotates with Effect.withSpan | Must-Have | Primary entry point for email change |
-| FR-002 | Define changeEmailServerService as a function that accepts typed ChangeEmailServerParams, resolves AuthServerTag from Effect Context, calls authServer.api.changeEmail via Effect.tryPromise, maps SDK failures via mapApiError, and annotates with Effect.withSpan | Must-Have | SDK interaction layer for email change |
-| FR-003 | Define ChangeEmailServerParams as a TaggedClass Schema with required body (ChangeEmailCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for change-email |
-| FR-004 | The change-email service must extract .value from the branded newEmail field (EmailSchema) and conditionally spread .value from the optional branded callbackURL field (UrlSchema) only when present | Must-Have | Branded value extraction for SDK compatibility |
-| FR-005 | The change-email command schema composes EmailSchema (required newEmail) and optional UrlSchema (callbackURL) — both branded value objects requiring .value extraction at the service boundary | Must-Have | Schema composition defined in frd-I-002-schemas.md; listed here for traceability |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-001 | U | The system shall define changeEmailServerController as a function that accepts unknown input | Must-Have | Primary entry point for email change |
+| FR-002 | E | When the controller receives input, the system shall decode it through ChangeEmailServerParams via Schema.decodeUnknown | Must-Have | Schema boundary validation |
+| FR-003 | UB | If schema decode fails, the system shall map the decode failure to InputError via mapInputError | Must-Have | Typed error for validation failures |
+| FR-004 | E | When decode succeeds, the system shall delegate the typed params to changeEmailServerService via Effect.flatMap | Must-Have | Controller-to-service handoff |
+| FR-005 | U | The system shall annotate the changeEmailServerController Effect pipeline with Effect.withSpan | Must-Have | Observability span for the controller |
+| FR-006 | U | The system shall define changeEmailServerService as a function that accepts typed ChangeEmailServerParams | Must-Have | SDK interaction layer for email change |
+| FR-007 | E | When the service executes, the system shall resolve AuthServerTag from Effect Context | Must-Have | Dependency injection for the auth server |
+| FR-008 | E | When the auth server is resolved, the system shall call authServer.api.changeEmail via Effect.tryPromise | Must-Have | SDK call for email change |
+| FR-009 | UB | If the SDK call fails, the system shall map the failure to ApiError via mapApiError | Must-Have | Typed error for SDK failures |
+| FR-010 | U | The system shall annotate the changeEmailServerService Effect pipeline with Effect.withSpan | Must-Have | Observability span for the service |
+| FR-011 | U | The system shall define ChangeEmailServerParams as a TaggedClass Schema with required body (ChangeEmailCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for change-email |
+| FR-012 | E | When building the SDK call payload, the system shall extract .value from the branded newEmail field (EmailSchema) | Must-Have | Branded value extraction for SDK compatibility |
+| FR-013 | E | When the optional branded callbackURL field (UrlSchema) is present, the system shall conditionally spread .value from it into the SDK call payload | Must-Have | Optional branded value extraction |
+| FR-014 | U | The system shall compose the change-email command schema from EmailSchema (required newEmail) and optional UrlSchema (callbackURL) — both branded value objects requiring .value extraction at the service boundary | Must-Have | Schema composition defined in frd-I-002-schemas.md; listed here for traceability |
 
 ### Cross-Cutting Requirements
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-006 | The operation must follow the controller-service-types three-file pattern per ADR-001 | Must-Have | Architectural consistency with all other operations |
-| FR-007 | The operation must reside in its own directory under the email directory, with a barrel file re-exporting controller and service | Must-Have | One directory per operation for discoverability and isolation |
-| FR-008 | The controller must produce InputError (via mapInputError) when schema decode fails and ApiError (via service and mapApiError) when the SDK call fails | Must-Have | Typed error channel with two distinct error types |
-| FR-009 | The service must resolve the auth server exclusively through AuthServerTag from Effect Context, never constructing or importing the server directly | Must-Have | Dependency injection via Effect Context for testability |
-| FR-010 | The operation must annotate both controller and service with Effect.withSpan for observability and debugging traceability | Must-Have | Dual spans per ADR-001 |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-015 | U | The system shall follow the controller-service-types three-file pattern per ADR-001 for the operation | Must-Have | Architectural consistency with all other operations |
+| FR-016 | U | The system shall place the operation in its own directory under the email directory, with a barrel file re-exporting controller and service | Must-Have | One directory per operation for discoverability and isolation |
+| FR-017 | UB | If schema decode fails, the controller shall produce InputError (via mapInputError) | Must-Have | Typed error channel — validation failures |
+| FR-018 | UB | If the SDK call fails, the service shall produce ApiError (via mapApiError) | Must-Have | Typed error channel — SDK failures |
+| FR-019 | U | The service shall resolve the auth server exclusively through AuthServerTag from Effect Context, never constructing or importing the server directly | Must-Have | Dependency injection via Effect Context for testability |
+| FR-020 | U | The system shall annotate both controller and service with Effect.withSpan for observability and debugging traceability | Must-Have | Dual spans per ADR-001 |
 
 ---
 
@@ -87,14 +97,20 @@ A developer changes a user's email address by calling the change-email controlle
 
 These targets are specific to this feature and must meet or exceed the initiative-wide baselines defined in the parent IRD.
 
-| Category | Requirement |
-|----------|-------------|
-| Type Safety | Branded Email type for newEmail, branded Url type for optional callbackURL; tagged errors in the error channel; zero escape-hatch types |
-| Performance | Operation must complete within Better Auth SDK response time plus no more than 50ms overhead for Schema decode/encode and Effect pipeline composition |
-| Testability | Testable in isolation via in-memory test environment; test server must configure user.changeEmail.enabled to true; test setup requires signing up a user and capturing session headers before invoking change-email |
-| Compatibility | Must be compatible with Better Auth SDK changeEmail method at the pinned version; requires runtime feature flag enablement (user.changeEmail.enabled) |
-| Documentation | Controller and service exports must have TSDoc comments with pure annotation and description |
-| Observability | Both controller and service functions must include Effect.withSpan annotations for distributed tracing support |
+| ID | Category | EARS Type | Requirement | Priority |
+|----|----------|-----------|-------------|----------|
+| NFR-001 | Type Safety | U | The system shall use branded Email type for the newEmail field | Must-Have |
+| NFR-002 | Type Safety | U | The system shall use branded Url type for the optional callbackURL field | Must-Have |
+| NFR-003 | Type Safety | U | The system shall place tagged errors in the Effect error channel | Must-Have |
+| NFR-004 | Type Safety | U | The system shall not use escape-hatch types in the email change operation | Must-Have |
+| NFR-005 | Performance | U | The system shall complete the operation within Better Auth SDK response time plus no more than 50 ms overhead for Schema decode/encode and Effect pipeline composition | Must-Have |
+| NFR-006 | Testability | U | The system shall support testing in isolation via in-memory test environment | Must-Have |
+| NFR-007 | Testability | S | While the test server is configured, the system shall require user.changeEmail.enabled set to true | Must-Have |
+| NFR-008 | Testability | U | The system shall require test setup to sign up a user and capture session headers before invoking change-email | Must-Have |
+| NFR-009 | Compatibility | U | The system shall be compatible with the Better Auth SDK changeEmail method at the pinned version | Must-Have |
+| NFR-010 | Compatibility | S | While the server is running, the system shall require the runtime feature flag user.changeEmail.enabled to be true | Must-Have |
+| NFR-011 | Documentation | U | The system shall include TSDoc comments with pure annotation and description on controller and service exports | Must-Have |
+| NFR-012 | Observability | U | The system shall include Effect.withSpan annotations on both controller and service functions for distributed tracing support | Must-Have |
 
 ---
 

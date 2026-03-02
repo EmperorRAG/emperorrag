@@ -67,47 +67,72 @@ A developer calls an email authentication controller with raw input. The control
 
 ### Sign-Up Email Operation
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-001 | Define signUpEmailServerController as a function that accepts unknown input, decodes through SignUpEmailServerParams via Schema.decodeUnknown, maps decode failures via mapInputError, delegates to signUpEmailServerService via Effect.flatMap, and annotates with Effect.withSpan | Must-Have | Primary entry point for email sign-up |
-| FR-002 | Define signUpEmailServerService as a function that accepts typed SignUpEmailServerParams, resolves AuthServerTag from Effect Context, calls authServer.api.signUpEmail via Effect.tryPromise, maps SDK failures via mapApiError, and annotates with Effect.withSpan | Must-Have | SDK interaction layer for sign-up |
-| FR-003 | Define SignUpEmailServerParams as a TaggedClass Schema with required body (SignUpEmailCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for sign-up |
-| FR-004 | The sign-up service must extract .value from branded value object fields (email, password, name, image, callbackURL) to produce plain strings for the SDK call | Must-Have | Branded types require explicit value extraction |
-| FR-005 | The sign-up service must conditionally spread optional fields (image, callbackURL, additionalFields, headers, asResponse, returnHeaders) only when present | Must-Have | SDK does not accept undefined values for optional parameters |
-| FR-006 | The sign-up command schema (SignUpEmailCommand) composes EmailSchema, PasswordSchema, NameSchema, and optionally ImageSchema, UrlSchema, and an additionalFields record | Must-Have | Schema composition is defined in frd-I-002-schemas.md; listed here for traceability |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-001 | U | The system shall define signUpEmailServerController as a function that accepts unknown input | Must-Have | Primary entry point for email sign-up |
+| FR-002 | E | When the controller receives input, the system shall decode it through SignUpEmailServerParams via Schema.decodeUnknown | Must-Have | Schema boundary validation |
+| FR-003 | UB | If schema decode fails, the system shall map the decode failure to InputError via mapInputError | Must-Have | Typed error for validation failures |
+| FR-004 | E | When decode succeeds, the system shall delegate the typed params to signUpEmailServerService via Effect.flatMap | Must-Have | Controller-to-service handoff |
+| FR-005 | U | The system shall annotate the signUpEmailServerController Effect pipeline with Effect.withSpan | Must-Have | Observability span for the controller |
+| FR-006 | U | The system shall define signUpEmailServerService as a function that accepts typed SignUpEmailServerParams | Must-Have | SDK interaction layer for sign-up |
+| FR-007 | E | When the service executes, the system shall resolve AuthServerTag from Effect Context | Must-Have | Dependency injection for the auth server |
+| FR-008 | E | When the auth server is resolved, the system shall call authServer.api.signUpEmail via Effect.tryPromise | Must-Have | SDK call for sign-up |
+| FR-009 | UB | If the SDK call fails, the system shall map the failure to ApiError via mapApiError | Must-Have | Typed error for SDK failures |
+| FR-010 | U | The system shall annotate the signUpEmailServerService Effect pipeline with Effect.withSpan | Must-Have | Observability span for the service |
+| FR-011 | U | The system shall define SignUpEmailServerParams as a TaggedClass Schema with required body (SignUpEmailCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for sign-up |
+| FR-012 | E | When building the SDK call payload, the system shall extract .value from branded value object fields (email, password, name, image, callbackURL) to produce plain strings | Must-Have | Branded types require explicit value extraction |
+| FR-013 | E | When optional fields (image, callbackURL, additionalFields, headers, asResponse, returnHeaders) are present, the system shall conditionally spread them into the SDK call payload | Must-Have | SDK does not accept undefined values for optional parameters |
+| FR-014 | U | The system shall compose the sign-up command schema (SignUpEmailCommand) from EmailSchema, PasswordSchema, NameSchema, and optionally ImageSchema, UrlSchema, and an additionalFields record | Must-Have | Schema composition is defined in frd-I-002-schemas.md; listed here for traceability |
 
 ### Sign-In Email Operation
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-007 | Define signInEmailServerController as a function that accepts unknown input, decodes through SignInEmailServerParams via Schema.decodeUnknown, maps decode failures via mapInputError, delegates to signInEmailServerService via Effect.flatMap, and annotates with Effect.withSpan | Must-Have | Primary entry point for email sign-in |
-| FR-008 | Define signInEmailServerService as a function that accepts typed SignInEmailServerParams, resolves AuthServerTag from Effect Context, calls authServer.api.signInEmail via Effect.tryPromise, maps SDK failures via mapApiError, and annotates with Effect.withSpan | Must-Have | SDK interaction layer for sign-in |
-| FR-009 | Define SignInEmailServerParams as a TaggedClass Schema with required body (SignInEmailCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for sign-in |
-| FR-010 | The sign-in service must pass rememberMe as a plain boolean (not a branded value object) since it is a simple flag, not domain data | Must-Have | Intentional deviation from the value object pattern for simple flags |
-| FR-011 | The sign-in command schema (SignInEmailCommand) composes EmailSchema, PasswordSchema, optionally UrlSchema, and a plain rememberMe boolean | Must-Have | Schema composition is defined in frd-I-002-schemas.md; listed here for traceability |
-| FR-012 | The sign-in operation must produce an ApiError with a descriptive message when the SDK rejects invalid credentials | Must-Have | Common failure mode: "Invalid email or password" |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-015 | U | The system shall define signInEmailServerController as a function that accepts unknown input | Must-Have | Primary entry point for email sign-in |
+| FR-016 | E | When the controller receives input, the system shall decode it through SignInEmailServerParams via Schema.decodeUnknown | Must-Have | Schema boundary validation |
+| FR-017 | UB | If schema decode fails, the system shall map the decode failure to InputError via mapInputError | Must-Have | Typed error for validation failures |
+| FR-018 | E | When decode succeeds, the system shall delegate the typed params to signInEmailServerService via Effect.flatMap | Must-Have | Controller-to-service handoff |
+| FR-019 | U | The system shall annotate the signInEmailServerController Effect pipeline with Effect.withSpan | Must-Have | Observability span for the controller |
+| FR-020 | U | The system shall define signInEmailServerService as a function that accepts typed SignInEmailServerParams | Must-Have | SDK interaction layer for sign-in |
+| FR-021 | E | When the service executes, the system shall resolve AuthServerTag from Effect Context | Must-Have | Dependency injection for the auth server |
+| FR-022 | E | When the auth server is resolved, the system shall call authServer.api.signInEmail via Effect.tryPromise | Must-Have | SDK call for sign-in |
+| FR-023 | UB | If the SDK call fails, the system shall map the failure to ApiError via mapApiError | Must-Have | Typed error for SDK failures |
+| FR-024 | U | The system shall annotate the signInEmailServerService Effect pipeline with Effect.withSpan | Must-Have | Observability span for the service |
+| FR-025 | U | The system shall define SignInEmailServerParams as a TaggedClass Schema with required body (SignInEmailCommand), optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), plus static decode and encode methods | Must-Have | Input contract for sign-in |
+| FR-026 | U | The system shall pass rememberMe as a plain boolean (not a branded value object) since it is a simple flag, not domain data | Must-Have | Intentional deviation from the value object pattern for simple flags |
+| FR-027 | U | The system shall compose the sign-in command schema (SignInEmailCommand) from EmailSchema, PasswordSchema, optionally UrlSchema, and a plain rememberMe boolean | Must-Have | Schema composition is defined in frd-I-002-schemas.md; listed here for traceability |
+| FR-028 | UB | If the SDK rejects invalid credentials, the system shall produce an ApiError with a descriptive message | Must-Have | Common failure mode: "Invalid email or password" |
 
 ### Sign-Out Email Operation
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-013 | Define signOutEmailServerController as a function that accepts unknown input, decodes through SignOutEmailServerParams via Schema.decodeUnknown, maps decode failures via mapInputError, delegates to signOutEmailServerService via Effect.flatMap, and annotates with Effect.withSpan | Must-Have | Primary entry point for sign-out |
-| FR-014 | Define signOutEmailServerService as a function that accepts typed SignOutEmailServerParams, resolves AuthServerTag from Effect Context, calls authServer.api.signOut via Effect.tryPromise, maps SDK failures via mapApiError, and annotates with Effect.withSpan | Must-Have | SDK method is signOut, not signOutEmail |
-| FR-015 | Define SignOutEmailServerParams as a TaggedClass Schema with optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), and no body field, plus static decode and encode methods | Must-Have | Sign-out requires no input body; session is identified via headers |
-| FR-016 | The sign-out service must default headers to a new empty Headers instance when no headers are provided, since the SDK requires headers to identify the session | Must-Have | Ensures the SDK always receives a Headers object |
-| FR-017 | The sign-out operation must call authServer.api.signOut (the domain-agnostic SDK method), not a hypothetical signOutEmail method | Must-Have | SDK API surface uses signOut for all session types |
-| FR-018 | The sign-out operation must produce an ApiError when no valid session is identified from the provided headers | Must-Have | Common failure mode: "Failed to get session" |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-029 | U | The system shall define signOutEmailServerController as a function that accepts unknown input | Must-Have | Primary entry point for sign-out |
+| FR-030 | E | When the controller receives input, the system shall decode it through SignOutEmailServerParams via Schema.decodeUnknown | Must-Have | Schema boundary validation |
+| FR-031 | UB | If schema decode fails, the system shall map the decode failure to InputError via mapInputError | Must-Have | Typed error for validation failures |
+| FR-032 | E | When decode succeeds, the system shall delegate the typed params to signOutEmailServerService via Effect.flatMap | Must-Have | Controller-to-service handoff |
+| FR-033 | U | The system shall annotate the signOutEmailServerController Effect pipeline with Effect.withSpan | Must-Have | Observability span for the controller |
+| FR-034 | U | The system shall define signOutEmailServerService as a function that accepts typed SignOutEmailServerParams | Must-Have | SDK method is signOut, not signOutEmail |
+| FR-035 | E | When the service executes, the system shall resolve AuthServerTag from Effect Context | Must-Have | Dependency injection for the auth server |
+| FR-036 | E | When the auth server is resolved, the system shall call authServer.api.signOut via Effect.tryPromise | Must-Have | SDK call for sign-out |
+| FR-037 | UB | If the SDK call fails, the system shall map the failure to ApiError via mapApiError | Must-Have | Typed error for SDK failures |
+| FR-038 | U | The system shall annotate the signOutEmailServerService Effect pipeline with Effect.withSpan | Must-Have | Observability span for the service |
+| FR-039 | U | The system shall define SignOutEmailServerParams as a TaggedClass Schema with optional headers (Headers instance), optional asResponse (boolean), optional returnHeaders (boolean), and no body field, plus static decode and encode methods | Must-Have | Sign-out requires no input body; session is identified via headers |
+| FR-040 | E | When no headers are provided, the system shall default headers to a new empty Headers instance for the SDK call | Must-Have | Ensures the SDK always receives a Headers object |
+| FR-041 | U | The system shall call authServer.api.signOut (the domain-agnostic SDK method), not a hypothetical signOutEmail method | Must-Have | SDK API surface uses signOut for all session types |
+| FR-042 | UB | If no valid session is identified from the provided headers, the system shall produce an ApiError | Must-Have | Common failure mode: "Failed to get session" |
 
 ### Cross-Cutting Requirements
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-019 | Each operation must follow the controller-service-types three-file pattern per ADR-001 | Must-Have | Architectural consistency across all operations |
-| FR-020 | Each operation must reside in its own directory under the email directory, with a barrel file re-exporting controller and service | Must-Have | One directory per operation for discoverability and isolation |
-| FR-021 | Controllers must produce InputError (via mapInputError) when schema decode fails and ApiError (via service and mapApiError) when the SDK call fails | Must-Have | Typed error channel with two distinct error types per operation |
-| FR-022 | Services must resolve the auth server exclusively through AuthServerTag from Effect Context, never constructing or importing the server directly | Must-Have | Dependency injection via Effect Context for testability |
-| FR-023 | All three operations must annotate both controller and service with Effect.withSpan for observability and debugging traceability | Must-Have | Dual spans per ADR-001 enable end-to-end trace correlation |
-| FR-024 | Each operation must have a companion test suite (controller spec, service spec, types spec) verifiable against the test environment helper | Must-Have | Three spec files per operation per ADR-001 |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-043 | U | The system shall follow the controller-service-types three-file pattern per ADR-001 for each operation | Must-Have | Architectural consistency across all operations |
+| FR-044 | U | The system shall place each operation in its own directory under the email directory, with a barrel file re-exporting controller and service | Must-Have | One directory per operation for discoverability and isolation |
+| FR-045 | UB | If schema decode fails, the controller shall produce InputError via mapInputError | Must-Have | Typed error channel — validation failures |
+| FR-046 | UB | If the SDK call fails, the service shall produce ApiError via mapApiError | Must-Have | Typed error channel — SDK failures |
+| FR-047 | U | The system shall resolve the auth server exclusively through AuthServerTag from Effect Context in services, never constructing or importing the server directly | Must-Have | Dependency injection via Effect Context for testability |
+| FR-048 | U | The system shall annotate both controller and service with Effect.withSpan for all three operations for observability and debugging traceability | Must-Have | Dual spans per ADR-001 enable end-to-end trace correlation |
+| FR-049 | U | The system shall provide a companion test suite (controller spec, service spec, types spec) for each operation, verifiable against the test environment helper | Must-Have | Three spec files per operation per ADR-001 |
 
 ---
 
@@ -115,14 +140,19 @@ A developer calls an email authentication controller with raw input. The control
 
 These targets are specific to this feature and must meet or exceed the initiative-wide baselines defined in the parent IRD.
 
-| Category | Requirement |
-|----------|-------------|
-| Type Safety | All inputs validated via Schema TaggedClass; branded value objects for domain fields (email, password, name); tagged errors in the error channel; zero escape-hatch types |
-| Performance | Operations must complete within Better Auth SDK response time plus no more than 50ms overhead for Schema decode/encode and Effect pipeline composition |
-| Testability | Each operation testable in isolation via in-memory test environment; services testable by providing AuthServerTag directly via Effect.provideService; no production layers or databases required |
-| Compatibility | Must be compatible with Better Auth SDK email methods (signUpEmail, signInEmail, signOut) at the pinned version |
-| Documentation | All controller and service exports must have TSDoc comments with pure annotation and description |
-| Observability | Both controller and service functions must include Effect.withSpan annotations for distributed tracing support |
+| ID | Category | EARS Type | Requirement | Priority |
+|----|----------|-----------|-------------|----------|
+| NFR-001 | Type Safety | U | The system shall validate all inputs via Schema TaggedClass | Must-Have |
+| NFR-002 | Type Safety | U | The system shall use branded value objects for domain fields (email, password, name) | Must-Have |
+| NFR-003 | Type Safety | U | The system shall place tagged errors in the Effect error channel | Must-Have |
+| NFR-004 | Type Safety | U | The system shall not use escape-hatch types in email authentication operations | Must-Have |
+| NFR-005 | Performance | U | The system shall complete operations within Better Auth SDK response time plus no more than 50 ms overhead for Schema decode/encode and Effect pipeline composition | Must-Have |
+| NFR-006 | Testability | U | The system shall support testing each operation in isolation via in-memory test environment | Must-Have |
+| NFR-007 | Testability | U | The system shall support testing services by providing AuthServerTag directly via Effect.provideService | Must-Have |
+| NFR-008 | Testability | U | The system shall require no production layers or databases for testing | Must-Have |
+| NFR-009 | Compatibility | U | The system shall be compatible with Better Auth SDK email methods (signUpEmail, signInEmail, signOut) at the pinned version | Must-Have |
+| NFR-010 | Documentation | U | The system shall include TSDoc comments with pure annotation and description on all controller and service exports | Must-Have |
+| NFR-011 | Observability | U | The system shall include Effect.withSpan annotations on both controller and service functions for distributed tracing support | Must-Have |
 
 ---
 

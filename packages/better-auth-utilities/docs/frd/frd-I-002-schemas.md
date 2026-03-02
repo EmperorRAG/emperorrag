@@ -61,45 +61,45 @@ A developer constructs an input object for an email operation. The input is deco
 
 ### Field Schemas
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-001 | Define EmailSchema as a tagged field schema for email addresses with string validation and transform from plain string to branded type | Must-Have | Value object pattern; reused by sign-up, sign-in, change-email, and forget-password commands |
-| FR-002 | Define PasswordSchema as a factory function that returns a tagged field schema for passwords with configurable minimum and maximum length constraints | Must-Have | Factory pattern; minimum and maximum lengths are parameters, not hardcoded; reused by sign-up, sign-in, change-password, reset-password, and set-password commands |
-| FR-003 | Define NameSchema as a tagged field schema for display names with string validation and transform from plain string to branded type | Must-Have | Value object pattern; reused by sign-up command |
-| FR-004 | Define UrlSchema as a tagged field schema for URL strings with validation and transform from plain string to branded type | Must-Have | Value object pattern; reused by callback URL fields across commands |
-| FR-005 | Define ImageSchema as a tagged field schema for image URL or reference strings with validation and transform from plain string to branded type | Must-Have | Value object pattern; reused by sign-up command for avatar/image fields |
-| FR-006 | Define AccountSchema as a tagged field schema for account entity representations with fields for account identifiers and metadata | Must-Have | Entity pattern; structured schema without value object transform |
-| FR-007 | Define SessionSchema as a tagged field schema for session entity representations with fields for session identifiers, tokens, and expiration metadata | Must-Have | Entity pattern; structured schema without value object transform |
-| FR-008 | Define UserSchema as a tagged field schema for user entity representations with fields for user identifiers, email, name, and profile metadata | Must-Have | Entity pattern; structured schema without value object transform |
-| FR-009 | Define VerificationSchema as a tagged field schema for email verification entity representations with fields for verification status and token metadata | Must-Have | Entity pattern; structured schema without value object transform |
-| FR-010 | Define TransportCommandSchema as a tagged field schema for email transport context with tag TransportCommandCtx, containing email destination, subject, and sender metadata | Must-Have | Special pattern; tag differs from class name (TransportCommandCtx); used by send-verification-email command |
-| FR-011 | Define composite parameter schemas (Params) as tagged field schemas that aggregate multiple identifiers and metadata fields used across commands for common parameter groupings | Must-Have | Composite pattern; reused by commands that share parameter shapes |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-001 | U | The system shall define EmailSchema as a tagged field schema for email addresses with string validation and transform from plain string to branded type | Must-Have | Value object pattern; reused by sign-up, sign-in, change-email, and forget-password commands |
+| FR-002 | U | The system shall define PasswordSchema as a factory function that returns a tagged field schema for passwords with configurable minimum and maximum length constraints | Must-Have | Factory pattern; minimum and maximum lengths are parameters, not hardcoded; reused by sign-up, sign-in, change-password, reset-password, and set-password commands |
+| FR-003 | U | The system shall define NameSchema as a tagged field schema for display names with string validation and transform from plain string to branded type | Must-Have | Value object pattern; reused by sign-up command |
+| FR-004 | U | The system shall define UrlSchema as a tagged field schema for URL strings with validation and transform from plain string to branded type | Must-Have | Value object pattern; reused by callback URL fields across commands |
+| FR-005 | U | The system shall define ImageSchema as a tagged field schema for image URL or reference strings with validation and transform from plain string to branded type | Must-Have | Value object pattern; reused by sign-up command for avatar/image fields |
+| FR-006 | U | The system shall define AccountSchema as a tagged field schema for account entity representations with fields for account identifiers and metadata | Must-Have | Entity pattern; structured schema without value object transform |
+| FR-007 | U | The system shall define SessionSchema as a tagged field schema for session entity representations with fields for session identifiers, tokens, and expiration metadata | Must-Have | Entity pattern; structured schema without value object transform |
+| FR-008 | U | The system shall define UserSchema as a tagged field schema for user entity representations with fields for user identifiers, email, name, and profile metadata | Must-Have | Entity pattern; structured schema without value object transform |
+| FR-009 | U | The system shall define VerificationSchema as a tagged field schema for email verification entity representations with fields for verification status and token metadata | Must-Have | Entity pattern; structured schema without value object transform |
+| FR-010 | U | The system shall define TransportCommandSchema as a tagged field schema for email transport context with tag TransportCommandCtx, containing email destination, subject, and sender metadata | Must-Have | Special pattern; tag differs from class name (TransportCommandCtx); used by send-verification-email command |
+| FR-011 | U | The system shall define composite parameter schemas (Params) as tagged field schemas that aggregate multiple identifiers and metadata fields used across commands for common parameter groupings | Must-Have | Composite pattern; reused by commands that share parameter shapes |
 
 ### Email Command Schemas
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-012 | Define SignUpEmailCommand as a tagged command schema for email sign-up with fields referencing EmailSchema, PasswordSchema, NameSchema, and ImageSchema | Must-Have | Composes four field schemas; primary registration entry point |
-| FR-013 | Define SignInEmailCommand as a tagged command schema for email sign-in with fields referencing EmailSchema and PasswordSchema | Must-Have | Composes two field schemas; primary login entry point |
-| FR-014 | Define SignOutCommand as a tagged command schema for sign-out with a session token field | Must-Have | Minimal schema; session token as required field |
-| FR-015 | Define VerifyEmailCommand as a tagged command schema for email verification with a verification token field | Must-Have | Minimal schema; token-based verification |
-| FR-016 | Define SendVerificationEmailCommand as a tagged command schema for triggering verification email delivery with fields referencing EmailSchema and TransportCommandSchema | Must-Have | Composes EmailSchema and TransportCommandSchema |
-| FR-017 | Define ChangePasswordCommand as a tagged command schema for password change with fields for current password, new password, and session token, referencing PasswordSchema | Must-Have | Uses PasswordSchema for both current and new password fields |
-| FR-018 | Define ResetPasswordCommand as a tagged command schema for password reset with fields for new password and reset token, referencing PasswordSchema | Must-Have | Token-based password reset; PasswordSchema for the new password field |
-| FR-019 | Define SetPasswordCommand as a tagged command schema for initial password set with fields for new password and session token, referencing PasswordSchema | Must-Have | For accounts that do not yet have a password |
-| FR-020 | Define ChangeEmailCommand as a tagged command schema for email change with fields for new email and session token, referencing EmailSchema | Must-Have | Uses EmailSchema for the new email field |
-| FR-021 | Define ForgetPasswordCommand as a tagged command schema for initiating password reset with fields referencing EmailSchema and an optional redirect URL referencing UrlSchema | Must-Have | Triggers password reset flow; email identifies the account |
-| FR-022 | Define ForgetPasswordCallbackCommand as a tagged command schema for completing password reset callback with fields for new password and reset token, referencing PasswordSchema | Must-Have | Callback step after forget-password; token plus new password |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-012 | U | The system shall define SignUpEmailCommand as a tagged command schema for email sign-up with fields referencing EmailSchema, PasswordSchema, NameSchema, and ImageSchema | Must-Have | Composes four field schemas; primary registration entry point |
+| FR-013 | U | The system shall define SignInEmailCommand as a tagged command schema for email sign-in with fields referencing EmailSchema and PasswordSchema | Must-Have | Composes two field schemas; primary login entry point |
+| FR-014 | U | The system shall define SignOutCommand as a tagged command schema for sign-out with a session token field | Must-Have | Minimal schema; session token as required field |
+| FR-015 | U | The system shall define VerifyEmailCommand as a tagged command schema for email verification with a verification token field | Must-Have | Minimal schema; token-based verification |
+| FR-016 | U | The system shall define SendVerificationEmailCommand as a tagged command schema for triggering verification email delivery with fields referencing EmailSchema and TransportCommandSchema | Must-Have | Composes EmailSchema and TransportCommandSchema |
+| FR-017 | U | The system shall define ChangePasswordCommand as a tagged command schema for password change with fields for current password, new password, and session token, referencing PasswordSchema | Must-Have | Uses PasswordSchema for both current and new password fields |
+| FR-018 | U | The system shall define ResetPasswordCommand as a tagged command schema for password reset with fields for new password and reset token, referencing PasswordSchema | Must-Have | Token-based password reset; PasswordSchema for the new password field |
+| FR-019 | U | The system shall define SetPasswordCommand as a tagged command schema for initial password set with fields for new password and session token, referencing PasswordSchema | Must-Have | For accounts that do not yet have a password |
+| FR-020 | U | The system shall define ChangeEmailCommand as a tagged command schema for email change with fields for new email and session token, referencing EmailSchema | Must-Have | Uses EmailSchema for the new email field |
+| FR-021 | U | The system shall define ForgetPasswordCommand as a tagged command schema for initiating password reset with fields referencing EmailSchema and an optional redirect URL referencing UrlSchema | Must-Have | Triggers password reset flow; email identifies the account |
+| FR-022 | U | The system shall define ForgetPasswordCallbackCommand as a tagged command schema for completing password reset callback with fields for new password and reset token, referencing PasswordSchema | Must-Have | Callback step after forget-password; token plus new password |
 
 ### Cross-Cutting Requirements
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-023 | All field schemas and command schemas must extend Effect Schema TaggedClass for runtime and compile-time type safety with discriminated union tags | Must-Have | Consistent with tagged class pattern across the project |
-| FR-024 | All field schemas and command schemas must provide static decode and encode methods | Must-Have | Decode validates input; encode produces SDK-compatible plain objects |
-| FR-025 | Command schemas must reference field schemas via composition (not duplication) so that field validation logic is defined once and reused across multiple commands | Must-Have | Core reuse principle of the schema foundation |
-| FR-026 | Each schema must reside in its own file, organized under field-schemas and command-schemas directories respectively, with no barrel or index file aggregation | Must-Have | One file per schema for discoverability and isolation |
-| FR-027 | Schemas must not contain business logic, side effects, or dependencies on layers, services, or external state | Must-Have | Schemas are pure data definitions with validated construction |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-023 | U | The system shall extend all field schemas and command schemas from Effect Schema TaggedClass for runtime and compile-time type safety with discriminated union tags | Must-Have | Consistent with tagged class pattern across the project |
+| FR-024 | U | The system shall provide static decode and encode methods on all field schemas and command schemas | Must-Have | Decode validates input; encode produces SDK-compatible plain objects |
+| FR-025 | U | The system shall compose command schemas from field schemas (not duplication) so that field validation logic is defined once and reused across multiple commands | Must-Have | Core reuse principle of the schema foundation |
+| FR-026 | U | The system shall place each schema in its own file, organized under field-schemas and command-schemas directories respectively, with no barrel or index file aggregation | Must-Have | One file per schema for discoverability and isolation |
+| FR-027 | U | The system shall not include business logic, side effects, or dependencies on layers, services, or external state in schemas | Must-Have | Schemas are pure data definitions with validated construction |
 
 ---
 
@@ -107,13 +107,18 @@ A developer constructs an input object for an email operation. The input is deco
 
 These targets are specific to this feature and must meet or exceed the initiative-wide baselines defined in the parent IRD.
 
-| Category | Requirement |
-|----------|-------------|
-| Type Safety | All fields typed via Effect Schema; command instances carry branded types from field schemas; zero escape-hatch types |
-| Performance | Schema decode and encode must add negligible overhead (sub-millisecond for typical inputs); no async operations or I/O |
-| Testability | Each schema can be decoded and encoded in isolation without server, database, or layer dependencies |
-| Compatibility | Schemas must produce plain JavaScript objects that the pinned Better Auth SDK version accepts without modification |
-| Reusability | Field schemas consumed by multiple command schemas; command schemas consumed by operation controllers; pattern replicable for non-email domain schemas in I-003 through I-006 |
+| ID | Category | EARS Type | Requirement | Priority |
+|----|----------|-----------|-------------|----------|
+| NFR-001 | Type Safety | U | The system shall type all fields via Effect Schema | Must-Have |
+| NFR-002 | Type Safety | U | The system shall carry branded types from field schemas on command instances | Must-Have |
+| NFR-003 | Type Safety | U | The system shall not use escape-hatch types in schema definitions | Must-Have |
+| NFR-004 | Performance | U | The system shall decode and encode schemas with negligible overhead (sub-millisecond for typical inputs) | Must-Have |
+| NFR-005 | Performance | U | The system shall perform no async operations or I/O during schema decode and encode | Must-Have |
+| NFR-006 | Testability | U | The system shall support decoding and encoding each schema in isolation without server, database, or layer dependencies | Must-Have |
+| NFR-007 | Compatibility | U | The system shall produce plain JavaScript objects via encode that the pinned Better Auth SDK version accepts without modification | Must-Have |
+| NFR-008 | Reusability | U | The system shall ensure field schemas are consumable by multiple command schemas | Must-Have |
+| NFR-009 | Reusability | U | The system shall ensure command schemas are consumable by operation controllers | Must-Have |
+| NFR-010 | Reusability | U | The system shall ensure the schema pattern is replicable for non-email domain schemas in I-003 through I-006 | Must-Have |
 
 ---
 

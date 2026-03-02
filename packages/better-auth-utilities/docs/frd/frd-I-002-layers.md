@@ -59,29 +59,32 @@ A developer defines auth configuration values. The configuration is decoded and 
 
 ## Functional Requirements
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-001 | Define BetterAuthOptions as a root TaggedClass Schema composing 11 sub-schemas covering database, session, user, account, email and password, social providers, rate limiting, email verification, advanced settings, logger, and root-level fields (app name, base URL, base path, secret, trusted origins, plugins, API error handler) | Must-Have | All fields optional except where noted per sub-schema |
-| FR-002 | Define DatabaseOptions as a TaggedClass Schema with optional dialect, type, casing, and provider fields using literal types for database engine variants | Must-Have | Sub-schema of BetterAuthOptions |
-| FR-003 | Define SessionOptions as a TaggedClass Schema with optional model name, fields, expiration, update age, session refresh, database storage, cookie cache, and preservation settings | Must-Have | Cookie cache is a nested struct |
-| FR-004 | Define UserOptions as a TaggedClass Schema with optional model name, fields, additional fields, change email, and delete user settings | Must-Have | Nested structs with function-typed callbacks |
-| FR-005 | Define AccountOptions as a TaggedClass Schema with optional model name, fields, OAuth token encryption, account cookie, and account linking settings including trusted providers array | Must-Have | Sub-schema of BetterAuthOptions |
-| FR-006 | Define EmailAndPasswordOptions as a TaggedClass Schema with optional enabled, sign-up disabled, email verification required, password length constraints, auto sign-in, reset password sender, token expiration, and password hash/verify function settings | Must-Have | Password hash and verify are function-typed |
-| FR-007 | Define SocialProviderOptions as a TaggedClass Schema with required client ID and client secret fields, plus optional redirect URI and scope | Must-Have | Only sub-schema with required fields |
-| FR-008 | Define RateLimitOptions as a TaggedClass Schema with optional enabled, window, max, custom rules, storage (literal type), and model name settings | Must-Have | Sub-schema of BetterAuthOptions |
-| FR-009 | Define EmailVerificationOptions as a TaggedClass Schema with optional send verification email function, send on sign-up, send on sign-in, auto sign-in after verification, and expiration settings | Must-Have | Send verification email is function-typed |
-| FR-010 | Define AdvancedOptions as a TaggedClass Schema with optional IP address, secure cookies, CSRF check disabled, cross sub-domain cookies, default cookie attributes, and cookie prefix settings | Must-Have | Multiple nested struct types |
-| FR-011 | Define LoggerOptions as a TaggedClass Schema with optional disabled, colors disabled, level (literal type for error, warn, info, debug), and log function settings | Must-Have | Sub-schema of BetterAuthOptions |
-| FR-012 | Each of the 11 sub-schemas must provide static decode and encode methods | Must-Have | Consistent with tagged class pattern across the project |
-| FR-013 | All function-typed fields across all sub-schemas must include FastCheck arbitrary annotations to enable property-based testing | Must-Have | Enables round-trip validation of the entire schema |
-| FR-014 | BetterAuthOptions must provide static decode and encode methods for full schema validation at the configuration boundary | Must-Have | Decode validates incoming config, encode returns plain object for SDK |
-| FR-015 | Define BetterAuthOptionsTag as an Effect Context Tag typed to BetterAuthOptions | Must-Have | Dependency injection point for validated configuration |
-| FR-016 | Define BetterAuthOptionsLive as an Effect Layer that constructs configuration, decodes it through the BetterAuthOptions Schema, and provides the validated result via BetterAuthOptionsTag | Must-Have | Config boundary with Schema validation |
-| FR-017 | Define AuthServerTag as an Effect Context Tag typed to the Better Auth server instance | Must-Have | Dependency injection point for the server |
-| FR-018 | Define AuthServerLive as an Effect Layer that resolves BetterAuthOptionsTag from Context, encodes the options back to a plain object, calls the Better Auth SDK constructor, and provides the resulting server via AuthServerTag | Must-Have | Depends on BetterAuthOptionsLive being provided |
-| FR-019 | Define AuthLive as a convenience Layer that composes BetterAuthOptionsLive and AuthServerLive into a single self-contained Layer | Should-Have | Simplifies consumer usage to a single Layer provision |
-| FR-020 | The Schema encode path must produce a plain JavaScript object compatible with the Better Auth SDK constructor function | Must-Have | SDK interop requirement |
-| FR-021 | Configuration and layer modules must not contain domain-specific logic | Must-Have | Infrastructure shared across all domains |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-001 | U | The system shall define BetterAuthOptions as a root TaggedClass Schema composing 11 sub-schemas covering database, session, user, account, email and password, social providers, rate limiting, email verification, advanced settings, logger, and root-level fields (app name, base URL, base path, secret, trusted origins, plugins, API error handler) | Must-Have | All fields optional except where noted per sub-schema |
+| FR-002 | U | The system shall define DatabaseOptions as a TaggedClass Schema with optional dialect, type, casing, and provider fields using literal types for database engine variants | Must-Have | Sub-schema of BetterAuthOptions |
+| FR-003 | U | The system shall define SessionOptions as a TaggedClass Schema with optional model name, fields, expiration, update age, session refresh, database storage, cookie cache, and preservation settings | Must-Have | Cookie cache is a nested struct |
+| FR-004 | U | The system shall define UserOptions as a TaggedClass Schema with optional model name, fields, additional fields, change email, and delete user settings | Must-Have | Nested structs with function-typed callbacks |
+| FR-005 | U | The system shall define AccountOptions as a TaggedClass Schema with optional model name, fields, OAuth token encryption, account cookie, and account linking settings including trusted providers array | Must-Have | Sub-schema of BetterAuthOptions |
+| FR-006 | U | The system shall define EmailAndPasswordOptions as a TaggedClass Schema with optional enabled, sign-up disabled, email verification required, password length constraints, auto sign-in, reset password sender, token expiration, and password hash/verify function settings | Must-Have | Password hash and verify are function-typed |
+| FR-007 | U | The system shall define SocialProviderOptions as a TaggedClass Schema with required client ID and client secret fields, plus optional redirect URI and scope | Must-Have | Only sub-schema with required fields |
+| FR-008 | U | The system shall define RateLimitOptions as a TaggedClass Schema with optional enabled, window, max, custom rules, storage (literal type), and model name settings | Must-Have | Sub-schema of BetterAuthOptions |
+| FR-009 | U | The system shall define EmailVerificationOptions as a TaggedClass Schema with optional send verification email function, send on sign-up, send on sign-in, auto sign-in after verification, and expiration settings | Must-Have | Send verification email is function-typed |
+| FR-010 | U | The system shall define AdvancedOptions as a TaggedClass Schema with optional IP address, secure cookies, CSRF check disabled, cross sub-domain cookies, default cookie attributes, and cookie prefix settings | Must-Have | Multiple nested struct types |
+| FR-011 | U | The system shall define LoggerOptions as a TaggedClass Schema with optional disabled, colors disabled, level (literal type for error, warn, info, debug), and log function settings | Must-Have | Sub-schema of BetterAuthOptions |
+| FR-012 | U | The system shall provide static decode and encode methods on each of the 11 sub-schemas | Must-Have | Consistent with tagged class pattern across the project |
+| FR-013 | U | The system shall include FastCheck arbitrary annotations on all function-typed fields across all sub-schemas to enable property-based testing | Must-Have | Enables round-trip validation of the entire schema |
+| FR-014 | U | The system shall provide static decode and encode methods on BetterAuthOptions for full schema validation at the configuration boundary | Must-Have | Decode validates incoming config, encode returns plain object for SDK |
+| FR-015 | U | The system shall define BetterAuthOptionsTag as an Effect Context Tag typed to BetterAuthOptions | Must-Have | Dependency injection point for validated configuration |
+| FR-016 | U | The system shall define BetterAuthOptionsLive as an Effect Layer that constructs configuration and decodes it through the BetterAuthOptions Schema | Must-Have | Config boundary with Schema validation |
+| FR-017 | U | The system shall provide the validated configuration result via BetterAuthOptionsTag from BetterAuthOptionsLive | Must-Have | Companion to FR-016 |
+| FR-018 | U | The system shall define AuthServerTag as an Effect Context Tag typed to the Better Auth server instance | Must-Have | Dependency injection point for the server |
+| FR-019 | E | When AuthServerLive is constructed, the system shall resolve BetterAuthOptionsTag from Context | Must-Have | Depends on BetterAuthOptionsLive being provided |
+| FR-020 | E | When configuration is resolved, the system shall encode the options back to a plain object and call the Better Auth SDK constructor | Must-Have | SDK interop step within AuthServerLive |
+| FR-021 | U | The system shall provide the resulting server instance via AuthServerTag from AuthServerLive | Must-Have | Companion to FR-019/FR-020 |
+| FR-022 | U | The system shall define AuthLive as a convenience Layer that composes BetterAuthOptionsLive and AuthServerLive into a single self-contained Layer | Should-Have | Simplifies consumer usage to a single Layer provision |
+| FR-023 | U | The system shall produce a plain JavaScript object from the Schema encode path that is compatible with the Better Auth SDK constructor function | Must-Have | SDK interop requirement |
+| FR-024 | U | The system shall not include domain-specific logic in configuration and layer modules | Must-Have | Infrastructure shared across all domains |
 
 ---
 
@@ -89,13 +92,17 @@ A developer defines auth configuration values. The configuration is decoded and 
 
 These targets are specific to this feature and must meet or exceed the initiative-wide baselines defined in the parent IRD.
 
-| Category | Requirement |
-|----------|-------------|
-| Type Safety | All configuration fields typed via Effect Schema; Context Tags carry correct types; zero escape-hatch types |
-| Performance | Layer construction is a one-time initialization cost; Schema decode and encode overhead must be negligible relative to server startup time |
-| Testability | Layers can be bypassed in tests via direct Effect.provideService with a test-constructed server; Schema supports property-based testing via FastCheck arbitraries |
-| Compatibility | Schema must model all configuration options accepted by the pinned Better Auth SDK version |
-| Reusability | Tags and layers consumed without modification by all five server domains (Email, OAuth, Session, Account, User) and future client-side operations |
+| ID | Category | EARS Type | Requirement | Priority |
+|----|----------|-----------|-------------|----------|
+| NFR-001 | Type Safety | U | The system shall type all configuration fields via Effect Schema | Must-Have |
+| NFR-002 | Type Safety | U | The system shall carry correct types on Effect Context Tags | Must-Have |
+| NFR-003 | Type Safety | U | The system shall not use escape-hatch types in configuration and layer definitions | Must-Have |
+| NFR-004 | Performance | U | The system shall treat layer construction as a one-time initialization cost | Must-Have |
+| NFR-005 | Performance | U | The system shall add negligible Schema decode and encode overhead relative to server startup time | Must-Have |
+| NFR-006 | Testability | U | The system shall allow layers to be bypassed in tests via direct Effect.provideService with a test-constructed server | Must-Have |
+| NFR-007 | Testability | U | The system shall support property-based testing of the Schema via FastCheck arbitraries | Must-Have |
+| NFR-008 | Compatibility | U | The system shall model all configuration options accepted by the pinned Better Auth SDK version | Must-Have |
+| NFR-009 | Reusability | U | The system shall ensure tags and layers are consumable without modification by all five server domains (Email, OAuth, Session, Account, User) and future client-side operations | Must-Have |
 
 ---
 

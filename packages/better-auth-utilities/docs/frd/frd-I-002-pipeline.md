@@ -61,32 +61,33 @@ A controller receives raw input and decodes it through a command schema via Sche
 
 ### Map Utilities
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-001 | Define mapApiError as a function that accepts an unknown error, pattern-matches via Match.value on three branches (Better Auth SDK APIError instance, generic Error instance, fallback), and returns an Effect.fail with a typed ApiError | Must-Have | Primary error transformation for service-layer SDK failures |
-| FR-002 | Define mapInputError as a function that accepts an unknown error, pattern-matches via Match.value on three branches (ParseResult.isParseError, generic Error instance, fallback), and returns an Effect.fail with a typed InputError | Must-Have | Primary error transformation for controller-layer validation failures |
-| FR-003 | mapApiError must extract the HTTP status code from Better Auth SDK APIError instances and carry it in the ApiError status field | Must-Have | Preserves SDK status for downstream HTTP response mapping |
-| FR-004 | mapApiError must unwrap UnknownException wrappers injected by Effect.tryPromise to access the original thrown error before pattern matching | Must-Have | Effect.tryPromise wraps errors in UnknownException; the real error is inside |
-| FR-005 | mapInputError must use ParseResult.TreeFormatter.formatErrorSync to produce human-readable parse failure messages from Schema validation errors | Must-Have | TreeFormatter provides structured, readable error descriptions |
-| FR-006 | Both map utilities must carry the original error as the cause field on the produced error instance for debugging and error chain tracing | Must-Have | Enables full error chain inspection without information loss |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-001 | U | The system shall define mapApiError as a function that accepts an unknown error, pattern-matches via Match.value on three branches (Better Auth SDK APIError instance, generic Error instance, fallback), and returns an Effect.fail with a typed ApiError | Must-Have | Primary error transformation for service-layer SDK failures |
+| FR-002 | U | The system shall define mapInputError as a function that accepts an unknown error, pattern-matches via Match.value on three branches (ParseResult.isParseError, generic Error instance, fallback), and returns an Effect.fail with a typed InputError | Must-Have | Primary error transformation for controller-layer validation failures |
+| FR-003 | E | When receiving a Better Auth SDK APIError instance, the system shall extract the HTTP status code and carry it in the ApiError status field | Must-Have | Preserves SDK status for downstream HTTP response mapping |
+| FR-004 | E | When Effect.tryPromise wraps an error in UnknownException, the system shall unwrap the wrapper to access the original thrown error before pattern matching in mapApiError | Must-Have | Effect.tryPromise wraps errors in UnknownException; the real error is inside |
+| FR-005 | E | When a Schema validation error occurs, the system shall use ParseResult.TreeFormatter.formatErrorSync in mapInputError to produce a human-readable parse failure message | Must-Have | TreeFormatter provides structured, readable error descriptions |
+| FR-006 | U | The system shall carry the original error as the cause field on all produced error instances in both map utilities | Must-Have | Enables full error chain inspection without information loss |
 
 ### Handle Utilities
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-007 | Define handleApiError as a generic function that accepts an Effect with any error type, applies Effect.catchAll with mapApiError, and returns an Effect with ApiError as the error type | Should-Have | Convenience wrapper for consumers who prefer the wrapping composition style |
-| FR-008 | Define handleInputError as a generic function that accepts an Effect with unknown error type, applies Effect.catchAll with mapInputError, and returns an Effect with InputError as the error type | Should-Have | Convenience wrapper for consumers who prefer the wrapping composition style |
-| FR-009 | Handle utilities must be generic, preserving the success type and requirements type of the input Effect while narrowing the error channel to the specific tagged error type | Must-Have | Generic type preservation ensures no type information is lost |
-| FR-010 | Handle utilities must delegate entirely to the corresponding map utility with no independent error transformation logic | Must-Have | Single source of truth for error mapping behavior |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-007 | U | The system shall define handleApiError as a generic function that accepts an Effect with any error type, applies Effect.catchAll with mapApiError, and returns an Effect with ApiError as the error type | Should-Have | Convenience wrapper for consumers who prefer the wrapping composition style |
+| FR-008 | U | The system shall define handleInputError as a generic function that accepts an Effect with unknown error type, applies Effect.catchAll with mapInputError, and returns an Effect with InputError as the error type | Should-Have | Convenience wrapper for consumers who prefer the wrapping composition style |
+| FR-009 | U | The system shall preserve the success type and requirements type of the input Effect in handle utilities while narrowing the error channel to the specific tagged error type | Must-Have | Generic type preservation ensures no type information is lost |
+| FR-010 | U | The system shall delegate entirely to the corresponding map utility in handle utilities with no independent error transformation logic | Must-Have | Single source of truth for error mapping behavior |
 
 ### Cross-Cutting Requirements
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-011 | Each utility must have a companion types file defining the function signature as a named interface | Must-Have | Consistent with the types-in-separate-files pattern across the project |
-| FR-012 | Each utility must reside in its own directory under the pipeline directory, with no barrel or index file aggregation | Must-Have | One directory per utility for discoverability and isolation |
-| FR-013 | Pipeline utilities must not contain domain-specific logic; they reference only ApiError, InputError, and the Better Auth SDK APIError class | Must-Have | Infrastructure shared across all five server domains |
-| FR-014 | Pipeline utilities must not depend on Effect Layers, Context Tags, schemas, or any external state | Must-Have | Utilities are pure error transformations with no infrastructure dependencies beyond error classes |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-011 | U | The system shall provide a companion types file defining the function signature as a named interface for each utility | Must-Have | Consistent with the types-in-separate-files pattern across the project |
+| FR-012 | U | The system shall place each utility in its own directory under the pipeline directory, with no barrel or index file aggregation | Must-Have | One directory per utility for discoverability and isolation |
+| FR-013 | U | The system shall not include domain-specific logic in pipeline utilities | Must-Have | Infrastructure shared across all five server domains |
+| FR-014 | U | The system shall reference only ApiError, InputError, and the Better Auth SDK APIError class in pipeline utilities | Must-Have | No other error types allowed; keeps utilities domain-agnostic |
+| FR-015 | U | The system shall not depend on Effect Layers, Context Tags, schemas, or any external state in pipeline utilities | Must-Have | Utilities are pure error transformations with no infrastructure dependencies beyond error classes |
 
 ---
 
@@ -94,13 +95,16 @@ A controller receives raw input and decodes it through a command schema via Sche
 
 These targets are specific to this feature and must meet or exceed the initiative-wide baselines defined in the parent IRD.
 
-| Category | Requirement |
-|----------|-------------|
-| Type Safety | Generic type parameters preserved across handle utilities; map utilities return correctly typed Effect failures; zero escape-hatch types |
-| Performance | Error transformation must add negligible overhead with no async operations, no I/O, and no layer resolution |
-| Testability | Each utility testable in isolation with constructed error instances; no server, database, layer, or schema dependencies required |
-| Compatibility | Must be compatible with Effect.tryPromise UnknownException wrapping, Effect Schema ParseResult error types, and Better Auth SDK APIError class at pinned versions |
-| Reusability | Must be consumed without modification by all five server domains (Email, OAuth, Session, Account, User) and future client-side operations |
+| ID | Category | EARS Type | Requirement | Priority |
+|----|----------|-----------|-------------|----------|
+| NFR-001 | Type Safety | U | The system shall preserve generic type parameters across handle utilities | Must-Have |
+| NFR-002 | Type Safety | U | The system shall return correctly typed Effect failures from map utilities | Must-Have |
+| NFR-003 | Type Safety | U | The system shall not use escape-hatch types in pipeline utility definitions | Must-Have |
+| NFR-004 | Performance | U | The system shall perform error transformation with negligible overhead, without async operations, I/O, or layer resolution | Must-Have |
+| NFR-005 | Testability | U | The system shall support testing each utility in isolation with constructed error instances, without server, database, layer, or schema dependencies | Must-Have |
+| NFR-006 | Compatibility | U | The system shall be compatible with Effect.tryPromise UnknownException wrapping and Effect Schema ParseResult error types at pinned versions | Must-Have |
+| NFR-007 | Compatibility | U | The system shall be compatible with the Better Auth SDK APIError class at the pinned version | Must-Have |
+| NFR-008 | Reusability | U | The system shall ensure pipeline utilities are consumable without modification by all five server domains (Email, OAuth, Session, Account, User) and future client-side operations | Must-Have |
 
 ---
 

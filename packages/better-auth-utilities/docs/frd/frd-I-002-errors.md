@@ -58,20 +58,20 @@ A developer calls an authentication operation. The operation fails. The error la
 
 ## Functional Requirements
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-001 | Define InputError as a TaggedError with tag InputError, required message (string), and optional cause (unknown) | Must-Have | Used by controllers for validation failures |
-| FR-002 | Define ApiError as a TaggedError with tag ApiError, required message (string), optional status (number), and optional cause (unknown) | Must-Have | Only error class with an HTTP status field |
-| FR-003 | Define SessionError as a TaggedError with tag SessionError, required message (string), and optional cause (unknown) | Must-Have | Used by session domain operations (I-004) |
-| FR-004 | Define DataMissingError as a TaggedError with tag DataMissingError, required message (string), and optional cause (unknown) | Must-Have | Used when expected data is absent |
-| FR-005 | Define DependenciesError as a TaggedError with tag DependenciesError, required message (string), and optional cause (unknown) | Must-Have | Used when a required dependency is unavailable |
-| FR-006 | Each error class must extend Effect Schema TaggedError for runtime and compile-time type safety | Must-Have | Provides the discriminated union tag mechanism |
-| FR-007 | Each error class must provide static decode and encode methods for serialization and deserialization | Must-Have | Enables round-tripping errors through boundaries |
-| FR-008 | The tag field on each error must enable exhaustive pattern matching via Effect Match | Must-Have | Compile-time verification of error handling completeness |
-| FR-009 | ApiError status must carry the HTTP status code from Better Auth SDK APIError when available | Must-Have | Enables downstream HTTP response mapping |
-| FR-010 | Error classes must not contain domain-specific logic | Must-Have | Errors are infrastructure shared across all domains |
-| FR-011 | Each error class must reside in its own file under the errors directory | Should-Have | One file per error for discoverability and isolation |
-| FR-012 | Error classes must be importable by pipeline utilities and operation controllers and services via relative paths | Must-Have | Internal implementation details, not package-exported |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-001 | U | The system shall define InputError as a TaggedError with tag InputError, required message (string), and optional cause (unknown) | Must-Have | Used by controllers for validation failures |
+| FR-002 | U | The system shall define ApiError as a TaggedError with tag ApiError, required message (string), optional status (number), and optional cause (unknown) | Must-Have | Only error class with an HTTP status field |
+| FR-003 | U | The system shall define SessionError as a TaggedError with tag SessionError, required message (string), and optional cause (unknown) | Must-Have | Used by session domain operations (I-004) |
+| FR-004 | U | The system shall define DataMissingError as a TaggedError with tag DataMissingError, required message (string), and optional cause (unknown) | Must-Have | Used when expected data is absent |
+| FR-005 | U | The system shall define DependenciesError as a TaggedError with tag DependenciesError, required message (string), and optional cause (unknown) | Must-Have | Used when a required dependency is unavailable |
+| FR-006 | U | The system shall extend each error class from Effect Schema TaggedError for runtime and compile-time type safety | Must-Have | Provides the discriminated union tag mechanism |
+| FR-007 | U | The system shall provide static decode and encode methods on each error class for serialization and deserialization | Must-Have | Enables round-tripping errors through boundaries |
+| FR-008 | U | The system shall enable exhaustive pattern matching on each error's tag field via Effect Match | Must-Have | Compile-time verification of error handling completeness |
+| FR-009 | E | When the Better Auth SDK APIError provides an HTTP status code, the system shall carry it in ApiError's status field | Must-Have | Enables downstream HTTP response mapping |
+| FR-010 | U | The system shall not include domain-specific logic in error classes | Must-Have | Errors are infrastructure shared across all domains |
+| FR-011 | U | The system shall place each error class in its own file under the errors directory | Should-Have | One file per error for discoverability and isolation |
+| FR-012 | U | The system shall make error classes importable by pipeline utilities and operation controllers and services via relative paths | Must-Have | Internal implementation details, not package-exported |
 
 ---
 
@@ -79,13 +79,15 @@ A developer calls an authentication operation. The operation fails. The error la
 
 These targets are specific to this feature and must meet or exceed the initiative-wide baselines defined in the parent IRD.
 
-| Category | Requirement |
-|----------|-------------|
-| Type Safety | Zero escape-hatch types; all fields defined via Effect Schema; errors are compile-time narrowable via tag |
-| Performance | Error construction must add negligible overhead with no async operations and no I/O |
-| Testability | Each error class can be instantiated and decoded/encoded in isolation without server or database dependencies |
-| Compatibility | Must be compatible with Effect Schema TaggedError from the pinned Effect-TS version |
-| Reusability | Must be consumed without modification by all five server domains (Email, OAuth, Session, Account, User) and future client-side operations |
+| ID | Category | EARS Type | Requirement | Priority |
+|----|----------|-----------|-------------|----------|
+| NFR-001 | Type Safety | U | The system shall not use escape-hatch types in error class definitions | Must-Have |
+| NFR-002 | Type Safety | U | The system shall define all error fields via Effect Schema | Must-Have |
+| NFR-003 | Type Safety | U | The system shall make errors compile-time narrowable via their tag field | Must-Have |
+| NFR-004 | Performance | U | The system shall construct errors with negligible overhead, performing no async operations and no I/O | Must-Have |
+| NFR-005 | Testability | U | The system shall support instantiation and decode/encode of each error class in isolation without server or database dependencies | Must-Have |
+| NFR-006 | Compatibility | U | The system shall be compatible with Effect Schema TaggedError from the pinned Effect-TS version | Must-Have |
+| NFR-007 | Reusability | U | The system shall ensure error classes are consumable without modification by all five server domains (Email, OAuth, Session, Account, User) and future client-side operations | Must-Have |
 
 ---
 

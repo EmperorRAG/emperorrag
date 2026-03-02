@@ -72,13 +72,31 @@ An FRD defines the detailed functional and non-functional requirements for a sin
 
 ---
 
+## Requirement Language
+
+All functional and non-functional requirements follow the **EARS (Easy Approach to Requirements Syntax)** pattern with "The system shall" as the canonical subject.
+
+| EARS Type | Abbreviation | Template | When to Use |
+|-----------|-------------|----------|-------------|
+| Ubiquitous | U | The system shall [verb] | Always-active behaviour with no trigger |
+| Event-Driven | E | When [event], the system shall [verb] | Behaviour triggered by a specific event |
+| Unwanted Behaviour | UB | If [condition], the system shall [verb] | Error handling or fallback behaviour |
+| State-Driven | S | While [state], the system shall [verb] | Behaviour that depends on ongoing state |
+| Optional Feature | O | Where [feature], the system shall [verb] | Behaviour gated by configuration |
+
+### Atomicity Rule
+
+Each requirement row must express **exactly one** testable obligation. If a sentence contains "and", a semicolon-joined list, or multiple verbs, split it into separate rows. Pipeline steps (accept → decode → map → delegate → annotate) each become their own requirement.
+
+---
+
 ## Functional Requirements
 
-| ID | Requirement | Priority | Notes |
-|----|-------------|----------|-------|
-| FR-001 | [Requirement] | Must-Have | |
-| FR-002 | [Requirement] | Should-Have | |
-| FR-003 | [Requirement] | Nice-to-Have | |
+| ID | EARS Type | Requirement | Priority | Notes |
+|----|-----------|-------------|----------|-------|
+| FR-001 | U | The system shall [verb phrase] | Must-Have | |
+| FR-002 | E | When [event], the system shall [verb phrase] | Should-Have | |
+| FR-003 | UB | If [condition], the system shall [verb phrase] | Nice-to-Have | |
 
 ---
 
@@ -86,12 +104,12 @@ An FRD defines the detailed functional and non-functional requirements for a sin
 
 These targets are specific to this feature and must meet or exceed the initiative-wide baselines defined in the parent IRD.
 
-| Category | Requirement |
-|----------|-------------|
-| Performance | [Feature-specific target] |
-| Security | [Feature-specific target] |
-| Accessibility | [Feature-specific target] |
-| Compatibility | [Feature-specific target] |
+| ID | Category | EARS Type | Requirement | Priority |
+|----|----------|-----------|-------------|----------|
+| NFR-001 | Performance | U | The system shall [measurable target] | Must-Have |
+| NFR-002 | Security | U | The system shall [measurable target] | Must-Have |
+| NFR-003 | Accessibility | U | The system shall [measurable target] | Must-Have |
+| NFR-004 | Compatibility | U | The system shall [measurable target] | Must-Have |
 
 ---
 
@@ -172,8 +190,11 @@ These targets are specific to this feature and must meet or exceed the initiativ
 ## Quality Criteria
 
 - [ ] Parent initiative referenced with link to IRD
-- [ ] Functional requirements have IDs and MoSCoW priorities
+- [ ] All requirements use EARS syntax with "The system shall" as the canonical subject
+- [ ] Every requirement row is atomic — one testable obligation per row
+- [ ] Functional requirements have IDs, EARS Type, and MoSCoW priorities
+- [ ] Non-functional requirements have IDs (NFR-nnn), EARS Type, and MoSCoW priorities
 - [ ] Non-functional requirement targets are feature-specific and measurable
-- [ ] Acceptance criteria outline established
+- [ ] No compound requirements (semicolons, "and" joining separate obligations, multi-step pipelines in one row)
 - [ ] User stories identified and prioritized
 - [ ] Technical feasibility reviewed with engineering

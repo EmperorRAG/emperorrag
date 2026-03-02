@@ -138,14 +138,22 @@ Phase B features depend on Phase A infrastructure being complete. Each operation
 
 These baselines apply to all features within this initiative, both infrastructure and email operations.
 
-| Category | Requirement |
-|----------|-------------|
-| Performance | Operations must complete within Better Auth SDK response time plus no more than 50ms overhead for Schema validation and error mapping |
-| Security | No secrets logged; passwords never appear in error metadata; all inputs validated before reaching the SDK |
-| Testability | Each operation and infrastructure component testable in isolation via Layer-based dependency injection; test environment helper provides auth server mock |
-| Type Safety | Zero escape-hatch types; all inputs and outputs use Effect Schema; all errors are tagged |
-| Compatibility | Compatible with Effect-TS core and schema packages at pinned versions; Better Auth SDK at pinned version |
-| Documentation | All public exports have TSDoc comments; each operation documented with usage example in JSDoc |
+| ID | Category | EARS Type | Requirement | Priority |
+|----|----------|-----------|-------------|----------|
+| NFR-001 | Performance | U | The system shall complete operations within Better Auth SDK response time plus no more than 50 ms overhead for Schema validation and error mapping | Must-Have |
+| NFR-002 | Security | U | The system shall not log secrets | Must-Have |
+| NFR-003 | Security | U | The system shall not include passwords in error metadata | Must-Have |
+| NFR-004 | Security | U | The system shall validate all inputs before reaching the SDK | Must-Have |
+| NFR-005 | Testability | U | The system shall support isolation testing of each operation via Layer-based dependency injection | Must-Have |
+| NFR-006 | Testability | U | The system shall support isolation testing of each infrastructure component via Layer-based dependency injection | Must-Have |
+| NFR-007 | Testability | U | The system shall provide a test environment helper that supplies an auth server mock | Must-Have |
+| NFR-008 | Type Safety | U | The system shall not use escape-hatch types (any, as unknown as T) | Must-Have |
+| NFR-009 | Type Safety | U | The system shall define all inputs and outputs using Effect Schema | Must-Have |
+| NFR-010 | Type Safety | U | The system shall implement all errors as Effect tagged error classes | Must-Have |
+| NFR-011 | Compatibility | U | The system shall be compatible with Effect-TS core and schema packages at pinned versions | Must-Have |
+| NFR-012 | Compatibility | U | The system shall be compatible with Better Auth SDK at pinned version | Must-Have |
+| NFR-013 | Documentation | U | The system shall include TSDoc comments on all public exports | Must-Have |
+| NFR-014 | Documentation | U | The system shall document each operation with a usage example in JSDoc | Must-Have |
 
 ---
 

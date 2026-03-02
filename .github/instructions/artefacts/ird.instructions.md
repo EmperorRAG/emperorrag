@@ -102,18 +102,36 @@ Each item below becomes a separate Feature Requirements Document (FRD).
 
 ---
 
+## Requirement Language
+
+All non-functional requirements follow the **EARS (Easy Approach to Requirements Syntax)** pattern with "The system shall" as the canonical subject.
+
+| EARS Type | Abbreviation | Template | When to Use |
+|-----------|-------------|----------|-------------|
+| Ubiquitous | U | The system shall [verb] | Always-active behaviour with no trigger |
+| Event-Driven | E | When [event], the system shall [verb] | Behaviour triggered by a specific event |
+| Unwanted Behaviour | UB | If [condition], the system shall [verb] | Error handling or fallback behaviour |
+| State-Driven | S | While [state], the system shall [verb] | Behaviour that depends on ongoing state |
+| Optional Feature | O | Where [feature], the system shall [verb] | Behaviour gated by configuration |
+
+### Atomicity Rule
+
+Each requirement row must express **exactly one** testable obligation. If a sentence contains "and", a semicolon-joined list, or multiple verbs, split it into separate rows.
+
+---
+
 ## Non-Functional Requirements (Initiative-Wide)
 
 These baselines apply to all features within this initiative.
 
-| Category | Requirement |
-|----------|-------------|
-| Performance | [Baseline requirement] |
-| Security | [Baseline requirement] |
-| Scalability | [Baseline requirement] |
-| Accessibility | [Baseline requirement] |
-| Testability | [Baseline requirement] |
-| Compatibility | [Baseline requirement] |
+| ID | Category | EARS Type | Requirement | Priority |
+|----|----------|-----------|-------------|----------|
+| NFR-001 | Performance | U | The system shall [baseline requirement] | Must-Have |
+| NFR-002 | Security | U | The system shall [baseline requirement] | Must-Have |
+| NFR-003 | Scalability | U | The system shall [baseline requirement] | Must-Have |
+| NFR-004 | Accessibility | U | The system shall [baseline requirement] | Must-Have |
+| NFR-005 | Testability | U | The system shall [baseline requirement] | Must-Have |
+| NFR-006 | Compatibility | U | The system shall [baseline requirement] | Must-Have |
 
 ---
 
@@ -194,6 +212,10 @@ These baselines apply to all features within this initiative.
 - [ ] Scope defines feature boundaries (each feature maps to an FRD)
 - [ ] Success metrics are measurable with baselines and targets
 - [ ] Stakeholder map is complete with decision authority
-- [ ] Initiative-wide non-functional requirements establish baselines
+- [ ] All requirements use EARS syntax with "The system shall" as the canonical subject
+- [ ] Every requirement row is atomic — one testable obligation per row
+- [ ] Non-functional requirements have IDs (NFR-nnn), EARS Type, and MoSCoW priorities
+- [ ] Initiative-wide non-functional requirements establish measurable baselines
+- [ ] No compound requirements (semicolons, "and" joining separate obligations)
 - [ ] Risks assessed with mitigations and owners
 - [ ] Reviewed and approved by stakeholders
