@@ -1,6 +1,6 @@
 ---
 description: 'Template and guidelines for Feature Requirements Document (FRD)'
-applyTo: '**/frd/**/*.md, **/*-frd.md'
+applyTo: '**/frd/*.md, **/*-frd.md'
 ---
 
 # Feature Requirements Document (FRD)
@@ -275,6 +275,58 @@ If a requirement would become false simply because function names, helper method
 
 ---
 
+## Section-Specific Authoring Guidance
+
+### Functional Requirements Guidance
+
+Write functional requirements in terms of:
+
+* supported feature capabilities
+* validation behaviour
+* success behaviour
+* failure behaviour
+* scenario coverage
+* feature boundary rules
+
+Do **not** write functional requirements in terms of:
+
+* exact function/type/schema names
+* exact helper methods
+* exact SDK calls
+* exact internal module boundaries
+* exact tracing or testing mechanics
+
+### Non-Functional Requirements Guidance
+
+Only include NFRs that are meaningfully specific to the feature.
+
+Write NFRs in terms of:
+
+* feature-level security/privacy expectations
+* feature-level correctness expectations
+* feature-level compatibility expectations
+* feature-level testability expectations
+* feature-level usability expectations
+* performance or observability only where materially relevant
+
+Do **not** restate generic coding standards or implementation rules as feature NFRs.
+
+### Constraints & Dependencies Guidance
+
+Include only constraints and dependencies that materially affect the feature.
+
+Good examples include:
+
+* external platform or library dependencies relevant to the feature boundary
+* shared capability dependencies
+* compatibility constraints
+* release-scope limitations
+* feature-boundary constraints
+
+Do **not** list internal modules, helper utilities, or file-structure rules unless they are externally meaningful to the feature boundary.
+
+---
+
 ## Template
 
 ```markdown
@@ -338,25 +390,6 @@ If a requirement would become false simply because function names, helper method
 | FR-002 | E | When [feature scenario], the system shall [behaviour/outcome] | Must-Have | |
 | FR-003 | UB | If [invalid input or failure condition], the system shall [failure behaviour] | Must-Have | |
 
-### Functional Requirement Guidance
-
-Write requirements in terms of:
-
-- supported feature capabilities
-- validation behaviour
-- success behaviour
-- failure behaviour
-- scenario coverage
-- feature boundary rules
-
-Do not write requirements in terms of:
-
-- exact function/type/schema names
-- exact helper methods
-- exact SDK calls
-- exact internal module boundaries
-- exact tracing or testing mechanics
-
 ---
 
 ## Non-Functional Requirements (Feature-Specific)
@@ -369,12 +402,6 @@ These targets are specific to this feature and must meet or exceed the initiativ
 | NFR-002 | Correctness | U | The system shall validate feature inputs before attempting external authentication execution. | Must-Have |
 | NFR-003 | Compatibility | U | The system shall remain compatible with the supported product dependencies relevant to this feature. | Must-Have |
 | NFR-004 | Testability | U | The feature shall support isolated automated validation of its release-scope behaviours. | Must-Have |
-
-### Non-Functional Requirement Guidance
-
-Only include NFRs that are meaningfully specific to the feature.
-
-Do not restate generic coding standards or implementation rules as feature NFRs.
 
 ---
 
@@ -404,12 +431,6 @@ Do not restate generic coding standards or implementation rules as feature NFRs.
 | Dependency | Type | Owner | Status |
 |------------|------|-------|--------|
 | [Relevant dependency] | Feature / API / Service / Capability | [Owner] | [Status] |
-
-### Constraints & Dependency Guidance
-
-Include only constraints and dependencies that materially affect the feature.
-
-Do not list internal modules, helper utilities, or file-structure rules unless they are externally meaningful to the feature boundary.
 
 ---
 
